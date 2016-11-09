@@ -4,7 +4,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage[ngerman]{babel}
-
+\usepackage{paralist}
 
 
 \begin{document}
@@ -24,6 +24,52 @@
 
 
 \subsection{Musskriterien}
+
+
+\begin{enumerate}[{Z}1]
+    \item Datenerfassung: Studierende sollen ihre Kontaktdaten, Gruppen und
+    Themenvorlieben sowie ihre erbrachten Studienleistungen in das System eingeben können.
+
+    \item Verifikation der E-Mail-Adresse
+
+    \item Einteilung: Das Problem der Zuteilung von Studierenden zu PSE-Teams
+    soll geeignet modelliert und gelöst werden. Eine Möglichkeit der Modellierung wäre ein ILP (Integer Linear Programming), das dann mit existierenden Werkzeugen gelöst werden kann. Richtlinien zur Einteilung:
+
+        \item Wer die Voraussetzungen nicht erfüllt wird eher nicht eingeteilt.
+
+        \item Möglichst gleiche Semester im Team.
+
+        \item Lerngruppen sollten zusammenbleiben.
+
+        \item Eher 5er Teams als 6er Teams
+
+        \item Studenten bevorzugen, die bereits mehr Sachen aus dem ersten Jahr
+        bestanden haben. (über die Voraussetzungen hinaus, z.B. Algo)
+
+        \item Präferenzen der Studenten berücksichtigen.
+
+    \item Abbrechen der Berechnung der Zuteilung möglich (manuell oder Timeout)
+
+    \item Nachjustieren der Einteilung “von Hand”
+
+    \item Berechnung von Gütekriterien (Studenten-Happiness,
+    Anteil-Nicht-Eingeteilter, etc.)
+
+    \item Benachrichtigung der Studenten und Mitarbeiter über Einteilung
+
+    \item Export/Import der Ein- und Ausgabe der Studentendaten und
+    Einteilung(en)
+
+    \item Verwaltung mehrerer Einteilungsergebnisse
+
+    \item Erweiterbarkeit bzgl. “Betreuer-Sicht”: Themenerfassung, -pflege und
+    Notenerfassung
+
+    \item Authentifizierung via Shibboleth
+
+    \item Professionelle GUI
+\end{enumerate}
+
 
 \subsection{Wunschkriterien}
 Plain text.
