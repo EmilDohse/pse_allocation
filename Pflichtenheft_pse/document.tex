@@ -12,7 +12,7 @@
 \title{Pflichtenheft \\
         \large Automatische Einteilung für das PSE}
 
-\author{D. Biester, E.Dohse,P. Faller, P. Loth L. Seufert, Sam}
+\author{D. Biester, E.Dohse, P. Faller, P. Loth L. Seufert, Sam}
         
 \maketitle
 \vfill
@@ -27,55 +27,85 @@
 
 
 \begin{enumerate}[{Z}1]
-    \item Datenerfassung: Studierende sollen ihre Kontaktdaten, Gruppen und
-    Themenvorlieben sowie ihre erbrachten Studienleistungen in das System eingeben können.
-
-    \item Verifikation der E-Mail-Adresse
+    \item Datenerfassung: Studierende sollen auf einer Internetseite:   
+    \begin{itemize}
+      \item ihre Kontaktdaten bestehend aus Name und E-mail,
+      \item ihre Lerngruppen von 2 bis 6 Personen,
+      \item ihre Themenvorlieben 
+      \item sowie ihre erbrachten Studienleistungen 
+    \end{itemize}
+    in das System eingeben können.
+    
+\item  Verifikation der E-Mail-Adresse
+    
 
     \item Einteilung: Das Problem der Zuteilung von Studierenden zu PSE-Teams
-    soll geeignet modelliert und gelöst werden. Eine Möglichkeit der Modellierung wäre ein ILP (Integer Linear Programming), das dann mit existierenden Werkzeugen gelöst werden kann. Richtlinien zur Einteilung:
-
-        \item Wer die Voraussetzungen nicht erfüllt wird eher nicht eingeteilt.
+    soll geeignet modelliert und gelöst werden. 
+        \begin{itemize}
+        \item Wer die Voraussetzungen nicht erfüllt wird nicht eingeteilt.
 
         \item Möglichst gleiche Semester im Team.
 
         \item Lerngruppen sollten zusammenbleiben.
 
-        \item Eher 5er Teams als 6er Teams
-
-        \item Studenten bevorzugen, die bereits mehr Sachen aus dem ersten Jahr
+        \item Studierende bevorzugen, die bereits mehr Sachen aus dem ersten Jahr
         bestanden haben. (über die Voraussetzungen hinaus, z.B. Algo)
 
-        \item Präferenzen der Studenten berücksichtigen.
+        \item Präferenzen der Studierenden berücksichtigen.
+        \end{itemize}
 
     \item Abbrechen der Berechnung der Zuteilung möglich (manuell oder Timeout)
 
     \item Nachjustieren der Einteilung “von Hand”
 
-    \item Berechnung von Gütekriterien (Studenten-Happiness,
-    Anteil-Nicht-Eingeteilter, etc.)
+    \item Berechnung von Gütekriterien (Studierenden-Happiness,
+    Anteil-Nicht-Eingeteilter, etc.) <- hier noch genauer bei betreuern
+    nachfragen
 
-    \item Benachrichtigung der Studenten und Mitarbeiter über Einteilung
+    
 
-    \item Export/Import der Ein- und Ausgabe der Studentendaten und
+    \item Export/Import der Aus- und Eingabe der Studierendendaten und
     Einteilung(en)
 
-    \item Verwaltung mehrerer Einteilungsergebnisse
+    \item Möglichkeit der sukzessiven Eintragung von angebotenen Themen und
+    Anzahl der Plätze, durch Verantwortliche beim IPD.
 
-    \item Erweiterbarkeit bzgl. “Betreuer-Sicht”: Themenerfassung, -pflege und
-    Notenerfassung
 
-    \item Authentifizierung via Shibboleth
 
-    \item Professionelle GUI
+    
+
+    
 \end{enumerate}
 
 
 \subsection{Wunschkriterien}
-Plain text.
+\begin{enumerate}[{W}1]
+\item Wunschkriterien zur Lösung des Lproblems der Einteilung:
+    \begin{itemize}
+      \item Eher 5er Teams als 6er Teams
+    \end{itemize}
+    \item GUI zur einfacheren Bedienung
+    
+\item Authentifizierung via Shibboleth
+
+\item Benachrichtigung der Studierenden und Mitarbeiter über Einteilung
+
+\item Verwaltung mehrerer Einteilungsergebnisse
+
+\item  Erweiterbarkeit bzgl. “Betreuer-Sicht”: Themenerfassung, -pflege und
+    Notenerfassung
+    \item Nachjustierbarkeit bei Änderungen, z.B. der SPO.
+\end{enumerate}
 
 \subsection{Abgrenzungskriterien}
+\begin{enumerate}[{A}1]
+ 
+  \item Die Produkt ist nicht für die Nutzung außerhalb des KIT's gedacht.
 
+\item Die Einteilungsfunktion ist nur für die Einteilung zum PSE gedacht, nicht
+für die Vergabe sonstiger Praktikums- oder Tutorienplätze.
+  
+\end{enumerate}
 \section{Produkteinsatz}
 
 \subsection{Anwendungsbereiche}
