@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_ZzYHAK2iEeaaAJCLjurBUg" name="RootElement">
+  <packagedElement xmi:type="uml:Activity" xmi:id="_nlhBMK2iEeaaAJCLjurBUg" name="PSE-Einteilung" useCase="_3DkqoK2iEeaaAJCLjurBUg _ArQ9oK2jEeaaAJCLjurBUg _Y1LrEK4_EeaaAJCLjurBUg _nzCxgK4_EeaaAJCLjurBUg _BBk2gK5AEeaaAJCLjurBUg _mxh0sK5AEeaaAJCLjurBUg _iMXyAK5BEeaaAJCLjurBUg _o-_8YK5BEeaaAJCLjurBUg">
+    <ownedUseCase xmi:type="uml:UseCase" xmi:id="_3DkqoK2iEeaaAJCLjurBUg" name="Anmelden" subject="_nlhBMK2iEeaaAJCLjurBUg"/>
+    <ownedUseCase xmi:type="uml:UseCase" xmi:id="_ArQ9oK2jEeaaAJCLjurBUg" name="Projekt Anbieten" visibility="public" subject="_nlhBMK2iEeaaAJCLjurBUg"/>
+    <ownedUseCase xmi:type="uml:UseCase" xmi:id="_Y1LrEK4_EeaaAJCLjurBUg" name="Einteilung" subject="_nlhBMK2iEeaaAJCLjurBUg">
+      <extensionPoint xmi:type="uml:ExtensionPoint" xmi:id="_0VskUK5AEeaaAJCLjurBUg" name="ExtensionPoint1"/>
+    </ownedUseCase>
+    <ownedUseCase xmi:type="uml:UseCase" xmi:id="_nzCxgK4_EeaaAJCLjurBUg" name="Über Einteilung Benachrichtigen" subject="_nlhBMK2iEeaaAJCLjurBUg">
+      <include xmi:type="uml:Include" xmi:id="_wnr28K4_EeaaAJCLjurBUg" addition="_Y1LrEK4_EeaaAJCLjurBUg"/>
+      <include xmi:type="uml:Include" xmi:id="_7HeaIK5AEeaaAJCLjurBUg" addition="_BBk2gK5AEeaaAJCLjurBUg"/>
+    </ownedUseCase>
+    <ownedUseCase xmi:type="uml:UseCase" xmi:id="_BBk2gK5AEeaaAJCLjurBUg" name="Manuell Einteilung Ändern" subject="_nlhBMK2iEeaaAJCLjurBUg"/>
+    <ownedUseCase xmi:type="uml:UseCase" xmi:id="_mxh0sK5AEeaaAJCLjurBUg" name="Einteilung Abbrechen" subject="_nlhBMK2iEeaaAJCLjurBUg">
+      <extend xmi:type="uml:Extend" xmi:id="_0VrWMK5AEeaaAJCLjurBUg" extendedCase="_Y1LrEK4_EeaaAJCLjurBUg" extensionLocation="_0VskUK5AEeaaAJCLjurBUg"/>
+    </ownedUseCase>
+    <ownedUseCase xmi:type="uml:UseCase" xmi:id="_iMXyAK5BEeaaAJCLjurBUg" name="Gütekriterien Einsehen" subject="_nlhBMK2iEeaaAJCLjurBUg"/>
+    <ownedUseCase xmi:type="uml:UseCase" xmi:id="_o-_8YK5BEeaaAJCLjurBUg" name="Einteilung Exportieren/Importieren" subject="_nlhBMK2iEeaaAJCLjurBUg"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Actor" xmi:id="_ujop4K2iEeaaAJCLjurBUg" name="Student"/>
+  <packagedElement xmi:type="uml:Actor" xmi:id="_vgYmAK2iEeaaAJCLjurBUg" name="Admin"/>
+  <packagedElement xmi:type="uml:Actor" xmi:id="_zhV6AK2iEeaaAJCLjurBUg" name="Betreuer"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_cP5ecK4_EeaaAJCLjurBUg" memberEnd="_cQDPcK4_EeaaAJCLjurBUg _cQD2gK4_EeaaAJCLjurBUg">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_cP7ToK4_EeaaAJCLjurBUg" source="org.eclipse.papyrus">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_cP76sK4_EeaaAJCLjurBUg" key="nature" value="UML_Nature"/>
+    </eAnnotations>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_cQDPcK4_EeaaAJCLjurBUg" name="einteilung starten" type="_nlhBMK2iEeaaAJCLjurBUg" association="_cP5ecK4_EeaaAJCLjurBUg"/>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_cQD2gK4_EeaaAJCLjurBUg" name="admin" type="_vgYmAK2iEeaaAJCLjurBUg" association="_cP5ecK4_EeaaAJCLjurBUg"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_ecPaMK4_EeaaAJCLjurBUg" memberEnd="_ecQBQa4_EeaaAJCLjurBUg _ecQBQq4_EeaaAJCLjurBUg">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_ecPaMa4_EeaaAJCLjurBUg" source="org.eclipse.papyrus">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_ecQBQK4_EeaaAJCLjurBUg" key="nature" value="UML_Nature"/>
+    </eAnnotations>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_ecQBQa4_EeaaAJCLjurBUg" name="anmelden" type="_3DkqoK2iEeaaAJCLjurBUg" association="_ecPaMK4_EeaaAJCLjurBUg"/>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_ecQBQq4_EeaaAJCLjurBUg" name="student" type="_ujop4K2iEeaaAJCLjurBUg" association="_ecPaMK4_EeaaAJCLjurBUg"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_fsLYEK4_EeaaAJCLjurBUg" memberEnd="_fsMmMa4_EeaaAJCLjurBUg _fsNNQK4_EeaaAJCLjurBUg">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_fsL_IK4_EeaaAJCLjurBUg" source="org.eclipse.papyrus">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_fsMmMK4_EeaaAJCLjurBUg" key="nature" value="UML_Nature"/>
+    </eAnnotations>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_fsMmMa4_EeaaAJCLjurBUg" name="projekt anbieten" type="_ArQ9oK2jEeaaAJCLjurBUg" association="_fsLYEK4_EeaaAJCLjurBUg"/>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_fsNNQK4_EeaaAJCLjurBUg" name="betreuer" type="_zhV6AK2iEeaaAJCLjurBUg" association="_fsLYEK4_EeaaAJCLjurBUg"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_2ifBcK4_EeaaAJCLjurBUg" memberEnd="_2igPkK4_EeaaAJCLjurBUg _2ig2oK4_EeaaAJCLjurBUg">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_2ifogK4_EeaaAJCLjurBUg" source="org.eclipse.papyrus">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_2ifoga4_EeaaAJCLjurBUg" key="nature" value="UML_Nature"/>
+    </eAnnotations>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_2igPkK4_EeaaAJCLjurBUg" name="über einteilung benachrichtigen" type="_nzCxgK4_EeaaAJCLjurBUg" association="_2ifBcK4_EeaaAJCLjurBUg"/>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_2ig2oK4_EeaaAJCLjurBUg" name="student" type="_ujop4K2iEeaaAJCLjurBUg" association="_2ifBcK4_EeaaAJCLjurBUg"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_3ZLY4K4_EeaaAJCLjurBUg" memberEnd="_3ZL_8q4_EeaaAJCLjurBUg _3ZMnAK4_EeaaAJCLjurBUg">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_3ZL_8K4_EeaaAJCLjurBUg" source="org.eclipse.papyrus">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_3ZL_8a4_EeaaAJCLjurBUg" key="nature" value="UML_Nature"/>
+    </eAnnotations>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_3ZL_8q4_EeaaAJCLjurBUg" name="über einteilung benachrichtigen" type="_nzCxgK4_EeaaAJCLjurBUg" association="_3ZLY4K4_EeaaAJCLjurBUg"/>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_3ZMnAK4_EeaaAJCLjurBUg" name="betreuer" type="_zhV6AK2iEeaaAJCLjurBUg" association="_3ZLY4K4_EeaaAJCLjurBUg"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_G8CCwK5AEeaaAJCLjurBUg" memberEnd="_G8Cp0a5AEeaaAJCLjurBUg _G8Cp0q5AEeaaAJCLjurBUg">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_G8CCwa5AEeaaAJCLjurBUg" source="org.eclipse.papyrus">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_G8Cp0K5AEeaaAJCLjurBUg" key="nature" value="UML_Nature"/>
+    </eAnnotations>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_G8Cp0a5AEeaaAJCLjurBUg" name="student manuell einteilen" type="_BBk2gK5AEeaaAJCLjurBUg" association="_G8CCwK5AEeaaAJCLjurBUg"/>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_G8Cp0q5AEeaaAJCLjurBUg" name="admin" type="_vgYmAK2iEeaaAJCLjurBUg" association="_G8CCwK5AEeaaAJCLjurBUg"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_mCl1oK5BEeaaAJCLjurBUg" memberEnd="_mCmcsa5BEeaaAJCLjurBUg _mCmcsq5BEeaaAJCLjurBUg">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_mCl1oa5BEeaaAJCLjurBUg" source="org.eclipse.papyrus">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_mCmcsK5BEeaaAJCLjurBUg" key="nature" value="UML_Nature"/>
+    </eAnnotations>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_mCmcsa5BEeaaAJCLjurBUg" name="admin" type="_vgYmAK2iEeaaAJCLjurBUg" association="_mCl1oK5BEeaaAJCLjurBUg"/>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_mCmcsq5BEeaaAJCLjurBUg" name="gütekriterien einsehen" type="_nlhBMK2iEeaaAJCLjurBUg" association="_mCl1oK5BEeaaAJCLjurBUg"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_tg3lEK5BEeaaAJCLjurBUg" memberEnd="_tg4MIK5BEeaaAJCLjurBUg _tg4MIa5BEeaaAJCLjurBUg">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_tg3lEa5BEeaaAJCLjurBUg" source="org.eclipse.papyrus">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_tg3lEq5BEeaaAJCLjurBUg" key="nature" value="UML_Nature"/>
+    </eAnnotations>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_tg4MIK5BEeaaAJCLjurBUg" name="admin" type="_vgYmAK2iEeaaAJCLjurBUg" association="_tg3lEK5BEeaaAJCLjurBUg"/>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_tg4MIa5BEeaaAJCLjurBUg" name="einteilung exportieren/importieren" type="_nlhBMK2iEeaaAJCLjurBUg" association="_tg3lEK5BEeaaAJCLjurBUg"/>
+  </packagedElement>
+</uml:Model>
