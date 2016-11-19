@@ -1,0 +1,155 @@
+%%This is a very basic article template.
+%%There is just one section and two subsections.
+\documentclass[a4paper]{article}
+\usepackage{geometry}
+\usepackage[ngerman]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{paralist}
+
+\begin{document}
+\author{Philipp Loth}
+\title{\large Anwendungsfälle - Admin}
+\maketitle
+
+\begin{enumerate}%[\textbf{{\textbackslash Z}10{\textbackslash}}]
+  
+  \item[\textbf{\textbackslash Z10\textbackslash}] \begin{description}
+  	\item[Anwendung:] Hinzufügen/Ändern eines Projekts
+  	\item[Ziel:] Einfügen/Änderung von Projektdaten in der Datenbank
+  	\item[Vorbedingung:] -keine-
+  	\item[Nachbedingung(Erfolg):] Neue Projektdaten sind eingetragen
+  	\item[Nachbedingung(Fehlschlag):] Neue Projektdaten sind nicht eingetragen
+  	\item[Akteure:] Administrator, Institut
+  	\item[Auslösen des Ereignisses:] Administrator bekommt Projektdaten von einem
+  	Institut\\ vorgelegt
+  	\item[Beschreibung:]~
+  	\begin{enumerate}[1.]
+  	  \item Projektübersicht öffnen
+  	  \item Wenn das Projekt schon existiert, so werden die Projektdaten
+  	  verglichen
+  	  \item Stimmen die Projektdaten nicht überein, so werden die betroffenen
+  	  Daten\\ angepasst
+  	  \item Durch Abspeichern der Eingaben werden die Daten in der Datenbank
+  	  angepasst
+  	\end{enumerate}
+  	\item[Erweiterungen:]
+  	\item[Alternativen:]~
+  	\begin{enumerate}
+  	  \item[2a)] Wenn nicht, dann wird das Projekt neu angelegt
+  	  \item[3a)] Falls doch, so ist dieser Anwendungsfall abgeschlossen
+  	\end{enumerate} 
+  \end{description}
+  \pagebreak
+  
+  \item[\textbf{\textbackslash Z20\textbackslash}] \begin{description}
+  \item[Anwendung:] Löschen eines Projekts
+  \item[Ziel:] Löschen eines Projekts in die Datenbank
+  	\item[Vorbedingung:] Projekt existiert bereits in der Datenbank
+  	\item[Nachbedingung(Erfolg):] Projekt ist aus der Datenbank entfernt
+  	\item[Nachbedingung(Fehlschlag):] Projekt ist immernoch in der Datenbank
+  	\item[Akteure:] Administrator, Institut
+  	\item[Auslösen des Ereignisses:] Institut zieht ein Projekt zurück oder es
+  	fehlen Daten bei Beginn der Einteilung
+  	\item[Beschreibung:]~
+  	\begin{enumerate}[1.]
+  	  \item Projektübersicht öffnen
+  	  \item Projekt aus Liste entfernen
+  	  \item Projektdaten werden aus der Datenbank entfernt
+  	\end{enumerate}
+  	\item[Erweiterungen:]
+  	\item[Alternativen:]
+  \end{description}
+  \pagebreak
+  
+  \item[\textbf{\textbackslash Z30\textbackslash}] \begin{description}
+  \item[Anwendung:] Teameinteilung
+  \item[Ziel:] Finden einer Teameinteilung nach ausgewählten Parametern
+  	\item[Vorbedingung:] Alle Projekte in der Datenbank sind vollständig
+  	\item[Nachbedingung(Erfolg):] Es wurde eine Teameinteilung gefunden
+  	\item[Nachbedingung(Fehlschlag):] Es wurde keine Teameinteilung gefunden
+  	\item[Akteure:] Administrator
+  	\item[Auslösen des Ereignisses:] Entscheidung des Administrators bzw.
+  	zeitliche Deadline
+  	\item[Beschreibung:]~
+  	\begin{enumerate}[1.]
+  	  \item Einstellen der Parameter nach den eingeteilt werden soll
+  	  \item Starten der Berechnung über Schaltfläche
+  	  \item Sind alle Projekte vollständig angegeben, so startet die Berechnung
+  	  \item Nach Abschluss der Berechnung wird das Ergebnis inklusive
+  	  eingestellter Parameter abgespeichert.
+  	\end{enumerate}
+  	\item[Erweiterungen:]
+  	\item[Alternativen:] ~
+  	\begin{enumerate}
+  	  \item[3a)] Wenn nicht, so startet die Berechnung nicht und der Fall ist
+  	  beendet
+  	  \item[4a)] Hier ist auch ein frühzeitiger Abbruch durch den Administrator
+  	  möglich. Dies wird im Ergebnis vermerkt.
+  	 \end{enumerate}  
+  \end{description}
+  \pagebreak
+  
+  \item[\textbf{\textbackslash Z40\textbackslash}] \begin{description}
+  \item[Anwendung:] Finale Auswahl der Einteilung
+  \item[Ziel:] Finden der bestmöglichen Teameinteilung
+  	\item[Vorbedingung:] Es wurde mindestens eine Berechnung durchgeführt
+  	\item[Nachbedingung(Erfolg):] Es wurde eine Teameinteilung ausgewählt
+  	\item[Nachbedingung(Fehlschlag):] Es wurde keine Teameinteilung ausgewählt
+  	\item[Akteure:] Administrator
+  	\item[Auslösen des Ereignisses:] Entscheidung des Administrators bzw.
+  	zeitliche Deadline
+  	\item[Beschreibung:]~
+  	\begin{enumerate}[1.]
+  	  \item Der Administrator wählt eine der berechneten Einteilung final aus
+  	  \item Wurde ein Student zugewiesen, so wird seinem Datenbankeintrag sein
+  	  Team hinzugefügt
+  	\end{enumerate}
+  	\item[Erweiterungen:]~
+  	\begin{enumerate}
+  	  \item[nach 2] Betreuer werden über ihre Teams informiert
+  	  \item[nach 2] Die Studenten werden über ihre Einteilung informiert
+  	 \end{enumerate}
+  	\item[Alternativen:] ~
+  	\begin{enumerate}
+  	  \item[2a)] Wird ein Student nicht zugewiesen, so wird dies ebenfalls in der
+  	  Datenbank vermerkt (!!!Wie? Nochmal Besprechen am Montag?!!!)
+  	 \end{enumerate}  
+  \end{description}
+  \pagebreak
+  
+  \item[\textbf{\textbackslash Z50\textbackslash}] \begin{description}
+  \item[Anwendung:] Einteilung eines Studenten
+  \item[Ziel:] Manuelle Einteilung eines Studenten
+  	\item[Vorbedingung:] Automatische Teameinteilung ist abgeschlossen
+  	\item[Nachbedingung(Erfolg):] Der Student wurde hinzugefügt
+  	\item[Nachbedingung(Fehlschlag):] Der Student wurde nicht hinzugefügt
+  	\item[Akteure:] Administrator, Student
+  	\item[Auslösen des Ereignisses:] Student meldet sich beim Administrator
+  	\item[Beschreibung:]~
+  	 \begin{enumerate}[1.]
+  	   \item Wenn sich der Student noch nicht im System befindet überprüft der
+  	   Administrator, ob die Anforderungen für das PSE erfüllt sind
+  	   \item Hat der Student die Anforderungen erfüllt, so versucht der
+  	   Administrator ihn einem Team zuzuteilen
+  	   \item Hat der Administrator ein Team gefunden und sich dabei an die
+  	   generellen Regeln gehalten, so wird der Student über eine Eingabemaske der
+  	   Datenbank hinzugefügt
+  	 \end{enumerate}
+  	\item[Erweiterungen:]~
+  	 \begin{enumerate}
+  	   \item [nach 3] Betreuer, sowie andere Mitglieder des Projekts, werden
+  	   über das neue Mitglied per E-Mail informiert 
+  	 \end{enumerate}  
+  	\item[Alternativen:] ~
+  	 \begin{enumerate}
+  	  \item[1a)] Falls doch, so wurde er schon vorher abgelehnt/nicht zugewiesen
+  	  und wird nicht eingeteilt. Dieser Fall ist damit abgeschlossen
+  	  \item [2a)] Falls er die Anforderungen nicht erfüllt, so wird er auch nicht
+  	  zugeteilt und dieser Fall ist abgeschlossen
+  	  \item[3a)] Wenn nicht\ldots (!!!Siehe Kundengespäch Montag!!!)
+  	 \end{enumerate}  
+  \end{description}
+\end{enumerate}
+
+\end{document}
