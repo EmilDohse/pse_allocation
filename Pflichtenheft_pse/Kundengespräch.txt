@@ -34,4 +34,7 @@ Emil:
 - Welche Datenbank und kann sie sich selber einrichten?
 - Mailserver
 
+Philipp L.
+- Zur Gui: Checkbox bei den Prüfungsleistungen um Reaktion auf eine Falschangabe ergänzen
+
 
