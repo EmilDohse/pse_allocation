@@ -1,0 +1,37 @@
+Kundengespräch
+
+Emil:
+- Bei registrierung SPO mit dabei -> auch im System unterschiedliche Behandlung 
+- Konfiguration der auswählbaren Fächer in den Admineinstellungen, seperat für SPOs
+- Email verifikaion als wunschkriterium
+- Wunsch: Warnung bei manueler Überschreitung der Kriterien (zB 7er Team)
+- Wunsch: Möglichkeit des Imports aus Campus Managemaent - bei diesen Matrikelnummern direkt eintragen das sie die Pflichtleistungen haben
+- Wunsch: auch vom Programm zurück zum Campus Management die Noten in der gleichen Liste.
+- Bei registrierung nicht bestandene Prüfungen sondern bestandene Teilleistungen nachfragen
+-> Checkbox falls mündliches ausstehend -> unterscheiden zwischen SPOs
+- Betreueranmeldung: 1 Betreuerzugang pro Thema
+- Bessere Zuteilung über Sortierung bei den Top 10?
+- Idee von mir: Unter dem Reiter Projektbewertung die Projektbewertung der Gruppe anzeigen und ändern falls der Student in einer Gruppe ist
+- Einstellbarkeit der anmeldefristfrist
+- Bei ablauf der Anmeldefrist: Anmeldung noch bis Session timeout möglich (30 min)
+- min und max der Teamgröße durch betreuer einstellbar (aber optional)
+- slyder: bevorzuge eher min eher max (<- finde ich keine gute idee für slyder)
+- Gütekriterien:
+	- Anzahl der Gesplitteten Teams
+	- Studentenhappyness
+	- Anzahl der nicht Zugetelten
+	- Institute ohne Teams (würde ich weg llasssen)
+	- Anzahl der nicht zugeteilten die alles erfüllen
+	- ...
+- Wer das zweite mal einen Platz will soll eher zugeteilt werden
+- Wartbarkeit des ILP - möglichkeit weitere Kriteren ins ILP einzutragen
+- Musskriterien zur einteilung nur: Gruppen beliben zusammen, Beewertungen werden berücksichtigt
+
+- Nichtfunktional: bis 500 Studenten
+-Server 16gb ram, i7 mindestens
+- Webserver benötigt (von außen erreichbar)
+- Browser anforderungen
+- Welche Datenbank und kann sie sich selber einrichten?
+- Mailserver
+
+
