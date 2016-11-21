@@ -1,0 +1,86 @@
+%%This is a very basic article template.
+%%There is just one section and two subsections.
+\documentclass[a4paper]{article}
+\usepackage{geometry}
+\usepackage[ngerman]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{paralist}
+
+\begin{document}
+\title{\large Anwendungsfälle - Betreuer}
+\author{ }
+\maketitle
+\pagebreak
+
+\begin{enumerate}%[\textbf{{\textbackslash Z}10{\textbackslash}}]
+  
+  \item[\textbf{\textbackslash Z10\textbackslash}] 
+	 \begin{description}
+		\item[Anwendung:] Betreuer meldet sich an
+  		\item[Ziel:] Anmeldung des Betreuers
+  		\item[Mögliche Varianten]~
+  		\begin{enumerate}[1.]
+  			\item Man erhält ein vom Admin generiertes Zugangstupel 		(username,password).
+  			\item Man erhält von Admin einen Link zum Anmelden.
+  			\item Anmeldung via shibboleth. Es wird automatisch erkannt, ob es sich um ein Betreuer- oder Studentenkonto handelt.
+  		\end{enumerate}
+  	\end{description}
+  \pagebreak
+  \item[\textbf{\textbackslash Z20\textbackslash}]
+	\begin{description}
+  		\item[Anwendung:] Thema erstellen
+  		\item[Ziel:] Eröffnung eines PSE-Themas mit zugehörigen Gruppen.
+  		\item[Vorbedingung:] Thema existiert noch nicht.
+  		\item[Nachbedingung(Erfolg):] Thema wird ins System aufgenommen, mit zugehörigem Namen, Beschreibung, Anzahl der angebotenen Gruppen und maximaler Gruppengröße.
+  		\item[Nachbedingung(Fehlschlag):] Thema wird nicht ins System aufgenommen.
+  		\item[Akteure:] Betreuer
+  		\item[Auslösen des Ereignisses:] Betreuer möchte ein PSE-Thema ins System einfügen.
+  		\item[Beschreibung:]~
+  	\begin{enumerate}[1.]
+  	  \item Betreuer befindet sich auf der Website mit den PSE-Themen
+  	  \item Betreuer trägt Namen, Beschreibung, Anzahl der Gruppen und maximale Gruppengröße ein.
+  	  \item Betreuer fügt Thema in den aktuellen Themenbestand ein.
+  	\end{enumerate}
+  	\item[Invariante:] Es existieren nie zwei Themen mit gleichem Namen.
+  	\item[Erweiterungen:]
+  \end{description}
+
+\pagebreak
+  \item[\textbf{\textbackslash Z30\textbackslash}]
+	\begin{description}
+  		\item[Anwendung:] Gruppenbetreuer werden
+  		\item[Ziel:] Betreuer einer bestimmten Gruppe werden
+  		\item[Vorbedingung:] Man ist noch nicht Betreuer der ausgewählten Gruppe.
+  		\item[Nachbedingung(Erfolg):] Erfolgreich als Betreuer der ausgewählten Gruppe geworden.
+  		\item[Nachbedingung(Fehlschlag):] Man ist nicht Betreuer der Gruppe.
+  		\item[Akteure:] Betreuer
+  		\item[Auslösen des Ereignisses:] Betreuer möchte sich einer Gruppe zuordnen.
+  		\item[Beschreibung:]~
+  	\begin{enumerate}[1.]
+  	  \item Betreuer befindet sich auf der Website mit den PSE-Gruppen
+  	  \item Betreuer wählt die Gruppe aus, welcher er betreuen möchte.
+  	  \item Betreuer tritt der Gruppe bei.
+  	\end{enumerate}
+  	\item[Erweiterungen:]
+  \end{description}
+  \pagebreak
+  \item[\textbf{\textbackslash Z40\textbackslash}] \begin{description}
+  	\item[Anwendung:] Noten für Gruppenteilnehmer eintragen
+  	\item[Ziel:] Speichern der Noten in der Datenbank
+  	\item[Vorbedingung:] Gruppe hat Studenten als Teilnehmer
+  	\item[Nachbedingung(Erfolg):] Eintragung/Änderung der Noten
+  	\item[Nachbedingung(Fehlschlag):] Notenänderung wird verworfen
+  	\item[Akteure:] Betreuer
+  	\item[Auslösen des Ereignisses:] Betreuer möchte Noten eintragen
+  	\item[Beschreibung:]~
+  	\begin{enumerate}[1.]
+  	  \item Betreuer befindet sich auf der Website mit der Notenübersicht
+  	  \item Betreuer trägt neue Noten für eine beliebige Phase ein oder ändert bestehende Noten.
+  	\end{enumerate}
+  	\item[Invariante:] Noten immer im Bereich von 1.0 bis 5.0
+  	\item[Erweiterungen:]
+  \end{description}
+\end{enumerate}
+
+\end{document}
