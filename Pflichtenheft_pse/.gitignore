@@ -6,6 +6,10 @@
 /document.pdf
 /tmp
 /document.synctex.gz
+*.aux
+*.log
+*.pdf
+*.gz
 
 # Eclipse
 
