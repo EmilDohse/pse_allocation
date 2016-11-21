@@ -1,0 +1,124 @@
+%%This is a very basic article template.
+%%There is just one section and two subsections.
+\documentclass[a4paper]{article}
+\usepackage{geometry}
+\usepackage[ngerman]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{paralist}
+
+\begin{document}
+\author{Daniel Biester}
+\title{\large Anwendungsfälle - Student}
+\maketitle
+
+\begin{enumerate}%[\textbf{{\textbackslash Z}10{\textbackslash}}]
+  
+  \item[\textbf{\textbackslash Z10\textbackslash}] \begin{description}
+  	\item[Anwendung:] Registrierung eines Studenten
+  	\item[Ziel:] Speichern der Studentendaten in der Datenbank
+  	\item[Vorbedingung:] Studentenregistrierung wurde freigeschaltet
+  	\item[Nachbedingung(Erfolg):] Erfolgreiche Registrierung des Studenten
+  	\item[Nachbedingung(Fehlschlag):] Student ist weiterhin nicht registriert
+  	\item[Akteure:] Student
+  	\item[Auslösen des Ereignisses:] Student will sich registrieren
+  	\item[Beschreibung:]~
+  	\begin{enumerate}[1.]
+  	  \item Student befindet sich auf der Website zum Registrieren
+  	  \item Student füllt das Formular zum Registrieren aus und schickt es ab
+  	\end{enumerate}
+  	\item[Erweiterungen:]
+  	\item[Alternativen:]~
+  	\begin{enumerate}
+  	  \item[2a)] Ist der Student noch nicht in der Datenbank, so wird ein neuer Eintrag erstellt und seine Daten werden gespeichert
+  	  \item[3a)] Ist ein Eintrag in der Datenbank für diesen Studenten schon vorhanden, so wird kein weiterer Eintrag hinzugefügt, sondern die zweite Registrierung abgebrochen
+  	\end{enumerate} 
+  \end{description}
+  \pagebreak
+  
+  \item[\textbf{\textbackslash Z20\textbackslash}] \begin{description}
+  \item[Anwendung:] Anmeldung eines Studenten
+  \item[Ziel:] Student wird angemeldet und kann seine Bewertung usw ändern
+  	\item[Vorbedingung:] Der Student hat sich vorher registriert
+  	\item[Nachbedingung(Erfolg):] Der Student ist angemeldet
+  	\item[Nachbedingung(Fehlschlag):] Der Student ist nicht angemeldet
+  	\item[Akteure:] Student
+  	\item[Auslösen des Ereignisses:] Student will sich anmelden
+  	\item[Beschreibung:]~
+  	\begin{enumerate}[1.]
+  	  \item Student öffnet die Website und füllt das Formular zum anmelden aus und schickt dieses ab
+  	  \item Der Server prüft, ob der Student in der Datenbank eingetragen ist und ob das Passwort korrekt ist
+  	\end{enumerate}
+  	\item[Erweiterungen:]
+  	\item[Alternativen:]
+	\begin{enumerate}
+  	  \item[a)] Student wurde erfolgreich angemeldet und gelangt ins Studentenportal
+  	  \item[b)] Die Anmeldung ist fehlgeschlagen und der Student befindet sich auf der Haupseite
+  	\end{enumerate}
+  \end{description}
+  \pagebreak
+  
+  \item[\textbf{\textbackslash Z30\textbackslash}] \begin{description}
+  \item[Anwendung:] Student erstellt Lerngruppe
+  \item[Ziel:] Eine neue Lerngruppe ist in der Datenbank vermerkt und der Ersteller ist erstes Mitglied dieser
+  	\item[Vorbedingung:] Student ist angemeldet und befindet sich auf der Website im Studentenportal
+  	\item[Nachbedingung(Erfolg):] Die Lerngruppe wurde erfolgreich erstellt
+  	\item[Nachbedingung(Fehlschlag):] Die Lerngruppe wurde nicht erstellt
+  	\item[Akteure:] Student
+  	\item[Auslösen des Ereignisses:] Wille des Studenten
+  	\item[Beschreibung:]~
+  	\begin{enumerate}[1.]
+  	  \item Student gibt Name und Passwort in das Formular zum erstellen einer Lerngruppe ein und schickt dieses ab
+  	  \item Die Lerngruppe wird in der Datenbank angelegt und der Ersteller wird erstes Mitglied
+  	\end{enumerate}
+  	\item[Erweiterungen:]
+  	\item[Alternativen:] ~
+  	\begin{enumerate}
+  	  \item[a)] Eine Lerngruppe mit diesem Namen existiert schon. Dann wird keine weitere Lerngruppe angelegt und dem Studenten wird mitgeteilt, dass er den Namen der Lerngruppe verändern soll
+  	 \end{enumerate}  
+  \end{description}
+  \pagebreak
+  
+  \item[\textbf{\textbackslash Z40\textbackslash}] \begin{description}
+  \item[Anwendung:] Student tritt Lerngruppe bei
+  \item[Ziel:] Student ist Mitglied einer Lerngruppe
+  	\item[Vorbedingung:] Student ist angemeldet und befindet sich auf der Website im Studentenportal
+  	\item[Nachbedingung(Erfolg):] Der Student ist Mitglied einer Lerngruppe
+  	\item[Nachbedingung(Fehlschlag):] Der Student ist nicht Mitglied einer Lerngruppe
+  	\item[Akteure:] Student
+  	\item[Auslösen des Ereignisses:] Der Student will einer Lerngruppe beitreten
+  	\item[Beschreibung:]~
+  	\begin{enumerate}[1.]
+  	  \item Der Student weiß den Namen und das Passwort einer Lerngruppe und gibt diese in das passende Formular ein und schickt dieses ab
+  	  \item In der Datenbank wird eine Lerngruppe mit der Name/Passwort Kombination gesucht, falls eine gefunden wurde, so wird die Mitgliederliste um den Studenten erweitert
+  	\end{enumerate}
+  	\item[Erweiterungen:]~
+  	\begin{enumerate}
+  	  \item Der Lerngruppenersteller wird per E-Mail informiert
+  	 \end{enumerate}
+  	\item[Alternativen:] ~
+  	\begin{enumerate}
+  	  \item[a)] Befindet sich keine passende Lerngruppe in der Datenbank, so schlägt der Beitritt fehl und der Student ist weiterhin kein Mitglied einer Lerngruppe
+  	 \end{enumerate}  
+  \end{description}
+  \pagebreak
+  
+  \item[\textbf{\textbackslash Z50\textbackslash}] \begin{description}
+  \item[Anwendung:] Student bewertet Projekte
+  \item[Ziel:] Die Lerngruppe assoziiert mit dem Studenten hat eine Bewertung abgegeben
+  	\item[Vorbedingung:] Der Student ist angemeldet und im Studentenportal der Website
+  	\item[Nachbedingung(Erfolg):] Für die Lerngruppe ist eine Bewertung eingetragen
+  	\item[Nachbedingung(Fehlschlag):] Die Lerngruppe hat weiterhin keine (neue) Bewertung eingetragen
+  	\item[Akteure:] Student
+  	\item[Auslösen des Ereignisses:] Des Studentens Wille
+  	\item[Beschreibung:]~
+  	 \begin{enumerate}[1.]
+  	   \item Der Student sieht in der Bewertungsliste die aktuelle eingetragene Bewertung (falls keine vorhanden, dann eine Standard-Bewertung) und ändert diese nach seinem Willen
+  	   \item Der Student schließt die Bewertung ab
+  	 \end{enumerate}
+  	\item[Erweiterungen:]~
+  	\item[Alternativen:] ~
+  \end{description}
+\end{enumerate}
+
+\end{document}
