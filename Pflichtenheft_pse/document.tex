@@ -6,7 +6,6 @@
 \usepackage[ngerman]{babel}
 \usepackage{paralist}
 
-
 \begin{document}
 
 \title{Pflichtenheft \\
@@ -15,14 +14,16 @@
 \author{D. Biester, E.Dohse, P. Faller, P. Loth L. Seufert, Sam}
         
 \maketitle
-\vfill
+\pagebreak
 
 \tableofcontents
-
+\pagebreak
 
 \section{Zielbestimmung}
+Wissenschaftliche Mitarbeiter des IPD sollen durch das Produkt die Verwaltung
+der Projekte und die Einteilung zur PSE rechnerunterstützt durchzuführen können.
 
-
+ 
 \subsection{Musskriterien}
 
 
@@ -59,9 +60,7 @@
     \item Nachjustieren der Einteilung “von Hand”
 
     \item Berechnung von Gütekriterien (Studierenden-Happiness,
-    Anteil-Nicht-Eingeteilter, etc.) <- hier noch genauer bei betreuern
-    nachfragen
-
+    Anteil-Nicht-Eingeteilter, etc.) 
     
 
     \item Export/Import der Aus- und Eingabe der Studierendendaten und
@@ -100,6 +99,8 @@
     \item Anzeige der Projekt-Details für Studenten
     
     \item Stapelsystem zur Berechnungen verschiedener Einteilungen mit unterschiedlichen Konfigurationen.
+    
+    
 \end{enumerate}
 
 \subsection{Abgrenzungskriterien}
@@ -112,18 +113,42 @@ für die Vergabe sonstiger Praktikums- oder Tutorienplätze.
   
 \end{enumerate}
 \section{Produkteinsatz}
+\begin{itemize}
+  \item Das Produkt dient zur Einpflegung von Projekten und zur Zuteilung von
+Studierenden zu den Projekten.
+\end{itemize}
 
 \subsection{Anwendungsbereiche}
 
+\begin{itemize} 
+  \item Anwendung im Universitären Bereich. 
+\end{itemize}
+
 \subsection{Zielgruppe}
+\begin{itemize} 
+  \item Studierende 
+  \item Mitarbeiter des IPD 
+\end{itemize}
 
 \subsection{Betriebsbedingungen}
-
+\begin{itemize} 
+  \item Der Betrieb erfolgt über eine Web-Schnittstelle.
+\end{itemize}
 \section{Produktumgebung}
-
+\begin{itemize} 
+  \item Das Produkt läuft auf einem Server des IPD.
+\end{itemize}
 \subsection{Software}
-
+\begin{itemize} 
+  \item Betriebssystem: Linux 64Bit
+  \item ILP- Solver Gurobi
+  \item Play - Framework
+\end{itemize}
 \subsection{Hardware}
+\begin{itemize} 
+  \item 16 GB Ram
+  \item Intel I7 Quadcore mit 4 weiterne virtuellen Kernen 
+\end{itemize}
 // hier überlegen ob man noch Orgware und Produkt-Schnittstellen dazu noimmt
 \section{Funktionale Anforderungen}
 
@@ -131,12 +156,38 @@ für die Vergabe sonstiger Praktikums- oder Tutorienplätze.
 
 \section{Produktdaten}
 
-\subsection{Musskriterien} // hier noch die unterpunkte
+\subsection{Projektdaten} 
+Über ein Projekt sind folgende Daten zu speichern:
+\begin{itemize} 
+  \item Name,
+  \item Anzahl der Teams,
+  \item Beschreibung,
+  \item Namen und E-Mail Adressen der Betreuer
+  \item 
+\end{itemize}
+\subsection{Studierenden-Daten} 
+Zu jedem Studierenden sollen folgende Daten gespeichert werden:
+\begin{itemize} 
+  \item E-Mail Adresse
+  \item Name
+  \item Falls keiner Lerngruppe Beigetreten: Bewertung, welchem Projekt er oder
+  sie am liebsten zugeteiilt würde
+  \item Falls einer Lerngruppe beoigetreten: Die zugehörige Lerngruppe.
+\end{itemize}
+\subsection{Lerngruppen-Daten} 
+\begin{itemize} 
+  \item Bewertung der Projekte, zu welchem die Lerngruppenmitglieder
+  (Studierenden) am liebsten zugeteilt würden.
+\end{itemize}
 
 \section{Nichtfunktionale Anforderungen}
-
+\begin{enumerate}
+  \item 
+\end{enumerate}
 \section{Globale Testfälle}
-
+\begin{enumerate}
+  \item 
+\end{enumerate}
 \section{Systemmodelle}
 
 \subsection{Szenarien}
@@ -148,6 +199,19 @@ für die Vergabe sonstiger Praktikums- oder Tutorienplätze.
 \subsection{Dynamische Modelle}
 
 \subsection{Benutzerschnittstelle}
+\begin{enumerate}
+  \item Es istt eine Benutzung rein über ein Web-Interface vorgesehen.
+  \item Es sind zwei Sichten zu unterscheiden:
+        \begin{itemize}
+          \item die Sicht des Studierenden
+          \item die Sicht des Administrators
+        \end{itemize}
+  \item Die jeweiligen sichten sind erst nach der Anmeldung einzusehen. 
+  \item Studierende dürfen nur auf ihre Eigenen daten zugreiifen.
+  
+\end{enumerate}
+
+
 
 
 \end{document}

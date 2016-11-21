@@ -150,6 +150,196 @@
   	  \item[3a)] Wenn nicht\ldots (!!!Siehe Kundengespäch Montag!!!)
   	 \end{enumerate}  
   \end{description}
-\end{enumerate}
 
+
+
+Ab hier von Emil aus Studentensicht
+
+\item[\textbf{\textbackslash Z60\textbackslash}] \begin{description}
+    \item[Anwendung:] Registrierung
+    \item[Ziel:] Registrierung bei der Seite zur PSE Einteling
+    \item[Vorbedingung:] Student muss am KIT eingeschrieben sein
+    \item[Nachbedingung(Erfolg):] Studierender kann seine E-mail verifizieren
+    \item[Nachbedingung(Fehlschlag):] Studierender muss sich erneut
+    registrieren.
+    \item[Akteure:] Student
+    \item[Auslösen des Ereignisses:] Studierende werden bei der PSE
+    Einführungsveransttaltung darauf hingewiesen sich zu Registrieren.
+    \item[Beschreibung:]~
+    \begin{enumerate}[1.]
+      \item Öffnen der Internetseite
+      \item Klick auf Registrieren
+      \item Anmeldung mit dem u-Account.
+      \item Eingabe des Namen's und der E-Mail Adresse 
+      \item Durch Abspeichern der Eingaben wird vom Produkt eine
+      Verifikations-E-mail an die vom Studierenden angegebene Adresse geschickt.
+    \end{enumerate}
+    \item[Erweiterungen:]
+    \item[Alternativen:]~ 
+      \end{description}
+  \pagebreak
+  
+  \item[\textbf{\textbackslash Z70\textbackslash}] \begin{description}
+    \item[Anwendung:] Verifikation der E-Mail
+    \item[Ziel:] Verifikation der E-mail
+    \item[Vorbedingung:] Student muss sich registriert haben und seine E-mail
+    korrekt angegeben haben.
+    \item[Nachbedingung(Erfolg):] Studierender kann sich nun Anmelden und hat
+    Zugriff auf die Studierenden-Sicht
+    \item[Nachbedingung(Fehlschlag):] 
+    \begin{itemize} 
+      \item Falls die E-mail falsch angegeben wurde muss sich der Student erneut
+      registrieren.
+      \item Falls die E-mail richtg war, jedoch keien E-mail angekommen ist muss
+      eine neue E-mail auf der Registrieungsseite angefordert werden.
+    \end{itemize}
+    \item[Akteure:] Student
+    \item[Auslösen des Ereignisses:] Studenten registrieren sich und werden
+    darauf hingewiesn inhre E-mail zu verifizieren.
+    \item[Beschreibung:]~
+    \begin{enumerate}[1.]
+      \item E-mails über Drittsoftware abrufen.
+      \item Klick auf den Verifikations-Link in der E-mail.
+      
+    \end{enumerate}
+    \item[Erweiterungen:]
+    \item[Alternativen:]~
+      \end{description}
+  \pagebreak
+  
+  \item[\textbf{\textbackslash Z80\textbackslash}] \begin{description}
+    \item[Anwendung:] Anmeldung
+    \item[Ziel:] Zugriff auf die Studierenden-Sicht
+    \item[Vorbedingung:] Studierender muss seine E-Mail verifiziert haben.
+    \item[Nachbedingung(Erfolg):] Studierender kann nun die bestandenen Fächer
+    eintragen und falls dies bereits geschehen: einer Lerngruppe beitreten, eine
+    Lerngruppe erstellen oder eigene Prioritäten vergeben.
+    \item[Nachbedingung(Fehlschlag):] Der Studierende hat keinen Zugriff auf die
+    Studierenden-Sicht
+    
+    \item[Akteure:] Student
+    \item[Auslösen des Ereignisses:]Nach der verifikation der E-mail werden
+    Studierende darauf hingewiesen das eine Anmeldung nun möglich ist.
+    \item[Beschreibung:]~
+    \begin{enumerate}[1.]
+      \item Öffnen der Internetseite zur PSE-Einteilung
+      \item Anmeldung mit dem u-Account.
+      
+      
+    \end{enumerate}
+    \item[Erweiterungen:]
+    \item[Alternativen:]~
+      \end{description}
+  \pagebreak
+  
+    \item[\textbf{\textbackslash Z90\textbackslash}] \begin{description}
+    \item[Anwendung:] Eintragen bestandener Fächer
+    \item[Ziel:] Eintragen der bestandenen Fächer.
+    \item[Vorbedingung:] Studierender muss angemeldet sein
+    \item[Nachbedingung(Erfolg):] Studierender kann nun einer Lerngruppe
+    beitreten, eine Lernggruppe erstellen oder eigene Prioritäten vergeben.
+    \item[Nachbedingung(Fehlschlag):] Das Eintragen muss wiederholt werden.
+    
+    \item[Akteure:] Student
+    \item[Auslösen des Ereignisses:]Bei der ersten Anmeldung werden Studierende
+    darauf hingewiesen Bestandene Fächer einzutragen.
+    \item[Beschreibung:]~
+    \begin{enumerate}[1.]
+      \item Klick auf Menüpunkt bestandene Fächer
+      \item Auswahl bestandener Fächer über das Setzen von Häckchen.
+      \item Speichern über einen klick auf den "`Speichern"'-Knopf
+      
+    \end{enumerate}
+    \item[Erweiterungen:]
+    \item[Alternativen:]~
+      \end{description}
+  \pagebreak
+  
+  
+      \item[\textbf{\textbackslash Z100\textbackslash}] \begin{description}
+    \item[Anwendung:] Erstellen einer Lerngrupppe
+    \item[Ziel:] Erstellen einer Lerngurppe welche später zusammen eingeteilt
+    wird.
+    \item[Vorbedingung:] Studierender muss angemeldet sein und bestandene Fächer
+    eingetragen haben.
+    \item[Nachbedingung(Erfolg):] Studierender kann nun Prioritäten der
+    Lerngruppe eingeben.
+    \item[Nachbedingung(Fehlschlag):] Studierender wird auf den Fehlschlag
+    hingewiesen und befindet sich wieder im Zustand der Vorbedingung.
+    
+    \item[Akteure:] Student
+    \item[Auslösen des Ereignisses:]Der Student möchte mit Komilitonen eine
+    Lerngruppe gründen.
+    \item[Beschreibung:]~
+    \begin{enumerate}[1.]
+      \item Klick auf Menüpunkt Lerngruppen.
+      \item Klick auf "`Erstelle neue Lerngruppe"'
+      \item Eingabe eises Gruppennamens, eines Passworts und der
+      voraussichtlichen Gruppengröße.
+      \item Klick auf Speichern.
+      
+    \end{enumerate}
+    \item[Erweiterungen:]
+    \item[Alternativen:]~
+      \end{description}
+  \pagebreak
+  
+    \item[\textbf{\textbackslash Z100\textbackslash}] \begin{description}
+    \item[Anwendung:] Beitreten einer Lerngruppe
+    \item[Ziel:] Beitreten einer Lerngruppe, welche später zusammen eingeteilt
+    wird.
+    \item[Vorbedingung:] Ein Komilitone muss eine Lerngruppe erstellt haben und
+    dem Studierenden die Anmeldedaten bestehend aus Gruppenname und Passwort
+    mitgeteilt haben.
+    \item[Nachbedingung(Erfolg):] Studierender kann nun Prioritäten der
+    Lerngruppe eingeben.
+    \item[Nachbedingung(Fehlschlag):] Studierender wird auf den Fehlschlag
+    hingewiesen und befindet sich wieder im Zustand der Vorbedingung.
+    
+    \item[Akteure:] Student
+    \item[Auslösen des Ereignisses:]Der Studierende möchte einer bestehenden
+    Lerngrruppe beitreten.
+    \item[Beschreibung:]~
+    \begin{enumerate}[1.]
+      \item Klick auf Menüpunkt Lerngruppen.
+      \item Klick auf "`Lerngruppe beitreten"'
+      \item Eingabe eises Gruppennamens, eines Passworts
+      \item Klick auf Beitreten.
+      
+    \end{enumerate}
+    \item[Erweiterungen:]
+    \item[Alternativen:]~
+      \end{description}
+  \pagebreak
+  
+     \item[\textbf{\textbackslash Z100\textbackslash}] \begin{description}
+    \item[Anwendung:] Eingabe der Projekt-Prioritäten
+    \item[Ziel:] Studierende wollen mitteilen, welchen Projekten sie wie gerne
+    zugeordnet würden.
+    \item[Vorbedingung:] Studeirender muss angemeldet sein. Falls die
+    Prioritäten einer Lerngruppe festgelegt werden sollen muss der Studerende
+    mitglied einer Lerngruppe sein.
+    \item[Nachbedingung(Erfolg):] Prioritäten werden bei der Einteilung
+    berücksichtigt.
+    \item[Nachbedingung(Fehlschlag):] Studierender muss die Prioritäten erneut
+    eingeben.
+    
+    \item[Akteure:] Student
+    \item[Auslösen des Ereignisses:]Der Studierende möchte seine Prioritäten
+    oder die Prioritäten seiner Lerngruppe festlegen.
+    \item[Beschreibung:]~
+    \begin{enumerate}[1.]
+      \item Klick auf Menüpunkt Projektbewertung.
+      \item Bewertung der Projekte über das setzen von Häckchen bei "`++"',
+      "`+"', "`0"', "`-"' und "`--"'.
+      
+
+\item Klick auf Speichern
+      
+    \end{enumerate}
+    \item[Erweiterungen:]
+    \item[Alternativen:]~
+      \end{description}
+  \pagebreak
+\end{enumerate}
 \end{document}
