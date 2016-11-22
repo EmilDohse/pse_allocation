@@ -1,5 +1,3 @@
-%%This is a very basic article template.
-%%There is just one section and two subsections.
 \documentclass[parskip=full]{scrartcl}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
@@ -23,82 +21,59 @@
 Wissenschaftliche Mitarbeiter des IPD sollen durch das Produkt die Verwaltung
 der Projekte und die Einteilung zur PSE rechnerunterstützt durchzuführen können.
 
- 
 \subsection{Musskriterien}
-
-
-\begin{enumerate}[{Z}1]
-    \item Datenerfassung: Studierende sollen auf einer Internetseite:   
-    \begin{itemize}
-        \item ihre Kontaktdaten bestehend aus Name und E-mail,
-        \item ihre Lerngruppen von 2 bis 6 Personen,
-        \item ihre Themenvorlieben 
-        \item sowie ihre erbrachten Studienleistungen 
-    \end{itemize}
-    in das System eingeben können.
-    
-    \item  Verifikation der E-Mail-Adresse
-    
-
-    \item Einteilung: Das Problem der Zuteilung von Studierenden zu PSE-Teams
-    soll geeignet modelliert und gelöst werden. 
-        \begin{itemize}
-        \item Wer die Voraussetzungen nicht erfüllt wird nicht eingeteilt.
-
-        \item Möglichst gleiche Semester im Team.
-
-        \item Lerngruppen sollten zusammenbleiben.
-
-        \item Studierende bevorzugen, die bereits mehr Sachen aus dem ersten Jahr
-        bestanden haben. (über die Voraussetzungen hinaus, z.B. Algo)
-
-        \item Präferenzen der Studierenden berücksichtigen.
-        \end{itemize}
-
-    \item Abbrechen der Berechnung der Zuteilung möglich (manuell oder Timeout)
-
-    \item Nachjustieren der Einteilung “von Hand”
-
-    \item Berechnung von Gütekriterien (Studierenden-Happiness,
-    Anteil-Nicht-Eingeteilter, etc.) 
-    
-
-    \item Export/Import der Aus- und Eingabe der Studierendendaten und
-    Einteilung(en)
-
-    \item Möglichkeit der sukzessiven Eintragung von angebotenen Themen und
-    Anzahl der Plätze und Teams, durch die jeweiligen Projektleiter
-
-    \item GUI zur einfacheren Bedienung
-
-    
-
-    
-\end{enumerate}
+ \begin{enumerate}[{M}1]
+   \item Datenerfassung: Studierende sollen auf einer Internetseite:   
+   \begin{itemize}
+     \item ihre Kontaktdaten bestehend aus Name und E-mail,
+     \item ihre Lerngruppen von 2 bis 6 Personen,
+     \item ihre Themenvorlieben 
+     \item sowie ihre erbrachten Studienleistungen 
+   \end{itemize}
+   in das System eingeben können.
+   \item Einteilung: Das Problem der Zuteilung von Studierenden zu PSE-Teams
+   soll geeignet modelliert und gelöst werden. 
+   \begin{itemize}
+     \item Wer die Voraussetzungen nicht erfüllt wird nicht eingeteilt
+     \item Lerngruppen sollten zusammenbleiben.
+     \item Präferenzen der Studierenden berücksichtigen.
+   \end{itemize}
+   \item Abbrechen der Berechnung der Zuteilung möglich (manuell oder Timeout)
+   \item Nachjustieren der Einteilung “von Hand”
+   \item Berechnung von Gütekriterien (Studierenden-Happiness,
+   Anteil-Nicht-Eingeteilter, etc.)
+   \item Export/Import der Aus- und Eingabe der Studierendendaten und
+   Einteilung(en)
+   \item Möglichkeit der sukzessiven Eintragung von angebotenen Themen und
+   Anzahl der Plätze und Teams, durch die jeweiligen Projektleiter
+   \item GUI zur einfacheren Bedienung    
+ \end{enumerate}
 
 
 \subsection{Wunschkriterien}
 \begin{enumerate}[{W}1]
-    \item Wunschkriterien zur Lösung des Lproblems der Einteilung:
+    \item Möglichkeit des mehrmaligen Wechselns zwischen Lerngruppen und \\
+    Einzelbewertungen
+    \item Verwaltung von Lerngruppen: Mitgliederverwaltung und Anpassung der
+    Gruppengröße
+    \item Wunschkriterien zur Lösung des Problems der Einteilung:
     \begin{itemize}
         \item Eher 5er Teams als 6er Teams
+        \item Möglichst gleiche Semester im Team.
+        \item Studierende bevorzugen, die bereits mehr Sachen aus dem ersten Jahr
+        bestanden haben. (über die Voraussetzungen hinaus, z.B. Algo)
     \end{itemize}    
-    
     \item Authentifizierung via Shibboleth
-
     \item Benachrichtigung der Studierenden und Mitarbeiter über Einteilung
-
     \item Verwaltung mehrerer Einteilungsergebnisse
-
-    \item  Erweiterbarkeit bzgl. “Betreuer-Sicht”: Themenerfassung, -pflege und Notenerfassung
-    
+    \item Erweiterbarkeit bzgl. “Betreuer-Sicht”: Themenerfassung, -pflege und Notenerfassung
     \item Nachjustierbarkeit bei Änderungen, z.B. der SPO.
-    
     \item Verwaltung über mehrere Semester hinweg
-    
     \item Anzeige der Projekt-Details für Studenten
-    
     \item Stapelsystem zur Berechnungen verschiedener Einteilungen mit unterschiedlichen Konfigurationen.
+    \item Verifikation der E-Mail-Adresse
+    \item Handhabung von Formularen des Campus Management Portals
+    
     
     
 \end{enumerate}
@@ -170,9 +145,9 @@ Zu jedem Studierenden sollen folgende Daten gespeichert werden:
 \begin{itemize} 
   \item E-Mail Adresse
   \item Name
-  \item Falls keiner Lerngruppe Beigetreten: Bewertung, welchem Projekt er oder
+  \item Falls keiner Lerngruppe beigetreten: Bewertung, welchem Projekt er oder
   sie am liebsten zugeteiilt würde
-  \item Falls einer Lerngruppe beoigetreten: Die zugehörige Lerngruppe.
+  \item Falls einer Lerngruppe beigetreten: Die zugehörige Lerngruppe.
 \end{itemize}
 \subsection{Lerngruppen-Daten} 
 \begin{itemize} 
@@ -194,24 +169,500 @@ Zu jedem Studierenden sollen folgende Daten gespeichert werden:
 
 \subsection{Anwendungsfälle}
 
+\subsubsection{Student}
+
+\begin{enumerate}
+  \item[\textbf{\textbackslash S10\textbackslash}] \begin{description}
+  	\item[Anwendung:] Registrierung eines Studenten
+  	\item[Ziel:] Speichern der Studentendaten in der Datenbank
+  	\item[Vorbedingung:] Studentenregistrierung wurde freigeschaltet
+  	\item[Nachbedingung(Erfolg):] Erfolgreiche Registrierung des Studenten
+  	\item[Nachbedingung(Fehlschlag):] Student ist weiterhin nicht registriert
+  	\item[Akteure:] Student
+  	\item[Auslösen des Ereignisses:] Student will sich registrieren
+  	\item[Beschreibung:]~
+  	\begin{enumerate}[1.]
+  	  \item Öffnen der Internetseite
+      \item Klick auf Registrieren
+      \item Ausfüllen der Registrierungsmaske
+      \item Abschicken der Daten
+      \item Existiert der registrierte Account noch nicht, so wirde der Student
+      der Datenbank hinzugefügt
+  	\end{enumerate}
+  	\item[Erweiterungen:]~
+  	\begin{enumerate}
+  	  \item[zu 3)] Statt der Registrierungsmaske wird hier der u-Account
+  	  verwendet
+  	  \item[nach 4)] Dem Studenten wird nach dem Abschicken seiner Daten eine \\
+  	  Verifikations-Email gesendet.
+  	 \end{enumerate} 
+  	\item[Alternativen:]~
+  	\begin{enumerate}
+  	  \item[5a)] Wenn doch, so wird kein weiterer Eintrag hinzugefügt, sondern
+  	  die zweite Registrierung abgebrochen
+  	\end{enumerate} 
+  \end{description}
+%  \pagebreak
+  
+  \item[\textbf{\textbackslash S20\textbackslash}] \begin{description}
+    \item[Anwendung:] Verifikation der E-Mail
+    \item[Ziel:] Verifikation der E-mail
+    \item[Vorbedingung:] Student muss sich registriert haben und seine E-mail
+    korrekt angegeben haben.
+    \item[Nachbedingung(Erfolg):] Studierender kann sich nun Anmelden und hat
+    Zugriff auf die Studierenden-Sicht
+    \item[Nachbedingung(Fehlschlag):] Student kann sich nicht mit seinem Account
+    anmelden
+    \item[Akteure:] Student
+    \item[Auslösen des Ereignisses:] Studenten registrieren sich und werden
+    darauf hingewiesn inhre E-mail zu verifizieren.
+    \item[Beschreibung:]~
+    \begin{enumerate}[1.]
+      \item E-mails über Drittsoftware abrufen.
+      \item Klick auf den Verifikations-Link in der E-mail.      
+    \end{enumerate}
+    \item[Erweiterungen:] -keine-
+    \item[Alternativen:] -keine-
+      \end{description}
+  \pagebreak
+  
+  \item[\textbf{\textbackslash S30\textbackslash}] \begin{description}
+  \item[Anwendung:] Anmeldung eines Studenten
+  \item[Ziel:] Student wird angemeldet und kann seine Bewertungen ändern
+  	\item[Vorbedingung:] Der Student hat sich vorher registriert
+  	\item[Nachbedingung(Erfolg):] Der Student ist angemeldet
+  	\item[Nachbedingung(Fehlschlag):] Der Student ist nicht angemeldet
+  	\item[Akteure:] Student
+  	\item[Auslösen des Ereignisses:] Student will sich anmelden
+  	\item[Beschreibung:]~
+  	\begin{enumerate}[1.]
+  	  \item Student öffnet die Website
+  	  \item Student füllt das Formular zum Anmelden aus und schickt dieses ab
+  	  \item Sind die Anmeldedaten korrekt, so wird der Student zur Studentensicht
+  	  weitergeleitet
+  	\end{enumerate}
+  	\item[Erweiterungen:]
+  	\begin{enumerate}
+  	  \item[2)] Kein Formular, sondern Anmeldung über u-Account
+  	\end{enumerate}    	
+  	\item[Alternativen:]
+	\begin{enumerate}
+  	  \item[3a)] Wenn nicht, so erhält er eine Fehlermeldung
+  	\end{enumerate}
+  \end{description}
+  \pagebreak
+  
+  \item[\textbf{\textbackslash S40\textbackslash}] \begin{description}
+  \item[Anwendung:] Student erstellt Lerngruppe
+  \item[Ziel:] Eine neue Lerngruppe ist in der Datenbank vermerkt und der Ersteller ist erstes Mitglied dieser
+  	\item[Vorbedingung:] Student ist angemeldet und befindet sich auf der Website im Studentenportal
+  	\item[Nachbedingung(Erfolg):] Die Lerngruppe wurde erfolgreich erstellt
+  	\item[Nachbedingung(Fehlschlag):] Die Lerngruppe wurde nicht erstellt
+  	\item[Akteure:] Student
+  	\item[Auslösen des Ereignisses:] Wille des Studenten
+  	\item[Beschreibung:]~
+  	\begin{enumerate}[1.]
+  	  \item Student gibt Name und Passwort in das Formular zum Erstellen einer
+  	  Lerngruppe ein und schickt dieses ab
+  	  \item Wenn noch keine Lerngruppe mit diesem Namen existiert, so wird die
+  	  Lerngruppe in der Datenbank angelegt und der Ersteller wird erstes Mitglied
+  	\end{enumerate}
+  	\item[Erweiterungen:] -keine-
+  	\item[Alternativen:] ~
+  	\begin{enumerate}
+  	  \item[2a)] Eine Lerngruppe mit diesem Namen existiert schon. Dann wird
+  	  keine weitere Lerngruppe angelegt und dem Studenten wird mitgeteilt, dass er den Namen der Lerngruppe verändern soll
+  	 \end{enumerate}  
+  \end{description}
+  \pagebreak
+  
+  \item[\textbf{\textbackslash S50\textbackslash}] \begin{description}
+  \item[Anwendung:] Student tritt Lerngruppe bei
+  \item[Ziel:] Student ist Mitglied einer Lerngruppe
+  	\item[Vorbedingung:] Student ist angemeldet und befindet sich auf der Website im Studentenportal
+  	\item[Nachbedingung(Erfolg):] Der Student ist Mitglied der Lerngruppe
+  	\item[Nachbedingung(Fehlschlag):] Der Student ist nicht Mitglied der
+  	Lerngruppe
+  	\item[Akteure:] Student
+  	\item[Auslösen des Ereignisses:] Der Student will einer Lerngruppe beitreten
+  	\item[Beschreibung:]~
+  	\begin{enumerate}[1.]
+  	  \item Der Student gibt die Anmeldedaten der Lerngruppe in das passende
+  	  Formular ein und schickt dieses ab
+  	  \item Existiert die angegebene Lerngruppe, so wird die Mitgliederliste
+  	  derer um den Studenten erweitert
+  	\end{enumerate}
+  	\item[Erweiterungen:]~
+  	\begin{enumerate}
+  	  \item[2a)] Ist die Lerngruppe schon vollständig, so wird der Student nicht
+  	  der Gruppe zugewiesen
+  	  \item[3)] Ist der Student nicht der Lerngruppe zugewiesen worden, so werden
+  	  die zuletzt gespeicherten Bewertungen verwendet
+  	  \item[4)] Der Lerngruppenersteller wird per E-Mail informiert
+  	 \end{enumerate}
+  	\item[Alternativen:] ~
+  	\begin{enumerate}
+  	  \item[2a)] Existiert keine solche Gruppe, so schlägt der Beitritt fehl und
+  	  der Student ist kein Mitglied der Lerngruppe
+  	 \end{enumerate}  
+  \end{description}
+  \pagebreak
+  
+  \item[\textbf{\textbackslash S60\textbackslash}] \begin{description}
+  \item[Anwendung:] Student bewertet Projekte
+  \item[Ziel:] Der Student hat eine Bewertung abgegeben
+  	\item[Vorbedingung:] Der Student ist angemeldet und im Studentenportal der Website
+  	\item[Nachbedingung(Erfolg):] Für den Student ist eine Bewertung eingetragen
+  	\item[Nachbedingung(Fehlschlag):] Der Student hat keine Bewertung eingetragen
+  	\item[Akteure:] Student
+  	\item[Auslösen des Ereignisses:] Des Studentens Wille
+  	\item[Beschreibung:]~
+  	 \begin{enumerate}[1.]
+  	   \item Der Student füllt die Bewertungsmaske aus
+  	   \item Der Student speichert die Bewertung ab
+  	 \end{enumerate}
+  	\item[Erweiterungen:] -keine-
+  	\item[Alternativen:] -keine-
+  \end{description}
+  \pagebreak
+  
+  \item[\textbf{\textbackslash S70\textbackslash}] \begin{description}
+  \item[Anwendung:] Student bewertet Projekte für eine Lerngruppe
+  \item[Ziel:] Die Lerngruppe assoziiert mit dem Studenten hat eine Bewertung abgegeben
+  	\item[Vorbedingung:] Der Student ist als Leiter einer Lerngruppe angemeldet
+  	und im Studentenportal der Website
+  	\item[Nachbedingung(Erfolg):] Für die Lerngruppe ist eine Bewertung eingetragen
+  	\item[Nachbedingung(Fehlschlag):] Für die Lerngruppe ist keine (neue)
+  	Bewertung eingetragen
+  	\item[Akteure:] Student
+  	\item[Auslösen des Ereignisses:] Des Studentens Wille
+  	\item[Beschreibung:]~
+  	 \begin{enumerate}[1.]
+  	   \item Der Student füllt die Bewertungsmaske aus
+  	   \item Der Student schließt die Bewertung ab
+  	 \end{enumerate}
+  	\item[Erweiterungen:] -keine-
+  	\item[Alternativen:] -keine-
+  \end{description}
+  \pagebreak
+  
+  \item[\textbf{\textbackslash S80\textbackslash}] \begin{description}
+  	\item[Anwendung:] Passwort vergessen
+  	\item[Ziel:] Erhalten des Passworts
+  	\item[Vorbedingung:] Der Student hat schon einen Account
+  	\item[Nachbedingung(Erfolg):] Der Student erhält eine E-Mail mit seinem
+  	Passwort
+  	\item[Nachbedingung(Fehlschlag):] Der Student erhält keine E-Mail
+  	\item[Akteure:] Student
+  	\item[Auslösen des Ereignisses:] Student hat sein Passwort vergessen
+  	\item[Beschreibung:]~
+  	\begin{enumerate}[1.]
+  	  \item Öffnen der Internetseite
+      \item Klick auf "Passwort vergessen"
+      \item Eingabe der E-Mail Adresse
+      \item Der Student erhält eine E-Mail mit seinem Passwort
+  	\end{enumerate}
+  	\item[Erweiterungen:] -keine-
+  	\item[Alternativen:] -keine-
+  \end{description}
+  \pagebreak
+\end{enumerate}
+
+\subsubsection{Betreuer}
+\begin{enumerate}  
+  \item[\textbf{\textbackslash B10\textbackslash}] 
+	 \begin{description}
+		\item[Anwendung:] Betreuer meldet sich an
+  		\item[Ziel:] Anmeldung des Betreuers
+  		\item[Vorbedingung:] Konto des Betreuers wurde angelegt
+  		\item[Nachbedingung(Erfolg):] Betreuer ist angemeldet
+  		\item[Nachbedingung(Fehlschlag):] Betreuer ist nicht angemeldet
+  		\item[Akteure:] Betreuer
+  		\item[Auslösen des Ereignisses:] Betreuer möchte sich anmelden
+  		\item[Beschreibung]~
+  		\begin{enumerate}[1.]
+  			\item Der Betreuer gibt seine Zugangsdaten ein
+  			\item Wenn die Anmeldedaten korrekt sind, wird er auf die Betreueransich
+  			weitergeleitet
+  		\end{enumerate}
+  		\item[Erweiterungen:] -keine-
+  		\item[Alternativen:] ~
+  		\begin{enumerate}
+  		  \item[2a)] Wenn nicht, erhält er eine Fehlermeldung
+  		\end{enumerate}  
+  	\end{description}
+  \pagebreak
+  
+  \item[\textbf{\textbackslash B20\textbackslash}]
+	\begin{description}
+  		\item[Anwendung:] Thema erstellen/ändern
+  		\item[Ziel:] Eröffnung/Änderung eines PSE-Themas
+  		\item[Vorbedingung:] -keine-
+  		\item[Nachbedingung(Erfolg):] Themendaten sind im System eingetragen
+  		\item[Nachbedingung(Fehlschlag):] Themenfaten sind nicht im System
+  		eingetragen
+  		\item[Akteure:] Betreuer
+  		\item[Auslösen des Ereignisses:] Betreuer möchte ein PSE-Thema ins System
+  		einfügen/ändern.
+  		\item[Beschreibung:]~
+  	\begin{enumerate}[1.]
+  	  \item Betreuer befindet sich auf der Website mit den PSE-Themen
+  	  \item Existiert das Thema schon, so wählt der Betreuer dieses aus
+  	  \item Betreuer füllt die Eingabemaske aus
+  	  \item Betreuer speichert die neuen Daten ab
+  	\end{enumerate}
+  	\item[Erweiterungen:] -keine-
+  	\item[Alternativen:]~
+  	\begin{enumerate}
+  	  \item[2a)] Wenn nicht, so fügt er ein neues hinzu
+  	\end{enumerate}  
+  \end{description}
+
+\pagebreak
+  \item[\textbf{\textbackslash B30\textbackslash}]
+	\begin{description}
+  		\item[Anwendung:] Gruppenbetreuer werden
+  		\item[Ziel:] Betreuer einer bestimmten Gruppe werden
+  		\item[Vorbedingung:] Man ist noch nicht Betreuer der ausgewählten Gruppe
+  		\item[Nachbedingung(Erfolg):] Erfolgreich Betreuer der ausgewählten
+  		Gruppe geworden
+  		\item[Nachbedingung(Fehlschlag):] Man ist nicht Betreuer der Gruppe
+  		\item[Akteure:] Betreuer
+  		\item[Auslösen des Ereignisses:] Betreuer möchte sich einer Gruppe
+  		zuordnen
+  		\item[Beschreibung:]~
+  	\begin{enumerate}[1.]
+  	  \item Betreuer befindet sich auf der Website mit den PSE-Gruppen
+  	  \item Betreuer wählt die Gruppe aus, welcher er betreuen möchte
+  	  \item Betreuer tritt der Gruppe bei
+  	\end{enumerate}
+  	\item[Erweiterungen:] -keine-
+  	\item[Alternativen:] -keine-
+  \end{description}
+  \pagebreak
+  
+  \item[\textbf{\textbackslash B40\textbackslash}]
+	\begin{description}
+  		\item[Anwendung:] Gruppe verlassen
+  		\item[Ziel:] Eine Gruppe nicht mehr betreuen
+  		\item[Vorbedingung:] Man ist Betreuer einer Gruppe, in der noch mindestens
+  		ein anderer Betreuer ist.
+  		\item[Nachbedingung(Erfolg):] Man betreut die Gruppe nicht länger.
+  		\item[Nachbedingung(Fehlschlag):] Man ist immernoch Betreuer der Gruppe.
+  		\item[Akteure:] Betreuer
+  		\item[Auslösen des Ereignisses:] Betreuer möchte aus Gruppe austreten.
+  		\item[Beschreibung:]~
+  	\begin{enumerate}[1.]
+  	  \item Betreuer befindet sich auf der Website mit den PSE-Gruppen, die er
+  	  betreut.
+  	  \item Betreuer wählt die Gruppe aus, welche er verlassen möchte.
+  	  \item Betreuer verlässt die Gruppe.
+  	\end{enumerate}
+  	\item[Erweiterungen:] -keine-
+  	\item[Alternativen:] -keine-
+  \end{description}
+  \pagebreak
+  
+  \item[\textbf{\textbackslash B50\textbackslash}] \begin{description}
+  	\item[Anwendung:] Noten für Gruppenteilnehmer eintragen
+  	\item[Ziel:] Speichern der Noten in der Datenbank
+  	\item[Vorbedingung:] Gruppe hat Studenten als Teilnehmer
+  	\item[Nachbedingung(Erfolg):] Eintragung/Änderung der Noten
+  	\item[Nachbedingung(Fehlschlag):] Notenänderung wird verworfen
+  	\item[Akteure:] Betreuer
+  	\item[Auslösen des Ereignisses:] Betreuer möchte Noten eintragen
+  	\item[Beschreibung:]~
+  	\begin{enumerate}[1.]
+  	  \item Betreuer befindet sich auf der Website mit der Notenübersicht
+  	  \item Betreuer trägt neue Noten für eine beliebige Phase ein oder ändert bestehende Noten.
+  	\end{enumerate}
+  	\item[Erweiterungen:] -keine-
+  	\item[Alternativen] -keine-
+  \end{description}
+  \pagebreak
+\end{enumerate}
+
+
+\subsubsection{Administrator}
+\begin{enumerate}  
+  \item[\textbf{\textbackslash A10\textbackslash}] \begin{description}
+  	\item[Anwendung:] Hinzufügen/Ändern eines Projekts
+  	\item[Ziel:] Einfügen/Änderung von Projektdaten in der Datenbank
+  	\item[Vorbedingung:] -keine-
+  	\item[Nachbedingung(Erfolg):] Neue Projektdaten sind eingetragen
+  	\item[Nachbedingung(Fehlschlag):] Neue Projektdaten sind nicht eingetragen
+  	\item[Akteure:] Administrator, Institut
+  	\item[Auslösen des Ereignisses:] Administrator bekommt Projektdaten von einem
+  	Institut\\ vorgelegt
+  	\item[Beschreibung:]~
+  	\begin{enumerate}[1.]
+  	  \item Projektübersicht öffnen
+  	  \item Wenn das Projekt schon existiert, so werden die Projektdaten
+  	  verglichen
+  	  \item Stimmen die Projektdaten nicht überein, so werden die betroffenen
+  	  Daten\\ angepasst
+  	  \item Durch Abspeichern der Eingaben werden die Daten in der Datenbank
+  	  angepasst
+  	\end{enumerate}
+  	\item[Erweiterungen:] -keine-
+  	\item[Alternativen:]~
+  	\begin{enumerate}
+  	  \item[2a)] Wenn nicht, dann wird das Projekt neu angelegt
+  	  \item[3a)] Falls doch, so ist dieser Anwendungsfall abgeschlossen
+  	\end{enumerate} 
+  \end{description}
+  \pagebreak
+  
+  \item[\textbf{\textbackslash A20\textbackslash}] \begin{description}
+  \item[Anwendung:] Löschen eines Projekts
+  \item[Ziel:] Löschen eines Projekts in die Datenbank
+  	\item[Vorbedingung:] Projekt existiert bereits in der Datenbank
+  	\item[Nachbedingung(Erfolg):] Projekt ist aus der Datenbank entfernt
+  	\item[Nachbedingung(Fehlschlag):] Projekt ist immernoch in der Datenbank
+  	\item[Akteure:] Administrator, Institut
+  	\item[Auslösen des Ereignisses:] Institut zieht ein Projekt zurück oder es
+  	fehlen Daten bei Beginn der Einteilung
+  	\item[Beschreibung:]~
+  	\begin{enumerate}[1.]
+  	  \item Projektübersicht öffnen
+  	  \item Projekt aus Liste entfernen
+  	  \item Projektdaten werden aus der Datenbank entfernt
+  	\end{enumerate}
+  	\item[Erweiterungen:] -keine-
+  	\item[Alternativen:] -keine-
+  \end{description}
+  \pagebreak
+  
+  \item[\textbf{\textbackslash A30\textbackslash}] \begin{description}
+  \item[Anwendung:] Teameinteilung
+  \item[Ziel:] Finden einer Teameinteilung nach ausgewählten Parametern
+  	\item[Vorbedingung:] Alle Projekte in der Datenbank sind vollständig
+  	\item[Nachbedingung(Erfolg):] Es wurde eine Teameinteilung gefunden
+  	\item[Nachbedingung(Fehlschlag):] Es wurde keine Teameinteilung gefunden
+  	\item[Akteure:] Administrator
+  	\item[Auslösen des Ereignisses:] Entscheidung des Administrators bzw.
+  	zeitliche Deadline
+  	\item[Beschreibung:]~
+  	\begin{enumerate}[1.]
+  	  \item Einstellen der Parameter nach den eingeteilt werden soll
+  	  \item Starten der Berechnung über Schaltfläche
+  	  \item Sind alle Projekte vollständig angegeben, so startet die Berechnung
+  	  \item Nach Abschluss der Berechnung wird das Ergebnis inklusive
+  	  eingestellter Parameter abgespeichert.
+  	\end{enumerate}
+  	\item[Erweiterungen:] -keine-
+  	\item[Alternativen:] ~
+  	\begin{enumerate}
+  	  \item[3a)] Wenn nicht, so startet die Berechnung nicht und der Fall ist
+  	  beendet
+  	  \item[4a)] Hier ist auch ein frühzeitiger Abbruch durch den Administrator
+  	  möglich. Dies wird im Ergebnis vermerkt.
+  	 \end{enumerate}  
+  \end{description}
+  \pagebreak
+  
+  \item[\textbf{\textbackslash A40\textbackslash}] \begin{description}
+  \item[Anwendung:] Finale Auswahl der Einteilung
+  \item[Ziel:] Finden der bestmöglichen Teameinteilung
+  	\item[Vorbedingung:] Es wurde mindestens eine Berechnung durchgeführt
+  	\item[Nachbedingung(Erfolg):] Es wurde eine Teameinteilung ausgewählt
+  	\item[Nachbedingung(Fehlschlag):] Es wurde keine Teameinteilung ausgewählt
+  	\item[Akteure:] Administrator
+  	\item[Auslösen des Ereignisses:] Entscheidung des Administrators bzw.
+  	zeitliche Deadline
+  	\item[Beschreibung:]~
+  	\begin{enumerate}[1.]
+  	  \item Der Administrator wählt eine der berechneten Einteilung final aus
+  	  \item Wurde ein Student zugewiesen, so wird seinem Datenbankeintrag sein
+  	  Team hinzugefügt
+  	\end{enumerate}
+  	\item[Erweiterungen:]~
+  	\begin{enumerate}
+  	  \item[nach 2)] Betreuer werden über ihre Teams informiert
+  	  \item[nach 2)] Die Studenten werden über ihre Einteilung informiert
+  	 \end{enumerate}
+  	\item[Alternativen:] ~
+  	\begin{enumerate}
+  	  \item[2a)] Wird ein Student nicht zugewiesen, so wird dies ebenfalls in der
+  	  Datenbank vermerkt
+  	 \end{enumerate}  
+  \end{description}
+  \pagebreak
+  
+  \item[\textbf{\textbackslash A50\textbackslash}] \begin{description}
+  \item[Anwendung:] Einteilung eines Studenten
+  \item[Ziel:] Manuelle Einteilung eines Studenten
+  	\item[Vorbedingung:] Automatische Teameinteilung ist abgeschlossen
+  	\item[Nachbedingung(Erfolg):] Der Student wurde hinzugefügt
+  	\item[Nachbedingung(Fehlschlag):] Der Student wurde nicht hinzugefügt
+  	\item[Akteure:] Administrator, Student
+  	\item[Auslösen des Ereignisses:] Student meldet sich beim Administrator
+  	\item[Beschreibung:]~
+  	 \begin{enumerate}[1.]
+  	   \item Wenn sich der Student noch nicht im System befindet überprüft der
+  	   Administrator, ob die Anforderungen für das PSE erfüllt sind
+  	   \item Hat der Student die Anforderungen erfüllt, so versucht der
+  	   Administrator ihn einem Team zuzuteilen
+  	   \item Hat der Administrator ein Team gefunden so fügt er den Student über
+  	   eine Eingabemaske dem System hinzu
+  	 \end{enumerate}
+  	\item[Erweiterungen:]~
+  	 \begin{enumerate}
+  	   \item [nach 3)] Betreuer, sowie andere Mitglieder des Projekts, werden
+  	   über das neue Mitglied per E-Mail informiert 
+  	 \end{enumerate}  
+  	\item[Alternativen:] ~
+  	 \begin{enumerate}
+  	  \item[1a)] Falls doch, so wurde er schon vorher abgelehnt/nicht zugewiesen
+  	  und wird nicht eingeteilt. Dieser Fall ist damit abgeschlossen
+  	  \item [2a)] Falls er die Anforderungen nicht erfüllt, so wird er auch nicht
+  	  zugeteilt und dieser Fall ist abgeschlossen
+  	 \end{enumerate}  
+  \end{description}
+  \pagebreak
+  
+  \item[\textbf{\textbackslash A60\textbackslash}] \begin{description}
+  \item[Anwendung:] Erstellen eines Betreueraccounts
+  \item[Ziel:] Hinzufügen eines Betreuers in das System
+  	\item[Vorbedingung:] -keine-
+  	\item[Nachbedingung(Erfolg):] Der Betreueraccount wurde erstellt
+  	\item[Nachbedingung(Fehlschlag):] Der Betreueraccount wurde nicht erstellt
+  	\item[Akteure:] Administrator
+  	\item[Auslösen des Ereignisses:] Betreuer benötigt Account
+  	\item[Beschreibung:]~
+  	 \begin{enumerate}[1.]
+  	   \item Der Administrator öffnet die Maske zum Erstellen eines
+  	   Betreueraccounts
+  	   \item Der Administrator füllt die Maske aus und schickt sie ausgefüllt ab
+  	   \item Wenn noch kein Account mit dem angegebenen Namen existiert, so wird
+  	   der neue Account der Datenbank hinzugefügt
+  	 \end{enumerate}
+  	\item[Erweiterungen:]~
+  	 \begin{enumerate}
+  	   \item[4)] Der Betreuer erhält seine Zugangsdaten per E-Mail
+  	 \end{enumerate}  
+  	\item[Alternativen:] ~
+  	 \begin{enumerate}
+  	  \item[3a)] Falls doch, so wird eine Fehlermeldung angezeigt
+  	 \end{enumerate}  
+  \end{description}
+  \pagebreak
+\end{enumerate}  
 \subsection{Objektmodelle}
 
 \subsection{Dynamische Modelle}
 
 \subsection{Benutzerschnittstelle}
 \begin{enumerate}
-  \item Es istt eine Benutzung rein über ein Web-Interface vorgesehen.
-  \item Es sind zwei Sichten zu unterscheiden:
+  \item Es ist eine Benutzung rein über ein Web-Interface vorgesehen.
+  \item Es sind drei Sichten zu unterscheiden:
         \begin{itemize}
           \item die Sicht des Studierenden
+          \item die Sicht des Betreuers
           \item die Sicht des Administrators
         \end{itemize}
   \item Die jeweiligen sichten sind erst nach der Anmeldung einzusehen. 
-  \item Studierende dürfen nur auf ihre Eigenen daten zugreiifen.
+  \item Studierende dürfen nur auf ihre Eigenen Daten zugreiifen.
   
 \end{enumerate}
-
-
-
-
 \end{document}
