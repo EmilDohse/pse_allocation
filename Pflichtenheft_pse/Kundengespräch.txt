@@ -28,13 +28,36 @@ Emil:
 - Musskriterien zur einteilung nur: Gruppen beliben zusammen, Beewertungen werden berücksichtigt
 
 - Nichtfunktional: bis 500 Studenten
+- Produktumgebung: siehe folgende Punkte
 -Server 16gb ram, i7 mindestens
 - Webserver benötigt (von außen erreichbar)
-- Browser anforderungen
-- Welche Datenbank und kann sie sich selber einrichten?
-- Mailserver
+- Browser anforderungen (JS, HTML 5, ect)
+- Welche Datenbank und kann sie sich selber einrichten? Kein SQLite!
+- Mailserver (SMTP) In unserer Software konfigurierbar?
+- Play sollte reincompiliert werden, also nicht bei PU stehen
 
 Philipp L.
 - Zur Gui: Checkbox bei den Prüfungsleistungen um Reaktion auf eine Falschangabe ergänzen
 
+Philipp F.
+- Wunsch: Abgleich der Liste der angemeldeten mit den offiziell angemeldeten im CMS
+- Kein Comic Sans in der GUI ;)
+- Aufklärenden Text in die GUI, dass man eine 5 kassiert, wenn man bei den Teilleistungen lügt
+- Felder für SPO und Semester in die GUI hinzufügen
+- Betreueranmeldung: Noch zu entscheiden: ob über Link, Passwort oder Queue beim Admin beschränkt
+- Anmerkung von Dennis: Aktuell wird Gruppenbewertung im ILP jedem Student einzeln zugeordnet und er denkt auch anders ist nicht schneller
+- Anmerkung von Dennis: Parameter tweaken warscheinlich nicht ausschalgebend für die Laufzeit
+- Email versenden muss extra Funktion sein und nicht autom. nach der Einteilung
+- Falls wir ILP verwenden: Teilergebnis nach Abbruch
+- Wunsch: Zwischenstand der Einteilung einsehbar
+- Entscheidung ob ILP oder eine Alternative sollte vor Entwurf gefällt werden
+- Performance bei gleichzeitiger Anmelung egal. Konsistenz ist aber wichtig!
+- Pflichtenheft genauer formulieren
+- Verweis FA -> W Krit. nicht nötig aber schön
+- Glossar fehlt
+- Auch Wunhsckriterien in Anwendungsfälle
+- Szenarien sind eine Auswahl, sollten aber viele FA abdecken
+- Verweise Szenario -> Testfall erwünscht
+- Datenmodell fehlt
+- Sysmodell sollte grob sein (MVC + 2, 3 Komponenten)
 
