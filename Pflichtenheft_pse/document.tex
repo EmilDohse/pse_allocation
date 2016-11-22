@@ -3,9 +3,19 @@
 \usepackage[T1]{fontenc}
 \usepackage[ngerman]{babel}
 \usepackage{enumitem}
-
+\usepackage{glossaries}
+\makeglossaries
 \newcommand{\swtLabel}[1]{\textbf{\textbackslash #1\arabic*0\textbackslash}}
 
+
+\newglossaryentry{PSE}{name=Praxis der Softwareentwicklung,
+                        description={Im PSE lernen die Teilnehmer, ein
+                        vollständiges Softwareprojekt nach dem Stand der
+                        Softwaretechnik in einem Team mit 5 bis 6 Teilnehmern
+                        durchzuführen. Ziel ist es insbesondere, Verfahren des
+                        Software-Entwurfs und der Qualitätssicherung praktisch
+                        einzusetzen, Implementierungskompetenz umzusetzen, und
+                        arbeitsteilig im Team zu kooperieren.  }}
 \begin{document}
 
 \title{Pflichtenheft \\
@@ -21,7 +31,8 @@
 
 \section{Zielbestimmung}
 Wissenschaftliche Mitarbeiter des IPD sollen durch das Produkt die Verwaltung
-der Projekte und die Einteilung zur PSE rechnerunterstützt durchzuführen können.
+der Projekte und die Einteilung zur \gls{PSE} rechnerunterstützt durchzuführen
+können.
 
 
 \subsection{Musskriterien}
@@ -737,4 +748,5 @@ Zu jedem Studierenden sollen folgende Daten gespeichert werden:
   \item Studierende dürfen nur auf ihre Eigenen Daten zugreiifen.
   
 \end{enumerate}
+\printglossaries
 \end{document}
