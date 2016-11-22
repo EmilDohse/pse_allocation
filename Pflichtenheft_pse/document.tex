@@ -9,7 +9,7 @@
 \title{Pflichtenheft \\
         \large Automatische Einteilung für das PSE}
 
-\author{D. Biester, E.Dohse, P. Faller, P. Loth L. Seufert, Sam}
+\author{D. Biester, E.Dohse, P. Faller, P. Loth, L. Seufert, Sam}
         
 \maketitle
 \pagebreak
@@ -129,6 +129,57 @@ Studierenden zu den Projekten.
 
 \subsection{Funktionsübersicht}
 
+\subsection{Studentenfunktionen}
+
+Pflichtfunktionen
+
+\begin{itemize}
+  \item Registrierung mit Datenerfassung:
+  \begin{itemize}
+    \item Name, Matrikelnummer, Email-Adresse, Semester
+    \item Auswahl bestandener Teilleistungen und der SPO
+  \end{itemize}
+  \item Anmeldung
+  \item Bewertung der Themen
+  \item Erstellung einer Lerngruppe mit Name und Passwort
+  \item Bewertung der Themen für die Lerngruppe
+  \item Beitritt zu einer Lerngruppe
+  \item Übersicht eigene Lerngruppe (Bewertung und Mitglieder)
+\end{itemize}
+
+\subsection{Betreuerfunktionen}
+
+Wunschfunktionen
+
+\begin{itemize}
+  \item Anmeldung
+  \item Erstellung eines Projektes
+  \item Ändern der Projektdetails: Name, Beschreibung, Projektbetreuer, minimale und maximale Teilnehmerzahl, Anzahl der Teams
+\end{itemize}
+
+\subsection{Adminfunktionen}
+
+Pflichtfunktionen
+
+\begin{itemize}
+  \item Anmeldung
+  \item Setzen der Anmelde- und Bewertungsdeadline
+  \item Konfiguration der Einteilungparameter
+  \item Starten der Einteilungsberechnung
+  \item Abbrechen der Einteilungsberechnung
+  \item Übersicht über die aktuelle Einteilung (Gütekriterien, ...)
+  \item Manuelle Änderung der Einteilung
+  \item Im- und Export der Einteilung
+\end{itemize}
+
+Wunschfunktionen
+
+\begin{itemize}
+  \item Hochladen einer Liste von Studenten, die zum PSE angemeldet sind und setzen der bestandenen Teilleistungen
+  \item Hinzufügen/Löschen von Studenten und Bearbeitung der Daten
+  \item Hinzufügen von Berechnungen zur Stapelverarbeitung
+\end{itemize}
+
 \section{Produktdaten}
 
 \subsection{Projektdaten} 
@@ -145,6 +196,10 @@ Zu jedem Studierenden sollen folgende Daten gespeichert werden:
 \begin{itemize} 
   \item E-Mail Adresse
   \item Name
+  \item Matrikelnummer
+  \item Semester
+  \item SPO
+  \item bestandene Teilleistungen
   \item Falls keiner Lerngruppe beigetreten: Bewertung, welchem Projekt er oder
   sie am liebsten zugeteiilt würde
   \item Falls einer Lerngruppe beigetreten: Die zugehörige Lerngruppe.
@@ -153,6 +208,7 @@ Zu jedem Studierenden sollen folgende Daten gespeichert werden:
 \begin{itemize} 
   \item Bewertung der Projekte, zu welchem die Lerngruppenmitglieder
   (Studierenden) am liebsten zugeteilt würden.
+  \item Mitglieder der Lerngruppe
 \end{itemize}
 
 \section{Nichtfunktionale Anforderungen}
