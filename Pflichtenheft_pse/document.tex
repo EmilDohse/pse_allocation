@@ -2,7 +2,9 @@
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage[ngerman]{babel}
-\usepackage{paralist}
+\usepackage{enumitem}
+
+\newcommand{\swtLabel}[1]{\textbf{\textbackslash #1\arabic*0\textbackslash}}
 
 \begin{document}
 
@@ -12,17 +14,18 @@
 \author{D. Biester, E.Dohse, P. Faller, P. Loth, L. Seufert, Sam}
         
 \maketitle
-\pagebreak
+ 
 
 \tableofcontents
-\pagebreak
+ 
 
 \section{Zielbestimmung}
 Wissenschaftliche Mitarbeiter des IPD sollen durch das Produkt die Verwaltung
 der Projekte und die Einteilung zur PSE rechnerunterstützt durchzuführen können.
 
+
 \subsection{Musskriterien}
- \begin{enumerate}[{M}1]
+ \begin{enumerate}[label=\swtLabel{M}]
    \item Datenerfassung: Studierende sollen auf einer Internetseite:   
    \begin{itemize}
      \item ihre Kontaktdaten bestehend aus Name und E-mail,
@@ -51,7 +54,7 @@ der Projekte und die Einteilung zur PSE rechnerunterstützt durchzuführen könn
 
 
 \subsection{Wunschkriterien}
-\begin{enumerate}[{W}1]
+\begin{enumerate}[label=\swtLabel{W}]
     \item Möglichkeit des mehrmaligen Wechselns zwischen Lerngruppen und \\
     Einzelbewertungen
     \item Verwaltung von Lerngruppen: Mitgliederverwaltung und Anpassung der
@@ -79,7 +82,7 @@ der Projekte und die Einteilung zur PSE rechnerunterstützt durchzuführen könn
 \end{enumerate}
 
 \subsection{Abgrenzungskriterien}
-\begin{enumerate}[{A}1]
+\begin{enumerate}[label=\swtLabel{A}]
  
   \item Die Produkt ist nicht für die Nutzung außerhalb des KIT's gedacht.
 
@@ -133,7 +136,7 @@ Studierenden zu den Projekten.
 
 Pflichtfunktionen
 
-\begin{itemize}
+\begin{enumerate}[label=\swtLabel{FA}]
   \item Registrierung mit Datenerfassung:
   \begin{itemize}
     \item Name, Matrikelnummer, Email-Adresse, Semester
@@ -145,23 +148,23 @@ Pflichtfunktionen
   \item Bewertung der Themen für die Lerngruppe
   \item Beitritt zu einer Lerngruppe
   \item Übersicht eigene Lerngruppe (Bewertung und Mitglieder)
-\end{itemize}
+\end{enumerate}
 
 \subsection{Betreuerfunktionen}
 
 Wunschfunktionen
 
-\begin{itemize}
+\begin{enumerate}[label=\swtLabel{FA}, resume]
   \item Anmeldung
   \item Erstellung eines Projektes
   \item Ändern der Projektdetails: Name, Beschreibung, Projektbetreuer, minimale und maximale Teilnehmerzahl, Anzahl der Teams
-\end{itemize}
+\end{enumerate}
 
 \subsection{Adminfunktionen}
 
 Pflichtfunktionen
 
-\begin{itemize}
+\begin{enumerate}[label=\swtLabel{FA}, resume]
   \item Anmeldung
   \item Setzen der Anmelde- und Bewertungsdeadline
   \item Konfiguration der Einteilungparameter
@@ -170,30 +173,29 @@ Pflichtfunktionen
   \item Übersicht über die aktuelle Einteilung (Gütekriterien, ...)
   \item Manuelle Änderung der Einteilung
   \item Im- und Export der Einteilung
-\end{itemize}
+\end{enumerate}
 
 Wunschfunktionen
 
-\begin{itemize}
+\begin{enumerate}[label=\swtLabel{FA}, resume]
   \item Hochladen einer Liste von Studenten, die zum PSE angemeldet sind und setzen der bestandenen Teilleistungen
   \item Hinzufügen/Löschen von Studenten und Bearbeitung der Daten
   \item Hinzufügen von Berechnungen zur Stapelverarbeitung
-\end{itemize}
+\end{enumerate}
 
 \section{Produktdaten}
 
 \subsection{Projektdaten} 
 Über ein Projekt sind folgende Daten zu speichern:
-\begin{itemize} 
+\begin{enumerate}[label=\swtLabel{D}] 
   \item Name,
   \item Anzahl der Teams,
   \item Beschreibung,
   \item Namen und E-Mail Adressen der Betreuer
-  \item 
-\end{itemize}
+\end{enumerate}
 \subsection{Studierenden-Daten} 
 Zu jedem Studierenden sollen folgende Daten gespeichert werden:
-\begin{itemize} 
+\begin{enumerate}[label=\swtLabel{D}, resume] 
   \item E-Mail Adresse
   \item Name
   \item Matrikelnummer
@@ -203,13 +205,13 @@ Zu jedem Studierenden sollen folgende Daten gespeichert werden:
   \item Falls keiner Lerngruppe beigetreten: Bewertung, welchem Projekt er oder
   sie am liebsten zugeteiilt würde
   \item Falls einer Lerngruppe beigetreten: Die zugehörige Lerngruppe.
-\end{itemize}
+\end{enumerate}
 \subsection{Lerngruppen-Daten} 
-\begin{itemize} 
+\begin{enumerate}[label=\swtLabel{D}, resume] 
   \item Bewertung der Projekte, zu welchem die Lerngruppenmitglieder
   (Studierenden) am liebsten zugeteilt würden.
   \item Mitglieder der Lerngruppe
-\end{itemize}
+\end{enumerate}
 
 \section{Nichtfunktionale Anforderungen}
 \begin{enumerate}
@@ -227,8 +229,9 @@ Zu jedem Studierenden sollen folgende Daten gespeichert werden:
 
 \subsubsection{Student}
 
-\begin{enumerate}
-  \item[\textbf{\textbackslash S10\textbackslash}] \begin{description}
+\begin{enumerate}[label=\swtLabel{S}]
+	\item
+    \begin{description}
   	\item[Anwendung:] Registrierung eines Studenten
   	\item[Ziel:] Speichern der Studentendaten in der Datenbank
   	\item[Vorbedingung:] Studentenregistrierung wurde freigeschaltet
@@ -237,7 +240,7 @@ Zu jedem Studierenden sollen folgende Daten gespeichert werden:
   	\item[Akteure:] Student
   	\item[Auslösen des Ereignisses:] Student will sich registrieren
   	\item[Beschreibung:]~
-  	\begin{enumerate}[1.]
+  	\begin{enumerate}
   	  \item Öffnen der Internetseite
       \item Klick auf Registrieren
       \item Ausfüllen der Registrierungsmaske
@@ -258,9 +261,10 @@ Zu jedem Studierenden sollen folgende Daten gespeichert werden:
   	  die zweite Registrierung abgebrochen
   	\end{enumerate} 
   \end{description}
-%  \pagebreak
+%   
   
-  \item[\textbf{\textbackslash S20\textbackslash}] \begin{description}
+  \item
+    \begin{description}
     \item[Anwendung:] Verifikation der E-Mail
     \item[Ziel:] Verifikation der E-mail
     \item[Vorbedingung:] Student muss sich registriert haben und seine E-mail
@@ -273,25 +277,25 @@ Zu jedem Studierenden sollen folgende Daten gespeichert werden:
     \item[Auslösen des Ereignisses:] Studenten registrieren sich und werden
     darauf hingewiesn inhre E-mail zu verifizieren.
     \item[Beschreibung:]~
-    \begin{enumerate}[1.]
+    \begin{enumerate}
       \item E-mails über Drittsoftware abrufen.
       \item Klick auf den Verifikations-Link in der E-mail.      
     \end{enumerate}
     \item[Erweiterungen:] -keine-
     \item[Alternativen:] -keine-
       \end{description}
-  \pagebreak
   
-  \item[\textbf{\textbackslash S30\textbackslash}] \begin{description}
-  \item[Anwendung:] Anmeldung eines Studenten
-  \item[Ziel:] Student wird angemeldet und kann seine Bewertungen ändern
+  \item
+    \begin{description}
+    \item[Anwendung:] Anmeldung eines Studenten
+    \item[Ziel:] Student wird angemeldet und kann seine Bewertungen ändern
   	\item[Vorbedingung:] Der Student hat sich vorher registriert
   	\item[Nachbedingung(Erfolg):] Der Student ist angemeldet
   	\item[Nachbedingung(Fehlschlag):] Der Student ist nicht angemeldet
   	\item[Akteure:] Student
   	\item[Auslösen des Ereignisses:] Student will sich anmelden
   	\item[Beschreibung:]~
-  	\begin{enumerate}[1.]
+  	\begin{enumerate}
   	  \item Student öffnet die Website
   	  \item Student füllt das Formular zum Anmelden aus und schickt dieses ab
   	  \item Sind die Anmeldedaten korrekt, so wird der Student zur Studentensicht
@@ -306,9 +310,10 @@ Zu jedem Studierenden sollen folgende Daten gespeichert werden:
   	  \item[3a)] Wenn nicht, so erhält er eine Fehlermeldung
   	\end{enumerate}
   \end{description}
-  \pagebreak
+   
   
-  \item[\textbf{\textbackslash S40\textbackslash}] \begin{description}
+  \item
+  \begin{description}
   \item[Anwendung:] Student erstellt Lerngruppe
   \item[Ziel:] Eine neue Lerngruppe ist in der Datenbank vermerkt und der Ersteller ist erstes Mitglied dieser
   	\item[Vorbedingung:] Student ist angemeldet und befindet sich auf der Website im Studentenportal
@@ -317,7 +322,7 @@ Zu jedem Studierenden sollen folgende Daten gespeichert werden:
   	\item[Akteure:] Student
   	\item[Auslösen des Ereignisses:] Wille des Studenten
   	\item[Beschreibung:]~
-  	\begin{enumerate}[1.]
+  	\begin{enumerate}
   	  \item Student gibt Name und Passwort in das Formular zum Erstellen einer
   	  Lerngruppe ein und schickt dieses ab
   	  \item Wenn noch keine Lerngruppe mit diesem Namen existiert, so wird die
@@ -330,9 +335,10 @@ Zu jedem Studierenden sollen folgende Daten gespeichert werden:
   	  keine weitere Lerngruppe angelegt und dem Studenten wird mitgeteilt, dass er den Namen der Lerngruppe verändern soll
   	 \end{enumerate}  
   \end{description}
-  \pagebreak
+   
   
-  \item[\textbf{\textbackslash S50\textbackslash}] \begin{description}
+  \item
+  \begin{description}
   \item[Anwendung:] Student tritt Lerngruppe bei
   \item[Ziel:] Student ist Mitglied einer Lerngruppe
   	\item[Vorbedingung:] Student ist angemeldet und befindet sich auf der Website im Studentenportal
@@ -342,7 +348,7 @@ Zu jedem Studierenden sollen folgende Daten gespeichert werden:
   	\item[Akteure:] Student
   	\item[Auslösen des Ereignisses:] Der Student will einer Lerngruppe beitreten
   	\item[Beschreibung:]~
-  	\begin{enumerate}[1.]
+  	\begin{enumerate}
   	  \item Der Student gibt die Anmeldedaten der Lerngruppe in das passende
   	  Formular ein und schickt dieses ab
   	  \item Existiert die angegebene Lerngruppe, so wird die Mitgliederliste
@@ -362,9 +368,10 @@ Zu jedem Studierenden sollen folgende Daten gespeichert werden:
   	  der Student ist kein Mitglied der Lerngruppe
   	 \end{enumerate}  
   \end{description}
-  \pagebreak
+%   
   
-  \item[\textbf{\textbackslash S60\textbackslash}] \begin{description}
+  \item
+  \begin{description}
   \item[Anwendung:] Student bewertet Projekte
   \item[Ziel:] Der Student hat eine Bewertung abgegeben
   	\item[Vorbedingung:] Der Student ist angemeldet und im Studentenportal der Website
@@ -373,16 +380,17 @@ Zu jedem Studierenden sollen folgende Daten gespeichert werden:
   	\item[Akteure:] Student
   	\item[Auslösen des Ereignisses:] Des Studentens Wille
   	\item[Beschreibung:]~
-  	 \begin{enumerate}[1.]
+  	 \begin{enumerate}
   	   \item Der Student füllt die Bewertungsmaske aus
   	   \item Der Student speichert die Bewertung ab
   	 \end{enumerate}
   	\item[Erweiterungen:] -keine-
   	\item[Alternativen:] -keine-
   \end{description}
-  \pagebreak
+   
   
-  \item[\textbf{\textbackslash S70\textbackslash}] \begin{description}
+  \item
+  \begin{description}
   \item[Anwendung:] Student bewertet Projekte für eine Lerngruppe
   \item[Ziel:] Die Lerngruppe assoziiert mit dem Studenten hat eine Bewertung abgegeben
   	\item[Vorbedingung:] Der Student ist als Leiter einer Lerngruppe angemeldet
@@ -393,16 +401,17 @@ Zu jedem Studierenden sollen folgende Daten gespeichert werden:
   	\item[Akteure:] Student
   	\item[Auslösen des Ereignisses:] Des Studentens Wille
   	\item[Beschreibung:]~
-  	 \begin{enumerate}[1.]
+  	 \begin{enumerate}
   	   \item Der Student füllt die Bewertungsmaske aus
   	   \item Der Student schließt die Bewertung ab
   	 \end{enumerate}
   	\item[Erweiterungen:] -keine-
   	\item[Alternativen:] -keine-
   \end{description}
-  \pagebreak
+   
   
-  \item[\textbf{\textbackslash S80\textbackslash}] \begin{description}
+  \item
+    \begin{description}
   	\item[Anwendung:] Passwort vergessen
   	\item[Ziel:] Erhalten des Passworts
   	\item[Vorbedingung:] Der Student hat schon einen Account
@@ -412,7 +421,7 @@ Zu jedem Studierenden sollen folgende Daten gespeichert werden:
   	\item[Akteure:] Student
   	\item[Auslösen des Ereignisses:] Student hat sein Passwort vergessen
   	\item[Beschreibung:]~
-  	\begin{enumerate}[1.]
+  	\begin{enumerate}
   	  \item Öffnen der Internetseite
       \item Klick auf "Passwort vergessen"
       \item Eingabe der E-Mail Adresse
@@ -421,12 +430,12 @@ Zu jedem Studierenden sollen folgende Daten gespeichert werden:
   	\item[Erweiterungen:] -keine-
   	\item[Alternativen:] -keine-
   \end{description}
-  \pagebreak
+   
 \end{enumerate}
 
 \subsubsection{Betreuer}
-\begin{enumerate}  
-  \item[\textbf{\textbackslash B10\textbackslash}] 
+\begin{enumerate} [label=\swtLabel{B}]
+  \item
 	 \begin{description}
 		\item[Anwendung:] Betreuer meldet sich an
   		\item[Ziel:] Anmeldung des Betreuers
@@ -436,7 +445,7 @@ Zu jedem Studierenden sollen folgende Daten gespeichert werden:
   		\item[Akteure:] Betreuer
   		\item[Auslösen des Ereignisses:] Betreuer möchte sich anmelden
   		\item[Beschreibung]~
-  		\begin{enumerate}[1.]
+  		\begin{enumerate}
   			\item Der Betreuer gibt seine Zugangsdaten ein
   			\item Wenn die Anmeldedaten korrekt sind, wird er auf die Betreueransich
   			weitergeleitet
@@ -447,9 +456,9 @@ Zu jedem Studierenden sollen folgende Daten gespeichert werden:
   		  \item[2a)] Wenn nicht, erhält er eine Fehlermeldung
   		\end{enumerate}  
   	\end{description}
-  \pagebreak
+   
   
-  \item[\textbf{\textbackslash B20\textbackslash}]
+  \item
 	\begin{description}
   		\item[Anwendung:] Thema erstellen/ändern
   		\item[Ziel:] Eröffnung/Änderung eines PSE-Themas
@@ -461,7 +470,7 @@ Zu jedem Studierenden sollen folgende Daten gespeichert werden:
   		\item[Auslösen des Ereignisses:] Betreuer möchte ein PSE-Thema ins System
   		einfügen/ändern.
   		\item[Beschreibung:]~
-  	\begin{enumerate}[1.]
+  	\begin{enumerate}
   	  \item Betreuer befindet sich auf der Website mit den PSE-Themen
   	  \item Existiert das Thema schon, so wählt der Betreuer dieses aus
   	  \item Betreuer füllt die Eingabemaske aus
@@ -474,8 +483,8 @@ Zu jedem Studierenden sollen folgende Daten gespeichert werden:
   	\end{enumerate}  
   \end{description}
 
-\pagebreak
-  \item[\textbf{\textbackslash B30\textbackslash}]
+ 
+  \item
 	\begin{description}
   		\item[Anwendung:] Gruppenbetreuer werden
   		\item[Ziel:] Betreuer einer bestimmten Gruppe werden
@@ -487,7 +496,7 @@ Zu jedem Studierenden sollen folgende Daten gespeichert werden:
   		\item[Auslösen des Ereignisses:] Betreuer möchte sich einer Gruppe
   		zuordnen
   		\item[Beschreibung:]~
-  	\begin{enumerate}[1.]
+  	\begin{enumerate} 
   	  \item Betreuer befindet sich auf der Website mit den PSE-Gruppen
   	  \item Betreuer wählt die Gruppe aus, welcher er betreuen möchte
   	  \item Betreuer tritt der Gruppe bei
@@ -495,9 +504,9 @@ Zu jedem Studierenden sollen folgende Daten gespeichert werden:
   	\item[Erweiterungen:] -keine-
   	\item[Alternativen:] -keine-
   \end{description}
-  \pagebreak
+   
   
-  \item[\textbf{\textbackslash B40\textbackslash}]
+  \item
 	\begin{description}
   		\item[Anwendung:] Gruppe verlassen
   		\item[Ziel:] Eine Gruppe nicht mehr betreuen
@@ -508,7 +517,7 @@ Zu jedem Studierenden sollen folgende Daten gespeichert werden:
   		\item[Akteure:] Betreuer
   		\item[Auslösen des Ereignisses:] Betreuer möchte aus Gruppe austreten.
   		\item[Beschreibung:]~
-  	\begin{enumerate}[1.]
+  	\begin{enumerate} 
   	  \item Betreuer befindet sich auf der Website mit den PSE-Gruppen, die er
   	  betreut.
   	  \item Betreuer wählt die Gruppe aus, welche er verlassen möchte.
@@ -517,9 +526,10 @@ Zu jedem Studierenden sollen folgende Daten gespeichert werden:
   	\item[Erweiterungen:] -keine-
   	\item[Alternativen:] -keine-
   \end{description}
-  \pagebreak
+   
   
-  \item[\textbf{\textbackslash B50\textbackslash}] \begin{description}
+  \item
+    \begin{description}
   	\item[Anwendung:] Noten für Gruppenteilnehmer eintragen
   	\item[Ziel:] Speichern der Noten in der Datenbank
   	\item[Vorbedingung:] Gruppe hat Studenten als Teilnehmer
@@ -528,20 +538,21 @@ Zu jedem Studierenden sollen folgende Daten gespeichert werden:
   	\item[Akteure:] Betreuer
   	\item[Auslösen des Ereignisses:] Betreuer möchte Noten eintragen
   	\item[Beschreibung:]~
-  	\begin{enumerate}[1.]
+  	\begin{enumerate} 
   	  \item Betreuer befindet sich auf der Website mit der Notenübersicht
   	  \item Betreuer trägt neue Noten für eine beliebige Phase ein oder ändert bestehende Noten.
   	\end{enumerate}
   	\item[Erweiterungen:] -keine-
   	\item[Alternativen] -keine-
   \end{description}
-  \pagebreak
+   
 \end{enumerate}
 
 
 \subsubsection{Administrator}
-\begin{enumerate}  
-  \item[\textbf{\textbackslash A10\textbackslash}] \begin{description}
+\begin{enumerate} [label=\swtLabel{A}]
+  \item
+    \begin{description}
   	\item[Anwendung:] Hinzufügen/Ändern eines Projekts
   	\item[Ziel:] Einfügen/Änderung von Projektdaten in der Datenbank
   	\item[Vorbedingung:] -keine-
@@ -551,7 +562,7 @@ Zu jedem Studierenden sollen folgende Daten gespeichert werden:
   	\item[Auslösen des Ereignisses:] Administrator bekommt Projektdaten von einem
   	Institut\\ vorgelegt
   	\item[Beschreibung:]~
-  	\begin{enumerate}[1.]
+  	\begin{enumerate} 
   	  \item Projektübersicht öffnen
   	  \item Wenn das Projekt schon existiert, so werden die Projektdaten
   	  verglichen
@@ -567,9 +578,10 @@ Zu jedem Studierenden sollen folgende Daten gespeichert werden:
   	  \item[3a)] Falls doch, so ist dieser Anwendungsfall abgeschlossen
   	\end{enumerate} 
   \end{description}
-  \pagebreak
+   
   
-  \item[\textbf{\textbackslash A20\textbackslash}] \begin{description}
+  \item
+  \begin{description}
   \item[Anwendung:] Löschen eines Projekts
   \item[Ziel:] Löschen eines Projekts in die Datenbank
   	\item[Vorbedingung:] Projekt existiert bereits in der Datenbank
@@ -579,7 +591,7 @@ Zu jedem Studierenden sollen folgende Daten gespeichert werden:
   	\item[Auslösen des Ereignisses:] Institut zieht ein Projekt zurück oder es
   	fehlen Daten bei Beginn der Einteilung
   	\item[Beschreibung:]~
-  	\begin{enumerate}[1.]
+  	\begin{enumerate} 
   	  \item Projektübersicht öffnen
   	  \item Projekt aus Liste entfernen
   	  \item Projektdaten werden aus der Datenbank entfernt
@@ -587,9 +599,10 @@ Zu jedem Studierenden sollen folgende Daten gespeichert werden:
   	\item[Erweiterungen:] -keine-
   	\item[Alternativen:] -keine-
   \end{description}
-  \pagebreak
+   
   
-  \item[\textbf{\textbackslash A30\textbackslash}] \begin{description}
+  \item
+  \begin{description}
   \item[Anwendung:] Teameinteilung
   \item[Ziel:] Finden einer Teameinteilung nach ausgewählten Parametern
   	\item[Vorbedingung:] Alle Projekte in der Datenbank sind vollständig
@@ -599,7 +612,7 @@ Zu jedem Studierenden sollen folgende Daten gespeichert werden:
   	\item[Auslösen des Ereignisses:] Entscheidung des Administrators bzw.
   	zeitliche Deadline
   	\item[Beschreibung:]~
-  	\begin{enumerate}[1.]
+  	\begin{enumerate} 
   	  \item Einstellen der Parameter nach den eingeteilt werden soll
   	  \item Starten der Berechnung über Schaltfläche
   	  \item Sind alle Projekte vollständig angegeben, so startet die Berechnung
@@ -615,9 +628,10 @@ Zu jedem Studierenden sollen folgende Daten gespeichert werden:
   	  möglich. Dies wird im Ergebnis vermerkt.
   	 \end{enumerate}  
   \end{description}
-  \pagebreak
+   
   
-  \item[\textbf{\textbackslash A40\textbackslash}] \begin{description}
+  \item
+  \begin{description}
   \item[Anwendung:] Finale Auswahl der Einteilung
   \item[Ziel:] Finden der bestmöglichen Teameinteilung
   	\item[Vorbedingung:] Es wurde mindestens eine Berechnung durchgeführt
@@ -627,7 +641,7 @@ Zu jedem Studierenden sollen folgende Daten gespeichert werden:
   	\item[Auslösen des Ereignisses:] Entscheidung des Administrators bzw.
   	zeitliche Deadline
   	\item[Beschreibung:]~
-  	\begin{enumerate}[1.]
+  	\begin{enumerate} 
   	  \item Der Administrator wählt eine der berechneten Einteilung final aus
   	  \item Wurde ein Student zugewiesen, so wird seinem Datenbankeintrag sein
   	  Team hinzugefügt
@@ -643,9 +657,10 @@ Zu jedem Studierenden sollen folgende Daten gespeichert werden:
   	  Datenbank vermerkt
   	 \end{enumerate}  
   \end{description}
-  \pagebreak
+   
   
-  \item[\textbf{\textbackslash A50\textbackslash}] \begin{description}
+  \item
+  \begin{description}
   \item[Anwendung:] Einteilung eines Studenten
   \item[Ziel:] Manuelle Einteilung eines Studenten
   	\item[Vorbedingung:] Automatische Teameinteilung ist abgeschlossen
@@ -654,7 +669,7 @@ Zu jedem Studierenden sollen folgende Daten gespeichert werden:
   	\item[Akteure:] Administrator, Student
   	\item[Auslösen des Ereignisses:] Student meldet sich beim Administrator
   	\item[Beschreibung:]~
-  	 \begin{enumerate}[1.]
+  	 \begin{enumerate} 
   	   \item Wenn sich der Student noch nicht im System befindet überprüft der
   	   Administrator, ob die Anforderungen für das PSE erfüllt sind
   	   \item Hat der Student die Anforderungen erfüllt, so versucht der
@@ -675,9 +690,10 @@ Zu jedem Studierenden sollen folgende Daten gespeichert werden:
   	  zugeteilt und dieser Fall ist abgeschlossen
   	 \end{enumerate}  
   \end{description}
-  \pagebreak
+   
   
-  \item[\textbf{\textbackslash A60\textbackslash}] \begin{description}
+  \item
+  \begin{description}
   \item[Anwendung:] Erstellen eines Betreueraccounts
   \item[Ziel:] Hinzufügen eines Betreuers in das System
   	\item[Vorbedingung:] -keine-
@@ -686,7 +702,7 @@ Zu jedem Studierenden sollen folgende Daten gespeichert werden:
   	\item[Akteure:] Administrator
   	\item[Auslösen des Ereignisses:] Betreuer benötigt Account
   	\item[Beschreibung:]~
-  	 \begin{enumerate}[1.]
+  	 \begin{enumerate} 
   	   \item Der Administrator öffnet die Maske zum Erstellen eines
   	   Betreueraccounts
   	   \item Der Administrator füllt die Maske aus und schickt sie ausgefüllt ab
@@ -702,7 +718,7 @@ Zu jedem Studierenden sollen folgende Daten gespeichert werden:
   	  \item[3a)] Falls doch, so wird eine Fehlermeldung angezeigt
   	 \end{enumerate}  
   \end{description}
-  \pagebreak
+  
 \end{enumerate}  
 \subsection{Objektmodelle}
 
