@@ -7,7 +7,6 @@
 \makeglossaries
 \newcommand{\swtLabel}[1]{\textbf{\textbackslash #1\arabic*0\textbackslash}}
 
-
 \newglossaryentry{PSE}{name=Praxis der Softwareentwicklung,
                         description={Im PSE lernen die Teilnehmer, ein
                         vollständiges Softwareprojekt nach dem Stand der
@@ -15,78 +14,98 @@
                         durchzuführen. Ziel ist es insbesondere, Verfahren des
                         Software-Entwurfs und der Qualitätssicherung praktisch
                         einzusetzen, Implementierungskompetenz umzusetzen, und
-                        arbeitsteilig im Team zu kooperieren.  }}
+                        arbeitsteilig im Team zu kooperieren.}}
+                      
+\newglossaryentry{Lerngruppe}{name=Lerngruppe,
+description={%TODO Text
+}, plural=Lerngruppen}
+\newglossaryentry{Guetekriterium}{name=Gütekriterium,
+plural=Güutekriterien,description={%TODO Text
+}}
+\newglossaryentry{Projekt}{name=Projekt,
+plural=Projekte, description={%TODO Text
+}}
+\newglossaryentry{Projektbetreuer}{name=Projektbetreuer,
+plural=Projektbetreuer, description={%TODO Text
+}}
+\newglossaryentry{Admin}{name=Administrator,
+plural=Administratoren, description={%TODO Text
+}}
+\newglossaryentry{Studierender}{name=Studierender,
+plural=Studierende, description={%TODO Text
+}}
+
 \begin{document}
 
 \title{Pflichtenheft \\
         \large Automatische Einteilung für das PSE}
 
-\author{D. Biester, E.Dohse, P. Faller, P. Loth, L. Seufert, Sam}
+\author{D. Biester, E. Dohse, P. Faller, P. Loth, L. Seufert, S. Kopmann}
         
 \maketitle
  
-
+\pagebreak
 \tableofcontents
- 
+\pagebreak
 
 \section{Zielbestimmung}
-Wissenschaftliche Mitarbeiter des IPD sollen durch das Produkt die Verwaltung
-der Projekte und die Einteilung zur \gls{PSE} rechnerunterstützt durchzuführen
-können.
+Die Einteilung der Studierenden zu Teams für das \gls{PSE} soll durch das Produkt
+rechnerunterstützt durchfürbar sein.
 
 
 \subsection{Musskriterien}
  \begin{enumerate}[label=\swtLabel{M}]
    \item Datenerfassung: Studierende sollen auf einer Internetseite:   
    \begin{itemize}
-     \item ihre Kontaktdaten bestehend aus Name und E-mail,
-     \item ihre Lerngruppen von 2 bis 6 Personen,
-     \item ihre Themenvorlieben 
+     \item ihre Daten, %TODO: Verweis     
+     \item ihre Themenvorlieben, 
      \item sowie ihre erbrachten Studienleistungen 
+     \item und gegebenenfalls ihre \glspl{Lerngruppe}
    \end{itemize}
-   in das System eingeben können.
-   \item Einteilung: Das Problem der Zuteilung von Studierenden zu PSE-Teams
-   soll geeignet modelliert und gelöst werden. 
+   in das Produkt eingeben können.
+   \item Das Produkt teilt nach folgenden Kriterien Studierende Teams zu.
    \begin{itemize}
      \item Wer die Voraussetzungen nicht erfüllt wird nicht eingeteilt
      \item Lerngruppen sollten zusammenbleiben.
      \item Präferenzen der Studierenden berücksichtigen.
    \end{itemize}
-   \item Abbrechen der Berechnung der Zuteilung möglich (manuell oder Timeout)
-   \item Nachjustieren der Einteilung “von Hand”
-   \item Berechnung von Gütekriterien (Studierenden-Happiness,
-   Anteil-Nicht-Eingeteilter, etc.)
-   \item Export/Import der Aus- und Eingabe der Studierendendaten und
-   Einteilung(en)
-   \item Möglichkeit der sukzessiven Eintragung von angebotenen Themen und
-   Anzahl der Plätze und Teams, durch die jeweiligen Projektleiter
-   \item GUI zur einfacheren Bedienung    
+   
+   \item Manuelles Nachjustieren der Einteilung
+   \item Berechnung von \glspl{Guetekriterium}
+   \item Export/Import der Studierendendaten und
+   Einteilungen %TODO: formulierung 
+   \item Möglichkeit der sukzessiven Eintragung von \glspl{Projekt}n
+   \item Webinterface   
  \end{enumerate}
 
 
 \subsection{Wunschkriterien}
 \begin{enumerate}[label=\swtLabel{W}]
-    \item Möglichkeit des mehrmaligen Wechselns zwischen Lerngruppen und \\
-    Einzelbewertungen
-    \item Verwaltung von Lerngruppen: Mitgliederverwaltung und Anpassung der
-    Gruppengröße
+  \item Abbrechen der Berechnung der Zuteilung möglich 
+    \item Wechsel zwischen Lerngruppen und 
+    Einzelbewertungen möglich %TODO formulierung
+    \item Verwaltung von Lerngruppen durch Studierende
     \item Wunschkriterien zur Lösung des Problems der Einteilung:
     \begin{itemize}
         \item Eher 5er Teams als 6er Teams
         \item Möglichst gleiche Semester im Team.
-        \item Studierende bevorzugen, die bereits mehr Sachen aus dem ersten Jahr
-        bestanden haben. (über die Voraussetzungen hinaus, z.B. Algo)
+        \item Studierende bevorzugen, die bereits mehr Teilleistungen aus dem
+        ersten Jahr bestanden haben.
     \end{itemize}    
     \item Authentifizierung via Shibboleth
-    \item Benachrichtigung der Studierenden und Mitarbeiter über Einteilung
+    \item Benachrichtigung der Studierenden und Mitarbeiter über die Einteilung
     \item Verwaltung mehrerer Einteilungsergebnisse
-    \item Erweiterbarkeit bzgl. “Betreuer-Sicht”: Themenerfassung, -pflege und Notenerfassung
-    \item Nachjustierbarkeit bei Änderungen, z.B. der SPO.
+    \item Mögloichklkeit der Verwaltung der Projekte durch die Betreuer  %TODO:
+    % formulierung
+    \item Nachjustierbarkeit bei Änderungen der SPO %TODO: überlegen ob
+    % Pflichtkriterium: mehrere SPOs verwalten.
     \item Verwaltung über mehrere Semester hinweg
     \item Anzeige der Projekt-Details für Studenten
-    \item Stapelsystem zur Berechnungen verschiedener Einteilungen mit unterschiedlichen Konfigurationen.
+    \item Stapelverarbeitung zur Berechnungen verschiedener Einteilungen mit
+    unterschiedlichen Konfigurationen
     \item Verifikation der E-Mail-Adresse
-    \item Handhabung von Formularen des Campus Management Portals
+    \item Datenabgleich mit Campus Management System %TODO:
+    % detail csv?
     
     
     
@@ -95,50 +114,68 @@ können.
 \subsection{Abgrenzungskriterien}
 \begin{enumerate}[label=\swtLabel{A}]
  
-  \item Die Produkt ist nicht für die Nutzung außerhalb des KIT's gedacht.
+  \item Das Produkt ist nicht für die Nutzung außerhalb des KIT's bestimmt
 
-\item Die Einteilungsfunktion ist nur für die Einteilung zum PSE gedacht, nicht
+\item Die Einteilungsfunktion ist nur für die Einteilung zum PSE, nicht
 für die Vergabe sonstiger Praktikums- oder Tutorienplätze.
   
 \end{enumerate}
 \section{Produkteinsatz}
-\begin{itemize}
-  \item Das Produkt dient zur Einpflegung von Projekten und zur Zuteilung von
+%Wissenschaftliche Mitarbeiter sollen durch das Produkt die Verwaltung der Pro-
+%jekte und die Einteilung zur Praxis der Softwareentwicklung rechnerunterstützt
+% durch-
+%zuführen können.
+%TODO formulierung
+Das Produkt dient zur Einpflegung von Projekten und zur Zuteilung von
 Studierenden zu den Projekten.
-\end{itemize}
+
 
 \subsection{Anwendungsbereiche}
 
 \begin{itemize} 
-  \item Anwendung im Universitären Bereich. 
+  \item Anwendung im Universitären Bereich. %TODO Detail
 \end{itemize}
 
 \subsection{Zielgruppe}
 \begin{itemize} 
-  \item Studierende 
-  \item Mitarbeiter des IPD 
+  \item \glspl{Studierender}
+  \item \gls{Projektbetreuer}
+  \item \gls{Admin}
 \end{itemize}
 
 \subsection{Betriebsbedingungen}
 \begin{itemize} 
-  \item Der Betrieb erfolgt über eine Web-Schnittstelle.
+  \item Zugriff über eine Internetseite
 \end{itemize}
 \section{Produktumgebung}
 \begin{itemize} 
-  \item Das Produkt läuft auf einem Server des IPD.
+  \item Das Produkt läuft auf einem weltweit erreichbaren Webserver
 \end{itemize}
-\subsection{Software}
+\subsection{Server-Software}
 \begin{itemize} 
-  \item Betriebssystem: Linux 64Bit
-  \item ILP- Solver Gurobi
-  \item Play - Framework
+  \item Apache-Webserver (HTTP,SMTP)
+  \item MySQL-Server
+  \item ILP-Solver Gurobi %TODO lizens
 \end{itemize}
-\subsection{Hardware}
+\subsection{Server-Hardware}
+Mindestens:
 \begin{itemize} 
   \item 16 GB Ram
   \item Intel I7 Quadcore mit 4 weiterne virtuellen Kernen 
+  %TODO nachfragen was hier noch gebraucht wird
 \end{itemize}
 // hier überlegen ob man noch Orgware und Produkt-Schnittstellen dazu noimmt
+
+\subsection{Client-Software}
+\begin{itemize}
+  \item Chome Version 54
+  \item Firefox Version 50
+\end{itemize}
+oder neuer
+\subsection{Client-Hardware}
+\begin{itemize}
+  \item Heim-PC mit Internetzugang
+\end{itemize}
 \section{Funktionale Anforderungen}
 
 \subsection{Funktionsübersicht}
@@ -196,7 +233,7 @@ Wunschfunktionen
 
 \section{Produktdaten}
 
-\subsection{Projektdaten} 
+\subsection{Projekt-Daten} 
 Über ein Projekt sind folgende Daten zu speichern:
 \begin{enumerate}[label=\swtLabel{D}] 
   \item Name,
