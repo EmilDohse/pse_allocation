@@ -12,6 +12,8 @@
 *.gz
 *.glo
 *.ist
+*.gls
+*.ilg
 
 # Eclipse
 
