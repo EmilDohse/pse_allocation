@@ -66,7 +66,7 @@ rechnerunterstützt durchfürbar sein.
      \item und gegebenenfalls ihre \glspl{Lerngruppe}
    \end{itemize}
    in das Produkt eingeben können.
-   \item Das Produkt teilt nach folgenden Kriterien Studierende Teams zu.
+   \item Das Produkt teilt nach folgenden Kriterien Studierenden Teams zu.
    \begin{itemize}
      \item Wer die Voraussetzungen nicht erfüllt wird nicht eingeteilt
      \item Lerngruppen sollten zusammenbleiben.
@@ -98,7 +98,7 @@ rechnerunterstützt durchfürbar sein.
     \item Authentifizierung via Shibboleth
     \item Benachrichtigung der Studierenden und Mitarbeiter über die Einteilung
     \item Verwaltung mehrerer Einteilungsergebnisse
-    \item Mögloichklkeit der Verwaltung der Projekte durch die Betreuer  %TODO:
+    \item Möglichkeit der Verwaltung der Projekte durch die Betreuer  %TODO:
     % formulierung
     \item Nachjustierbarkeit bei Änderungen der SPO %TODO: überlegen ob
     % Pflichtkriterium: mehrere SPOs verwalten.
@@ -188,7 +188,7 @@ oder neuer
 Pflichtfunktionen
 
 \begin{enumerate}[label=\swtLabel{FA}]
-  \item Registrierung mit Datenerfassung:
+  \item Registrierung eines Studierenden mit Datenerfassung:
   \begin{itemize}
     \item Name, Matrikelnummer, Email-Adresse, Semester
     \item Auswahl bestandener Teilleistungen und der SPO
@@ -201,6 +201,14 @@ Pflichtfunktionen
   \item Übersicht eigene Lerngruppe (Bewertung und Mitglieder)
 \end{enumerate}
 
+Wunschfunktionen
+
+\begin{enumerate}[label=\swtLabel{FA}, resume]
+	\item Studierende aus der Lerngruppe entfernen
+	% TODO Was ist noch mit W30 gemeint?
+	\item Anzeigen von Projektbeschreibung in Bewertungseingabemaske
+\end{enumerate}
+
 \subsection{Betreuerfunktionen}
 
 Wunschfunktionen
@@ -208,7 +216,9 @@ Wunschfunktionen
 \begin{enumerate}[label=\swtLabel{FA}, resume]
   \item Anmeldung
   \item Erstellung eines Projektes
-  \item Ändern der Projektdetails: Name, Beschreibung, Projektbetreuer, minimale und maximale Teilnehmerzahl, Anzahl der Teams
+  \item Ändern der Projektdetails: Name, Beschreibung, Projektbetreuer,
+        minimale und maximale Teilnehmerzahl, Anzahl der Teams
+  \item Einsehen der Einteilung zu eigenen Projekten
 \end{enumerate}
 
 \subsection{Adminfunktionen}
@@ -218,21 +228,34 @@ Pflichtfunktionen
 \begin{enumerate}[label=\swtLabel{FA}, resume]
   \item Anmeldung
   \item Initialisierung
-  \item Setzen der Anmelde- und Bewertungsdeadline
-  \item Konfiguration der Einteilungparameter
+  \item Setzten der frühest möglichen Anmeldezeit
+  \item Setzen der Bewertungsdeadline
+  \item Konfiguration der Einteilungsparameter
   \item Starten der Einteilungsberechnung
-  \item Abbrechen der Einteilungsberechnung
-  \item Übersicht über die aktuelle Einteilung (Gütekriterien, ...)
-  \item Manuelle Änderung der Einteilung
-  \item Im- und Export der Einteilung
+  \item Übersicht über die aktuelle Einteilung
+  \item Auswertung der Gütekriterien anzeigen
+  \item Studierende aus Projektgruppe entfernen
+  \item Studierende zu Projektgruppe hinzufügen
+  \item Import einer Einteilung
+  \item Export einer Einteilung
+  \item Erstellung eines Projektes
+  \item Ändern der Projektdetails: Name, Beschreibung, Projektbetreuer, 
+        minimale und maximale Teilnehmerzahl, Anzahl der Teams 
 \end{enumerate}
 
 Wunschfunktionen
 
 \begin{enumerate}[label=\swtLabel{FA}, resume]
-  \item Hochladen einer Liste von Studenten, die zum PSE angemeldet sind und setzen der bestandenen Teilleistungen
-  \item Hinzufügen/Löschen von Studenten und Bearbeitung der Daten
+  \item Abbrechen der Einteilungsberechnung
+  \item Hochladen einer Liste von Studenten, die zum PSE angemeldet sind
+	    und automatisches setzen der bestandenen Teilleistungen
+  %TODO Was ist damit gemeint? \item Hinzufügen/Löschen von Studenten
+  %und Bearbeitung der Daten
   \item Hinzufügen von Berechnungen zur Stapelverarbeitung
+  \item Hinzufügen wählbarer Teilleistungen zu SPO
+  \item Entfernen wählbarer Teilleistungen zu SPO
+  \item Benachrichtigen der Studierenden und Projektbetreuer über die Einteilung per E-Mail
+  %%TODO W70 und W100 Was genau soll man können?
 \end{enumerate}
 
 \section{Produktdaten}
@@ -255,7 +278,7 @@ Zu jedem Studierenden sollen folgende Daten gespeichert werden:
   \item SPO
   \item bestandene Teilleistungen
   \item Falls keiner Lerngruppe beigetreten: Bewertung, welchem Projekt er oder
-  sie am liebsten zugeteiilt würde
+  sie am liebsten zugeteilt werden würden
   \item Falls einer Lerngruppe beigetreten: Die zugehörige Lerngruppe.
 \end{enumerate}
 \subsection{Lerngruppen-Daten} 
