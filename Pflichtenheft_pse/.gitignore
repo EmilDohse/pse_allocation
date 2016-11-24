@@ -10,6 +10,8 @@
 *.log
 *.pdf
 *.gz
+*.glo
+*.ist
 
 # Eclipse
 
