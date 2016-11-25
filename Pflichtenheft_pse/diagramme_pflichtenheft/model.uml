@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_ZzYHAK2iEeaaAJCLjurBUg" name="RootElement">
+  <ownedComment xmi:type="uml:Comment" xmi:id="_Pd8t0LKQEeanqJfijlcpVA">
+    <body>Server
+</body>
+  </ownedComment>
   <packagedElement xmi:type="uml:Activity" xmi:id="_nlhBMK2iEeaaAJCLjurBUg" name="PSE-Einteilung" useCase="_3DkqoK2iEeaaAJCLjurBUg _ArQ9oK2jEeaaAJCLjurBUg _Y1LrEK4_EeaaAJCLjurBUg _nzCxgK4_EeaaAJCLjurBUg _BBk2gK5AEeaaAJCLjurBUg _mxh0sK5AEeaaAJCLjurBUg _iMXyAK5BEeaaAJCLjurBUg _o-_8YK5BEeaaAJCLjurBUg">
     <ownedUseCase xmi:type="uml:UseCase" xmi:id="_3DkqoK2iEeaaAJCLjurBUg" name="Anmelden" subject="_nlhBMK2iEeaaAJCLjurBUg"/>
     <ownedUseCase xmi:type="uml:UseCase" xmi:id="_ArQ9oK2jEeaaAJCLjurBUg" name="Projekt Anbieten" visibility="public" subject="_nlhBMK2iEeaaAJCLjurBUg"/>
@@ -76,4 +80,32 @@
     <ownedEnd xmi:type="uml:Property" xmi:id="_tg4MIK5BEeaaAJCLjurBUg" name="admin" type="_vgYmAK2iEeaaAJCLjurBUg" association="_tg3lEK5BEeaaAJCLjurBUg"/>
     <ownedEnd xmi:type="uml:Property" xmi:id="_tg4MIa5BEeaaAJCLjurBUg" name="einteilung exportieren/importieren" type="_nlhBMK2iEeaaAJCLjurBUg" association="_tg3lEK5BEeaaAJCLjurBUg"/>
   </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_BKARoLKREeanqJfijlcpVA" name="Server" visibility="private">
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_hfX2crKREeanqJfijlcpVA" name="datenbank" type="_Bl3HMLKREeanqJfijlcpVA" association="_hfXPYLKREeanqJfijlcpVA"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_Bl3HMLKREeanqJfijlcpVA" name="Datenbank"/>
+  <packagedElement xmi:type="uml:Class" xmi:id="_CIprMLKREeanqJfijlcpVA" name="Webinterface"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_gfNZ8LKREeanqJfijlcpVA" visibility="package" memberEnd="_gfRrYLKREeanqJfijlcpVA _gfUHoLKREeanqJfijlcpVA" navigableOwnedEnd="_gfRrYLKREeanqJfijlcpVA _gfUHoLKREeanqJfijlcpVA">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_gfQdQLKREeanqJfijlcpVA" source="org.eclipse.papyrus">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_gfREULKREeanqJfijlcpVA" key="nature" value="UML_Nature"/>
+    </eAnnotations>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_gfUHoLKREeanqJfijlcpVA" name="klient" type="_CIprMLKREeanqJfijlcpVA" association="_gfNZ8LKREeanqJfijlcpVA">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_5X6_8LKREeanqJfijlcpVA"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_5YOh8LKREeanqJfijlcpVA" value="*"/>
+    </ownedEnd>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_gfRrYLKREeanqJfijlcpVA" name="server" type="_BKARoLKREeanqJfijlcpVA" association="_gfNZ8LKREeanqJfijlcpVA"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_hfXPYLKREeanqJfijlcpVA" memberEnd="_hfX2crKREeanqJfijlcpVA _hfZroLKREeanqJfijlcpVA">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_hfX2cLKREeanqJfijlcpVA" source="org.eclipse.papyrus">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_hfX2cbKREeanqJfijlcpVA" key="nature" value="UML_Nature"/>
+    </eAnnotations>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_hfZroLKREeanqJfijlcpVA" name="server" type="_BKARoLKREeanqJfijlcpVA" association="_hfXPYLKREeanqJfijlcpVA"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_-f278LMGEeaEqamvmazqfg" name="Class1"/>
+  <packagedElement xmi:type="uml:Package" xmi:id="_4belYLMLEeaEqamvmazqfg" name="Gurobi"/>
+  <packagedElement xmi:type="uml:Dependency" xmi:id="_7xWVALMLEeaEqamvmazqfg" client="_ZzYHAK2iEeaaAJCLjurBUg" supplier="_4belYLMLEeaEqamvmazqfg"/>
+  <packagedElement xmi:type="uml:Package" xmi:id="_-fbE0LMLEeaEqamvmazqfg" name="MySQL"/>
+  <packagedElement xmi:type="uml:Dependency" xmi:id="_BXgFMLMMEeaEqamvmazqfg" client="_Bl3HMLKREeanqJfijlcpVA" supplier="_-fbE0LMLEeaEqamvmazqfg"/>
+  <packagedElement xmi:type="uml:Package" xmi:id="_DGdhYLMMEeaEqamvmazqfg" name="Apache"/>
+  <packagedElement xmi:type="uml:Dependency" xmi:id="_JDmOMLMMEeaEqamvmazqfg" client="_BKARoLKREeanqJfijlcpVA" supplier="_DGdhYLMMEeaEqamvmazqfg"/>
 </uml:Model>
