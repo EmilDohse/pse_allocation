@@ -62,15 +62,15 @@ rechnerunterstützt durchfürbar sein.
    \begin{itemize}
      \item ihre Daten, %TODO: Verweis     
      \item ihre Themenvorlieben, 
-     \item sowie ihre erbrachten Studienleistungen 
+     \item ihre erbrachten Studienleistungen,
      \item und gegebenenfalls ihre \glspl{Lerngruppe}
    \end{itemize}
    in das Produkt eingeben können.
-   \item Das Produkt teilt nach folgenden Kriterien Studierenden Teams zu.
+   \item Das Produkt teilt nach folgenden Kriterien Studierenden Teams zu:
    \begin{itemize}
      \item Wer die Voraussetzungen nicht erfüllt wird nicht eingeteilt
-     \item Lerngruppen sollten zusammenbleiben.
-     \item Präferenzen der Studierenden berücksichtigen.
+     \item Lerngruppen sollten zusammenbleiben
+     \item Präferenzen der Studierenden berücksichtigen
    \end{itemize}
    
    \item Manuelles Nachjustieren der Einteilung
@@ -103,7 +103,7 @@ rechnerunterstützt durchfürbar sein.
     \item Nachjustierbarkeit bei Änderungen der SPO %TODO: überlegen ob
     % Pflichtkriterium: mehrere SPOs verwalten.
     \item Verwaltung über mehrere Semester hinweg
-    \item Anzeige der Projekt-Details für Studenten
+    \item Anzeige der Projekt-Details für Studierende
     \item Stapelverarbeitung zur Berechnungen verschiedener Einteilungen mit
     unterschiedlichen Konfigurationen
     \item Verifikation der E-Mail-Adresse
@@ -120,7 +120,7 @@ rechnerunterstützt durchfürbar sein.
   \item Das Produkt ist nicht für die Nutzung außerhalb des KIT's bestimmt
 
 \item Die Einteilungsfunktion ist nur für die Einteilung zum PSE, nicht
-für die Vergabe sonstiger Praktikums- oder Tutorienplätze.
+für die Vergabe sonstiger Praktikums- oder Tutorienplätze
   
 \end{enumerate}
 \section{Produkteinsatz}
@@ -136,7 +136,7 @@ Studierenden zu den Projekten.
 \subsection{Anwendungsbereiche}
 
 \begin{itemize} 
-  \item Anwendung im Universitären Bereich. %TODO Detail
+  \item Anwendung im universitären Bereich. %TODO Detail
 \end{itemize}
 
 \subsection{Zielgruppe}
@@ -167,7 +167,7 @@ Mindestens:
   \item Intel I7 Quadcore mit 4 weiterne virtuellen Kernen 
   %TODO nachfragen was hier noch gebraucht wird
 \end{itemize}
-// hier überlegen ob man noch Orgware und Produkt-Schnittstellen dazu noimmt
+% hier überlegen ob man noch Orgware und Produkt-Schnittstellen dazu nimmt
 
 \subsection{Client-Software}
 \begin{itemize}
@@ -183,7 +183,7 @@ oder neuer
 
 \subsection{Funktionsübersicht}
 
-\subsection{Studentenfunktionen}
+\subsection{Studierendenfunktionen}
 
 Pflichtfunktionen
 
@@ -198,7 +198,7 @@ Pflichtfunktionen
   \item Erstellung einer Lerngruppe mit Name und Passwort
   \item Bewertung der Themen für die Lerngruppe
   \item Beitritt zu einer Lerngruppe
-  \item Übersicht eigene Lerngruppe (Bewertung und Mitglieder)
+  \item Übersicht der eigenen Lerngruppe (Bewertung und Mitglieder)
 \end{enumerate}
 
 Wunschfunktionen
@@ -247,9 +247,9 @@ Wunschfunktionen
 
 \begin{enumerate}[label=\swtLabel{FA}, resume]
   \item Abbrechen der Einteilungsberechnung
-  \item Hochladen einer Liste von Studenten, die zum PSE angemeldet sind
+  \item Hochladen einer Liste von Studierenden, die zum PSE angemeldet sind
 	    und automatisches setzen der bestandenen Teilleistungen
-  %TODO Was ist damit gemeint? \item Hinzufügen/Löschen von Studenten
+  %TODO Was ist damit gemeint? \item Hinzufügen/Löschen von Studierenden
   %und Bearbeitung der Daten
   \item Hinzufügen von Berechnungen zur Stapelverarbeitung
   \item Hinzufügen wählbarer Teilleistungen zu SPO
@@ -302,32 +302,34 @@ Zu jedem Studierenden sollen folgende Daten gespeichert werden:
 
 \subsection{Anwendungsfälle}
 
-\subsubsection{Student}
+\subsubsection{Studierende}
 
 \begin{enumerate}[label=\swtLabel{S}]
 	\item
     \begin{description}
-  	\item[Anwendung:] Registrierung eines Studenten
-  	\item[Ziel:] Speichern der Studentendaten in der Datenbank
-  	\item[Vorbedingung:] Studentenregistrierung wurde freigeschaltet
-  	\item[Nachbedingung(Erfolg):] Erfolgreiche Registrierung des Studenten
-  	\item[Nachbedingung(Fehlschlag):] Student ist weiterhin nicht registriert
-  	\item[Akteure:] Student
-  	\item[Auslösen des Ereignisses:] Student will sich registrieren
+  	\item[Anwendung:] Registrierung eines Studierenden
+  	\item[Ziel:] Speichern der Studierendendaten in der Datenbank
+  	\item[Vorbedingung:] Registrierung wurde freigeschaltet
+  	\item[Nachbedingung(Erfolg):] Erfolgreiche Registrierung des Studierenden
+  	\item[Nachbedingung(Fehlschlag):] Studierender ist weiterhin nicht
+  	registriert
+  	\item[Akteure:] Studierender
+  	\item[Auslösen des Ereignisses:] Studierender will sich registrieren
   	\item[Beschreibung:]~
   	\begin{enumerate}
   	  \item Öffnen der Internetseite
       \item Klick auf Registrieren
       \item Ausfüllen der Registrierungsmaske
       \item Abschicken der Daten
-      \item Existiert der registrierte Account noch nicht, so wirde der Student
+      \item Existiert der registrierte Account noch nicht, so wirde der Studierende
       der Datenbank hinzugefügt
   	\end{enumerate}
   	\item[Erweiterungen:]~
   	\begin{enumerate}
   	  \item[zu 3)] Statt der Registrierungsmaske wird hier der u-Account
   	  verwendet
-  	  \item[nach 4)] Dem Studenten wird nach dem Abschicken seiner Daten eine \\
+  	  \item[nach 4)] Dem Studierenden wird nach dem Abschicken seiner Daten eine
+  	  \\
   	  Verifikations-Email gesendet.
   	 \end{enumerate} 
   	\item[Alternativen:]~
@@ -342,14 +344,14 @@ Zu jedem Studierenden sollen folgende Daten gespeichert werden:
     \begin{description}
     \item[Anwendung:] Verifikation der E-Mail
     \item[Ziel:] Verifikation der E-mail
-    \item[Vorbedingung:] Student muss sich registriert haben und seine E-mail
-    korrekt angegeben haben.
+    \item[Vorbedingung:] Studierender muss sich registriert haben und seine
+    E-mail korrekt angegeben haben.
     \item[Nachbedingung(Erfolg):] Studierender kann sich nun Anmelden und hat
     Zugriff auf die Studierenden-Sicht
-    \item[Nachbedingung(Fehlschlag):] Student kann sich nicht mit seinem Account
-    anmelden
-    \item[Akteure:] Student
-    \item[Auslösen des Ereignisses:] Studenten registrieren sich und werden
+    \item[Nachbedingung(Fehlschlag):] Studierender kann sich nicht mit seinem
+    Account anmelden
+    \item[Akteure:] Studierender
+    \item[Auslösen des Ereignisses:] Studierende registrieren sich und werden
     darauf hingewiesn inhre E-mail zu verifizieren.
     \item[Beschreibung:]~
     \begin{enumerate}
@@ -362,19 +364,20 @@ Zu jedem Studierenden sollen folgende Daten gespeichert werden:
   
   \item
     \begin{description}
-    \item[Anwendung:] Anmeldung eines Studenten
-    \item[Ziel:] Student wird angemeldet und kann seine Bewertungen ändern
-  	\item[Vorbedingung:] Der Student hat sich vorher registriert
-  	\item[Nachbedingung(Erfolg):] Der Student ist angemeldet
-  	\item[Nachbedingung(Fehlschlag):] Der Student ist nicht angemeldet
-  	\item[Akteure:] Student
-  	\item[Auslösen des Ereignisses:] Student will sich anmelden
+    \item[Anwendung:] Anmeldung eines Studierenden
+    \item[Ziel:] Studierender wird angemeldet und kann seine Bewertungen ändern
+  	\item[Vorbedingung:] Der Studierende hat sich vorher registriert
+  	\item[Nachbedingung(Erfolg):] Der Studierende ist angemeldet
+  	\item[Nachbedingung(Fehlschlag):] Der Studierende ist nicht angemeldet
+  	\item[Akteure:] Studierender
+  	\item[Auslösen des Ereignisses:] Studierender will sich anmelden
   	\item[Beschreibung:]~
   	\begin{enumerate}
-  	  \item Student öffnet die Website
-  	  \item Student füllt das Formular zum Anmelden aus und schickt dieses ab
-  	  \item Sind die Anmeldedaten korrekt, so wird der Student zur Studentensicht
-  	  weitergeleitet
+  	  \item Studierender öffnet die Website
+  	  \item Studierender füllt das Formular zum Anmelden aus und schickt dieses
+  	  ab
+  	  \item Sind die Anmeldedaten korrekt, so wird der Studierende zur
+  	  Studierendensicht weitergeleitet
   	\end{enumerate}
   	\item[Erweiterungen:]
   	\begin{enumerate}
@@ -389,17 +392,18 @@ Zu jedem Studierenden sollen folgende Daten gespeichert werden:
   
   \item
   \begin{description}
-  \item[Anwendung:] Student erstellt Lerngruppe
+  \item[Anwendung:] Studierender erstellt Lerngruppe
   \item[Ziel:] Eine neue Lerngruppe ist in der Datenbank vermerkt und der Ersteller ist erstes Mitglied dieser
-  	\item[Vorbedingung:] Student ist angemeldet und befindet sich auf der Website im Studentenportal
+  	\item[Vorbedingung:] Studierender ist angemeldet und befindet sich auf der
+  	Website im Studierendenportal
   	\item[Nachbedingung(Erfolg):] Die Lerngruppe wurde erfolgreich erstellt
   	\item[Nachbedingung(Fehlschlag):] Die Lerngruppe wurde nicht erstellt
-  	\item[Akteure:] Student
-  	\item[Auslösen des Ereignisses:] Wille des Studenten
+  	\item[Akteure:] Studierender
+  	\item[Auslösen des Ereignisses:] Wille des Studierenden
   	\item[Beschreibung:]~
   	\begin{enumerate}
-  	  \item Student gibt Name und Passwort in das Formular zum Erstellen einer
-  	  Lerngruppe ein und schickt dieses ab
+  	  \item Studierender gibt Name und Passwort in das Formular zum Erstellen
+  	  einer Lerngruppe ein und schickt dieses ab
   	  \item Wenn noch keine Lerngruppe mit diesem Namen existiert, so wird die
   	  Lerngruppe in der Datenbank angelegt und der Ersteller wird erstes Mitglied
   	\end{enumerate}
@@ -407,57 +411,61 @@ Zu jedem Studierenden sollen folgende Daten gespeichert werden:
   	\item[Alternativen:] ~
   	\begin{enumerate}
   	  \item[2a)] Eine Lerngruppe mit diesem Namen existiert schon. Dann wird
-  	  keine weitere Lerngruppe angelegt und dem Studenten wird mitgeteilt, dass er den Namen der Lerngruppe verändern soll
+  	  keine weitere Lerngruppe angelegt und dem Studierenden wird mitgeteilt,
+  	  dass er den Namen der Lerngruppe verändern soll
   	 \end{enumerate}  
   \end{description}
    
   
   \item
   \begin{description}
-  \item[Anwendung:] Student tritt Lerngruppe bei
-  \item[Ziel:] Student ist Mitglied einer Lerngruppe
-  	\item[Vorbedingung:] Student ist angemeldet und befindet sich auf der Website im Studentenportal
-  	\item[Nachbedingung(Erfolg):] Der Student ist Mitglied der Lerngruppe
-  	\item[Nachbedingung(Fehlschlag):] Der Student ist nicht Mitglied der
+  \item[Anwendung:] Studierender tritt Lerngruppe bei
+  \item[Ziel:] Studierender ist Mitglied einer Lerngruppe
+  	\item[Vorbedingung:] Studierender ist angemeldet und befindet sich auf der
+  	Website im Studierendenportal
+  	\item[Nachbedingung(Erfolg):] Der Studierende ist Mitglied der Lerngruppe
+  	\item[Nachbedingung(Fehlschlag):] Der Studierende ist nicht Mitglied der
   	Lerngruppe
-  	\item[Akteure:] Student
-  	\item[Auslösen des Ereignisses:] Der Student will einer Lerngruppe beitreten
+  	\item[Akteure:] Studierender
+  	\item[Auslösen des Ereignisses:] Der Studierende will einer Lerngruppe beitreten
   	\item[Beschreibung:]~
   	\begin{enumerate}
-  	  \item Der Student gibt die Anmeldedaten der Lerngruppe in das passende
+  	  \item Der Studierende gibt die Anmeldedaten der Lerngruppe in das passende
   	  Formular ein und schickt dieses ab
   	  \item Existiert die angegebene Lerngruppe, so wird die Mitgliederliste
-  	  derer um den Studenten erweitert
+  	  derer um den Studierenden erweitert
   	\end{enumerate}
   	\item[Erweiterungen:]~
   	\begin{enumerate}
-  	  \item[2a)] Ist die Lerngruppe schon vollständig, so wird der Student nicht
+  	  \item[2a)] Ist die Lerngruppe schon vollständig, so wird der Studierende nicht
   	  der Gruppe zugewiesen
-  	  \item[3)] Ist der Student nicht der Lerngruppe zugewiesen worden, so werden
+  	  \item[3)] Ist der Studierende nicht der Lerngruppe zugewiesen worden, so werden
   	  die zuletzt gespeicherten Bewertungen verwendet
   	  \item[4)] Der Lerngruppenersteller wird per E-Mail informiert
   	 \end{enumerate}
   	\item[Alternativen:] ~
   	\begin{enumerate}
   	  \item[2a)] Existiert keine solche Gruppe, so schlägt der Beitritt fehl und
-  	  der Student ist kein Mitglied der Lerngruppe
+  	  der Studierende ist kein Mitglied der Lerngruppe
   	 \end{enumerate}  
   \end{description}
 %   
   
   \item
   \begin{description}
-  \item[Anwendung:] Student bewertet Projekte
-  \item[Ziel:] Der Student hat eine Bewertung abgegeben
-  	\item[Vorbedingung:] Der Student ist angemeldet und im Studentenportal der Website
-  	\item[Nachbedingung(Erfolg):] Für den Student ist eine Bewertung eingetragen
-  	\item[Nachbedingung(Fehlschlag):] Der Student hat keine Bewertung eingetragen
-  	\item[Akteure:] Student
-  	\item[Auslösen des Ereignisses:] Des Studentens Wille
+  \item[Anwendung:] Studierender bewertet Projekte
+  \item[Ziel:] Der Studierende hat eine Bewertung abgegeben
+  	\item[Vorbedingung:] Der Studierende ist angemeldet und im Studierendenportal der
+  	Website
+  	\item[Nachbedingung(Erfolg):] Für den Studierenden ist eine Bewertung
+  	eingetragen
+  	\item[Nachbedingung(Fehlschlag):] Der Studierende hat keine Bewertung eingetragen
+  	\item[Akteure:] Studierender
+  	\item[Auslösen des Ereignisses:] Des Studierendens Wille
   	\item[Beschreibung:]~
   	 \begin{enumerate}
-  	   \item Der Student füllt die Bewertungsmaske aus
-  	   \item Der Student speichert die Bewertung ab
+  	   \item Der Studierende füllt die Bewertungsmaske aus
+  	   \item Der Studierende speichert die Bewertung ab
   	 \end{enumerate}
   	\item[Erweiterungen:] -keine-
   	\item[Alternativen:] -keine-
@@ -466,19 +474,20 @@ Zu jedem Studierenden sollen folgende Daten gespeichert werden:
   
   \item
   \begin{description}
-  \item[Anwendung:] Student bewertet Projekte für eine Lerngruppe
-  \item[Ziel:] Die Lerngruppe assoziiert mit dem Studenten hat eine Bewertung abgegeben
-  	\item[Vorbedingung:] Der Student ist als Leiter einer Lerngruppe angemeldet
-  	und im Studentenportal der Website
+  \item[Anwendung:] Studierender bewertet Projekte für eine Lerngruppe
+  \item[Ziel:] Die Lerngruppe assoziiert mit dem Studierenden hat eine Bewertung
+  abgegeben
+  	\item[Vorbedingung:] Der Studierende ist als Leiter einer Lerngruppe angemeldet
+  	und im Studierendenportal der Website
   	\item[Nachbedingung(Erfolg):] Für die Lerngruppe ist eine Bewertung eingetragen
   	\item[Nachbedingung(Fehlschlag):] Für die Lerngruppe ist keine (neue)
   	Bewertung eingetragen
-  	\item[Akteure:] Student
-  	\item[Auslösen des Ereignisses:] Des Studentens Wille
+  	\item[Akteure:] Studierender
+  	\item[Auslösen des Ereignisses:] Des Studierendens Wille
   	\item[Beschreibung:]~
   	 \begin{enumerate}
-  	   \item Der Student füllt die Bewertungsmaske aus
-  	   \item Der Student schließt die Bewertung ab
+  	   \item Der Studierende füllt die Bewertungsmaske aus
+  	   \item Der Studierende schließt die Bewertung ab
   	 \end{enumerate}
   	\item[Erweiterungen:] -keine-
   	\item[Alternativen:] -keine-
@@ -489,18 +498,18 @@ Zu jedem Studierenden sollen folgende Daten gespeichert werden:
     \begin{description}
   	\item[Anwendung:] Passwort vergessen
   	\item[Ziel:] Erhalten des Passworts
-  	\item[Vorbedingung:] Der Student hat schon einen Account
-  	\item[Nachbedingung(Erfolg):] Der Student erhält eine E-Mail mit seinem
+  	\item[Vorbedingung:] Der Studierende hat schon einen Account
+  	\item[Nachbedingung(Erfolg):] Der Studierende erhält eine E-Mail mit seinem
   	Passwort
-  	\item[Nachbedingung(Fehlschlag):] Der Student erhält keine E-Mail
-  	\item[Akteure:] Student
-  	\item[Auslösen des Ereignisses:] Student hat sein Passwort vergessen
+  	\item[Nachbedingung(Fehlschlag):] Der Studierende erhält keine E-Mail
+  	\item[Akteure:] Studierender
+  	\item[Auslösen des Ereignisses:] Studierender hat sein Passwort vergessen
   	\item[Beschreibung:]~
   	\begin{enumerate}
   	  \item Öffnen der Internetseite
       \item Klick auf "Passwort vergessen"
       \item Eingabe der E-Mail Adresse
-      \item Der Student erhält eine E-Mail mit seinem Passwort
+      \item Der Studierende erhält eine E-Mail mit seinem Passwort
   	\end{enumerate}
   	\item[Erweiterungen:] -keine-
   	\item[Alternativen:] -keine-
@@ -607,7 +616,7 @@ Zu jedem Studierenden sollen folgende Daten gespeichert werden:
     \begin{description}
   	\item[Anwendung:] Noten für Gruppenteilnehmer eintragen
   	\item[Ziel:] Speichern der Noten in der Datenbank
-  	\item[Vorbedingung:] Gruppe hat Studenten als Teilnehmer
+  	\item[Vorbedingung:] Gruppe hat Studierenden als Teilnehmer
   	\item[Nachbedingung(Erfolg):] Eintragung/Änderung der Noten
   	\item[Nachbedingung(Fehlschlag):] Notenänderung wird verworfen
   	\item[Akteure:] Betreuer
@@ -718,39 +727,39 @@ Zu jedem Studierenden sollen folgende Daten gespeichert werden:
   	\item[Beschreibung:]~
   	\begin{enumerate} 
   	  \item Der Administrator wählt eine der berechneten Einteilung final aus
-  	  \item Wurde ein Student zugewiesen, so wird seinem Datenbankeintrag sein
-  	  Team hinzugefügt
+  	  \item Wurde ein Studierender zugewiesen, so wird seinem Datenbankeintrag
+  	  sein Team hinzugefügt
   	\end{enumerate}
   	\item[Erweiterungen:]~
   	\begin{enumerate}
   	  \item[nach 2)] Betreuer werden über ihre Teams informiert
-  	  \item[nach 2)] Die Studenten werden über ihre Einteilung informiert
+  	  \item[nach 2)] Die Studierenden werden über ihre Einteilung informiert
   	 \end{enumerate}
   	\item[Alternativen:] ~
   	\begin{enumerate}
-  	  \item[2a)] Wird ein Student nicht zugewiesen, so wird dies ebenfalls in der
-  	  Datenbank vermerkt
+  	  \item[2a)] Wird ein Studierender nicht zugewiesen, so wird dies ebenfalls
+  	  in der Datenbank vermerkt
   	 \end{enumerate}  
   \end{description}
    
   
   \item
   \begin{description}
-  \item[Anwendung:] Einteilung eines Studenten
-  \item[Ziel:] Manuelle Einteilung eines Studenten
+  \item[Anwendung:] Einteilung eines Studierenden
+  \item[Ziel:] Manuelle Einteilung eines Studierenden
   	\item[Vorbedingung:] Automatische Teameinteilung ist abgeschlossen
-  	\item[Nachbedingung(Erfolg):] Der Student wurde hinzugefügt
-  	\item[Nachbedingung(Fehlschlag):] Der Student wurde nicht hinzugefügt
-  	\item[Akteure:] Administrator, Student
-  	\item[Auslösen des Ereignisses:] Student meldet sich beim Administrator
+  	\item[Nachbedingung(Erfolg):] Der Studierende wurde hinzugefügt
+  	\item[Nachbedingung(Fehlschlag):] Der Studierende wurde nicht hinzugefügt
+  	\item[Akteure:] Administrator, Studierender
+  	\item[Auslösen des Ereignisses:] Studierender meldet sich beim Administrator
   	\item[Beschreibung:]~
   	 \begin{enumerate} 
-  	   \item Wenn sich der Student noch nicht im System befindet überprüft der
+  	   \item Wenn sich der Studierende noch nicht im System befindet überprüft der
   	   Administrator, ob die Anforderungen für das PSE erfüllt sind
-  	   \item Hat der Student die Anforderungen erfüllt, so versucht der
+  	   \item Hat der Studierende die Anforderungen erfüllt, so versucht der
   	   Administrator ihn einem Team zuzuteilen
-  	   \item Hat der Administrator ein Team gefunden so fügt er den Student über
-  	   eine Eingabemaske dem System hinzu
+  	   \item Hat der Administrator ein Team gefunden so fügt er den Studierenden
+  	   über eine Eingabemaske dem System hinzu
   	 \end{enumerate}
   	\item[Erweiterungen:]~
   	 \begin{enumerate}
@@ -812,5 +821,6 @@ Zu jedem Studierenden sollen folgende Daten gespeichert werden:
   \item Studierende dürfen nur auf ihre Eigenen Daten zugreifen.
   
 \end{enumerate}
+\pagebreak
 \printglossaries
 \end{document}
