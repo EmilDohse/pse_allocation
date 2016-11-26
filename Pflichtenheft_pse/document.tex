@@ -5,6 +5,7 @@
 \usepackage{enumitem}
 \usepackage{glossaries}
 \makeglossaries
+%für die Nummerierung der Listen
 \newcommand{\swtLabel}[1]{\textbf{\textbackslash #1\arabic*0\textbackslash}}
 
 \newglossaryentry{PSE}{name=Praxis der Softwareentwicklung,
@@ -37,6 +38,9 @@ plural=Studierende, description={Ein Studierender ist eine Person, welche einges
 \newglossaryentry{Team}{name=Team,
 plural=Teams, description={Ein Team ist ein Zusammenschluss von Studierenden, welche gemeinsam ein Projekt bearbeiten.
 }}
+\newglossaryentry{SPO}{name=SPO,
+plural=SPOs, description={Die SPO (Studienprüfungsordnung) %TODO ausfüllen
+}}
 
 \begin{document}
 
@@ -60,7 +64,7 @@ rechnerunterstützt durchfürbar sein.
  \begin{enumerate}[label=\swtLabel{M}]
    \item Datenerfassung: Studierende sollen auf einer Internetseite:   
    \begin{itemize}
-     \item ihre Daten (siehe 5.2),     
+     \item ihre Daten (siehe \ref{SDatenAnfang} bis \ref{SDatenEnde}),     
      \item ihre Themenvorlieben, 
      \item ihre erbrachten Studienleistungen,
      \item und gegebenenfalls ihre \glspl{Lerngruppe}
@@ -70,12 +74,12 @@ rechnerunterstützt durchfürbar sein.
    \begin{itemize}
      \item Wer die Voraussetzungen nicht erfüllt wird nicht eingeteilt
      \item Lerngruppen sollten zusammenbleiben
-     \item Präferenzen der Studierenden berücksichtigen
+     \item Präferenzen der Studierenden werden berücksichtigt
    \end{itemize}
    
    \item Manuelles Nachjustieren der Einteilung
    \item Berechnung von \glspl{Guetekriterium}
-   \item Export/Import der Studierendendaten und
+   \item Ex- und Import der Studierendendaten und
    Einteilungen %TODO: formulierung 
    \item Möglichkeit der sukzessiven Eintragung von \glspl{Projekt}n
    \item Webinterface   
@@ -91,7 +95,7 @@ rechnerunterstützt durchfürbar sein.
     \item Wunschkriterien zur Lösung des Problems der Einteilung:
     \begin{itemize}
         \item Eher 5er Teams als 6er Teams
-        \item Möglichst gleiche Semester im Team.
+        \item Möglichst gleiche Semester im Team
         \item Studierende bevorzugen, die bereits mehr Teilleistungen aus dem
         ersten Jahr bestanden haben.
     \end{itemize}    
@@ -120,7 +124,7 @@ rechnerunterstützt durchfürbar sein.
   \item Das Produkt ist nicht für die Nutzung außerhalb des KIT's bestimmt
 
 \item Die Einteilungsfunktion ist nur für die Einteilung zum PSE, nicht
-für die Vergabe sonstiger Praktikums- oder Tutorienplätze
+für die Vergabe sonstiger Praktikums- oder Tutorienplätze bestimmt
   
 \end{enumerate}
 \section{Produkteinsatz}
@@ -130,13 +134,14 @@ für die Vergabe sonstiger Praktikums- oder Tutorienplätze
 %zuführen können.
 %TODO formulierung
 Das Produkt dient zur Einpflegung von Projekten und zur Zuteilung von
-Studierenden zu den Projekten.
+Studierenden zu den Projekten. Hierbei werden die Projekt-Präferenzen der
+Studierenden berücksichtigt.
 
 
 \subsection{Anwendungsbereiche}
 
 \begin{itemize} 
-  \item Anwendung im universitären Bereich. %TODO Detail
+  \item Projektverwaltung und -zuteilung (universitärer Bereich) %TODO Detail
 \end{itemize}
 
 \subsection{Zielgruppe}
@@ -156,7 +161,7 @@ Studierenden zu den Projekten.
 \end{itemize}
 \subsection{Server-Software}
 \begin{itemize} 
-  \item Apache-Webserver (HTTP,SMTP)
+  \item Apache-Webserver (HTTP, SMTP)
   \item MySQL-Server
   \item ILP-Solver Gurobi %TODO lizens
 \end{itemize}
@@ -164,7 +169,7 @@ Studierenden zu den Projekten.
 Mindestens:
 \begin{itemize} 
   \item 16 GB Ram
-  \item Intel I7 Quadcore mit 4 weiterne virtuellen Kernen 
+  \item Intel I7 Quadcore mit 4 weiteren virtuellen Kernen 
   %TODO nachfragen was hier noch gebraucht wird
 \end{itemize}
 % hier überlegen ob man noch Orgware und Produkt-Schnittstellen dazu nimmt
@@ -191,12 +196,12 @@ Pflichtfunktionen
   \item Registrierung eines Studierenden mit Datenerfassung:
   \begin{itemize}
     \item Name, Matrikelnummer, Email-Adresse, Semester
-    \item Auswahl bestandener Teilleistungen und der SPO
+    \item Auswahl bestandener Teilleistungen und der \gls{SPO}
   \end{itemize}
   \item Anmeldung
-  \item Bewertung der Themen
+  \item Bewertung der \glspl{Projekt}
   \item Erstellung einer Lerngruppe mit Name und Passwort
-  \item Bewertung der Themen für die Lerngruppe
+  \item Bewertung der \glspl{Projekt} für die Lerngruppe
   \item Beitritt zu einer Lerngruppe
   \item Übersicht der eigenen Lerngruppe (Bewertung und Mitglieder)
   \item Abmeldung
@@ -209,7 +214,7 @@ Wunschfunktionen
 	\item Studierende aus der Lerngruppe entfernen
 	% TODO Was ist noch mit W30 gemeint?
 	\item Anzeigen von Projektbeschreibung in Bewertungseingabemaske
-	\item Austritt ais einer Lerngruppe
+	\item Austritt aus einer Lerngruppe
 \end{enumerate}
 
 \subsection{Betreuerfunktionen}
@@ -263,33 +268,38 @@ Wunschfunktionen
   %%TODO W70 und W100 Was genau soll man können?
 \end{enumerate}
 
+\subsection{Einteilungsfunktionen}
+\begin{enumerate}[label=\swtLabel{FA}, resume]
+  \item 
+\end{enumerate}
+
 \section{Produktdaten}
 
 \subsection{Projekt-Daten} 
 Über ein Projekt sind folgende Daten zu speichern:
 \begin{enumerate}[label=\swtLabel{D}] 
-  \item Name,
-  \item Anzahl der Teams,
-  \item Beschreibung,
+  \item Name
+  \item Anzahl der Teams
+  \item Beschreibung
   \item Namen und E-Mail Adressen der Betreuer
 \end{enumerate}
 \subsection{Studierenden-Daten} 
 Zu jedem Studierenden sollen folgende Daten gespeichert werden:
 \begin{enumerate}[label=\swtLabel{D}, resume] 
-  \item E-Mail Adresse
+  \item E-Mail Adresse \label{SDatenAnfang}
   \item Name
   \item Matrikelnummer
   \item Semester
   \item SPO
-  \item bestandene Teilleistungen
+  \item bestandene Teilleistungen \label{SDatenEnde}
   \item Falls keiner Lerngruppe beigetreten: Bewertung, welchem Projekt er oder
-  sie am liebsten zugeteilt werden würden
-  \item Falls einer Lerngruppe beigetreten: Die zugehörige Lerngruppe.
+  sie am liebsten zugeteilt würde
+  \item Falls einer Lerngruppe beigetreten: Die zugehörige Lerngruppe
 \end{enumerate}
 \subsection{Lerngruppen-Daten} 
 \begin{enumerate}[label=\swtLabel{D}, resume] 
   \item Bewertung der Projekte, zu welchem die Lerngruppenmitglieder
-  (Studierenden) am liebsten zugeteilt würden.
+  (Studierenden) am liebsten zugeteilt würden
   \item Mitglieder der Lerngruppe
 \end{enumerate}
 
@@ -793,11 +803,11 @@ Zu jedem Studierenden sollen folgende Daten gespeichert werden:
   	\item[Beschreibung:]~
   	 \begin{enumerate} 
   	   \item Der Administrator öffnet die Maske zum Erstellen eines
-  	   Betreueraccounts
+  	   Betreueraccounts  
   	   \item Der Administrator füllt die Maske aus und schickt sie ausgefüllt ab
   	   \item Wenn noch kein Account mit dem angegebenen Namen existiert, so wird
   	   der neue Account der Datenbank hinzugefügt
-  	 \end{enumerate}
+  	 \end{enumerate} 
   	\item[Erweiterungen:]~
   	 \begin{enumerate}
   	   \item[4)] Der Betreuer erhält seine Zugangsdaten per E-Mail
@@ -815,15 +825,16 @@ Zu jedem Studierenden sollen folgende Daten gespeichert werden:
 
 \subsection{Benutzerschnittstelle}
 \begin{enumerate}
-  \item Es ist eine Benutzung rein über ein Web-Interface vorgesehen.
+  \item Es ist eine Benutzung rein über ein Web-Interface vorgesehen
   \item Es sind drei Sichten zu unterscheiden:
         \begin{itemize}
           \item die Sicht des Studierenden
           \item die Sicht des Betreuers
           \item die Sicht des Administrators
         \end{itemize}
-  \item Die jeweiligen sichten sind erst nach der Anmeldung einzusehen. 
-  \item Studierende dürfen nur auf ihre Eigenen Daten zugreifen.
+  \item Die jeweiligen sichten sind erst nach der Anmeldung einzusehen 
+  \item Studierende dürfen nur auf ihre eigenen Daten und falls sie in einer
+  Lerngruppe sind auf die Daten dieser zugreifen
   
 \end{enumerate}
 \pagebreak
