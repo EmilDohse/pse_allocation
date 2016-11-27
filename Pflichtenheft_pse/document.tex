@@ -4,6 +4,7 @@
 \usepackage[ngerman]{babel}
 \usepackage{enumitem}
 \usepackage{glossaries}
+\usepackage{graphicx}
 \makeglossaries
 %für die Nummerierung der Listen
 \newcommand{\swtLabel}[1]{\textbf{\textbackslash #1\arabic*0\textbackslash}}
@@ -215,6 +216,8 @@ Wunschfunktionen
 	% TODO Was ist noch mit W30 gemeint?
 	\item Anzeigen von Projektbeschreibung in Bewertungseingabemaske
 	\item Austritt aus einer Lerngruppe
+	\item Anmeldung über u-Account
+	\item Verifikation der E-Mail
 \end{enumerate}
 
 \subsection{Betreuerfunktionen}
@@ -308,7 +311,7 @@ Zu jedem Studierenden sollen folgende Daten gespeichert werden:
   \item 
 \end{enumerate}
 \section{Globale Testfälle}
-\begin{enumerate}
+\begin{enumerate} [label=\swtLabel{T}]
   \item 
 \end{enumerate}
 \section{Systemmodelle}
@@ -352,6 +355,7 @@ Zu jedem Studierenden sollen folgende Daten gespeichert werden:
   	  \item[5a)] Wenn doch, so wird kein weiterer Eintrag hinzugefügt, sondern
   	  die zweite Registrierung abgebrochen
   	\end{enumerate} 
+  	\item[benötigte FA:] 010, 130
   \end{description}
 %   
   
@@ -835,7 +839,60 @@ Zu jedem Studierenden sollen folgende Daten gespeichert werden:
   \item Die jeweiligen sichten sind erst nach der Anmeldung einzusehen 
   \item Studierende dürfen nur auf ihre eigenen Daten und falls sie in einer
   Lerngruppe sind auf die Daten dieser zugreifen
-  
+\subsubsection{GUI}
+{\centering
+\includegraphics[width=0.7\textwidth, height=0.4\textheight]{gui/index.png}
+\captionof{figure}{Startseite}
+\medskip
+\includegraphics[width=0.7\textwidth,
+height=0.4\textheight]{gui/registrierung.png}
+\captionof{figure}{Registrierungsansicht}
+\medskip
+\includegraphics[width=0.7\textwidth,
+height=0.4\textheight]{gui/studentbewertung.png}
+\captionof{figure}{Bewertungsmaske}
+\medskip
+\includegraphics[width=0.7\textwidth,
+height=0.4\textheight]{gui/studentlerngruppe.png}
+\captionof{figure}{Anmeldung zu Lerngruppe}
+\medskip
+\includegraphics[width=0.7\textwidth,
+height=0.4\textheight]{gui/studentlerngruppeingr.png}
+\captionof{figure}{Lerngruppenübersicht}
+\medskip
+\includegraphics[width=0.7\textwidth,
+height=0.4\textheight]{gui/studentergebnis.png}
+\captionof{figure}{Ergebnisansicht}
+\medskip
+\includegraphics[width=0.7\textwidth,
+height=0.4\textheight]{gui/adminprojleiter.png}
+\captionof{figure}{Projektleiterübersicht}
+\medskip
+\includegraphics[width=0.7\textwidth,
+height=0.4\textheight]{gui/adminprojekte.png}
+\captionof{figure}{Projektübersicht}
+\medskip
+\includegraphics[width=0.7\textwidth,
+height=0.4\textheight]{gui/admineinteilung.png}
+\captionof{figure}{Einteilungsmaske}
+\medskip
+\includegraphics[width=0.7\textwidth,
+height=0.4\textheight]{gui/adminergebnisse.png}
+\captionof{figure}{Übersicht der Einteilungen}
+\medskip
+\includegraphics[width=0.7\textwidth,
+height=0.4\textheight]{gui/adminergebnissevergl.png}
+\captionof{figure}{Vergleichsansicht}
+\medskip
+\includegraphics[width=0.7\textwidth,
+height=0.4\textheight]{gui/adminproperties.png}
+\captionof{figure}{Einstellungen}
+\medskip
+\includegraphics[width=0.7\textwidth,
+height=0.4\textheight]{gui/projleiterprojekte.png}
+\captionof{figure}{Betreueransicht}
+\medskip
+}
 \end{enumerate}
 \pagebreak
 \printglossaries
