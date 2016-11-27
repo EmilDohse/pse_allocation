@@ -331,6 +331,7 @@ Zu jedem Studierenden sollen folgende Daten gespeichert werden:
 \end{enumerate}
 
 \section{Nichtfunktionale Anforderungen}
+
 \begin{enumerate}[label=\swtLabel{NF}]
   \item Es müssen maximal 500 Studierende und 100 \glspl{Projekt} verwaltet werden
   können
@@ -362,21 +363,32 @@ Zu jedem Studierenden sollen folgende Daten gespeichert werden:
 	
  
 %TODO was fehlt hier noch
+
 \end{enumerate}
 \section{Globale Testfälle}
 Folgende Funktionssequenzen sind zu überprüfen:
+
 \begin{itemize}
   \item In der Studierendensicht:
-  \begin{enumerate} [label=\swtLabel{T}]
-  \item 
+
+
+\begin{enumerate} [label=\swtLabel{T}]
+  
+  
+  \item Registrierung als Student, Erstellen oder beitreten einer Lerngruppe und Abgeben einer Bewertung
+  \item Deadlines zur Registrierung als Student und zur Bewertungsabgabe werden eingehalten
+  
+
 \end{enumerate}
   \item In der Adminsicht:
    \begin{enumerate} [label=\swtLabel{T}, resume]
-  \item 
+  \item Einloggen als Administrator, Erstellung eines Semesters mit mehreren SPOs
+  \item Einteilungsberechnung und anschließendem manuellen Editieren und
+  Veröffentlichen dieser
 \end{enumerate}
   \item In der Betreuersicht:
    \begin{enumerate} [label=\swtLabel{T}, resume]
-  \item 
+  \item Einloggen als Projektbetreuer, Erstellung mehrerer Projekte
 \end{enumerate}
   \item Bei den Einteilungsergebnissen
    \begin{enumerate} [label=\swtLabel{T}, resume]
