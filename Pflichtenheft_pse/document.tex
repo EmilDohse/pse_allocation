@@ -5,9 +5,11 @@
 \usepackage{enumitem}
 \usepackage{glossaries}
 \usepackage{graphicx}
+\usepackage[binary-units=true]{siunitx}
+  \usepackage[autostyle=true,german=quotes]{csquotes}
 \makeglossaries
 %für die Nummerierung der Listen
-\newcommand{\swtLabel}[1]{\textbf{\textbackslash #1\arabic*0\textbackslash}}
+\newcommand{\swtLabel}[1]{\textbf{/#1\arabic*0/}}
 
 \newglossaryentry{PSE}{name=PSE,
                         description={Im PSE (Praxis der Softwareentwicklung)
@@ -61,8 +63,8 @@ plural=bestandene Teilleistungen, description={%TODO ausfüllen
 \pagebreak
 
 \section{Zielbestimmung}
-Die Einteilung der Studierenden zu Teams für das \gls{PSE} soll durch das Produkt
-rechnerunterstützt durchfürbar sein.
+Die Einteilung der Studierenden zu Teams für das Modul \enquote{\gls{PSE}} soll durch das Produkt
+rechnergestützt durchführbar sein.
 
 
 \subsection{Musskriterien}
@@ -84,9 +86,9 @@ rechnerunterstützt durchfürbar sein.
    
    \item Manuelles Nachjustieren der Einteilung
    \item Berechnung von \glspl{Guetekriterium}
-   \item Ex- und Import der Studierendendaten und
+   \item Im- und Export der Studierendendaten und
    Einteilungen %TODO: formulierung 
-   \item Möglichkeit der sukzessiven Eintragung von \glspl{Projekt}n
+   \item Möglichkeit des sukzessiven Eintragens von \glspl{Projekt}n
    \item Webinterface   
  \end{enumerate}
 
@@ -99,7 +101,7 @@ rechnerunterstützt durchfürbar sein.
     \item Verwaltung von Lerngruppen durch Studierende
     \item Wunschkriterien zur Lösung des Problems der Einteilung:
     \begin{itemize}
-        \item Eher 5er Teams als 6er Teams
+        \item Eher 5er"=Teams als 6er"=Teams
         \item Möglichst gleiche Semester im Team
         \item Studierende bevorzugen, die bereits mehr Teilleistungen aus dem
         ersten Jahr bestanden haben.
@@ -112,11 +114,11 @@ rechnerunterstützt durchfürbar sein.
     \item Nachjustierbarkeit bei Änderungen der SPO %TODO: überlegen ob
     % Pflichtkriterium: mehrere SPOs verwalten.
     \item Verwaltung über mehrere Semester hinweg
-    \item Anzeige der Projekt-Details für Studierende
+    \item Anzeige der Projektdetails für Studierende
     \item Stapelverarbeitung zur Berechnungen verschiedener Einteilungen mit
     unterschiedlichen Konfigurationen
     \item Verifikation der E-Mail-Adresse
-    \item Datenabgleich mit Campus Management System %TODO:
+    \item Datenabgleich mit dem Campus Management System %TODO:
     % detail csv?
     
     
@@ -126,10 +128,10 @@ rechnerunterstützt durchfürbar sein.
 \subsection{Abgrenzungskriterien}
 \begin{enumerate}[label=\swtLabel{A}]
  
-  \item Das Produkt ist nicht für die Nutzung außerhalb des KIT's bestimmt
+  \item Das Produkt ist nicht für die Nutzung außerhalb des KITs bestimmt %Please dont do the Deppenapostroph!
 
 \item Die Einteilungsfunktion ist nur für die Einteilung zum PSE, nicht
-für die Vergabe sonstiger Praktikums- oder Tutorienplätze bestimmt
+für die Vergabe sonstiger Praktikums- oder Tutoriumsplätze bestimmt
   
 \end{enumerate}
 \section{Produkteinsatz}
@@ -138,15 +140,15 @@ für die Vergabe sonstiger Praktikums- oder Tutorienplätze bestimmt
 % durch-
 %zuführen können.
 %TODO formulierung
-Das Produkt dient zur Einpflegung von \glspl{Projekt}n und zur Zuteilung von
-Studierenden zu den \glspl{Projekt}n. Hierbei werden die Projekt-Präferenzen der
+Das Produkt dient zum Einpflegen von \glspl{Projekt}n und zur Zuteilung von
+Studierenden zu diesen \glspl{Projekt}n. Hierbei werden die Projektpräferenzen der
 Studierenden berücksichtigt.
 
 
 \subsection{Anwendungsbereiche}
 
 \begin{itemize} 
-  \item Projektverwaltung und -zuteilung (universitärer Bereich) %TODO Detail
+  \item Projektverwaltung und "-zuteilung (universitärer Bereich) %TODO Detail
 \end{itemize}
 
 \subsection{Zielgruppe}
@@ -167,15 +169,15 @@ Studierenden berücksichtigt.
 \end{itemize}
 \subsection{Server-Software}
 \begin{itemize} 
-  \item Apache-Webserver (HTTP, SMTP)
-  \item MySQL-Server
-  \item ILP-Solver Gurobi %TODO lizens
+  \item Apache"=Webserver (\texttt{HTTP, SMTP})
+  \item MySQL"=Server
+  \item ILP"=Solver Gurobi %TODO lizens
 \end{itemize}
 \subsection{Server-Hardware}
 Mindestens:
 \begin{itemize} 
-  \item 16 GB Ram
-  \item Intel I7 Quadcore mit 4 weiteren virtuellen Kernen 
+  \item $\SI{16}{\giga\byte}$ Ram
+  \item Intel i7 Quadcore mit 4 weiteren virtuellen Kernen 
   %TODO nachfragen was hier noch gebraucht wird
 \end{itemize}
 % hier überlegen ob man noch Orgware und Produkt-Schnittstellen dazu nimmt
@@ -192,17 +194,17 @@ oder neuer
 \end{itemize}
 \section{Funktionale Anforderungen}
 
-\subsection{Funktionsübersicht}
-
+%\subsection{Funktionsübersicht}
+%TODO Machen wir eine Fktübersicht?
 \subsection{Studierendenfunktionen}
 
-Pflichtfunktionen
+\subsubsection{Pflichtfunktionen}
 
 \begin{enumerate}[label=\swtLabel{FA}]
   \item Registrierung eines Studierenden mit Datenerfassung:
   \label{FAregistrierung}
   \begin{itemize}
-    \item Name, Matrikelnummer, Email-Adresse, Semester
+    \item Name, Matrikelnummer, E"=Mail"=Adresse, Semester %TODO Verweis auf D70 bis D120?
     \item Auswahl bestandener Teilleistungen und der \gls{SPO}
   \end{itemize}
   \item Anmeldung
@@ -212,36 +214,36 @@ Pflichtfunktionen
   \item Beitritt zu einer Lerngruppe
   \item Übersicht der eigenen Lerngruppe (Bewertung und Mitglieder)
   \item Abmeldung
-  \item Einsicht der Einteilungergebnisse
+  \item Einsicht der Einteilungsergebnisse
 \end{enumerate}
 
-Wunschfunktionen
+\subsubsection{Wunschfunktionen}
 
 \begin{enumerate}[label=\swtLabel{FA}, resume]
 	\item Studierende aus der Lerngruppe entfernen
 	% TODO Was ist noch mit W30 gemeint?
 	\item Anzeigen von Projektbeschreibung in Bewertungseingabemaske
 	\item Austritt aus einer Lerngruppe
-	\item Anmeldung über u-Account
-	\item Verifikation der E-Mail
+	\item Anmeldung über u"=Account %TODO Glossareintrag
+	\item Verifikation der E"=Mail
 \end{enumerate}
 
 \subsection{Betreuerfunktionen}
 
-Wunschfunktionen
+\subsubsection{Wunschfunktionen}
 
 \begin{enumerate}[label=\swtLabel{FA}, resume]
   \item Anmeldung
   \item Erstellung eines \glspl{Projekt}s
   \item Ändern der Projektdetails: Name, Beschreibung, Projektbetreuer,
-        minimale und maximale Teilnehmerzahl, Anzahl der Teams
+        minimale und maximale Teilnehmerzahl, Anzahl der Teams %TODO Verweis auf Produktdaten?
   \item Einsehen der Einteilung zu eigenen \glspl{Projekt}n
   \item Abmeldung
 \end{enumerate}
 
 \subsection{Adminfunktionen}
 
-Pflichtfunktionen
+\subsubsection{Pflichtfunktionen}
 
 \begin{enumerate}[label=\swtLabel{FA}, resume]
   \item Anmeldung
@@ -257,12 +259,12 @@ Pflichtfunktionen
   \item Import einer Einteilung \label{FAimport}
   \item Export einer Einteilung \label{FAexport}
   \item Erstellung eines \glspl{Projekt}s
-  \item Ändern der Projektdetails: Name, Beschreibung, Projektbetreuer, 
+  \item Ändern der Projektdetails: Name, Beschreibung, Projektbetreuer, %TODO
         minimale und maximale Teilnehmerzahl, Anzahl der Teams
   \item Abmeldung
 \end{enumerate}
 
-Wunschfunktionen
+\subsubsection{Wunschfunktionen}
 
 \begin{enumerate}[label=\swtLabel{FA}, resume]
   \item Abbrechen der Einteilungsberechnung \label{FAabbruch}
@@ -273,7 +275,7 @@ Wunschfunktionen
   \item Hinzufügen von Berechnungen zur Stapelverarbeitung
   \item Hinzufügen wählbarer Teilleistungen zu SPO
   \item Entfernen wählbarer Teilleistungen zu SPO
-  \item Benachrichtigen der Studierenden und Projektbetreuer über die Einteilung per E-Mail
+  \item Benachrichtigen der Studierenden und Projektbetreuer über die Einteilung per E"=Mail
   %%TODO W70 und W100 Was genau soll man können?
 \end{enumerate}
 
@@ -281,21 +283,21 @@ Wunschfunktionen
 
 \begin{enumerate}[label=\swtLabel{FA}, resume]
   \item Einteilen der Studierenden zu \glspl{Projekt}n. Hierbei werden folgende
-  Kriterien, so weit möglich, eingehalten:
+  Kriterien, so weit möglich, berücksichtigt:
   \begin{itemize}
-    \item Wer die, durch die \gls{SPO} gegebenen Voraussetzungen nicht erfüllt
+    \item Wer die, durch die \gls{SPO} gegebenen Voraussetzungen nicht erfüllt,
     wird nicht eingeteilt \label{FAeinteilung}
-    \item Möglichst viele Studierende werden \glspl{Projekt}n zugeteilt 
+    \item Möglichst viele Studierende werden zu \glspl{Projekt}n zugeteilt 
     \item Lerngruppen bleiben zusammen
     \item Präferenzen der Studierenden werden berücksichtigt
   \end{itemize}
  Wünschenswert wäre weiterhin noch die Berücksichtigung von folgenden Kriterien:  
  \begin{itemize}
-   \item Eher 5er Teams als 6er Teams
-   \item Studierende im Team sind im gleichen Semester
-   \item Studierende höherer Semester werden bevorzugt
+   \item Eher 5er"=Teams als 6er"=Teams
+   \item Studierende in einem Team sind im gleichen Semester
+   \item Studierende höheren Semesters werden bevorzugt
    \item Studierende, die bereits mehr Teilleistungen aus dem ersten Jahr
-bestanden haben werdem bevorzugt 
+bestanden haben, werden bevorzugt 
  \end{itemize}
 \end{enumerate}
 
@@ -307,7 +309,15 @@ bestanden haben werdem bevorzugt
   \item Name
   \item Anzahl der Teams
   \item Beschreibung
-  \item Namen und E-Mail Adressen der Betreuer
+  \item Projektbetreuer
+  \item Minimale Teilnehmerzahl
+  \item Maximale Teilnehmerzahl
+\end{enumerate}
+\subsection{Betreuer-Daten}
+Die zu einem Betreuer gehörenden Daten sind:
+\begin{enumerate}[label=\swtLabel{D}, resume] 
+	\item Namen 
+	\item E"=Mail"=Adressen
 \end{enumerate}
 \subsection{Studierenden-Daten} 
 Zu jedem Studierenden sollen folgende Daten gespeichert werden:
