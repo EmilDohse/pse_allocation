@@ -15,6 +15,7 @@
 *.gls
 *.ilg
 *.glg
+*.out
 
 # Eclipse
 

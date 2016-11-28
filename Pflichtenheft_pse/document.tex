@@ -2,9 +2,11 @@
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage[ngerman]{babel}
+\usepackage{hyperref}
 \usepackage{enumitem}
 \usepackage{glossaries}
 \usepackage{graphicx}
+
 \usepackage[binary-units=true]{siunitx}
   \usepackage[autostyle=true,german=quotes]{csquotes}
 \makeglossaries
@@ -83,8 +85,24 @@ nicht zugeteilt wurden }}
 \pagebreak
 
 \section{Zielbestimmung}
-Die Einteilung der Studierenden zu Teams für das Modul \enquote{\gls{PSE}} soll durch das Produkt
-rechnergestützt durchführbar sein. 
+
+Die Einteilung zu den Projektgruppen für das Modul \gls{PSE} wurde bisher über die Software \enquote{Webinscribe} gelöst.
+\enquote{Webinscribe} ist dazu entworfen worden, Studierende zu Tutorien einzuteilen.
+Zwar ähneln die Anforderungen an die PSE-Teameinteilung denen, der Tutoriumseinteilung,
+jedoch sind sie nicht absolut deckungsgleich. 
+Dadurch ist die aktuelle Lösung mit Webinscribe umständlich in der Bedienung und lässt Wünsche bezüglich hilfreicher Features offen.
+So müssen beispielsweise die angebotenen Themen als Tutorien eingetragen werden. 
+Oder eine manuelle Änderung der Einteilung ist nicht über eine Eingabemaske möglich.
+
+Dem tritt unser Produkt entgegen.
+Da es speziell auf die Bedürfnisse der PSE-Einteilung zugeschnitten ist, 
+kann es eine konsistente und bequeme Benutzerschnittstelle anbieten.
+Es löst das Problem, die Studierenden auf die angebotenen Projekte zu verteilen und kann dabei über die Eingabe von Parametern leicht konfiguriert werden.
+Durch zusätzlich angebotene Features, wie die Verwaltung der Themen durch die Projektleiter selbst 
+oder die Möglichkeit zur automatischen Benachrichtigung der betroffenen Studierenden und Betreuer über die
+Einteilung, soll der Administrationsaufwand drastisch reduziert werden. 
+
+Insgesamt entsteht dadurch für alle Beteiligten ein effektiver und smarter Workflow.
 
 
 \subsection{Musskriterien}
@@ -280,7 +298,7 @@ oder neuer
   \item Anzeige der \glspl{Guetekriterium} bestehend aus:
     \begin{itemize}
       \item \gls{happyness}
-      \item \gls{nichtZugeteilet}
+      \item \gls{nichtZugeteilt}
       \item \gls{gesplitteteGruppe}
     \end{itemize}
   \item Studierende aus Projektgruppe entfernen
