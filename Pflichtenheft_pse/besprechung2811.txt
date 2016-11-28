@@ -1,54 +1,55 @@
--Tetsfälle ausführlicher - hier die egebnisse bei zwoischenschritten einfügen
-- Objektmodell ? Lieber uml syntax? Komponente server mehr?
+-Tetsfälle ausführlicher - hier die egebnisse bei zwoischenschritten einfügen 
+- Objektmodell ? Lieber uml syntax? Komponente server mehr? (Faller)
 
-Einführung am anfang, unique selling point, problembeschreibung am anfang eine halbe seite odder so
+Einführung am anfang, unique selling point, problembeschreibung am anfang eine halbe seite odder so (faller)
 
-Musskriterien konfiguration durch admin möglich
+Musskriterien: konfiguration durch admin möglich -emil
 
-Prioritäten zu wunschkriterien
+Prioritäten zu wunschkriterien 	-alle mittwoch
 
-Synonyme entfernen 
+Synonyme entfernen und glossar - alle
 
-Gütekriterien welche?
+Gütekriterien welche? -emil 
 
-Was für ein im und export was und welches foormat
+Was für ein im und export was und welches format -mittwoch
 
-Autentifizierung als eigener punkt für alle (student,...)
+Autentifizierung als eigener punkt für alle (student,...) -emil 
 
-redundater punkt webinterface
+redundater punkt webinterface -emil
 
-ein für alle benuter ereichbarer webserver
+ein für alle benuter ereichbarer webserver -emil
 
-webserver brauchen wir wirklich apache oder was auch immer - apache wegen shibboleth? 
+webserver brauchen wir wirklich apache oder was auch immer - apache wegen shibboleth?  -mittwoch
 
-mySQL oder was sonst
+mySQL oder was sonst -faller
 
-gibt es eine überdeckung über anwendungs/testfälle
+gibt es eine überdeckung über anwendungs/testfälle -loth
 
-mobiles design als wunschkriterium oder anpassung des ganzen aufs handy?
+mobiles design als wunschkriterium oder anpassung des ganzen aufs handy? -emil
 
-initialisierung genauer beschreibben 
+initialisierung genauer beschreibben -emil
 
-link zu jedem thema ??? ich habe es immer noch nicht verstanden
-Der Link der zu den Websites der Themen führt, auf denen die Infos stehen
+link zu jedem projekt - daniel 
 
-unter daten die spo - dazu spo wenn möglich unter wunsch 
+unter daten die spo - dazu spo wenn möglich unter wunsch - loth
 
-schritte konsistent bei anwendungsfällen
+schritte konsistent bei anwendungsfällen -loth
 
-shiboleth; was genau wird mitgegeben
+shiboleth; was genau wird mitgegeben und anwendungsfälle dazu anpassen - mittwoch
 
-passwort vergessen - besser formulieren
+passwort vergessen - besser formulieren und FA - loth
 
-A abgrenzung A admin
+A abgrenzung A admin - emil 
 
-konsistentz gui und anforderungen
+konsistentz gui und anforderungen -daniel
 
-gui größer und mit "lebensechten" begriffen
+gui größer -emil,faller
 
-konfiguration was ist möglich? und wie ? gui und anforderunegn
+mit "lebensechten" begriffen - daniel
 
-betreuersicht anzeige: wer ist angemeldet für pse tse
+konfiguration was ist möglich? und wie ? gui und anforderunegn 
+
+betreuersicht anzeige: wer ist angemeldet für pse tse -daniel 
 
 10min präsentation 
 Unique selling pont max 3 features - was kann es mehr als das bisherige system
