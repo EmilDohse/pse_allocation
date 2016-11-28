@@ -9,9 +9,9 @@
 %für die Nummerierung der Listen
 \newcommand{\swtLabel}[1]{\textbf{\textbackslash #1\arabic*0\textbackslash}}
 
-\newglossaryentry{PSE}{name=Praxis der Softwareentwicklung,
-                        description={Im PSE lernen die Teilnehmer, ein
-                        vollständiges Softwareprojekt nach dem Stand der
+\newglossaryentry{PSE}{name=PSE,
+                        description={Im PSE (Praxis der Softwareentwicklung)
+                        lernen die Teilnehmer, ein vollständiges Softwareprojekt nach dem Stand der
                         Softwaretechnik in einem Team mit 5 bis 6 Teilnehmern
                         durchzuführen. Ziel ist es insbesondere, Verfahren des
                         Software-Entwurfs und der Qualitätssicherung praktisch
@@ -19,16 +19,17 @@
                         arbeitsteilig im Team zu kooperieren.}}
                       
 \newglossaryentry{Lerngruppe}{name=Lerngruppe,
-description={Eine Lerngruppe ist ein Zusammenschluss von Studierenden, welche gemeinsam eine Bewertung abgeben für die Projekteinteilung. Zusätzlich werden sie bei der Einteilung gesondert berücksichtigt, sodass Studierende einer Lerngruppe möglichst ein Team bilden oder als Gruppe einem Team angehören.
+description={Eine Lerngruppe ist ein Zusammenschluss von Studierenden, welche gemeinsam eine Bewertung abgeben für die \glspl{Projekt}inteilung. Zusätzlich werden sie bei der Einteilung gesondert berücksichtigt, sodass Studierende einer Lerngruppe möglichst ein Team bilden oder als Gruppe einem Team angehören.
 }, plural=Lerngruppen}
 \newglossaryentry{Guetekriterium}{name=Gütekriterium,
 plural=Gütekriterien,description={Gütekriterien sind Kriterien, welche die Güte einer Einteilung bestimmen. Anhand von Gütekriterien kann ein Vergleich und eine Bewertung von Einteilungen vorgenommen werden.
 }}
 \newglossaryentry{Projekt}{name=Projekt,
-plural=Projekte, description={Ein Projekt ist ein zielgerichtetes Vorhaben, welches von mindestens einem Team bearbeitet wird. Dieses Vorhaben wird von mehreren Projektbetreuern begleitet und unterstützt.
+plural=Projekte, description={Ein Projekt ist ein zielgerichtetes Vorhaben,
+welches von mindestens einem Team bearbeitet wird. Dieses Vorhaben wird von mehreren Projektbetreuern begleitet und unterstützt.
 }}
 \newglossaryentry{Projektbetreuer}{name=Projektbetreuer,
-plural=Projektbetreuer, description={Ein Projektbetreuer ist eine Person, welche administrative und unterstützende Tätigkeiten eines oder mehrerer Projekte ausführt. Dabei kann ein Projektbetreuer mehrere Teams betreuen.
+plural=Projektbetreuer, description={Ein Projektbetreuer ist eine Person, welche administrative und unterstützende Tätigkeiten eines oder mehrerer \glspl{Projekt} ausführt. Dabei kann ein Projektbetreuer mehrere Teams betreuen.
 }}
 \newglossaryentry{Admin}{name=Administrator,
 plural=Administratoren, description={Ein Administrator ist eine Person, welche das PSE administrativ unterstützt und das Produkt konfiguriert.
@@ -41,6 +42,9 @@ plural=Teams, description={Ein Team ist ein Zusammenschluss von Studierenden, we
 }}
 \newglossaryentry{SPO}{name=SPO,
 plural=SPOs, description={Die SPO (Studienprüfungsordnung) regelt den Studienablauf, die Prüfungen und den Abschluss des Studiums.
+}}
+\newglossaryentry{Teilleistung}{name=bestandene Teilleistung,
+plural=bestandene Teilleistungen, description={%TODO ausfüllen
 }}
 
 \begin{document}
@@ -67,7 +71,7 @@ rechnerunterstützt durchfürbar sein.
    \begin{itemize}
      \item ihre Daten (siehe \ref{SDatenAnfang} bis \ref{SDatenEnde}),     
      \item ihre Themenvorlieben, 
-     \item ihre erbrachten Studienleistungen,
+     \item ihre \glspl{Teilleistung},
      \item und gegebenenfalls ihre \glspl{Lerngruppe}
    \end{itemize}
    in das Produkt eingeben können.
@@ -103,7 +107,7 @@ rechnerunterstützt durchfürbar sein.
     \item Authentifizierung via Shibboleth
     \item Benachrichtigung der Studierenden und Mitarbeiter über die Einteilung
     \item Verwaltung mehrerer Einteilungsergebnisse
-    \item Möglichkeit der Verwaltung der Projekte durch die Betreuer  %TODO:
+    \item Möglichkeit der Verwaltung der \glspl{Projekt} durch die Betreuer  %TODO:
     % formulierung
     \item Nachjustierbarkeit bei Änderungen der SPO %TODO: überlegen ob
     % Pflichtkriterium: mehrere SPOs verwalten.
@@ -134,8 +138,8 @@ für die Vergabe sonstiger Praktikums- oder Tutorienplätze bestimmt
 % durch-
 %zuführen können.
 %TODO formulierung
-Das Produkt dient zur Einpflegung von Projekten und zur Zuteilung von
-Studierenden zu den Projekten. Hierbei werden die Projekt-Präferenzen der
+Das Produkt dient zur Einpflegung von \glspl{Projekt}n und zur Zuteilung von
+Studierenden zu den \glspl{Projekt}n. Hierbei werden die Projekt-Präferenzen der
 Studierenden berücksichtigt.
 
 
@@ -196,14 +200,15 @@ Pflichtfunktionen
 
 \begin{enumerate}[label=\swtLabel{FA}]
   \item Registrierung eines Studierenden mit Datenerfassung:
+  \label{FAregistrierung}
   \begin{itemize}
     \item Name, Matrikelnummer, Email-Adresse, Semester
     \item Auswahl bestandener Teilleistungen und der \gls{SPO}
   \end{itemize}
   \item Anmeldung
-  \item Bewertung der \glspl{Projekt}
+  \item Bewertung der \glspl{Projekt} \label{FAbewertung}
   \item Erstellung einer Lerngruppe mit Name und Passwort
-  \item Bewertung der \glspl{Projekt} für die Lerngruppe
+  \item Bewertung der \glspl{Projekt} für die Lerngruppe  \label{FAbewertung2}
   \item Beitritt zu einer Lerngruppe
   \item Übersicht der eigenen Lerngruppe (Bewertung und Mitglieder)
   \item Abmeldung
@@ -227,10 +232,10 @@ Wunschfunktionen
 
 \begin{enumerate}[label=\swtLabel{FA}, resume]
   \item Anmeldung
-  \item Erstellung eines Projektes
+  \item Erstellung eines \glspl{Projekt}s
   \item Ändern der Projektdetails: Name, Beschreibung, Projektbetreuer,
         minimale und maximale Teilnehmerzahl, Anzahl der Teams
-  \item Einsehen der Einteilung zu eigenen Projekten
+  \item Einsehen der Einteilung zu eigenen \glspl{Projekt}n
   \item Abmeldung
 \end{enumerate}
 
@@ -240,7 +245,7 @@ Pflichtfunktionen
 
 \begin{enumerate}[label=\swtLabel{FA}, resume]
   \item Anmeldung
-  \item Initialisierung
+  \item Initialisierung \label{FAinit}
   \item Setzten der frühest möglichen Anmeldezeit
   \item Setzen der Bewertungsdeadline
   \item Konfiguration der Einteilungsparameter
@@ -249,9 +254,9 @@ Pflichtfunktionen
   \item Auswertung der Gütekriterien anzeigen
   \item Studierende aus Projektgruppe entfernen
   \item Studierende zu Projektgruppe hinzufügen
-  \item Import einer Einteilung
-  \item Export einer Einteilung
-  \item Erstellung eines Projektes
+  \item Import einer Einteilung \label{FAimport}
+  \item Export einer Einteilung \label{FAexport}
+  \item Erstellung eines \glspl{Projekt}s
   \item Ändern der Projektdetails: Name, Beschreibung, Projektbetreuer, 
         minimale und maximale Teilnehmerzahl, Anzahl der Teams
   \item Abmeldung
@@ -260,9 +265,9 @@ Pflichtfunktionen
 Wunschfunktionen
 
 \begin{enumerate}[label=\swtLabel{FA}, resume]
-  \item Abbrechen der Einteilungsberechnung
+  \item Abbrechen der Einteilungsberechnung \label{FAabbruch}
   \item Hochladen einer Liste von Studierenden, die zum PSE angemeldet sind
-	    und automatisches setzen der bestandenen Teilleistungen
+	    und automatisches setzen der bestandenen Teilleistungen \label{FAimport2}
   %TODO Was ist damit gemeint? \item Hinzufügen/Löschen von Studierenden
   %und Bearbeitung der Daten
   \item Hinzufügen von Berechnungen zur Stapelverarbeitung
@@ -273,8 +278,25 @@ Wunschfunktionen
 \end{enumerate}
 
 \subsection{Einteilungsfunktionen}
+
 \begin{enumerate}[label=\swtLabel{FA}, resume]
-  \item 
+  \item Einteilen der Studierenden zu \glspl{Projekt}n. Hierbei werden folgende
+  Kriterien, so weit möglich, eingehalten:
+  \begin{itemize}
+    \item Wer die, durch die \gls{SPO} gegebenen Voraussetzungen nicht erfüllt
+    wird nicht eingeteilt \label{FAeinteilung}
+    \item Möglichst viele Studierende werden \glspl{Projekt}n zugeteilt 
+    \item Lerngruppen bleiben zusammen
+    \item Präferenzen der Studierenden werden berücksichtigt
+  \end{itemize}
+ Wünschenswert wäre weiterhin noch die Berücksichtigung von folgenden Kriterien:  
+ \begin{itemize}
+   \item Eher 5er Teams als 6er Teams
+   \item Studierende im Team sind im gleichen Semester
+   \item Studierende höherer Semester werden bevorzugt
+   \item Studierende, die bereits mehr Teilleistungen aus dem ersten Jahr
+bestanden haben werdem bevorzugt 
+ \end{itemize}
 \end{enumerate}
 
 \section{Produktdaten}
@@ -302,24 +324,77 @@ Zu jedem Studierenden sollen folgende Daten gespeichert werden:
 \end{enumerate}
 \subsection{Lerngruppen-Daten} 
 \begin{enumerate}[label=\swtLabel{D}, resume] 
-  \item Bewertung der Projekte, zu welchem die Lerngruppenmitglieder
-  (Studierenden) am liebsten zugeteilt würden
+  \item Bewertung der \glspl{Projekt}, zu welchem die Lerngruppenmitglieder
+  (Studierende) am liebsten zugeteilt würden
   \item Mitglieder der Lerngruppe
 \end{enumerate}
 
 \section{Nichtfunktionale Anforderungen}
-\begin{enumerate}[label=\swtLabel{NA}]
-  \item Das Produkt muss die Einteilung mit bis zu 70 Projekten bzw. Teams und 300 Studenten beherrschen
+
+\begin{enumerate}[label=\swtLabel{NF}]
+  \item Es müssen maximal 500 Studierende und 100 \glspl{Projekt} verwaltet werden
+  können
+  \item Für Studierende ist die Antwortzeit des Webservers im Schnitt nicht
+  länger als 3 Sekunden. Ausgenommen hiervon sind \ref{FAregistrierung}, 
+  \ref{FAbewertung} und \ref{FAbewertung2} bei welchen die Antwortzeit im
+  Schnitt unter 10 Sekunden liegt
+  \item Für den Administrator ist die Antwortzeit des Webservers im Schnitt nicht
+  länger als 5 Sekunden. Ausgenommen hiervon sind \ref{FAinit}, \ref{FAimport},
+  \ref{FAexport}, \ref{FAabbruch} und \ref{FAimport2} bei welchen die Antwortzeit im Schnitt
+  unter 60 Sekunden liegt
+  \item Für Betreuer ist die Antwortzeit des Webservers im Schnitt nicht
+  länger als 5 Sekunden
+  \item Die Einteilungsfunktion \ref{FAeinteilung} ist im Schnitt in unter 24
+  Stunden fertig
+  \item Die Eingabefelder für Eingabemasken passen bei einer Auflösung von 
+	1024x768 Bildpunkten auf eine Bildschirmseite
+	\item Der Session-Timeout der Internetseite liegt für Studierende bei 30
+	Minuten
+	\item Zuverlässigkeit: Die Webseite ist zu 99\% erreichbar %TODO ist das die
+	% Zerlässigkeit?
+	\item Benutzbarkeit (Administrator): Nach Einführung von 4h können Nutzer die
+	Einteilung administrieren
+	\item Benutzbarkeit (Studierende): Mehr als 90\% der Studierenden können
+	sich ohne Anleitung Registrieren, Anmelden und %TODO ab wann werden Studenten
+	% bei der einteilung berücksichtigt diesen punkt dann hier einfügen
+	\item Übertragbarkeit: %TODO
+	\item Änderbarkeit: %TODO
+	
+ 
+%TODO was fehlt hier noch
+
 \end{enumerate}
 \section{Globale Testfälle}
 Folgende Funktionssequenzen sind zu überprüfen:
+
+\begin{itemize}
+  \item In der Studierendensicht:
+
+
 \begin{enumerate} [label=\swtLabel{T}]
-  \item Einloggen als Administrator, Erstellung eines Semesters mit mehreren SPOs
-  \item Einloggen als Projektbetreuer, Erstellung mehrerer Projekte
+  
+  
   \item Registrierung als Student, Erstellen oder beitreten einer Lerngruppe und Abgeben einer Bewertung
   \item Deadlines zur Registrierung als Student und zur Bewertungsabgabe werden eingehalten
-  \item Einteilungsberechnung und anschließendem manuellen Editieren und Veröffentlichen dieser
+  
+
 \end{enumerate}
+  \item In der Adminsicht:
+   \begin{enumerate} [label=\swtLabel{T}, resume]
+  \item Einloggen als Administrator, Erstellung eines Semesters mit mehreren SPOs
+  \item Einteilungsberechnung und anschließendem manuellen Editieren und
+  Veröffentlichen dieser
+\end{enumerate}
+  \item In der Betreuersicht:
+   \begin{enumerate} [label=\swtLabel{T}, resume]
+  \item Einloggen als Projektbetreuer, Erstellung mehrerer Projekte
+\end{enumerate}
+  \item Bei den Einteilungsergebnissen
+   \begin{enumerate} [label=\swtLabel{T}, resume]
+  \item 
+\end{enumerate}
+\end{itemize}
+
 \section{Systemmodelle}
 
 \subsection{Szenarien}
@@ -481,7 +556,7 @@ Folgende Funktionssequenzen sind zu überprüfen:
   
   \item
   \begin{description}
-  \item[Anwendung:] Studierender bewertet Projekte
+  \item[Anwendung:] Studierender bewertet \glspl{Projekt}
   \item[Ziel:] Der Studierende hat eine Bewertung abgegeben
   	\item[Vorbedingung:] Der Studierende ist angemeldet und im Studierendenportal der
   	Website
@@ -502,7 +577,7 @@ Folgende Funktionssequenzen sind zu überprüfen:
   
   \item
   \begin{description}
-  \item[Anwendung:] Studierender bewertet Projekte für eine Lerngruppe
+  \item[Anwendung:] Studierender bewertet \glspl{Projekt} für eine Lerngruppe
   \item[Ziel:] Die Lerngruppe assoziiert mit dem Studierenden hat eine Bewertung
   abgegeben
   	\item[Vorbedingung:] Der Studierende ist als Leiter einer Lerngruppe angemeldet
@@ -717,7 +792,7 @@ Folgende Funktionssequenzen sind zu überprüfen:
   \begin{description}
   \item[Anwendung:] Teameinteilung
   \item[Ziel:] Finden einer Teameinteilung nach ausgewählten Parametern
-  	\item[Vorbedingung:] Alle Projekte in der Datenbank sind vollständig
+  	\item[Vorbedingung:] Alle \glspl{Projekt} in der Datenbank sind vollständig
   	\item[Nachbedingung(Erfolg):] Es wurde eine Teameinteilung gefunden
   	\item[Nachbedingung(Fehlschlag):] Es wurde keine Teameinteilung gefunden
   	\item[Akteure:] Administrator
@@ -727,7 +802,7 @@ Folgende Funktionssequenzen sind zu überprüfen:
   	\begin{enumerate} 
   	  \item Einstellen der Parameter nach den eingeteilt werden soll
   	  \item Starten der Berechnung über Schaltfläche
-  	  \item Sind alle Projekte vollständig angegeben, so startet die Berechnung
+  	  \item Sind alle \glspl{Projekt} vollständig angegeben, so startet die Berechnung
   	  \item Nach Abschluss der Berechnung wird das Ergebnis inklusive
   	  eingestellter Parameter abgespeichert.
   	\end{enumerate}
@@ -881,7 +956,7 @@ height=0.4\textheight]{gui/adminprojleiter.png}
 \captionof{figure}{Projektleiterübersicht}
 \medskip
 \includegraphics[width=0.7\textwidth,
-height=0.4\textheight]{gui/adminprojekte.png}
+height=0.4\textheight]{gui/admin\glspl{Projekt}.png}
 \captionof{figure}{Projektübersicht}
 \medskip
 \includegraphics[width=0.7\textwidth,
@@ -901,7 +976,7 @@ height=0.7\textheight]{gui/adminproperties.png}
 \captionof{figure}{Einstellungen}
 \medskip
 \includegraphics[width=0.7\textwidth,
-height=0.4\textheight]{gui/projleiterprojekte.png}
+height=0.4\textheight]{gui/projleiter\glspl{Projekt}.png}
 \captionof{figure}{Betreueransicht}
 \medskip
 }
