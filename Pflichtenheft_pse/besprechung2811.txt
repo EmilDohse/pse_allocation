@@ -1,0 +1,59 @@
+-Tetsfälle ausführlicher - hier die egebnisse bei zwoischenschritten einfügen
+- Objektmodell ? Lieber uml syntax? Komponente server mehr?
+
+Einführung am anfang, unique selling point, problembeschreibung am anfang eine halbe seite odder so
+
+Musskriterien konfiguration durch admin möglich
+
+Prioritäten zu wunschkriterien
+
+Synonyme entfernen 
+
+Gütekriterien welche?
+
+Was für ein im und export was und welches foormat
+
+Autentifizierung als eigener punkt für alle (student,...)
+
+redundater punkt webinterface
+
+ein für alle benuter ereichbarer webserver
+
+webserver brauchen wir wirklich apache oder was auch immer - apache wegen shibboleth? 
+
+mySQL oder was sonst
+
+gibt es eine überdeckung über anwendungs/testfälle
+
+mobiles design als wunschkriterium oder anpassung des ganzen aufs handy?
+
+initialisierung genauer beschreibben 
+
+link zu jedem thema ??? ich habe es immer noch nicht verstanden
+Der Link der zu den Websites der Themen führt, auf denen die Infos stehen
+
+unter daten die spo - dazu spo wenn möglich unter wunsch 
+
+schritte konsistent bei anwendungsfällen
+
+shiboleth; was genau wird mitgegeben
+
+passwort vergessen - besser formulieren
+
+A abgrenzung A admin
+
+konsistentz gui und anforderungen
+
+gui größer und mit "lebensechten" begriffen
+
+konfiguration was ist möglich? und wie ? gui und anforderunegn
+
+betreuersicht anzeige: wer ist angemeldet für pse tse
+
+10min präsentation 
+Unique selling pont max 3 features - was kann es mehr als das bisherige system
+Warum machen wir das projekt überhaupt
+
+
+
+
