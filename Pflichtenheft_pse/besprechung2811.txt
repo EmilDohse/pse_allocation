@@ -1,0 +1,60 @@
+-Tetsfälle ausführlicher - hier die egebnisse bei zwoischenschritten einfügen 
+- Objektmodell ? Lieber uml syntax? Komponente server mehr? (Faller)
+
+Einführung am anfang, unique selling point, problembeschreibung am anfang eine halbe seite odder so (faller)
+
+Musskriterien: konfiguration durch admin möglich -emil
+
+Prioritäten zu wunschkriterien 	-alle mittwoch
+
+Synonyme entfernen und glossar - alle
+
+Gütekriterien welche? -emil 
+
+Was für ein im und export was und welches format -mittwoch
+
+Autentifizierung als eigener punkt für alle (student,...) -emil 
+
+redundater punkt webinterface -emil
+
+ein für alle benuter ereichbarer webserver -emil
+
+webserver brauchen wir wirklich apache oder was auch immer - apache wegen shibboleth?  -mittwoch
+
+mySQL oder was sonst -faller
+
+gibt es eine überdeckung über anwendungs/testfälle -loth
+
+mobiles design als wunschkriterium oder anpassung des ganzen aufs handy? -emil
+
+initialisierung genauer beschreibben -emil
+
+link zu jedem projekt - daniel 
+
+unter daten die spo - dazu spo wenn möglich unter wunsch - loth
+
+schritte konsistent bei anwendungsfällen -loth
+
+shiboleth; was genau wird mitgegeben und anwendungsfälle dazu anpassen - mittwoch
+
+passwort vergessen - besser formulieren und FA - loth
+
+A abgrenzung A admin - emil 
+
+konsistentz gui und anforderungen -daniel
+
+gui größer -emil,faller
+
+mit "lebensechten" begriffen - daniel
+
+konfiguration was ist möglich? und wie ? gui und anforderunegn 
+
+betreuersicht anzeige: wer ist angemeldet für pse tse -daniel 
+
+10min präsentation 
+Unique selling pont max 3 features - was kann es mehr als das bisherige system
+Warum machen wir das projekt überhaupt
+
+
+
+
