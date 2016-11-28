@@ -45,8 +45,11 @@ plural=Teams, description={Ein Team ist ein Zusammenschluss von Studierenden, we
 \newglossaryentry{SPO}{name=SPO,
 plural=SPOs, description={Die SPO (Studienprüfungsordnung) regelt den Studienablauf, die Prüfungen und den Abschluss des Studiums.
 }}
-\newglossaryentry{Teilleistung}{name=bestandene Teilleistung,
-plural=bestandene Teilleistungen, description={%TODO ausfüllen
+\newglossaryentry{Teilleistung}{name=bestandene Teilleistung, %bestandene weglassen?!
+plural=bestandene Teilleistungen, description={Eine Teilleistung ist eine von den \glspl{Studierender}n zu erbringende Leistung, meist in Form einer schriftlichen Prüfung. Das bestehen einer oder mehrerer Teilleistungen führt zum bestehen eines \gls{Modul}s. Dies wird in der \gls{SPO} spezifiziert.
+}}
+\newglossaryentry{Modul}{name=Modul,
+plural=Module, description={Ein Modul ist ein Zusammenschluss verschiedener Teilleistungen, welche das gleiche Thema abdecken. 
 }}
 
 \begin{document}
@@ -966,7 +969,7 @@ height=0.4\textheight]{gui/adminprojleiter.png}
 \captionof{figure}{Projektleiterübersicht}
 \medskip
 \includegraphics[width=0.7\textwidth,
-height=0.4\textheight]{gui/admin\glspl{Projekt}.png}
+height=0.4\textheight]{gui/adminprojekte.png}
 \captionof{figure}{Projektübersicht}
 \medskip
 \includegraphics[width=0.7\textwidth,
@@ -986,7 +989,7 @@ height=0.7\textheight]{gui/adminproperties.png}
 \captionof{figure}{Einstellungen}
 \medskip
 \includegraphics[width=0.7\textwidth,
-height=0.4\textheight]{gui/projleiter\glspl{Projekt}.png}
+height=0.4\textheight]{gui/projleiterprojekte.png}
 \captionof{figure}{Betreueransicht}
 \medskip
 }
