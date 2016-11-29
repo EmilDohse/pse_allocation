@@ -86,7 +86,8 @@ nicht zugeteilt wurden }}
 
 \section{Zielbestimmung}
 
-Die Einteilung zu den Projektgruppen für das Modul \gls{PSE} wurde bisher über die Software \enquote{Webinscribe} gelöst.
+Die Einteilung zu den Projektgruppen für das Modul \gls{PSE} wurde
+bisher über die Software \enquote{Webinscribe} gelöst.
 \enquote{Webinscribe} ist dazu entworfen worden, Studierende zu Tutorien einzuteilen.
 Zwar ähneln die Anforderungen an die PSE-Teameinteilung denen, der Tutoriumseinteilung,
 jedoch sind sie nicht absolut deckungsgleich. 
@@ -267,8 +268,9 @@ oder neuer
 \subsubsection{Wunschfunktionen}
 
 \begin{enumerate}[label=\swtLabel{FA}, resume]
-	\item Studierende aus der Lerngruppe entfernen \label{FAentfStudLerng}
-	% TODO Was ist noch mit W30 gemeint?
+	\item %Studierende aus der Lerngruppe entfernen \label{FAentfStudLerng} 
+	%TODO
+	% gz entfernen?an TODO Was ist noch mit W30 gemeint?
 	\item Anzeigen von Projektbeschreibung in Bewertungseingabemaske
 	\label{FAbeschreibung-Bewertung}
 	\item Austritt aus einer Lerngruppe \label{FAlergAustritt}
@@ -611,7 +613,7 @@ Folgende Funktionssequenzen sind zu überprüfen:
   \item[Anwendung:] Studierender tritt Lerngruppe bei
   \item[Ziel:] Studierender ist Mitglied einer Lerngruppe
   	\item[Vorbedingung:] Studierender ist angemeldet und befindet sich auf der
-  	Website im Studierendenportal
+  	Webseite in Studierendensicht
   	\item[Nachbedingung(Erfolg):] Der Studierende ist Mitglied der Lerngruppe
   	\item[Nachbedingung(Fehlschlag):] Der Studierende ist nicht Mitglied der
   	Lerngruppe
@@ -638,6 +640,119 @@ Folgende Funktionssequenzen sind zu überprüfen:
   	  der Studierende ist kein Mitglied der Lerngruppe
   	 \end{enumerate}
   	 \item[benötigte FA:] \ref{FAjoinLerng}
+  \end{description}
+  
+   \item
+  \begin{description}
+  \item[Anwendung:] Übersicht über Lerngruppe
+  \item[Ziel:] Studierender kann sehen wer in seiner Lerngruppe ist
+  	\item[Vorbedingung:] Studierender ist angemeldet und befindet sich auf der
+  	Webseite in Studierendensicht. Weiterhin ist der Studierende mitglied einer
+  	Lerngruppe
+  	\item[Nachbedingung(Erfolg):] Studierender befindet sich nun in der
+  	Lerngruppenübersicht
+  	\item[Nachbedingung(Fehlschlag):] Der Studierende ist nicht in der
+  	Lerngruppenübersicht
+  	\item[Akteure:] Studierender
+  	\item[Auslösen des Ereignisses:] Der Studierende möchte ansehen wer außer ihm
+  	in der Lerngruppe ist in der er angemeldet ist
+  	\item[Beschreibung:]~
+  	\begin{enumerate}
+  	  \item[1.] Der Studierende klickt auf Lerngruppe
+ 
+  	\end{enumerate}
+  	\item[Erweiterungen:] -keine-
+  	
+  	\item[Alternativen:] -keine-
+  	
+  	 \item[benötigte FA:] \ref{FAcheckLerng}
+  \end{description}
+  
+     \item
+  \begin{description}
+  \item[Anwendung:] Einsicht der Einteilungsergebnisse
+  \item[Ziel:] Studierender kann sehen welchem Projekt er zugeteilt wurde
+  	\item[Vorbedingung:] Studierender ist angemeldet und befindet sich auf der
+  	Webseite in Studierendensicht. 
+  	\item[Nachbedingung(Erfolg):] Studierender befindet sich in der Maske
+  	Einteilungsergebnisse. %TODO verweis
+  	Falls der Admin die Einteilungsergebnisse bereits veröffentlicht hat kann er
+  	sehen welchem Projekt er zugeteilt wurde. Sonst sieht er, dass die Einteilung
+  	noch ingange ist
+  	\item[Nachbedingung(Fehlschlag):] Der Studierende ist nicht in der
+  	Maske Einteilungsergebnisse
+  	\item[Akteure:] Studierender
+  	\item[Auslösen des Ereignisses:] Der Studierende möchte überprüfen ob er
+  	bereits einem Projekt zugeteilt wurde
+  	\item[Beschreibung:]~
+  	\begin{enumerate}
+  	  \item[1.] Der Studierende klickt auf Einteilungsergebnisse
+ 
+  	\end{enumerate}
+  	\item[Erweiterungen:] -keine-
+
+  	\item[Alternativen:] -keine-
+  	
+  	 \item[benötigte FA:] \ref{FAStudeinsicht}
+  \end{description}
+  
+    \item
+  \begin{description}
+  \item[Anwendung:] Anzeigen der Projektbeschreibung in Bewertungsmaske
+  \item[Ziel:] Studierender kann sich während der Einteilung die Beschreibung
+  der zu bewertenden Projekte nochmal ansehen
+  	\item[Vorbedingung:] Studierender ist angemeldet und befindet sich in der
+  	Projektbewertungsmaske %TODO verweis
+  	
+  	\item[Nachbedingung(Erfolg):] Studierender kann die Projektbeschreibung als
+  	\enquote{Overlay} sehen %TODO wirklich als overlay? wie sieht der Studierend
+  	%die beschreibunmg e
+  	
+  	\item[Nachbedingung(Fehlschlag):] Der Studierende kann die
+  	Projektbeschreibung nicht sehen
+  	\item[Akteure:] Studierender
+  	\item[Auslösen des Ereignisses:] Der Studierende bewertet Projekte und weiß
+  	bei einem Projekt nicht mehr genau um was es ging
+  	\item[Beschreibung:]~
+  	\begin{enumerate}
+  	  \item[1.] Der Studierende fährt mit seiner Maus über den Projektname 
+ 
+  	\end{enumerate}
+  	\item[Erweiterungen:] -keine-
+
+  	\item[Alternativen:] -keine-
+
+  	 \item[benötigte FA:] \ref{FAbeschreibung-Bewertung}
+  \end{description}
+  
+      \item
+  \begin{description}
+  \item[Anwendung:] Austritt aus einer Lerngruppe
+  \item[Ziel:] Studiernder möchte aus einer Lerngruppe austreten
+  	\item[Vorbedingung:] Studierender ist angemeldet und befindet sich auf der
+  	Webseite in Studierndensicht. Weiterhin ist er mitglied einer Lerngruppe
+  	%TODO verweis
+  	
+  	\item[Nachbedingung(Erfolg):] Studierender ist kein Mitglied der Lerngruppe
+  	mehr
+  	
+  	\item[Nachbedingung(Fehlschlag):] Studierender ist immernoch Mitglied der
+  	Lerngruppe
+  	\item[Akteure:] Studierender
+  	\item[Auslösen des Ereignisses:] Studierender möchte einer anderen Lerngruppe
+  	beitreten oder eigene Projektbewertungen abgeben
+  	\item[Beschreibung:]~
+  	\begin{enumerate}
+  	  \item[1.] Der Studierende klickt auf Lerngruppe. Nun befindet er sich in
+  	  der \enquote{Lerngruppe}-Maske %TODO verweis
+  	  \item[2.] Der Studierende klickt auf \enquote{Austreten}
+ 
+  	\end{enumerate}
+  	\item[Erweiterungen:] -keine-
+
+  	\item[Alternativen:] -keine-
+
+  	 \item[benötigte FA:] \ref{FAlergAustritt}
   \end{description}
 %   
   
@@ -844,7 +959,7 @@ Folgende Funktionssequenzen sind zu überprüfen:
   	\item[Akteure:] Administrator, Institut
   	\item[Auslösen des Ereignisses:] Administrator bekommt Projektdaten von einem
   	Institut\\ vorgelegt
-  	\item[Beschreibung:]~
+  	\item[Beschreibung:]F~
   	\begin{enumerate} 
   	  \item[1.] Projektübersicht öffnen
   	  \item[2.] Wenn das Projekt schon existiert, so werden die Projektdaten
@@ -1032,64 +1147,65 @@ Folgende Funktionssequenzen sind zu überprüfen:
         \end{itemize}
   \item Die jeweiligen sichten sind erst nach der Anmeldung einzusehen 
   \item Studierende dürfen nur auf ihre eigenen Daten und falls sie in einer
-  Lerngruppe sind auf die Daten dieser zugreifen
+  Lerngruppe sind auf die Daten dieser zugreifen 
 \subsubsection{GUI}
 {\centering
 \fbox{\includegraphics[width=\textwidth,
 keepaspectratio=true]{gui/index.png}}
-\captionof{figure}{Startseite}
+\captionof{figure}{Startseite} \label{GUIindex}
 
 
 \setlength{\textheight}{297mm}
-\setlength{\headheight}{3mm}
+\setlength{\headheight}{0mm}
 \fbox{\includegraphics[width=\textwidth,
 keepaspectratio=true]{gui/registrierung.png}}
-\captionof{figure}{Registrierungsansicht}
+\captionof{figure}{Registrierungsansicht} \label{GUIregi}
 \thispagestyle{empty}
 
 \fbox{\includegraphics[width=\textwidth,
 keepaspectratio=true]{gui/studentbewertung.png}}
-\captionof{figure}{Bewertungsmaske}
+\captionof{figure}{Bewertungsmaske} \label{GUIbewertung}
 
 \fbox{\includegraphics[width=\textwidth,
 keepaspectratio=true]{gui/studentlerngruppe.png}}
-\captionof{figure}{Anmeldung zu Lerngruppe}
+\captionof{figure}{Anmeldung zu Lerngruppe} \label{GUIanmeldLG}
 \medskip
 \fbox{\includegraphics[width=\textwidth,
 keepaspectratio=true]{gui/studentlerngruppeingr.png}}
-\captionof{figure}{Lerngruppenübersicht}
+\captionof{figure}{Lerngruppenübersicht} \label{GUIlerngUebersicht}
 \medskip
 \fbox{\includegraphics[width=\textwidth,
 keepaspectratio=true]{gui/studentergebnis.png}}
-\captionof{figure}{Ergebnisansicht}
+\captionof{figure}{Ergebnisansicht} \label{GUIergebnisAnsicht}
 \medskip
 \fbox{\includegraphics[width=\textwidth,
 keepaspectratio=true]{gui/adminprojleiter.png}}
-\captionof{figure}{Projektleiterübersicht}
+\captionof{figure}{Projektleiterübersicht} \label{GUIprojLeiterUebersicht}
 \medskip
 \fbox{\includegraphics[width=\textwidth,
 keepaspectratio=true]{gui/adminprojekte.png}}
-\captionof{figure}{Projektübersicht}
+
+\captionof{figure}{Projektübersicht} \label{GUIprojUebersicht}
 \medskip
 \fbox{\includegraphics[width=\textwidth,
 keepaspectratio=true]{gui/admineinteilung.png}}
-\captionof{figure}{Einteilungsmaske}
+\captionof{figure}{Einteilungsmaske} \label{GUIeinteilung}
 \medskip
 \fbox{\includegraphics[width=\textwidth,
 keepaspectratio=true]{gui/adminergebnisse.png}}
-\captionof{figure}{Übersicht der Einteilungen}
+\captionof{figure}{Übersicht der Einteilungen} \label{GUIeinteilungErgeb}
 \medskip
 \fbox{\includegraphics[width=\textwidth,
 keepaspectratio=true]{gui/adminergebnissevergl.png}}
-\captionof{figure}{Vergleichsansicht}
+\captionof{figure}{Vergleichsansicht} \label{GUIvergleich}
 \medskip
 \fbox{\includegraphics[width=\textwidth,
 keepaspectratio=true]{gui/adminproperties.png}}
-\captionof{figure}{Einstellungen}
+\captionof{figure}{Einstellungen} \label{testBild}
 \medskip
 \fbox{\includegraphics[width=\textwidth,
 keepaspectratio=true]{gui/projleiterprojekte.png}}
-\captionof{figure}{Betreueransicht}
+\captionof{figure}{Betreueransicht} \label{GUIeinstellung}
 \medskip
 }
 \end{enumerate}
