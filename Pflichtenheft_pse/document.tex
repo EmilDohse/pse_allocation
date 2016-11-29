@@ -22,16 +22,16 @@
                         einzusetzen, Implementierungskompetenz umzusetzen, und
                         arbeitsteilig im Team zu kooperieren.}}
                       
-\newglossaryentry{Lerngruppe}{name=Lerngruppe,
+\newglossaryentry{Lerngruppe}{name=Lerngruppe, plural=Lerngruppen,
 description={Eine Lerngruppe ist ein Zusammenschluss von Studierenden, welche
 gemeinsam eine Bewertung abgeben für die \glspl{Projekt}inteilung. Zusätzlich
 werden sie bei der Einteilung gesondert berücksichtigt, sodass Studierende einer
 Lerngruppe möglichst ein Team bilden oder als Gruppe einem Team angehören.
-}, plural=Lerngruppen}
+}}
 \newglossaryentry{Guetekriterium}{name=Gütekriterium,
-plural=Gütekriterien,description={Gütekriterien sind Kriterien, welche die Güte
-einer Einteilung bestimmen. Anhand von Gütekriterien kann ein Vergleich und eine
-Bewertung von Einteilungen vorgenommen werden. 
+plural=Gütekriterien,description={Gütekriterien sind Kriterien, welche
+die Güte einer Einteilung bestimmen. Anhand von Gütekriterien kann ein Vergleich
+und eine Bewertung von Einteilungen vorgenommen werden. 
 }}
 \newglossaryentry{Projekt}{name=Projekt,
 plural=Projekte, description={Ein Projekt ist ein zielgerichtetes Vorhaben,
@@ -41,10 +41,10 @@ welches von mindestens einem Team bearbeitet wird. Dieses Vorhaben wird von mehr
 plural=Projektbetreuer, description={Ein Projektbetreuer ist eine Person, welche administrative und unterstützende Tätigkeiten eines oder mehrerer \glspl{Projekt} ausführt. Dabei kann ein Projektbetreuer mehrere Teams betreuen.
 }}
 \newglossaryentry{Admin}{name=Administrator,
-plural=Administratoren, description={Ein Administrator ist eine Person, welche das PSE administrativ unterstützt und das Produkt konfiguriert.
+plural=Administratoren, description={Ein Administrator ist eine Person, welche das \gls{PSE} administrativ unterstützt und das Produkt konfiguriert.
 }}
 \newglossaryentry{Studierender}{name=Studierender,
-plural=Studierende, description={Ein Studierender ist eine Person, welche eingeschrieben ist an einer Universität. In diesem Kontext sind nur Studierende gemeint, welche sich für das PSE angemeldet haben und an diesem teilnehmen wollen.
+plural=Studierende, description={Ein Studierender ist eine Person, welche eingeschrieben ist an einer Universität. In diesem Kontext sind nur Studierende gemeint, welche sich für das \gls{PSE} angemeldet haben und an diesem teilnehmen wollen.
 }}
 \newglossaryentry{Team}{name=Team,
 plural=Teams, description={Ein Team ist ein Zusammenschluss von Studierenden, welche gemeinsam ein Projekt bearbeiten.
@@ -61,9 +61,9 @@ plural=Module, description={Ein Modul ist ein Zusammenschluss verschiedener Teil
 \newglossaryentry{happyness}{name=Studierenden-Happyness,
 plural=Studierenden-Happyness, description={Die Studierenden-Happyness ist ein
 \gls{Guetekriterium} welches sich aus der  }} %TODO formulierung
-\newglossaryentry{gesplitteteGruppe}{name=Anzahl der gesplittelen Lerngruppen,
- description={ Die Anzahl der gesplittelen Lerngruppen ist ein
- \gls{Guetekriterium} welches angiebt, wieviele Lerngruppen bei der Einteilung
+\newglossaryentry{gesplitteteGruppe}{name=Anzahl der gesplittelen \glspl{Lerngruppe},
+ description={ Die Anzahl der gesplittelen \glspl{Lerngruppe} ist ein
+ \gls{Guetekriterium} welches angiebt, wieviele \glspl{Lerngruppe} bei der Einteilung
  auseinander gerissen wurden}}
 
 \newglossaryentry{nichtZugeteilt}{name=Anzahl der nicht Zugeteilten,
@@ -73,8 +73,8 @@ nicht zugeteilt wurden }}
 
 \begin{document}
 
-\title{\textbf{STRAPSE}\\
-        \large Supter Team Allocationt for PSE}
+\title{\textbf{STRA\gls{PSE}}\\
+        \large Supter Team Allocationt for \gls{PSE}}
 
 \author{D. Biester, E. Dohse, P. Faller, P. Loth, L. Seufert, S. Kopmann}
         
@@ -89,14 +89,14 @@ nicht zugeteilt wurden }}
 Die Einteilung zu den Projektgruppen für das Modul \gls{PSE} wurde
 bisher über die Software \enquote{Webinscribe} gelöst.
 \enquote{Webinscribe} ist dazu entworfen worden, Studierende zu Tutorien einzuteilen.
-Zwar ähneln die Anforderungen an die PSE-Teameinteilung denen, der Tutoriumseinteilung,
+Zwar ähneln die Anforderungen an die \gls{PSE}-Teameinteilung denen, der Tutoriumseinteilung,
 jedoch sind sie nicht absolut deckungsgleich. 
 Dadurch ist die aktuelle Lösung mit Webinscribe umständlich in der Bedienung und lässt Wünsche bezüglich hilfreicher Features offen.
 So müssen beispielsweise die angebotenen Themen als Tutorien eingetragen werden. 
 Oder eine manuelle Änderung der Einteilung ist nicht über eine Eingabemaske möglich.
 
 Dem tritt unser Produkt entgegen.
-Da es speziell auf die Bedürfnisse der PSE-Einteilung zugeschnitten ist, 
+Da es speziell auf die Bedürfnisse der \gls{PSE}-Einteilung zugeschnitten ist, 
 kann es eine konsistente und bequeme Benutzerschnittstelle anbieten.
 Es löst das Problem, die Studierenden auf die angebotenen Projekte zu verteilen und kann dabei über die Eingabe von Parametern leicht konfiguriert werden.
 Durch zusätzlich angebotene Features, wie die Verwaltung der Themen durch die Projektleiter selbst 
@@ -117,15 +117,15 @@ Insgesamt entsteht dadurch für alle Beteiligten ein effektiver und smarter Work
    \end{itemize}
    in das Produkt eingeben können.
    \item Studierende können sich ?? %TODO Authenntifizierung formulieren
-   \item Studierende können vor der Einteilung Lerngruppen erstellen, beitreten
+   \item Studierende können vor der Einteilung \glspl{Lerngruppe} erstellen, beitreten
     und diese wieder verlassen
-    \item Verwaltung von Lerngruppen durch Studierende % Geneauer in FAs oder
+    \item Verwaltung von \glspl{Lerngruppe} durch Studierende % Geneauer in FAs oder
     % auch schon hier?
    \item Das Produkt teilt nach folgenden Kriterien Studierenden Teams zu:
    \label{Mzuteilung}
    \begin{itemize}
      \item Wer die Voraussetzungen nicht erfüllt wird nicht eingeteilt
-     \item Lerngruppen sollten zusammenbleiben
+     \item \glspl{Lerngruppe} sollten zusammenbleiben
      \item Präferenzen der Studierenden werden berücksichtigt
    \end{itemize}
      \item Konfiguration der Einteilungskriterien möglich
@@ -176,7 +176,7 @@ Insgesamt entsteht dadurch für alle Beteiligten ein effektiver und smarter Work
  
   \item Das Produkt ist nicht für die Nutzung außerhalb des KITs bestimmt %Please dont do the Deppenapostroph!
 
-\item Die Einteilungsfunktion ist nur für die Einteilung zum PSE, nicht
+\item Die Einteilungsfunktion ist nur für die Einteilung zum \gls{PSE}, nicht
 für die Vergabe sonstiger Praktikums- oder Tutoriumsplätze bestimmt
   
 \end{enumerate}
@@ -256,10 +256,10 @@ oder neuer
   \end{itemize}
   \item Anmeldung \label{FAStudanmeldung}
   \item Bewertung der \glspl{Projekt} \label{FAbewertung}
-  \item Erstellung einer Lerngruppe mit Name und Passwort \label{FAcreatelerng}
-  \item Bewertung der \glspl{Projekt} für die Lerngruppe  \label{FAbewertung2}
-  \item Beitritt zu einer Lerngruppe \label{FAjoinLerng}
-  \item Übersicht der eigenen Lerngruppe (Bewertung und Mitglieder)
+  \item Erstellung einer\gls{Lerngruppe} mit Name und Passwort \label{FAcreatelerng}
+  \item Bewertung der \glspl{Projekt} für die\gls{Lerngruppe}  \label{FAbewertung2}
+  \item Beitritt zu einer\gls{Lerngruppe} \label{FAjoinLerng}
+  \item Übersicht der eigenen\gls{Lerngruppe} (Bewertung und Mitglieder)
   \label{FAcheckLerng}
   \item Abmeldung \label{FAStudabmeldung}
   \item Einsicht der Einteilungsergebnisse \label{FAStudeinsicht}
@@ -268,12 +268,12 @@ oder neuer
 \subsubsection{Wunschfunktionen}
 
 \begin{enumerate}[label=\swtLabel{FA}, resume]
-	\item %Studierende aus der Lerngruppe entfernen \label{FAentfStudLerng} 
+	\item %Studierende aus der\gls{Lerngruppe} entfernen \label{FAentfStudLerng} 
 	%TODO
 	% gz entfernen?an TODO Was ist noch mit W30 gemeint?
 	\item Anzeigen von Projektbeschreibung in Bewertungseingabemaske
 	\label{FAbeschreibung-Bewertung}
-	\item Austritt aus einer Lerngruppe \label{FAlergAustritt}
+	\item Austritt aus einer\gls{Lerngruppe} \label{FAlergAustritt}
 	\item Anmeldung über u"=Account \label{FAstudUanmeldung}%TODO Glossareintrag
 	\item Verifikation der E"=Mail \label{FAemailverifikation}%TODO aus
 	% Wunschkriterium den rest übernehmen
@@ -338,7 +338,7 @@ oder neuer
 
 \begin{enumerate}[label=\swtLabel{FA}, resume]
   \item Abbrechen der Einteilungsberechnung \label{FAabbruch}
-  \item Hochladen einer Liste von Studierenden, die zum PSE angemeldet sind
+  \item Hochladen einer Liste von Studierenden, die zum \gls{PSE} angemeldet sind
 	    und automatisches setzen der bestandenen Teilleistungen \label{FAimport2}
   %TODO Was ist damit gemeint? \item Hinzufügen/Löschen von Studierenden
   %und Bearbeitung der Daten
@@ -360,7 +360,7 @@ oder neuer
     \item Wer die, durch die \gls{SPO} gegebenen Voraussetzungen nicht erfüllt,
     wird nicht eingeteilt \label{FAeinteilung}
     \item Möglichst viele Studierende werden zu \glspl{Projekt}n zugeteilt 
-    \item Lerngruppen bleiben zusammen
+    \item \glspl{Lerngruppe} bleiben zusammen
     \item Präferenzen der Studierenden werden berücksichtigt
   \end{itemize}
  Wünschenswert wäre weiterhin noch die Berücksichtigung von folgenden Kriterien:  
@@ -402,15 +402,15 @@ Zu jedem Studierenden sollen folgende Daten gespeichert werden:
   \item Semester
   \item SPO
   \item bestandene Teilleistungen \label{SDatenEnde}
-  \item Falls keiner Lerngruppe beigetreten: Bewertung, welchem Projekt er oder
+  \item Falls keiner\gls{Lerngruppe} beigetreten: Bewertung, welchem Projekt er oder
   sie am liebsten zugeteilt würde
-  \item Falls einer Lerngruppe beigetreten: Die zugehörige Lerngruppe
+  \item Falls einer\gls{Lerngruppe} beigetreten: Die zugehörige\gls{Lerngruppe}
 \end{enumerate}
-\subsection{Lerngruppen-Daten} 
+\subsection{\glspl{Lerngruppe}-Daten} 
 \begin{enumerate}[label=\swtLabel{D}, resume] 
-  \item Bewertung der \glspl{Projekt}, zu welchem die Lerngruppenmitglieder
+  \item Bewertung der \glspl{Projekt}, zu welchem die \glspl{Lerngruppe}mitglieder
   (Studierende) am liebsten zugeteilt würden
-  \item Mitglieder der Lerngruppe
+  \item Mitglieder der\gls{Lerngruppe}
 \end{enumerate}
 
 \section{Nichtfunktionale Anforderungen}
@@ -458,7 +458,7 @@ Folgende Funktionssequenzen sind zu überprüfen:
 \begin{enumerate} [label=\swtLabel{T}]
   
   
-  \item Registrierung als Student, Erstellen oder beitreten einer Lerngruppe und Abgeben einer Bewertung
+  \item Registrierung als Student, Erstellen oder beitreten einer\gls{Lerngruppe} und Abgeben einer Bewertung
   \item Deadlines zur Registrierung als Student und zur Bewertungsabgabe werden eingehalten
   
 
@@ -582,27 +582,27 @@ Folgende Funktionssequenzen sind zu überprüfen:
   
   \item
   \begin{description}
-  \item[Anwendung:] Studierender erstellt Lerngruppe
-  \item[Ziel:] Eine neue Lerngruppe ist in der Datenbank vermerkt und der Ersteller ist erstes Mitglied dieser
+  \item[Anwendung:] Studierender erstellt\gls{Lerngruppe}
+  \item[Ziel:] Eine neue\gls{Lerngruppe} ist in der Datenbank vermerkt und der Ersteller ist erstes Mitglied dieser
   	\item[Vorbedingung:] Studierender ist angemeldet und befindet sich auf der
   	Website im Studierendenportal
-  	\item[Nachbedingung(Erfolg):] Die Lerngruppe wurde erfolgreich erstellt
-  	\item[Nachbedingung(Fehlschlag):] Die Lerngruppe wurde nicht erstellt
+  	\item[Nachbedingung(Erfolg):] Die\gls{Lerngruppe} wurde erfolgreich erstellt
+  	\item[Nachbedingung(Fehlschlag):] Die\gls{Lerngruppe} wurde nicht erstellt
   	\item[Akteure:] Studierender
   	\item[Auslösen des Ereignisses:] Wille des Studierenden
   	\item[Beschreibung:]~
   	\begin{enumerate}
   	  \item[1.] Studierender gibt Name und Passwort in das Formular zum Erstellen
-  	  einer Lerngruppe ein und schickt dieses ab %TODO: Verweis einfügen
-  	  \item[2.] Wenn noch keine Lerngruppe mit diesem Namen existiert, so wird
-  	  die Lerngruppe in der Datenbank angelegt und der Ersteller wird erstes Mitglied
+  	  einer\gls{Lerngruppe} ein und schickt dieses ab %TODO: Verweis einfügen
+  	  \item[2.] Wenn noch keine\gls{Lerngruppe} mit diesem Namen existiert, so wird
+  	  die\gls{Lerngruppe} in der Datenbank angelegt und der Ersteller wird erstes Mitglied
   	\end{enumerate}
   	\item[Erweiterungen:] -keine-
   	\item[Alternativen:] ~
   	\begin{enumerate}
-  	  \item[2a)] Eine Lerngruppe mit diesem Namen existiert schon. Dann wird
-  	  keine weitere Lerngruppe angelegt und dem Studierenden wird mitgeteilt,
-  	  dass er den Namen der Lerngruppe verändern soll
+  	  \item[2a)] Eine\gls{Lerngruppe} mit diesem Namen existiert schon. Dann wird
+  	  keine weitere\gls{Lerngruppe} angelegt und dem Studierenden wird mitgeteilt,
+  	  dass er den Namen der\gls{Lerngruppe} verändern soll
   	 \end{enumerate}
   	 \item[benötigte FA:] \ref{FAcreatelerng}
   \end{description}
@@ -610,55 +610,55 @@ Folgende Funktionssequenzen sind zu überprüfen:
   
   \item
   \begin{description}
-  \item[Anwendung:] Studierender tritt Lerngruppe bei
-  \item[Ziel:] Studierender ist Mitglied einer Lerngruppe
+  \item[Anwendung:] Studierender tritt\gls{Lerngruppe} bei
+  \item[Ziel:] Studierender ist Mitglied einer\gls{Lerngruppe}
   	\item[Vorbedingung:] Studierender ist angemeldet und befindet sich auf der
   	Webseite in Studierendensicht
-  	\item[Nachbedingung(Erfolg):] Der Studierende ist Mitglied der Lerngruppe
+  	\item[Nachbedingung(Erfolg):] Der Studierende ist Mitglied der\gls{Lerngruppe}
   	\item[Nachbedingung(Fehlschlag):] Der Studierende ist nicht Mitglied der
   	Lerngruppe
   	\item[Akteure:] Studierender
-  	\item[Auslösen des Ereignisses:] Der Studierende will einer Lerngruppe beitreten
+  	\item[Auslösen des Ereignisses:] Der Studierende will einer\gls{Lerngruppe} beitreten
   	\item[Beschreibung:]~
   	\begin{enumerate}
-  	  \item[1.] Der Studierende gibt die Anmeldedaten der Lerngruppe in das
+  	  \item[1.] Der Studierende gibt die Anmeldedaten der\gls{Lerngruppe} in das
   	  passende Formular ein und schickt dieses ab %TODO: Verweis
-  	  \item[2.] Existiert die angegebene Lerngruppe, so wird die Mitgliederliste
+  	  \item[2.] Existiert die angegebene\gls{Lerngruppe}, so wird die Mitgliederliste
   	  derer um den Studierenden erweitert
   	\end{enumerate}
   	\item[Erweiterungen:]~
   	\begin{enumerate}
-  	  \item[2a)] Ist die Lerngruppe schon vollständig, so wird der Studierende nicht
+  	  \item[2a)] Ist die\gls{Lerngruppe} schon vollständig, so wird der Studierende nicht
   	  der Gruppe zugewiesen
-  	  \item[3)] Ist der Studierende nicht der Lerngruppe zugewiesen worden, so werden
+  	  \item[3)] Ist der Studierende nicht der\gls{Lerngruppe} zugewiesen worden, so werden
   	  die zuletzt gespeicherten Bewertungen verwendet
-  	  \item[4)] Der Lerngruppenersteller wird per E-Mail informiert
+  	  \item[4)] Der \glspl{Lerngruppe}ersteller wird per E-Mail informiert
   	 \end{enumerate}
   	\item[Alternativen:] ~
   	\begin{enumerate}
   	  \item[2a)] Existiert keine solche Gruppe, so schlägt der Beitritt fehl und
-  	  der Studierende ist kein Mitglied der Lerngruppe
+  	  der Studierende ist kein Mitglied der\gls{Lerngruppe}
   	 \end{enumerate}
   	 \item[benötigte FA:] \ref{FAjoinLerng}
   \end{description}
   
    \item
   \begin{description}
-  \item[Anwendung:] Übersicht über Lerngruppe
-  \item[Ziel:] Studierender kann sehen wer in seiner Lerngruppe ist
+  \item[Anwendung:] Übersicht über\gls{Lerngruppe}
+  \item[Ziel:] Studierender kann sehen wer in seiner\gls{Lerngruppe} ist
   	\item[Vorbedingung:] Studierender ist angemeldet und befindet sich auf der
   	Webseite in Studierendensicht. Weiterhin ist der Studierende mitglied einer
   	Lerngruppe
   	\item[Nachbedingung(Erfolg):] Studierender befindet sich nun in der
-  	Lerngruppenübersicht
+  	\glspl{Lerngruppe}übersicht
   	\item[Nachbedingung(Fehlschlag):] Der Studierende ist nicht in der
-  	Lerngruppenübersicht
+  	\glspl{Lerngruppe}übersicht
   	\item[Akteure:] Studierender
   	\item[Auslösen des Ereignisses:] Der Studierende möchte ansehen wer außer ihm
-  	in der Lerngruppe ist in der er angemeldet ist
+  	in der\gls{Lerngruppe} ist in der er angemeldet ist
   	\item[Beschreibung:]~
   	\begin{enumerate}
-  	  \item[1.] Der Studierende klickt auf Lerngruppe
+  	  \item[1.] Der Studierende klickt auf\gls{Lerngruppe}
  
   	\end{enumerate}
   	\item[Erweiterungen:] -keine-
@@ -727,23 +727,23 @@ Folgende Funktionssequenzen sind zu überprüfen:
   
       \item
   \begin{description}
-  \item[Anwendung:] Austritt aus einer Lerngruppe
-  \item[Ziel:] Studiernder möchte aus einer Lerngruppe austreten
+  \item[Anwendung:] Austritt aus einer\gls{Lerngruppe}
+  \item[Ziel:] Studiernder möchte aus einer\gls{Lerngruppe} austreten
   	\item[Vorbedingung:] Studierender ist angemeldet und befindet sich auf der
-  	Webseite in Studierndensicht. Weiterhin ist er mitglied einer Lerngruppe
+  	Webseite in Studierndensicht. Weiterhin ist er mitglied einer\gls{Lerngruppe}
   	%TODO verweis
   	
-  	\item[Nachbedingung(Erfolg):] Studierender ist kein Mitglied der Lerngruppe
+  	\item[Nachbedingung(Erfolg):] Studierender ist kein Mitglied der\gls{Lerngruppe}
   	mehr
   	
   	\item[Nachbedingung(Fehlschlag):] Studierender ist immernoch Mitglied der
   	Lerngruppe
   	\item[Akteure:] Studierender
-  	\item[Auslösen des Ereignisses:] Studierender möchte einer anderen Lerngruppe
+  	\item[Auslösen des Ereignisses:] Studierender möchte einer anderen\gls{Lerngruppe}
   	beitreten oder eigene Projektbewertungen abgeben
   	\item[Beschreibung:]~
   	\begin{enumerate}
-  	  \item[1.] Der Studierende klickt auf Lerngruppe. Nun befindet er sich in
+  	  \item[1.] Der Studierende klickt auf\gls{Lerngruppe}. Nun befindet er sich in
   	  der \enquote{Lerngruppe}-Maske %TODO verweis
   	  \item[2.] Der Studierende klickt auf \enquote{Austreten}
  
@@ -780,13 +780,13 @@ Folgende Funktionssequenzen sind zu überprüfen:
   
   \item
   \begin{description}
-  \item[Anwendung:] Studierender bewertet \glspl{Projekt} für eine Lerngruppe
-  \item[Ziel:] Die Lerngruppe assoziiert mit dem Studierenden hat eine Bewertung
+  \item[Anwendung:] Studierender bewertet \glspl{Projekt} für eine\gls{Lerngruppe}
+  \item[Ziel:] Die\gls{Lerngruppe} assoziiert mit dem Studierenden hat eine Bewertung
   abgegeben
-  	\item[Vorbedingung:] Der Studierende ist als Leiter einer Lerngruppe angemeldet
+  	\item[Vorbedingung:] Der Studierende ist als Leiter einer\gls{Lerngruppe} angemeldet
   	und im Studierendenportal der Website
-  	\item[Nachbedingung(Erfolg):] Für die Lerngruppe ist eine Bewertung eingetragen
-  	\item[Nachbedingung(Fehlschlag):] Für die Lerngruppe ist keine (neue)
+  	\item[Nachbedingung(Erfolg):] Für die\gls{Lerngruppe} ist eine Bewertung eingetragen
+  	\item[Nachbedingung(Fehlschlag):] Für die\gls{Lerngruppe} ist keine (neue)
   	Bewertung eingetragen
   	\item[Akteure:] Studierender
   	\item[Auslösen des Ereignisses:] Des Studierendens Wille
@@ -854,17 +854,17 @@ Folgende Funktionssequenzen sind zu überprüfen:
   \item
 	\begin{description}
   		\item[Anwendung:] Thema erstellen/ändern
-  		\item[Ziel:] Eröffnung/Änderung eines PSE-Themas
+  		\item[Ziel:] Eröffnung/Änderung eines \gls{PSE}-Themas
   		\item[Vorbedingung:] -keine-
   		\item[Nachbedingung(Erfolg):] Themendaten sind im System eingetragen
   		\item[Nachbedingung(Fehlschlag):] Themenfaten sind nicht im System
   		eingetragen
   		\item[Akteure:] Betreuer
-  		\item[Auslösen des Ereignisses:] Betreuer möchte ein PSE-Thema ins System
+  		\item[Auslösen des Ereignisses:] Betreuer möchte ein \gls{PSE}-Thema ins System
   		einfügen/ändern.
   		\item[Beschreibung:]~
   	\begin{enumerate}
-  	  \item[1.] Betreuer befindet sich auf der Website mit den PSE-Themen
+  	  \item[1.] Betreuer befindet sich auf der Website mit den \gls{PSE}-Themen
   	  \item[2.] Existiert das Thema schon, so wählt der Betreuer dieses aus
   	  \item[3.] Betreuer füllt die Eingabemaske aus
   	  \item[4.] Betreuer speichert die neuen Daten ab
@@ -891,7 +891,7 @@ Folgende Funktionssequenzen sind zu überprüfen:
   		zuordnen
   		\item[Beschreibung:]~
   	\begin{enumerate} 
-  	  \item[1.] Betreuer befindet sich auf der Website mit den PSE-Gruppen
+  	  \item[1.] Betreuer befindet sich auf der Website mit den \gls{PSE}-Gruppen
   	  \item[2.] Betreuer wählt die Gruppe aus, welcher er betreuen möchte
   	  \item[3.] Betreuer tritt der Gruppe bei
   	\end{enumerate}
@@ -913,7 +913,7 @@ Folgende Funktionssequenzen sind zu überprüfen:
   		\item[Auslösen des Ereignisses:] Betreuer möchte aus Gruppe austreten.
   		\item[Beschreibung:]~
   	\begin{enumerate} 
-  	  \item[1.] Betreuer befindet sich auf der Website mit den PSE-Gruppen, die
+  	  \item[1.] Betreuer befindet sich auf der Website mit den \gls{PSE}-Gruppen, die
   	  er betreut.
   	  \item[2.] Betreuer wählt die Gruppe aus, welche er verlassen möchte.
   	  \item[3.] Betreuer verlässt die Gruppe.
@@ -1077,7 +1077,7 @@ Folgende Funktionssequenzen sind zu überprüfen:
   	\item[Beschreibung:]~
   	 \begin{enumerate} 
   	   \item[1.] Wenn sich der Studierende noch nicht im System befindet
-  	   überprüft der Administrator, ob die Anforderungen für das PSE erfüllt sind
+  	   überprüft der Administrator, ob die Anforderungen für das \gls{PSE} erfüllt sind
   	   \item[2.] Hat der Studierende die Anforderungen erfüllt, so versucht der
   	   Administrator ihn einem Team zuzuteilen
   	   \item[3.] Hat der Administrator ein Team gefunden so fügt er den
@@ -1147,7 +1147,7 @@ Folgende Funktionssequenzen sind zu überprüfen:
         \end{itemize}
   \item Die jeweiligen sichten sind erst nach der Anmeldung einzusehen 
   \item Studierende dürfen nur auf ihre eigenen Daten und falls sie in einer
-  Lerngruppe sind auf die Daten dieser zugreifen 
+ \gls{Lerngruppe} sind auf die Daten dieser zugreifen 
 \subsubsection{GUI}
 {\centering
 \fbox{\includegraphics[width=\textwidth,
