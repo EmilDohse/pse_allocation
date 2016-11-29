@@ -115,6 +115,7 @@ Insgesamt entsteht dadurch für alle Beteiligten ein effektiver und smarter Work
      \item und gegebenenfalls ihre \glspl{Lerngruppe}
    \end{itemize}
    in das Produkt eingeben können.
+   \item Studierende können sich ?? %TODO Authenntifizierung formulieren
    \item Studierende können vor der Einteilung Lerngruppen erstellen, beitreten
     und diese wieder verlassen
     \item Verwaltung von Lerngruppen durch Studierende % Geneauer in FAs oder
@@ -158,16 +159,19 @@ Insgesamt entsteht dadurch für alle Beteiligten ein effektiver und smarter Work
     \item Anzeige der Projektdetails für Studierende
     \item Stapelverarbeitung zur Berechnungen verschiedener Einteilungen mit
     unterschiedlichen Konfigurationen
-    \item Verifikation der E-Mail-Adresse
+    \item Verifikation der Studierenden-E-Mail-Adresse über einen
+    Verifikationslink der an die, von Studierenden angegebenne E-Mail-Adresse
+    geschickt wird
     \item Datenabgleich mit dem Campus Management System %TODO:
     % detail csv?
+    \item Mobile Version der Webseite zur Nutzung auf Smartphones und Tabets
     
     
     
 \end{enumerate}
 
 \subsection{Abgrenzungskriterien}
-\begin{enumerate}[label=\swtLabel{A}]
+\begin{enumerate}[label=\swtLabel{AG}]
  
   \item Das Produkt ist nicht für die Nutzung außerhalb des KITs bestimmt %Please dont do the Deppenapostroph!
 
@@ -201,12 +205,12 @@ Studierenden berücksichtigt.
 
 \subsection{Betriebsbedingungen}
 \begin{itemize} 
-  \item Zugriff über eine Internetseite
+  \item Zugriff über eine Webseite
 \end{itemize}
 \section{Produktumgebung}
 
 \begin{itemize} 
-  \item Das Produkt läuft auf einem weltweit erreichbaren Webserver
+  \item Das Produkt läuft auf einem für alle Benutzer erreichbaren Webserver
 \end{itemize}
 \subsection{Server-Software}
 \begin{itemize} 
@@ -231,7 +235,8 @@ Mindestens:
 oder neuer
 \subsection{Client-Hardware}
 \begin{itemize}
-  \item Heim-PC mit Internetzugang
+  \item Heim-PC mit Internetzugang %TODO wolllen wir igendeine art der  mobilen
+  %nutzung zulassen? u
 \end{itemize}
 \section{Funktionale Anforderungen}
 
@@ -266,11 +271,11 @@ oder neuer
 	\item Anzeigen von Projektbeschreibung in Bewertungseingabemaske
 	\item Austritt aus einer Lerngruppe
 	\item Anmeldung über u"=Account %TODO Glossareintrag
-	\item Verifikation der E"=Mail
+	\item Verifikation der E"=Mail %TODO aus Wunschkriterium den rest übernehmen
 \end{enumerate}
 
 \subsection{Betreuerfunktionen}
-
+%TODO ein oder 2 Sätze in wieweit betreuer komplett wunsch ist 
 \subsubsection{Wunschfunktionen}
 
 \begin{enumerate}[label=\swtLabel{FA}, resume]
@@ -288,7 +293,10 @@ oder neuer
 
 \begin{enumerate}[label=\swtLabel{FA}, resume]
   \item Anmeldung
-  \item Initialisierung \label{FAinit}
+  \item Initialisierung des Produkst bestehend aus einer Initialisierung der
+  Datenbank und einer Abfrage der vorläufigen Bewertungsfristen %TODO stimmt das
+  % so?
+  \label{FAinit}
   \item Setzten der frühest möglichen Anmeldezeit
   \item Setzen der Bewertungsdeadline
   \item Konfiguration der Einteilungsparameter %TODO genauer was kann man
@@ -370,7 +378,9 @@ Die zu einem Betreuer gehörenden Daten sind:
 Zu jedem Studierenden sollen folgende Daten gespeichert werden:
 \begin{enumerate}[label=\swtLabel{D}, resume] 
   \item E-Mail Adresse \label{SDatenAnfang}
-  \item Name
+  \item Vorname
+  \item Nachname
+  \item Im Falle von Authentifizierung ohne Shibboleth: Passwort
   \item Matrikelnummer
   \item Semester
   \item SPO
@@ -985,55 +995,60 @@ Folgende Funktionssequenzen sind zu überprüfen:
   Lerngruppe sind auf die Daten dieser zugreifen
 \subsubsection{GUI}
 {\centering
-\includegraphics[width=0.7\textwidth, height=0.4\textheight]{gui/index.png}
+\fbox{\includegraphics[width=\textwidth,
+keepaspectratio=true]{gui/index.png}}
 \captionof{figure}{Startseite}
-\medskip
-\includegraphics[width=0.7\textwidth,
-height=0.4\textheight]{gui/registrierung.png}
+
+
+\setlength{\textheight}{297mm}
+
+\fbox{\includegraphics[width=\textwidth,
+keepaspectratio=true]{gui/registrierung.png}}
 \captionof{figure}{Registrierungsansicht}
-\medskip
-\includegraphics[width=0.7\textwidth,
-height=0.4\textheight]{gui/studentbewertung.png}
+\thispagestyle{empty}
+
+\fbox{\includegraphics[width=\textwidth,
+keepaspectratio=true]{gui/studentbewertung.png}}
 \captionof{figure}{Bewertungsmaske}
-\medskip
-\includegraphics[width=0.7\textwidth,
-height=0.4\textheight]{gui/studentlerngruppe.png}
+
+\fbox{\includegraphics[width=\textwidth,
+keepaspectratio=true]{gui/studentlerngruppe.png}}
 \captionof{figure}{Anmeldung zu Lerngruppe}
 \medskip
-\includegraphics[width=0.7\textwidth,
-height=0.4\textheight]{gui/studentlerngruppeingr.png}
+\fbox{\includegraphics[width=\textwidth,
+keepaspectratio=true]{gui/studentlerngruppeingr.png}}
 \captionof{figure}{Lerngruppenübersicht}
 \medskip
-\includegraphics[width=0.7\textwidth,
-height=0.4\textheight]{gui/studentergebnis.png}
+\fbox{\includegraphics[width=\textwidth,
+keepaspectratio=true]{gui/studentergebnis.png}}
 \captionof{figure}{Ergebnisansicht}
 \medskip
-\includegraphics[width=0.7\textwidth,
-height=0.4\textheight]{gui/adminprojleiter.png}
+\fbox{\includegraphics[width=\textwidth,
+keepaspectratio=true]{gui/adminprojleiter.png}}
 \captionof{figure}{Projektleiterübersicht}
 \medskip
-\includegraphics[width=0.7\textwidth,
-height=0.4\textheight]{gui/adminprojekte.png}
+\fbox{\includegraphics[width=\textwidth,
+keepaspectratio=true]{gui/adminprojekte.png}}
 \captionof{figure}{Projektübersicht}
 \medskip
-\includegraphics[width=0.7\textwidth,
-height=0.4\textheight]{gui/admineinteilung.png}
+\fbox{\includegraphics[width=\textwidth,
+keepaspectratio=true]{gui/admineinteilung.png}}
 \captionof{figure}{Einteilungsmaske}
 \medskip
-\includegraphics[width=0.7\textwidth,
-height=0.4\textheight]{gui/adminergebnisse.png}
+\fbox{\includegraphics[width=\textwidth,
+keepaspectratio=true]{gui/adminergebnisse.png}}
 \captionof{figure}{Übersicht der Einteilungen}
 \medskip
-\includegraphics[width=0.7\textwidth,
-height=0.4\textheight]{gui/adminergebnissevergl.png}
+\fbox{\includegraphics[width=\textwidth,
+keepaspectratio=true]{gui/adminergebnissevergl.png}}
 \captionof{figure}{Vergleichsansicht}
 \medskip
-\includegraphics[width=0.7\textwidth,
-height=0.7\textheight]{gui/adminproperties.png}
+\fbox{\includegraphics[width=\textwidth,
+keepaspectratio=true]{gui/adminproperties.png}}
 \captionof{figure}{Einstellungen}
 \medskip
-\includegraphics[width=0.7\textwidth,
-height=0.4\textheight]{gui/projleiterprojekte.png}
+\fbox{\includegraphics[width=\textwidth,
+keepaspectratio=true]{gui/projleiterprojekte.png}}
 \captionof{figure}{Betreueransicht}
 \medskip
 }
