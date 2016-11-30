@@ -274,7 +274,7 @@ oder neuer
   \testRef{UCstudLeaveLernG}
   \item Übersicht der eigenen \gls{Lerngruppe} (Bewertung und Mitglieder)
   \label{FAcheckLerng} \testRef{UCstudUebersichtLernG}
-  \item Abmeldung \label{FAStudabmeldung}
+  \item Abmeldung \label{FAStudabmeldung} \testRef{UCstudLogout}
   \item Einsicht der Einteilungsergebnisse \label{FAStudeinsicht} \testRef{UCstudEinsichtEinteilung}
 \end{enumerate}
 
@@ -308,10 +308,10 @@ oder neuer
   \label{FAbetreuerEinsichtEinteilung}
   \testRef{UCbetreuerEinsichtEinteilungProjekt}
   \item Einsehen, welche zugeteilten \glspl{Studierender} noch Nachprüfungen
-  ausstehen haben \label{FAbetreuerEinsichtNachpruefung}
-  \item Einsehen, welche zugeteilten \glspl{Studierender} schon im Campus Management System für \gls{PSE} und TSE angemeldet sind 
-  \label{FAbetreuerEinsichtTSE}
-  \item Abmeldung \label{FAbetreuerAbmeldung}
+  ausstehen haben \label{FAbetreuerEinsichtNachpruefung} \testRef{UCbetreuerEinsichtEinteilungProjekt}
+  \item Einsehen, welche zugeteilten \glspl{Studierender} schon im Campus Management System für \gls{PSE} und TSE angemeldet sind
+  \label{FAbetreuerEinsichtTSE} \testRef{UCbetreuerEinsichtEinteilungProjekt}
+  \item Abmeldung \label{FAbetreuerAbmeldung} \testRef{UCbetreuerLogout}
   \item Noteneintragung für Studierende des betreuten \glspl{Projekt}s
   \label{FAbetreuerNoten} \testRef{UCbetreuerNoteneintragung}
   \item Einem \gls{Projekt} als Betreuer beitreten \label{FAbetreuerJoinProjekt}
@@ -326,7 +326,7 @@ oder neuer
 \subsubsection{Pflichtfunktionen}
 
 \begin{enumerate}[label=\swtLabel{FA}, resume]
-  \item Anmeldung \label{FAadminAnmeldung}
+  \item Anmeldung \label{FAadminAnmeldung} \testRef{UCadminAnmeldung}
   \item Initialisierung des Produktes bestehend aus einer Initialisierung der
   Datenbank und des Webservers
   % so?
@@ -363,7 +363,7 @@ oder neuer
         \label{FAadminProjektänderung} \testRef{UCadminProjektErstellenÄndern}
   \item Löschen eines \glspl{Projekt}s \label{FAadminDeleteProjekt}
   \testRef{UCadminDeleteProjekt}
-  \item Abmeldung \label{FAadminAbmeldung}
+  \item Abmeldung \label{FAadminAbmeldung} \testRef{UCadminLogout}
   \item Finale Wahl und Veröffentlichung der Einteilung \label{FAadminAuswahl}
   \testRef{UCadminEinteilungAuswahl}
 \end{enumerate}
@@ -919,6 +919,26 @@ Folgende Funktionssequenzen sind zu überprüfen:
   	\item[Alternativen:] -keine-
   	\item[benötigte FA:] \ref{FApasswortvergessen}
   \end{description}
+  
+  \item \label{UCstudLogout}
+    \begin{description}
+  	\item[Anwendung:] Abmeldung
+  	\item[Ziel:] Student meldet sich ab
+  	\item[Vorbedingung:] Der Studierende ist angemeldet und befindet sich im Studierendenbereich
+  	\item[Nachbedingung(Erfolg):] Der Studierende ist abgemeldet und befindet sich auf der Startseite
+  	\item[Nachbedingung(Fehlschlag):] Der Studierende ist nicht abgemeldet
+  	\item[Akteure:] Studierender
+  	\item[Auslösen des Ereignisses:] Studierender will sich abmelden
+  	\item[Beschreibung:]~
+  	\begin{enumerate}
+  	  \item[1.] Studierender ist im Studierendenbereich der Webseite
+      \item[2.] Klick auf \enquote{Ausloggen} in der Seitenleiste
+      \item[3.] Die Startseite erscheint
+  	\end{enumerate}
+  	\item[Erweiterungen:] -keine-
+  	\item[Alternativen:] -keine-
+  	\item[benötigte FA:] \ref{FAStudabmeldung}
+  \end{description}
    
 \end{enumerate}
 
@@ -1000,8 +1020,8 @@ Folgende Funktionssequenzen sind zu überprüfen:
   
   \item \label{UCbetreuerEinsichtEinteilungProjekt}
   \begin{description}
-  	\item[Anwendung:] Einsicht der Einteilungsergebnisse
-  	\item[Ziel:] Betreuer kann sehen, wer zu seinen Projekten zugeteilt wurde
+  	\item[Anwendung:] Einsicht der Einteilungsergebnisse und zusätzlichen Informationen
+  	\item[Ziel:] Der Betreuer kann sehen, wer zu seinen Projekten zugeteilt wurde und erhält weitere Informationen
   	\item[Vorbedingung:] \gls{Projektbetreuer} ist angemeldet und befindet sich auf der
   	Webseite in Betreuersicht  %TODO noch kein GUI entwurf
   	\item[Nachbedingung(Erfolg):] \gls{Projektbetreuer} befindet sich in der Maske
@@ -1013,15 +1033,16 @@ Folgende Funktionssequenzen sind zu überprüfen:
   	Maske Einteilungsergebnisse
   	\item[Akteure:] \gls{Projektbetreuer}
   	\item[Auslösen des Ereignisses:] Der \gls{Projektbetreuer} möchte wissen, wer zu seinen Projekt zugeteilt ist
-  	\item[Beschreibung:]
-  	\begin{enumerate}~
-  		\item[1.] Der \gls{Projektbetreuer} klickt auf \enquote{Einteilungsergebnisse}  		
+  	\item[Beschreibung:]~
+  	\begin{enumerate}
+  		\item[1.] Der \gls{Projektbetreuer} klickt auf \enquote{Einteilungsergebnisse} 
+		\item[2.] Der \gls{Projektbetreuer} sieht, welche \glspl{Studierender} in welchen Teams seinem Projekt zugeordnet wurden. Zusätzlich erhält er die Information, ob \glspl{Studierender} sich im CMS schon zum PSE und TSE angemeldet haben und ob noch Teilleistungen offen sind.
   	\end{enumerate}
   	\item[Erweiterungen:] -keine-
   	
   	\item[Alternativen:] -keine-
   	
-  	\item[benötigte FA:] \ref{FAbetreuerEinsichtEinteilung}
+  	\item[benötigte FA:] \ref{FAbetreuerEinsichtEinteilung}, \ref{FAbetreuerEinsichtNachpruefung}, \ref{FAbetreuerEinsichtTSE}
   \end{description}
    
   
@@ -1067,6 +1088,26 @@ Folgende Funktionssequenzen sind zu überprüfen:
   	\item[Alternativen] -keine-
   	\item[benötigte FA:] \ref{FAbetreuerNoten}
   \end{description}
+  
+  \item \label{UCbetreuerLogout}
+    \begin{description}
+  	\item[Anwendung:] Abmeldung
+  	\item[Ziel:] Betreuer meldet sich ab
+  	\item[Vorbedingung:] Der Betreuer ist angemeldet und befindet sich im Betreuerbereich
+  	\item[Nachbedingung(Erfolg):] Der Betreuer ist abgemeldet und befindet sich auf der Startseite
+  	\item[Nachbedingung(Fehlschlag):] Der Betreuer ist nicht abgemeldet
+  	\item[Akteure:] Betreuer
+  	\item[Auslösen des Ereignisses:] Betreuer will sich abmelden
+  	\item[Beschreibung:]~
+  	\begin{enumerate}
+  	  \item[1.] Betreuer ist im Betreuerbereich der Webseite
+      \item[2.] Klick auf \enquote{Ausloggen} in der Seitenleiste
+      \item[3.] Die Startseite erscheint
+  	\end{enumerate}
+  	\item[Erweiterungen:] -keine-
+  	\item[Alternativen:] -keine-
+  	\item[benötigte FA:] \ref{FAbetreuerAbmeldung}
+  \end{description}
    
 \end{enumerate}
 
@@ -1097,6 +1138,31 @@ Folgende Funktionssequenzen sind zu überprüfen:
 		\end{enumerate}
 		\item[benötigte FA:] \ref{FAadminInit}
 	\end{description}
+	
+	\item \label{UCadminAnmeldung}
+    \begin{description}
+    \item[Anwendung:] Anmeldung des Administrators
+    \item[Ziel:] Administrators wird angemeldet
+  	\item[Vorbedingung:] -keine-
+  	\item[Nachbedingung(Erfolg):] Der Administrator ist angemeldet
+  	\item[Nachbedingung(Fehlschlag):] Der Administrator ist nicht angemeldet
+  	\item[Akteure:] Administrator
+  	\item[Auslösen des Ereignisses:] Administrator will sich anmelden
+  	\item[Beschreibung:]~
+  	\begin{enumerate}
+  	  \item[1.] Administrator öffnet die Website
+  	  \item[2.] Administrator füllt das Formular mit Benutzername und Passwort zum Anmelden aus und schickt
+  	  dieses ab %TODO: Verweis auf Bild
+  	  \item[3.] Sind die Anmeldedaten korrekt, so wird der Administrator zur
+  	  Administratorsicht weitergeleitet
+  	\end{enumerate}
+  	\item[Erweiterungen:]  	
+  	\item[Alternativen:]
+	\begin{enumerate}
+  	  \item[3a)] Wenn nicht, so erhält er eine Fehlermeldung
+  	\end{enumerate}
+  	\item[benötigte FA:] \ref{FAadminAnmeldung}
+  \end{description}
 	
 	\item \label{UCadminAnmeldezeit}
 	\begin{description}
@@ -1316,6 +1382,26 @@ Folgende Funktionssequenzen sind zu überprüfen:
   	  \item[3a)] Falls doch, so wird eine Fehlermeldung angezeigt
   	 \end{enumerate}  
   	 \item[benötigte FA:] \ref{FAadminCreateAccounts}
+  \end{description}
+  
+  \item \label{UCadminLogout}
+    \begin{description}
+  	\item[Anwendung:] Abmeldung
+  	\item[Ziel:] Administrator meldet sich ab
+  	\item[Vorbedingung:] Der Administrator ist angemeldet und befindet sich im Administratorbereich
+  	\item[Nachbedingung(Erfolg):] Der Administrator ist abgemeldet und befindet sich auf der Startseite
+  	\item[Nachbedingung(Fehlschlag):] Der Administrator ist nicht abgemeldet
+  	\item[Akteure:] Administrator
+  	\item[Auslösen des Ereignisses:] Administrator will sich abmelden
+  	\item[Beschreibung:]~
+  	\begin{enumerate}
+  	  \item[1.] Administrator ist im Administratorbereich der Webseite
+      \item[2.] Klick auf \enquote{Ausloggen} in der Seitenleiste
+      \item[3.] Die Startseite erscheint
+  	\end{enumerate}
+  	\item[Erweiterungen:] -keine-
+  	\item[Alternativen:] -keine-
+  	\item[benötigte FA:] \ref{FAadminAbmeldung}
   \end{description}
   
 \end{enumerate}  
