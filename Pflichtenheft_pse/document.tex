@@ -268,7 +268,7 @@ oder neuer
 \subsubsection{Wunschfunktionen}
 
 \begin{enumerate}[label=\swtLabel{FA}, resume]
-	\item %Studierende aus der\gls{Lerngruppe} entfernen \label{FAentfStudLerng} 
+	%\item Studierende aus der\gls{Lerngruppe} entfernen \label{FAentfStudLerng} 
 	%TODO
 	% gz entfernen?an TODO Was ist noch mit W30 gemeint?
 	\item Anzeigen von Projektbeschreibung in Bewertungseingabemaske
@@ -305,8 +305,8 @@ oder neuer
 
 \begin{enumerate}[label=\swtLabel{FA}, resume]
   \item Anmeldung \label{FAadminanmeldung}
-  \item Initialisierung des Produkst bestehend aus einer Initialisierung der
-  Datenbank und einer Abfrage der vorläufigen Bewertungsfristen %TODO stimmt das
+  \item Initialisierung des Produkest bestehend aus einer Initialisierung der
+  Datenbank und des Webservers
   % so?
   \label{FAinit}
   \item Setzten der frühest möglichen Anmeldezeit \label{FAadminanmeldezeit}
@@ -671,18 +671,18 @@ Folgende Funktionssequenzen sind zu überprüfen:
      \item
   \begin{description}
   \item[Anwendung:] Einsicht der Einteilungsergebnisse
-  \item[Ziel:] Studierender kann sehen welchem Projekt er zugeteilt wurde
-  	\item[Vorbedingung:] Studierender ist angemeldet und befindet sich auf der
+  \item[Ziel:] \gls{Studierender} kann sehen welchem Projekt er zugeteilt wurde
+  	\item[Vorbedingung:] \gls{Studierender} ist angemeldet und befindet sich auf der
   	Webseite in Studierendensicht. 
-  	\item[Nachbedingung(Erfolg):] Studierender befindet sich in der Maske
+  	\item[Nachbedingung(Erfolg):] \gls{Studierender} befindet sich in der Maske
   	Einteilungsergebnisse. %TODO verweis
-  	Falls der Admin die Einteilungsergebnisse bereits veröffentlicht hat kann er
-  	sehen welchem Projekt er zugeteilt wurde. Sonst sieht er, dass die Einteilung
-  	noch ingange ist
+  	Falls der \gls{Admin} die Einteilungsergebnisse bereits veröffentlicht hat, kann er
+  	sehen, welchem \gls{Projekt} er zugeteilt wurde. Sonst sieht er, dass die Einteilung
+  	noch im Gange ist
   	\item[Nachbedingung(Fehlschlag):] Der Studierende ist nicht in der
   	Maske Einteilungsergebnisse
-  	\item[Akteure:] Studierender
-  	\item[Auslösen des Ereignisses:] Der Studierende möchte überprüfen ob er
+  	\item[Akteure:] \gls{Studierender}
+  	\item[Auslösen des Ereignisses:] Der Studierende möchte überprüfen, ob er
   	bereits einem Projekt zugeteilt wurde
   	\item[Beschreibung:]~
   	\begin{enumerate}
@@ -899,6 +899,34 @@ Folgende Funktionssequenzen sind zu überprüfen:
   	\item[Alternativen:] -keine-
   	\item[benötigte FA:] \ref{FAjoinBetreuer}
   \end{description}
+  
+  
+  \item
+  \begin{description}
+  	\item[Anwendung:] Einsicht der Einteilungsergebnisse
+  	\item[Ziel:] Betreuer kann sehen, wer zu seinen Projekten zugeteilt wurde
+  	\item[Vorbedingung:] \gls{Projektbetreuer} ist angemeldet und befindet sich auf der
+  	Webseite in Betreuersicht  %TODO noch kein GUI entwurf
+  	\item[Nachbedingung(Erfolg):] \gls{Projektbetreuer} befindet sich in der Maske
+  	Einteilungsergebnisse. %TODO verweis
+  	Falls der Admin die Einteilungsergebnisse bereits veröffentlicht hat, kann er
+  	sehen, wer seinen \glspl{Projekt}n zugeteilt wurde. Sonst sieht er, dass die Einteilung
+  	noch im Gange ist
+  	\item[Nachbedingung(Fehlschlag):] Der \gls{Projektbetreuer} ist nicht in der
+  	Maske Einteilungsergebnisse
+  	\item[Akteure:] \gls{Projektbetreuer}
+  	\item[Auslösen des Ereignisses:] Der \gls{Projektbetreuer} möchte wissen, wer zu seinen Projekt zugeteilt ist
+  	\item[Beschreibung:]
+  	\begin{enumerate}~
+  		\item[1.] Der \gls{Projektbetreuer} klickt auf \enquote{Einteilungsergebnisse}
+  		
+  	\end{enumerate}
+  	\item[Erweiterungen:] -keine-
+  	
+  	\item[Alternativen:] -keine-
+  	
+  	\item[benötigte FA:] %TODO
+  \end{description}
    
   
   \item
@@ -949,6 +977,69 @@ Folgende Funktionssequenzen sind zu überprüfen:
 
 \subsubsection{Administrator}
 \begin{enumerate} [label=\swtLabel{A}]
+	
+	\item
+	\begin{description}
+		\item[Anwendung:] Initialisierung des Produktes
+		\item[Ziel:] Das Produkt soll für den Einsatz vorbereitet werden
+		\item[Vorbedingung:] -keine-
+		\item[Nachbedingung(Erfolg):] Das Produkt ist einsatzbereit und kann über das Webinterface bedient werden
+		\item[Nachbedingung(Fehlschlag):] Das Produkt ist nicht einsatzbereit und gibt eine Aussagekräftige Fehlermeldung aus
+		\item[Akteure:] \gls{Admin}
+		\item[Auslösen des Ereignisses:] Beginn des \gls{PSE}
+		\item[Beschreibung:]
+		\begin{enumerate} [label=\arabic*.]~
+			\item Der \gls{Admin} stellt auf dem Server Gurobi bereit %TODO Gurobi Glossar
+			\item Er startet Web"= und Datenbankserver
+			\item Er startet das Produkt
+		\end{enumerate}
+		\item[Erweiterungen:] -keine-
+		\item[Alternativen:]~
+		\begin{enumerate}
+			\item[2 a)] Kann entfallen, wenn Server bereits in Betrieb sind
+		\end{enumerate}
+		\item[benötigte FA:] \ref{FAinit}
+	\end{description}
+	
+	\item
+	\begin{description}
+		\item[Anwendung:] Setzten der frühesten möglichen Anmeldezeit
+		\item[Ziel:] Ein frühestmöglicher Zeitpunkt für die Anmeldung von \glspl{Studierender}n soll festgelegt werden
+		\item[Vorbedingung:] \gls{Admin} ist angemeldet und in der Adminansicht der Website
+		\item[Nachbedingung(Erfolg):] Vor dem Eingegeben Datum können sich \glspl{Studierender} nicht mehr anmelden und einloggen 
+		\item[Nachbedingung(Fehlschlag):] Anmelden und Einloggen sind weiter möglich
+		\item[Akteure:] \gls{Admin}
+		\item[Auslösen des Ereignisses:] Beginn des \gls{PSE}
+		\item[Beschreibung:]~
+		\begin{enumerate}[label=\arabic*.]
+			\item Der \gls{Admin} klickt auf den Reiter \enquote{Einstellungen}
+			\item Er trägt in das Feld \enquote{Startzeit der Studierendenanmeldung} ein Datum und eine Uhrzeit ein
+		\end{enumerate}
+		\item[Erweiterungen:] -keine-
+		\item[Alternativen:] -keine-
+		\item[benötigte FA:] \ref{FAadminanmeldezeit}
+	\end{description}
+	
+	
+	\item
+	\begin{description}
+		\item[Anwendung:] Setzten der Bewertungsdeadline
+		\item[Ziel:] Ein spätester Zeitpunkt für die Anmeldung von \glspl{Studierender}n und die Bewertung von \glspl{Projekt}n soll festgelegt werden
+		\item[Vorbedingung:] \gls{Admin} ist angemeldet und in der Adminansicht der Website
+		\item[Nachbedingung(Erfolg):] Nach dem eingegeben Datum können sich keine \glspl{Studierender} mehr anmelden und die Bewertungen können nicht mehr geändert werden
+		\item[Nachbedingung(Fehlschlag):] Anmelden und Bewerten sind weiter möglich
+		\item[Akteure:] \gls{Admin}
+		\item[Auslösen des Ereignisses:] Beginn des \gls{PSE}
+		\item[Beschreibung:]~
+		\begin{enumerate}[label=\arabic*.]
+			\item Der \gls{Admin} klickt auf den Reiter \enquote{Einstellungen}
+			\item Er trägt in das Feld \enquote{Deadline für Studierendenbewertung} ein Datum und eine Uhrzeit ein
+		\end{enumerate}
+		\item[Erweiterungen:] -keine-
+		\item[Alternativen:] -keine-
+		\item[benötigte FA:] \ref{FAadmindeadline}
+	\end{description}
+	
   \item
     \begin{description}
   	\item[Anwendung:] Hinzufügen/Ändern eines Projekts
@@ -959,7 +1050,7 @@ Folgende Funktionssequenzen sind zu überprüfen:
   	\item[Akteure:] Administrator, Institut
   	\item[Auslösen des Ereignisses:] Administrator bekommt Projektdaten von einem
   	Institut\\ vorgelegt
-  	\item[Beschreibung:]F~
+  	\item[Beschreibung:]~
   	\begin{enumerate} 
   	  \item[1.] Projektübersicht öffnen
   	  \item[2.] Wenn das Projekt schon existiert, so werden die Projektdaten
@@ -981,13 +1072,13 @@ Folgende Funktionssequenzen sind zu überprüfen:
   
   \item
   \begin{description}
-  \item[Anwendung:] Löschen eines Projekts
-  \item[Ziel:] Löschen eines Projekts in der Datenbank
+  \item[Anwendung:] Löschen eines Projektes
+  \item[Ziel:] Löschen eines Projektes in der Datenbank
   	\item[Vorbedingung:] Projekt existiert bereits in der Datenbank und die
   	Studierenden konnten noch keine Bewertungen abgeben
   	\item[Nachbedingung(Erfolg):] Projekt ist aus der Datenbank entfernt
-  	\item[Nachbedingung(Fehlschlag):] Projekt ist immernoch in der Datenbank
-  	\item[Akteure:] Administrator, Institut
+  	\item[Nachbedingung(Fehlschlag):] Projekt ist immer noch in der Datenbank
+  	\item[Akteure:] Administrator, Institut %TODO Institut kommt hier zum ersten mal vor
   	\item[Auslösen des Ereignisses:] Institut zieht ein Projekt zurück oder es
   	fehlen Daten bei Beginn der Einteilung
   	\item[Beschreibung:]~
