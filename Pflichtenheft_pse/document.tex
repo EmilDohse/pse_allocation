@@ -61,8 +61,8 @@ plural=Module, description={Ein Modul ist ein Zusammenschluss verschiedener Teil
 \newglossaryentry{happyness}{name=Studierenden-Happyness,
 plural=Studierenden-Happyness, description={Die Studierenden-Happyness ist ein
 \gls{Guetekriterium} welches sich aus der  }} %TODO formulierung
-\newglossaryentry{gesplitteteGruppe}{name=Anzahl der gesplittelen \glspl{Lerngruppe},
- description={ Die Anzahl der gesplittelen \glspl{Lerngruppe} ist ein
+\newglossaryentry{gesplitteteGruppe}{name=Anzahl der getrennten \glspl{Lerngruppe},
+ description={ Die Anzahl der getrennten \glspl{Lerngruppe} ist ein
  \gls{Guetekriterium} welches angiebt, wieviele \glspl{Lerngruppe} bei der Einteilung
  auseinander gerissen wurden}}
 
@@ -116,11 +116,12 @@ Insgesamt entsteht dadurch für alle Beteiligten ein effektiver und smarter Work
      \item und gegebenenfalls ihre \glspl{Lerngruppe}
    \end{itemize}
    in das Produkt eingeben können.
-   \item Studierende können sich ?? %TODO Authenntifizierung formulieren
+   \item Studierende können sich mit ihrer Matrikelnummer und einem Passwort anmelden
+   \item Der \gls{Admin} kann sich über einen Benutzernamen und ein Passwort authentifizieren
    \item Studierende können vor der Einteilung \glspl{Lerngruppe} erstellen, beitreten
     und diese wieder verlassen
-    \item Verwaltung von \glspl{Lerngruppe} durch Studierende % Geneauer in FAs oder
-    % auch schon hier?
+    \item Übersicht über die eigene \gls{Lerngruppe} durch Studierende
+    \item Vergabe von gemeinsamen \gls{Projekt}bewertungen für eine Lerngruppe
    \item Das Produkt teilt nach folgenden Kriterien Studierenden Teams zu:
    \label{Mzuteilung}
    \begin{itemize}
@@ -128,12 +129,13 @@ Insgesamt entsteht dadurch für alle Beteiligten ein effektiver und smarter Work
      \item \glspl{Lerngruppe} sollten zusammenbleiben
      \item Präferenzen der Studierenden werden berücksichtigt
    \end{itemize}
-     \item Konfiguration der Einteilungskriterien möglich
-   \item Manuelles Nachjustieren der Einteilung
-   \item Berechnung von \glspl{Guetekriterium}
+     \item Konfiguration der Einteilungskriterien durch den \gls{Admin} möglich
+   \item Manuelles Nachjustieren der Einteilung durch den \gls{Admin} möglich
+   \item Berechnung und Anzeige von \glspl{Guetekriterium}
    \item Im- und Export der Studierendendaten und
-   Einteilungen %TODO: formulierung 
+   Einteilungen als Datei zu Datensicherungszwecken
    \item Möglichkeit des sukzessiven Eintragens von \glspl{Projekt}n
+   \item Verwalten mehrerer \glspl{SPO}
   
  \end{enumerate}
 
@@ -151,9 +153,8 @@ Insgesamt entsteht dadurch für alle Beteiligten ein effektiver und smarter Work
     \end{itemize}    
     \item Authentifizierung via Shibboleth
     \item Benachrichtigung der Studierenden und Mitarbeiter über die Einteilung
-    \item Verwaltung mehrerer Einteilungsergebnisse
-    \item Möglichkeit der Verwaltung der \glspl{Projekt} durch die Betreuer  %TODO:
-    % formulierung
+    \item Vergleich mehrerer Einteilungsergebnisse pro Semester unter verschiedenen Konfigurationen
+    \item Möglichkeit zur Verwaltung der \glspl{Projekt} durch die Betreuer
     \item Nachjustierbarkeit bei Änderungen der SPO %TODO: überlegen ob
     % Pflichtkriterium: mehrere SPOs verwalten.
     \item Verwaltung über mehrere Semester hinweg
@@ -163,8 +164,7 @@ Insgesamt entsteht dadurch für alle Beteiligten ein effektiver und smarter Work
     \item Verifikation der Studierenden-E-Mail-Adresse über einen
     Verifikationslink der an die, von Studierenden angegebenne E-Mail-Adresse
     geschickt wird
-    \item Datenabgleich mit dem Campus Management System %TODO:
-    % detail csv?
+    \item Datenabgleich mit dem Campus Management System via \enquote{.csv}"=Datei %TODO Glossar CMS
     \item Mobile Version der Webseite zur Nutzung auf Smartphones und Tabets
     
     
@@ -251,14 +251,15 @@ oder neuer
   \item Registrierung eines Studierenden mit Datenerfassung:
   \label{FAregistrierung}
   \begin{itemize}
-    \item Name, Matrikelnummer, E"=Mail"=Adresse, Semester %TODO Verweis auf D70 bis D120?
-    \item Auswahl bestandener Teilleistungen und der \gls{SPO}
+    \item Name, Matrikelnummer, E"=Mail"=Adresse, Semester
+    \item Auswahl bestandener Teilleistungen und der \gls{SPO} (vgl. \ref{SDatenAnfang} bis \ref{SDatenEnde})
   \end{itemize}
-  \item Anmeldung \label{FAStudanmeldung}
+  \item Anmeldung mit Matrikelnummer und Passwort\label{FAStudanmeldung}
   \item Bewertung der \glspl{Projekt} \label{FAbewertung}
   \item Erstellung einer\gls{Lerngruppe} mit Name und Passwort \label{FAcreatelerng}
   \item Bewertung der \glspl{Projekt} für die\gls{Lerngruppe}  \label{FAbewertung2}
   \item Beitritt zu einer\gls{Lerngruppe} \label{FAjoinLerng}
+  \item Austritt aus einer\gls{Lerngruppe} \label{FAlergAustritt}
   \item Übersicht der eigenen\gls{Lerngruppe} (Bewertung und Mitglieder)
   \label{FAcheckLerng}
   \item Abmeldung \label{FAStudabmeldung}
@@ -268,15 +269,10 @@ oder neuer
 \subsubsection{Wunschfunktionen}
 
 \begin{enumerate}[label=\swtLabel{FA}, resume]
-	%\item Studierende aus der\gls{Lerngruppe} entfernen \label{FAentfStudLerng} 
-	%TODO
-	% gz entfernen?an TODO Was ist noch mit W30 gemeint?
 	\item Anzeigen von Projektbeschreibung in Bewertungseingabemaske
 	\label{FAbeschreibung-Bewertung}
-	\item Austritt aus einer\gls{Lerngruppe} \label{FAlergAustritt}
 	\item Anmeldung über u"=Account \label{FAstudUanmeldung}%TODO Glossareintrag
-	\item Verifikation der E"=Mail \label{FAemailverifikation}%TODO aus
-	% Wunschkriterium den rest übernehmen
+	\item Verifikation der E"=Mail"= Adresse über einen Verifikationslink, der an die vom Studierenden angegebene E"=Mail"=Adresse versandt wird \label{FAemailverifikation}
 	\item Anfordern eines neuen Passworts \label{FApasswortvergessen}
 \end{enumerate}
 
@@ -305,13 +301,13 @@ oder neuer
 
 \begin{enumerate}[label=\swtLabel{FA}, resume]
   \item Anmeldung \label{FAadminanmeldung}
-  \item Initialisierung des Produkest bestehend aus einer Initialisierung der
+  \item Initialisierung des Produktes bestehend aus einer Initialisierung der
   Datenbank und des Webservers
   % so?
   \label{FAinit}
   \item Setzten der frühest möglichen Anmeldezeit \label{FAadminanmeldezeit}
   \item Setzen der Bewertungsdeadline \label{FAadmindeadline}
-  \item Konfiguration der Einteilungsparameter \label{FAadminparameter}%TODO
+  \item Konfiguration der Einteilungsparameter \label{FAadminparameter} %TODO Verweis auf GUI? oder Textuell?
   % genauer was kann man konfiirerengu
   \item Starten der Einteilungsberechnung \label{FAadminEinteilungstart}
   \item Übersicht über die aktuelle Einteilung \label{FAadminÜbersicht}
@@ -338,21 +334,25 @@ oder neuer
 
 \begin{enumerate}[label=\swtLabel{FA}, resume]
   \item Abbrechen der Einteilungsberechnung \label{FAabbruch}
-  \item Hochladen einer Liste von Studierenden, die zum \gls{PSE} angemeldet sind
-	    und automatisches setzen der bestandenen Teilleistungen \label{FAimport2}
   %TODO Was ist damit gemeint? \item Hinzufügen/Löschen von Studierenden
   %und Bearbeitung der Daten
   \item Hinzufügen von Berechnungen zur Stapelverarbeitung \label{FAadminStapel}
-  \item Hinzufügen wählbarer Teilleistungen zu SPO \label{FAadminSPOhinzufügen}
-  \item Entfernen wählbarer Teilleistungen zu SPO \label{FAadminSPOentfernen}
+  \item Hinzufügen wählbarer Teilleistungen zu \glspl{SPO} \label{FAadminSPOhinzufügen}
+  \item Entfernen wählbarer Teilleistungen zu \glspl{SPO} \label{FAadminSPOentfernen}
+  \item \glspl{SPO} auswählen, die Studenten bei der Anmeldung angeben können 
   \item Benachrichtigen der Studierenden und Projektbetreuer über die Einteilung
   per E"=Mail \label{FAadminBenachrichtigen}
   \item Erstellen von Betreueraccounts \label{FAadminCreateAccounts}
   %%TODO W70 und W100 Was genau soll man können?
+  \item Import von \enquote{.csv}"=Dateien mit Informationen über bestandene Leistungen der \glspl{Studierender}n aus dem Campus Management System  \label{FAimport2}
+  \item Export von \enquote{.csv}"=Dateien mit Noten der \glspl{Studierender}n
+  \label{FAexport2}
+  \item Übersicht über bereits berechnete Einteilungen
+  \item 
 \end{enumerate}
 
 \subsection{Einteilungsfunktionen}
-
+\subsection{Musskriterien}
 \begin{enumerate}[label=\swtLabel{FA}, resume]
   \item Einteilen der Studierenden zu \glspl{Projekt}n. Hierbei werden folgende
   Kriterien, so weit möglich, berücksichtigt:
@@ -371,32 +371,50 @@ oder neuer
    \item Studierende, die bereits mehr Teilleistungen aus dem ersten Jahr
 bestanden haben, werden bevorzugt 
  \end{itemize}
+ \item Berechnung von \glspl{Guetekriterium} \label{FAguetekriterien}
+\end{enumerate}
+
+ \subsection{Wunschkriterien}
+ 
+ \begin{enumerate}[label=\swtLabel{FA}, resume]
+ \item Stapelverarbeitung von mehreren Einteilungen mit unterschiedlichen Konfigurationen
 \end{enumerate}
 
 \section{Produktdaten}
 
-\subsection{Projekt-Daten} 
+\subsection{Administratordaten}
+Über den \gls{Admin} werden folgende Daten gespeichert:
+\begin{enumerate}
+	\item Passwort
+\end{enumerate}
+
+\subsection{Projektdaten} 
 Über ein Projekt sind folgende Daten zu speichern:
 \begin{enumerate}[label=\swtLabel{D}] 
   \item Name
+  \item Vorname
   \item Anzahl der Teams
   \item Beschreibung
   \item Projektbetreuer
   \item Minimale Teilnehmerzahl
   \item Maximale Teilnehmerzahl
+  \item Internetadresse
 \end{enumerate}
-\subsection{Betreuer-Daten}
+
+\subsection{Betreuerdaten}
 Die zu einem Betreuer gehörenden Daten sind:
 \begin{enumerate}[label=\swtLabel{D}, resume] 
-	\item Namen 
-	\item E"=Mail"=Adressen
+	\item Name
+	\item Vorname
+	\item E"=Mail"=Adresse
+	\item Passwort
 \end{enumerate}
-\subsection{Studierenden-Daten} 
+\subsection{Studierendendaten} 
 Zu jedem Studierenden sollen folgende Daten gespeichert werden:
 \begin{enumerate}[label=\swtLabel{D}, resume] 
   \item E-Mail Adresse \label{SDatenAnfang}
+  \item Name
   \item Vorname
-  \item Nachname
   \item Im Falle von Authentifizierung ohne Shibboleth: Passwort
   \item Matrikelnummer
   \item Semester
@@ -405,12 +423,20 @@ Zu jedem Studierenden sollen folgende Daten gespeichert werden:
   \item Falls keiner\gls{Lerngruppe} beigetreten: Bewertung, welchem Projekt er oder
   sie am liebsten zugeteilt würde
   \item Falls einer\gls{Lerngruppe} beigetreten: Die zugehörige\gls{Lerngruppe}
+  \item Passwort
 \end{enumerate}
 \subsection{\glspl{Lerngruppe}-Daten} 
 \begin{enumerate}[label=\swtLabel{D}, resume] 
   \item Bewertung der \glspl{Projekt}, zu welchem die \glspl{Lerngruppe}mitglieder
   (Studierende) am liebsten zugeteilt würden
   \item Mitglieder der\gls{Lerngruppe}
+\end{enumerate}
+
+\subsection{SPO-Daten}
+\begin{enumerate}
+	\item Name
+	\item Pflichteilleistungen
+	\item Wählbare Leistungen
 \end{enumerate}
 
 \section{Nichtfunktionale Anforderungen}
@@ -990,7 +1016,7 @@ Folgende Funktionssequenzen sind zu überprüfen:
 		\item[Beschreibung:]
 		\begin{enumerate} [label=\arabic*.]~
 			\item Der \gls{Admin} stellt auf dem Server Gurobi bereit %TODO Gurobi Glossar
-			\item Er startet Web"= und Datenbankserver
+			\item Er startet Web"= und Datenbankserver 
 			\item Er startet das Produkt
 		\end{enumerate}
 		\item[Erweiterungen:] -keine-
