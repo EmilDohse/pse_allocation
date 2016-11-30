@@ -12,7 +12,7 @@
 \makeglossaries
 %für die Nummerierung der Listen
 \newcommand{\swtLabel}[1]{\textbf{/#1\arabic*0/}}
-
+\newcommand{\testRef}[1]{[\ref{#1}]}
 \newglossaryentry{PSE}{name=PSE,
                         description={Im PSE (Praxis der Softwareentwicklung)
                         lernen die Teilnehmer, ein vollständiges Softwareprojekt nach dem Stand der
@@ -251,7 +251,7 @@ oder neuer
 \subsubsection{Pflichtfunktionen}
 
 \begin{enumerate}[label=\swtLabel{FA}]
-  \item Registrierung eines Studierenden mit Datenerfassung:
+  \item Registrierung eines Studierenden mit Datenerfassung: \testRef{UCstudReg}
   \label{FAregistrierung}
   \begin{itemize}
     \item Name, Matrikelnummer, E"=Mail"=Adresse, Semester
@@ -526,7 +526,7 @@ Folgende Funktionssequenzen sind zu überprüfen:
 \subsubsection{Studierende}
 
 \begin{enumerate}[label=\swtLabel{S}]
-	\item
+	\item \label{UCstudReg}
     \begin{description}
   	\item[Anwendung:] Registrierung eines Studierenden
   	\item[Ziel:] Speichern der Studierendendaten in der Datenbank
