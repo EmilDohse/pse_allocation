@@ -2,7 +2,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage[ngerman]{babel}
-\usepackage{hyperref}
+\usepackage[hidelinks]{hyperref}
 \usepackage{enumitem}
 \usepackage{glossaries}
 \usepackage{graphicx}
@@ -262,25 +262,34 @@ oder neuer
     \item Auswahl noch ausstehender Nachprüfungen (vgl. \ref{SDatenAnfang} bis \ref{SDatenEnde})
   \end{itemize}
   \item Anmeldung mit Matrikelnummer und Passwort\label{FAStudanmeldung}
-  \item Bewertung der \glspl{Projekt} \label{FAbewertung}
-  \item Erstellung einer\gls{Lerngruppe} mit Name und Passwort \label{FAcreatelerng}
-  \item Bewertung der \glspl{Projekt} für die\gls{Lerngruppe}  \label{FAbewertung2}
-  \item Beitritt zu einer\gls{Lerngruppe} \label{FAjoinLerng}
-  \item Austritt aus einer\gls{Lerngruppe} \label{FAlergAustritt}
-  \item Übersicht der eigenen\gls{Lerngruppe} (Bewertung und Mitglieder)
-  \label{FAcheckLerng}
+  \testRef{UCstudAnmeldung}
+  \item Bewertung der \glspl{Projekt} \label{FAbewertung} \testRef{UCstudBewertung}
+  \item Erstellung einer \gls{Lerngruppe} mit Name und Passwort
+  \label{FAcreatelerng} \testRef{UCstudCrealernG}
+  \item Bewertung der \glspl{Projekt} für die \gls{Lerngruppe} 
+  \label{FAbewertung2} \testRef{UCstudBewertung}
+  \item Beitritt zu einer \gls{Lerngruppe} \label{FAjoinLerng}
+  \testRef{UCstudJoinLernG}
+  \item Austritt aus einer \gls{Lerngruppe} \label{FAlergAustritt}
+  \testRef{UCstudLeaveLernG}
+  \item Übersicht der eigenen \gls{Lerngruppe} (Bewertung und Mitglieder)
+  \label{FAcheckLerng} \testRef{UCstudUebersichtLernG}
   \item Abmeldung \label{FAStudabmeldung}
-  \item Einsicht der Einteilungsergebnisse \label{FAStudeinsicht}
+  \item Einsicht der Einteilungsergebnisse \label{FAStudeinsicht} \testRef{UCstudEinsichtEinteilung}
 \end{enumerate}
 
 \subsubsection{Wunschfunktionen}
 
 \begin{enumerate}[label=\swtLabel{FA}, resume]
 	\item Anzeigen von Projektbeschreibung in Bewertungseingabemaske
-	\label{FAbeschreibung-Bewertung}
-	\item Anmeldung über u"=Account \label{FAstudUanmeldung}%TODO Glossareintrag
-	\item Verifikation der E"=Mail"= Adresse über einen Verifikationslink, der an die vom Studierenden angegebene E"=Mail"=Adresse versandt wird \label{FAemailverifikation}
+	\label{FAbeschreibung-Bewertung} \testRef{UCstudProjektbeschreibung}
+	\item Anmeldung über u"=Account \label{FAstudUanmeldung} \testRef{UCstudAnmeldung}%TODO
+	% Glossareintrag
+	\item Verifikation der E"=Mail"= Adresse über einen Verifikationslink, der an
+	die vom Studierenden angegebene E"=Mail"=Adresse versandt wird
+	\label{FAemailverifikation} \testRef{UCstudVerifikationEmail}
 	\item Anfordern eines neuen Passworts \label{FApasswortvergessen}
+	\testRef{UCstudNewPasswort}
 \end{enumerate}
 
 \subsection{Betreuerfunktionen}
@@ -288,20 +297,27 @@ oder neuer
 \subsubsection{Wunschfunktionen}
 
 \begin{enumerate}[label=\swtLabel{FA}, resume]
-  \item Anmeldung  \label{FAbetreueranmeldung}
-  \item Erstellung eines \glspl{Projekt}s \label{FAbetreuer+projekt}
+  \item Anmeldung  \label{FAbetreuerAnmeldung} \testRef{UCbetreuerAnmeldung}
+  \item Erstellung eines \glspl{Projekt}s \label{FAbetreuerAddProjekt}
+  \testRef{UCbetreuerThemaErstellenÄndern}
   \item Ändern der Projektdetails: Name, Beschreibung, Projektbetreuer,
         minimale und maximale Teilnehmerzahl, Anzahl der Teams
-        \label{FAbetreuerProjektänderung}%TODO Verweis auf Produktdaten?
+        \label{FAbetreuerChangeProjekt} \testRef{UCbetreuerThemaErstellenÄndern}%TODO Verweis auf
+        % Produktdaten?
   \item Einsehen der Einteilung zu eigenen \glspl{Projekt}n
-  \item Einsehen, welche zugeteilten \glspl{Studierender} noch Nachprüfungen ausstehen haben
+  \label{FAbetreuerEinsichtEinteilung}
+  \testRef{UCbetreuerEinsichtEinteilungProjekt}
+  \item Einsehen, welche zugeteilten \glspl{Studierender} noch Nachprüfungen
+  ausstehen haben \label{FAbetreuerEinsichtNachpruefung}
   \item Einsehen, welche zugeteilten \glspl{Studierender} schon im Campus Management System für \gls{PSE} und TSE angemeldet sind 
-  \label{FAbetreuereinsicht}
-  \item Abmeldung \label{FAbetreuerabmeldung}
+  \label{FAbetreuerEinsichtTSE}
+  \item Abmeldung \label{FAbetreuerAbmeldung}
   \item Noteneintragung für Studierende des betreuten \glspl{Projekt}s
-  \label{FAbetreuernoten}
-  \item Einem \gls{Projekt} als Betreuer beitreten \label{FAjoinBetreuer}
-  \item Ein \gls{Projekt} als Betreuer verlassen \label{FAleaveBetreuer}
+  \label{FAbetreuerNoten} \testRef{UCbetreuerNoteneintragung}
+  \item Einem \gls{Projekt} als Betreuer beitreten \label{FAbetreuerJoinProjekt}
+  \testRef{UCbetreuerJoinProjekt}
+  \item Ein \gls{Projekt} als Betreuer verlassen \label{FAbetreuerLeaveprojekt}
+  \testRef{UCbetreuerLeaveProjekt}
 
 \end{enumerate}
 
@@ -310,16 +326,19 @@ oder neuer
 \subsubsection{Pflichtfunktionen}
 
 \begin{enumerate}[label=\swtLabel{FA}, resume]
-  \item Anmeldung \label{FAadminanmeldung}
+  \item Anmeldung \label{FAadminAnmeldung}
   \item Initialisierung des Produktes bestehend aus einer Initialisierung der
   Datenbank und des Webservers
   % so?
-  \label{FAinit}
-  \item Setzten der frühest möglichen Anmeldezeit \label{FAadminanmeldezeit}
-  \item Setzen der Bewertungsdeadline \label{FAadmindeadline}
-  \item Konfiguration der Einteilungsparameter \label{FAadminparameter} %TODO Verweis auf GUI? oder Textuell?
-  % genauer was kann man konfiirerengu
+  \label{FAadminInit} \testRef{UCadminInit}
+  \item Setzten der frühest möglichen Anmeldezeit \label{FAadminAnmeldezeit}
+  \testRef{UCadminAnmeldezeit}
+  \item Setzen der Bewertungsdeadline \label{FAadminDeadline} \testRef{UCadminDeadline}
+  \item Konfiguration der Einteilungsparameter \label{FAadminParameter}
+  \testRef{UCadminEinteilungStart}
+  %TODO Verweis auf GUI? oder Textuell? genauer was kann man konfiirerengu
   \item Starten der Einteilungsberechnung \label{FAadminEinteilungstart}
+  \testRef{UCadminEinteilungStart}
   \item Übersicht über die aktuelle Einteilung \label{FAadminÜbersicht}
   \item Anzeige der \glspl{Guetekriterium} bestehend aus:
     \begin{itemize}
@@ -327,35 +346,43 @@ oder neuer
       \item \gls{nichtZugeteilt}
       \item \gls{gesplitteteGruppe}
     \end{itemize} \label{FAadminGüte}
-  \item Nichtregistrierte \glspl{Studierender} aus dem System entfernen \label{FAadmin+Stud}
-  \item \glspl{Studierender} zum System hinzufügen \label{FAadmin-Stud}
-  \item \glspl{Studierender} zu einem \gls{Team} bei einer bereits berechneten Einteilung hinzufügen
-  \item \glspl{Studierender} von einem \gls{Team} bei einer bereits berechneten Einteilung entfernen
-  \item \glspl{Studierender} zwischen \glspl{Team} bei einer bereits berechneten Einteilung verschieben 
+  \item \glspl{Studierender} aus dem System entfernen \label{FAadminDeleteStudFromSystem}
+  \item \glspl{Studierender} zum System hinzufügen \label{FAadminAddStudToSystem}
+  \item \glspl{Studierender} zu einem \gls{Team} bei einer bereits berechneten
+  Einteilung hinzufügen \label{FAadminAddStudToTeam}
+  \item \glspl{Studierender} von einem \gls{Team} bei einer bereits berechneten
+  Einteilung entfernen \label{FAadminRemoveStudFromTeam}
+  \item \glspl{Studierender} zwischen \glspl{Team} bei einer bereits berechneten
+  Einteilung verschieben  \label{FAadminMoveStudsBetweenTeams}
   \item Import einer Einteilung \label{FAimport}
   \item Export einer Einteilung \label{FAexport}
-  \item Erstellung eines \glspl{Projekt}s \label{FAadmin+projekt}
+  \item Erstellung eines \glspl{Projekt}s \label{FAadminCreateProjekt}
+  \testRef{UCadminProjektErstellenÄndern}
   \item Ändern der Projektdetails: Name, Beschreibung, Projektbetreuer, %TODO
         minimale und maximale Teilnehmerzahl, Anzahl der Teams
-        \label{FAadminProjektänderung}
-  \item Löschen eines \glspl{Projekt}s \label{FAadmin-Projekt}
+        \label{FAadminProjektänderung} \testRef{UCadminProjektErstellenÄndern}
+  \item Löschen eines \glspl{Projekt}s \label{FAadminDeleteProjekt}
+  \testRef{UCadminDeleteProjekt}
   \item Abmeldung \label{FAadminAbmeldung}
   \item Finale Wahl und Veröffentlichung der Einteilung \label{FAadminAuswahl}
+  \testRef{UCadminEinteilungAuswahl}
 \end{enumerate}
 
 \subsubsection{Wunschfunktionen}
 
 \begin{enumerate}[label=\swtLabel{FA}, resume]
-  \item Abbrechen der Einteilungsberechnung \label{FAabbruch}
+  \item Abbrechen der Einteilungsberechnung \label{FAabbruch} \testRef{UCadminEinteilungStart}
   %TODO Was ist damit gemeint? \item Hinzufügen/Löschen von Studierenden
   %und Bearbeitung der Daten
   \item Hinzufügen von Berechnungen zur Stapelverarbeitung \label{FAadminStapel}
   \item Hinzufügen wählbarer Teilleistungen zu \glspl{SPO} \label{FAadminSPOhinzufügen}
   \item Entfernen wählbarer Teilleistungen zu \glspl{SPO} \label{FAadminSPOentfernen}
-  \item \glspl{SPO} auswählen, die Studenten bei der Anmeldung angeben können 
+  \item \glspl{SPO} auswählen, die Studenten bei der Anmeldung angeben können
+  \label{FAadminSPOAuswahl}
   \item Benachrichtigen der Studierenden und Projektbetreuer über die Einteilung
-  per E"=Mail \label{FAadminBenachrichtigen}
+  per E"=Mail \label{FAadminBenachrichtigen} \testRef{UCadminEinteilungAuswahl}
   \item Erstellen von Betreueraccounts \label{FAadminCreateAccounts}
+  \testRef{UCadminCreateBetreuer}
   %%TODO W70 und W100 Was genau soll man können?
   \item Import von \enquote{.csv}"=Dateien mit Informationen über bestandene
   \glspl{Teilleistung} der \glspl{Studierender}n aus dem Campus Management System 
@@ -363,8 +390,10 @@ oder neuer
   \item Export von \enquote{.csv}"=Dateien mit Noten der \glspl{Studierender}n
   \label{FAexport2}
   \item Übersicht über bereits berechnete Einteilungen
+  \label{FAadminUebersichtAlleEinteilungen} \testRef{UCadminEinteilungAuswahl}
   \item Warnung an den \gls{Admin}, falls er bei der manuellen Nachjustierung 
   der Einteilung die bei der Konfiguration angegebenen Grenzen überschreitet
+  \label{FAadminWarnung}
 \end{enumerate}
 
 \subsection{Einteilungsfunktionen}
@@ -377,24 +406,24 @@ oder neuer
     wird nicht eingeteilt \label{FAeinteilung}
     \item Möglichst viele Studierende werden zu \glspl{Projekt}n zugeteilt 
     \item \glspl{Lerngruppe} bleiben zusammen
-    \item Präferenzen der Studierenden werden berücksichtigt
-  \end{itemize}
- Wünschenswert wäre weiterhin noch die Berücksichtigung von folgenden Kriterien:  
- \begin{itemize}
-   \item Eher 5er"=Teams als 6er"=Teams
-   \item Studierende in einem Team sind im gleichen Semester
-   \item Studierende höheren Semesters werden bevorzugt
-   \item Studierende, die bereits mehr Teilleistungen aus dem ersten Jahr
-bestanden haben, werden bevorzugt 
- \end{itemize}
+    \item Präferenzen der Studierenden werden berücksichtigt 
+ \end{itemize} \label{FAeinteilungMussKriterien}
  \item Berechnung von \glspl{Guetekriterium} \label{FAguetekriterien}
 \end{enumerate}
 
  \subsubsection{Wunschkriterien}
  
  \begin{enumerate}[label=\swtLabel{FA}, resume]
- \item Stapelverarbeitung von mehreren Einteilungen mit unterschiedlichen Konfigurationen
- \item Wer sich zum zweiten mal bewirbt, soll bei der Einteilung bevorzugt werden
+ \item Stapelverarbeitung von mehreren Einteilungen mit unterschiedlichen
+ Konfigurationen \label{FAeinteilungStapel}\item Folgende Kriterien fließen in die Einteilung ein:
+ \begin{itemize}
+ 	\item Wer sich zum zweiten mal bewirbt, soll bei der Einteilung bevorzugt werden
+ 	\item Eher 5er"=Teams als 6er"=Teams
+ 	\item Studierende in einem Team sind im gleichen Semester
+ 	\item Studierende höheren Semesters werden bevorzugt
+ 	\item Studierende, die bereits mehr Teilleistungen aus dem ersten Jahr
+ 	bestanden haben, werden bevorzugt
+ \end{itemize} \label{FAeinteilungWunschKriterien}
 \end{enumerate}
 
 \section{Produktdaten}
@@ -484,7 +513,7 @@ Zu jedem Studierenden sollen folgende Daten gespeichert werden:
   \ref{FAbewertung} und \ref{FAbewertung2} bei welchen die Antwortzeit im
   Schnitt unter 10 Sekunden liegt
   \item Für den Administrator ist die Antwortzeit des Webservers im Schnitt nicht
-  länger als 5 Sekunden. Ausgenommen hiervon sind \ref{FAinit}, \ref{FAimport},
+  länger als 5 Sekunden. Ausgenommen hiervon sind \ref{FAadminInit}, \ref{FAimport},
   \ref{FAexport}, \ref{FAabbruch} und \ref{FAimport2} bei welchen die Antwortzeit im Schnitt
   unter 60 Sekunden liegt
   \item Für Betreuer ist die Antwortzeit des Webservers im Schnitt nicht
@@ -564,7 +593,7 @@ Folgende Funktionssequenzen sind zu überprüfen:
       \item[2.] Klick auf Registrieren
       \item[3.] Ausfüllen der Registrierungsmaske %TODO Verweis auf Bild
       \item[4.] Abschicken der Daten
-      \item[5.] Existiert der registrierte Account noch nicht, so wurde der
+      \item[5.] Existiert der registrierte Account noch nicht, so wird der
       Studierende der Datenbank hinzugefügt
   	\end{enumerate}
   	\item[Erweiterungen:]~
@@ -573,42 +602,41 @@ Folgende Funktionssequenzen sind zu überprüfen:
   	  verwendet
   	  \item[nach 4)] Dem Studierenden wird nach dem Abschicken seiner Daten eine
   	  \\
-  	  Verifikations-Email gesendet.
+  	  Verifikations-Email gesendet. (siehe \testRef{UCstudVerifikationEmail})
   	 \end{enumerate} 
   	\item[Alternativen:]~
   	\begin{enumerate}
   	  \item[5a)] Wenn doch, so wird kein weiterer Eintrag hinzugefügt, sondern
   	  die zweite Registrierung abgebrochen
   	\end{enumerate} 
-  	\item[benötigte FA:] \ref{FAregistrierung}, \ref{FAstudUanmeldung},
-  	\ref{FAemailverifikation}
+  	\item[benötigte FA:] \ref{FAregistrierung}, \ref{FAstudUanmeldung}
   \end{description}
 %   
   
-  \item
+  \item \label{UCstudVerifikationEmail}
     \begin{description}
-    \item[Anwendung:] Verifikation der E-Mail
-    \item[Ziel:] Verifikation der E-mail
+    \item[Anwendung:] Verifikation der E"=Mail"=Adresse
+    \item[Ziel:] Verifikation der E"=Mail"=Adresse
     \item[Vorbedingung:] Studierender muss sich registriert haben und seine
-    E-mail korrekt angegeben haben.
+    E"=Mail"=Adresse korrekt angegeben haben.
     \item[Nachbedingung(Erfolg):] Studierender kann sich nun Anmelden und hat
     Zugriff auf die Studierenden-Sicht
     \item[Nachbedingung(Fehlschlag):] Studierender kann sich nicht mit seinem
     Account anmelden
     \item[Akteure:] Studierender
     \item[Auslösen des Ereignisses:] Studierende registrieren sich und werden
-    darauf hingewiesn inhre E-mail zu verifizieren.
+    darauf hingewiesn ihre E"=Mail"=Adresse zu verifizieren.
     \item[Beschreibung:]~
     \begin{enumerate}
       \item[1.] E-mails über Drittsoftware abrufen.
-      \item[2.] Klick auf den Verifikations-Link in der E-mail.      
+      \item[2.] Klick auf den Verifikations-Link in der E"=Mail.      
     \end{enumerate}
     \item[Erweiterungen:] -keine-
     \item[Alternativen:] -keine-
     \item[benötigte FA:] \ref{FAemailverifikation}
       \end{description}
   
-  \item
+  \item \label{UCstudAnmeldung}
     \begin{description}
     \item[Anwendung:] Anmeldung eines Studierenden
     \item[Ziel:] Studierender wird angemeldet und kann seine Bewertungen ändern
@@ -637,85 +665,89 @@ Folgende Funktionssequenzen sind zu überprüfen:
   \end{description}
    
   
-  \item
+  \item \label{UCstudCrealernG}
   \begin{description}
-  \item[Anwendung:] Studierender erstellt\gls{Lerngruppe}
-  \item[Ziel:] Eine neue\gls{Lerngruppe} ist in der Datenbank vermerkt und der Ersteller ist erstes Mitglied dieser
+  \item[Anwendung:] Studierender erstellt \gls{Lerngruppe}
+  \item[Ziel:] Eine neue \gls{Lerngruppe} ist in der Datenbank vermerkt und der
+  Ersteller ist erstes Mitglied dieser
   	\item[Vorbedingung:] Studierender ist angemeldet und befindet sich auf der
   	Website im Studierendenportal
-  	\item[Nachbedingung(Erfolg):] Die\gls{Lerngruppe} wurde erfolgreich erstellt
-  	\item[Nachbedingung(Fehlschlag):] Die\gls{Lerngruppe} wurde nicht erstellt
+  	\item[Nachbedingung(Erfolg):] Die \gls{Lerngruppe} wurde erfolgreich erstellt
+  	\item[Nachbedingung(Fehlschlag):] Die \gls{Lerngruppe} wurde nicht erstellt
   	\item[Akteure:] Studierender
   	\item[Auslösen des Ereignisses:] Wille des Studierenden
   	\item[Beschreibung:]~
   	\begin{enumerate}
   	  \item[1.] Studierender gibt Name und Passwort in das Formular zum Erstellen
-  	  einer\gls{Lerngruppe} ein und schickt dieses ab %TODO: Verweis einfügen
-  	  \item[2.] Wenn noch keine\gls{Lerngruppe} mit diesem Namen existiert, so wird
-  	  die\gls{Lerngruppe} in der Datenbank angelegt und der Ersteller wird erstes Mitglied
+  	  einer \gls{Lerngruppe} ein und schickt dieses ab %TODO: Verweis einfügen
+  	  \item[2.] Wenn noch keine \gls{Lerngruppe} mit diesem Namen existiert, so
+  	  wird die \gls{Lerngruppe} in der Datenbank angelegt und der Ersteller wird
+  	  erstes Mitglied
   	\end{enumerate}
   	\item[Erweiterungen:] -keine-
   	\item[Alternativen:] ~
   	\begin{enumerate}
-  	  \item[2a)] Eine\gls{Lerngruppe} mit diesem Namen existiert schon. Dann wird
-  	  keine weitere\gls{Lerngruppe} angelegt und dem Studierenden wird mitgeteilt,
-  	  dass er den Namen der\gls{Lerngruppe} verändern soll
+  	  \item[2a)] Eine \gls{Lerngruppe} mit diesem Namen existiert schon. Dann
+  	  wird keine weitere \gls{Lerngruppe} angelegt und dem Studierenden wird
+  	  mitgeteilt, dass er den Namen der \gls{Lerngruppe} verändern soll
   	 \end{enumerate}
   	 \item[benötigte FA:] \ref{FAcreatelerng}
   \end{description}
    
   
-  \item
+  \item \label{UCstudJoinLernG}
   \begin{description}
-  \item[Anwendung:] Studierender tritt\gls{Lerngruppe} bei
-  \item[Ziel:] Studierender ist Mitglied einer\gls{Lerngruppe}
+  \item[Anwendung:] Studierender tritt \gls{Lerngruppe} bei
+  \item[Ziel:] Studierender ist Mitglied einer \gls{Lerngruppe}
   	\item[Vorbedingung:] Studierender ist angemeldet und befindet sich auf der
   	Webseite in Studierendensicht
-  	\item[Nachbedingung(Erfolg):] Der Studierende ist Mitglied der\gls{Lerngruppe}
+  	\item[Nachbedingung(Erfolg):] Der Studierende ist Mitglied der
+  	\gls{Lerngruppe}
   	\item[Nachbedingung(Fehlschlag):] Der Studierende ist nicht Mitglied der
-  	Lerngruppe
+  	\gls{Lerngruppe}
   	\item[Akteure:] Studierender
-  	\item[Auslösen des Ereignisses:] Der Studierende will einer\gls{Lerngruppe} beitreten
+  	\item[Auslösen des Ereignisses:] Der Studierende will einer \gls{Lerngruppe}
+  	beitreten
   	\item[Beschreibung:]~
   	\begin{enumerate}
-  	  \item[1.] Der Studierende gibt die Anmeldedaten der\gls{Lerngruppe} in das
+  	  \item[1.] Der Studierende gibt die Anmeldedaten der \gls{Lerngruppe} in das
   	  passende Formular ein und schickt dieses ab %TODO: Verweis
-  	  \item[2.] Existiert die angegebene\gls{Lerngruppe}, so wird die Mitgliederliste
-  	  derer um den Studierenden erweitert
+  	  \item[2.] Existiert die angegebene \gls{Lerngruppe}, so wird die
+  	  Mitgliederliste derer um den Studierenden erweitert
   	\end{enumerate}
   	\item[Erweiterungen:]~
   	\begin{enumerate}
-  	  \item[2a)] Ist die\gls{Lerngruppe} schon vollständig, so wird der Studierende nicht
-  	  der Gruppe zugewiesen
-  	  \item[3)] Ist der Studierende nicht der\gls{Lerngruppe} zugewiesen worden, so werden
-  	  die zuletzt gespeicherten Bewertungen verwendet
+  	  \item[2a)] Ist die \gls{Lerngruppe} schon vollständig, so wird der
+  	  Studierende nicht der Gruppe zugewiesen
+  	  \item[3)] Ist der Studierende nicht der \gls{Lerngruppe} zugewiesen worden,
+  	  so werden die zuletzt gespeicherten Bewertungen verwendet
   	  \item[4)] Der \glspl{Lerngruppe}ersteller wird per E-Mail informiert
   	 \end{enumerate}
   	\item[Alternativen:] ~
   	\begin{enumerate}
   	  \item[2a)] Existiert keine solche Gruppe, so schlägt der Beitritt fehl und
-  	  der Studierende ist kein Mitglied der\gls{Lerngruppe}
+  	  der Studierende ist kein Mitglied der \gls{Lerngruppe}
   	 \end{enumerate}
   	 \item[benötigte FA:] \ref{FAjoinLerng}
   \end{description}
   
-   \item
+   \item \label{UCstudUebersichtLernG}
   \begin{description}
-  \item[Anwendung:] Übersicht über\gls{Lerngruppe}
-  \item[Ziel:] Studierender kann sehen wer in seiner\gls{Lerngruppe} ist
+  \item[Anwendung:] Übersicht über \gls{Lerngruppe}
+  \item[Ziel:] Studierender kann sehen wer in seiner \gls{Lerngruppe} ist
   	\item[Vorbedingung:] Studierender ist angemeldet und befindet sich auf der
-  	Webseite in Studierendensicht. Weiterhin ist der Studierende mitglied einer
-  	Lerngruppe
+  	Webseite in Studierendensicht. Weiterhin ist der Studierende Mitglied einer
+  	\gls{Lerngruppe}
   	\item[Nachbedingung(Erfolg):] Studierender befindet sich nun in der
   	\glspl{Lerngruppe}übersicht
   	\item[Nachbedingung(Fehlschlag):] Der Studierende ist nicht in der
   	\glspl{Lerngruppe}übersicht
   	\item[Akteure:] Studierender
   	\item[Auslösen des Ereignisses:] Der Studierende möchte ansehen wer außer ihm
-  	in der\gls{Lerngruppe} ist in der er angemeldet ist
+  	in der \gls{Lerngruppe} ist, in der er angemeldet ist
   	\item[Beschreibung:]~
   	\begin{enumerate}
-  	  \item[1.] Der Studierende klickt auf\gls{Lerngruppe}
+  	  \item[1.] Der Studierende klickt auf \gls{Lerngruppe} %TODO Verweis
  
   	\end{enumerate}
   	\item[Erweiterungen:] -keine-
@@ -725,17 +757,18 @@ Folgende Funktionssequenzen sind zu überprüfen:
   	 \item[benötigte FA:] \ref{FAcheckLerng}
   \end{description}
   
-     \item
+     \item \label{UCstudEinsichtEinteilung}
   \begin{description}
   \item[Anwendung:] Einsicht der Einteilungsergebnisse
-  \item[Ziel:] \gls{Studierender} kann sehen welchem Projekt er zugeteilt wurde
+  \item[Ziel:] \gls{Studierender} kann sehen welchem \gls{Projekt} er
+  zugeteilt wurde
   	\item[Vorbedingung:] \gls{Studierender} ist angemeldet und befindet sich auf der
   	Webseite in Studierendensicht. 
   	\item[Nachbedingung(Erfolg):] \gls{Studierender} befindet sich in der Maske
   	Einteilungsergebnisse. %TODO verweis
-  	Falls der \gls{Admin} die Einteilungsergebnisse bereits veröffentlicht hat, kann er
-  	sehen, welchem \gls{Projekt} er zugeteilt wurde. Sonst sieht er, dass die Einteilung
-  	noch im Gange ist
+  	Falls der \gls{Admin} die Einteilungsergebnisse bereits veröffentlicht hat,
+  	kann er sehen, welchem \gls{Projekt} er zugeteilt wurde. Sonst sieht er, dass
+  	die Einteilung noch im Gange ist %TODO Gehört der Abschnitt hier rein?
   	\item[Nachbedingung(Fehlschlag):] Der Studierende ist nicht in der
   	Maske Einteilungsergebnisse
   	\item[Akteure:] \gls{Studierender}
@@ -753,7 +786,7 @@ Folgende Funktionssequenzen sind zu überprüfen:
   	 \item[benötigte FA:] \ref{FAStudeinsicht}
   \end{description}
   
-    \item
+    \item \label{UCstudProjektbeschreibung}
   \begin{description}
   \item[Anwendung:] Anzeigen der Projektbeschreibung in Bewertungsmaske
   \item[Ziel:] Studierender kann sich während der Einteilung die Beschreibung
@@ -768,8 +801,8 @@ Folgende Funktionssequenzen sind zu überprüfen:
   	\item[Nachbedingung(Fehlschlag):] Der Studierende kann die
   	Projektbeschreibung nicht sehen
   	\item[Akteure:] Studierender
-  	\item[Auslösen des Ereignisses:] Der Studierende bewertet Projekte und weiß
-  	bei einem Projekt nicht mehr genau um was es ging
+  	\item[Auslösen des Ereignisses:] Der Studierende bewertet Projekte und möchte
+  	sich über eines der \glspl{Projekt} genauer informieren
   	\item[Beschreibung:]~
   	\begin{enumerate}
   	  \item[1.] Der Studierende fährt mit seiner Maus über den Projektname 
@@ -782,26 +815,27 @@ Folgende Funktionssequenzen sind zu überprüfen:
   	 \item[benötigte FA:] \ref{FAbeschreibung-Bewertung}
   \end{description}
   
-      \item
+      \item \label{UCstudLeaveLernG}
   \begin{description}
-  \item[Anwendung:] Austritt aus einer\gls{Lerngruppe}
-  \item[Ziel:] Studiernder möchte aus einer\gls{Lerngruppe} austreten
+  \item[Anwendung:] Austritt aus einer \gls{Lerngruppe}
+  \item[Ziel:] Studierender möchte aus einer \gls{Lerngruppe} austreten
   	\item[Vorbedingung:] Studierender ist angemeldet und befindet sich auf der
-  	Webseite in Studierndensicht. Weiterhin ist er mitglied einer\gls{Lerngruppe}
+  	Webseite in Studierendensicht. Weiterhin ist er Mitglied
+  	einer \gls{Lerngruppe}
   	%TODO verweis
   	
-  	\item[Nachbedingung(Erfolg):] Studierender ist kein Mitglied der\gls{Lerngruppe}
-  	mehr
+  	\item[Nachbedingung(Erfolg):] Studierender ist kein Mitglied der
+  	\gls{Lerngruppe} mehr
   	
   	\item[Nachbedingung(Fehlschlag):] Studierender ist immernoch Mitglied der
-  	Lerngruppe
+  	\gls{Lerngruppe}
   	\item[Akteure:] Studierender
-  	\item[Auslösen des Ereignisses:] Studierender möchte einer anderen\gls{Lerngruppe}
-  	beitreten oder eigene Projektbewertungen abgeben
+  	\item[Auslösen des Ereignisses:] Studierender möchte einer anderen
+  	\gls{Lerngruppe} beitreten oder eigene Projektbewertungen abgeben
   	\item[Beschreibung:]~
   	\begin{enumerate}
-  	  \item[1.] Der Studierende klickt auf\gls{Lerngruppe}. Nun befindet er sich in
-  	  der \enquote{Lerngruppe}-Maske %TODO verweis
+  	  \item[1.] Der Studierende klickt auf \gls{Lerngruppe}. Nun befindet er sich
+  	  in der \enquote{Lerngruppe}-Maske %TODO verweis
   	  \item[2.] Der Studierende klickt auf \enquote{Austreten}
  
   	\end{enumerate}
@@ -813,52 +847,58 @@ Folgende Funktionssequenzen sind zu überprüfen:
   \end{description}
 %   
   
-  \item
+  \item \label{UCstudBewertung}
   \begin{description}
   \item[Anwendung:] Studierender bewertet \glspl{Projekt}
   \item[Ziel:] Der Studierende hat eine Bewertung abgegeben
   	\item[Vorbedingung:] Der Studierende ist angemeldet und im Studierendenportal der
   	Website
-  	\item[Nachbedingung(Erfolg):] Für den Studierenden ist eine Bewertung
-  	eingetragen
-  	\item[Nachbedingung(Fehlschlag):] Der Studierende hat keine Bewertung eingetragen
+  	\item[Nachbedingung(Erfolg):] Die Bewertung wurde gespeichert
+  	\item[Nachbedingung(Fehlschlag):] Die Bewertung wurde nicht gespeichert
   	\item[Akteure:] Studierender
   	\item[Auslösen des Ereignisses:] Des Studierendens Wille
   	\item[Beschreibung:]~
   	 \begin{enumerate}
   	   \item[1.] Der Studierende füllt die Bewertungsmaske aus %TODO: Verweis
   	   \item[2.] Der Studierende speichert die Bewertung ab
+  	   \item[3.] Ist der Studierende Mitglied einer \gls{Lerngruppe}, so gilt die
+  	   Bewertung gleichzeitig auch für alle anderen Mitglieder
   	 \end{enumerate}
   	\item[Erweiterungen:] -keine-
-  	\item[Alternativen:] -keine-
-  	\item[benötigte FA:] \ref{FAbewertung}
+  	\item[Alternativen:] ~
+  	\begin{enumerate}
+  	  \item[3a)] Wenn nicht, so gilt sie nur für den Studierenden
+  	 \end{enumerate}
+  	\item[benötigte FA:] \ref{FAbewertung}, \ref{FAbewertung2}
   \end{description}
    
   
-  \item
-  \begin{description}
-  \item[Anwendung:] Studierender bewertet \glspl{Projekt} für eine\gls{Lerngruppe}
-  \item[Ziel:] Die\gls{Lerngruppe} assoziiert mit dem Studierenden hat eine Bewertung
-  abgegeben
-  	\item[Vorbedingung:] Der Studierende ist als Leiter einer\gls{Lerngruppe} angemeldet
-  	und im Studierendenportal der Website
-  	\item[Nachbedingung(Erfolg):] Für die\gls{Lerngruppe} ist eine Bewertung eingetragen
-  	\item[Nachbedingung(Fehlschlag):] Für die\gls{Lerngruppe} ist keine (neue)
-  	Bewertung eingetragen
-  	\item[Akteure:] Studierender
-  	\item[Auslösen des Ereignisses:] Des Studierendens Wille
-  	\item[Beschreibung:]~
-  	 \begin{enumerate}
-  	   \item[1.] Der Studierende füllt die Bewertungsmaske aus
-  	   \item[2.] Der Studierende schließt die Bewertung ab
-  	 \end{enumerate}
-  	\item[Erweiterungen:] -keine-
-  	\item[Alternativen:] -keine-
-  	\item[benötigte FA:] \ref{FAbewertung2}
-  \end{description}
-   
+%  \item
+%  \begin{description}
+%  \item[Anwendung:] Studierender bewertet \glspl{Projekt} für
+  % eine\gls{Lerngruppe}
+%  \item[Ziel:] Die\gls{Lerngruppe} assoziiert mit dem Studierenden hat eine
+  % Bewertung abgegeben
+%  	\item[Vorbedingung:] Der Studierende ist als Leiter einer\gls{Lerngruppe}
+  	% angemeldet und im Studierendenportal der Website
+%  	\item[Nachbedingung(Erfolg):] Für die\gls{Lerngruppe} ist eine Bewertung
+  	% eingetragen
+%  	\item[Nachbedingung(Fehlschlag):] Für die\gls{Lerngruppe} ist keine (neue)
+%  	Bewertung eingetragen
+%  	\item[Akteure:] Studierender
+%  	\item[Auslösen des Ereignisses:] Des Studierendens Wille
+%  	\item[Beschreibung:]~
+%  	 \begin{enumerate}
+%  	   \item[1.] Der Studierende füllt die Bewertungsmaske aus
+%  	   \item[2.] Der Studierende schließt die Bewertung ab
+%  	 \end{enumerate}
+%  	\item[Erweiterungen:] -keine-
+%  	\item[Alternativen:] -keine-
+%  	\item[benötigte FA:] \ref{FAbewertung2}
+%  \end{description}
+% TODO vermutlich löschen   
   
-  \item
+  \item \label{UCstudNewPasswort}
     \begin{description}
   	\item[Anwendung:] Passwort vergessen
   	\item[Ziel:] Erhalten eines neuen Passworts
@@ -871,9 +911,9 @@ Folgende Funktionssequenzen sind zu überprüfen:
   	\item[Beschreibung:]~
   	\begin{enumerate}
   	  \item[1.] Öffnen der Internetseite
-      \item[2.] Klick auf "Passwort vergessen"
-      \item[3.] Eingabe der E-Mail Adresse
-      \item[4.] Der Studierende erhält eine E-Mail mit seinem neuen Passwort
+      \item[2.] Klick auf \enquote{Passwort vergessen}
+      \item[3.] Eingabe der E"=Mail"=Adresse
+      \item[4.] Der Studierende erhält eine E"=Mail mit seinem neuen Passwort
   	\end{enumerate}
   	\item[Erweiterungen:] -keine-
   	\item[Alternativen:] -keine-
@@ -884,7 +924,7 @@ Folgende Funktionssequenzen sind zu überprüfen:
 
 \subsubsection{Betreuer}
 \begin{enumerate} [label=\swtLabel{B}]
-  \item
+  \item \label{UCbetreuerAnmeldung}
 	 \begin{description}
 		\item[Anwendung:] Betreuer meldet sich an
   		\item[Ziel:] Anmeldung des Betreuers
@@ -904,11 +944,11 @@ Folgende Funktionssequenzen sind zu überprüfen:
   		\begin{enumerate}
   		  \item[2a)] Wenn nicht, erhält er eine Fehlermeldung
   		\end{enumerate}  
-  		\item[benötigte FA:] \ref{FAbetreueranmeldung}
+  		\item[benötigte FA:] \ref{FAbetreuerAnmeldung}
   	\end{description}
    
   
-  \item
+  \item \label{UCbetreuerThemaErstellenÄndern}
 	\begin{description}
   		\item[Anwendung:] Thema erstellen/ändern
   		\item[Ziel:] Eröffnung/Änderung eines \gls{PSE}-Themas
@@ -931,11 +971,11 @@ Folgende Funktionssequenzen sind zu überprüfen:
   	\begin{enumerate}
   	  \item[2a)] Wenn nicht, so fügt er ein neues hinzu
   	\end{enumerate}  
-  	\item[benötigte FA:] \ref{FAbetreuer+projekt}, \ref{FAbetreuerProjektänderung}
+  	\item[benötigte FA:] \ref{FAbetreuerAddProjekt}, \ref{FAbetreuerChangeProjekt}
   \end{description}
 
  
-  \item
+  \item \label{UCbetreuerJoinProjekt}
 	\begin{description}
   		\item[Anwendung:] Gruppenbetreuer werden
   		\item[Ziel:] Betreuer einer bestimmten Gruppe werden
@@ -954,11 +994,11 @@ Folgende Funktionssequenzen sind zu überprüfen:
   	\end{enumerate}
   	\item[Erweiterungen:] -keine-
   	\item[Alternativen:] -keine-
-  	\item[benötigte FA:] \ref{FAjoinBetreuer}
+  	\item[benötigte FA:] \ref{FAbetreuerJoinProjekt}
   \end{description}
   
   
-  \item
+  \item \label{UCbetreuerEinsichtEinteilungProjekt}
   \begin{description}
   	\item[Anwendung:] Einsicht der Einteilungsergebnisse
   	\item[Ziel:] Betreuer kann sehen, wer zu seinen Projekten zugeteilt wurde
@@ -975,18 +1015,17 @@ Folgende Funktionssequenzen sind zu überprüfen:
   	\item[Auslösen des Ereignisses:] Der \gls{Projektbetreuer} möchte wissen, wer zu seinen Projekt zugeteilt ist
   	\item[Beschreibung:]
   	\begin{enumerate}~
-  		\item[1.] Der \gls{Projektbetreuer} klickt auf \enquote{Einteilungsergebnisse}
-  		
+  		\item[1.] Der \gls{Projektbetreuer} klickt auf \enquote{Einteilungsergebnisse}  		
   	\end{enumerate}
   	\item[Erweiterungen:] -keine-
   	
   	\item[Alternativen:] -keine-
   	
-  	\item[benötigte FA:] %TODO
+  	\item[benötigte FA:] \ref{FAbetreuerEinsichtEinteilung}
   \end{description}
    
   
-  \item
+  \item \label{UCbetreuerLeaveProjekt}
 	\begin{description}
   		\item[Anwendung:] Gruppe verlassen
   		\item[Ziel:] Eine Gruppe nicht mehr betreuen
@@ -1005,11 +1044,11 @@ Folgende Funktionssequenzen sind zu überprüfen:
   	\end{enumerate}
   	\item[Erweiterungen:] -keine-
   	\item[Alternativen:] -keine-
-  	\item[benötigte FA:] \ref{FAleaveBetreuer}
+  	\item[benötigte FA:] \ref{FAbetreuerLeaveprojekt}
   \end{description}
    
   
-  \item
+  \item \label{UCbetreuerNoteneintragung}
     \begin{description}
   	\item[Anwendung:] Noten für Gruppenteilnehmer eintragen
   	\item[Ziel:] Speichern der Noten in der Datenbank
@@ -1022,11 +1061,11 @@ Folgende Funktionssequenzen sind zu überprüfen:
   	\begin{enumerate} 
   	  \item[1.] Betreuer befindet sich auf der Website mit der Notenübersicht
   	  \item[2.] Betreuer trägt neue Noten für eine beliebige Phase ein oder
-  	  ändert bestehende Noten.
+  	  ändert bestehende Noten
   	\end{enumerate}
   	\item[Erweiterungen:] -keine-
   	\item[Alternativen] -keine-
-  	\item[benötigte FA:] \ref{FAbetreuernoten}
+  	\item[benötigte FA:] \ref{FAbetreuerNoten}
   \end{description}
    
 \end{enumerate}
@@ -1035,13 +1074,14 @@ Folgende Funktionssequenzen sind zu überprüfen:
 \subsubsection{Administrator}
 \begin{enumerate} [label=\swtLabel{A}]
 	
-	\item
+	\item \label{UCadminInit}
 	\begin{description}
 		\item[Anwendung:] Initialisierung des Produktes
 		\item[Ziel:] Das Produkt soll für den Einsatz vorbereitet werden
 		\item[Vorbedingung:] -keine-
 		\item[Nachbedingung(Erfolg):] Das Produkt ist einsatzbereit und kann über das Webinterface bedient werden
-		\item[Nachbedingung(Fehlschlag):] Das Produkt ist nicht einsatzbereit und gibt eine Aussagekräftige Fehlermeldung aus
+		\item[Nachbedingung(Fehlschlag):] Das Produkt ist nicht einsatzbereit und gibt
+		eine aussagekräftige Fehlermeldung aus
 		\item[Akteure:] \gls{Admin}
 		\item[Auslösen des Ereignisses:] Beginn des \gls{PSE}
 		\item[Beschreibung:]
@@ -1055,15 +1095,16 @@ Folgende Funktionssequenzen sind zu überprüfen:
 		\begin{enumerate}
 			\item[2 a)] Kann entfallen, wenn Server bereits in Betrieb sind
 		\end{enumerate}
-		\item[benötigte FA:] \ref{FAinit}
+		\item[benötigte FA:] \ref{FAadminInit}
 	\end{description}
 	
-	\item
+	\item \label{UCadminAnmeldezeit}
 	\begin{description}
 		\item[Anwendung:] Setzten der frühesten möglichen Anmeldezeit
 		\item[Ziel:] Ein frühestmöglicher Zeitpunkt für die Anmeldung von \glspl{Studierender}n soll festgelegt werden
 		\item[Vorbedingung:] \gls{Admin} ist angemeldet und in der Adminansicht der Website
-		\item[Nachbedingung(Erfolg):] Vor dem Eingegeben Datum können sich \glspl{Studierender} nicht mehr anmelden und einloggen 
+		\item[Nachbedingung(Erfolg):] Vor dem eingegeben Datum können sich
+		\glspl{Studierender} nicht mehr anmelden und einloggen
 		\item[Nachbedingung(Fehlschlag):] Anmelden und Einloggen sind weiter möglich
 		\item[Akteure:] \gls{Admin}
 		\item[Auslösen des Ereignisses:] Beginn des \gls{PSE}
@@ -1074,16 +1115,16 @@ Folgende Funktionssequenzen sind zu überprüfen:
 		\end{enumerate}
 		\item[Erweiterungen:] -keine-
 		\item[Alternativen:] -keine-
-		\item[benötigte FA:] \ref{FAadminanmeldezeit}
-	\end{description}
+		\item[benötigte FA:] \ref{FAadminAnmeldezeit}
+	\end{description}	
 	
-	
-	\item
+	\item \label{UCadminDeadline}
 	\begin{description}
 		\item[Anwendung:] Setzten der Bewertungsdeadline
 		\item[Ziel:] Ein spätester Zeitpunkt für die Anmeldung von \glspl{Studierender}n soll festgelegt werden
 		\item[Vorbedingung:] \gls{Admin} ist angemeldet und in der Adminansicht der Website
-		\item[Nachbedingung(Erfolg):] Nach dem eingegeben Datum können sich keine \glspl{Studierender} mehr anmelden
+		\item[Nachbedingung(Erfolg):] Nach dem eingegeben Datum können sich keine
+		\glspl{Studierender}n mehr anmelden
 		\item[Nachbedingung(Fehlschlag):] Anmelden ist weiter möglich
 		\item[Akteure:] \gls{Admin}
 		\item[Auslösen des Ereignisses:] Beginn des \gls{PSE}
@@ -1094,10 +1135,10 @@ Folgende Funktionssequenzen sind zu überprüfen:
 		\end{enumerate}
 		\item[Erweiterungen:] -keine-
 		\item[Alternativen:] -keine-
-		\item[benötigte FA:] \ref{FAadmindeadline}
+		\item[benötigte FA:] \ref{FAadminDeadline}
 	\end{description}
 	
-  \item
+  \item \label{UCadminProjektErstellenÄndern}
     \begin{description}
   	\item[Anwendung:] Hinzufügen/Ändern eines Projekts
   	\item[Ziel:] Einfügen/Änderung von Projektdaten in der Datenbank
@@ -1106,14 +1147,14 @@ Folgende Funktionssequenzen sind zu überprüfen:
   	\item[Nachbedingung(Fehlschlag):] Neue Projektdaten sind nicht eingetragen
   	\item[Akteure:] Administrator, Institut
   	\item[Auslösen des Ereignisses:] Administrator bekommt Projektdaten von einem
-  	Institut\\ vorgelegt
+  	Institut vorgelegt
   	\item[Beschreibung:]~
   	\begin{enumerate} 
   	  \item[1.] Projektübersicht öffnen
   	  \item[2.] Wenn das Projekt schon existiert, so werden die Projektdaten
   	  verglichen
   	  \item[3.] Stimmen die Projektdaten nicht überein, so werden die betroffenen
-  	  Daten\\ angepasst
+  	  Daten angepasst
   	  \item[4.] Durch Abspeichern der Eingaben werden die Daten in der Datenbank
   	  angepasst
   	\end{enumerate}
@@ -1123,14 +1164,14 @@ Folgende Funktionssequenzen sind zu überprüfen:
   	  \item[2a)] Wenn nicht, dann wird das Projekt neu angelegt
   	  \item[3a)] Falls doch, so ist dieser Anwendungsfall abgeschlossen
   	\end{enumerate} 
-  	\item[benötigte FA:] \ref{FAadmin+projekt}, \ref{FAadminProjektänderung}
+  	\item[benötigte FA:] \ref{FAadminCreateProjekt}, \ref{FAadminProjektänderung}
   \end{description}
    
   
-  \item
+  \item \label{UCadminDeleteProjekt}
   \begin{description}
   \item[Anwendung:] Löschen eines Projektes
-  \item[Ziel:] Löschen eines Projektes in der Datenbank
+  \item[Ziel:] Löschen eines Projektes aus der Datenbank
   	\item[Vorbedingung:] Projekt existiert bereits in der Datenbank und die
   	Studierenden konnten noch keine Bewertungen abgeben
   	\item[Nachbedingung(Erfolg):] Projekt ist aus der Datenbank entfernt
@@ -1146,11 +1187,11 @@ Folgende Funktionssequenzen sind zu überprüfen:
   	\end{enumerate}
   	\item[Erweiterungen:] -keine-
   	\item[Alternativen:] -keine-
-  	\item[benötigte FA:] \ref{FAadmin-Projekt}
+  	\item[benötigte FA:] \ref{FAadminDeleteProjekt}
   \end{description}
    
   
-  \item
+  \item \label{UCadminEinteilungStart}
   \begin{description}
   \item[Anwendung:] Teameinteilung
   \item[Ziel:] Finden einer Teameinteilung nach ausgewählten Parametern
@@ -1162,12 +1203,12 @@ Folgende Funktionssequenzen sind zu überprüfen:
   	zeitliche Deadline
   	\item[Beschreibung:]~
   	\begin{enumerate} 
-  	  \item[1.] Einstellen der Parameter nach den eingeteilt werden soll
+  	  \item[1.] Einstellen der Parameter nach denen eingeteilt werden soll
   	  \item[2.] Starten der Berechnung über Schaltfläche
   	  \item[3.] Sind alle \glspl{Projekt} vollständig angegeben, so startet die
   	  Berechnung
   	  \item[4.] Nach Abschluss der Berechnung wird das Ergebnis inklusive
-  	  eingestellter Parameter abgespeichert.
+  	  eingestellter Parameter abgespeichert
   	\end{enumerate}
   	\item[Erweiterungen:] -keine-
   	\item[Alternativen:] ~
@@ -1177,12 +1218,12 @@ Folgende Funktionssequenzen sind zu überprüfen:
   	  \item[4a)] Hier ist auch ein frühzeitiger Abbruch durch den Administrator
   	  möglich. Dies wird im Ergebnis vermerkt.
   	 \end{enumerate}  
-  	 \item[benötigte FA:] \ref{FAadminparameter},
+  	 \item[benötigte FA:] \ref{FAadminParameter},
   	 \ref{FAadminEinteilungstart}, \ref{FAabbruch}
   \end{description}
    
   
-  \item
+  \item \label{UCadminEinteilungAuswahl}
   \begin{description}
   \item[Anwendung:] Finale Auswahl der Einteilung
   \item[Ziel:] Finden der bestmöglichen Teameinteilung
@@ -1208,46 +1249,47 @@ Folgende Funktionssequenzen sind zu überprüfen:
   	  \item[2a)] Wird ein Studierender nicht zugewiesen, so wird dies ebenfalls
   	  in der Datenbank vermerkt
   	 \end{enumerate}  
-  	 \item[benötigte FA:] \ref{FAadminÜbersicht}, \ref{FAadminAuswahl},
-  	 \ref{FAadminBenachrichtigen}
+  	 \item[benötigte FA:] \ref{FAadminAuswahl},
+  	 \ref{FAadminBenachrichtigen}, \ref{FAadminUebersichtAlleEinteilungen} 
   \end{description}
    
   
-  \item
-  \begin{description}
-  \item[Anwendung:] Einteilung eines Studierenden
-  \item[Ziel:] Manuelle Einteilung eines Studierenden
-  	\item[Vorbedingung:] Automatische Teameinteilung ist abgeschlossen
-  	\item[Nachbedingung(Erfolg):] Der Studierende wurde hinzugefügt
-  	\item[Nachbedingung(Fehlschlag):] Der Studierende wurde nicht hinzugefügt
-  	\item[Akteure:] Administrator, Studierender
-  	\item[Auslösen des Ereignisses:] Studierender meldet sich beim Administrator
-  	\item[Beschreibung:]~
-  	 \begin{enumerate} 
-  	   \item[1.] Wenn sich der Studierende noch nicht im System befindet
-  	   überprüft der Administrator, ob die Anforderungen für das \gls{PSE} erfüllt sind
-  	   \item[2.] Hat der Studierende die Anforderungen erfüllt, so versucht der
-  	   Administrator ihn einem Team zuzuteilen
-  	   \item[3.] Hat der Administrator ein Team gefunden so fügt er den
-  	   Studierenden über eine Eingabemaske dem System hinzu
-  	 \end{enumerate}
-  	\item[Erweiterungen:]~
-  	 \begin{enumerate}
-  	   \item [nach 3)] Betreuer, sowie andere Mitglieder des Projekts, werden
-  	   über das neue Mitglied per E-Mail informiert 
-  	 \end{enumerate}  
-  	\item[Alternativen:] ~
-  	 \begin{enumerate}
-  	  \item[1a)] Falls doch, so wurde er schon vorher abgelehnt/nicht zugewiesen
-  	  und wird nicht eingeteilt. Dieser Fall ist damit abgeschlossen
-  	  \item [2a)] Falls er die Anforderungen nicht erfüllt, so wird er auch nicht
-  	  zugeteilt und dieser Fall ist abgeschlossen
-  	 \end{enumerate}  
-  	 \item[benötigte FA:] \ref{FAadmin+Stud}
-  \end{description}
-   
-  
-  \item
+%  \item \label{UCadminInit}
+%  \begin{description}
+%  \item[Anwendung:] Einteilung eines Studierenden
+%  \item[Ziel:] Manuelle Einteilung eines Studierenden
+%  	\item[Vorbedingung:] Automatische Teameinteilung ist abgeschlossen
+%  	\item[Nachbedingung(Erfolg):] Der Studierende wurde hinzugefügt
+%  	\item[Nachbedingung(Fehlschlag):] Der Studierende wurde nicht hinzugefügt
+%  	\item[Akteure:] Administrator, Studierender
+%  	\item[Auslösen des Ereignisses:] Studierender meldet sich beim Administrator
+%  	\item[Beschreibung:]~
+%  	 \begin{enumerate} 
+%  	   \item[1.] Wenn sich der Studierende noch nicht im System befindet
+%  	   überprüft der Administrator, ob die Anforderungen für das \gls{PSE}
+  	   % erfüllt sind
+%  	   \item[2.] Hat der Studierende die Anforderungen erfüllt, so versucht der
+%  	   Administrator ihn einem Team zuzuteilen
+%  	   \item[3.] Hat der Administrator ein Team gefunden so fügt er den
+%  	   Studierenden über eine Eingabemaske dem System hinzu
+%  	 \end{enumerate}
+%  	\item[Erweiterungen:]~
+%  	 \begin{enumerate}
+%  	   \item [nach 3)] Betreuer, sowie andere Mitglieder des Projekts, werden
+%  	   über das neue Mitglied per E-Mail informiert 
+%  	 \end{enumerate}  
+%  	\item[Alternativen:] ~
+%  	 \begin{enumerate}
+%  	  \item[1a)] Falls doch, so wurde er schon vorher abgelehnt/nicht zugewiesen
+%  	  und wird nicht eingeteilt. Dieser Fall ist damit abgeschlossen
+%  	  \item [2a)] Falls er die Anforderungen nicht erfüllt, so wird er auch
+  	  % nicht zugeteilt und dieser Fall ist abgeschlossen
+%  	 \end{enumerate}  
+%  	 \item[benötigte FA:] \ref{FAadminDeleteStudFromSystem}
+%  \end{description} 
+% TODO Umformulieren, sodass er zu einem der Punkte passt, oder löschen
+     
+  \item \label{UCadminCreateBetreuer}
   \begin{description}
   \item[Anwendung:] Erstellen eines Betreueraccounts
   \item[Ziel:] Hinzufügen eines Betreuers in das System
