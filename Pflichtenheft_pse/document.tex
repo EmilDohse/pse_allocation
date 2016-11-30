@@ -130,7 +130,7 @@ Insgesamt entsteht dadurch für alle Beteiligten ein effektiver und smarter Work
      \item Präferenzen der Studierenden werden berücksichtigt
    \end{itemize}
      \item Konfiguration der Einteilungskriterien durch den \gls{Admin} möglich
-   \item Manuelles Nachjustieren der Einteilung durch den \gls{Admin} möglich
+   \item Manuelles Nachjustieren von berechneten Einteilungen durch den \gls{Admin} möglich
    \item Berechnung und Anzeige von \glspl{Guetekriterium}
    \item Im- und Export der Studierendendaten und
    Einteilungen als Datei zu Datensicherungszwecken
@@ -150,6 +150,7 @@ Insgesamt entsteht dadurch für alle Beteiligten ein effektiver und smarter Work
         \item Teams möglichst mit Studierende im gleichen Fachsemester 
         \item Studierende bevorzugen, die bereits mehr Teilleistungen aus dem
         ersten Jahr bestanden haben.
+        \item Wer sich zum zweiten mal bewirbt, soll bei der Einteilung bevorzugt werden
     \end{itemize}    
     \item Authentifizierung via Shibboleth
     \item Benachrichtigung der Studierenden und Mitarbeiter über die Einteilung
@@ -165,7 +166,9 @@ Insgesamt entsteht dadurch für alle Beteiligten ein effektiver und smarter Work
     Verifikationslink der an die, von Studierenden angegebenne E-Mail-Adresse
     geschickt wird
     \item Datenabgleich mit dem Campus Management System via \enquote{.csv}"=Datei %TODO Glossar CMS
-    \item Mobile Version der Webseite zur Nutzung auf Smartphones und Tabets
+    \item Warnung an den \gls{Admin}, falls er bei der manuellen Nachjustierung 
+    der Einteilung die bei der Konfiguration angegebenen Grenzen überschreitet
+    \item Mobile Version der Webseite zur Nutzung auf Smartphones und Tablets
     
     
     
@@ -215,8 +218,8 @@ Studierenden berücksichtigt.
 \end{itemize}
 \subsection{Server-Software}
 \begin{itemize} 
-  \item Apache"=Webserver (\texttt{HTTP, SMTP})
-  \item MySQL"=Server
+  \item Webserver (\texttt{HTTP, SMTP})
+  \item SQL"=Server
   \item ILP"=Solver Gurobi %TODO lizens
 \end{itemize}
 \subsection{Server-Hardware}
@@ -252,7 +255,8 @@ oder neuer
   \label{FAregistrierung}
   \begin{itemize}
     \item Name, Matrikelnummer, E"=Mail"=Adresse, Semester
-    \item Auswahl bestandener Teilleistungen und der \gls{SPO} (vgl. \ref{SDatenAnfang} bis \ref{SDatenEnde})
+    \item Auswahl bestandener Teilleistungen und der \gls{SPO}
+    \item Auswahl noch ausstehender Nachprüfungen (vgl. \ref{SDatenAnfang} bis \ref{SDatenEnde})
   \end{itemize}
   \item Anmeldung mit Matrikelnummer und Passwort\label{FAStudanmeldung}
   \item Bewertung der \glspl{Projekt} \label{FAbewertung}
@@ -287,12 +291,15 @@ oder neuer
         minimale und maximale Teilnehmerzahl, Anzahl der Teams
         \label{FAbetreuerProjektänderung}%TODO Verweis auf Produktdaten?
   \item Einsehen der Einteilung zu eigenen \glspl{Projekt}n
+  \item Einsehen, welche zugeteilten \glspl{Studierender} noch Nachprüfungen ausstehen haben
+  \item Einsehen, welche zugeteilten \glspl{Studierender} schon im Campus Management System für \gls{PSE} und TSE angemeldet sind 
   \label{FAbetreuereinsicht}
   \item Abmeldung \label{FAbetreuerabmeldung}
   \item Noteneintragung für Studierende des betreuten \glspl{Projekt}s
   \label{FAbetreuernoten}
   \item Einem \gls{Projekt} als Betreuer beitreten \label{FAjoinBetreuer}
   \item Ein \gls{Projekt} als Betreuer verlassen \label{FAleaveBetreuer}
+
 \end{enumerate}
 
 \subsection{Adminfunktionen}
@@ -317,8 +324,11 @@ oder neuer
       \item \gls{nichtZugeteilt}
       \item \gls{gesplitteteGruppe}
     \end{itemize} \label{FAadminGüte}
-  \item Studierende aus Projektgruppe entfernen \label{FAadmin+Stud}
-  \item Studierende zu Projektgruppe hinzufügen \label{FAadmin-Stud}
+  \item Nichtregistrierte \glspl{Studierender} aus dem System entfernen \label{FAadmin+Stud}
+  \item \glspl{Studierender} zum System hinzufügen \label{FAadmin-Stud}
+  \item \glspl{Studierender} zu einem \gls{Team} bei einer bereits berechneten Einteilung hinzufügen
+  \item \glspl{Studierender} von einem \gls{Team} bei einer bereits berechneten Einteilung entfernen
+  \item \glspl{Studierender} zwischen \glspl{Team} bei einer bereits berechneten Einteilung verschieben 
   \item Import einer Einteilung \label{FAimport}
   \item Export einer Einteilung \label{FAexport}
   \item Erstellung eines \glspl{Projekt}s \label{FAadmin+projekt}
@@ -327,7 +337,7 @@ oder neuer
         \label{FAadminProjektänderung}
   \item Löschen eines \glspl{Projekt}s \label{FAadmin-Projekt}
   \item Abmeldung \label{FAadminAbmeldung}
-  \item Wahl einer Einteilung \label{FAadminAuswahl}
+  \item Finale Wahl und Veröffentlichung der Einteilung \label{FAadminAuswahl}
 \end{enumerate}
 
 \subsubsection{Wunschfunktionen}
@@ -348,11 +358,12 @@ oder neuer
   \item Export von \enquote{.csv}"=Dateien mit Noten der \glspl{Studierender}n
   \label{FAexport2}
   \item Übersicht über bereits berechnete Einteilungen
-  \item 
+  \item Warnung an den \gls{Admin}, falls er bei der manuellen Nachjustierung 
+  der Einteilung die bei der Konfiguration angegebenen Grenzen überschreitet
 \end{enumerate}
 
 \subsection{Einteilungsfunktionen}
-\subsection{Musskriterien}
+\subsubsection{Musskriterien}
 \begin{enumerate}[label=\swtLabel{FA}, resume]
   \item Einteilen der Studierenden zu \glspl{Projekt}n. Hierbei werden folgende
   Kriterien, so weit möglich, berücksichtigt:
@@ -374,10 +385,11 @@ bestanden haben, werden bevorzugt
  \item Berechnung von \glspl{Guetekriterium} \label{FAguetekriterien}
 \end{enumerate}
 
- \subsection{Wunschkriterien}
+ \subsubsection{Wunschkriterien}
  
  \begin{enumerate}[label=\swtLabel{FA}, resume]
  \item Stapelverarbeitung von mehreren Einteilungen mit unterschiedlichen Konfigurationen
+ \item Wer sich zum zweiten mal bewirbt, soll bei der Einteilung bevorzugt werden
 \end{enumerate}
 
 \section{Produktdaten}
@@ -419,7 +431,8 @@ Zu jedem Studierenden sollen folgende Daten gespeichert werden:
   \item Matrikelnummer
   \item Semester
   \item SPO
-  \item bestandene Teilleistungen \label{SDatenEnde}
+  \item bestandene Teilleistungen 
+  \item ausstehende Nachprüfungen \label{SDatenEnde}
   \item Falls keiner\gls{Lerngruppe} beigetreten: Bewertung, welchem Projekt er oder
   sie am liebsten zugeteilt würde
   \item Falls einer\gls{Lerngruppe} beigetreten: Die zugehörige\gls{Lerngruppe}
@@ -456,19 +469,15 @@ Zu jedem Studierenden sollen folgende Daten gespeichert werden:
   länger als 5 Sekunden
   \item Die Einteilungsfunktion \ref{FAeinteilung} ist im Schnitt in unter 24
   Stunden fertig
-  \item Die Eingabefelder für Eingabemasken passen bei einer Auflösung von 
-	1024x768 Bildpunkten auf eine Bildschirmseite
 	\item Der Session-Timeout der Internetseite liegt für Studierende bei 30
 	Minuten
-	\item Zuverlässigkeit:  %TODO ist das die
-	% Zerlässigkeit?
 	\item Benutzbarkeit (Administrator): Nach Einführung von 4h können Nutzer die
 	Einteilung administrieren
 	\item Benutzbarkeit (Studierende): Mehr als 90\% der Studierenden können
 	sich ohne Anleitung Registrieren, Anmelden und %TODO ab wann werden Studenten
 	% bei der einteilung berücksichtigt diesen punkt dann hier einfügen
 	\item Übertragbarkeit: %TODO
-	\item Änderbarkeit: %TODO
+	\item Leichte Erweiterbarkeit der Einteilungsberechnung um weitere Kriterien
 	
  
 %TODO was fehlt hier noch
@@ -1050,10 +1059,10 @@ Folgende Funktionssequenzen sind zu überprüfen:
 	\item
 	\begin{description}
 		\item[Anwendung:] Setzten der Bewertungsdeadline
-		\item[Ziel:] Ein spätester Zeitpunkt für die Anmeldung von \glspl{Studierender}n und die Bewertung von \glspl{Projekt}n soll festgelegt werden
+		\item[Ziel:] Ein spätester Zeitpunkt für die Anmeldung von \glspl{Studierender}n soll festgelegt werden
 		\item[Vorbedingung:] \gls{Admin} ist angemeldet und in der Adminansicht der Website
-		\item[Nachbedingung(Erfolg):] Nach dem eingegeben Datum können sich keine \glspl{Studierender} mehr anmelden und die Bewertungen können nicht mehr geändert werden
-		\item[Nachbedingung(Fehlschlag):] Anmelden und Bewerten sind weiter möglich
+		\item[Nachbedingung(Erfolg):] Nach dem eingegeben Datum können sich keine \glspl{Studierender} mehr anmelden
+		\item[Nachbedingung(Fehlschlag):] Anmelden ist weiter möglich
 		\item[Akteure:] \gls{Admin}
 		\item[Auslösen des Ereignisses:] Beginn des \gls{PSE}
 		\item[Beschreibung:]~
