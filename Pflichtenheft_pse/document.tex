@@ -347,14 +347,16 @@ oder neuer
       \item \gls{nichtZugeteilt}
       \item \gls{gesplitteteGruppe}
     \end{itemize} \label{FAadminGüte} \testRef{UCadminVergleichGuete}
-  \item \glspl{Studierender} aus dem System entfernen \label{FAadminDeleteStudFromSystem}
-  \item \glspl{Studierender} zum System hinzufügen \label{FAadminAddStudToSystem}
+  \item \glspl{Studierender} aus dem System entfernen
+  \label{FAadminDeleteStudFromSystem} \testRef{UCadminDeleteStudierender}
+  \item \glspl{Studierender} zum System hinzufügen
+  \label{FAadminAddStudToSystem} \testRef{UCadminCreateStudierender}
   \item \glspl{Studierender} zu einem \gls{Team} bei einer bereits berechneten
-  Einteilung hinzufügen \label{FAadminAddStudToTeam}
+  Einteilung hinzufügen \label{FAadminAddStudToTeam} \testRef{UCadminAddStudToTeam}
   \item \glspl{Studierender} von einem \gls{Team} bei einer bereits berechneten
-  Einteilung entfernen \label{FAadminRemoveStudFromTeam}
+  Einteilung entfernen \label{FAadminRemoveStudFromTeam} \testRef{UCadminRemoveStudFromTeam}
   \item \glspl{Studierender} zwischen \glspl{Team} bei einer bereits berechneten
-  Einteilung verschieben  \label{FAadminMoveStudsBetweenTeams}
+  Einteilung verschieben  \label{FAadminMoveStudsBetweenTeams} \testRef{UCadminSwapStudsBetweenTeams}
   \item Import einer Einteilung \label{FAimport}
   \item Export einer Einteilung \label{FAexport}
   \item Erstellung eines \glspl{Projekt}s \label{FAadminCreateProjekt}
@@ -395,7 +397,8 @@ oder neuer
   \label{FAadminUebersichtAlleEinteilungen} \testRef{UCadminEinteilungAuswahl}
   \item Warnung an den \gls{Admin}, falls er bei der manuellen Nachjustierung 
   der Einteilung die bei der Konfiguration angegebenen Grenzen überschreitet
-  \label{FAadminWarnung}
+  \label{FAadminWarnung} [\ref{UCadminAddStudToTeam},
+  \ref{UCadminRemoveStudFromTeam}, \ref{UCadminSwapStudsBetweenTeams}]
 \end{enumerate}
 
 \subsection{Einteilungsfunktionen}
@@ -1321,43 +1324,7 @@ Folgende Funktionssequenzen sind zu überprüfen:
   	 \item[Benötigte FA:] \ref{FAadminAuswahl},
   	 \ref{FAadminBenachrichtigen}, \ref{FAadminUebersichtAlleEinteilungen} 
   \end{description}
-   
   
-%  \item \label{UCadminInit}
-%  \begin{description}
-%  \item[Anwendung:] Einteilung eines Studierenden
-%  \item[Ziel:] Manuelle Einteilung eines Studierenden
-%  	\item[Vorbedingung:] Automatische Teameinteilung ist abgeschlossen
-%  	\item[Nachbedingung(Erfolg):] Der Studierende wurde hinzugefügt
-%  	\item[Nachbedingung(Fehlschlag):] Der Studierende wurde nicht hinzugefügt
-%  	\item[Akteure:] Administrator, Studierender
-%  	\item[Auslösen des Ereignisses:] Studierender meldet sich beim Administrator
-%  	\item[Beschreibung:]~
-%  	 \begin{enumerate} 
-%  	   \item[1.] Wenn sich der Studierende noch nicht im System befindet
-%  	   überprüft der Administrator, ob die Anforderungen für das \gls{PSE}
-  	   % erfüllt sind
-%  	   \item[2.] Hat der Studierende die Anforderungen erfüllt, so versucht der
-%  	   Administrator ihn einem Team zuzuteilen
-%  	   \item[3.] Hat der Administrator ein Team gefunden so fügt er den
-%  	   Studierenden über eine Eingabemaske dem System hinzu
-%  	 \end{enumerate}
-%  	\item[Erweiterungen:]~
-%  	 \begin{enumerate}
-%  	   \item [nach 3)] Betreuer, sowie andere Mitglieder des Projekts, werden
-%  	   über das neue Mitglied per E-Mail informiert 
-%  	 \end{enumerate}  
-%  	\item[Alternativen:] ~
-%  	 \begin{enumerate}
-%  	  \item[1a)] Falls doch, so wurde er schon vorher abgelehnt/nicht zugewiesen
-%  	  und wird nicht eingeteilt. Dieser Fall ist damit abgeschlossen
-%  	  \item [2a)] Falls er die Anforderungen nicht erfüllt, so wird er auch
-  	  % nicht zugeteilt und dieser Fall ist abgeschlossen
-%  	 \end{enumerate}  
-%  	 \item[Benötigte FA:] \ref{FAadminDeleteStudFromSystem}
-%  \end{description} 
-% TODO Umformulieren, sodass er zu einem der Punkte passt, oder löschen
-     
   \item \label{UCadminCreateBetreuer}
   \begin{description}
   \item[Anwendung:] Erstellen eines Betreueraccounts
@@ -1482,6 +1449,142 @@ Folgende Funktionssequenzen sind zu überprüfen:
   	\end{enumerate}  
   	\item[Benötigte FA:] \ref{FAadminStapel}, \ref{FAeinteilungStapel}
   \end{description}
+  
+  \item \label{UCadminCreateStudierender}
+    \begin{description}
+  	\item[Anwendung:] Einen Studierenden zum System hinzufügen
+  	\item[Ziel:] Einen nicht registrierten Studierenden manuell zum System
+  	hinzufügen
+  	\item[Vorbedingung:] Der Administrator befindet sich im Bereich
+  	\enquote{Studenten hinzufügen/löschen} und der Studierende ist noch nicht
+  	registriert
+  	\item[Nachbedingung(Erfolg):] Der Studierende wurde dem System hinzugefügt
+  	\item[Nachbedingung(Fehlschlag):] Der Studierende wurde dem System nicht
+  	hinzugefügt
+  	\item[Akteure:] Administrator, Studierender
+  	\item[Auslösen des Ereignisses:] Studierender meldet sich beim Administrator
+  	\item[Beschreibung:]~
+  	\begin{enumerate}
+  	  \item[1.] Administrator ist im Bereich \enquote{Studenten
+  	  hinzufügen/löschen}
+      \item[2.] Ausfüllen der Maske \enquote{Student hinzufügen}
+      \item[3.] Klick auf \enquote{Hinzufügen}
+  	\end{enumerate}
+  	\item[Erweiterungen:] -keine-
+  	\item[Alternativen:] -keine-
+  	\item[Benötigte FA:] \ref{FAadminAddStudToSystem}
+  \end{description}
+  
+  \item \label{UCadminDeleteStudierender}
+    \begin{description}
+  	\item[Anwendung:] Einen Studierenden aus dem System entfernen
+  	\item[Ziel:] Einen registrierten Studierenden aus dem System entfernen
+  	\item[Vorbedingung:] Der Administrator befindet sich im Bereich
+  	\enquote{Studenten hinzufügen/löschen}
+  	\item[Nachbedingung(Erfolg):] Der Studierende wurde aus dem System entfernt
+  	\item[Nachbedingung(Fehlschlag):] Der Studierende wurde nicht aus dem System
+  	entfernt
+  	\item[Akteure:] Administrator, Studierender
+  	\item[Auslösen des Ereignisses:] Studierender möchte nicht mehr am PSE
+  	teilnehmen
+  	\item[Beschreibung:]~
+  	\begin{enumerate}
+  	  \item[1.] Administrator ist im Bereich \enquote{Studenten
+  	  hinzufügen/löschen}
+      \item[2.] Ausfüllen der Maske \enquote{Student löschen}
+      \item[3.] Klick auf \enquote{löschen}
+  	\end{enumerate}
+  	\item[Erweiterungen:] -keine-
+  	\item[Alternativen:] -keine-
+  	\item[Benötigte FA:] \ref{FAadminDeleteStudFromSystem}
+  \end{description}
+  
+  \item \label{UCadminAddStudToTeam}
+    \begin{description}
+  	\item[Anwendung:] Einen Studierenden zu einem Team hinzufügen
+  	\item[Ziel:] Einen Studierenden manuell zu einem Team hinzufügen
+  	\item[Vorbedingung:] Der Administrator befindet sich im Bereich
+  	\enquote{Einteilungsergebnisse}
+  	\item[Nachbedingung(Erfolg):] Der Studierende wurde dem Team hinzugefügt
+  	\item[Nachbedingung(Fehlschlag):] Der Studierende wurde dem Team nicht
+  	hinzugefügt
+  	\item[Akteure:] Administrator
+  	\item[Auslösen des Ereignisses:] Administrator möchte manuell einen nicht
+  	zugeteilten Studierenden zuteilen
+  	\item[Beschreibung:]~
+  	\begin{enumerate}
+  	  \item[1.] Administrator ist im Bereich \enquote{Einteilungsergebnisse}
+      \item[2.] Auswahl des Studierenden unter \enquote{Nicht zugeteilte
+      Personen}
+      \item[3.] Auswahl des Teams im Drop"=Down"=Menü
+      \item[4.] Klick auf \enquote{markierte Personen verschieben}
+  	\end{enumerate}
+  	\item[Erweiterungen:]~
+  	\begin{enumerate}
+  	  \item [zu 4.)] Überschreitet der Administrator die von ihm eingestellten
+  	  Parameter (z.B. maximale Teamgröße), so wird ihm eine Warnung angezeigt
+  	\end{enumerate}  
+  	\item[Alternativen:] -keine-
+  	\item[Benötigte FA:] \ref{FAadminAddStudToTeam}, \ref{FAadminWarnung}
+  \end{description}
+  
+  \item \label{UCadminRemoveStudFromTeam}
+    \begin{description}
+  	\item[Anwendung:] Einen Studierenden aus einem Team entfernen
+  	\item[Ziel:] Einen Studierenden manuell aus einem Team entfernen
+  	\item[Vorbedingung:] Der Administrator befindet sich im Bereich
+  	\enquote{Einteilungsergebnisse}
+  	\item[Nachbedingung(Erfolg):] Der Studierende wurde aus dem Team entfernt
+  	\item[Nachbedingung(Fehlschlag):] Der Studierende wurde nicht aus dem Team
+  	entfernt
+  	\item[Akteure:] Administrator
+  	\item[Auslösen des Ereignisses:] Administrator möchte manuell einen
+  	Studierenden aus einem team entfernen
+  	\item[Beschreibung:]~
+  	\begin{enumerate}
+  	  \item[1.] Administrator ist im Bereich \enquote{Einteilungsergebnisse}
+      \item[2.] Auswahl des Studierenden in der Teamübersciht
+      \item[3.] im Drop"=Down"=Menü \enquote{Nicht zugeteilte
+      Personen} auswählen
+      \item[4.] Klick auf \enquote{markierte Personen verschieben}
+  	\end{enumerate}
+  	\item[Erweiterungen:]~
+  	\begin{enumerate}
+  	  \item [zu 4.)] Überschreitet der Administrator die von ihm eingestellten
+  	  Parameter (z.B. minimale Teamgröße), so wird ihm eine Warnung angezeigt
+  	\end{enumerate}  
+  	\item[Alternativen:] -keine-
+  	\item[Benötigte FA:] \ref{FAadminRemoveStudFromTeam}, \ref{FAadminWarnung}
+  \end{description}
+  
+  \item \label{UCadminSwapStudsBetweenTeams}
+    \begin{description}
+  	\item[Anwendung:] Studierende zwischen zwei Teams tauschen
+  	\item[Ziel:] Austauschen von zwei Studierenden
+  	\item[Vorbedingung:] Der Administrator befindet sich im Bereich
+  	\enquote{Einteilungsergebnisse}
+  	\item[Nachbedingung(Erfolg):] Die Studierenden wurden getauscht
+  	\item[Nachbedingung(Fehlschlag):] Die Studierenden sind immer noch in ihren
+  	alten Teams
+  	\item[Akteure:] Administrator
+  	\item[Auslösen des Ereignisses:] Administrator möchte manuell zwei
+  	Studierende tauschen
+  	\item[Beschreibung:]~
+  	\begin{enumerate}
+  	  \item[1.] Administrator ist im Bereich \enquote{Einteilungsergebnisse}
+      \item[2.] Auswahl der beiden Studierenden in der Teamübersciht
+      \item[3.] Klick auf \enquote{markierte Personen tauschen}
+      \item[4.] 
+  	\end{enumerate}
+  	\item[Erweiterungen:]~
+  	\begin{enumerate}
+  	  \item [zu 4.)] Überschreitet der Administrator die von ihm eingestellten
+  	  Parameter (z.B. zerissene Lerngruppen), so wird ihm eine Warnung angezeigt
+  	\end{enumerate}  
+  	\item[Alternativen:] -keine-
+  	\item[Benötigte FA:] \ref{FAadminMoveStudsBetweenTeams}, \ref{FAadminWarnung}
+  \end{description}
+  
 \end{enumerate}  
 \subsection{Objektmodelle}
 
