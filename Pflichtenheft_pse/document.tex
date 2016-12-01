@@ -53,13 +53,13 @@ plural=Teams, description={Ein Team ist ein Zusammenschluss von Studierenden, we
 plural=SPOs, description={Die SPO (Studienprüfungsordnung) regelt den Studienablauf, die Prüfungen und den Abschluss des Studiums.
 }}
 \newglossaryentry{Teilleistung}{name=Teilleistung, %bestandene weglassen?!
-plural=bestandene Teilleistungen, description={Eine Teilleistung ist eine von den \glspl{Studierender}n zu erbringende Leistung, meist in Form einer schriftlichen Prüfung. Das bestehen einer oder mehrerer Teilleistungen führt zum bestehen eines \gls{Modul}s. Dies wird in der \gls{SPO} spezifiziert.
+plural=Teilleistungen, description={Eine Teilleistung ist eine von den \glspl{Studierender}n zu erbringende Leistung, meist in Form einer schriftlichen Prüfung. Das bestehen einer oder mehrerer Teilleistungen führt zum bestehen eines \gls{Modul}s. Dies wird in der \gls{SPO} spezifiziert.
 }}
 \newglossaryentry{Modul}{name=Modul,
 plural=Module, description={Ein Modul ist ein Zusammenschluss verschiedener Teilleistungen, welche das gleiche Thema abdecken. 
 }}
-\newglossaryentry{happyness}{name=Studierenden-Happyness,
-plural=Studierenden-Happyness, description={Die Studierenden-Happyness ist ein
+\newglossaryentry{happiness}{name=Studierenden-Happiness,
+plural=Studierenden-Happiness, description={Die Studierenden-Happiness ist ein
 \gls{Guetekriterium} welches sich aus der  }} %TODO formulierung
 \newglossaryentry{gesplitteteGruppe}{name=Anzahl der getrennten \glspl{Lerngruppe},
  description={ Die Anzahl der getrennten \glspl{Lerngruppe} ist ein
@@ -89,7 +89,7 @@ nicht zugeteilt wurden }}
 Die Einteilung zu den Projektgruppen für das Modul \gls{PSE} wurde
 bisher über die Software \enquote{Webinscribe} gelöst.
 \enquote{Webinscribe} ist dazu entworfen worden, Studierende zu Tutorien einzuteilen.
-Zwar ähneln die Anforderungen an die \gls{PSE}-Teameinteilung denen, der Tutoriumseinteilung,
+Zwar ähneln die Anforderungen an die \gls{PSE}-Teameinteilung denen der Tutoriumseinteilung,
 jedoch sind sie nicht absolut deckungsgleich. 
 Dadurch ist die aktuelle Lösung mit Webinscribe umständlich in der Bedienung und lässt Wünsche bezüglich hilfreicher Features offen.
 So müssen beispielsweise die angebotenen Themen als Tutorien eingetragen werden. 
@@ -307,9 +307,9 @@ oder neuer
   \item Einsehen der Einteilung zu eigenen \glspl{Projekt}n
   \label{FAbetreuerEinsichtEinteilung}
   \testRef{UCbetreuerEinsichtEinteilungProjekt}
-  \item Einsehen, welche zugeteilten \glspl{Studierender} noch Nachprüfungen
+  \item Einsehen, ob zugeteilte \glspl{Studierender} noch Nachprüfungen
   ausstehen haben \label{FAbetreuerEinsichtNachpruefung} \testRef{UCbetreuerEinsichtEinteilungProjekt}
-  \item Einsehen, welche zugeteilten \glspl{Studierender} schon im Campus Management System für \gls{PSE} und TSE angemeldet sind
+  \item Einsehen, ob zugeteilte \glspl{Studierender} schon im Campus Management System für \gls{PSE} und TSE angemeldet sind
   \label{FAbetreuerEinsichtTSE} \testRef{UCbetreuerEinsichtEinteilungProjekt}
   \item Abmeldung \label{FAbetreuerAbmeldung} \testRef{UCbetreuerLogout}
   \item Noteneintragung für Studierende des betreuten \glspl{Projekt}s
@@ -342,7 +342,7 @@ oder neuer
   \item Übersicht über die aktuelle Einteilung \label{FAadminÜbersicht}
   \item Anzeige der \glspl{Guetekriterium} bestehend aus:
     \begin{itemize}
-      \item \gls{happyness}
+      \item \gls{happiness}
       \item \gls{nichtZugeteilt}
       \item \gls{gesplitteteGruppe}
     \end{itemize} \label{FAadminGüte}
@@ -400,9 +400,9 @@ oder neuer
 \subsubsection{Musskriterien}
 \begin{enumerate}[label=\swtLabel{FA}, resume]
   \item Einteilen der Studierenden zu \glspl{Projekt}n. Hierbei werden folgende
-  Kriterien, so weit möglich, berücksichtigt:
+  Kriterien, soweit möglich, berücksichtigt:
   \begin{itemize}
-    \item Wer die, durch die \gls{SPO} gegebenen Voraussetzungen nicht erfüllt,
+    \item Wer die durch die \gls{SPO} gegebenen Voraussetzungen nicht erfüllt,
     wird nicht eingeteilt \label{FAeinteilung}
     \item Möglichst viele Studierende werden zu \glspl{Projekt}n zugeteilt 
     \item \glspl{Lerngruppe} bleiben zusammen
@@ -473,9 +473,9 @@ Zu jedem Studierenden sollen folgende Daten gespeichert werden:
   \item SPO
   \item bestandene \glspl{Teilleistung} 
   \item ausstehende Nachprüfungen \label{SDatenEnde}
-  \item Falls keiner\gls{Lerngruppe} beigetreten: Bewertung, welchem Projekt er oder
-  sie am liebsten zugeteilt würde
-  \item Falls einer\gls{Lerngruppe} beigetreten: Die zugehörige\gls{Lerngruppe}
+  \item Falls keiner \gls{Lerngruppe} beigetreten: Bewertung, welchem Projekt er oder
+  sie am liebsten zugeteilt werden würde
+  \item Falls einer \gls{Lerngruppe} beigetreten: Die zugehörige\gls{Lerngruppe}
   
 \end{enumerate}
 \subsection{\glspl{Lerngruppe}daten} 
