@@ -483,8 +483,8 @@ Zu jedem Studierenden sollen folgende Daten gespeichert werden:
   \item Name
   \item Passwort
   \item Bewertung der \glspl{Projekt}, zu welchem die \glspl{Lerngruppe}mitglieder
-  (Studierende) am liebsten zugeteilt würden
-  \item Mitglieder der\gls{Lerngruppe}
+  (Studierende) am liebsten zugeteilt werden würden
+  \item Mitglieder der \gls{Lerngruppe}
 \end{enumerate}
 
 \subsection{SPO-Daten}
@@ -501,7 +501,7 @@ Zu jedem Studierenden sollen folgende Daten gespeichert werden:
     \item Verfügbare \glspl{SPO}
     \item Startzeit der Studierendenanmeldung
     \item Deadline für Bewertungen
-    \item bisherige Einteilungsergebnisse
+    \item Bisherige Einteilungsergebnisse
 \end{enumerate}
 
 \section{Nichtfunktioale Anforderungen}
@@ -526,8 +526,7 @@ Zu jedem Studierenden sollen folgende Daten gespeichert werden:
 	\item Benutzbarkeit (Administrator): Nach Einführung von 4h können Nutzer die
 	Einteilung administrieren
 	\item Benutzbarkeit (Studierende): Mehr als 90\% der Studierenden können
-	sich ohne Anleitung Registrieren, Anmelden und %TODO ab wann werden Studenten
-	% bei der einteilung berücksichtigt diesen punkt dann hier einfügen
+	sich ohne Anleitung registrieren, anmelden und ihre Bewertungen abgeben
 	\item Übertragbarkeit: %TODO
 	\item Leichte Erweiterbarkeit der Einteilungsberechnung um weitere Kriterien
 	
@@ -545,7 +544,7 @@ Folgende Funktionssequenzen sind zu überprüfen:
 \begin{enumerate} [label=\swtLabel{T}]
   
   
-  \item Registrierung als Student, Erstellen oder beitreten einer\gls{Lerngruppe} und Abgeben einer Bewertung
+  \item Registrierung als Student, Erstellen oder beitreten einer  \gls{Lerngruppe} und Abgeben einer Bewertung
   \item Deadlines zur Registrierung als Student und zur Bewertungsabgabe werden eingehalten
   
 
@@ -610,7 +609,7 @@ Folgende Funktionssequenzen sind zu überprüfen:
   	  \item[5a)] Wenn doch, so wird kein weiterer Eintrag hinzugefügt, sondern
   	  die zweite Registrierung abgebrochen
   	\end{enumerate} 
-  	\item[benötigte FA:] \ref{FAregistrierung}, \ref{FAstudUanmeldung}
+  	\item[Benötigte FA:] \ref{FAregistrierung}, \ref{FAstudUanmeldung}
   \end{description}
 %   
   
@@ -620,21 +619,19 @@ Folgende Funktionssequenzen sind zu überprüfen:
     \item[Ziel:] Verifikation der E"=Mail"=Adresse
     \item[Vorbedingung:] Studierender muss sich registriert haben und seine
     E"=Mail"=Adresse korrekt angegeben haben.
-    \item[Nachbedingung(Erfolg):] Studierender kann sich nun Anmelden und hat
-    Zugriff auf die Studierenden-Sicht
-    \item[Nachbedingung(Fehlschlag):] Studierender kann sich nicht mit seinem
-    Account anmelden
+    \item[Nachbedingung(Erfolg):] Studierender kann sich nun Anmelden und hat Zugriff auf die Studierenden-Sicht
+    \item[Nachbedingung(Fehlschlag):] Studierender kann sich nicht mit seinem Account anmelden
     \item[Akteure:] Studierender
     \item[Auslösen des Ereignisses:] Studierende registrieren sich und werden
-    darauf hingewiesn ihre E"=Mail"=Adresse zu verifizieren.
+    darauf hingewiesen ihre E"=Mail"=Adresse zu verifizieren.
     \item[Beschreibung:]~
     \begin{enumerate}
-      \item[1.] E-mails über Drittsoftware abrufen.
+      \item[1.] E-Mails über Drittsoftware abrufen.
       \item[2.] Klick auf den Verifikations-Link in der E"=Mail.      
     \end{enumerate}
     \item[Erweiterungen:] -keine-
     \item[Alternativen:] -keine-
-    \item[benötigte FA:] \ref{FAemailverifikation}
+    \item[Benötigte FA:] \ref{FAemailverifikation}
       \end{description}
   
   \item \label{UCstudAnmeldung}
@@ -662,7 +659,7 @@ Folgende Funktionssequenzen sind zu überprüfen:
 	\begin{enumerate}
   	  \item[3a)] Wenn nicht, so erhält er eine Fehlermeldung
   	\end{enumerate}
-  	\item[benötigte FA:] \ref{FAStudanmeldung}, \ref{FAstudUanmeldung}
+  	\item[Benötigte FA:] \ref{FAStudanmeldung}, \ref{FAstudUanmeldung}
   \end{description}
    
   
@@ -676,7 +673,7 @@ Folgende Funktionssequenzen sind zu überprüfen:
   	\item[Nachbedingung(Erfolg):] Die \gls{Lerngruppe} wurde erfolgreich erstellt
   	\item[Nachbedingung(Fehlschlag):] Die \gls{Lerngruppe} wurde nicht erstellt
   	\item[Akteure:] Studierender
-  	\item[Auslösen des Ereignisses:] Wille des Studierenden
+  	\item[Auslösen des Ereignisses:] \gls{Studierender} möchte eine Lerngruppe anlegen
   	\item[Beschreibung:]~
   	\begin{enumerate}
   	  \item[1.] Studierender gibt Name und Passwort in das Formular zum Erstellen
@@ -692,7 +689,7 @@ Folgende Funktionssequenzen sind zu überprüfen:
   	  wird keine weitere \gls{Lerngruppe} angelegt und dem Studierenden wird
   	  mitgeteilt, dass er den Namen der \gls{Lerngruppe} verändern soll
   	 \end{enumerate}
-  	 \item[benötigte FA:] \ref{FAcreatelerng}
+  	 \item[Benötigte FA:] \ref{FAcreatelerng}
   \end{description}
    
   
@@ -729,7 +726,7 @@ Folgende Funktionssequenzen sind zu überprüfen:
   	  \item[2a)] Existiert keine solche Gruppe, so schlägt der Beitritt fehl und
   	  der Studierende ist kein Mitglied der \gls{Lerngruppe}
   	 \end{enumerate}
-  	 \item[benötigte FA:] \ref{FAjoinLerng}
+  	 \item[Benötigte FA:] \ref{FAjoinLerng}
   \end{description}
   
    \item \label{UCstudUebersichtLernG}
@@ -755,7 +752,7 @@ Folgende Funktionssequenzen sind zu überprüfen:
   	
   	\item[Alternativen:] -keine-
   	
-  	 \item[benötigte FA:] \ref{FAcheckLerng}
+  	 \item[Benötigte FA:] \ref{FAcheckLerng}
   \end{description}
   
      \item \label{UCstudEinsichtEinteilung}
@@ -784,7 +781,7 @@ Folgende Funktionssequenzen sind zu überprüfen:
 
   	\item[Alternativen:] -keine-
   	
-  	 \item[benötigte FA:] \ref{FAStudeinsicht}
+  	 \item[Benötigte FA:] \ref{FAStudeinsicht}
   \end{description}
   
     \item \label{UCstudProjektbeschreibung}
@@ -813,7 +810,7 @@ Folgende Funktionssequenzen sind zu überprüfen:
 
   	\item[Alternativen:] -keine-
 
-  	 \item[benötigte FA:] \ref{FAbeschreibung-Bewertung}
+  	 \item[Benötigte FA:] \ref{FAbeschreibung-Bewertung}
   \end{description}
   
       \item \label{UCstudLeaveLernG}
@@ -844,7 +841,7 @@ Folgende Funktionssequenzen sind zu überprüfen:
 
   	\item[Alternativen:] -keine-
 
-  	 \item[benötigte FA:] \ref{FAlergAustritt}
+  	 \item[Benötigte FA:] \ref{FAlergAustritt}
   \end{description}
 %   
   
@@ -870,7 +867,7 @@ Folgende Funktionssequenzen sind zu überprüfen:
   	\begin{enumerate}
   	  \item[3a)] Wenn nicht, so gilt sie nur für den Studierenden
   	 \end{enumerate}
-  	\item[benötigte FA:] \ref{FAbewertung}, \ref{FAbewertung2}
+  	\item[Benötigte FA:] \ref{FAbewertung}, \ref{FAbewertung2}
   \end{description}
    
   
@@ -895,7 +892,7 @@ Folgende Funktionssequenzen sind zu überprüfen:
 %  	 \end{enumerate}
 %  	\item[Erweiterungen:] -keine-
 %  	\item[Alternativen:] -keine-
-%  	\item[benötigte FA:] \ref{FAbewertung2}
+%  	\item[Benötigte FA:] \ref{FAbewertung2}
 %  \end{description}
 % TODO vermutlich löschen   
   
@@ -918,7 +915,7 @@ Folgende Funktionssequenzen sind zu überprüfen:
   	\end{enumerate}
   	\item[Erweiterungen:] -keine-
   	\item[Alternativen:] -keine-
-  	\item[benötigte FA:] \ref{FApasswortvergessen}
+  	\item[Benötigte FA:] \ref{FApasswortvergessen}
   \end{description}
   
   \item \label{UCstudLogout}
@@ -938,7 +935,7 @@ Folgende Funktionssequenzen sind zu überprüfen:
   	\end{enumerate}
   	\item[Erweiterungen:] -keine-
   	\item[Alternativen:] -keine-
-  	\item[benötigte FA:] \ref{FAStudabmeldung}
+  	\item[Benötigte FA:] \ref{FAStudabmeldung}
   \end{description}
    
 \end{enumerate}
@@ -965,7 +962,7 @@ Folgende Funktionssequenzen sind zu überprüfen:
   		\begin{enumerate}
   		  \item[2a)] Wenn nicht, erhält er eine Fehlermeldung
   		\end{enumerate}  
-  		\item[benötigte FA:] \ref{FAbetreuerAnmeldung}
+  		\item[Benötigte FA:] \ref{FAbetreuerAnmeldung}
   	\end{description}
    
   
@@ -992,7 +989,7 @@ Folgende Funktionssequenzen sind zu überprüfen:
   	\begin{enumerate}
   	  \item[2a)] Wenn nicht, so fügt er ein neues hinzu
   	\end{enumerate}  
-  	\item[benötigte FA:] \ref{FAbetreuerAddProjekt}, \ref{FAbetreuerChangeProjekt}
+  	\item[Benötigte FA:] \ref{FAbetreuerAddProjekt}, \ref{FAbetreuerChangeProjekt}
   \end{description}
 
  
@@ -1015,7 +1012,7 @@ Folgende Funktionssequenzen sind zu überprüfen:
   	\end{enumerate}
   	\item[Erweiterungen:] -keine-
   	\item[Alternativen:] -keine-
-  	\item[benötigte FA:] \ref{FAbetreuerJoinProjekt}
+  	\item[Benötigte FA:] \ref{FAbetreuerJoinProjekt}
   \end{description}
   
   
@@ -1043,7 +1040,7 @@ Folgende Funktionssequenzen sind zu überprüfen:
   	
   	\item[Alternativen:] -keine-
   	
-  	\item[benötigte FA:] \ref{FAbetreuerEinsichtEinteilung}, \ref{FAbetreuerEinsichtNachpruefung}, \ref{FAbetreuerEinsichtTSE}
+  	\item[Benötigte FA:] \ref{FAbetreuerEinsichtEinteilung}, \ref{FAbetreuerEinsichtNachpruefung}, \ref{FAbetreuerEinsichtTSE}
   \end{description}
    
   
@@ -1066,7 +1063,7 @@ Folgende Funktionssequenzen sind zu überprüfen:
   	\end{enumerate}
   	\item[Erweiterungen:] -keine-
   	\item[Alternativen:] -keine-
-  	\item[benötigte FA:] \ref{FAbetreuerLeaveprojekt}
+  	\item[Benötigte FA:] \ref{FAbetreuerLeaveprojekt}
   \end{description}
    
   
@@ -1087,7 +1084,7 @@ Folgende Funktionssequenzen sind zu überprüfen:
   	\end{enumerate}
   	\item[Erweiterungen:] -keine-
   	\item[Alternativen] -keine-
-  	\item[benötigte FA:] \ref{FAbetreuerNoten}
+  	\item[Benötigte FA:] \ref{FAbetreuerNoten}
   \end{description}
   
   \item \label{UCbetreuerLogout}
@@ -1107,7 +1104,7 @@ Folgende Funktionssequenzen sind zu überprüfen:
   	\end{enumerate}
   	\item[Erweiterungen:] -keine-
   	\item[Alternativen:] -keine-
-  	\item[benötigte FA:] \ref{FAbetreuerAbmeldung}
+  	\item[Benötigte FA:] \ref{FAbetreuerAbmeldung}
   \end{description}
    
 \end{enumerate}
@@ -1137,7 +1134,7 @@ Folgende Funktionssequenzen sind zu überprüfen:
 		\begin{enumerate}
 			\item[2 a)] Kann entfallen, wenn Server bereits in Betrieb sind
 		\end{enumerate}
-		\item[benötigte FA:] \ref{FAadminInit}
+		\item[Benötigte FA:] \ref{FAadminInit}
 	\end{description}
 	
 	\item \label{UCadminAnmeldung}
@@ -1162,12 +1159,12 @@ Folgende Funktionssequenzen sind zu überprüfen:
 	\begin{enumerate}
   	  \item[3a)] Wenn nicht, so erhält er eine Fehlermeldung
   	\end{enumerate}
-  	\item[benötigte FA:] \ref{FAadminAnmeldung}
+  	\item[Benötigte FA:] \ref{FAadminAnmeldung}
   \end{description}
 	
 	\item \label{UCadminAnmeldezeit}
 	\begin{description}
-		\item[Anwendung:] Setzten der frühesten möglichen Anmeldezeit
+		\item[Anwendung:] Setzten der frühestmöglichen Anmeldezeit
 		\item[Ziel:] Ein frühestmöglicher Zeitpunkt für die Anmeldung von \glspl{Studierender}n soll festgelegt werden
 		\item[Vorbedingung:] \gls{Admin} ist angemeldet und in der Adminansicht der Website
 		\item[Nachbedingung(Erfolg):] Vor dem eingegeben Datum können sich
@@ -1182,7 +1179,7 @@ Folgende Funktionssequenzen sind zu überprüfen:
 		\end{enumerate}
 		\item[Erweiterungen:] -keine-
 		\item[Alternativen:] -keine-
-		\item[benötigte FA:] \ref{FAadminAnmeldezeit}
+		\item[Benötigte FA:] \ref{FAadminAnmeldezeit}
 	\end{description}	
 	
 	\item \label{UCadminDeadline}
@@ -1190,8 +1187,7 @@ Folgende Funktionssequenzen sind zu überprüfen:
 		\item[Anwendung:] Setzten der Bewertungsdeadline
 		\item[Ziel:] Ein spätester Zeitpunkt für die Anmeldung von \glspl{Studierender}n soll festgelegt werden
 		\item[Vorbedingung:] \gls{Admin} ist angemeldet und in der Adminansicht der Website
-		\item[Nachbedingung(Erfolg):] Nach dem eingegeben Datum können sich keine
-		\glspl{Studierender}n mehr anmelden
+		\item[Nachbedingung(Erfolg):] Nach dem eingegebenen Datum können sich keine \glspl{Studierender}n mehr anmelden
 		\item[Nachbedingung(Fehlschlag):] Anmelden ist weiter möglich
 		\item[Akteure:] \gls{Admin}
 		\item[Auslösen des Ereignisses:] Beginn des \gls{PSE}
@@ -1202,7 +1198,7 @@ Folgende Funktionssequenzen sind zu überprüfen:
 		\end{enumerate}
 		\item[Erweiterungen:] -keine-
 		\item[Alternativen:] -keine-
-		\item[benötigte FA:] \ref{FAadminDeadline}
+		\item[Benötigte FA:] \ref{FAadminDeadline}
 	\end{description}
 	
   \item \label{UCadminProjektErstellenÄndern}
@@ -1231,7 +1227,7 @@ Folgende Funktionssequenzen sind zu überprüfen:
   	  \item[2a)] Wenn nicht, dann wird das Projekt neu angelegt
   	  \item[3a)] Falls doch, so ist dieser Anwendungsfall abgeschlossen
   	\end{enumerate} 
-  	\item[benötigte FA:] \ref{FAadminCreateProjekt}, \ref{FAadminProjektänderung}
+  	\item[Benötigte FA:] \ref{FAadminCreateProjekt}, \ref{FAadminProjektänderung}
   \end{description}
    
   
@@ -1254,7 +1250,7 @@ Folgende Funktionssequenzen sind zu überprüfen:
   	\end{enumerate}
   	\item[Erweiterungen:] -keine-
   	\item[Alternativen:] -keine-
-  	\item[benötigte FA:] \ref{FAadminDeleteProjekt}
+  	\item[Benötigte FA:] \ref{FAadminDeleteProjekt}
   \end{description}
    
   
@@ -1270,12 +1266,12 @@ Folgende Funktionssequenzen sind zu überprüfen:
   	zeitliche Deadline
   	\item[Beschreibung:]~
   	\begin{enumerate} 
-  	  \item[1.] Einstellen der Parameter nach denen eingeteilt werden soll
+  	  \item[1.] Einstellen der Parameter, nach denen eingeteilt werden soll
   	  \item[2.] Starten der Berechnung über Schaltfläche
   	  \item[3.] Sind alle \glspl{Projekt} vollständig angegeben, so startet die
   	  Berechnung
-  	  \item[4.] Nach Abschluss der Berechnung wird das Ergebnis inklusive
-  	  eingestellter Parameter abgespeichert
+  	  \item[4.] Nach Abschluss der Berechnung wird das Ergebnis,  inklusive
+  	  eingestellter Parameter, abgespeichert
   	\end{enumerate}
   	\item[Erweiterungen:] -keine-
   	\item[Alternativen:] ~
@@ -1285,7 +1281,7 @@ Folgende Funktionssequenzen sind zu überprüfen:
   	  \item[4a)] Hier ist auch ein frühzeitiger Abbruch durch den Administrator
   	  möglich. Dies wird im Ergebnis vermerkt.
   	 \end{enumerate}  
-  	 \item[benötigte FA:] \ref{FAadminParameter},
+  	 \item[Benötigte FA:] \ref{FAadminParameter},
   	 \ref{FAadminEinteilungstart}, \ref{FAabbruch}
   \end{description}
    
@@ -1316,7 +1312,7 @@ Folgende Funktionssequenzen sind zu überprüfen:
   	  \item[2a)] Wird ein Studierender nicht zugewiesen, so wird dies ebenfalls
   	  in der Datenbank vermerkt
   	 \end{enumerate}  
-  	 \item[benötigte FA:] \ref{FAadminAuswahl},
+  	 \item[Benötigte FA:] \ref{FAadminAuswahl},
   	 \ref{FAadminBenachrichtigen}, \ref{FAadminUebersichtAlleEinteilungen} 
   \end{description}
    
@@ -1352,7 +1348,7 @@ Folgende Funktionssequenzen sind zu überprüfen:
 %  	  \item [2a)] Falls er die Anforderungen nicht erfüllt, so wird er auch
   	  % nicht zugeteilt und dieser Fall ist abgeschlossen
 %  	 \end{enumerate}  
-%  	 \item[benötigte FA:] \ref{FAadminDeleteStudFromSystem}
+%  	 \item[Benötigte FA:] \ref{FAadminDeleteStudFromSystem}
 %  \end{description} 
 % TODO Umformulieren, sodass er zu einem der Punkte passt, oder löschen
      
@@ -1382,7 +1378,7 @@ Folgende Funktionssequenzen sind zu überprüfen:
   	 \begin{enumerate}
   	  \item[3a)] Falls doch, so wird eine Fehlermeldung angezeigt
   	 \end{enumerate}  
-  	 \item[benötigte FA:] \ref{FAadminCreateAccounts}
+  	 \item[Benötigte FA:] \ref{FAadminCreateAccounts}
   \end{description}
   
   \item \label{UCadminLogout}
@@ -1402,7 +1398,7 @@ Folgende Funktionssequenzen sind zu überprüfen:
   	\end{enumerate}
   	\item[Erweiterungen:] -keine-
   	\item[Alternativen:] -keine-
-  	\item[benötigte FA:] \ref{FAadminAbmeldung}
+  	\item[Benötigte FA:] \ref{FAadminAbmeldung}
   \end{description}
   
 \end{enumerate}  
