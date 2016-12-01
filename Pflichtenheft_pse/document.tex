@@ -340,12 +340,13 @@ oder neuer
   \item Starten der Einteilungsberechnung \label{FAadminEinteilungstart}
   \testRef{UCadminEinteilungStart}
   \item Übersicht über die aktuelle Einteilung \label{FAadminÜbersicht}
+  \testRef{UCadminEinteilungUebersicht}
   \item Anzeige der \glspl{Guetekriterium} bestehend aus:
     \begin{itemize}
       \item \gls{happiness}
       \item \gls{nichtZugeteilt}
       \item \gls{gesplitteteGruppe}
-    \end{itemize} \label{FAadminGüte}
+    \end{itemize} \label{FAadminGüte} \testRef{UCadminVergleichGuete}
   \item \glspl{Studierender} aus dem System entfernen \label{FAadminDeleteStudFromSystem}
   \item \glspl{Studierender} zum System hinzufügen \label{FAadminAddStudToSystem}
   \item \glspl{Studierender} zu einem \gls{Team} bei einer bereits berechneten
@@ -375,6 +376,7 @@ oder neuer
   %TODO Was ist damit gemeint? \item Hinzufügen/Löschen von Studierenden
   %und Bearbeitung der Daten
   \item Hinzufügen von Berechnungen zur Stapelverarbeitung \label{FAadminStapel}
+  \testRef{UCadminStapelverarbeitung}
   \item Hinzufügen wählbarer Teilleistungen zu \glspl{SPO} \label{FAadminSPOhinzufügen}
   \item Entfernen wählbarer Teilleistungen zu \glspl{SPO} \label{FAadminSPOentfernen}
   \item \glspl{SPO} auswählen, die Studenten bei der Anmeldung angeben können
@@ -407,15 +409,17 @@ oder neuer
     \item Möglichst viele Studierende werden zu \glspl{Projekt}n zugeteilt 
     \item \glspl{Lerngruppe} bleiben zusammen
     \item Präferenzen der Studierenden werden berücksichtigt 
- \end{itemize} \label{FAeinteilungMussKriterien}
+ \end{itemize} \label{FAeinteilungMussKriterien} \testRef{UCadminEinteilungStart}
  \item Berechnung von \glspl{Guetekriterium} \label{FAguetekriterien}
+ \testRef{UCadminVergleichGuete}
 \end{enumerate}
 
  \subsubsection{Wunschkriterien}
  
  \begin{enumerate}[label=\swtLabel{FA}, resume]
  \item Stapelverarbeitung von mehreren Einteilungen mit unterschiedlichen
- Konfigurationen \label{FAeinteilungStapel}\item Folgende Kriterien fließen in die Einteilung ein:
+ Konfigurationen \label{FAeinteilungStapel} \testRef{UCadminStapelverarbeitung}
+ \item Folgende Kriterien fließen in die Einteilung ein:
  \begin{itemize}
  	\item Wer sich zum zweiten mal bewirbt, soll bei der Einteilung bevorzugt werden
  	\item Eher 5er"=Teams als 6er"=Teams
@@ -424,6 +428,7 @@ oder neuer
  	\item Studierende, die bereits mehr Teilleistungen aus dem ersten Jahr
  	bestanden haben, werden bevorzugt
  \end{itemize} \label{FAeinteilungWunschKriterien}
+ \testRef{UCadminEinteilungStart}
 \end{enumerate}
 
 \section{Produktdaten}
@@ -1282,7 +1287,8 @@ Folgende Funktionssequenzen sind zu überprüfen:
   	  möglich. Dies wird im Ergebnis vermerkt.
   	 \end{enumerate}  
   	 \item[Benötigte FA:] \ref{FAadminParameter},
-  	 \ref{FAadminEinteilungstart}, \ref{FAabbruch}
+  	 \ref{FAadminEinteilungstart}, \ref{FAabbruch},
+  	 \ref{FAeinteilungMussKriterien}, \ref{FAeinteilungWunschKriterien}
   \end{description}
    
   
@@ -1401,6 +1407,81 @@ Folgende Funktionssequenzen sind zu überprüfen:
   	\item[Benötigte FA:] \ref{FAadminAbmeldung}
   \end{description}
   
+  \item \label{UCadminEinteilungUebersicht}
+    \begin{description}
+  	\item[Anwendung:] Anzeigen einer Einteilung
+  	\item[Ziel:] Der Administrator bekommt Überblick über eine Einteilung
+  	\item[Vorbedingung:] Der Administrator ist angemeldet und befindet sich im Administratorbereich
+  	\item[Nachbedingung(Erfolg):] Der Administrator ist im Bereich
+  	\enquote{Einteilungsergebnisse}
+  	\item[Nachbedingung(Fehlschlag):] Der Administrator sieht keine Einteilung
+  	\item[Akteure:] Administrator
+  	\item[Auslösen des Ereignisses:] Administrator möchte sich eine Einteilung
+  	anzeigen lassen
+  	\item[Beschreibung:]~
+  	\begin{enumerate}
+  	  \item[1.] Administrator ist im Administratorbereich der Webseite
+      \item[2.] Klick auf \enquote{Einteilungsergebnisse} in der Seitenleiste
+      \item[3.] Der Administrator wählt eine Einteilung aus
+      \item[4.] Der Administrator sieht nun Details über die Einteilung
+  	\end{enumerate}
+  	\item[Erweiterungen:] -keine-
+  	\item[Alternativen:] -keine-
+  	\item[Benötigte FA:] \ref{FAadminÜbersicht}
+  \end{description}
+  
+  \item \label{UCadminVergleichGuete}
+    \begin{description}
+  	\item[Anwendung:] Vergleich von Einteilungen
+  	\item[Ziel:] Vergleich von Einteilungen anhand von Gütekriterien
+  	\item[Vorbedingung:] Es wurde schon mindestens eine Einteilung berechnet
+  	\item[Nachbedingung(Erfolg):] Der Administrator sieht einen Vergleich der
+  	Einteilungen
+  	\item[Nachbedingung(Fehlschlag):] Der Administrator sieht keinen Vergleich
+  	\item[Akteure:] Administrator
+  	\item[Auslösen des Ereignisses:] Administrator möchte berechnete Einteilungen
+  	vergleichen
+  	\item[Beschreibung:]~
+  	\begin{enumerate}
+  	  \item[1.] Administrator ist im Administratorbereich der Webseite
+      \item[2.] Klick auf \enquote{Einteilungsergebnisse} in der Seitenleiste
+      \item[3.] Der Administrator wählt den Reiter \enquote{Vergleich} aus
+      \item[4.] Der Administrator sieht nun einen Vergleich der Einteilungen
+  	\end{enumerate}
+  	\item[Erweiterungen:] -keine-
+  	\item[Alternativen:] -keine-
+  	\item[Benötigte FA:] \ref{FAadminGüte}, \ref{FAguetekriterien}
+  \end{description}
+  
+  \item \label{UCadminStapelverarbeitung}
+    \begin{description}
+  	\item[Anwendung:] Nutzen der Stapelverabreitung
+  	\item[Ziel:] Serielle Berechnung von Einteilungen
+  	\item[Vorbedingung:] Der Administrator befindet sich im Bereich
+  	\enquote{Einteilung}
+  	\item[Nachbedingung(Erfolg):] Alle gewünschten Einteilungen wurden berechnet
+  	\item[Nachbedingung(Fehlschlag):] Es wurden nicht alle Einteilungen berechnet
+  	\item[Akteure:] Administrator
+  	\item[Auslösen des Ereignisses:] Administrator möchte mehrere Einteilungen
+  	mit unterschiedlichen Parametern berechnen
+  	\item[Beschreibung:]~
+  	\begin{enumerate}
+  	  \item[1.] Administrator ist im Administratorbereich der Webseite
+      \item[2.] Klick auf \enquote{Einteilung} in der Seitenleiste
+      \item[3.] Der Administrator stellt die Parameter einer Einteilung ein
+      \item[4.] Klick auf \enquote{Zur Berechnung hinzufügen}
+      \item[5.] Ist diese Einteilung die erste in der Liste, so wird die
+      Berechnung dieser direkt gestartet
+      \item[6.] Wiederhole Schritte 3 und 4 bis alle gewünschten Einteilungen in
+      der Liste stehen
+  	\end{enumerate}
+  	\item[Erweiterungen:] -keine-
+  	\item[Alternativen:] ~
+  	\begin{enumerate}
+  	  \item[5a)] Wenn nicht, so wird sie der Liste am Ende angehängt
+  	\end{enumerate}  
+  	\item[Benötigte FA:] \ref{FAadminStapel}, \ref{FAeinteilungStapel}
+  \end{description}
 \end{enumerate}  
 \subsection{Objektmodelle}
 
