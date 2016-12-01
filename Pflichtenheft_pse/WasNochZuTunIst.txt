@@ -1,6 +1,7 @@
-﻿Anwendungsfälle überarbeiten und zu jeder FA einen Anwendungsfall
+Anwendungsfälle überarbeiten und zu jeder FA einen Anwendungsfall
 Referenzen zwischen FA und Anwendungsfällen in beide Richtungen
 Glossareinträge sowohl übers ganze Dokument als auch noch mehr Einträge
 Synonyme entfernen
 Finale GUI einfügen und Verweise in Anwendungsfälle auf gui
 Rechtschreibung
+Im/Export nochmal besprechen?
