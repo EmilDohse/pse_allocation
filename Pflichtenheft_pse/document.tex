@@ -24,7 +24,7 @@
                       
 \newglossaryentry{Lerngruppe}{name=Lerngruppe, plural=Lerngruppen,
 description={Eine Lerngruppe ist ein Zusammenschluss von Studierenden, welche
-gemeinsam eine Bewertung abgeben für die \glspl{Projekt}inteilung. Zusätzlich
+gemeinsam eine Bewertung abgeben für die \glspl{Projekt}einteilung. Zusätzlich
 werden sie bei der Einteilung gesondert berücksichtigt, sodass Studierende einer
 Lerngruppe möglichst ein Team bilden oder als Gruppe einem Team angehören
 }}
@@ -64,12 +64,12 @@ plural=Studierenden-Happiness, description={Die Studierenden-Happiness ist ein
 
 \newglossaryentry{gesplitteteGruppe}{name=Anzahl der getrennten \glspl{Lerngruppe},
  description={ Die Anzahl der getrennten \glspl{Lerngruppe} ist ein
- \gls{Guetekriterium} welches angiebt, wieviele \glspl{Lerngruppe} bei der Einteilung
+ \gls{Guetekriterium} welches angibt, wie viele \glspl{Lerngruppe} bei der Einteilung
  auseinander gerissen wurden}}
 
 \newglossaryentry{nichtZugeteilt}{name=Anzahl der nicht Zugeteilten,
  description={Die Anzahl der nicht Zugeteilten ist ein 
-\gls{Guetekriterium} welches angiebt, wie viele Studierende bei einer einteilung
+\gls{Guetekriterium} welches angibt, wie viele Studierende bei einer einteilung
 nicht zugeteilt wurden }}
 
 \newglossaryentry{Matrikelnummer}{name=Matrikelnummer, plural=Matrikelnummern,
@@ -255,7 +255,7 @@ Mindestens:
 
 \subsection{Client-Software}
 \begin{itemize}
-  \item Chome Version 54
+  \item Chrome Version 54
   \item Firefox Version 50
 \end{itemize}
 oder neuer
@@ -517,7 +517,7 @@ Zu jedem Studierenden sollen folgende Daten gespeichert werden:
 \subsection{SPO-Daten}
 \begin{enumerate}[label=\swtLabel{D}, resume]
 	\item Name
-	\item Notwendinge \glspl{Teilleistung}
+	\item Notwendige \glspl{Teilleistung}
 	\item Wählbare \glspl{Teilleistung}
 \end{enumerate}
 
@@ -675,8 +675,8 @@ Folgende Funktionssequenzen sind zu überprüfen:
   	  \item[1.] Studierender öffnet die Website
   	  \item[2.] Studierender füllt das Formular zum Anmelden aus und schickt
   	  dieses ab %TODO: Verweis auf Bild
-  	  \item[3.] Sind die Anmeldedaten korrekt, so wird der Studierende zur
-  	  Studierendensicht weitergeleitet
+  	  \item[3.] Sind die Anmeldedaten korrekt, so wird der Studierende zum
+  	  Studierendenbereich weitergeleitet
   	\end{enumerate}
   	\item[Erweiterungen:]
   	\begin{enumerate}
@@ -852,7 +852,7 @@ Folgende Funktionssequenzen sind zu überprüfen:
   	\item[Nachbedingung(Erfolg):] Studierender ist kein Mitglied der
   	\gls{Lerngruppe} mehr
   	
-  	\item[Nachbedingung(Fehlschlag):] Studierender ist immernoch Mitglied der
+  	\item[Nachbedingung(Fehlschlag):] Studierender ist immer noch Mitglied der
   	\gls{Lerngruppe}
   	\item[Akteure:] Studierender
   	\item[Auslösen des Ereignisses:] Studierender möchte einer anderen
@@ -881,7 +881,7 @@ Folgende Funktionssequenzen sind zu überprüfen:
   	\item[Nachbedingung(Erfolg):] Die Bewertung wurde gespeichert
   	\item[Nachbedingung(Fehlschlag):] Die Bewertung wurde nicht gespeichert
   	\item[Akteure:] Studierender
-  	\item[Auslösen des Ereignisses:] Des Studierendens Wille
+  	\item[Auslösen des Ereignisses:] Des Studierenden Wille
   	\item[Beschreibung:]~
   	 \begin{enumerate}
   	   \item[1.] Der Studierende füllt die Bewertungsmaske aus %TODO: Verweis
@@ -911,7 +911,7 @@ Folgende Funktionssequenzen sind zu überprüfen:
 %  	\item[Nachbedingung(Fehlschlag):] Für die\gls{Lerngruppe} ist keine (neue)
 %  	Bewertung eingetragen
 %  	\item[Akteure:] Studierender
-%  	\item[Auslösen des Ereignisses:] Des Studierendens Wille
+%  	\item[Auslösen des Ereignisses:] Des Studierenden Wille
 %  	\item[Beschreibung:]~
 %  	 \begin{enumerate}
 %  	   \item[1.] Der Studierende füllt die Bewertungsmaske aus
@@ -981,8 +981,8 @@ Folgende Funktionssequenzen sind zu überprüfen:
   		\item[Beschreibung]~
   		\begin{enumerate}
   			\item[1.] Der Betreuer gibt seine Zugangsdaten ein
-  			\item[2.] Wenn die Anmeldedaten korrekt sind, wird er auf die
-  			Betreueransicht weitergeleitet
+  			\item[2.] Wenn die Anmeldedaten korrekt sind, wird er auf den
+  			Betreuerbereich weitergeleitet
   		\end{enumerate}
   		\item[Erweiterungen:] -keine-
   		\item[Alternativen:] ~
@@ -999,7 +999,7 @@ Folgende Funktionssequenzen sind zu überprüfen:
   		\item[Ziel:] Eröffnung/Änderung eines \gls{PSE}-Themas
   		\item[Vorbedingung:] -keine-
   		\item[Nachbedingung(Erfolg):] Themendaten sind im System eingetragen
-  		\item[Nachbedingung(Fehlschlag):] Themenfaten sind nicht im System
+  		\item[Nachbedingung(Fehlschlag):] Themendaten sind nicht im System
   		eingetragen
   		\item[Akteure:] Betreuer
   		\item[Auslösen des Ereignisses:] Betreuer möchte ein \gls{PSE}-Thema ins System
@@ -1048,7 +1048,7 @@ Folgende Funktionssequenzen sind zu überprüfen:
   	\item[Anwendung:] Einsicht der Einteilungsergebnisse und zusätzlichen Informationen
   	\item[Ziel:] Der Betreuer kann sehen, wer zu seinen Projekten zugeteilt wurde und erhält weitere Informationen
   	\item[Vorbedingung:] \gls{Projektbetreuer} ist angemeldet und befindet sich auf der
-  	Webseite in Betreuersicht  %TODO noch kein GUI entwurf
+  	Webseite im Betreuerbereich  %TODO noch kein GUI entwurf
   	\item[Nachbedingung(Erfolg):] \gls{Projektbetreuer} befindet sich in der Maske
   	Einteilungsergebnisse. %TODO verweis
   	Falls der Admin die Einteilungsergebnisse bereits veröffentlicht hat, kann er
@@ -1078,7 +1078,7 @@ Folgende Funktionssequenzen sind zu überprüfen:
   		\item[Vorbedingung:] Man ist Betreuer einer Gruppe, in der noch mindestens
   		ein anderer Betreuer ist.
   		\item[Nachbedingung(Erfolg):] Man betreut die Gruppe nicht länger.
-  		\item[Nachbedingung(Fehlschlag):] Man ist immernoch Betreuer der Gruppe.
+  		\item[Nachbedingung(Fehlschlag):] Man ist immer noch Betreuer der Gruppe.
   		\item[Akteure:] Betreuer
   		\item[Auslösen des Ereignisses:] Betreuer möchte aus Gruppe austreten.
   		\item[Beschreibung:]~
@@ -1178,8 +1178,8 @@ Folgende Funktionssequenzen sind zu überprüfen:
   	  \item[1.] Administrator öffnet die Website
   	  \item[2.] Administrator füllt das Formular mit Benutzername und Passwort zum Anmelden aus und schickt
   	  dieses ab %TODO: Verweis auf Bild
-  	  \item[3.] Sind die Anmeldedaten korrekt, so wird der Administrator zur
-  	  Administratorsicht weitergeleitet
+  	  \item[3.] Sind die Anmeldedaten korrekt, so wird der Administrator zum
+  	  Administratorbereich weitergeleitet
   	\end{enumerate}
   	\item[Erweiterungen:]  	
   	\item[Alternativen:]
@@ -1193,7 +1193,7 @@ Folgende Funktionssequenzen sind zu überprüfen:
 	\begin{description}
 		\item[Anwendung:] Setzten der frühestmöglichen Anmeldezeit
 		\item[Ziel:] Ein frühestmöglicher Zeitpunkt für die Anmeldung von \glspl{Studierender}n soll festgelegt werden
-		\item[Vorbedingung:] \gls{Admin} ist angemeldet und in der Adminansicht der Website
+		\item[Vorbedingung:] \gls{Admin} ist angemeldet und im Administratorbereich der Webseite
 		\item[Nachbedingung(Erfolg):] Vor dem eingegeben Datum können sich
 		\glspl{Studierender} nicht mehr anmelden und einloggen
 		\item[Nachbedingung(Fehlschlag):] Anmelden und Einloggen sind weiter möglich
@@ -1213,7 +1213,7 @@ Folgende Funktionssequenzen sind zu überprüfen:
 	\begin{description}
 		\item[Anwendung:] Setzten der Bewertungsdeadline
 		\item[Ziel:] Ein spätester Zeitpunkt für die Anmeldung von \glspl{Studierender}n soll festgelegt werden
-		\item[Vorbedingung:] \gls{Admin} ist angemeldet und in der Adminansicht der Website
+		\item[Vorbedingung:] \gls{Admin} ist angemeldet und im Administratorbereich der Webseite
 		\item[Nachbedingung(Erfolg):] Nach dem eingegebenen Datum können sich keine \glspl{Studierender}n mehr anmelden
 		\item[Nachbedingung(Fehlschlag):] Anmelden ist weiter möglich
 		\item[Akteure:] \gls{Admin}
@@ -1326,7 +1326,7 @@ Folgende Funktionssequenzen sind zu überprüfen:
   	zeitliche Deadline
   	\item[Beschreibung:]~
   	\begin{enumerate} 
-  	  \item[1.] Der Administrator wählt eine der berechneten Einteilung final aus
+  	  \item[1.] Der Administrator wählt eine der berechneten Einteilungen final aus
   	  \item[2.] Wurde ein Studierender zugewiesen, so wird seinem
   	  Datenbankeintrag sein Team hinzugefügt
   	\end{enumerate}
@@ -1441,7 +1441,7 @@ Folgende Funktionssequenzen sind zu überprüfen:
   
   \item \label{UCadminStapelverarbeitung}
     \begin{description}
-  	\item[Anwendung:] Nutzen der Stapelverabreitung
+  	\item[Anwendung:] Nutzen der Stapelverarbeitung
   	\item[Ziel:] Serielle Berechnung von Einteilungen
   	\item[Vorbedingung:] Der Administrator befindet sich im Bereich
   	\enquote{Einteilung}
@@ -1558,11 +1558,11 @@ Folgende Funktionssequenzen sind zu überprüfen:
   	entfernt
   	\item[Akteure:] Administrator
   	\item[Auslösen des Ereignisses:] Administrator möchte manuell einen
-  	Studierenden aus einem team entfernen
+  	Studierenden aus einem Team entfernen
   	\item[Beschreibung:]~
   	\begin{enumerate}
   	  \item[1.] Administrator ist im Bereich \enquote{Einteilungsergebnisse}
-      \item[2.] Auswahl des Studierenden in der Teamübersciht
+      \item[2.] Auswahl des Studierenden in der Teamübersicht
       \item[3.] im Drop"=Down"=Menü \enquote{Nicht zugeteilte
       Personen} auswählen
       \item[4.] Klick auf \enquote{markierte Personen verschieben}
@@ -1591,14 +1591,14 @@ Folgende Funktionssequenzen sind zu überprüfen:
   	\item[Beschreibung:]~
   	\begin{enumerate}
   	  \item[1.] Administrator ist im Bereich \enquote{Einteilungsergebnisse}
-      \item[2.] Auswahl der beiden Studierenden in der Teamübersciht
+      \item[2.] Auswahl der beiden Studierenden in der Teamübersicht
       \item[3.] Klick auf \enquote{markierte Personen tauschen}
       \item[4.] 
   	\end{enumerate}
   	\item[Erweiterungen:]~
   	\begin{enumerate}
   	  \item [zu 4.)] Überschreitet der Administrator die von ihm eingestellten
-  	  Parameter (z.B. zerissene Lerngruppen), so wird ihm eine Warnung angezeigt
+  	  Parameter (z.B. zerrissene Lerngruppen), so wird ihm eine Warnung angezeigt
   	\end{enumerate}  
   	\item[Alternativen:] -keine-
   	\item[Benötigte FA:] \ref{FAadminMoveStudsBetweenTeams}, \ref{FAadminWarnung}
@@ -1615,13 +1615,13 @@ Folgende Funktionssequenzen sind zu überprüfen:
 \subsection{Benutzerschnittstelle}
 \begin{enumerate}
   \item Es ist eine Benutzung rein über ein Web-Interface vorgesehen
-  \item Es sind drei Sichten zu unterscheiden:
+  \item Es sind drei Bereiche zu unterscheiden:
         \begin{itemize}
-          \item die Sicht des Studierenden
-          \item die Sicht des Betreuers
-          \item die Sicht des Administrators
+          \item der Studierendenbereich
+          \item der Betreuerbereich
+          \item der Administratorbereich
         \end{itemize}
-  \item Die jeweiligen Sichten sind erst nach der Anmeldung einzusehen 
+  \item Die jeweiligen Bereiche sind erst nach der Anmeldung einzusehen 
   \item Studierende dürfen nur auf ihre eigenen Daten und falls sie in einer
  \gls{Lerngruppe} sind auf die Daten dieser zugreifen 
 \subsubsection{GUI}
