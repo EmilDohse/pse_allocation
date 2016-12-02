@@ -187,7 +187,8 @@ Absteigend nach Priorität sortiert:
     \item Verifikation der Studierenden-E-Mail-Adresse über einen
     Verifikationslink, der an die von Studierenden angegebene E-Mail-Adresse
     geschickt wird
-    \item Benachrichtigung der \glspl{Studierende} und \glspl{Projektbetreuer} über die \gls{Einteilung}   
+    \item Benachrichtigung der \glspl{Studierender} und \glspl{Projektbetreuer}
+    über die \gls{Einteilung}
     
     
     \item Mobile Version der Webseite zur Nutzung auf Smartphones und Tablets
@@ -266,8 +267,10 @@ oder neuer
 \end{itemize}
 \section{Funktionale Anforderungen}
 
-%\subsection{Funktionsübersicht}
-%TODO Machen wir eine Fktübersicht?
+Im folgenden werden die funktionalen Anforderungen an das Produkt beschrieben.
+Hierbei befindet sich hinter jeder funktionalen Anforderung eckigen Klammern ein
+Verweis in auf den Anwendungsfall der die Funktion beschreibt und testet.
+
 \subsection{Studierendenfunktionen}
 
 \subsubsection{Pflichtfunktionen}
@@ -278,8 +281,9 @@ oder neuer
   \begin{itemize}
     \item Name, Matrikelnummer, E"=Mail"=Adresse, Semester
     \item Auswahl bestandener \glspl{Teilleistung} und der \gls{SPO}
-    \item Auswahl noch ausstehender Nachprüfungen (vgl. \ref{SDatenAnfang} bis \ref{SDatenEnde})
+    \item Auswahl noch ausstehender Nachprüfungen 
   \end{itemize}
+  (vgl.  \ref{SDatenAnfang} bis \ref{SDatenEnde})
   \item Anmeldung mit Matrikelnummer und Passwort\label{FAStudanmeldung}
   \testRef{UCstudAnmeldung}
   \item Bewertung der \glspl{Projekt} \label{FAbewertung} \testRef{UCstudBewertung}
@@ -361,11 +365,12 @@ oder neuer
   \item Übersicht über die aktuelle Einteilung \label{FAadminÜbersicht}
   \testRef{UCadminEinteilungUebersicht}
   \item Anzeige der \glspl{Guetekriterium} bestehend aus:
+  \testRef{UCadminVergleichGuete}
     \begin{itemize}
       \item \gls{happiness}
       \item \gls{nichtZugeteilt}
       \item \gls{gesplitteteGruppe}
-    \end{itemize} \label{FAadminGüte} \testRef{UCadminVergleichGuete}
+    \end{itemize} \label{FAadminGüte} 
   \item \glspl{Studierender} aus dem System entfernen
   \label{FAadminDeleteStudFromSystem} \testRef{UCadminDeleteStudierender}
   \item \glspl{Studierender} zum System hinzufügen
@@ -376,8 +381,8 @@ oder neuer
   Einteilung entfernen \label{FAadminRemoveStudFromTeam} \testRef{UCadminRemoveStudFromTeam}
   \item \glspl{Studierender} zwischen \glspl{Team} bei einer bereits berechneten
   Einteilung verschieben  \label{FAadminMoveStudsBetweenTeams} \testRef{UCadminSwapStudsBetweenTeams}
-  \item Import einer Einteilung \label{FAimport}
-  \item Export einer Einteilung \label{FAexport}
+  \item Import einer Einteilung \label{FAimport} %TODO verweis auf Test
+  \item Export einer Einteilung \label{FAexport}%TODO verweis auf Test
   \item Erstellung eines \glspl{Projekt}s \label{FAadminCreateProjekt}
   \testRef{UCadminProjektErstellenÄndern}
   \item Ändern der Projektdetails: Name, Beschreibung, Projektbetreuer, %TODO
@@ -398,10 +403,12 @@ oder neuer
   %und Bearbeitung der Daten
   \item Hinzufügen von Berechnungen zur Stapelverarbeitung \label{FAadminStapel}
   \testRef{UCadminStapelverarbeitung}
-  \item Hinzufügen wählbarer Teilleistungen zu \glspl{SPO} \label{FAadminSPOhinzufügen}
-  \item Entfernen wählbarer Teilleistungen zu \glspl{SPO} \label{FAadminSPOentfernen}
+  \item Hinzufügen wählbarer Teilleistungen zu \glspl{SPO}
+  \label{FAadminSPOhinzufügen} \testRef{UCadminSPOteilleistungAdd}
+  \item Entfernen wählbarer Teilleistungen zu \glspl{SPO}
+  \label{FAadminSPOentfernen} \testRef{UCadminSPOteilleistungRM}
   \item \glspl{SPO} auswählen, die Studenten bei der Anmeldung angeben können
-  \label{FAadminSPOAuswahl}
+  \label{FAadminSPOAuswahl} %TODO verweis auf Test
   \item Benachrichtigen der Studierenden und Projektbetreuer über die Einteilung
   per E"=Mail \label{FAadminBenachrichtigen} \testRef{UCadminEinteilungAuswahl}
   \item Erstellen von Betreueraccounts \label{FAadminCreateAccounts}
@@ -409,9 +416,9 @@ oder neuer
   %%TODO W70 und W100 Was genau soll man können?
   \item Import von \enquote{.csv}"=Dateien mit Informationen über bestandene
   \glspl{Teilleistung} der \glspl{Studierender}n aus dem Campus Management System 
-  \label{FAimport2}
+  \label{FAimport2} %TODO verweis auf Test
   \item Export von \enquote{.csv}"=Dateien mit Noten der \glspl{Studierender}n
-  \label{FAexport2}
+  \label{FAexport2} %TODO verweis auf Test
   \item Übersicht über bereits berechnete Einteilungen
   \label{FAadminUebersichtAlleEinteilungen} \testRef{UCadminEinteilungAuswahl}
   \item Warnung an den \gls{Admin}, falls er bei der manuellen Nachjustierung 
@@ -424,7 +431,7 @@ oder neuer
 \subsubsection{Musskriterien}
 \begin{enumerate}[label=\swtLabel{FA}, resume]
   \item Einteilen der Studierenden zu \glspl{Projekt}n. Hierbei werden folgende
-  Kriterien, soweit möglich, berücksichtigt:
+  Kriterien, soweit möglich, berücksichtigt: \testRef{UCadminVergleichGuete}
   \begin{itemize}
     \item Wer die durch die \gls{SPO} gegebenen Voraussetzungen nicht erfüllt,
     wird nicht eingeteilt \label{FAeinteilung}
@@ -433,7 +440,7 @@ oder neuer
     \item Präferenzen der Studierenden werden berücksichtigt 
  \end{itemize} \label{FAeinteilungMussKriterien} \testRef{UCadminEinteilungStart}
  \item Berechnung von \glspl{Guetekriterium} \label{FAguetekriterien}
- \testRef{UCadminVergleichGuete}
+ 
 \end{enumerate}
 
  \subsubsection{Wunschkriterien}
@@ -442,6 +449,7 @@ oder neuer
  \item Stapelverarbeitung von mehreren Einteilungen mit unterschiedlichen
  Konfigurationen \label{FAeinteilungStapel} \testRef{UCadminStapelverarbeitung}
  \item Folgende Kriterien fließen in die Einteilung ein:
+ \testRef{UCadminEinteilungStart}
  \begin{itemize}
  	\item Wer sich zum zweiten mal bewirbt, soll bei der Einteilung bevorzugt werden
  	\item Eher 5er"=Teams als 6er"=Teams
@@ -450,7 +458,7 @@ oder neuer
  	\item Studierende, die bereits mehr Teilleistungen aus dem ersten Jahr
  	bestanden haben, werden bevorzugt
  \end{itemize} \label{FAeinteilungWunschKriterien}
- \testRef{UCadminEinteilungStart}
+ 
 \end{enumerate}
 
 \section{Produktdaten}
@@ -565,7 +573,7 @@ Zu jedem Studierenden sollen folgende Daten gespeichert werden:
 Folgende Funktionssequenzen sind zu überprüfen:
 
 \begin{itemize}
-  \item In der Studierendensicht:
+  \item Im Studierendenbereich:
 
 
 \begin{enumerate} [label=\swtLabel{T}]
@@ -573,16 +581,16 @@ Folgende Funktionssequenzen sind zu überprüfen:
   
   \item Registrierung als Student, Erstellen oder beitreten einer  \gls{Lerngruppe} und Abgeben einer Bewertung
   \item Deadlines zur Registrierung als Student und zur Bewertungsabgabe werden eingehalten
-  
+  %TODO hier noch das wir größtenteils über die Anwendungsfälle testen
 
 \end{enumerate}
-  \item In der Adminsicht:
+  \item Im Administratiorbereich:
    \begin{enumerate} [label=\swtLabel{T}, resume]
   \item Einloggen als Administrator, Erstellung eines Semesters mit mehreren SPOs
   \item Einteilungsberechnung und anschließendem manuellen Editieren und
   Veröffentlichen dieser
 \end{enumerate}
-  \item In der Betreuersicht:
+  \item Im Betreuerbereich:
    \begin{enumerate} [label=\swtLabel{T}, resume]
   \item Einloggen als Projektbetreuer, Erstellung mehrerer Projekte
 \end{enumerate}
@@ -646,7 +654,8 @@ Folgende Funktionssequenzen sind zu überprüfen:
     \item[Ziel:] Verifikation der E"=Mail"=Adresse
     \item[Vorbedingung:] Studierender muss sich registriert haben und seine
     E"=Mail"=Adresse korrekt angegeben haben.
-    \item[Nachbedingung(Erfolg):] Studierender kann sich nun Anmelden und hat Zugriff auf die Studierenden-Sicht
+    \item[Nachbedingung(Erfolg):] Studierender kann sich nun Anmelden und hat
+    Zugriff auf den Studierendenbereich
     \item[Nachbedingung(Fehlschlag):] Studierender kann sich nicht mit seinem Account anmelden
     \item[Akteure:] Studierender
     \item[Auslösen des Ereignisses:] Studierende registrieren sich und werden
@@ -725,7 +734,7 @@ Folgende Funktionssequenzen sind zu überprüfen:
   \item[Anwendung:] Studierender tritt \gls{Lerngruppe} bei
   \item[Ziel:] Studierender ist Mitglied einer \gls{Lerngruppe}
   	\item[Vorbedingung:] Studierender ist angemeldet und befindet sich auf der
-  	Webseite in Studierendensicht
+  	Webseite im Studierendenberiech
   	\item[Nachbedingung(Erfolg):] Der Studierende ist Mitglied der
   	\gls{Lerngruppe}
   	\item[Nachbedingung(Fehlschlag):] Der Studierende ist nicht Mitglied der
@@ -761,7 +770,7 @@ Folgende Funktionssequenzen sind zu überprüfen:
   \item[Anwendung:] Übersicht über \gls{Lerngruppe}
   \item[Ziel:] Studierender kann sehen wer in seiner \gls{Lerngruppe} ist
   	\item[Vorbedingung:] Studierender ist angemeldet und befindet sich auf der
-  	Webseite in Studierendensicht. Weiterhin ist der Studierende Mitglied einer
+  	Webseite im Studierendenbereich. Weiterhin ist der Studierende Mitglied einer
   	\gls{Lerngruppe}
   	\item[Nachbedingung(Erfolg):] Studierender befindet sich nun in der
   	\glspl{Lerngruppe}übersicht
@@ -788,7 +797,7 @@ Folgende Funktionssequenzen sind zu überprüfen:
   \item[Ziel:] \gls{Studierender} kann sehen welchem \gls{Projekt} er
   zugeteilt wurde
   	\item[Vorbedingung:] \gls{Studierender} ist angemeldet und befindet sich auf der
-  	Webseite in Studierendensicht. 
+  	Webseite im Studierendenbereich. 
   	\item[Nachbedingung(Erfolg):] \gls{Studierender} befindet sich in der Maske
   	Einteilungsergebnisse. %TODO verweis
   	Falls der \gls{Admin} die Einteilungsergebnisse bereits veröffentlicht hat,
@@ -845,7 +854,7 @@ Folgende Funktionssequenzen sind zu überprüfen:
   \item[Anwendung:] Austritt aus einer \gls{Lerngruppe}
   \item[Ziel:] Studierender möchte aus einer \gls{Lerngruppe} austreten
   	\item[Vorbedingung:] Studierender ist angemeldet und befindet sich auf der
-  	Webseite in Studierendensicht. Weiterhin ist er Mitglied
+  	Webseite im Studierendenbereich. Weiterhin ist er Mitglied
   	einer \gls{Lerngruppe}
   	%TODO verweis
   	
@@ -1414,6 +1423,73 @@ Folgende Funktionssequenzen sind zu überprüfen:
   	\item[Erweiterungen:] -keine-
   	\item[Alternativen:] -keine-
   	\item[Benötigte FA:] \ref{FAadminÜbersicht}
+  \end{description}
+  
+  \item \label{UCadminSPOteilleistungAdd}
+    \begin{description}
+    \item[Anwendung:] Hinzufügen einer wählbaren \gls{Teilleistung} zu einer
+    \gls{SPO}
+    \item[Ziel:] Bei der Registrierung wir Studierenden eine weitere
+    Teilleistung angezeigt
+    \item[Vorbedingung:] Der Administrator ist angemeldet und befindet sich im Administratorbereich
+    \item[Nachbedingung(Erfolg):] Der Administrator ist im Bereich
+    \enquote{Einstellungen} und hat eine neue Teilleistung zu einer SPO
+    hinzugefügt
+    \item[Nachbedingung(Fehlschlag):] Es wurde keine Teilleistung zu einer SPO
+    hinzugefügt
+    \item[Akteure:] Administrator
+    \item[Auslösen des Ereignisses:] Es gab eine Änderung in einer SPO oder eine
+    neue SPO wurde hinzugefügt
+    \item[Beschreibung:]~
+    \begin{enumerate}
+      \item[1.] Administrator ist im Administratorbereich der Webseite
+      \item[2.] Klick auf \enquote{Einstellungen} in der Seitenleiste
+      \item[3.] Der Administrator wählt unter \enquote{SPOs} die SPO der er eine
+      Teilleistung hinzufügen möchte
+      \item[4.] Der Administrator gibt unter \enquote{SPOs} in das Textfeld
+      neben \enquote{Teilleistung hinzufügen} den Namen der neuen Teilleistung
+      ein
+      \item[5.] Der Administrator klickt auf \enquote{Teilleistung hinzufügen}
+      \item[6.] Die Teilleistung erscheint nun in der Aufzählung der
+      Teilleistungen als neuer Punkt
+    \end{enumerate}
+    \item[Erweiterungen:] -keine-
+    \item[Alternativen:] -keine-
+    \item[Benötigte FA:] \ref{FAadminSPOhinzufügen}
+  \end{description}
+  
+  \item \label{UCadminSPOteilleistungRM}
+    \begin{description}
+    \item[Anwendung:] Entfernen einer wählbaren \gls{Teilleistung} von einer
+    \gls{SPO}
+    \item[Ziel:] Bei der Registrierung wird Studierenden die entfernte
+    Teilleistung nicht mehr angezeigt
+    \item[Vorbedingung:] Der Administrator ist angemeldet und befindet sich im
+    Administratorbereich. Weiterhin gibt es eine SPO mit einer wählbaren
+    Teilleistung
+    \item[Nachbedingung(Erfolg):] Der Administrator ist im Bereich
+    \enquote{Einstellungen} und die entfernte Teilleistung wird ind der SPO
+    nicht mehr angezeigt
+    \item[Nachbedingung(Fehlschlag):] Es wurde keine Teilleistung entfernt
+    \item[Akteure:] Administrator
+    \item[Auslösen des Ereignisses:] Es gab eine Änderung in einer SPO oder es
+    wurde bei einer hinzugefügten Teilleistung ein Fehler gemacht
+    \item[Beschreibung:]~
+    \begin{enumerate}
+      \item[1.] Administrator ist im Administratorbereich der Webseite
+      \item[2.] Klick auf \enquote{Einstellungen} in der Seitenleiste
+       \item[3.] Der Administrator wählt unter \enquote{SPOs} die SPO, der er
+       eine Teilleistung hinzufügen möchte
+      \item[4.] Der Administrator setzt die Checkbox bei den Teilleistung die er
+      entfernen möchte
+      \item[5.] Der Administrator klickt \enquote{markierte Teilleistungen
+      löchen}
+      \item[5.] Die Teilleistung erscheint nun nicht mehr in der Aufzählung der
+      Teilleistungen 
+    \end{enumerate}
+    \item[Erweiterungen:] -keine-
+    \item[Alternativen:] -keine-
+    \item[Benötigte FA:] \ref{FAadminSPOentfernen}
   \end{description}
   
   \item \label{UCadminVergleichGuete}

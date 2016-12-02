@@ -5,3 +5,4 @@ Synonyme entfernen
 Finale GUI einfügen und Verweise in Anwendungsfälle auf gui
 Rechtschreibung
 Im/Export nochmal besprechen?
+lizens / rechtliches
