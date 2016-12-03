@@ -61,15 +61,15 @@ plural=Module, description={Ein Modul ist ein Zusammenschluss verschiedener Teil
 \newglossaryentry{happiness}{name=Studierenden-Happiness,
 plural=Studierenden-Happiness, description={Die Studierenden-Happiness ist ein
 \gls{Guetekriterium} welches sich aus allen anderen Gütekriterien
-(\ref{FAadminGüte}), welche verschieden gewichtet werden, zusammengesetzt und
-Dient als zusammenfassendes \gls{Guetekriterium} einer Einteilung  }} 
+(\ref{FAadminGüte}), welche verschieden gewichtet werden, zusammensetzt. Es
+dient als zusammenfassendes \gls{Guetekriterium} einer Einteilung  }} 
 
 \newglossaryentry{gesplitteteGruppe}{name=Anzahl der getrennten \glspl{Lerngruppe},
  description={ Die Anzahl der getrennten \glspl{Lerngruppe} ist ein
  \gls{Guetekriterium} welches angibt, wie viele \glspl{Lerngruppe} bei der Einteilung
  auseinander gerissen wurden}}
 
-\newglossaryentry{nichtZugeteilt}{name=Anzahl der nicht Zugeteilten,
+\newglossaryentry{nichtZugeteilt}{name=Anzahl der nicht zugeteilten \glspl{Studierender}n,
  description={Die Anzahl der nicht Zugeteilten ist ein 
 \gls{Guetekriterium} welches angibt, wie viele Studierende bei einer einteilung
 nicht zugeteilt wurden }}
@@ -97,8 +97,7 @@ Berechnung einer \gls{Einteilung} diverse Parameter und Kriterien, nach denen
 die \gls{Einteilung} erfolgen kann. Eine \gls{Einteilungskonfiguration} meint
 genau eine Festlegung dieser Parameter und Kriterien auf einen konkreten Wert}}
 	
-\newglossaryentry{CMS}{name=Campus Management System, description={hallo%TODO%
-% ausllenfü}}
+\newglossaryentry{CMS}{name=Campus Management System, description={Das Campus Management System ist ein System zur Verwaltung von \glspl{Studierender}ndaten. Das System ist vor allem für das Speichern von Prüfungs- und \gls{Teilleistung}sdaten zuständig
 }}
 	
 	
@@ -369,7 +368,7 @@ ein Verweis auf den Anwendungsfall der die Funktion beschreibt und testet.
   Datenbank und des Webservers
   % so?
   \label{FAadminInit} \testRef{UCadminInit}
-  \item Setzten der frühest möglichen Anmeldezeit für Studierendne
+  \item Setzten der frühest möglichen Anmeldezeit für \glspl{Studierender}
   \label{FAadminAnmeldezeit}
   \testRef{UCadminAnmeldezeit}
   \item Setzen der Bewertungsdeadline \label{FAadminDeadline} \testRef{UCadminDeadline}
@@ -397,8 +396,8 @@ ein Verweis auf den Anwendungsfall der die Funktion beschreibt und testet.
   Einteilung entfernen \label{FAadminRemoveStudFromTeam} \testRef{UCadminRemoveStudFromTeam}
   \item \glspl{Studierender} zwischen \glspl{Team} bei einer bereits berechneten
   Einteilung verschieben  \label{FAadminMoveStudsBetweenTeams} \testRef{UCadminSwapStudsBetweenTeams}
-  \item Import einer Einteilung \label{FAimport} \testRef{UCadminImport}
-  \item Export einer Einteilung \label{FAexport}\testRef{UCadminExport}
+  \item Import von \gls{Einteilung}s"=, \gls{SPO}"= und \glspl{Studierender}ndaten \label{FAimport} \testRef{UCadminImport}
+  \item Export von \gls{Einteilung}s"=, \gls{SPO}"= und \glspl{Studierender}ndaten \label{FAexport}\testRef{UCadminExport}
   \item Erstellung eines \glspl{Projekt}s \label{FAadminCreateProjekt}
   \testRef{UCadminProjektErstellenÄndern}
   \item Ändern der Projektdetails: Name, Beschreibung, Projektbetreuer, %TODO
@@ -435,9 +434,11 @@ ein Verweis auf den Anwendungsfall der die Funktion beschreibt und testet.
   %%TODO W70 und W100 Was genau soll man können?
   \item Import von \enquote{.csv}"=Dateien mit Informationen über bestandene
   \glspl{Teilleistung} der \glspl{Studierender}n aus dem Campus Management System 
-  \label{FAimport2} \testRef{UCadminImport}
+  \label{FAimport2} \testRef{UCadminImport2}
+  \item Anzeige von Konflikten bei \glspl{Teilleistung} der \glspl{Studierender}n nach dem Import vom \gls{CMS}"=Daten 
+  \label{FAkonfliktAnzeige} \testRef{UCadminKonfliktAnzeige}
   \item Export von \enquote{.csv}"=Dateien mit Noten der \glspl{Studierender}n
-  \label{FAexport2} \testRef{UCadminExport}
+  \label{FAexport2} \testRef{UCadminExport2}
   \item Übersicht über bereits berechnete Einteilungen
   \label{FAadminUebersichtAlleEinteilungen} \testRef{UCadminEinteilungAuswahl}
   \item Warnung an den \gls{Admin}, falls er bei der manuellen Nachjustierung 
@@ -1542,83 +1543,110 @@ Im Administratiorbereich:
   
     \item \label{UCadminImport}
     \begin{description}
-    \item[Anwendung:] Import von Semester-, Studierenden- und
-    Einteilungsdaten
+    \item[Anwendung:] Import von \gls{Einteilung}s"=, \gls{SPO}"= oder \glspl{Studierender}ndaten
     \item[Ziel:] Testen mit Daten aus vergangenen Semestern oder die
-    Wiederverwendung von Einstellungen
+    Wiederverwendung von \glspl{SPO}
     \item[Vorbedingung:] Der Administrator ist angemeldet und befindet sich im
     Administratorbereich
-    \item[Nachbedingung(Erfolg):] Der Administrator ist im Bereich
-    ??? und  die Semester-, Studierenden- und
-    Einteilungsdaten wurden als neues Semester importiert und als das aktive
-    Semester festgelegt
+    \item[Nachbedingung(Erfolg):] Der Administrator ist im Administratorbereich und die \gls{Einteilung}s"=, \gls{SPO}"= oder \glspl{Studierender}ndaten wurden in das aktive Semester importiert
     \item[Nachbedingung(Fehlschlag):] Es wurden keine Daten importiert
-    \item[Akteure:] Administrator
-    \item[Auslösen des Ereignisses:] Der Administrator möchte die gesicherten
-    Daten eines vergangenen Semesters importieren
     \item[Beschreibung:]~
     \begin{enumerate}
       \item[1.] Der Administrator ist im Administratorbereich der Webseite
-      \item[2.] Klick auf \enquote{Einstellungen} %TODO einstellungen erstezen
-      % cht richtigen reiterdu 
+      \item[2.] Klick auf \enquote{Export/Import}
       in der Seitenleiste
-       \item[3.] Der Administrator gibt den Dateipfad zu der, zu importierenden
-       Datei in die Eingabebox neben \enquote{Semesterdaten importieren} ein
-       %TODO richtig so ? GUI VERGLEICHEN
-      \item[4.] Der Adminsitrator klickt \enquote{Semesterdaten importieren}
-      
+       \item[3.] Der Administrator klickt auf den \enquote{Import}"=Knopf neben den Datentyp der importiert werden soll.
+       \item[4.] Der Administrator kann in einem System"=Popup"=Fenster die Datei zum Importieren auswählen.
+      \item[5.] Der Administrator wird über den Ausgang des Imports benachrichtigt.
     \end{enumerate}
     \item[Erweiterungen:] -keine-
-    \item[Alternativen:] 
-        
-        \begin{enumerate}
-          \item [3a)] Falls Daten aus dem \gls{CMS} importiert werden wird der
-          Dateipfad in die Eingabebox neben %TODO name der Eingabebox
-          \item [4a)]Falls Daten aus dem \gls{CMS} importiert werden wird %TODO
-        \end{enumerate}
-    \item[Benötigte FA:] \ref{FAimport} \ref{FAimport2}
+    \item[Alternativen:] -keine-
+    \item[Benötigte FA:] \ref{FAimport}
   \end{description}
   
       \item \label{UCadminExport}
     \begin{description}
-    \item[Anwendung:] Export von Semester-, Studierenden- und
-    Einteilungsdaten
-    \item[Ziel:] Export von Semester- und Einteilungsdaten oder von
-    Studierendendaten zur Datenicherung und für Tests oder bei Studierendendaten
-    zur übertragung ans \gls{CMS}
+    \item[Anwendung:] Export von \gls{Einteilung}s"=, \gls{SPO}"= oder \glspl{Studierender}ndaten
+    \item[Ziel:] Export von \gls{Einteilung}s"=, \gls{SPO}"= oder \glspl{Studierender}ndaten zur Datensicherung
     \item[Vorbedingung:] Der Administrator ist angemeldet und befindet sich im
-    Administratorbereich. Es müssen Semester- und Einteilungsdaten oder
-    Studierendendaten existieren %TODO
-    \item[Nachbedingung(Erfolg):] Der Administrator ist im Bereich
-    ??? und es gibt, an dem von ihm angegebenen Ort eine neue Datei die die Semester- und Einteilungsdaten oder
-    Studierendendaten enthällt
+    Administratorbereich. Es müssen  \gls{Einteilung}s"=, \gls{SPO}"= oder \glspl{Studierender}ndaten existieren.
+    \item[Nachbedingung(Erfolg):] Der Administrator ist im Administratorbereich und die exportierten Daten wurden lokal auf dem Rechner des Administrators gespeichert.
     \item[Nachbedingung(Fehlschlag):] Es wurden keine Daten exportiert
-    \item[Akteure:] Administrator
-    \item[Auslösen des Ereignisses:] Der Administrator möchte Daten ins
-    \gls{CMS} übertragen, Daten sichern, oder Tests mit den Rohdaten durchführen
     \item[Beschreibung:]~
     \begin{enumerate}
       \item[1.] Der Administrator ist im Administratorbereich der Webseite
-      \item[2.] Klick auf \enquote{Einstellungen} %TODO einstellungen erstezen
-      % cht richtigen reiterdu 
-      in der Seitenleiste
-       \item[3.] Der Administrator gibt einen Dateipfad in die Eingabebox neben
-       \enquote{Semesterdaten importieren} ein, wohin die Daten exportiert
-       werden sollen
-       %TODO richtig so ? GUI VERGLEICHEN
-      \item[4.] Der Adminsitrator klickt \enquote{Semesterdaten exportieren}
-      
+      \item[2.] Klick auf \enquote{Export/Import} in der Seitenleiste
+       \item[3.] Der Administrator klickt auf den \enquote{Export}"=Knopf neben den Datentyp der importiert werden soll.
+       \item[4.] Der Administrator kann in einem System"=Popup"=Fenster den Speicherort der Export"=Daten auswählen.
+      \item[5.] Der Administrator wird über den Ausgang des Exports benachrichtigt.
     \end{enumerate}
     \item[Erweiterungen:] -keine-
-    \item[Alternativen:] 
-        
-        \begin{enumerate}
-          \item [3a)] Falls Daten für das \gls{CMS} exportiert werden sollen
-          wird der Dateipfad in die Eingabebox neben %TODO name der Eingabebox
-          \item [4a)]Falls Daten für das \gls{CMS} exportiert werden sollen
-          %TODO
-        \end{enumerate}
-    \item[Benötigte FA:] \ref{FAexport} \ref{FAexport2}
+    \item[Alternativen:] -keine-
+    \item[Benötigte FA:] \ref{FAexport}
+  \end{description}
+  
+      \item \label{UCadminImport2}
+    \begin{description}
+    \item[Anwendung:] Import von \gls{CMS}"=Daten
+    \item[Ziel:] Datenabgleich von \glspl{Studierender}ndaten mit den \glspl{Studierender}ndaten aus dem \gls{CMS}
+    \item[Vorbedingung:] Der Administrator ist angemeldet und befindet sich im
+    Administratorbereich. Es müssen \glspl{Studierender}ndaten existieren.
+    \item[Nachbedingung(Erfolg):] Der Administrator ist im Administratorbereich und die \glspl{Studierender}ndaten aus dem \gls{CMS} wurden zu dem aktiven Semester hinzugefügt
+    \item[Nachbedingung(Fehlschlag):] Es wurden keine Daten importiert
+    \item[Beschreibung:]~
+    \begin{enumerate}
+      \item[1.] Der Administrator ist im Administratorbereich der Webseite
+      \item[2.] Klick auf \enquote{Export/Import}
+      in der Seitenleiste
+       \item[3.] Der Administrator klickt auf den \enquote{Datei importieren}"=Knopf im \enquote{CMS Datenabgleich}"=Bereich.
+       \item[4.] Der Administrator kann in einem System"=Popup"=Fenster die Datei zum Importieren auswählen.
+      \item[5.] Der Administrator wird über den Ausgang des Imports benachrichtigt.
+    \end{enumerate}
+    \item[Erweiterungen:] -keine-
+    \item[Alternativen:] -keine-
+    \item[Benötigte FA:] \ref{FAimport2}
+  \end{description}
+  
+    \item \label{UCadminKonfliktAnzeige}
+    \begin{description}
+    \item[Anwendung:] Anzeige von Konflikten, die beim Import von \gls{CMS}"=Daten (vgl. \ref{UCadminImport2}) entstehen
+    \item[Ziel:] Der Administrator sieht fehlende oder von \glspl{Studierender}n falsch angegebene \glspl{Teilleistung}.
+    \item[Vorbedingung:] Der Administrator ist angemeldet und befindet sich im
+    Administratorbereich. Es müssen \glspl{Studierender}ndaten existieren und ein \gls{CMS}"=Daten-Import (vgl. \ref{UCadminImport2}) hat stattgefunden .
+    \item[Nachbedingung(Erfolg):] Der Administrator ist im Administratorbereich und sieht die tabellarisch aufgezählten Konflikte
+    \item[Nachbedingung(Fehlschlag):] ~
+    \item[Beschreibung:]~
+    \begin{enumerate}
+      \item[1.] Der Administrator ist im Administratorbereich der Webseite
+      \item[2.] Klick auf \enquote{Export/Import}
+      in der Seitenleiste
+       \item[3.] Der Administrator sieht die tabellarisch aufgezählten Konflikte im \enquote{CMS Datenabgleich}"=Bereich.
+    \end{enumerate}
+    \item[Erweiterungen:] -keine-
+    \item[Alternativen:] -keine-
+    \item[Benötigte FA:] \ref{FAkonfliktAnzeige}
+  \end{description}
+  
+      \item \label{UCadminExport2}
+    \begin{description}
+    \item[Anwendung:] Export von \gls{CMS}"=Daten
+    \item[Ziel:] Export von \glspl{Studierender}ndaten mit eingetragenen Noten zum automatischen Datenabgleich mit dem \gls{CMS}
+    \item[Vorbedingung:] Der Administrator ist angemeldet und befindet sich im
+    Administratorbereich. Es müssen \glspl{Studierender}ndaten existieren.
+    \item[Nachbedingung(Erfolg):] Der Administrator ist im Administratorbereich und die exportierten Daten wurden lokal auf dem Rechner des Administrators gespeichert.
+    \item[Nachbedingung(Fehlschlag):] Es wurden keine Daten exportiert
+    \item[Beschreibung:]~
+    \begin{enumerate}
+      \item[1.] Der Administrator ist im Administratorbereich der Webseite
+      \item[2.] Klick auf \enquote{Export/Import}
+      in der Seitenleiste
+       \item[3.] Der Administrator klickt auf den \enquote{Datei exportieren}"=Knopf im \enquote{CMS Datenabgleich}"=Bereich.
+       \item[4.] Der Administrator kann in einem System"=Popup"=Fenster den Speicherort der Export"=Daten auswählen.
+      \item[5.] Der Administrator wird über den Ausgang des Exports benachrichtigt.
+    \end{enumerate}
+    \item[Erweiterungen:] -keine-
+    \item[Alternativen:] -keine-
+    \item[Benötigte FA:] \ref{FAexport2}
   \end{description}
   
   \item \label{UCadminVergleichGuete}
