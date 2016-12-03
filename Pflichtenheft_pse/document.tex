@@ -1,12 +1,13 @@
 \documentclass[parskip=full]{scrartcl}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
+\usepackage[toc]{glossaries} % Muss vor babel, wegen der Überschrift
 \usepackage[ngerman]{babel}
 \usepackage[hidelinks]{hyperref}
 \usepackage{enumitem}
-\usepackage{glossaries}
 \usepackage{graphicx}
 
+\hyphenation{Web-in-scribe}
 \usepackage[binary-units=true]{siunitx}
   \usepackage[autostyle=true,german=quotes]{csquotes}
 \makeglossaries
@@ -24,7 +25,7 @@
                       
 \newglossaryentry{Lerngruppe}{name=Lerngruppe, plural=Lerngruppen,
 description={Eine Lerngruppe ist ein Zusammenschluss von Studierenden, welche
-gemeinsam eine Bewertung abgeben für die \glspl{Projekt}einteilung. Zusätzlich
+gemeinsam eine \gls{Bewertung} für die \gls{Einteilung} abgeben. Zusätzlich
 werden sie bei der Einteilung gesondert berücksichtigt, sodass Studierende einer
 Lerngruppe möglichst ein Team bilden oder als Gruppe einem Team angehören
 }}
@@ -44,7 +45,7 @@ plural=Projektbetreuer, description={Ein Projektbetreuer ist eine Person, welche
 plural=Administratoren, description={Ein Administrator ist eine Person, welche das \gls{PSE} administrativ unterstützt und das Produkt konfiguriert
 }}
 \newglossaryentry{Studierender}{name=Studierender,
-plural=Studierende, description={Ein Studierender ist eine Person, welche eingeschrieben ist an einer Universität. In diesem Kontext sind nur Studierende gemeint, welche sich für das \gls{PSE} angemeldet haben und an diesem teilnehmen wollen
+plural=Studierende, description={Ein Studierender ist eine Person, welche an einer Universität eingeschrieben ist . In diesem Kontext sind nur Studierende gemeint, welche sich für das \gls{PSE} angemeldet haben und an diesem teilnehmen wollen
 }}
 \newglossaryentry{Team}{name=Team,
 plural=Teams, description={Ein Team ist ein Zusammenschluss von Studierenden, welche gemeinsam ein Projekt bearbeiten
@@ -53,7 +54,7 @@ plural=Teams, description={Ein Team ist ein Zusammenschluss von Studierenden, we
 plural=SPOs, description={Die SPO (Studienprüfungsordnung) regelt den Studienablauf, die Prüfungen und den Abschluss des Studiums
 }}
 \newglossaryentry{Teilleistung}{name=Teilleistung, 
-plural=Teilleistungen, description={Eine Teilleistung ist eine von den \glspl{Studierender}n zu erbringende Leistung, meist in Form einer schriftlichen Prüfung. Das bestehen einer oder mehrerer Teilleistungen führt zum bestehen eines \gls{Modul}s. Dies wird in der \gls{SPO} spezifiziert
+plural=Teilleistungen, description={Eine Teilleistung ist eine von den \glspl{Studierender}n zu erbringende Leistung, meist in Form einer schriftlichen Prüfung. Das Bestehen einer oder mehrerer Teilleistungen führt zum Bestehen eines \gls{Modul}s. Die genauen Modalitäten werden in der \gls{SPO} spezifiziert
 }}
 \newglossaryentry{Modul}{name=Modul,
 plural=Module, description={Ein Modul ist ein Zusammenschluss verschiedener Teilleistungen, welche das gleiche Thema abdecken
@@ -286,7 +287,7 @@ oder neuer
 
 Im folgenden werden die funktionalen Anforderungen an das Produkt beschrieben.
 Hierbei befindet sich hinter jeder funktionalen Anforderung in eckigen Klammern
-ein Verweis auf den Anwendungsfall der die Funktion beschreibt und testet.
+ein Verweis auf den Anwendungsfall, der die Funktion beschreibt und testet.
 
 \subsection{Studierendenfunktionen}
 
@@ -759,7 +760,7 @@ Im Administratiorbereich:
   	  \item[1.] Der Studierende gibt die Anmeldedaten der \gls{Lerngruppe} in das
   	  passende Formular ein und schickt dieses ab %TODO: Verweis
   	  \item[2.] Existiert die angegebene \gls{Lerngruppe}, so wird die
-  	  Mitgliederliste derer um den Studierenden erweitert
+  	  Mitgliederliste der \gls{Lerngruppe} um den Studierenden erweitert
   	\end{enumerate}
   	\item[Erweiterungen:]~
   	\begin{enumerate}
@@ -767,7 +768,7 @@ Im Administratiorbereich:
   	  Studierende nicht der Gruppe zugewiesen
   	  \item[3)] Ist der Studierende nicht der \gls{Lerngruppe} zugewiesen worden,
   	  so werden die zuletzt gespeicherten Bewertungen verwendet
-  	  \item[4)] Der \glspl{Lerngruppe}ersteller wird per E-Mail informiert
+  	  \item[4)] Die gesamte \glspl{Lerngruppe} wird per E-Mail informiert
   	 \end{enumerate}
   	\item[Alternativen:] ~
   	\begin{enumerate}
@@ -839,7 +840,7 @@ Im Administratiorbereich:
   	Projektbeschreibung nicht sehen
   	\item[Beschreibung:]~
   	\begin{enumerate}
-  	  \item[1.] Der Studierende fährt mit seiner Maus über den Projektname 
+  	  \item[1.] Der Studierende fährt mit seiner Maus über den Projektnamen
  
   	\end{enumerate}
   	\item[Erweiterungen:] -keine-
@@ -1012,7 +1013,7 @@ Im Administratiorbereich:
   
   \item \label{UCbetreuerEinsichtEinteilungProjekt}
   \begin{description}
-  	\item[Anwendung:] Einsicht der Einteilungsergebnisse und zusätzlichen Informationen
+  	\item[Anwendung:] Einsicht der Einteilungsergebnisse und zusätzlicher Informationen
   	\item[Ziel:] Der Betreuer kann sehen, wer zu seinen Projekten zugeteilt wurde und erhält weitere Informationen
   	\item[Vorbedingung:] \gls{Projektbetreuer} ist angemeldet und befindet sich auf der
   	Webseite im Betreuerbereich  %TODO noch kein GUI entwurf
@@ -1150,8 +1151,8 @@ Im Administratiorbereich:
 		\item[Ziel:] Ein frühestmöglicher Zeitpunkt für die Anmeldung von \glspl{Studierender}n soll festgelegt werden
 		\item[Vorbedingung:] \gls{Admin} ist angemeldet und im Administratorbereich der Webseite
 		\item[Nachbedingung(Erfolg):] Vor dem eingegeben Datum können sich
-		\glspl{Studierender} nicht anmelden und einloggen
-		\item[Nachbedingung(Fehlschlag):] Anmelden und einloggen sind vor dem
+		\glspl{Studierender} nicht registrieren und einloggen
+		\item[Nachbedingung(Fehlschlag):] Registrieren und einloggen sind vor dem
 		Datum möglich
 		\item[Beschreibung:]~
 		\begin{enumerate}[label=\arabic*.]
@@ -1264,20 +1265,19 @@ Im Administratiorbereich:
   \begin{description}
   \item[Anwendung:] Finale Auswahl der Einteilung
   \item[Ziel:] Finden der bestmöglichen Teameinteilung
-  	\item[Vorbedingung:] Es wurde mindestens eine Berechnung durchgeführt
-  	\item[Nachbedingung(Erfolg):] Es wurde eine Teameinteilung ausgewählt
-  	\item[Nachbedingung(Fehlschlag):] Es wurde keine Teameinteilung ausgewählt
+  	\item[Vorbedingung:] Es wurde mindestens eine \gls{Einteilung} berechnet
+  	\item[Nachbedingung(Erfolg):] Es wurde eine \gls{Einteilung} ausgewählt
+  	\item[Nachbedingung(Fehlschlag):] Es wurde keine \gls{Einteilung} ausgewählt
   	\item[Beschreibung:]~
   	\begin{enumerate} 
   	  \item[1.] Öffnen der Einteilungsübersicht (\autoref{GUIeinteilungErgeb})
-  	  \item[2.] Auswahl des Reiters, der die zu veröffentliche Einteilung enthält
+  	  \item[2.] Auswahl des Reiters, der die zu veröffentliche \gls{Einteilung} enthält
   	  \item[3.] Durch Klick auf \enquote{Einteilung veröffentlichen} wird diese
-  	  Einteilung final ausgewählt 
+  	  \gls{Einteilung} final ausgewählt 
   	\end{enumerate}
   	\item[Erweiterungen:]~
   	\begin{enumerate}
-  	  \item[nach 3)] Betreuer und Studierende werden über ihre Teams
-  	  per E"=Mail informiert
+  	  \item[nach 3)] Betreuer und Studierende werden per E"=Mail über die \gls{Einteilung} informiert
   	 \end{enumerate}
   	\item[Alternativen:] -keine-
   	\item[Benötigte FA:] \ref{FAadminAuswahl},
@@ -1348,8 +1348,8 @@ Im Administratiorbereich:
     \begin{description}
     \item[Anwendung:] Hinzufügen einer wählbaren \gls{Teilleistung} zu einer
     \gls{SPO}
-    \item[Ziel:] Bei der Registrierung wir Studierenden eine weitere
-    Teilleistung angezeigt
+    \item[Ziel:] Bei der Registrierung wird Studierenden eine weitere
+    Teilleistung zur Auswahlahl angeboten
     \item[Vorbedingung:] Der Administrator ist angemeldet und befindet sich im Administratorbereich
     \item[Nachbedingung(Erfolg):] Der Administrator ist im Bereich
     \enquote{Einstellungen} und hat eine neue Teilleistung zu einer SPO
@@ -1360,7 +1360,7 @@ Im Administratiorbereich:
     \begin{enumerate}
       \item[1.] Administrator ist im Administratorbereich der Webseite
       \item[2.] Klick auf \enquote{Einstellungen} in der Seitenleiste
-      \item[3.] Der Administrator wählt unter \enquote{SPOs} die SPO der er eine
+      \item[3.] Der Administrator wählt unter \enquote{SPOs} die SPO, der er eine
       Teilleistung hinzufügen möchte
       \item[4.] Der Administrator gibt unter \enquote{SPOs} in das Textfeld
       neben \enquote{Teilleistung hinzufügen} den Namen der neuen Teilleistung
@@ -1376,7 +1376,7 @@ Im Administratiorbereich:
   
   \item \label{UCadminSPOwelcheWerdeAngezeigt}
     \begin{description}
-    \item[Anwendung:] SPOs wählen die Studierenden angezeigt wird
+    \item[Anwendung:] SPOs wählen, die Studierenden angezeigt werden
     \item[Ziel:] Nur die relevanten SPOs werden bei der Registrierung von
     Studenten angezeigt
     \item[Vorbedingung:] Der Administrator ist angemeldet und befindet sich im Administratorbereich
@@ -1388,12 +1388,12 @@ Im Administratiorbereich:
     \begin{enumerate}
       \item[1.] Der Administrator ist im Administratorbereich der Webseite
       \item[2.] Klick auf \enquote{Einstellungen} in der Seitenleiste
-      \item[3.] Der Administrator wählt unter \enquote{SPOs} die SPO die er
+      \item[3.] Der Administrator wählt unter \enquote{SPOs} die SPO, die er
       sichtbar oder unsichtbar machen möchte
       \item[4.] Der Adminstrator setzt oder entfernt das Häckchen bei
       \enquote{SPO für Studierende anzeigen} %TODO richtige bezeichnung
-      \item[5.] Falls es weitere SPOs gibt bei denen er die Sichtbarkeit
-      verändern möchte fängt er bei 3. erneut an  
+      \item[5.] Falls es weitere SPOs gibt, bei denen er die Sichtbarkeit
+      verändern möchte, fängt er bei 3. erneut an  
     \end{enumerate}
     \item[Erweiterungen:] -keine-
     \item[Alternativen:] -keine-
@@ -1410,15 +1410,15 @@ Im Administratiorbereich:
     Administratorbereich. Weiterhin gibt es eine SPO mit einer wählbaren
     Teilleistung
     \item[Nachbedingung(Erfolg):] Der Administrator ist im Bereich
-    \enquote{Einstellungen} und die entfernte Teilleistung wird ind der SPO
+    \enquote{Einstellungen} und die entfernte Teilleistung wird in der SPO
     nicht mehr angezeigt
     \item[Nachbedingung(Fehlschlag):] Es wurde keine Teilleistung entfernt
     \item[Beschreibung:]~
     \begin{enumerate}
       \item[1.] Administrator ist im Administratorbereich der Webseite
       \item[2.] Klick auf \enquote{Einstellungen} in der Seitenleiste
-       \item[3.] Der Administrator wählt unter \enquote{SPOs} die SPO, der er
-       eine Teilleistung hinzufügen möchte
+       \item[3.] Der Administrator wählt unter \enquote{SPOs} die SPO, bei der er
+       eine Teilleistung entfernen möchte
       \item[4.] Der Administrator setzt die Checkbox bei den Teilleistung die er
       entfernen möchte
       \item[5.] Der Administrator klickt \enquote{markierte Teilleistungen
@@ -1445,7 +1445,7 @@ Im Administratiorbereich:
       \item[1.] Der Administrator ist im Administratorbereich der Webseite
       \item[2.] Klick auf \enquote{Export/Import}
       in der Seitenleiste
-       \item[3.] Der Administrator klickt auf den \enquote{Import}"=Knopf neben den Datentyp der importiert werden soll.
+       \item[3.] Der Administrator klickt auf den \enquote{Import}"=Knopf neben dem entsprechenden Datentyp, der importiert werden soll.
        \item[4.] Der Administrator kann in einem System"=Popup"=Fenster die Datei zum Importieren auswählen.
       \item[5.] Der Administrator wird über den Ausgang des Imports benachrichtigt.
     \end{enumerate}
@@ -1466,8 +1466,8 @@ Im Administratiorbereich:
     \begin{enumerate}
       \item[1.] Der Administrator ist im Administratorbereich der Webseite
       \item[2.] Klick auf \enquote{Export/Import} in der Seitenleiste
-       \item[3.] Der Administrator klickt auf den \enquote{Export}"=Knopf neben den Datentyp der importiert werden soll.
-       \item[4.] Der Administrator kann in einem System"=Popup"=Fenster den Speicherort der Export"=Daten auswählen.
+       \item[3.] Der Administrator klickt auf den \enquote{Export}"=Knopf neben dem entsprechenden Datentyp, der exportiert werden soll.
+       \item[4.] Der Administrator kann in einem System"=Popup"=Fenster den Speicherort der Exportdaten auswählen.
       \item[5.] Der Administrator wird über den Ausgang des Exports benachrichtigt.
     \end{enumerate}
     \item[Erweiterungen:] -keine-
@@ -1477,7 +1477,7 @@ Im Administratiorbereich:
   
       \item \label{UCadminImport2}
     \begin{description}
-    \item[Anwendung:] Import von \gls{CMS}"=Daten
+    \item[Anwendung:] Import von Campus"=Management"=System"=Daten %Kein \gls, wegen Bindestrichen! 
     \item[Ziel:] Datenabgleich von \glspl{Studierender}ndaten mit den \glspl{Studierender}ndaten aus dem \gls{CMS}
     \item[Vorbedingung:] Der Administrator ist angemeldet und befindet sich im
     Administratorbereich. Es müssen \glspl{Studierender}ndaten existieren.
@@ -1568,8 +1568,8 @@ Im Administratiorbereich:
   	\item[Ziel:] Serielle Berechnung von Einteilungen
   	\item[Vorbedingung:] Der Administrator befindet sich im Bereich
   	\enquote{Einteilung}
-  	\item[Nachbedingung(Erfolg):] Alle gewünschten Einteilungen wurden berechnet
-  	\item[Nachbedingung(Fehlschlag):] Es wurden nicht alle Einteilungen berechnet
+  	\item[Nachbedingung(Erfolg):] Alle gewünschten Einteilungen werden berechnet
+  	\item[Nachbedingung(Fehlschlag):] Es werden nicht alle Einteilungen berechnet
   	\item[Beschreibung:]~
   	\begin{enumerate}
   	  \item[1.] Administrator ist im Administratorbereich der Webseite
