@@ -99,6 +99,10 @@ genau eine Festlegung dieser Parameter und Kriterien auf einen konkreten Wert}}
 	
 \newglossaryentry{CMS}{name=Campus Management System, description={Das Campus Management System ist ein System zur Verwaltung von \glspl{Studierender}ndaten. Das System ist vor allem für das Speichern von Prüfungs- und \gls{Teilleistung}sdaten zuständig
 }}
+
+\newglossaryentry{TSE}{name=TSE, description={Das Modul TSE (Teamarbeit und
+Präsentation in der Software-Entwicklung) ist direkt an das Modul PSE gebunden
+und bewertet die Teamfähigkeit der Teilnehmer}}
 	
 	
 	
@@ -227,13 +231,13 @@ für die Vergabe sonstiger Praktikums- oder Tutoriumsplätze bestimmt
 %TODO formulierung
 Das Produkt dient zum Einpflegen von \glspl{Projekt}n und zur Zuteilung von
 Studierenden zu diesen \glspl{Projekt}n. Hierbei werden die \glspl{Lerngruppe}
-Projektpräferenzen der Studierenden berücksichtigt.
+und Projektpräferenzen der Studierenden berücksichtigt.
 
 
 \subsection{Anwendungsbereiche}
 
 \begin{itemize} 
-  \item Projektverwaltung und "-zuteilung (universitärer Bereich) %TODO Detail
+  \item Projektverwaltung und -zuteilung (universitärer Bereich) %TODO Detail
 \end{itemize}
 
 \subsection{Zielgruppe}
@@ -293,7 +297,7 @@ ein Verweis auf den Anwendungsfall der die Funktion beschreibt und testet.
   \label{FAregistrierung}
   \begin{itemize}
     \item Vorname, Nachname, Matrikelnummer, E"=Mail"=Adresse, Semester und
-    Passwort (vgl. \ref{SDatenAnfang} bis \ref{SDatenEnde})
+    Passwort
     \item Auswahl bestandener \glspl{Teilleistung} und der \gls{SPO}
     \item Auswahl noch ausstehender Nachprüfungen 
   \end{itemize}
@@ -346,7 +350,8 @@ ein Verweis auf den Anwendungsfall der die Funktion beschreibt und testet.
   \testRef{UCbetreuerEinsichtEinteilungProjekt}
   \item Einsehen, ob zugeteilte \glspl{Studierender} noch Nachprüfungen
   ausstehen haben \label{FAbetreuerEinsichtNachpruefung} \testRef{UCbetreuerEinsichtEinteilungProjekt}
-  \item Einsehen, ob zugeteilte \glspl{Studierender} schon im Campus Management System für \gls{PSE} und TSE angemeldet sind
+  \item Einsehen, ob zugeteilte \glspl{Studierender} schon im Campus Management
+  System für \gls{PSE} und \gls{TSE} angemeldet sind
   \label{FAbetreuerEinsichtTSE} \testRef{UCbetreuerEinsichtEinteilungProjekt}
   \item Abmeldung \label{FAbetreuerAbmeldung} \testRef{UCbetreuerLogout}
   \item Noteneintragung für Studierende der betreuten \glspl{Projekt}
@@ -421,11 +426,11 @@ ein Verweis auf den Anwendungsfall der die Funktion beschreibt und testet.
   \testRef{UCadminStapelverarbeitung}
   \item Hinzufügen wählbarer Teilleistungen zu \glspl{SPO}
   \label{FAadminSPOhinzufügen} \testRef{UCadminSPOteilleistungAdd}
-  \item Entfernen wählbarer Teilleistungen zu \glspl{SPO}
+  \item Entfernen wählbarer Teilleistungen aus \glspl{SPO}
   \label{FAadminSPOentfernen} \testRef{UCadminSPOteilleistungRM}
-  \item \glspl{SPO} auswählen, die Studente bei der Anmeldung angeben können
+  \item \glspl{SPO} auswählen, die \glspl{Studierender} bei der Anmeldung angeben können
   \label{FAadminSPOAuswahl} \testRef{UCadminSPOwelcheWerdeAngezeigt}
-  \item Benachrichtigen der Studierenden und Projektbetreuer über die Einteilung
+  \item Benachrichtigen der \glspl{Studierender} und Projektbetreuer über die Einteilung
   per E"=Mail \label{FAadminBenachrichtigen} \testRef{UCadminEinteilungAuswahl}
   \item Erstellen von Betreueraccounts unter Angabe der Daten \ref{DbetAnfang}
   bis \ref{DbetEnde}
@@ -450,8 +455,8 @@ ein Verweis auf den Anwendungsfall der die Funktion beschreibt und testet.
 \subsection{Einteilungsfunktionen}
 \subsubsection{Pflichtfunktionen}
 \begin{enumerate}[label=\swtLabel{FA}, resume]
-  \item Einteilung der Studierenden zu \glspl{Projekt}n. Hierbei werden folgende
-  Kriterien, soweit möglich, berücksichtigt: \testRef{UCadminVergleichGuete},
+  \item Einteilung der \glspl{Studierender}n zu \glspl{Projekt}n. Hierbei werden
+  folgende Kriterien, soweit möglich, berücksichtigt: \testRef{UCadminVergleichGuete},
   \testRef{UCadminEinteilungStart}
   \begin{itemize}
     \item Wer die durch seine \gls{SPO} gegebenen Voraussetzungen nicht erfüllt,
@@ -473,7 +478,8 @@ ein Verweis auf den Anwendungsfall der die Funktion beschreibt und testet.
  \item Folgende Kriterien fließen in die Einteilung ein:
  \testRef{UCadminEinteilungStart}
  \begin{itemize}
- 	\item Wer sich zum zweiten mal bewirbt, soll bei der Einteilung bevorzugt werden
+ 	\item Wer sich zum zweiten Mal bewirbt, soll bei der Einteilung bevorzugt
+ 	werden
  	\item Eher 5er"=Teams als 6er"=Teams
  	\item Studierende in einem Team sind im gleichen Semester
  	\item Studierende höheren Semesters werden bevorzugt
@@ -587,7 +593,6 @@ ein Verweis auf den Anwendungsfall der die Funktion beschreibt und testet.
 	Einteilung administrieren
 	\item Benutzbarkeit (Studierende): Mehr als 90\% der Studierenden können
 	sich ohne Anleitung registrieren, anmelden und ihre Bewertungen abgeben
-
 	\item Leichte Erweiterbarkeit der Einteilungsberechnung um weitere Kriterien
 	\item Sicherheit: Passwörter müssen mindestens 8 Zeichen lang sein und werden
 	nicht in Klartext gespeichert
@@ -640,8 +645,6 @@ Im Administratiorbereich:
   	\item[Nachbedingung(Erfolg):] Erfolgreiche Registrierung des Studierenden
   	\item[Nachbedingung(Fehlschlag):] Studierender ist weiterhin nicht
   	registriert
-  	\item[Akteure:] Studierender
-  	\item[Auslösen des Ereignisses:] Studierender will sich registrieren
   	\item[Beschreibung:]~
   	\begin{enumerate}
   	  \item[1.] Öffnen der Internetseite
@@ -677,9 +680,6 @@ Im Administratiorbereich:
     \item[Nachbedingung(Erfolg):] Studierender kann sich nun Anmelden und hat
     Zugriff auf den Studierendenbereich
     \item[Nachbedingung(Fehlschlag):] Studierender kann sich nicht mit seinem Account anmelden
-    \item[Akteure:] Studierender
-    \item[Auslösen des Ereignisses:] Studierende registrieren sich und werden
-    darauf hingewiesen ihre E"=Mail"=Adresse zu verifizieren.
     \item[Beschreibung:]~
     \begin{enumerate}
       \item[1.] E-Mails über Drittsoftware abrufen.
@@ -697,8 +697,6 @@ Im Administratiorbereich:
   	\item[Vorbedingung:] Der Studierende hat sich vorher registriert
   	\item[Nachbedingung(Erfolg):] Der Studierende ist angemeldet
   	\item[Nachbedingung(Fehlschlag):] Der Studierende ist nicht angemeldet
-  	\item[Akteure:] Studierender
-  	\item[Auslösen des Ereignisses:] Studierender will sich anmelden
   	\item[Beschreibung:]~
   	\begin{enumerate}
   	  \item[1.] Studierender öffnet die Website
@@ -728,8 +726,6 @@ Im Administratiorbereich:
   	Website im Studierendenportal
   	\item[Nachbedingung(Erfolg):] Die \gls{Lerngruppe} wurde erfolgreich erstellt
   	\item[Nachbedingung(Fehlschlag):] Die \gls{Lerngruppe} wurde nicht erstellt
-  	\item[Akteure:] Studierender
-  	\item[Auslösen des Ereignisses:] \gls{Studierender} möchte eine Lerngruppe anlegen
   	\item[Beschreibung:]~
   	\begin{enumerate}
   	  \item[1.] Studierender gibt Name und Passwort in das Formular zum Erstellen
@@ -759,9 +755,6 @@ Im Administratiorbereich:
   	\gls{Lerngruppe}
   	\item[Nachbedingung(Fehlschlag):] Der Studierende ist nicht Mitglied der
   	\gls{Lerngruppe}
-  	\item[Akteure:] Studierender
-  	\item[Auslösen des Ereignisses:] Der Studierende will einer \gls{Lerngruppe}
-  	beitreten
   	\item[Beschreibung:]~
   	\begin{enumerate}
   	  \item[1.] Der Studierende gibt die Anmeldedaten der \gls{Lerngruppe} in das
@@ -796,19 +789,13 @@ Im Administratiorbereich:
   	\glspl{Lerngruppe}übersicht
   	\item[Nachbedingung(Fehlschlag):] Der Studierende ist nicht in der
   	\glspl{Lerngruppe}übersicht
-  	\item[Akteure:] Studierender
-  	\item[Auslösen des Ereignisses:] Der Studierende möchte ansehen wer außer ihm
-  	in der \gls{Lerngruppe} ist, in der er angemeldet ist
   	\item[Beschreibung:]~
   	\begin{enumerate}
   	  \item[1.] Der Studierende klickt auf \gls{Lerngruppe} %TODO Verweis
- 
-  	\end{enumerate}
+    \end{enumerate}
   	\item[Erweiterungen:] -keine-
-  	
-  	\item[Alternativen:] -keine-
-  	
-  	 \item[Benötigte FA:] \ref{FAcheckLerng}
+  	\item[Alternativen:] -keine-  	
+  	\item[Benötigte FA:] \ref{FAcheckLerng}
   \end{description}
   
      \item \label{UCstudEinsichtEinteilung}
@@ -825,9 +812,6 @@ Im Administratiorbereich:
   	die Einteilung noch im Gange ist %TODO Gehört der Abschnitt hier rein?
   	\item[Nachbedingung(Fehlschlag):] Der Studierende ist nicht in der
   	Maske Einteilungsergebnisse
-  	\item[Akteure:] \gls{Studierender}
-  	\item[Auslösen des Ereignisses:] Der Studierende möchte überprüfen, ob er
-  	bereits einem Projekt zugeteilt wurde
   	\item[Beschreibung:]~
   	\begin{enumerate}
   	  \item[1.] Der Studierende klickt auf Einteilungsergebnisse
@@ -854,9 +838,6 @@ Im Administratiorbereich:
   	
   	\item[Nachbedingung(Fehlschlag):] Der Studierende kann die
   	Projektbeschreibung nicht sehen
-  	\item[Akteure:] Studierender
-  	\item[Auslösen des Ereignisses:] Der Studierende bewertet Projekte und möchte
-  	sich über eines der \glspl{Projekt} genauer informieren
   	\item[Beschreibung:]~
   	\begin{enumerate}
   	  \item[1.] Der Studierende fährt mit seiner Maus über den Projektname 
@@ -883,9 +864,6 @@ Im Administratiorbereich:
   	
   	\item[Nachbedingung(Fehlschlag):] Studierender ist immer noch Mitglied der
   	\gls{Lerngruppe}
-  	\item[Akteure:] Studierender
-  	\item[Auslösen des Ereignisses:] Studierender möchte einer anderen
-  	\gls{Lerngruppe} beitreten oder eigene Projektbewertungen abgeben
   	\item[Beschreibung:]~
   	\begin{enumerate}
   	  \item[1.] Der Studierende klickt auf \gls{Lerngruppe}. Nun befindet er sich
@@ -909,8 +887,6 @@ Im Administratiorbereich:
   	Website
   	\item[Nachbedingung(Erfolg):] Die Bewertung wurde gespeichert
   	\item[Nachbedingung(Fehlschlag):] Die Bewertung wurde nicht gespeichert
-  	\item[Akteure:] Studierender
-  	\item[Auslösen des Ereignisses:] Des Studierenden Wille
   	\item[Beschreibung:]~
   	 \begin{enumerate}
   	   \item[1.] Der Studierende füllt die Bewertungsmaske aus %TODO: Verweis
@@ -925,33 +901,8 @@ Im Administratiorbereich:
   	 \end{enumerate}
   	\item[Benötigte FA:] \ref{FAbewertung}, \ref{FAbewertung2}
   \end{description}
-   
-  
-%  \item
-%  \begin{description}
-%  \item[Anwendung:] Studierender bewertet \glspl{Projekt} für
-  % eine\gls{Lerngruppe}
-%  \item[Ziel:] Die\gls{Lerngruppe} assoziiert mit dem Studierenden hat eine
-  % Bewertung abgegeben
-%  	\item[Vorbedingung:] Der Studierende ist als Leiter einer\gls{Lerngruppe}
-  	% angemeldet und im Studierendenportal der Website
-%  	\item[Nachbedingung(Erfolg):] Für die\gls{Lerngruppe} ist eine Bewertung
-  	% eingetragen
-%  	\item[Nachbedingung(Fehlschlag):] Für die\gls{Lerngruppe} ist keine (neue)
-%  	Bewertung eingetragen
-%  	\item[Akteure:] Studierender
-%  	\item[Auslösen des Ereignisses:] Des Studierenden Wille
-%  	\item[Beschreibung:]~
-%  	 \begin{enumerate}
-%  	   \item[1.] Der Studierende füllt die Bewertungsmaske aus
-%  	   \item[2.] Der Studierende schließt die Bewertung ab
-%  	 \end{enumerate}
-%  	\item[Erweiterungen:] -keine-
-%  	\item[Alternativen:] -keine-
-%  	\item[Benötigte FA:] \ref{FAbewertung2}
-%  \end{description}
-% TODO vermutlich löschen   
-  
+
+ 
   \item \label{UCstudNewPasswort}
     \begin{description}
   	\item[Anwendung:] Passwort vergessen
@@ -960,8 +911,6 @@ Im Administratiorbereich:
   	\item[Nachbedingung(Erfolg):] Der Studierende erhält eine E-Mail mit einem
   	neuen Passwort
   	\item[Nachbedingung(Fehlschlag):] Der Studierende erhält keine E-Mail
-  	\item[Akteure:] Studierender
-  	\item[Auslösen des Ereignisses:] Studierender hat sein Passwort vergessen
   	\item[Beschreibung:]~
   	\begin{enumerate}
   	  \item[1.] Öffnen der Internetseite
@@ -981,8 +930,6 @@ Im Administratiorbereich:
   	\item[Vorbedingung:] Der Studierende ist angemeldet und befindet sich im Studierendenbereich
   	\item[Nachbedingung(Erfolg):] Der Studierende ist abgemeldet und befindet sich auf der Startseite
   	\item[Nachbedingung(Fehlschlag):] Der Studierende ist nicht abgemeldet
-  	\item[Akteure:] Studierender
-  	\item[Auslösen des Ereignisses:] Studierender will sich abmelden
   	\item[Beschreibung:]~
   	\begin{enumerate}
   	  \item[1.] Studierender ist im Studierendenbereich der Webseite
@@ -1005,8 +952,6 @@ Im Administratiorbereich:
   		\item[Vorbedingung:] Konto des Betreuers wurde angelegt
   		\item[Nachbedingung(Erfolg):] Betreuer ist angemeldet
   		\item[Nachbedingung(Fehlschlag):] Betreuer ist nicht angemeldet
-  		\item[Akteure:] Betreuer
-  		\item[Auslösen des Ereignisses:] Betreuer möchte sich anmelden
   		\item[Beschreibung]~
   		\begin{enumerate}
   			\item[1.] Der Betreuer gibt seine Zugangsdaten ein
@@ -1030,9 +975,6 @@ Im Administratiorbereich:
   		\item[Nachbedingung(Erfolg):] Themendaten sind im System eingetragen
   		\item[Nachbedingung(Fehlschlag):] Themendaten sind nicht im System
   		eingetragen
-  		\item[Akteure:] Betreuer
-  		\item[Auslösen des Ereignisses:] Betreuer möchte ein \gls{PSE}-Thema ins System
-  		einfügen/ändern.
   		\item[Beschreibung:]~
   	\begin{enumerate}
   	  \item[1.] Betreuer befindet sich auf der Website mit den \gls{PSE}-Themen
@@ -1057,9 +999,6 @@ Im Administratiorbereich:
   		\item[Nachbedingung(Erfolg):] Erfolgreich Betreuer der ausgewählten
   		Gruppe geworden
   		\item[Nachbedingung(Fehlschlag):] Man ist nicht Betreuer der Gruppe
-  		\item[Akteure:] Betreuer
-  		\item[Auslösen des Ereignisses:] Betreuer möchte sich einer Gruppe
-  		zuordnen
   		\item[Beschreibung:]~
   	\begin{enumerate} 
   	  \item[1.] Betreuer befindet sich auf der Website mit den \gls{PSE}-Gruppen
@@ -1085,8 +1024,6 @@ Im Administratiorbereich:
   	noch im Gange ist
   	\item[Nachbedingung(Fehlschlag):] Der \gls{Projektbetreuer} ist nicht in der
   	Maske Einteilungsergebnisse
-  	\item[Akteure:] \gls{Projektbetreuer}
-  	\item[Auslösen des Ereignisses:] Der \gls{Projektbetreuer} möchte wissen, wer zu seinen Projekt zugeteilt ist
   	\item[Beschreibung:]~
   	\begin{enumerate}
   		\item[1.] Der \gls{Projektbetreuer} klickt auf \enquote{Einteilungsergebnisse} 
@@ -1106,10 +1043,8 @@ Im Administratiorbereich:
   		\item[Ziel:] Eine Gruppe nicht mehr betreuen
   		\item[Vorbedingung:] Man ist Betreuer einer Gruppe, in der noch mindestens
   		ein anderer Betreuer ist.
-  		\item[Nachbedingung(Erfolg):] Man betreut die Gruppe nicht länger.
-  		\item[Nachbedingung(Fehlschlag):] Man ist immer noch Betreuer der Gruppe.
-  		\item[Akteure:] Betreuer
-  		\item[Auslösen des Ereignisses:] Betreuer möchte aus Gruppe austreten.
+  		\item[Nachbedingung(Erfolg):] Man betreut die Gruppe nicht länger
+  		\item[Nachbedingung(Fehlschlag):] Man ist immer noch Betreuer der Gruppe
   		\item[Beschreibung:]~
   	\begin{enumerate} 
   	  \item[1.] Betreuer befindet sich auf der Website mit den \gls{PSE}-Gruppen, die
@@ -1130,8 +1065,6 @@ Im Administratiorbereich:
   	\item[Vorbedingung:] Gruppe hat Studierenden als Teilnehmer
   	\item[Nachbedingung(Erfolg):] Eintragung/Änderung der Noten
   	\item[Nachbedingung(Fehlschlag):] Notenänderung wird verworfen
-  	\item[Akteure:] Betreuer
-  	\item[Auslösen des Ereignisses:] Betreuer möchte Noten eintragen
   	\item[Beschreibung:]~
   	\begin{enumerate} 
   	  \item[1.] Betreuer befindet sich auf der Website mit der Notenübersicht
@@ -1150,8 +1083,6 @@ Im Administratiorbereich:
   	\item[Vorbedingung:] Der Betreuer ist angemeldet und befindet sich im Betreuerbereich
   	\item[Nachbedingung(Erfolg):] Der Betreuer ist abgemeldet und befindet sich auf der Startseite
   	\item[Nachbedingung(Fehlschlag):] Der Betreuer ist nicht abgemeldet
-  	\item[Akteure:] Betreuer
-  	\item[Auslösen des Ereignisses:] Betreuer will sich abmelden
   	\item[Beschreibung:]~
   	\begin{enumerate}
   	  \item[1.] Betreuer ist im Betreuerbereich der Webseite
@@ -1177,8 +1108,6 @@ Im Administratiorbereich:
 		\item[Nachbedingung(Erfolg):] Das Produkt ist einsatzbereit und kann über das Webinterface bedient werden
 		\item[Nachbedingung(Fehlschlag):] Das Produkt ist nicht einsatzbereit und gibt
 		eine aussagekräftige Fehlermeldung aus
-		\item[Akteure:] \gls{Admin}
-		\item[Auslösen des Ereignisses:] Beginn des \gls{PSE}
 		\item[Beschreibung:]
 		\begin{enumerate} [label=\arabic*.]~
 			\item Der \gls{Admin} stellt auf dem Server Gurobi bereit %TODO Gurobi Glossar
@@ -1200,8 +1129,6 @@ Im Administratiorbereich:
   	\item[Vorbedingung:] -keine-
   	\item[Nachbedingung(Erfolg):] Der Administrator ist angemeldet
   	\item[Nachbedingung(Fehlschlag):] Der Administrator ist nicht angemeldet
-  	\item[Akteure:] Administrator
-  	\item[Auslösen des Ereignisses:] Administrator will sich anmelden
   	\item[Beschreibung:]~
   	\begin{enumerate}
   	  \item[1.] Administrator öffnet die Website
@@ -1224,14 +1151,15 @@ Im Administratiorbereich:
 		\item[Ziel:] Ein frühestmöglicher Zeitpunkt für die Anmeldung von \glspl{Studierender}n soll festgelegt werden
 		\item[Vorbedingung:] \gls{Admin} ist angemeldet und im Administratorbereich der Webseite
 		\item[Nachbedingung(Erfolg):] Vor dem eingegeben Datum können sich
-		\glspl{Studierender} nicht mehr anmelden und einloggen
-		\item[Nachbedingung(Fehlschlag):] Anmelden und Einloggen sind weiter möglich
-		\item[Akteure:] \gls{Admin}
-		\item[Auslösen des Ereignisses:] Beginn des \gls{PSE}
+		\glspl{Studierender} nicht anmelden und einloggen
+		\item[Nachbedingung(Fehlschlag):] Anmelden und einloggen sind vor dem
+		Datum möglich
 		\item[Beschreibung:]~
 		\begin{enumerate}[label=\arabic*.]
 			\item Der \gls{Admin} klickt auf den Reiter \enquote{Einstellungen}
-			\item Er trägt in das Feld \enquote{Startzeit der Studierendenanmeldung} ein Datum und eine Uhrzeit ein
+			\item Er befindet sich nun im Einstellungsbereich
+			\item Er trägt in das Feld \enquote{Startzeit der Studentenanmeldung} ein
+			Datum und eine Uhrzeit ein
 		\end{enumerate}
 		\item[Erweiterungen:] -keine-
 		\item[Alternativen:] -keine-
@@ -1245,12 +1173,12 @@ Im Administratiorbereich:
 		\item[Vorbedingung:] \gls{Admin} ist angemeldet und im Administratorbereich der Webseite
 		\item[Nachbedingung(Erfolg):] Nach dem eingegebenen Datum können sich keine \glspl{Studierender}n mehr anmelden
 		\item[Nachbedingung(Fehlschlag):] Anmelden ist weiter möglich
-		\item[Akteure:] \gls{Admin}
-		\item[Auslösen des Ereignisses:] Beginn des \gls{PSE}
 		\item[Beschreibung:]~
 		\begin{enumerate}[label=\arabic*.]
 			\item Der \gls{Admin} klickt auf den Reiter \enquote{Einstellungen}
-			\item Er trägt in das Feld \enquote{Deadline für Studierendenbewertung} ein Datum und eine Uhrzeit ein
+			\item Er befindet sich nun im Einstellungsbereich
+			\item Er trägt in das Feld \enquote{Deadline für die Studentenbewertungen}
+			ein Datum und eine Uhrzeit ein
 		\end{enumerate}
 		\item[Erweiterungen:] -keine-
 		\item[Alternativen:] -keine-
@@ -1259,23 +1187,21 @@ Im Administratiorbereich:
 	
   \item \label{UCadminProjektErstellenÄndern}
     \begin{description}
-  	\item[Anwendung:] Hinzufügen/Ändern eines Projekts
+  	\item[Anwendung:] Hinzufügen/Ändern eines \gls{Projekt}s
   	\item[Ziel:] Einfügen/Änderung von Projektdaten in der Datenbank
-  	\item[Vorbedingung:] -keine-
+  	\item[Vorbedingung:] \gls{Admin} ist angemeldet und im Administratorbereich der Webseite
   	\item[Nachbedingung(Erfolg):] Neue Projektdaten sind eingetragen
   	\item[Nachbedingung(Fehlschlag):] Neue Projektdaten sind nicht eingetragen
-  	\item[Akteure:] Administrator, Institut
-  	\item[Auslösen des Ereignisses:] Administrator bekommt Projektdaten von einem
-  	Institut vorgelegt
   	\item[Beschreibung:]~
   	\begin{enumerate} 
   	  \item[1.] Projektübersicht öffnen
   	  \item[2.] Wenn das Projekt schon existiert, so werden die Projektdaten
   	  verglichen
-  	  \item[3.] Stimmen die Projektdaten nicht überein, so werden die betroffenen
+  	  \item[3.] Ausfüllen der Eingabemaske
+  	  \item[4.] Stimmen die Projektdaten nicht überein, so werden die betroffenen
   	  Daten angepasst
-  	  \item[4.] Durch Abspeichern der Eingaben werden die Daten in der Datenbank
-  	  angepasst
+  	  \item[5.] Durch Abspeichern der Eingaben werden die Daten in der Datenbank
+  	  geändert/hinzugefügt
   	\end{enumerate}
   	\item[Erweiterungen:] -keine-
   	\item[Alternativen:]~
@@ -1295,9 +1221,6 @@ Im Administratiorbereich:
   	Studierenden konnten noch keine Bewertungen abgeben
   	\item[Nachbedingung(Erfolg):] Projekt ist aus der Datenbank entfernt
   	\item[Nachbedingung(Fehlschlag):] Projekt ist immer noch in der Datenbank
-  	\item[Akteure:] Administrator, Institut %TODO Institut kommt hier zum ersten mal vor
-  	\item[Auslösen des Ereignisses:] Institut zieht ein Projekt zurück oder es
-  	fehlen Daten bei Beginn der Einteilung
   	\item[Beschreibung:]~
   	\begin{enumerate} 
   	  \item[1.] Projektübersicht öffnen
@@ -1317,9 +1240,6 @@ Im Administratiorbereich:
   	\item[Vorbedingung:] Alle \glspl{Projekt} in der Datenbank sind vollständig
   	\item[Nachbedingung(Erfolg):] Es wurde eine Teameinteilung gefunden
   	\item[Nachbedingung(Fehlschlag):] Es wurde keine Teameinteilung gefunden
-  	\item[Akteure:] Administrator
-  	\item[Auslösen des Ereignisses:] Entscheidung des Administrators bzw.
-  	zeitliche Deadline
   	\item[Beschreibung:]~
   	\begin{enumerate} 
   	  \item[1.] Einstellen der Parameter, nach denen eingeteilt werden soll
@@ -1350,9 +1270,6 @@ Im Administratiorbereich:
   	\item[Vorbedingung:] Es wurde mindestens eine Berechnung durchgeführt
   	\item[Nachbedingung(Erfolg):] Es wurde eine Teameinteilung ausgewählt
   	\item[Nachbedingung(Fehlschlag):] Es wurde keine Teameinteilung ausgewählt
-  	\item[Akteure:] Administrator
-  	\item[Auslösen des Ereignisses:] Entscheidung des Administrators bzw.
-  	zeitliche Deadline
   	\item[Beschreibung:]~
   	\begin{enumerate} 
   	  \item[1.] Der Administrator wählt eine der berechneten Einteilungen final aus
@@ -1380,8 +1297,6 @@ Im Administratiorbereich:
   	\item[Vorbedingung:] -keine-
   	\item[Nachbedingung(Erfolg):] Der Betreueraccount wurde erstellt
   	\item[Nachbedingung(Fehlschlag):] Der Betreueraccount wurde nicht erstellt
-  	\item[Akteure:] Administrator
-  	\item[Auslösen des Ereignisses:] Betreuer benötigt Account
   	\item[Beschreibung:]~
   	 \begin{enumerate} 
   	   \item[1.] Der Administrator öffnet die Maske zum Erstellen eines
@@ -1409,8 +1324,6 @@ Im Administratiorbereich:
   	\item[Vorbedingung:] Der Administrator ist angemeldet und befindet sich im Administratorbereich
   	\item[Nachbedingung(Erfolg):] Der Administrator ist abgemeldet und befindet sich auf der Startseite
   	\item[Nachbedingung(Fehlschlag):] Der Administrator ist nicht abgemeldet
-  	\item[Akteure:] Administrator
-  	\item[Auslösen des Ereignisses:] Administrator will sich abmelden
   	\item[Beschreibung:]~
   	\begin{enumerate}
   	  \item[1.] Administrator ist im Administratorbereich der Webseite
@@ -1430,9 +1343,6 @@ Im Administratiorbereich:
   	\item[Nachbedingung(Erfolg):] Der Administrator ist im Bereich
   	\enquote{Einteilungsergebnisse}
   	\item[Nachbedingung(Fehlschlag):] Der Administrator sieht keine Einteilung
-  	\item[Akteure:] Administrator
-  	\item[Auslösen des Ereignisses:] Administrator möchte sich eine Einteilung
-  	anzeigen lassen
   	\item[Beschreibung:]~
   	\begin{enumerate}
   	  \item[1.] Administrator ist im Administratorbereich der Webseite
@@ -1457,9 +1367,6 @@ Im Administratiorbereich:
     hinzugefügt
     \item[Nachbedingung(Fehlschlag):] Es wurde keine Teilleistung zu einer SPO
     hinzugefügt
-    \item[Akteure:] Administrator
-    \item[Auslösen des Ereignisses:] Es gab eine Änderung in einer SPO oder eine
-    neue SPO wurde hinzugefügt
     \item[Beschreibung:]~
     \begin{enumerate}
       \item[1.] Administrator ist im Administratorbereich der Webseite
@@ -1488,9 +1395,6 @@ Im Administratiorbereich:
     \enquote{Einstellungen} und nur noch die Relavanten SPOs werden für
         Studierende angezeigt
     \item[Nachbedingung(Fehlschlag):] Es gibt keine Veränderung
-    \item[Akteure:] Administrator
-    \item[Auslösen des Ereignisses:] Eine SPO ist nichtmehr relevant oder eine
-    neue SPO wurde hinzugefügt
     \item[Beschreibung:]~
     \begin{enumerate}
       \item[1.] Der Administrator ist im Administratorbereich der Webseite
@@ -1520,9 +1424,6 @@ Im Administratiorbereich:
     \enquote{Einstellungen} und die entfernte Teilleistung wird ind der SPO
     nicht mehr angezeigt
     \item[Nachbedingung(Fehlschlag):] Es wurde keine Teilleistung entfernt
-    \item[Akteure:] Administrator
-    \item[Auslösen des Ereignisses:] Es gab eine Änderung in einer SPO oder es
-    wurde bei einer hinzugefügten Teilleistung ein Fehler gemacht
     \item[Beschreibung:]~
     \begin{enumerate}
       \item[1.] Administrator ist im Administratorbereich der Webseite
@@ -1657,9 +1558,6 @@ Im Administratiorbereich:
   	\item[Nachbedingung(Erfolg):] Der Administrator sieht einen Vergleich der
   	Einteilungen
   	\item[Nachbedingung(Fehlschlag):] Der Administrator sieht keinen Vergleich
-  	\item[Akteure:] Administrator
-  	\item[Auslösen des Ereignisses:] Administrator möchte berechnete Einteilungen
-  	vergleichen
   	\item[Beschreibung:]~
   	\begin{enumerate}
   	  \item[1.] Administrator ist im Administratorbereich der Webseite
@@ -1683,9 +1581,6 @@ Im Administratiorbereich:
   	\enquote{Einteilung}
   	\item[Nachbedingung(Erfolg):] Alle gewünschten Einteilungen wurden berechnet
   	\item[Nachbedingung(Fehlschlag):] Es wurden nicht alle Einteilungen berechnet
-  	\item[Akteure:] Administrator
-  	\item[Auslösen des Ereignisses:] Administrator möchte mehrere Einteilungen
-  	mit unterschiedlichen Parametern berechnen
   	\item[Beschreibung:]~
   	\begin{enumerate}
   	  \item[1.] Administrator ist im Administratorbereich der Webseite
@@ -1716,8 +1611,6 @@ Im Administratiorbereich:
   	\item[Nachbedingung(Erfolg):] Der Studierende wurde dem System hinzugefügt
   	\item[Nachbedingung(Fehlschlag):] Der Studierende wurde dem System nicht
   	hinzugefügt
-  	\item[Akteure:] Administrator, Studierender
-  	\item[Auslösen des Ereignisses:] Studierender meldet sich beim Administrator
   	\item[Beschreibung:]~
   	\begin{enumerate}
   	  \item[1.] Administrator ist im Bereich \enquote{Studenten
@@ -1739,9 +1632,6 @@ Im Administratiorbereich:
   	\item[Nachbedingung(Erfolg):] Der Studierende wurde aus dem System entfernt
   	\item[Nachbedingung(Fehlschlag):] Der Studierende wurde nicht aus dem System
   	entfernt
-  	\item[Akteure:] Administrator, Studierender
-  	\item[Auslösen des Ereignisses:] Studierender möchte nicht mehr am PSE
-  	teilnehmen
   	\item[Beschreibung:]~
   	\begin{enumerate}
   	  \item[1.] Administrator ist im Bereich \enquote{Studenten
@@ -1763,9 +1653,6 @@ Im Administratiorbereich:
   	\item[Nachbedingung(Erfolg):] Der Studierende wurde dem Team hinzugefügt
   	\item[Nachbedingung(Fehlschlag):] Der Studierende wurde dem Team nicht
   	hinzugefügt
-  	\item[Akteure:] Administrator
-  	\item[Auslösen des Ereignisses:] Administrator möchte manuell einen nicht
-  	zugeteilten Studierenden zuteilen
   	\item[Beschreibung:]~
   	\begin{enumerate}
   	  \item[1.] Administrator ist im Bereich \enquote{Einteilungsergebnisse}
@@ -1792,9 +1679,6 @@ Im Administratiorbereich:
   	\item[Nachbedingung(Erfolg):] Der Studierende wurde aus dem Team entfernt
   	\item[Nachbedingung(Fehlschlag):] Der Studierende wurde nicht aus dem Team
   	entfernt
-  	\item[Akteure:] Administrator
-  	\item[Auslösen des Ereignisses:] Administrator möchte manuell einen
-  	Studierenden aus einem Team entfernen
   	\item[Beschreibung:]~
   	\begin{enumerate}
   	  \item[1.] Administrator ist im Bereich \enquote{Einteilungsergebnisse}
@@ -1821,9 +1705,6 @@ Im Administratiorbereich:
   	\item[Nachbedingung(Erfolg):] Die Studierenden wurden getauscht
   	\item[Nachbedingung(Fehlschlag):] Die Studierenden sind immer noch in ihren
   	alten Teams
-  	\item[Akteure:] Administrator
-  	\item[Auslösen des Ereignisses:] Administrator möchte manuell zwei
-  	Studierende tauschen
   	\item[Beschreibung:]~
   	\begin{enumerate}
   	  \item[1.] Administrator ist im Bereich \enquote{Einteilungsergebnisse}
@@ -1870,12 +1751,9 @@ Im Administratiorbereich:
 keepaspectratio=true]{gui/index.png}}
 \captionof{figure}{Startseite} \label{GUIindex}
 
-
-
 \fbox{\includegraphics[width=\textwidth,
 keepaspectratio=true]{gui/registrierung.png}}
 \captionof{figure}{Registrierungsansicht} \label{GUIregi}
-
 
 \fbox{\includegraphics[width=\textwidth,
 keepaspectratio=true]{gui/studentbewertung.png}}
@@ -1899,7 +1777,6 @@ keepaspectratio=true]{gui/adminprojleiter.png}}
 \medskip
 \fbox{\includegraphics[width=\textwidth,
 keepaspectratio=true]{gui/adminprojekte.png}}
-
 \captionof{figure}{Projektübersicht} \label{GUIprojUebersicht}
 \medskip
 \fbox{\includegraphics[width=\textwidth,
