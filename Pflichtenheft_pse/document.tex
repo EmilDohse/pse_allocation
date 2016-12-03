@@ -385,12 +385,11 @@ ein Verweis auf den Anwendungsfall der die Funktion beschreibt und testet.
   \item Übersicht über die aktuelle Einteilung \label{FAadminÜbersicht}
   \testRef{UCadminEinteilungUebersicht}
   \item Anzeige der \glspl{Guetekriterium} bestehend aus:
-  \testRef{UCadminVergleichGuete}
     \begin{itemize}
       \item \gls{happiness}
       \item \gls{nichtZugeteilt}
       \item \gls{gesplitteteGruppe}
-    \end{itemize} \label{FAadminGüte} 
+    \end{itemize} \label{FAadminGüte} \testRef{UCadminVergleichGuete}
   \item \glspl{Studierender} aus dem Produkt entfernen
   \label{FAadminDeleteStudFromSystem} \testRef{UCadminDeleteStudierender}
   \item \glspl{Studierender} zum Produkt hinzufügen
@@ -1157,7 +1156,7 @@ Im Administratiorbereich:
 		\item[Beschreibung:]~
 		\begin{enumerate}[label=\arabic*.]
 			\item Der \gls{Admin} klickt auf den Reiter \enquote{Einstellungen}
-			\item Er befindet sich nun im Einstellungsbereich
+			\item Er befindet sich nun im Einstellungsbereich (\autoref{GUIeinstellungen})
 			\item Er trägt in das Feld \enquote{Startzeit der Studentenanmeldung} ein
 			Datum und eine Uhrzeit ein
 		\end{enumerate}
@@ -1176,7 +1175,7 @@ Im Administratiorbereich:
 		\item[Beschreibung:]~
 		\begin{enumerate}[label=\arabic*.]
 			\item Der \gls{Admin} klickt auf den Reiter \enquote{Einstellungen}
-			\item Er befindet sich nun im Einstellungsbereich
+			\item Er befindet sich nun im Einstellungsbereich (\autoref{GUIeinstellungen})
 			\item Er trägt in das Feld \enquote{Deadline für die Studentenbewertungen}
 			ein Datum und eine Uhrzeit ein
 		\end{enumerate}
@@ -1194,10 +1193,10 @@ Im Administratiorbereich:
   	\item[Nachbedingung(Fehlschlag):] Neue Projektdaten sind nicht eingetragen
   	\item[Beschreibung:]~
   	\begin{enumerate} 
-  	  \item[1.] Projektübersicht öffnen
+  	  \item[1.] Projektübersicht öffnen (\autoref{GUIprojUebersicht})
   	  \item[2.] Wenn das Projekt schon existiert, so werden die Projektdaten
   	  verglichen
-  	  \item[3.] Ausfüllen der Eingabemaske
+  	  \item[3.] Ausfüllen der Eingabemaske (\autoref{GUIprojEdit})
   	  \item[4.] Stimmen die Projektdaten nicht überein, so werden die betroffenen
   	  Daten angepasst
   	  \item[5.] Durch Abspeichern der Eingaben werden die Daten in der Datenbank
@@ -1223,7 +1222,7 @@ Im Administratiorbereich:
   	\item[Nachbedingung(Fehlschlag):] Projekt ist immer noch in der Datenbank
   	\item[Beschreibung:]~
   	\begin{enumerate} 
-  	  \item[1.] Projektübersicht öffnen
+  	  \item[1.] Projektübersicht öffnen (\autoref{GUIprojUebersicht})
   	  \item[2.] Projekt aus Liste entfernen
   	  \item[3.] Projektdaten werden aus der Datenbank entfernt
   	\end{enumerate}
@@ -1242,19 +1241,17 @@ Im Administratiorbereich:
   	\item[Nachbedingung(Fehlschlag):] Es wurde keine Teameinteilung gefunden
   	\item[Beschreibung:]~
   	\begin{enumerate} 
-  	  \item[1.] Einstellen der Parameter, nach denen eingeteilt werden soll
-  	  \item[2.] Starten der Berechnung über Schaltfläche
-  	  \item[3.] Sind alle \glspl{Projekt} vollständig angegeben, so startet die
-  	  Berechnung
-  	  \item[4.] Nach Abschluss der Berechnung wird das Ergebnis,  inklusive
+  	  \item[1.] Einstellen der Parameter, nach denen eingeteilt werden
+  	  soll(siehe \autoref{GUIeinteilung})
+  	  \item[2.] Durch Klick auf \enquote{Zur Berechnung hinzufügen} wird die
+  	  Berechnung gestartet
+  	  \item[3.] Nach Abschluss der Berechnung wird das Ergebnis,  inklusive
   	  eingestellter Parameter, abgespeichert
   	\end{enumerate}
   	\item[Erweiterungen:] -keine-
   	\item[Alternativen:] ~
   	\begin{enumerate}
-  	  \item[3a)] Wenn nicht, so startet die Berechnung nicht und der Fall ist
-  	  beendet
-  	  \item[4a)] Hier ist auch ein frühzeitiger Abbruch durch den Administrator
+  	  \item[3a)] Hier ist auch ein frühzeitiger Abbruch durch den Administrator
   	  möglich. Dies wird im Ergebnis vermerkt.
   	 \end{enumerate}  
   	 \item[Benötigte FA:] \ref{FAadminParameter},
@@ -1272,21 +1269,18 @@ Im Administratiorbereich:
   	\item[Nachbedingung(Fehlschlag):] Es wurde keine Teameinteilung ausgewählt
   	\item[Beschreibung:]~
   	\begin{enumerate} 
-  	  \item[1.] Der Administrator wählt eine der berechneten Einteilungen final aus
-  	  \item[2.] Wurde ein Studierender zugewiesen, so wird seinem
-  	  Datenbankeintrag sein Team hinzugefügt
+  	  \item[1.] Öffnen der Einteilungsübersicht (\autoref{GUIeinteilungErgeb})
+  	  \item[2.] Auswahl des Reiters, der die zu veröffentliche Einteilung enthält
+  	  \item[3.] Durch Klick auf \enquote{Einteilung veröffentlichen} wird diese
+  	  Einteilung final ausgewählt 
   	\end{enumerate}
   	\item[Erweiterungen:]~
   	\begin{enumerate}
-  	  \item[nach 2)] Betreuer werden über ihre Teams informiert
-  	  \item[nach 2)] Die Studierenden werden über ihre Einteilung informiert
+  	  \item[nach 3)] Betreuer und Studierende werden über ihre Teams
+  	  per E"=Mail informiert
   	 \end{enumerate}
-  	\item[Alternativen:] ~
-  	\begin{enumerate}
-  	  \item[2a)] Wird ein Studierender nicht zugewiesen, so wird dies ebenfalls
-  	  in der Datenbank vermerkt
-  	 \end{enumerate}  
-  	 \item[Benötigte FA:] \ref{FAadminAuswahl},
+  	\item[Alternativen:] -keine-
+  	\item[Benötigte FA:] \ref{FAadminAuswahl},
   	 \ref{FAadminBenachrichtigen}, \ref{FAadminUebersichtAlleEinteilungen} 
   \end{description}
   
@@ -1299,22 +1293,17 @@ Im Administratiorbereich:
   	\item[Nachbedingung(Fehlschlag):] Der Betreueraccount wurde nicht erstellt
   	\item[Beschreibung:]~
   	 \begin{enumerate} 
-  	   \item[1.] Der Administrator öffnet die Maske zum Erstellen eines
-  	   Betreueraccounts  
-  	   \item[2.] Der Administrator füllt die Maske aus und schickt sie ausgefüllt
-  	   ab
-  	   \item[3.] Wenn noch kein Account mit dem angegebenen Namen existiert, so
-  	   wird der neue Account der Datenbank hinzugefügt
+  	   \item[1.] Öffnen der Betreuerübersicht (\autoref{GUIprojLeiterUebersicht})
+  	   \item[2.] Ausfüllen der einzeln abgetrennten Zeile  
+  	   \item[3.] Durch Klick auf \enquote{Projektleiter hinzufügen} wird der neu
+  	   angelegte Betreuer dem System hinzugefügt
   	 \end{enumerate} 
   	\item[Erweiterungen:]~
   	 \begin{enumerate}
   	   \item[4)] Der Betreuer erhält seine Zugangsdaten per E-Mail
   	 \end{enumerate}  
-  	\item[Alternativen:] ~
-  	 \begin{enumerate}
-  	  \item[3a)] Falls doch, so wird eine Fehlermeldung angezeigt
-  	 \end{enumerate}  
-  	 \item[Benötigte FA:] \ref{FAadminCreateAccounts}
+  \item[Alternativen:] -keine-
+  \item[Benötigte FA:] \ref{FAadminCreateAccounts}
   \end{description}
   
   \item \label{UCadminLogout}
@@ -1710,7 +1699,6 @@ Im Administratiorbereich:
   	  \item[1.] Administrator ist im Bereich \enquote{Einteilungsergebnisse}
       \item[2.] Auswahl der beiden Studierenden in der Teamübersicht
       \item[3.] Klick auf \enquote{markierte Personen tauschen}
-      \item[4.] 
   	\end{enumerate}
   	\item[Erweiterungen:]~
   	\begin{enumerate}
@@ -1778,6 +1766,10 @@ keepaspectratio=true]{gui/adminprojleiter.png}}
 \fbox{\includegraphics[width=\textwidth,
 keepaspectratio=true]{gui/adminprojekte.png}}
 \captionof{figure}{Projektübersicht} \label{GUIprojUebersicht}
+\fbox{\includegraphics[width=\textwidth,
+keepaspectratio=true]{gui/projleiterprojekteedit.png}}
+\captionof{figure}{Projekteingabe} \label{GUIprojEdit}
+
 \medskip
 \fbox{\includegraphics[width=\textwidth,
 keepaspectratio=true]{gui/admineinteilung.png}}
@@ -1793,11 +1785,11 @@ keepaspectratio=true]{gui/adminergebnissevergl.png}}
 \medskip
 \fbox{\includegraphics[width=\textwidth,
 keepaspectratio=true]{gui/projleiterprojekte.png}}
-\captionof{figure}{Betreueransicht} \label{GUIeinstellung}
+\captionof{figure}{Betreueransicht} \label{GUIprojLeiterTeam}
 \medskip
 \fbox{\includegraphics[width=\textwidth,
 keepaspectratio=true]{gui/adminproperties.png}}
-\captionof{figure}{Einstellungen} \label{testBild}
+\captionof{figure}{Einstellungen} \label{GUIeinstellungen}
 \medskip
 
 }
