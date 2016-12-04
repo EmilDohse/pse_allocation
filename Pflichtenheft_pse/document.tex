@@ -85,7 +85,7 @@ nicht zugeteilt wurden }}
 	
 
 \newglossaryentry{Einteilung}{name=Einteilung, plural=Einteilungen,
-	description={Eine \gls{Einteilung} ist eine Zuordnung von \glspl{Studierender}n zu \glspl{Team}. Im System können mehrere \glspl{Einteilung} existieren, aus denen der \gls{Admin} genau eine Auswählen kann, welche dann Veröffentlicht wird}}
+	description={Eine \gls{Einteilung} ist eine Zuordnung von \glspl{Studierender}n zu \glspl{Team}. Im System können mehrere \glspl{Einteilung} existieren, aus denen der \gls{Admin} genau eine Auswählen kann, welche dann veröffentlicht wird}}
 	
 \newglossaryentry{Voraussetzung}{name=Voraussetzung, plural=Voraussetzungen,
 	description={Eine \gls{Voraussetzung} ist eine formale Bedingungen, die laut Prüfungsordnung erfüllt sein müssen, damit man beim \gls{PSE} teilnehmen darf}}
@@ -586,7 +586,7 @@ ein Verweis auf den Anwendungsfall, der die Funktion beschreibt und testet.
 
 
 
-\section{Nichtfunktioale Anforderungen}
+\section{Nichtfunktionale Anforderungen}
 
 \begin{enumerate}[label=\swtLabel{NF}]
   \item Es müssen maximal 500 \glspl{Studierender} und 100 \glspl{Projekt} verwaltet werden
@@ -630,7 +630,7 @@ Im \glspl{Studierender}nbereich:
   %TODO hier noch das wir größtenteils über die Anwendungsfälle testen
 
 \end{enumerate}
-Im Administratiorbereich:
+Im \gls{Admin}bereich:
    \begin{enumerate} [label=\swtLabel{T}, resume]
   \item Einloggen als \gls{Admin}, Erstellung eines Semesters mit mehreren \glspl{SPO}
   \item \gls{Einteilung}sberechnung und anschließendem manuellen Editieren und
@@ -1059,7 +1059,7 @@ Im Administratiorbereich:
     \item[Anzeige von Konflikten beim Import von Campus"=Management"=System"=Daten] (vgl. \ref{UCadminImport2})
     \item[Ziel:] Der \gls{Admin} sieht fehlende oder von \glspl{Studierender}n falsch angegebene \glspl{Teilleistung}.
     \item[Vorbedingung:] Der \gls{Admin} ist angemeldet und befindet sich im
-    \gls{Admin}bereich. Es müssen \glspl{Studierender}ndaten existieren und ein \gls{CMS}"=Daten-Import (vgl. \ref{UCadminImport2}) hat stattgefunden .
+    \gls{Admin}bereich. Es müssen \glspl{Studierender}ndaten existieren und ein Campus"=Management"=System"=Daten"=Import (vgl. \ref{UCadminImport2}) hat stattgefunden .
     \item[Nachbedingung:]	\begin{description}[leftmargin=6em] \item[Erfolg]  Der \gls{Admin} ist im \gls{Admin}bereich und sieht die tabellarisch aufgezählten Konflikte
     \item[Fehlschlag] ~ \end{description}
     \item[Beschreibung:]~
@@ -1076,7 +1076,7 @@ Im Administratiorbereich:
   
       \item \label{UCadminExport2}
     \begin{description}
-    \item[Export von \gls{CMS}"=Daten]
+    \item[Export von Campus"=Management"=System"=Daten]
     \item[Ziel:] Export von \glspl{Studierender}ndaten mit eingetragenen Noten zum automatischen Datenabgleich mit dem \gls{CMS}
     \item[Vorbedingung:] Der \gls{Admin} ist angemeldet und befindet sich im
     \gls{Admin}bereich. Es müssen \glspl{Studierender}ndaten existieren.
@@ -1461,7 +1461,7 @@ Im Administratiorbereich:
   \begin{description}
   \item[Anzeigen der \gls{Projekt}beschreibung in \gls{Bewertung}smaske]
   \item[Ziel:] \gls{Studierender} kann sich während der \gls{Einteilung} die Beschreibung
-  der zu bewertenden \glspl{Projekt} nochmal ansehen
+  der zu bewertenden \glspl{Projekt} nochmals ansehen
   	\item[Vorbedingung:] \gls{Studierender} ist angemeldet und befindet sich in der
   	Projekt\gls{Bewertung}smaske %TODO verweis
   	
