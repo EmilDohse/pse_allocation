@@ -290,86 +290,50 @@ oder neuer
   \item Heim-PC mit Internetzugang %TODO wolllen wir igendeine art der  mobilen
   %nutzung zulassen? u
 \end{itemize}
+
 \section{Funktionale Anforderungen}
 
 Im folgenden werden die funktionalen Anforderungen an das Produkt beschrieben.
 Hierbei befindet sich hinter jeder funktionalen Anforderung in eckigen Klammern
 ein Verweis auf den Anwendungsfall, der die Funktion beschreibt und testet.
 
-\subsection{\glspl{Studierender}nfunktionen}
-
+\subsection{\gls{Einteilung}sfunktionen}
 \subsubsection{Pflichtfunktionen}
-
-\begin{enumerate}[label=\swtLabel{FA}]
-  \item Registrierung eines \glspl{Studierender}n mit Datenerfassung: \testRef{UCstudReg}
-  \label{FAregistrierung}
+\begin{enumerate}[label=\swtLabel{FA}, resume]
+  \item \gls{Einteilung} der \glspl{Studierender}n zu \glspl{Projekt}n. Hierbei werden
+  folgende Kriterien, soweit möglich, berücksichtigt: \testRef{UCadminVergleichGuete},
+  \testRef{UCadminEinteilungStart}
   \begin{itemize}
-    \item Vorname, Nachname, \gls{Matrikelnummer}, E"=Mail"=Adresse, Semester und
-    Passwort
-    \item Auswahl bestandener \glspl{Teilleistung} und der \gls{SPO}
-    \item Auswahl noch ausstehender Nachprüfungen 
-  \end{itemize}
-  (vgl.  \ref{SDatenAnfang} bis \ref{SDatenEnde})
-  \item Anmeldung mit \gls{Matrikelnummer} und Passwort\label{FAStudanmeldung}
-  \testRef{UCstudAnmeldung}
-  \item \gls{Bewertung} der \glspl{Projekt} \label{FAbewertung} \testRef{UCstudBewertung}
-  \item Erstellung einer \gls{Lerngruppe} mit Name und Passwort
-  \label{FAcreatelerng} \testRef{UCstudCrealernG}
-  \item \gls{Bewertung} der \glspl{Projekt} für die \gls{Lerngruppe} 
-  \label{FAbewertung2} \testRef{UCstudBewertung}
-  \item Beitritt zu einer \gls{Lerngruppe} \label{FAjoinLerng}
-  \testRef{UCstudJoinLernG}
-  \item Austritt aus einer \gls{Lerngruppe} \label{FAlergAustritt}
-  \testRef{UCstudLeaveLernG}
-  \item Übersicht der eigenen \gls{Lerngruppe} 
-  \label{FAcheckLerng} \testRef{UCstudUebersichtLernG}
-  \item Abmeldung \label{FAStudabmeldung} \testRef{UCstudLogout}
-  \item Einsicht der \gls{Einteilung}sergebnisse \label{FAStudeinsicht} \testRef{UCstudEinsichtEinteilung}
+    \item Wer die durch seine \gls{SPO} gegebenen Voraussetzungen nicht erfüllt,
+    wird nicht eingeteilt \label{FAeinteilung}
+    \item Möglichst viele \glspl{Studierender} werden zu \glspl{Projekt}n zugeteilt 
+    \item \glspl{Lerngruppe} bleiben zusammen
+    \item \gls{Bewertung} der \glspl{Studierender}n werden berücksichtigt 
+ \end{itemize} \label{FAeinteilungMussKriterien} 
+ \item Berechnung von \glspl{Guetekriterium} \label{FAguetekriterien}
+ \testRef{UCadminVergleichGuete}
+ 
 \end{enumerate}
 
-\subsubsection{Wunschfunktionen}
-
-\begin{enumerate}[label=\swtLabel{FA}, resume]
-	\item Anzeigen von \gls{Projekt}beschreibung in \gls{Bewertung}seingabemaske
-	\label{FAbeschreibung-Bewertung} \testRef{UCstudProjektbeschreibung}
-	\item Anmeldung über u"=Account \label{FAstudUanmeldung} \testRef{UCstudAnmeldung}%TODO
-	% Glossareintrag
-	\item Verifikation der E"=Mail"= Adresse über einen Verifikationslink, der an
-	die vom \glspl{Studierender}n angegebene E"=Mail"=Adresse versandt wird
-	\label{FAemailverifikation} \testRef{UCstudVerifikationEmail}
-	\item Anfordern eines neuen Passworts \label{FApasswortvergessen}
-	\testRef{UCstudNewPasswort}
+ \subsubsection{Wunschfunktionen}
+ 
+ \begin{enumerate}[label=\swtLabel{FA}, resume]
+ \item Stapelverarbeitung von mehreren \glspl{Einteilung} mit unterschiedlichen
+ Konfigurationen \label{FAeinteilungStapel} \testRef{UCadminStapelverarbeitung}
+ \item Folgende Kriterien fließen in die \gls{Einteilung} ein:
+ \testRef{UCadminEinteilungStart}
+ \begin{itemize}
+ 	\item Wer sich zum zweiten Mal bewirbt, soll bei der \gls{Einteilung} bevorzugt
+ 	werden
+ 	\item Eher 5er"=\glspl{Team} als 6er"=\glspl{Team}
+ 	\item \glspl{Studierender} in einem \gls{Team} sind im gleichen Semester
+ 	\item \glspl{Studierender} höheren Semesters werden bevorzugt
+ 	\item \glspl{Studierender}, die bereits mehr \glspl{Teilleistung} aus dem ersten Jahr
+ 	bestanden haben, werden bevorzugt
+ \end{itemize} \label{FAeinteilungWunschKriterien}
+ 
 \end{enumerate}
 
-\subsection{Betreuerfunktionen}
-%TODO ein oder 2 Sätze in wieweit betreuer komplett wunsch ist 
-\subsubsection{Wunschfunktionen}
-
-\begin{enumerate}[label=\swtLabel{FA}, resume]
-  \item Anmeldung  \label{FAbetreuerAnmeldung} \testRef{UCbetreuerAnmeldung}
-  \item Erstellung eines \glspl{Projekt}s \label{FAbetreuerAddProjekt}
-  \testRef{UCbetreuerThemaErstellenÄndern}
-  \item Ändern der \gls{Projektdetails}: Name, Beschreibung, \gls{Projektbetreuer},
-        minimale und maximale Teilnehmerzahl, Anzahl der \glspl{Team}
-        \label{FAbetreuerChangeProjekt} \testRef{UCbetreuerThemaErstellenÄndern}%TODO Verweis auf
-        % Produktdaten?
-  \item Einsehen der \gls{Einteilung} zu eigenen \glspl{Projekt}n
-  \label{FAbetreuerEinsichtEinteilung}
-  \testRef{UCbetreuerEinsichtEinteilungProjekt}
-  \item Einsehen, ob zugeteilte \glspl{Studierender} noch Nachprüfungen
-  ausstehen haben \label{FAbetreuerEinsichtNachpruefung} \testRef{UCbetreuerEinsichtEinteilungProjekt}
-  \item Einsehen, ob zugeteilte \glspl{Studierender} schon im Campus Management
-  System für \gls{PSE} und \gls{TSE} angemeldet sind
-  \label{FAbetreuerEinsichtTSE} \testRef{UCbetreuerEinsichtEinteilungProjekt}
-  \item Abmeldung \label{FAbetreuerAbmeldung} \testRef{UCbetreuerLogout}
-  \item Noteneintragung für \glspl{Studierender} der betreuten \glspl{Projekt}
-  \label{FAbetreuerNoten} \testRef{UCbetreuerNoteneintragung}
-  \item Einem \gls{Projekt} als Betreuer beitreten \label{FAbetreuerJoinProjekt}
-  \testRef{UCbetreuerJoinProjekt}
-  \item Ein \gls{Projekt} als \gls{Projektbetreuer} verlassen \label{FAbetreuerLeaveprojekt}
-  \testRef{UCbetreuerLeaveProjekt}
-
-\end{enumerate}
 
 \subsection{\gls{Admin}funktionen}
 
@@ -459,44 +423,108 @@ ein Verweis auf den Anwendungsfall, der die Funktion beschreibt und testet.
   \ref{UCadminRemoveStudFromTeam}, \ref{UCadminSwapStudsBetweenTeams}]
 \end{enumerate}
 
-\subsection{\gls{Einteilung}sfunktionen}
+\subsection{\glspl{Studierender}nfunktionen}
+
 \subsubsection{Pflichtfunktionen}
-\begin{enumerate}[label=\swtLabel{FA}, resume]
-  \item \gls{Einteilung} der \glspl{Studierender}n zu \glspl{Projekt}n. Hierbei werden
-  folgende Kriterien, soweit möglich, berücksichtigt: \testRef{UCadminVergleichGuete},
-  \testRef{UCadminEinteilungStart}
+
+\begin{enumerate}[label=\swtLabel{FA}]
+  \item Registrierung eines \glspl{Studierender}n mit Datenerfassung: \testRef{UCstudReg}
+  \label{FAregistrierung}
   \begin{itemize}
-    \item Wer die durch seine \gls{SPO} gegebenen Voraussetzungen nicht erfüllt,
-    wird nicht eingeteilt \label{FAeinteilung}
-    \item Möglichst viele \glspl{Studierender} werden zu \glspl{Projekt}n zugeteilt 
-    \item \glspl{Lerngruppe} bleiben zusammen
-    \item \gls{Bewertung} der \glspl{Studierender}n werden berücksichtigt 
- \end{itemize} \label{FAeinteilungMussKriterien} 
- \item Berechnung von \glspl{Guetekriterium} \label{FAguetekriterien}
- \testRef{UCadminVergleichGuete}
- 
+    \item Vorname, Nachname, \gls{Matrikelnummer}, E"=Mail"=Adresse, Semester und
+    Passwort
+    \item Auswahl bestandener \glspl{Teilleistung} und der \gls{SPO}
+    \item Auswahl noch ausstehender Nachprüfungen 
+  \end{itemize}
+  (vgl.  \ref{SDatenAnfang} bis \ref{SDatenEnde})
+  \item Anmeldung mit \gls{Matrikelnummer} und Passwort\label{FAStudanmeldung}
+  \testRef{UCstudAnmeldung}
+  \item \gls{Bewertung} der \glspl{Projekt} \label{FAbewertung} \testRef{UCstudBewertung}
+  \item Erstellung einer \gls{Lerngruppe} mit Name und Passwort
+  \label{FAcreatelerng} \testRef{UCstudCrealernG}
+  \item \gls{Bewertung} der \glspl{Projekt} für die \gls{Lerngruppe} 
+  \label{FAbewertung2} \testRef{UCstudBewertung}
+  \item Beitritt zu einer \gls{Lerngruppe} \label{FAjoinLerng}
+  \testRef{UCstudJoinLernG}
+  \item Austritt aus einer \gls{Lerngruppe} \label{FAlergAustritt}
+  \testRef{UCstudLeaveLernG}
+  \item Übersicht der eigenen \gls{Lerngruppe} 
+  \label{FAcheckLerng} \testRef{UCstudUebersichtLernG}
+  \item Abmeldung \label{FAStudabmeldung} \testRef{UCstudLogout}
+  \item Einsicht der \gls{Einteilung}sergebnisse \label{FAStudeinsicht} \testRef{UCstudEinsichtEinteilung}
 \end{enumerate}
 
- \subsubsection{Wunschfunktionen}
- 
- \begin{enumerate}[label=\swtLabel{FA}, resume]
- \item Stapelverarbeitung von mehreren \glspl{Einteilung} mit unterschiedlichen
- Konfigurationen \label{FAeinteilungStapel} \testRef{UCadminStapelverarbeitung}
- \item Folgende Kriterien fließen in die \gls{Einteilung} ein:
- \testRef{UCadminEinteilungStart}
- \begin{itemize}
- 	\item Wer sich zum zweiten Mal bewirbt, soll bei der \gls{Einteilung} bevorzugt
- 	werden
- 	\item Eher 5er"=\glspl{Team} als 6er"=\glspl{Team}
- 	\item \glspl{Studierender} in einem \gls{Team} sind im gleichen Semester
- 	\item \glspl{Studierender} höheren Semesters werden bevorzugt
- 	\item \glspl{Studierender}, die bereits mehr \glspl{Teilleistung} aus dem ersten Jahr
- 	bestanden haben, werden bevorzugt
- \end{itemize} \label{FAeinteilungWunschKriterien}
- 
+\subsubsection{Wunschfunktionen}
+
+\begin{enumerate}[label=\swtLabel{FA}, resume]
+	\item Anzeigen von \gls{Projekt}beschreibung in \gls{Bewertung}seingabemaske
+	\label{FAbeschreibung-Bewertung} \testRef{UCstudProjektbeschreibung}
+	\item Anmeldung über u"=Account \label{FAstudUanmeldung} \testRef{UCstudAnmeldung}%TODO
+	% Glossareintrag
+	\item Verifikation der E"=Mail"= Adresse über einen Verifikationslink, der an
+	die vom \glspl{Studierender}n angegebene E"=Mail"=Adresse versandt wird
+	\label{FAemailverifikation} \testRef{UCstudVerifikationEmail}
+	\item Anfordern eines neuen Passworts \label{FApasswortvergessen}
+	\testRef{UCstudNewPasswort}
 \end{enumerate}
+
+\subsection{Betreuerfunktionen}
+%TODO ein oder 2 Sätze in wieweit betreuer komplett wunsch ist 
+\subsubsection{Wunschfunktionen}
+
+\begin{enumerate}[label=\swtLabel{FA}, resume]
+  \item Anmeldung  \label{FAbetreuerAnmeldung} \testRef{UCbetreuerAnmeldung}
+  \item Erstellung eines \glspl{Projekt}s \label{FAbetreuerAddProjekt}
+  \testRef{UCbetreuerThemaErstellenÄndern}
+  \item Ändern der \gls{Projektdetails}: Name, Beschreibung, \gls{Projektbetreuer},
+        minimale und maximale Teilnehmerzahl, Anzahl der \glspl{Team}
+        \label{FAbetreuerChangeProjekt} \testRef{UCbetreuerThemaErstellenÄndern}%TODO Verweis auf
+        % Produktdaten?
+  \item Einsehen der \gls{Einteilung} zu eigenen \glspl{Projekt}n
+  \label{FAbetreuerEinsichtEinteilung}
+  \testRef{UCbetreuerEinsichtEinteilungProjekt}
+  \item Einsehen, ob zugeteilte \glspl{Studierender} noch Nachprüfungen
+  ausstehen haben \label{FAbetreuerEinsichtNachpruefung} \testRef{UCbetreuerEinsichtEinteilungProjekt}
+  \item Einsehen, ob zugeteilte \glspl{Studierender} schon im Campus Management
+  System für \gls{PSE} und \gls{TSE} angemeldet sind
+  \label{FAbetreuerEinsichtTSE} \testRef{UCbetreuerEinsichtEinteilungProjekt}
+  \item Abmeldung \label{FAbetreuerAbmeldung} \testRef{UCbetreuerLogout}
+  \item Noteneintragung für \glspl{Studierender} der betreuten \glspl{Projekt}
+  \label{FAbetreuerNoten} \testRef{UCbetreuerNoteneintragung}
+  \item Einem \gls{Projekt} als Betreuer beitreten \label{FAbetreuerJoinProjekt}
+  \testRef{UCbetreuerJoinProjekt}
+  \item Ein \gls{Projekt} als \gls{Projektbetreuer} verlassen \label{FAbetreuerLeaveprojekt}
+  \testRef{UCbetreuerLeaveProjekt}
+
+\end{enumerate}
+
+
 
 \section{Produktdaten}
+
+\subsection{Allgemeine Daten}
+\begin{enumerate}[label=\swtLabel{D},resume]
+  \item Aktuelles Semester
+  \item Verfügbare \glspl{SPO}s
+\end{enumerate}
+
+\subsection{Semesterdaten}
+\begin{enumerate}[label=\swtLabel{D}, resume]
+    \item Name
+    \item Allgemeine Informationen zum \gls{PSE}
+    \item Sichtbar geschaltete \glspl{SPO}
+    \item Startzeit der \glspl{Studierender}nanmeldung
+    \item Deadline für \gls{Bewertung}en
+    \item Bisherige \gls{Einteilung}sergebnisse
+\end{enumerate}
+
+\subsection{\gls{SPO}-Daten}
+\begin{enumerate}[label=\swtLabel{D}, resume]
+	\item Name
+	\item Notwendige \glspl{Teilleistung}
+	\item Wählbare \glspl{Teilleistung}
+\end{enumerate}
+
 
 \subsection{\gls{Admin}daten}
 Über den \gls{Admin} werden folgende Daten gespeichert:
@@ -505,32 +533,6 @@ ein Verweis auf den Anwendungsfall, der die Funktion beschreibt und testet.
 	\item Nutzername
 \end{enumerate}
 
-\subsection{\gls{Projekt}daten}
-Über ein \gls{Projekt} werden folgende Daten speichern:
-\begin{enumerate}[label=\swtLabel{D},resume] 
-  \item Name \label{DProjektAnfang}
-  \item Anzahl der \glspl{Team}
-  \item Beschreibung
-  \item \gls{Projektbetreuer}
-  \item Minimale Teilnehmerzahl
-  \item Maximale Teilnehmerzahl
-  \item Internetadresse zur \gls{Projekt}seite des Lehrstuhls \label{DProjektEnde}
-\end{enumerate}
- 
-\subsection{Allgemeine Daten}
-\begin{enumerate}[label=\swtLabel{D},resume]
-  \item Aktuelles Semester
-  \item Verfügbare \glspl{SPO}s
-\end{enumerate}
-
-\subsection{Betreuerdaten}
-Über einen \gls{Projektbetreuer} werden folgende Daten gespeichert:
-\begin{enumerate}[label=\swtLabel{D}, resume] 
-	\item Name \label{DbetAnfang}
-	\item Vorname
-	\item E"=Mail"=Adresse
-	\item Passwort \label{DbetEnde}
-\end{enumerate}
 \subsection{\glspl{Studierender}ndaten} 
 Über \glspl{Studierender} werden folgende Daten gespeichert:
 \begin{enumerate}[label=\swtLabel{D}, resume] 
@@ -560,22 +562,29 @@ ein Verweis auf den Anwendungsfall, der die Funktion beschreibt und testet.
   \item Mitglieder der \gls{Lerngruppe}
 \end{enumerate}
 
-\subsection{\gls{SPO}-Daten}
-\begin{enumerate}[label=\swtLabel{D}, resume]
-	\item Name
-	\item Notwendige \glspl{Teilleistung}
-	\item Wählbare \glspl{Teilleistung}
+
+\subsection{Betreuerdaten}
+Über einen \gls{Projektbetreuer} werden folgende Daten gespeichert:
+\begin{enumerate}[label=\swtLabel{D}, resume] 
+	\item Name \label{DbetAnfang}
+	\item Vorname
+	\item E"=Mail"=Adresse
+	\item Passwort \label{DbetEnde}
 \end{enumerate}
 
-\subsection{Semesterdaten}
-\begin{enumerate}[label=\swtLabel{D}, resume]
-    \item Name
-    \item Allgemeine Informationen zum \gls{PSE}
-    \item Sichtbar geschaltete \glspl{SPO}
-    \item Startzeit der \glspl{Studierender}nanmeldung
-    \item Deadline für \gls{Bewertung}en
-    \item Bisherige \gls{Einteilung}sergebnisse
+\subsection{\gls{Projekt}daten}
+Über ein \gls{Projekt} werden folgende Daten speichern:
+\begin{enumerate}[label=\swtLabel{D},resume] 
+  \item Name \label{DProjektAnfang}
+  \item Anzahl der \glspl{Team}
+  \item Beschreibung
+  \item \gls{Projektbetreuer}
+  \item Minimale Teilnehmerzahl
+  \item Maximale Teilnehmerzahl
+  \item Internetadresse zur \gls{Projekt}seite des Lehrstuhls \label{DProjektEnde}
 \end{enumerate}
+
+
 
 \section{Nichtfunktioale Anforderungen}
 
@@ -640,469 +649,6 @@ Im Administratiorbereich:
 
 \includegraphics[width=\linewidth]{diagramme_pflichtenheft/UseCase_Diagram.PNG}
 \captionof{figure}{Übersicht über die Anwendungsfälle}
-
-\subsubsection{\glspl{Studierender}}
-
-\begin{enumerate}[label=\swtLabel{S}]
-	\item \label{UCstudReg}
-    \begin{description}
-  	\item[Anwendung:] Registrierung eines \glspl{Studierender}n
-  	\item[Ziel:] Speichern der \glspl{Studierender}ndaten in der Datenbank
-  	\item[Vorbedingung:] Registrierung wurde freigeschaltet
-  	\item[Nachbedingung(Erfolg):] Erfolgreiche Registrierung des \glspl{Studierender}n
-  	\item[Nachbedingung(Fehlschlag):] \gls{Studierender} ist weiterhin nicht
-  	registriert
-  	\item[Beschreibung:]~
-  	\begin{enumerate}
-  	  \item[1.] Öffnen der Internetseite
-      \item[2.] Klick auf Registrieren
-      \item[3.] Ausfüllen der Registrierungsmaske %TODO Verweis auf Bild
-      \item[4.] Abschicken der Daten
-      \item[5.] Existiert der registrierte Account noch nicht, so wird der
-      \glspl{Studierender} der Datenbank hinzugefügt
-  	\end{enumerate}
-  	\item[Erweiterungen:]~
-  	\begin{enumerate}
-  	  \item[zu 3)] Statt der Registrierungsmaske wird hier der \gls{KIT-Account}
-  	  verwendet
-  	  \item[nach 4)] Dem \glspl{Studierender}n wird nach dem Abschicken seiner Daten eine
-  	  \\
-  	  Verifikations-Email gesendet. (siehe \testRef{UCstudVerifikationEmail})
-  	 \end{enumerate} 
-  	\item[Alternativen:]~
-  	\begin{enumerate}
-  	  \item[5a)] Wenn doch, so wird kein weiterer Eintrag hinzugefügt, sondern
-  	  die zweite Registrierung abgebrochen
-  	\end{enumerate} 
-  	\item[Benötigte FA:] \ref{FAregistrierung}, \ref{FAstudUanmeldung}
-  \end{description}
-%   
-  
-  \item \label{UCstudVerifikationEmail}
-    \begin{description}
-    \item[Anwendung:] Verifikation der E"=Mail"=Adresse
-    \item[Ziel:] Verifikation der E"=Mail"=Adresse
-    \item[Vorbedingung:] \gls{Studierender} muss sich registriert haben und seine
-    E"=Mail"=Adresse korrekt angegeben haben.
-    \item[Nachbedingung(Erfolg):] \gls{Studierender} kann sich nun Anmelden und hat
-    Zugriff auf den \glspl{Studierender}nbereich
-    \item[Nachbedingung(Fehlschlag):] \gls{Studierender} kann sich nicht mit seinem Account anmelden
-    \item[Beschreibung:]~
-    \begin{enumerate}
-      \item[1.] E-Mails über Drittsoftware abrufen.
-      \item[2.] Klick auf den Verifikations-Link in der E"=Mail.      
-    \end{enumerate}
-    \item[Erweiterungen:] -keine-
-    \item[Alternativen:] -keine-
-    \item[Benötigte FA:] \ref{FAemailverifikation}
-      \end{description}
-  
-  \item \label{UCstudAnmeldung}
-    \begin{description}
-    \item[Anwendung:] Anmeldung eines \glspl{Studierender}n
-    \item[Ziel:] \gls{Studierender} wird angemeldet und kann seine \gls{Bewertung} ändern
-  	\item[Vorbedingung:] Der \glspl{Studierender} hat sich vorher registriert
-  	\item[Nachbedingung(Erfolg):] Der \glspl{Studierender} ist angemeldet
-  	\item[Nachbedingung(Fehlschlag):] Der \glspl{Studierender} ist nicht angemeldet
-  	\item[Beschreibung:]~
-  	\begin{enumerate}
-  	  \item[1.] \gls{Studierender} öffnet die Website
-  	  \item[2.] \gls{Studierender} füllt das Formular zum Anmelden aus und schickt
-  	  dieses ab %TODO: Verweis auf Bild
-  	  \item[3.] Sind die Anmeldedaten korrekt, so wird der \glspl{Studierender} zum
-  	  \glspl{Studierender}nbereich weitergeleitet
-  	\end{enumerate}
-  	\item[Erweiterungen:]
-  	\begin{enumerate}
-  	  \item[2)] Kein Formular, sondern Anmeldung über \gls{KIT-Account}
-  	\end{enumerate}    	
-  	\item[Alternativen:]
-	\begin{enumerate}
-  	  \item[3a)] Wenn nicht, so erhält er eine Fehlermeldung
-  	\end{enumerate}
-  	\item[Benötigte FA:] \ref{FAStudanmeldung}, \ref{FAstudUanmeldung}
-  \end{description}
-   
-  
-  \item \label{UCstudCrealernG}
-  \begin{description}
-  \item[Anwendung:] \gls{Studierender} erstellt \gls{Lerngruppe}
-  \item[Ziel:] Eine neue \gls{Lerngruppe} ist in der Datenbank vermerkt und der
-  Ersteller ist erstes Mitglied dieser
-  	\item[Vorbedingung:] \gls{Studierender} ist angemeldet und befindet sich auf der
-  	Website im \glspl{Studierender}nportal
-  	\item[Nachbedingung(Erfolg):] Die \gls{Lerngruppe} wurde erfolgreich erstellt
-  	\item[Nachbedingung(Fehlschlag):] Die \gls{Lerngruppe} wurde nicht erstellt
-  	\item[Beschreibung:]~
-  	\begin{enumerate}
-  	  \item[1.] \gls{Studierender} gibt Name und Passwort in das Formular zum Erstellen
-  	  einer \gls{Lerngruppe} ein und schickt dieses ab %TODO: Verweis einfügen
-  	  \item[2.] Wenn noch keine \gls{Lerngruppe} mit diesem Namen existiert, so
-  	  wird die \gls{Lerngruppe} in der Datenbank angelegt und der Ersteller wird
-  	  erstes Mitglied
-  	\end{enumerate}
-  	\item[Erweiterungen:] -keine-
-  	\item[Alternativen:] ~
-  	\begin{enumerate}
-  	  \item[2a)] Eine \gls{Lerngruppe} mit diesem Namen existiert schon. Dann
-  	  wird keine weitere \gls{Lerngruppe} angelegt und dem \glspl{Studierender}n wird
-  	  mitgeteilt, dass er den Namen der \gls{Lerngruppe} verändern soll
-  	 \end{enumerate}
-  	 \item[Benötigte FA:] \ref{FAcreatelerng}
-  \end{description}
-   
-  
-  \item \label{UCstudJoinLernG}
-  \begin{description}
-  \item[Anwendung:] \gls{Studierender} tritt \gls{Lerngruppe} bei
-  \item[Ziel:] \gls{Studierender} ist Mitglied einer \gls{Lerngruppe}
-  	\item[Vorbedingung:] \gls{Studierender} ist angemeldet und befindet sich auf der
-  	Webseite im \glspl{Studierender}nberiech
-  	\item[Nachbedingung(Erfolg):] Der \glspl{Studierender} ist Mitglied der
-  	\gls{Lerngruppe}
-  	\item[Nachbedingung(Fehlschlag):] Der \glspl{Studierender} ist nicht Mitglied der
-  	\gls{Lerngruppe}
-  	\item[Beschreibung:]~
-  	\begin{enumerate}
-  	  \item[1.] Der \glspl{Studierender} gibt die Anmeldedaten der \gls{Lerngruppe} in das
-  	  passende Formular ein und schickt dieses ab %TODO: Verweis
-  	  \item[2.] Existiert die angegebene \gls{Lerngruppe}, so wird die
-  	  Mitgliederliste der \gls{Lerngruppe} um den \glspl{Studierender}n erweitert
-  	\end{enumerate}
-  	\item[Erweiterungen:]~
-  	\begin{enumerate}
-  	  \item[2a)] Ist die \gls{Lerngruppe} schon vollständig, so wird der
-  	  \glspl{Studierender} nicht der Gruppe zugewiesen
-  	  \item[3)] Ist der \glspl{Studierender} nicht der \gls{Lerngruppe} zugewiesen worden,
-  	  so werden die zuletzt gespeicherten \gls{Bewertung} verwendet
-  	  \item[4)] Die gesamte \glspl{Lerngruppe} wird per E-Mail informiert
-  	 \end{enumerate}
-  	\item[Alternativen:] ~
-  	\begin{enumerate}
-  	  \item[2a)] Existiert keine solche Gruppe, so schlägt der Beitritt fehl und
-  	  der \glspl{Studierender} ist kein Mitglied der \gls{Lerngruppe}
-  	 \end{enumerate}
-  	 \item[Benötigte FA:] \ref{FAjoinLerng}
-  \end{description}
-  
-   \item \label{UCstudUebersichtLernG}
-  \begin{description}
-  \item[Anwendung:] Übersicht über \gls{Lerngruppe}
-  \item[Ziel:] \gls{Studierender} kann sehen wer in seiner \gls{Lerngruppe} ist
-  	\item[Vorbedingung:] \gls{Studierender} ist angemeldet und befindet sich auf der
-  	Webseite im \glspl{Studierender}nbereich. Weiterhin ist der \glspl{Studierender} Mitglied einer
-  	\gls{Lerngruppe}
-  	\item[Nachbedingung(Erfolg):] \gls{Studierender} befindet sich nun in der
-  	\glspl{Lerngruppe}übersicht
-  	\item[Nachbedingung(Fehlschlag):] Der \glspl{Studierender} ist nicht in der
-  	\glspl{Lerngruppe}übersicht
-  	\item[Beschreibung:]~
-  	\begin{enumerate}
-  	  \item[1.] Der \glspl{Studierender} klickt auf \gls{Lerngruppe} %TODO Verweis
-    \end{enumerate}
-  	\item[Erweiterungen:] -keine-
-  	\item[Alternativen:] -keine-  	
-  	\item[Benötigte FA:] \ref{FAcheckLerng}
-  \end{description}
-  
-     \item \label{UCstudEinsichtEinteilung}
-  \begin{description}
-  \item[Anwendung:] Einsicht der \gls{Einteilung}sergebnisse
-  \item[Ziel:] \gls{Studierender} kann sehen welchem \gls{Projekt} er
-  zugeteilt wurde
-  	\item[Vorbedingung:] \gls{Studierender} ist angemeldet und befindet sich auf der
-  	Webseite im \glspl{Studierender}nbereich. 
-  	\item[Nachbedingung(Erfolg):] \gls{Studierender} befindet sich in der Maske
-  	\gls{Einteilung}sergebnisse. %TODO verweis
-  	Falls der \gls{Admin} die \gls{Einteilung}sergebnisse bereits veröffentlicht hat,
-  	kann er sehen, welchem \gls{Projekt} er zugeteilt wurde. Sonst sieht er, dass
-  	die \gls{Einteilung} noch im Gange ist %TODO Gehört der Abschnitt hier rein?
-  	\item[Nachbedingung(Fehlschlag):] Der \glspl{Studierender} ist nicht in der
-  	Maske \gls{Einteilung}sergebnisse
-  	\item[Beschreibung:]~
-  	\begin{enumerate}
-  	  \item[1.] Der \glspl{Studierender} klickt auf \gls{Einteilung}sergebnisse
- 
-  	\end{enumerate}
-  	\item[Erweiterungen:] -keine-
-
-  	\item[Alternativen:] -keine-
-  	
-  	 \item[Benötigte FA:] \ref{FAStudeinsicht}
-  \end{description}
-  
-    \item \label{UCstudProjektbeschreibung}
-  \begin{description}
-  \item[Anwendung:] Anzeigen der \gls{Projekt}beschreibung in \gls{Bewertung}smaske
-  \item[Ziel:] \gls{Studierender} kann sich während der \gls{Einteilung} die Beschreibung
-  der zu bewertenden \glspl{Projekt} nochmal ansehen
-  	\item[Vorbedingung:] \gls{Studierender} ist angemeldet und befindet sich in der
-  	Projekt\gls{Bewertung}smaske %TODO verweis
-  	
-  	\item[Nachbedingung(Erfolg):] \gls{Studierender} kann die \gls{Projekt}beschreibung als
-  	\enquote{Overlay} sehen %TODO wirklich als overlay? wie sieht der Studierend
-  	%die beschreibunmg e
-  	
-  	\item[Nachbedingung(Fehlschlag):] Der \glspl{Studierender} kann die
-  	Projektbeschreibung nicht sehen
-  	\item[Beschreibung:]~
-  	\begin{enumerate}
-  	  \item[1.] Der \glspl{Studierender} fährt mit seiner Maus über den \gls{Projekt}namen
- 
-  	\end{enumerate}
-  	\item[Erweiterungen:] -keine-
-
-  	\item[Alternativen:] -keine-
-
-  	 \item[Benötigte FA:] \ref{FAbeschreibung-Bewertung}
-  \end{description}
-  
-      \item \label{UCstudLeaveLernG}
-  \begin{description}
-  \item[Anwendung:] Austritt aus einer \gls{Lerngruppe}
-  \item[Ziel:] \gls{Studierender} möchte aus einer \gls{Lerngruppe} austreten
-  	\item[Vorbedingung:] \gls{Studierender} ist angemeldet und befindet sich auf der
-  	Webseite im \glspl{Studierender}nbereich. Weiterhin ist er Mitglied
-  	einer \gls{Lerngruppe}
-  	%TODO verweis
-  	
-  	\item[Nachbedingung(Erfolg):] \gls{Studierender} ist kein Mitglied der
-  	\gls{Lerngruppe} mehr
-  	
-  	\item[Nachbedingung(Fehlschlag):] \gls{Studierender} ist immer noch Mitglied der
-  	\gls{Lerngruppe}
-  	\item[Beschreibung:]~
-  	\begin{enumerate}
-  	  \item[1.] Der \glspl{Studierender} klickt auf \gls{Lerngruppe}. Nun befindet er sich
-  	  in der \enquote{\gls{Lerngruppe}}-Maske %TODO verweis
-  	  \item[2.] Der \glspl{Studierender} klickt auf \enquote{Austreten}
- 
-  	\end{enumerate}
-  	\item[Erweiterungen:] -keine-
-
-  	\item[Alternativen:] -keine-
-
-  	 \item[Benötigte FA:] \ref{FAlergAustritt}
-  \end{description}
-%   
-  
-  \item \label{UCstudBewertung}
-  \begin{description}
-  \item[Anwendung:] \gls{Studierender} bewertet \glspl{Projekt}
-  \item[Ziel:] Der \glspl{Studierender} hat eine \gls{Bewertung} abgegeben
-  	\item[Vorbedingung:] Der \glspl{Studierender} ist angemeldet und im \glspl{Studierender}nportal der
-  	Website
-  	\item[Nachbedingung(Erfolg):] Die \gls{Bewertung} wurde gespeichert
-  	\item[Nachbedingung(Fehlschlag):] Die \gls{Bewertung} wurde nicht gespeichert
-  	\item[Beschreibung:]~
-  	 \begin{enumerate}
-  	   \item[1.] Der \glspl{Studierender} füllt die \gls{Bewertung}smaske aus %TODO: Verweis
-  	   \item[2.] Der \glspl{Studierender} speichert die \gls{Bewertung} ab
-  	   \item[3.] Ist der \glspl{Studierender} Mitglied einer \gls{Lerngruppe}, so gilt die
-  	   \gls{Bewertung} gleichzeitig auch für alle anderen Mitglieder
-  	 \end{enumerate}
-  	\item[Erweiterungen:] -keine-
-  	\item[Alternativen:] ~
-  	\begin{enumerate}
-  	  \item[3a)] Wenn nicht, so gilt sie nur für den \glspl{Studierender}n
-  	 \end{enumerate}
-  	\item[Benötigte FA:] \ref{FAbewertung}, \ref{FAbewertung2}
-  \end{description}
-
- 
-  \item \label{UCstudNewPasswort}
-    \begin{description}
-  	\item[Anwendung:] Passwort vergessen
-  	\item[Ziel:] Erhalten eines neuen Passworts
-  	\item[Vorbedingung:] Der \glspl{Studierender} hat schon einen Account
-  	\item[Nachbedingung(Erfolg):] Der \glspl{Studierender} erhält eine E-Mail mit einem
-  	neuen Passwort
-  	\item[Nachbedingung(Fehlschlag):] Der \glspl{Studierender} erhält keine E-Mail
-  	\item[Beschreibung:]~
-  	\begin{enumerate}
-  	  \item[1.] Öffnen der Internetseite
-      \item[2.] Klick auf \enquote{Passwort vergessen}
-      \item[3.] Eingabe der E"=Mail"=Adresse
-      \item[4.] Der \glspl{Studierender} erhält eine E"=Mail mit seinem neuen Passwort
-  	\end{enumerate}
-  	\item[Erweiterungen:] -keine-
-  	\item[Alternativen:] -keine-
-  	\item[Benötigte FA:] \ref{FApasswortvergessen}
-  \end{description}
-  
-  \item \label{UCstudLogout}
-    \begin{description}
-  	\item[Anwendung:] Abmeldung
-  	\item[Ziel:] Student meldet sich ab
-  	\item[Vorbedingung:] Der \glspl{Studierender} ist angemeldet und befindet sich im \glspl{Studierender}nbereich
-  	\item[Nachbedingung(Erfolg):] Der \glspl{Studierender} ist abgemeldet und befindet sich auf der Startseite
-  	\item[Nachbedingung(Fehlschlag):] Der \glspl{Studierender} ist nicht abgemeldet
-  	\item[Beschreibung:]~
-  	\begin{enumerate}
-  	  \item[1.] \gls{Studierender} ist im \glspl{Studierender}nbereich der Webseite
-      \item[2.] Klick auf \enquote{Ausloggen} in der Seitenleiste
-      \item[3.] Die Startseite erscheint
-  	\end{enumerate}
-  	\item[Erweiterungen:] -keine-
-  	\item[Alternativen:] -keine-
-  	\item[Benötigte FA:] \ref{FAStudabmeldung}
-  \end{description}
-   
-\end{enumerate}
-
-\subsubsection{Betreuer}
-\begin{enumerate} [label=\swtLabel{B}]
-  \item \label{UCbetreuerAnmeldung}
-	 \begin{description}
-		\item[Anwendung:] \gls{Projektbetreuer} meldet sich an
-  		\item[Ziel:] Anmeldung des \gls{Projektbetreuer}s
-  		\item[Vorbedingung:] Konto des \gls{Projektbetreuer}s wurde angelegt
-  		\item[Nachbedingung(Erfolg):] \gls{Projektbetreuer} ist angemeldet
-  		\item[Nachbedingung(Fehlschlag):] \gls{Projektbetreuer} ist nicht angemeldet
-  		\item[Beschreibung]~
-  		\begin{enumerate}
-  			\item[1.] Der \gls{Projektbetreuer} gibt seine Zugangsdaten ein
-  			\item[2.] Wenn die Anmeldedaten korrekt sind, wird er auf den
-  			Betreuerbereich weitergeleitet
-  		\end{enumerate}
-  		\item[Erweiterungen:] -keine-
-  		\item[Alternativen:] ~
-  		\begin{enumerate}
-  		  \item[2a)] Wenn nicht, erhält er eine Fehlermeldung
-  		\end{enumerate}  
-  		\item[Benötigte FA:] \ref{FAbetreuerAnmeldung}
-  	\end{description}
-   
-  
-  \item \label{UCbetreuerThemaErstellenÄndern}
-	\begin{description}
-  		\item[Anwendung:] \gls{Projekt} erstellen/ändern
-  		\item[Ziel:] Eröffnung/Änderung eines \glspl{Projekt}s
-  		\item[Vorbedingung:] -keine-
-  		\item[Nachbedingung(Erfolg):] \gls{Projekt}daten sind im System eingetragen
-  		\item[Nachbedingung(Fehlschlag):] \gls{Projekt}daten sind nicht im System
-  		eingetragen
-  		\item[Beschreibung:]~
-  	\begin{enumerate}
-  	  \item[1.] \gls{Projektbetreuer} befindet sich auf der Website mit den \gls{Projekt}
-  	  \item[2.] Existiert das \gls{Projekt} schon, so wählt der \gls{Projektbetreuer} dieses aus
-  	  \item[3.] \gls{Projektbetreuer} füllt die Eingabemaske aus
-  	  \item[4.] \gls{Projektbetreuer} speichert die neuen Daten ab
-  	\end{enumerate}
-  	\item[Erweiterungen:] -keine-
-  	\item[Alternativen:]~
-  	\begin{enumerate}
-  	  \item[2a)] Wenn nicht, so fügt er ein neues hinzu
-  	\end{enumerate}  
-  	\item[Benötigte FA:] \ref{FAbetreuerAddProjekt}, \ref{FAbetreuerChangeProjekt}
-  \end{description}
-
- 
-  \item \label{UCbetreuerJoinProjekt}
-	\begin{description}
-  		\item[Anwendung:] \gls{Projektbetreuer} werden
-  		\item[Ziel:] \gls{Projektbetreuer} eines bestimmten \glspl{Projekt}s werden
-  		\item[Vorbedingung:] Man ist noch nicht \gls{Projektbetreuer} des ausgewählten \glspl{Projekt}s
-  		\item[Nachbedingung(Erfolg):] Erfolgreich \gls{Projektbetreuer} des ausgewählten
-  		\glspl{Projekt}s geworden
-  		\item[Nachbedingung(Fehlschlag):] Man ist nicht \gls{Projektbetreuer} des \glspl{Projekt}s
-  		\item[Beschreibung:]~
-  	\begin{enumerate} 
-  	  \item[1.] \gls{Projektbetreuer} befindet sich auf der Website mit den \glspl{Projekt}n
-  	  \item[2.] \gls{Projektbetreuer} wählt das \gls{Projekt} aus, welches er betreuen möchte
-  	  \item[3.] \gls{Projektbetreuer} tritt dem \gls{Projekt} bei
-  	\end{enumerate}
-  	\item[Erweiterungen:] -keine-
-  	\item[Alternativen:] -keine-
-  	\item[Benötigte FA:] \ref{FAbetreuerJoinProjekt}
-  \end{description}
-  
-  
-  \item \label{UCbetreuerEinsichtEinteilungProjekt}
-  \begin{description}
-  	\item[Anwendung:] Einsicht der \gls{Einteilung}sergebnisse und zusätzlicher Informationen
-  	\item[Ziel:] Der \gls{Projektbetreuer} kann sehen, wer zu seinen \glspl{Projekt}n zugeteilt wurde und erhält weitere Informationen
-  	\item[Vorbedingung:] \gls{Projektbetreuer} ist angemeldet und befindet sich auf der
-  	Webseite im Betreuerbereich  %TODO noch kein GUI entwurf
-  	\item[Nachbedingung(Erfolg):] \gls{Projektbetreuer} befindet sich in der Maske
-  	\gls{Einteilung}sergebnisse. %TODO verweis
-  	Falls der \gls{Admin} die \gls{Einteilung}sergebnisse bereits veröffentlicht hat, kann er
-  	sehen, wer seinen \glspl{Projekt}n zugeteilt wurde. Sonst sieht er, dass die \gls{Einteilung}
-  	noch im Gange ist
-  	\item[Nachbedingung(Fehlschlag):] Der \gls{Projektbetreuer} ist nicht in der
-  	Maske \gls{Einteilung}sergebnisse
-  	\item[Beschreibung:]~
-  	\begin{enumerate}
-  		\item[1.] Der \gls{Projektbetreuer} klickt auf \enquote{\gls{Einteilung}sergebnisse} 
-		\item[2.] Der \gls{Projektbetreuer} sieht, welche \glspl{Studierender} in welchen \glspl{Team} seinem \gls{Projekt} zugeordnet wurden. Zusätzlich erhält er die Information, ob \glspl{Studierender} sich im CMS schon zum \gls{PSE} und \gls{TSE} angemeldet haben und ob noch \glspl{Teilleistung} offen sind.
-  	\end{enumerate}
-  	\item[Erweiterungen:] -keine-
-  	
-  	\item[Alternativen:] -keine-
-  	
-  	\item[Benötigte FA:] \ref{FAbetreuerEinsichtEinteilung}, \ref{FAbetreuerEinsichtNachpruefung}, \ref{FAbetreuerEinsichtTSE}
-  \end{description}
-   
-  
-  \item \label{UCbetreuerLeaveProjekt}
-	\begin{description}
-  		\item[Anwendung:] \gls{Projekt} verlassen
-  		\item[Ziel:] Ein \gls{Projekt} nicht mehr betreuen
-  		\item[Vorbedingung:] Man ist \gls{Projektbetreuer} eines \glspl{Projekt}s, in dem noch mindestens
-  		ein anderer \gls{Projektbetreuer} ist.
-  		\item[Nachbedingung(Erfolg):] Man betreut das \gls{Projekt} nicht länger
-  		\item[Nachbedingung(Fehlschlag):] Man ist immer noch \gls{Projektbetreuer} des \glspl{Projekt}s
-  		\item[Beschreibung:]~
-  	\begin{enumerate} 
-  	  \item[1.] \gls{Projektbetreuer} befindet sich auf der Website mit den \glspl{Projekt}n, die
-  	  er betreut.
-  	  \item[2.] \gls{Projektbetreuer} wählt das \gls{Projekt} aus, welches er verlassen möchte.
-  	  \item[3.] \gls{Projektbetreuer} verlässt das \gls{Projekt}.
-  	\end{enumerate}
-  	\item[Erweiterungen:] -keine-
-  	\item[Alternativen:] -keine-
-  	\item[Benötigte FA:] \ref{FAbetreuerLeaveprojekt}
-  \end{description}
-   
-  
-  \item \label{UCbetreuerNoteneintragung}
-    \begin{description}
-  	\item[Anwendung:] Noten für \gls{Team} eintragen
-  	\item[Ziel:] Speichern der Noten in der Datenbank
-  	\item[Vorbedingung:] \gls{Team} hat \glspl{Studierender}n als Teilnehmer
-  	\item[Nachbedingung(Erfolg):] Eintragung/Änderung der Noten
-  	\item[Nachbedingung(Fehlschlag):] Notenänderung wird verworfen
-  	\item[Beschreibung:]~
-  	\begin{enumerate} 
-  	  \item[1.] \gls{Projektbetreuer} befindet sich auf der Website mit der Notenübersicht
-  	  \item[2.] \gls{Projektbetreuer} trägt neue Noten für einen \glspl{Studierender}n ein oder
-  	  ändert bestehende Noten
-  	\end{enumerate}
-  	\item[Erweiterungen:] -keine-
-  	\item[Alternativen] -keine-
-  	\item[Benötigte FA:] \ref{FAbetreuerNoten}
-  \end{description}
-  
-  \item \label{UCbetreuerLogout}
-    \begin{description}
-  	\item[Anwendung:] Abmeldung
-  	\item[Ziel:] \gls{Projektbetreuer} meldet sich ab
-  	\item[Vorbedingung:] Der \gls{Projektbetreuer} ist angemeldet und befindet sich im Betreuerbereich
-  	\item[Nachbedingung(Erfolg):] Der \gls{Projektbetreuer} ist abgemeldet und befindet sich auf der Startseite
-  	\item[Nachbedingung(Fehlschlag):] Der \gls{Projektbetreuer} ist nicht abgemeldet
-  	\item[Beschreibung:]~
-  	\begin{enumerate}
-  	  \item[1.] \gls{Projektbetreuer} ist im Betreuerbereich der Webseite
-      \item[2.] Klick auf \enquote{Ausloggen} in der Seitenleiste
-      \item[3.] Die Startseite erscheint
-  	\end{enumerate}
-  	\item[Erweiterungen:] -keine-
-  	\item[Alternativen:] -keine-
-  	\item[Benötigte FA:] \ref{FAbetreuerAbmeldung}
-  \end{description}
-   
-\end{enumerate}
-
 
 \subsubsection{\gls{Admin}}
 \begin{enumerate} [label=\swtLabel{A}]
@@ -1717,6 +1263,470 @@ Im Administratiorbereich:
   \end{description}
   
 \end{enumerate}  
+\subsubsection{\glspl{Studierender}}
+
+\begin{enumerate}[label=\swtLabel{S}]
+	\item \label{UCstudReg}
+    \begin{description}
+  	\item[Anwendung:] Registrierung eines \glspl{Studierender}n
+  	\item[Ziel:] Speichern der \glspl{Studierender}ndaten in der Datenbank
+  	\item[Vorbedingung:] Registrierung wurde freigeschaltet
+  	\item[Nachbedingung(Erfolg):] Erfolgreiche Registrierung des \glspl{Studierender}n
+  	\item[Nachbedingung(Fehlschlag):] \gls{Studierender} ist weiterhin nicht
+  	registriert
+  	\item[Beschreibung:]~
+  	\begin{enumerate}
+  	  \item[1.] Öffnen der Internetseite
+      \item[2.] Klick auf Registrieren
+      \item[3.] Ausfüllen der Registrierungsmaske %TODO Verweis auf Bild
+      \item[4.] Abschicken der Daten
+      \item[5.] Existiert der registrierte Account noch nicht, so wird der
+      \glspl{Studierender} der Datenbank hinzugefügt
+  	\end{enumerate}
+  	\item[Erweiterungen:]~
+  	\begin{enumerate}
+  	  \item[zu 3)] Statt der Registrierungsmaske wird hier der \gls{KIT-Account}
+  	  verwendet
+  	  \item[nach 4)] Dem \glspl{Studierender}n wird nach dem Abschicken seiner Daten eine
+  	  \\
+  	  Verifikations-Email gesendet. (siehe \testRef{UCstudVerifikationEmail})
+  	 \end{enumerate} 
+  	\item[Alternativen:]~
+  	\begin{enumerate}
+  	  \item[5a)] Wenn doch, so wird kein weiterer Eintrag hinzugefügt, sondern
+  	  die zweite Registrierung abgebrochen
+  	\end{enumerate} 
+  	\item[Benötigte FA:] \ref{FAregistrierung}, \ref{FAstudUanmeldung}
+  \end{description}
+%   
+  
+  \item \label{UCstudVerifikationEmail}
+    \begin{description}
+    \item[Anwendung:] Verifikation der E"=Mail"=Adresse
+    \item[Ziel:] Verifikation der E"=Mail"=Adresse
+    \item[Vorbedingung:] \gls{Studierender} muss sich registriert haben und seine
+    E"=Mail"=Adresse korrekt angegeben haben.
+    \item[Nachbedingung(Erfolg):] \gls{Studierender} kann sich nun Anmelden und hat
+    Zugriff auf den \glspl{Studierender}nbereich
+    \item[Nachbedingung(Fehlschlag):] \gls{Studierender} kann sich nicht mit seinem Account anmelden
+    \item[Beschreibung:]~
+    \begin{enumerate}
+      \item[1.] E-Mails über Drittsoftware abrufen.
+      \item[2.] Klick auf den Verifikations-Link in der E"=Mail.      
+    \end{enumerate}
+    \item[Erweiterungen:] -keine-
+    \item[Alternativen:] -keine-
+    \item[Benötigte FA:] \ref{FAemailverifikation}
+      \end{description}
+  
+  \item \label{UCstudAnmeldung}
+    \begin{description}
+    \item[Anwendung:] Anmeldung eines \glspl{Studierender}n
+    \item[Ziel:] \gls{Studierender} wird angemeldet und kann seine \gls{Bewertung} ändern
+  	\item[Vorbedingung:] Der \glspl{Studierender} hat sich vorher registriert
+  	\item[Nachbedingung(Erfolg):] Der \glspl{Studierender} ist angemeldet
+  	\item[Nachbedingung(Fehlschlag):] Der \glspl{Studierender} ist nicht angemeldet
+  	\item[Beschreibung:]~
+  	\begin{enumerate}
+  	  \item[1.] \gls{Studierender} öffnet die Website
+  	  \item[2.] \gls{Studierender} füllt das Formular zum Anmelden aus und schickt
+  	  dieses ab %TODO: Verweis auf Bild
+  	  \item[3.] Sind die Anmeldedaten korrekt, so wird der \glspl{Studierender} zum
+  	  \glspl{Studierender}nbereich weitergeleitet
+  	\end{enumerate}
+  	\item[Erweiterungen:]
+  	\begin{enumerate}
+  	  \item[2)] Kein Formular, sondern Anmeldung über \gls{KIT-Account}
+  	\end{enumerate}    	
+  	\item[Alternativen:]
+	\begin{enumerate}
+  	  \item[3a)] Wenn nicht, so erhält er eine Fehlermeldung
+  	\end{enumerate}
+  	\item[Benötigte FA:] \ref{FAStudanmeldung}, \ref{FAstudUanmeldung}
+  \end{description}
+   
+  
+  \item \label{UCstudCrealernG}
+  \begin{description}
+  \item[Anwendung:] \gls{Studierender} erstellt \gls{Lerngruppe}
+  \item[Ziel:] Eine neue \gls{Lerngruppe} ist in der Datenbank vermerkt und der
+  Ersteller ist erstes Mitglied dieser
+  	\item[Vorbedingung:] \gls{Studierender} ist angemeldet und befindet sich auf der
+  	Website im \glspl{Studierender}nportal
+  	\item[Nachbedingung(Erfolg):] Die \gls{Lerngruppe} wurde erfolgreich erstellt
+  	\item[Nachbedingung(Fehlschlag):] Die \gls{Lerngruppe} wurde nicht erstellt
+  	\item[Beschreibung:]~
+  	\begin{enumerate}
+  	  \item[1.] \gls{Studierender} gibt Name und Passwort in das Formular zum Erstellen
+  	  einer \gls{Lerngruppe} ein und schickt dieses ab %TODO: Verweis einfügen
+  	  \item[2.] Wenn noch keine \gls{Lerngruppe} mit diesem Namen existiert, so
+  	  wird die \gls{Lerngruppe} in der Datenbank angelegt und der Ersteller wird
+  	  erstes Mitglied
+  	\end{enumerate}
+  	\item[Erweiterungen:] -keine-
+  	\item[Alternativen:] ~
+  	\begin{enumerate}
+  	  \item[2a)] Eine \gls{Lerngruppe} mit diesem Namen existiert schon. Dann
+  	  wird keine weitere \gls{Lerngruppe} angelegt und dem \glspl{Studierender}n wird
+  	  mitgeteilt, dass er den Namen der \gls{Lerngruppe} verändern soll
+  	 \end{enumerate}
+  	 \item[Benötigte FA:] \ref{FAcreatelerng}
+  \end{description}
+   
+  
+  \item \label{UCstudJoinLernG}
+  \begin{description}
+  \item[Anwendung:] \gls{Studierender} tritt \gls{Lerngruppe} bei
+  \item[Ziel:] \gls{Studierender} ist Mitglied einer \gls{Lerngruppe}
+  	\item[Vorbedingung:] \gls{Studierender} ist angemeldet und befindet sich auf der
+  	Webseite im \glspl{Studierender}nberiech
+  	\item[Nachbedingung(Erfolg):] Der \glspl{Studierender} ist Mitglied der
+  	\gls{Lerngruppe}
+  	\item[Nachbedingung(Fehlschlag):] Der \glspl{Studierender} ist nicht Mitglied der
+  	\gls{Lerngruppe}
+  	\item[Beschreibung:]~
+  	\begin{enumerate}
+  	  \item[1.] Der \glspl{Studierender} gibt die Anmeldedaten der \gls{Lerngruppe} in das
+  	  passende Formular ein und schickt dieses ab %TODO: Verweis
+  	  \item[2.] Existiert die angegebene \gls{Lerngruppe}, so wird die
+  	  Mitgliederliste der \gls{Lerngruppe} um den \glspl{Studierender}n erweitert
+  	\end{enumerate}
+  	\item[Erweiterungen:]~
+  	\begin{enumerate}
+  	  \item[2a)] Ist die \gls{Lerngruppe} schon vollständig, so wird der
+  	  \glspl{Studierender} nicht der Gruppe zugewiesen
+  	  \item[3)] Ist der \glspl{Studierender} nicht der \gls{Lerngruppe} zugewiesen worden,
+  	  so werden die zuletzt gespeicherten \gls{Bewertung} verwendet
+  	  \item[4)] Die gesamte \glspl{Lerngruppe} wird per E-Mail informiert
+  	 \end{enumerate}
+  	\item[Alternativen:] ~
+  	\begin{enumerate}
+  	  \item[2a)] Existiert keine solche Gruppe, so schlägt der Beitritt fehl und
+  	  der \glspl{Studierender} ist kein Mitglied der \gls{Lerngruppe}
+  	 \end{enumerate}
+  	 \item[Benötigte FA:] \ref{FAjoinLerng}
+  \end{description}
+  
+   \item \label{UCstudUebersichtLernG}
+  \begin{description}
+  \item[Anwendung:] Übersicht über \gls{Lerngruppe}
+  \item[Ziel:] \gls{Studierender} kann sehen wer in seiner \gls{Lerngruppe} ist
+  	\item[Vorbedingung:] \gls{Studierender} ist angemeldet und befindet sich auf der
+  	Webseite im \glspl{Studierender}nbereich. Weiterhin ist der \glspl{Studierender} Mitglied einer
+  	\gls{Lerngruppe}
+  	\item[Nachbedingung(Erfolg):] \gls{Studierender} befindet sich nun in der
+  	\glspl{Lerngruppe}übersicht
+  	\item[Nachbedingung(Fehlschlag):] Der \glspl{Studierender} ist nicht in der
+  	\glspl{Lerngruppe}übersicht
+  	\item[Beschreibung:]~
+  	\begin{enumerate}
+  	  \item[1.] Der \glspl{Studierender} klickt auf \gls{Lerngruppe} %TODO Verweis
+    \end{enumerate}
+  	\item[Erweiterungen:] -keine-
+  	\item[Alternativen:] -keine-  	
+  	\item[Benötigte FA:] \ref{FAcheckLerng}
+  \end{description}
+  
+     \item \label{UCstudEinsichtEinteilung}
+  \begin{description}
+  \item[Anwendung:] Einsicht der \gls{Einteilung}sergebnisse
+  \item[Ziel:] \gls{Studierender} kann sehen welchem \gls{Projekt} er
+  zugeteilt wurde
+  	\item[Vorbedingung:] \gls{Studierender} ist angemeldet und befindet sich auf der
+  	Webseite im \glspl{Studierender}nbereich. 
+  	\item[Nachbedingung(Erfolg):] \gls{Studierender} befindet sich in der Maske
+  	\gls{Einteilung}sergebnisse. %TODO verweis
+  	Falls der \gls{Admin} die \gls{Einteilung}sergebnisse bereits veröffentlicht hat,
+  	kann er sehen, welchem \gls{Projekt} er zugeteilt wurde. Sonst sieht er, dass
+  	die \gls{Einteilung} noch im Gange ist %TODO Gehört der Abschnitt hier rein?
+  	\item[Nachbedingung(Fehlschlag):] Der \glspl{Studierender} ist nicht in der
+  	Maske \gls{Einteilung}sergebnisse
+  	\item[Beschreibung:]~
+  	\begin{enumerate}
+  	  \item[1.] Der \glspl{Studierender} klickt auf \gls{Einteilung}sergebnisse
+ 
+  	\end{enumerate}
+  	\item[Erweiterungen:] -keine-
+
+  	\item[Alternativen:] -keine-
+  	
+  	 \item[Benötigte FA:] \ref{FAStudeinsicht}
+  \end{description}
+  
+    \item \label{UCstudProjektbeschreibung}
+  \begin{description}
+  \item[Anwendung:] Anzeigen der \gls{Projekt}beschreibung in \gls{Bewertung}smaske
+  \item[Ziel:] \gls{Studierender} kann sich während der \gls{Einteilung} die Beschreibung
+  der zu bewertenden \glspl{Projekt} nochmal ansehen
+  	\item[Vorbedingung:] \gls{Studierender} ist angemeldet und befindet sich in der
+  	Projekt\gls{Bewertung}smaske %TODO verweis
+  	
+  	\item[Nachbedingung(Erfolg):] \gls{Studierender} kann die \gls{Projekt}beschreibung als
+  	\enquote{Overlay} sehen %TODO wirklich als overlay? wie sieht der Studierend
+  	%die beschreibunmg e
+  	
+  	\item[Nachbedingung(Fehlschlag):] Der \glspl{Studierender} kann die
+  	Projektbeschreibung nicht sehen
+  	\item[Beschreibung:]~
+  	\begin{enumerate}
+  	  \item[1.] Der \glspl{Studierender} fährt mit seiner Maus über den \gls{Projekt}namen
+ 
+  	\end{enumerate}
+  	\item[Erweiterungen:] -keine-
+
+  	\item[Alternativen:] -keine-
+
+  	 \item[Benötigte FA:] \ref{FAbeschreibung-Bewertung}
+  \end{description}
+  
+      \item \label{UCstudLeaveLernG}
+  \begin{description}
+  \item[Anwendung:] Austritt aus einer \gls{Lerngruppe}
+  \item[Ziel:] \gls{Studierender} möchte aus einer \gls{Lerngruppe} austreten
+  	\item[Vorbedingung:] \gls{Studierender} ist angemeldet und befindet sich auf der
+  	Webseite im \glspl{Studierender}nbereich. Weiterhin ist er Mitglied
+  	einer \gls{Lerngruppe}
+  	%TODO verweis
+  	
+  	\item[Nachbedingung(Erfolg):] \gls{Studierender} ist kein Mitglied der
+  	\gls{Lerngruppe} mehr
+  	
+  	\item[Nachbedingung(Fehlschlag):] \gls{Studierender} ist immer noch Mitglied der
+  	\gls{Lerngruppe}
+  	\item[Beschreibung:]~
+  	\begin{enumerate}
+  	  \item[1.] Der \glspl{Studierender} klickt auf \gls{Lerngruppe}. Nun befindet er sich
+  	  in der \enquote{\gls{Lerngruppe}}-Maske %TODO verweis
+  	  \item[2.] Der \glspl{Studierender} klickt auf \enquote{Austreten}
+ 
+  	\end{enumerate}
+  	\item[Erweiterungen:] -keine-
+
+  	\item[Alternativen:] -keine-
+
+  	 \item[Benötigte FA:] \ref{FAlergAustritt}
+  \end{description}
+%   
+  
+  \item \label{UCstudBewertung}
+  \begin{description}
+  \item[Anwendung:] \gls{Studierender} bewertet \glspl{Projekt}
+  \item[Ziel:] Der \glspl{Studierender} hat eine \gls{Bewertung} abgegeben
+  	\item[Vorbedingung:] Der \glspl{Studierender} ist angemeldet und im \glspl{Studierender}nportal der
+  	Website
+  	\item[Nachbedingung(Erfolg):] Die \gls{Bewertung} wurde gespeichert
+  	\item[Nachbedingung(Fehlschlag):] Die \gls{Bewertung} wurde nicht gespeichert
+  	\item[Beschreibung:]~
+  	 \begin{enumerate}
+  	   \item[1.] Der \glspl{Studierender} füllt die \gls{Bewertung}smaske aus %TODO: Verweis
+  	   \item[2.] Der \glspl{Studierender} speichert die \gls{Bewertung} ab
+  	   \item[3.] Ist der \glspl{Studierender} Mitglied einer \gls{Lerngruppe}, so gilt die
+  	   \gls{Bewertung} gleichzeitig auch für alle anderen Mitglieder
+  	 \end{enumerate}
+  	\item[Erweiterungen:] -keine-
+  	\item[Alternativen:] ~
+  	\begin{enumerate}
+  	  \item[3a)] Wenn nicht, so gilt sie nur für den \glspl{Studierender}n
+  	 \end{enumerate}
+  	\item[Benötigte FA:] \ref{FAbewertung}, \ref{FAbewertung2}
+  \end{description}
+
+ 
+  \item \label{UCstudNewPasswort}
+    \begin{description}
+  	\item[Anwendung:] Passwort vergessen
+  	\item[Ziel:] Erhalten eines neuen Passworts
+  	\item[Vorbedingung:] Der \glspl{Studierender} hat schon einen Account
+  	\item[Nachbedingung(Erfolg):] Der \glspl{Studierender} erhält eine E-Mail mit einem
+  	neuen Passwort
+  	\item[Nachbedingung(Fehlschlag):] Der \glspl{Studierender} erhält keine E-Mail
+  	\item[Beschreibung:]~
+  	\begin{enumerate}
+  	  \item[1.] Öffnen der Internetseite
+      \item[2.] Klick auf \enquote{Passwort vergessen}
+      \item[3.] Eingabe der E"=Mail"=Adresse
+      \item[4.] Der \glspl{Studierender} erhält eine E"=Mail mit seinem neuen Passwort
+  	\end{enumerate}
+  	\item[Erweiterungen:] -keine-
+  	\item[Alternativen:] -keine-
+  	\item[Benötigte FA:] \ref{FApasswortvergessen}
+  \end{description}
+  
+  \item \label{UCstudLogout}
+    \begin{description}
+  	\item[Anwendung:] Abmeldung
+  	\item[Ziel:] Student meldet sich ab
+  	\item[Vorbedingung:] Der \glspl{Studierender} ist angemeldet und befindet sich im \glspl{Studierender}nbereich
+  	\item[Nachbedingung(Erfolg):] Der \glspl{Studierender} ist abgemeldet und befindet sich auf der Startseite
+  	\item[Nachbedingung(Fehlschlag):] Der \glspl{Studierender} ist nicht abgemeldet
+  	\item[Beschreibung:]~
+  	\begin{enumerate}
+  	  \item[1.] \gls{Studierender} ist im \glspl{Studierender}nbereich der Webseite
+      \item[2.] Klick auf \enquote{Ausloggen} in der Seitenleiste
+      \item[3.] Die Startseite erscheint
+  	\end{enumerate}
+  	\item[Erweiterungen:] -keine-
+  	\item[Alternativen:] -keine-
+  	\item[Benötigte FA:] \ref{FAStudabmeldung}
+  \end{description}
+   
+\end{enumerate}
+
+\subsubsection{Betreuer}
+\begin{enumerate} [label=\swtLabel{B}]
+  \item \label{UCbetreuerAnmeldung}
+	 \begin{description}
+		\item[Anwendung:] \gls{Projektbetreuer} meldet sich an
+  		\item[Ziel:] Anmeldung des \gls{Projektbetreuer}s
+  		\item[Vorbedingung:] Konto des \gls{Projektbetreuer}s wurde angelegt
+  		\item[Nachbedingung(Erfolg):] \gls{Projektbetreuer} ist angemeldet
+  		\item[Nachbedingung(Fehlschlag):] \gls{Projektbetreuer} ist nicht angemeldet
+  		\item[Beschreibung]~
+  		\begin{enumerate}
+  			\item[1.] Der \gls{Projektbetreuer} gibt seine Zugangsdaten ein
+  			\item[2.] Wenn die Anmeldedaten korrekt sind, wird er auf den
+  			Betreuerbereich weitergeleitet
+  		\end{enumerate}
+  		\item[Erweiterungen:] -keine-
+  		\item[Alternativen:] ~
+  		\begin{enumerate}
+  		  \item[2a)] Wenn nicht, erhält er eine Fehlermeldung
+  		\end{enumerate}  
+  		\item[Benötigte FA:] \ref{FAbetreuerAnmeldung}
+  	\end{description}
+   
+  
+  \item \label{UCbetreuerThemaErstellenÄndern}
+	\begin{description}
+  		\item[Anwendung:] \gls{Projekt} erstellen/ändern
+  		\item[Ziel:] Eröffnung/Änderung eines \glspl{Projekt}s
+  		\item[Vorbedingung:] -keine-
+  		\item[Nachbedingung(Erfolg):] \gls{Projekt}daten sind im System eingetragen
+  		\item[Nachbedingung(Fehlschlag):] \gls{Projekt}daten sind nicht im System
+  		eingetragen
+  		\item[Beschreibung:]~
+  	\begin{enumerate}
+  	  \item[1.] \gls{Projektbetreuer} befindet sich auf der Website mit den \gls{Projekt}
+  	  \item[2.] Existiert das \gls{Projekt} schon, so wählt der \gls{Projektbetreuer} dieses aus
+  	  \item[3.] \gls{Projektbetreuer} füllt die Eingabemaske aus
+  	  \item[4.] \gls{Projektbetreuer} speichert die neuen Daten ab
+  	\end{enumerate}
+  	\item[Erweiterungen:] -keine-
+  	\item[Alternativen:]~
+  	\begin{enumerate}
+  	  \item[2a)] Wenn nicht, so fügt er ein neues hinzu
+  	\end{enumerate}  
+  	\item[Benötigte FA:] \ref{FAbetreuerAddProjekt}, \ref{FAbetreuerChangeProjekt}
+  \end{description}
+
+ 
+  \item \label{UCbetreuerJoinProjekt}
+	\begin{description}
+  		\item[Anwendung:] \gls{Projektbetreuer} werden
+  		\item[Ziel:] \gls{Projektbetreuer} eines bestimmten \glspl{Projekt}s werden
+  		\item[Vorbedingung:] Man ist noch nicht \gls{Projektbetreuer} des ausgewählten \glspl{Projekt}s
+  		\item[Nachbedingung(Erfolg):] Erfolgreich \gls{Projektbetreuer} des ausgewählten
+  		\glspl{Projekt}s geworden
+  		\item[Nachbedingung(Fehlschlag):] Man ist nicht \gls{Projektbetreuer} des \glspl{Projekt}s
+  		\item[Beschreibung:]~
+  	\begin{enumerate} 
+  	  \item[1.] \gls{Projektbetreuer} befindet sich auf der Website mit den \glspl{Projekt}n
+  	  \item[2.] \gls{Projektbetreuer} wählt das \gls{Projekt} aus, welches er betreuen möchte
+  	  \item[3.] \gls{Projektbetreuer} tritt dem \gls{Projekt} bei
+  	\end{enumerate}
+  	\item[Erweiterungen:] -keine-
+  	\item[Alternativen:] -keine-
+  	\item[Benötigte FA:] \ref{FAbetreuerJoinProjekt}
+  \end{description}
+  
+  
+  \item \label{UCbetreuerEinsichtEinteilungProjekt}
+  \begin{description}
+  	\item[Anwendung:] Einsicht der \gls{Einteilung}sergebnisse und zusätzlicher Informationen
+  	\item[Ziel:] Der \gls{Projektbetreuer} kann sehen, wer zu seinen \glspl{Projekt}n zugeteilt wurde und erhält weitere Informationen
+  	\item[Vorbedingung:] \gls{Projektbetreuer} ist angemeldet und befindet sich auf der
+  	Webseite im Betreuerbereich  %TODO noch kein GUI entwurf
+  	\item[Nachbedingung(Erfolg):] \gls{Projektbetreuer} befindet sich in der Maske
+  	\gls{Einteilung}sergebnisse. %TODO verweis
+  	Falls der \gls{Admin} die \gls{Einteilung}sergebnisse bereits veröffentlicht hat, kann er
+  	sehen, wer seinen \glspl{Projekt}n zugeteilt wurde. Sonst sieht er, dass die \gls{Einteilung}
+  	noch im Gange ist
+  	\item[Nachbedingung(Fehlschlag):] Der \gls{Projektbetreuer} ist nicht in der
+  	Maske \gls{Einteilung}sergebnisse
+  	\item[Beschreibung:]~
+  	\begin{enumerate}
+  		\item[1.] Der \gls{Projektbetreuer} klickt auf \enquote{\gls{Einteilung}sergebnisse} 
+		\item[2.] Der \gls{Projektbetreuer} sieht, welche \glspl{Studierender} in welchen \glspl{Team} seinem \gls{Projekt} zugeordnet wurden. Zusätzlich erhält er die Information, ob \glspl{Studierender} sich im CMS schon zum \gls{PSE} und \gls{TSE} angemeldet haben und ob noch \glspl{Teilleistung} offen sind.
+  	\end{enumerate}
+  	\item[Erweiterungen:] -keine-
+  	
+  	\item[Alternativen:] -keine-
+  	
+  	\item[Benötigte FA:] \ref{FAbetreuerEinsichtEinteilung}, \ref{FAbetreuerEinsichtNachpruefung}, \ref{FAbetreuerEinsichtTSE}
+  \end{description}
+   
+  
+  \item \label{UCbetreuerLeaveProjekt}
+	\begin{description}
+  		\item[Anwendung:] \gls{Projekt} verlassen
+  		\item[Ziel:] Ein \gls{Projekt} nicht mehr betreuen
+  		\item[Vorbedingung:] Man ist \gls{Projektbetreuer} eines \glspl{Projekt}s, in dem noch mindestens
+  		ein anderer \gls{Projektbetreuer} ist.
+  		\item[Nachbedingung(Erfolg):] Man betreut das \gls{Projekt} nicht länger
+  		\item[Nachbedingung(Fehlschlag):] Man ist immer noch \gls{Projektbetreuer} des \glspl{Projekt}s
+  		\item[Beschreibung:]~
+  	\begin{enumerate} 
+  	  \item[1.] \gls{Projektbetreuer} befindet sich auf der Website mit den \glspl{Projekt}n, die
+  	  er betreut.
+  	  \item[2.] \gls{Projektbetreuer} wählt das \gls{Projekt} aus, welches er verlassen möchte.
+  	  \item[3.] \gls{Projektbetreuer} verlässt das \gls{Projekt}.
+  	\end{enumerate}
+  	\item[Erweiterungen:] -keine-
+  	\item[Alternativen:] -keine-
+  	\item[Benötigte FA:] \ref{FAbetreuerLeaveprojekt}
+  \end{description}
+   
+  
+  \item \label{UCbetreuerNoteneintragung}
+    \begin{description}
+  	\item[Anwendung:] Noten für \gls{Team} eintragen
+  	\item[Ziel:] Speichern der Noten in der Datenbank
+  	\item[Vorbedingung:] \gls{Team} hat \glspl{Studierender}n als Teilnehmer
+  	\item[Nachbedingung(Erfolg):] Eintragung/Änderung der Noten
+  	\item[Nachbedingung(Fehlschlag):] Notenänderung wird verworfen
+  	\item[Beschreibung:]~
+  	\begin{enumerate} 
+  	  \item[1.] \gls{Projektbetreuer} befindet sich auf der Website mit der Notenübersicht
+  	  \item[2.] \gls{Projektbetreuer} trägt neue Noten für einen \glspl{Studierender}n ein oder
+  	  ändert bestehende Noten
+  	\end{enumerate}
+  	\item[Erweiterungen:] -keine-
+  	\item[Alternativen] -keine-
+  	\item[Benötigte FA:] \ref{FAbetreuerNoten}
+  \end{description}
+  
+  \item \label{UCbetreuerLogout}
+    \begin{description}
+  	\item[Anwendung:] Abmeldung
+  	\item[Ziel:] \gls{Projektbetreuer} meldet sich ab
+  	\item[Vorbedingung:] Der \gls{Projektbetreuer} ist angemeldet und befindet sich im Betreuerbereich
+  	\item[Nachbedingung(Erfolg):] Der \gls{Projektbetreuer} ist abgemeldet und befindet sich auf der Startseite
+  	\item[Nachbedingung(Fehlschlag):] Der \gls{Projektbetreuer} ist nicht abgemeldet
+  	\item[Beschreibung:]~
+  	\begin{enumerate}
+  	  \item[1.] \gls{Projektbetreuer} ist im Betreuerbereich der Webseite
+      \item[2.] Klick auf \enquote{Ausloggen} in der Seitenleiste
+      \item[3.] Die Startseite erscheint
+  	\end{enumerate}
+  	\item[Erweiterungen:] -keine-
+  	\item[Alternativen:] -keine-
+  	\item[Benötigte FA:] \ref{FAbetreuerAbmeldung}
+  \end{description}
+   
+\end{enumerate}
+
+
+
 \subsection{Objektmodelle}
 
 \includegraphics[width=\linewidth]{diagramme_pflichtenheft/ClassDiagram.PNG}
