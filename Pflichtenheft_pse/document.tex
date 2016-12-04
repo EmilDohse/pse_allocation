@@ -7,6 +7,7 @@
 \usepackage{enumitem}
 \usepackage{graphicx}
 
+\setlist[description]{leftmargin=8em,style=nextline}
 \hyphenation{Web-in-scribe}
 \usepackage[binary-units=true]{siunitx}
   \usepackage[autostyle=true,german=quotes]{csquotes}
@@ -655,14 +656,18 @@ Im Administratiorbereich:
 	
 	\item \label{UCadminInit}
 	\begin{description}
-		\item[Anwendung:] Initialisierung des Produktes
+		\item[Initialisierung des Produktes]
 		\item[Ziel:] Das Produkt soll für den Einsatz vorbereitet werden
 		\item[Vorbedingung:] -keine-
-		\item[Nachbedingung(Erfolg):] Das Produkt ist einsatzbereit und kann über das Webinterface bedient werden
-		\item[Nachbedingung(Fehlschlag):] Das Produkt ist nicht einsatzbereit und gibt
-		eine aussagekräftige Fehlermeldung aus
-		\item[Beschreibung:]
-		\begin{enumerate} [label=\arabic*.]~
+		\item[Nachbedingung:]
+		\begin{description}[leftmargin=6em]
+				\item[Erfolg] Das Produkt ist einsatzbereit und kann über das Webinterface bedient werden
+				\item[Fehlschlag] Das Produkt ist nicht einsatzbereit und gibt
+				eine aussagekräftige Fehlermeldung aus
+		\end{description}
+
+		\item[Beschreibung:]~
+		\begin{enumerate} [label=\arabic*.]
 			\item Der \gls{Admin} stellt auf dem Server Gurobi bereit %TODO Gurobi Glossar
 			\item Er startet Web"= und Datenbankserver 
 			\item Er startet das Produkt
@@ -677,11 +682,11 @@ Im Administratiorbereich:
 	
 	\item \label{UCadminAnmeldung}
     \begin{description}
-    \item[Anwendung:] Anmeldung des \gls{Admin}s
+    \item[Anmeldung des \gls{Admin}s]
     \item[Ziel:] \gls{Admin} wird angemeldet
   	\item[Vorbedingung:] -keine-
-  	\item[Nachbedingung(Erfolg):] Der \gls{Admin} ist angemeldet
-  	\item[Nachbedingung(Fehlschlag):] Der \gls{Admin} ist nicht angemeldet
+  	\item[Nachbedingung:]	\begin{description}[leftmargin=6em] \item[Erfolg]  Der \gls{Admin} ist angemeldet
+  	\item[Fehlschlag] Der \gls{Admin} ist nicht angemeldet \end{description} 
   	\item[Beschreibung:]~
   	\begin{enumerate}
   	  \item[1.] \gls{Admin} öffnet die Website
@@ -700,13 +705,13 @@ Im Administratiorbereich:
 	
 	\item \label{UCadminAnmeldezeit}
 	\begin{description}
-		\item[Anwendung:] Setzten der frühestmöglichen Anmeldezeit
+		\item[Setzten der frühestmöglichen Anmeldezeit]
 		\item[Ziel:] Ein frühestmöglicher Zeitpunkt für die Anmeldung von \glspl{Studierender}n soll festgelegt werden
 		\item[Vorbedingung:] \gls{Admin} ist angemeldet und im \gls{Admin}bereich der Webseite
-		\item[Nachbedingung(Erfolg):] Vor dem eingegeben Datum können sich
+		\item[Nachbedingung:]	\begin{description}[leftmargin=6em] \item[Erfolg]  Vor dem eingegeben Datum können sich
 		\glspl{Studierender} nicht registrieren und einloggen
-		\item[Nachbedingung(Fehlschlag):] Registrieren und einloggen sind vor dem
-		Datum möglich
+		\item[Fehlschlag] Registrieren und einloggen sind vor dem 
+		Datum möglich \end{description}
 		\item[Beschreibung:]~
 		\begin{enumerate}[label=\arabic*.]
 			\item Der \gls{Admin} klickt auf den Reiter \enquote{Einstellungen}
@@ -721,11 +726,11 @@ Im Administratiorbereich:
 	
 	\item \label{UCadminDeadline}
 	\begin{description}
-		\item[Anwendung:] Setzten der \gls{Bewertung}sdeadline
+		\item[Setzten der \gls{Bewertung}sdeadline ]
 		\item[Ziel:] Ein spätester Zeitpunkt für die Anmeldung von \glspl{Studierender}n soll festgelegt werden
 		\item[Vorbedingung:] \gls{Admin} ist angemeldet und im \gls{Admin}bereich der Webseite
-		\item[Nachbedingung(Erfolg):] Nach dem eingegebenen Datum können sich keine \glspl{Studierender}n mehr anmelden
-		\item[Nachbedingung(Fehlschlag):] Anmelden ist weiter möglich
+		\item[Nachbedingung:]	\begin{description}[leftmargin=6em] \item[Erfolg]  Nach dem eingegebenen Datum können sich keine \glspl{Studierender}n mehr anmelden
+		\item[Fehlschlag] Anmelden ist weiter möglich \end{description}
 		\item[Beschreibung:]~
 		\begin{enumerate}[label=\arabic*.]
 			\item Der \gls{Admin} klickt auf den Reiter \enquote{Einstellungen}
@@ -740,11 +745,11 @@ Im Administratiorbereich:
 	
   \item \label{UCadminProjektErstellenÄndern}
     \begin{description}
-  	\item[Anwendung:] Hinzufügen/Ändern eines \gls{Projekt}s
+  	\item[Hinzufügen/Ändern eines \gls{Projekt}s]
   	\item[Ziel:] Einfügen/Änderung von \gls{Projekt}daten in der Datenbank
   	\item[Vorbedingung:] \gls{Admin} ist angemeldet und im \gls{Admin}bereich der Webseite
-  	\item[Nachbedingung(Erfolg):] Neue \gls{Projekt}daten sind eingetragen
-  	\item[Nachbedingung(Fehlschlag):] Neue \gls{Projekt}daten sind nicht eingetragen
+  	\item[Nachbedingung:]	\begin{description}[leftmargin=6em] \item[Erfolg]  Neue \gls{Projekt}daten sind eingetragen
+  	\item[Fehlschlag] Neue \gls{Projekt}daten sind nicht eingetragen \end{description}
   	\item[Beschreibung:]~
   	\begin{enumerate} 
   	  \item[1.] \gls{Projekt}übersicht öffnen (\autoref{GUIprojUebersicht})
@@ -768,12 +773,12 @@ Im Administratiorbereich:
   
   \item \label{UCadminDeleteProjekt}
   \begin{description}
-  \item[Anwendung:] Löschen eines \glspl{Projekt}s
+  \item[Löschen eines \glspl{Projekt}s]
   \item[Ziel:] Löschen eines \glspl{Projekt}s aus der Datenbank
   	\item[Vorbedingung:] \gls{Projekt} existiert bereits in der Datenbank und die
   	\glspl{Studierender}n konnten noch keine \gls{Bewertung} abgeben
-  	\item[Nachbedingung(Erfolg):] \gls{Projekt} ist aus der Datenbank entfernt
-  	\item[Nachbedingung(Fehlschlag):] \gls{Projekt} ist immer noch in der Datenbank
+  	\item[Nachbedingung:]	\begin{description}[leftmargin=6em] \item[Erfolg]  \gls{Projekt} ist aus der Datenbank entfernt
+  	\item[Fehlschlag] \gls{Projekt} ist immer noch in der Datenbank \end{description}
   	\item[Beschreibung:]~
   	\begin{enumerate} 
   	  \item[1.] \gls{Projekt}übersicht öffnen (\autoref{GUIprojUebersicht})
@@ -788,11 +793,11 @@ Im Administratiorbereich:
   
   \item \label{UCadminEinteilungStart}
   \begin{description}
-  \item[Anwendung:] \gls{Einteilung}
+  \item[\gls{Einteilung}]
   \item[Ziel:] Finden einer \gls{Einteilung} für eine bestimmte \gls{Einteilungskonfiguration}
   	\item[Vorbedingung:] Alle \glspl{Projekt} in der Datenbank sind vollständig
-  	\item[Nachbedingung(Erfolg):] Es wurde eine \gls{Einteilung} gefunden
-  	\item[Nachbedingung(Fehlschlag):] Es wurde keine \gls{Einteilung} gefunden
+  	\item[Nachbedingung:]	\begin{description}[leftmargin=6em] \item[Erfolg]  Es wurde eine \gls{Einteilung} gefunden
+  	\item[Fehlschlag] Es wurde keine \gls{Einteilung} gefunden \end{description}
   	\item[Beschreibung:]~
   	\begin{enumerate} 
   	  \item[1.] Einstellen der \gls{Einteilungskonfiguration}, nach denen eingeteilt werden
@@ -816,11 +821,11 @@ Im Administratiorbereich:
   
   \item \label{UCadminEinteilungAuswahl}
   \begin{description}
-  \item[Anwendung:] Finale Auswahl der \gls{Einteilung}
+  \item[Finale Auswahl der \gls{Einteilung}]
   \item[Ziel:] Finden der bestmöglichen \gls{Einteilung}
   	\item[Vorbedingung:] Es wurde mindestens eine \gls{Einteilung} berechnet
-  	\item[Nachbedingung(Erfolg):] Es wurde eine \gls{Einteilung} ausgewählt
-  	\item[Nachbedingung(Fehlschlag):] Es wurde keine \gls{Einteilung} ausgewählt
+  	\item[Nachbedingung:]	\begin{description}[leftmargin=6em] \item[Erfolg]  Es wurde eine \gls{Einteilung} ausgewählt
+  	\item[Fehlschlag] Es wurde keine \gls{Einteilung} ausgewählt \end{description}
   	\item[Beschreibung:]~
   	\begin{enumerate} 
   	  \item[1.] Öffnen der \gls{Einteilung}sübersicht (\autoref{GUIeinteilungErgeb})
@@ -839,11 +844,11 @@ Im Administratiorbereich:
   
   \item \label{UCadminCreateBetreuer}
   \begin{description}
-  \item[Anwendung:] Erstellen eines Betreueraccounts
+  \item[Erstellen eines Betreueraccounts]
   \item[Ziel:] Hinzufügen eines \gls{Projektbetreuer} in das System
   	\item[Vorbedingung:] -keine-
-  	\item[Nachbedingung(Erfolg):] Der \gls{Projektbetreuer}account wurde erstellt
-  	\item[Nachbedingung(Fehlschlag):] Der \gls{Projektbetreuer}account wurde nicht erstellt
+  	\item[Nachbedingung:]	\begin{description}[leftmargin=6em] \item[Erfolg]  Der \gls{Projektbetreuer}account wurde erstellt
+  	\item[Fehlschlag] Der \gls{Projektbetreuer}account wurde nicht erstellt \end{description}
   	\item[Beschreibung:]~
   	 \begin{enumerate} 
   	   \item[1.] Öffnen der Betreuerübersicht (\autoref{GUIprojLeiterUebersicht})
@@ -861,11 +866,11 @@ Im Administratiorbereich:
   
   \item \label{UCadminLogout}
     \begin{description}
-  	\item[Anwendung:] Abmeldung
+  	\item[Abmeldung]
   	\item[Ziel:] \gls{Admin} meldet sich ab
   	\item[Vorbedingung:] Der \gls{Admin} ist angemeldet und befindet sich im \gls{Admin}bereich
-  	\item[Nachbedingung(Erfolg):] Der \gls{Admin} ist abgemeldet und befindet sich auf der Startseite
-  	\item[Nachbedingung(Fehlschlag):] Der \gls{Admin} ist nicht abgemeldet
+  	\item[Nachbedingung:]	\begin{description}[leftmargin=6em] \item[Erfolg]  Der \gls{Admin} ist abgemeldet und befindet sich auf der Startseite
+  	\item[Fehlschlag] Der \gls{Admin} ist nicht abgemeldet \end{description}
   	\item[Beschreibung:]~
   	\begin{enumerate}
   	  \item[1.] \gls{Admin} ist im \gls{Admin}bereich der Webseite
@@ -879,12 +884,12 @@ Im Administratiorbereich:
   
   \item \label{UCadminEinteilungUebersicht}
     \begin{description}
-  	\item[Anwendung:] Anzeigen einer \gls{Einteilung}
+  	\item[Anzeigen einer \gls{Einteilung}]
   	\item[Ziel:] Der \gls{Admin} bekommt Überblick über eine \gls{Einteilung}
   	\item[Vorbedingung:] Der \gls{Admin} ist angemeldet und befindet sich im \gls{Admin}bereich
-  	\item[Nachbedingung(Erfolg):] Der \gls{Admin} ist im Bereich
+  	\item[Nachbedingung:]	\begin{description}[leftmargin=6em] \item[Erfolg]  Der \gls{Admin} ist im Bereich
   	\enquote{\gls{Einteilung}sergebnisse}
-  	\item[Nachbedingung(Fehlschlag):] Der \gls{Admin} sieht keine \gls{Einteilung}
+  	\item[Fehlschlag] Der \gls{Admin} sieht keine \gls{Einteilung} \end{description}
   	\item[Beschreibung:]~
   	\begin{enumerate}
   	  \item[1.] \gls{Admin} ist im \gls{Admin}bereich der Webseite
@@ -899,16 +904,16 @@ Im Administratiorbereich:
   
   \item \label{UCadminSPOteilleistungAdd}
     \begin{description}
-    \item[Anwendung:] Hinzufügen einer wählbaren \gls{Teilleistung} zu einer
-    \gls{SPO}
+    \item[Hinzufügen einer wählbaren \gls{Teilleistung} zu einer
+    \gls{SPO}]
     \item[Ziel:] Bei der Registrierung wird \glspl{Studierender}n eine weitere
     \glspl{Teilleistung} zur Auswahlahl angeboten
     \item[Vorbedingung:] Der \gls{Admin} ist angemeldet und befindet sich im \gls{Admin}bereich
-    \item[Nachbedingung(Erfolg):] Der \gls{Admin} ist im Bereich
+    \item[Nachbedingung:]	\begin{description}[leftmargin=6em] \item[Erfolg]  Der \gls{Admin} ist im Bereich
     \enquote{Einstellungen} und hat eine neue \glspl{Teilleistung} zu einer \gls{SPO}
     hinzugefügt
-    \item[Nachbedingung(Fehlschlag):] Es wurde keine \glspl{Teilleistung} zu einer \gls{SPO}
-    hinzugefügt
+    \item[Fehlschlag] Es wurde keine \glspl{Teilleistung} zu einer \gls{SPO} 
+    hinzugefügt \end{description}
     \item[Beschreibung:]~
     \begin{enumerate}
       \item[1.] \gls{Admin} ist im \gls{Admin}bereich der Webseite
@@ -929,14 +934,14 @@ Im Administratiorbereich:
   
   \item \label{UCadminSPOwelcheWerdeAngezeigt}
     \begin{description}
-    \item[Anwendung:] \glspl{SPO} wählen, die \glspl{Studierender}n angezeigt werden
+    \item[\glspl{SPO} wählen, die \glspl{Studierender}n angezeigt werden]
     \item[Ziel:] Nur die relevanten \glspl{SPO} werden bei der Registrierung von
     Studenten angezeigt
     \item[Vorbedingung:] Der \gls{Admin} ist angemeldet und befindet sich im \gls{Admin}bereich
-    \item[Nachbedingung(Erfolg):] Der \gls{Admin} ist im Bereich
+    \item[Nachbedingung:]	\begin{description}[leftmargin=6em] \item[Erfolg]  Der \gls{Admin} ist im Bereich
     \enquote{Einstellungen} und nur noch die Relavanten \glspl{SPO} werden für
         \glspl{Studierender} angezeigt
-    \item[Nachbedingung(Fehlschlag):] Es gibt keine Veränderung
+    \item[Fehlschlag] Es gibt keine Veränderung \end{description}
     \item[Beschreibung:]~
     \begin{enumerate}
       \item[1.] Der \gls{Admin} ist im \gls{Admin}bereich der Webseite
@@ -955,17 +960,17 @@ Im Administratiorbereich:
   
   \item \label{UCadminSPOteilleistungRM}
     \begin{description}
-    \item[Anwendung:] Entfernen einer wählbaren \gls{Teilleistung} von einer
-    \gls{SPO}
+    \item[Entfernen einer wählbaren \gls{Teilleistung} von einer
+    \gls{SPO}]
     \item[Ziel:] Bei der Registrierung wird \glspl{Studierender}n die entfernte
     \glspl{Teilleistung} nicht mehr angezeigt
     \item[Vorbedingung:] Der \gls{Admin} ist angemeldet und befindet sich im
     \gls{Admin}bereich. Weiterhin gibt es eine \gls{SPO} mit einer wählbaren
     \glspl{Teilleistung}
-    \item[Nachbedingung(Erfolg):] Der \gls{Admin} ist im Bereich
+    \item[Nachbedingung:]	\begin{description}[leftmargin=6em] \item[Erfolg]  Der \gls{Admin} ist im Bereich
     \enquote{Einstellungen} und die entfernte \glspl{Teilleistung} wird in der \gls{SPO}
     nicht mehr angezeigt
-    \item[Nachbedingung(Fehlschlag):] Es wurde keine \glspl{Teilleistung} entfernt
+    \item[Fehlschlag] Es wurde keine \glspl{Teilleistung} entfernt \end{description}
     \item[Beschreibung:]~
     \begin{enumerate}
       \item[1.] \gls{Admin} ist im \gls{Admin}bereich der Webseite
@@ -986,13 +991,13 @@ Im Administratiorbereich:
   
     \item \label{UCadminImport}
     \begin{description}
-    \item[Anwendung:] Import von \gls{Einteilung}s"=, \gls{SPO}"= oder \glspl{Studierender}ndaten
+    \item[Import von \gls{Einteilung}s"=, \gls{SPO}"= oder \glspl{Studierender}ndaten]
     \item[Ziel:] Testen mit Daten aus vergangenen Semestern oder die
     Wiederverwendung von \glspl{SPO}
     \item[Vorbedingung:] Der \gls{Admin} ist angemeldet und befindet sich im
     \gls{Admin}bereich
-    \item[Nachbedingung(Erfolg):] Der \gls{Admin} ist im \gls{Admin}bereich und die \gls{Einteilung}s"=, \gls{SPO}"= oder \glspl{Studierender}ndaten wurden in das aktive Semester importiert
-    \item[Nachbedingung(Fehlschlag):] Es wurden keine Daten importiert
+    \item[Nachbedingung:]	\begin{description}[leftmargin=6em] \item[Erfolg]  Der \gls{Admin} ist im \gls{Admin}bereich und die \gls{Einteilung}s"=, \gls{SPO}"= oder \glspl{Studierender}ndaten wurden in das aktive Semester importiert
+    \item[Fehlschlag] Es wurden keine Daten importiert \end{description}
     \item[Beschreibung:]~
     \begin{enumerate}
       \item[1.] Der \gls{Admin} ist im \gls{Admin}bereich der Webseite
@@ -1009,12 +1014,12 @@ Im Administratiorbereich:
   
       \item \label{UCadminExport}
     \begin{description}
-    \item[Anwendung:] Export von \gls{Einteilung}s"=, \gls{SPO}"= oder \glspl{Studierender}ndaten
+    \item[Export von \gls{Einteilung}s"=, \gls{SPO}"= oder \glspl{Studierender}ndaten]
     \item[Ziel:] Export von \gls{Einteilung}s"=, \gls{SPO}"= oder \glspl{Studierender}ndaten zur Datensicherung
     \item[Vorbedingung:] Der \gls{Admin} ist angemeldet und befindet sich im
     \gls{Admin}bereich. Es müssen  \gls{Einteilung}s"=, \gls{SPO}"= oder \glspl{Studierender}ndaten existieren.
-    \item[Nachbedingung(Erfolg):] Der \gls{Admin} ist im \gls{Admin}bereich und die exportierten Daten wurden lokal auf dem Rechner des \gls{Admin}s gespeichert.
-    \item[Nachbedingung(Fehlschlag):] Es wurden keine Daten exportiert
+    \item[Nachbedingung:]	\begin{description}[leftmargin=6em] \item[Erfolg]  Der \gls{Admin} ist im \gls{Admin}bereich und die exportierten Daten wurden lokal auf dem Rechner des \gls{Admin}s gespeichert.
+    \item[Fehlschlag] Es wurden keine Daten exportiert \end{description}
     \item[Beschreibung:]~
     \begin{enumerate}
       \item[1.] Der \gls{Admin} ist im \gls{Admin}bereich der Webseite
@@ -1030,12 +1035,12 @@ Im Administratiorbereich:
   
       \item \label{UCadminImport2}
     \begin{description}
-    \item[Anwendung:] Import von Campus"=Management"=System"=Daten %Kein \gls, wegen Bindestrichen! 
+    \item[Import von Campus"=Management"=System"=Daten] %Kein \gls, wegen Bindestrichen! 
     \item[Ziel:] Datenabgleich von \glspl{Studierender}ndaten mit den \glspl{Studierender}ndaten aus dem \gls{CMS}
     \item[Vorbedingung:] Der \gls{Admin} ist angemeldet und befindet sich im
     \gls{Admin}bereich. Es müssen \glspl{Studierender}ndaten existieren.
-    \item[Nachbedingung(Erfolg):] Der \gls{Admin} ist im \gls{Admin}bereich und die \glspl{Studierender}ndaten aus dem \gls{CMS} wurden zu dem aktiven Semester hinzugefügt
-    \item[Nachbedingung(Fehlschlag):] Es wurden keine Daten importiert
+    \item[Nachbedingung:]	\begin{description}[leftmargin=6em] \item[Erfolg]  Der \gls{Admin} ist im \gls{Admin}bereich und die \glspl{Studierender}ndaten aus dem \gls{CMS} wurden zu dem aktiven Semester hinzugefügt
+    \item[Fehlschlag] Es wurden keine Daten importiert \end{description}
     \item[Beschreibung:]~
     \begin{enumerate}
       \item[1.] Der \gls{Admin} ist im \gls{Admin}bereich der Webseite
@@ -1052,12 +1057,12 @@ Im Administratiorbereich:
   
     \item \label{UCadminKonfliktAnzeige}
     \begin{description}
-    \item[Anwendung:] Anzeige von Konflikten, die beim Import von \gls{CMS}"=Daten (vgl. \ref{UCadminImport2}) entstehen
+    \item[Anzeige von Konflikten beim Import von Campus"=Management"=System"=Daten] (vgl. \ref{UCadminImport2})
     \item[Ziel:] Der \gls{Admin} sieht fehlende oder von \glspl{Studierender}n falsch angegebene \glspl{Teilleistung}.
     \item[Vorbedingung:] Der \gls{Admin} ist angemeldet und befindet sich im
     \gls{Admin}bereich. Es müssen \glspl{Studierender}ndaten existieren und ein \gls{CMS}"=Daten-Import (vgl. \ref{UCadminImport2}) hat stattgefunden .
-    \item[Nachbedingung(Erfolg):] Der \gls{Admin} ist im \gls{Admin}bereich und sieht die tabellarisch aufgezählten Konflikte
-    \item[Nachbedingung(Fehlschlag):] ~
+    \item[Nachbedingung:]	\begin{description}[leftmargin=6em] \item[Erfolg]  Der \gls{Admin} ist im \gls{Admin}bereich und sieht die tabellarisch aufgezählten Konflikte
+    \item[Fehlschlag] ~ \end{description}
     \item[Beschreibung:]~
     \begin{enumerate}
       \item[1.] Der \gls{Admin} ist im \gls{Admin}bereich der Webseite
@@ -1072,12 +1077,12 @@ Im Administratiorbereich:
   
       \item \label{UCadminExport2}
     \begin{description}
-    \item[Anwendung:] Export von \gls{CMS}"=Daten
+    \item[Export von \gls{CMS}"=Daten]
     \item[Ziel:] Export von \glspl{Studierender}ndaten mit eingetragenen Noten zum automatischen Datenabgleich mit dem \gls{CMS}
     \item[Vorbedingung:] Der \gls{Admin} ist angemeldet und befindet sich im
     \gls{Admin}bereich. Es müssen \glspl{Studierender}ndaten existieren.
-    \item[Nachbedingung(Erfolg):] Der \gls{Admin} ist im \gls{Admin}bereich und die exportierten Daten wurden lokal auf dem Rechner des \gls{Admin}s gespeichert.
-    \item[Nachbedingung(Fehlschlag):] Es wurden keine Daten exportiert
+    \item[Nachbedingung:]	\begin{description}[leftmargin=6em] \item[Erfolg]  Der \gls{Admin} ist im \gls{Admin}bereich und die exportierten Daten wurden lokal auf dem Rechner des \gls{Admin}s gespeichert.
+    \item[Fehlschlag] Es wurden keine Daten exportiert \end{description}
     \item[Beschreibung:]~
     \begin{enumerate}
       \item[1.] Der \gls{Admin} ist im \gls{Admin}bereich der Webseite
@@ -1094,12 +1099,12 @@ Im Administratiorbereich:
   
   \item \label{UCadminVergleichGuete}
     \begin{description}
-  	\item[Anwendung:] Vergleich von \glspl{Einteilung}
+  	\item[Vergleich von \glspl{Einteilung}]
   	\item[Ziel:] Vergleich von \glspl{Einteilung} anhand von \glspl{Guetekriterium}
   	\item[Vorbedingung:] Es wurde schon mindestens eine \gls{Einteilung} berechnet
-  	\item[Nachbedingung(Erfolg):] Der \gls{Admin} sieht einen Vergleich der
+  	\item[Nachbedingung:]	\begin{description}[leftmargin=6em] \item[Erfolg]  Der \gls{Admin} sieht einen Vergleich der
   	\glspl{Einteilung}
-  	\item[Nachbedingung(Fehlschlag):] Der \gls{Admin} sieht keinen Vergleich
+  	\item[Fehlschlag] Der \gls{Admin} sieht keinen Vergleich \end{description}
   	\item[Beschreibung:]~
   	\begin{enumerate}
   	  \item[1.] \gls{Admin} ist im \gls{Admin}bereich der Webseite
@@ -1117,12 +1122,12 @@ Im Administratiorbereich:
   
   \item \label{UCadminStapelverarbeitung}
     \begin{description}
-  	\item[Anwendung:] Nutzen der Stapelverarbeitung
+  	\item[Nutzen der Stapelverarbeitung]
   	\item[Ziel:] Serielle Berechnung von \glspl{Einteilung}
   	\item[Vorbedingung:] Der \gls{Admin} befindet sich im Bereich
   	\enquote{\gls{Einteilung}}
-  	\item[Nachbedingung(Erfolg):] Alle gewünschten \glspl{Einteilung} werden berechnet
-  	\item[Nachbedingung(Fehlschlag):] Es werden nicht alle \glspl{Einteilung} berechnet
+  	\item[Nachbedingung:]	\begin{description}[leftmargin=6em] \item[Erfolg]  Alle gewünschten \glspl{Einteilung} werden berechnet
+  	\item[Fehlschlag] Es werden nicht alle \glspl{Einteilung} berechnet \end{description}
   	\item[Beschreibung:]~
   	\begin{enumerate}
   	  \item[1.] \gls{Admin} ist im \gls{Admin}bereich der Webseite
@@ -1144,15 +1149,15 @@ Im Administratiorbereich:
   
   \item \label{UCadminCreateStudierender}
     \begin{description}
-  	\item[Anwendung:] Einen \glspl{Studierender}n zum System hinzufügen
+  	\item[Einen \glspl{Studierender}n zum System hinzufügen]
   	\item[Ziel:] Einen nicht registrierten \glspl{Studierender}n manuell zum System
   	hinzufügen
   	\item[Vorbedingung:] Der \gls{Admin} befindet sich im Bereich
   	\enquote{Studenten hinzufügen/löschen} und der \glspl{Studierender} ist noch nicht
   	registriert
-  	\item[Nachbedingung(Erfolg):] Der \glspl{Studierender} wurde dem System hinzugefügt
-  	\item[Nachbedingung(Fehlschlag):] Der \glspl{Studierender} wurde dem System nicht
-  	hinzugefügt
+  	\item[Nachbedingung:]	\begin{description}[leftmargin=6em] \item[Erfolg]  Der \glspl{Studierender} wurde dem System hinzugefügt
+  	\item[Fehlschlag] Der \glspl{Studierender} wurde dem System nicht 
+  	hinzugefügt \end{description}
   	\item[Beschreibung:]~
   	\begin{enumerate}
   	  \item[1.] \gls{Admin} ist im Bereich \enquote{Studenten
@@ -1167,13 +1172,13 @@ Im Administratiorbereich:
   
   \item \label{UCadminDeleteStudierender}
     \begin{description}
-  	\item[Anwendung:] Einen \glspl{Studierender}n aus dem System entfernen
+  	\item[Einen \glspl{Studierender}n aus dem System entfernen]
   	\item[Ziel:] Einen registrierten \glspl{Studierender}n aus dem System entfernen
   	\item[Vorbedingung:] Der \gls{Admin} befindet sich im Bereich
   	\enquote{Studenten hinzufügen/löschen}
-  	\item[Nachbedingung(Erfolg):] Der \glspl{Studierender} wurde aus dem System entfernt
-  	\item[Nachbedingung(Fehlschlag):] Der \glspl{Studierender} wurde nicht aus dem System
-  	entfernt
+  	\item[Nachbedingung:]	\begin{description}[leftmargin=6em] \item[Erfolg]  Der \glspl{Studierender} wurde aus dem System entfernt
+  	\item[Fehlschlag] Der \glspl{Studierender} wurde nicht aus dem System 
+  	entfernt \end{description}
   	\item[Beschreibung:]~
   	\begin{enumerate}
   	  \item[1.] \gls{Admin} ist im Bereich \enquote{Studenten
@@ -1188,13 +1193,13 @@ Im Administratiorbereich:
   
   \item \label{UCadminAddStudToTeam}
     \begin{description}
-  	\item[Anwendung:] Einen \glspl{Studierender}n zu einem \gls{Team} hinzufügen
+  	\item[Einen \glspl{Studierender}n zu einem \gls{Team} hinzufügen]
   	\item[Ziel:] Einen \glspl{Studierender}n manuell zu einem \gls{Team} hinzufügen
   	\item[Vorbedingung:] Der \gls{Admin} befindet sich im Bereich
   	\enquote{\gls{Einteilung}sergebnisse}
-  	\item[Nachbedingung(Erfolg):] Der \glspl{Studierender} wurde dem \gls{Team} hinzugefügt
-  	\item[Nachbedingung(Fehlschlag):] Der \glspl{Studierender} wurde dem \gls{Team} nicht
-  	hinzugefügt
+  	\item[Nachbedingung:]	\begin{description}[leftmargin=6em] \item[Erfolg]  Der \glspl{Studierender} wurde dem \gls{Team} hinzugefügt
+  	\item[Fehlschlag] Der \glspl{Studierender} wurde dem \gls{Team} nicht 
+  	hinzugefügt \end{description}
   	\item[Beschreibung:]~
   	\begin{enumerate}
   	  \item[1.] \gls{Admin} ist im Bereich \enquote{\gls{Einteilung}sergebnisse}
@@ -1214,13 +1219,13 @@ Im Administratiorbereich:
   
   \item \label{UCadminRemoveStudFromTeam}
     \begin{description}
-  	\item[Anwendung:] Einen \glspl{Studierender}n aus einem \gls{Team} entfernen
+  	\item[Einen \glspl{Studierender}n aus einem \gls{Team} entfernen]
   	\item[Ziel:] Einen \glspl{Studierender}n manuell aus einem \gls{Team} entfernen
   	\item[Vorbedingung:] Der \gls{Admin} befindet sich im Bereich
   	\enquote{\gls{Einteilung}sergebnisse}
-  	\item[Nachbedingung(Erfolg):] Der \glspl{Studierender} wurde aus dem \gls{Team} entfernt
-  	\item[Nachbedingung(Fehlschlag):] Der \glspl{Studierender} wurde nicht aus dem \gls{Team}
-  	entfernt
+  	\item[Nachbedingung:]	\begin{description}[leftmargin=6em] \item[Erfolg]  Der \glspl{Studierender} wurde aus dem \gls{Team} entfernt
+  	\item[Fehlschlag] Der \glspl{Studierender} wurde nicht aus dem \gls{Team} 
+  	entfernt \end{description}
   	\item[Beschreibung:]~
   	\begin{enumerate}
   	  \item[1.] \gls{Admin} ist im Bereich \enquote{\gls{Einteilung}sergebnisse}
@@ -1240,13 +1245,13 @@ Im Administratiorbereich:
   
   \item \label{UCadminSwapStudsBetweenTeams}
     \begin{description}
-  	\item[Anwendung:] \glspl{Studierender} zwischen zwei \glspl{Team} tauschen
+  	\item[\glspl{Studierender} zwischen zwei \glspl{Team} tauschen]
   	\item[Ziel:] Austauschen von zwei \glspl{Studierender}n
   	\item[Vorbedingung:] Der \gls{Admin} befindet sich im Bereich
   	\enquote{\gls{Einteilung}sergebnisse}
-  	\item[Nachbedingung(Erfolg):] Die \glspl{Studierender}n wurden getauscht
-  	\item[Nachbedingung(Fehlschlag):] Die \glspl{Studierender}n sind immer noch in ihren
-  	alten \glspl{Team}
+  	\item[Nachbedingung:]	\begin{description}[leftmargin=6em] \item[Erfolg]  Die \glspl{Studierender}n wurden getauscht
+  	\item[Fehlschlag] Die \glspl{Studierender}n sind immer noch in ihren 
+  	alten \glspl{Team} \end{description}
   	\item[Beschreibung:]~
   	\begin{enumerate}
   	  \item[1.] \gls{Admin} ist im Bereich \enquote{\gls{Einteilung}sergebnisse}
@@ -1268,12 +1273,12 @@ Im Administratiorbereich:
 \begin{enumerate}[label=\swtLabel{S}]
 	\item \label{UCstudReg}
     \begin{description}
-  	\item[Anwendung:] Registrierung eines \glspl{Studierender}n
+  	\item[Registrierung eines \glspl{Studierender}n]
   	\item[Ziel:] Speichern der \glspl{Studierender}ndaten in der Datenbank
   	\item[Vorbedingung:] Registrierung wurde freigeschaltet
-  	\item[Nachbedingung(Erfolg):] Erfolgreiche Registrierung des \glspl{Studierender}n
-  	\item[Nachbedingung(Fehlschlag):] \gls{Studierender} ist weiterhin nicht
-  	registriert
+  	\item[Nachbedingung:]	\begin{description}[leftmargin=6em] \item[Erfolg]  Erfolgreiche Registrierung des \glspl{Studierender}n
+  	\item[Fehlschlag] \gls{Studierender} ist weiterhin nicht 
+  	registriert \end{description}
   	\item[Beschreibung:]~
   	\begin{enumerate}
   	  \item[1.] Öffnen der Internetseite
@@ -1302,13 +1307,13 @@ Im Administratiorbereich:
   
   \item \label{UCstudVerifikationEmail}
     \begin{description}
-    \item[Anwendung:] Verifikation der E"=Mail"=Adresse
+    \item[Verifikation der E"=Mail"=Adresse]
     \item[Ziel:] Verifikation der E"=Mail"=Adresse
     \item[Vorbedingung:] \gls{Studierender} muss sich registriert haben und seine
     E"=Mail"=Adresse korrekt angegeben haben.
-    \item[Nachbedingung(Erfolg):] \gls{Studierender} kann sich nun Anmelden und hat
+    \item[Nachbedingung:]	\begin{description}[leftmargin=6em] \item[Erfolg]  \gls{Studierender} kann sich nun Anmelden und hat
     Zugriff auf den \glspl{Studierender}nbereich
-    \item[Nachbedingung(Fehlschlag):] \gls{Studierender} kann sich nicht mit seinem Account anmelden
+    \item[Fehlschlag] \gls{Studierender} kann sich nicht mit seinem Account anmelden \end{description}
     \item[Beschreibung:]~
     \begin{enumerate}
       \item[1.] E-Mails über Drittsoftware abrufen.
@@ -1321,11 +1326,11 @@ Im Administratiorbereich:
   
   \item \label{UCstudAnmeldung}
     \begin{description}
-    \item[Anwendung:] Anmeldung eines \glspl{Studierender}n
+    \item[Anmeldung eines \glspl{Studierender}n]
     \item[Ziel:] \gls{Studierender} wird angemeldet und kann seine \gls{Bewertung} ändern
   	\item[Vorbedingung:] Der \glspl{Studierender} hat sich vorher registriert
-  	\item[Nachbedingung(Erfolg):] Der \glspl{Studierender} ist angemeldet
-  	\item[Nachbedingung(Fehlschlag):] Der \glspl{Studierender} ist nicht angemeldet
+  	\item[Nachbedingung:]	\begin{description}[leftmargin=6em] \item[Erfolg]  Der \glspl{Studierender} ist angemeldet
+  	\item[Fehlschlag] Der \glspl{Studierender} ist nicht angemeldet \end{description}
   	\item[Beschreibung:]~
   	\begin{enumerate}
   	  \item[1.] \gls{Studierender} öffnet die Website
@@ -1348,13 +1353,13 @@ Im Administratiorbereich:
   
   \item \label{UCstudCrealernG}
   \begin{description}
-  \item[Anwendung:] \gls{Studierender} erstellt \gls{Lerngruppe}
+  \item[\gls{Studierender} erstellt \gls{Lerngruppe}]
   \item[Ziel:] Eine neue \gls{Lerngruppe} ist in der Datenbank vermerkt und der
   Ersteller ist erstes Mitglied dieser
   	\item[Vorbedingung:] \gls{Studierender} ist angemeldet und befindet sich auf der
   	Website im \glspl{Studierender}nportal
-  	\item[Nachbedingung(Erfolg):] Die \gls{Lerngruppe} wurde erfolgreich erstellt
-  	\item[Nachbedingung(Fehlschlag):] Die \gls{Lerngruppe} wurde nicht erstellt
+  	\item[Nachbedingung:]	\begin{description}[leftmargin=6em] \item[Erfolg]  Die \gls{Lerngruppe} wurde erfolgreich erstellt
+  	\item[Fehlschlag] Die \gls{Lerngruppe} wurde nicht erstellt \end{description}
   	\item[Beschreibung:]~
   	\begin{enumerate}
   	  \item[1.] \gls{Studierender} gibt Name und Passwort in das Formular zum Erstellen
@@ -1376,14 +1381,14 @@ Im Administratiorbereich:
   
   \item \label{UCstudJoinLernG}
   \begin{description}
-  \item[Anwendung:] \gls{Studierender} tritt \gls{Lerngruppe} bei
+  \item[\gls{Studierender} tritt \gls{Lerngruppe} bei]
   \item[Ziel:] \gls{Studierender} ist Mitglied einer \gls{Lerngruppe}
   	\item[Vorbedingung:] \gls{Studierender} ist angemeldet und befindet sich auf der
   	Webseite im \glspl{Studierender}nberiech
-  	\item[Nachbedingung(Erfolg):] Der \glspl{Studierender} ist Mitglied der
+  	\item[Nachbedingung:]	\begin{description}[leftmargin=6em] \item[Erfolg]  Der \glspl{Studierender} ist Mitglied der
   	\gls{Lerngruppe}
-  	\item[Nachbedingung(Fehlschlag):] Der \glspl{Studierender} ist nicht Mitglied der
-  	\gls{Lerngruppe}
+  	\item[Fehlschlag] Der \glspl{Studierender} ist nicht Mitglied der 
+  	\gls{Lerngruppe} \end{description}
   	\item[Beschreibung:]~
   	\begin{enumerate}
   	  \item[1.] Der \glspl{Studierender} gibt die Anmeldedaten der \gls{Lerngruppe} in das
@@ -1409,15 +1414,15 @@ Im Administratiorbereich:
   
    \item \label{UCstudUebersichtLernG}
   \begin{description}
-  \item[Anwendung:] Übersicht über \gls{Lerngruppe}
+  \item[Übersicht über \gls{Lerngruppe}]
   \item[Ziel:] \gls{Studierender} kann sehen wer in seiner \gls{Lerngruppe} ist
   	\item[Vorbedingung:] \gls{Studierender} ist angemeldet und befindet sich auf der
   	Webseite im \glspl{Studierender}nbereich. Weiterhin ist der \glspl{Studierender} Mitglied einer
   	\gls{Lerngruppe}
-  	\item[Nachbedingung(Erfolg):] \gls{Studierender} befindet sich nun in der
+  	\item[Nachbedingung:]	\begin{description}[leftmargin=6em] \item[Erfolg]  \gls{Studierender} befindet sich nun in der
   	\glspl{Lerngruppe}übersicht
-  	\item[Nachbedingung(Fehlschlag):] Der \glspl{Studierender} ist nicht in der
-  	\glspl{Lerngruppe}übersicht
+  	\item[Fehlschlag] Der \glspl{Studierender} ist nicht in der 
+  	\glspl{Lerngruppe}übersicht \end{description}
   	\item[Beschreibung:]~
   	\begin{enumerate}
   	  \item[1.] Der \glspl{Studierender} klickt auf \gls{Lerngruppe} %TODO Verweis
@@ -1429,18 +1434,18 @@ Im Administratiorbereich:
   
      \item \label{UCstudEinsichtEinteilung}
   \begin{description}
-  \item[Anwendung:] Einsicht der \gls{Einteilung}sergebnisse
+  \item[Einsicht der \gls{Einteilung}sergebnisse]
   \item[Ziel:] \gls{Studierender} kann sehen welchem \gls{Projekt} er
   zugeteilt wurde
   	\item[Vorbedingung:] \gls{Studierender} ist angemeldet und befindet sich auf der
   	Webseite im \glspl{Studierender}nbereich. 
-  	\item[Nachbedingung(Erfolg):] \gls{Studierender} befindet sich in der Maske
+  	\item[Nachbedingung:]	\begin{description}[leftmargin=6em] \item[Erfolg]  \gls{Studierender} befindet sich in der Maske
   	\gls{Einteilung}sergebnisse. %TODO verweis
   	Falls der \gls{Admin} die \gls{Einteilung}sergebnisse bereits veröffentlicht hat,
   	kann er sehen, welchem \gls{Projekt} er zugeteilt wurde. Sonst sieht er, dass
   	die \gls{Einteilung} noch im Gange ist %TODO Gehört der Abschnitt hier rein?
-  	\item[Nachbedingung(Fehlschlag):] Der \glspl{Studierender} ist nicht in der
-  	Maske \gls{Einteilung}sergebnisse
+  	\item[Fehlschlag] Der \glspl{Studierender} ist nicht in der 
+  	Maske \gls{Einteilung}sergebnisse \end{description}
   	\item[Beschreibung:]~
   	\begin{enumerate}
   	  \item[1.] Der \glspl{Studierender} klickt auf \gls{Einteilung}sergebnisse
@@ -1455,18 +1460,18 @@ Im Administratiorbereich:
   
     \item \label{UCstudProjektbeschreibung}
   \begin{description}
-  \item[Anwendung:] Anzeigen der \gls{Projekt}beschreibung in \gls{Bewertung}smaske
+  \item[Anzeigen der \gls{Projekt}beschreibung in \gls{Bewertung}smaske]
   \item[Ziel:] \gls{Studierender} kann sich während der \gls{Einteilung} die Beschreibung
   der zu bewertenden \glspl{Projekt} nochmal ansehen
   	\item[Vorbedingung:] \gls{Studierender} ist angemeldet und befindet sich in der
   	Projekt\gls{Bewertung}smaske %TODO verweis
   	
-  	\item[Nachbedingung(Erfolg):] \gls{Studierender} kann die \gls{Projekt}beschreibung als
+  	\item[Nachbedingung:]	\begin{description}[leftmargin=6em] \item[Erfolg]  \gls{Studierender} kann die \gls{Projekt}beschreibung als
   	\enquote{Overlay} sehen %TODO wirklich als overlay? wie sieht der Studierend
   	%die beschreibunmg e
   	
-  	\item[Nachbedingung(Fehlschlag):] Der \glspl{Studierender} kann die
-  	Projektbeschreibung nicht sehen
+  	\item[Fehlschlag] Der \glspl{Studierender} kann die 
+  	Projektbeschreibung nicht sehen \end{description}
   	\item[Beschreibung:]~
   	\begin{enumerate}
   	  \item[1.] Der \glspl{Studierender} fährt mit seiner Maus über den \gls{Projekt}namen
@@ -1481,18 +1486,18 @@ Im Administratiorbereich:
   
       \item \label{UCstudLeaveLernG}
   \begin{description}
-  \item[Anwendung:] Austritt aus einer \gls{Lerngruppe}
+  \item[Austritt aus einer \gls{Lerngruppe}]
   \item[Ziel:] \gls{Studierender} möchte aus einer \gls{Lerngruppe} austreten
   	\item[Vorbedingung:] \gls{Studierender} ist angemeldet und befindet sich auf der
   	Webseite im \glspl{Studierender}nbereich. Weiterhin ist er Mitglied
   	einer \gls{Lerngruppe}
   	%TODO verweis
   	
-  	\item[Nachbedingung(Erfolg):] \gls{Studierender} ist kein Mitglied der
+  	\item[Nachbedingung:]	\begin{description}[leftmargin=6em] \item[Erfolg]  \gls{Studierender} ist kein Mitglied der
   	\gls{Lerngruppe} mehr
   	
-  	\item[Nachbedingung(Fehlschlag):] \gls{Studierender} ist immer noch Mitglied der
-  	\gls{Lerngruppe}
+  	\item[Fehlschlag] \gls{Studierender} ist immer noch Mitglied der 
+  	\gls{Lerngruppe} \end{description}
   	\item[Beschreibung:]~
   	\begin{enumerate}
   	  \item[1.] Der \glspl{Studierender} klickt auf \gls{Lerngruppe}. Nun befindet er sich
@@ -1510,12 +1515,12 @@ Im Administratiorbereich:
   
   \item \label{UCstudBewertung}
   \begin{description}
-  \item[Anwendung:] \gls{Studierender} bewertet \glspl{Projekt}
+  \item[\gls{Studierender} bewertet \glspl{Projekt}]
   \item[Ziel:] Der \glspl{Studierender} hat eine \gls{Bewertung} abgegeben
   	\item[Vorbedingung:] Der \glspl{Studierender} ist angemeldet und im \glspl{Studierender}nportal der
   	Website
-  	\item[Nachbedingung(Erfolg):] Die \gls{Bewertung} wurde gespeichert
-  	\item[Nachbedingung(Fehlschlag):] Die \gls{Bewertung} wurde nicht gespeichert
+  	\item[Nachbedingung:]	\begin{description}[leftmargin=6em] \item[Erfolg]  Die \gls{Bewertung} wurde gespeichert
+  	\item[Fehlschlag] Die \gls{Bewertung} wurde nicht gespeichert \end{description}
   	\item[Beschreibung:]~
   	 \begin{enumerate}
   	   \item[1.] Der \glspl{Studierender} füllt die \gls{Bewertung}smaske aus %TODO: Verweis
@@ -1534,12 +1539,12 @@ Im Administratiorbereich:
  
   \item \label{UCstudNewPasswort}
     \begin{description}
-  	\item[Anwendung:] Passwort vergessen
+  	\item[Passwort vergessen]
   	\item[Ziel:] Erhalten eines neuen Passworts
   	\item[Vorbedingung:] Der \glspl{Studierender} hat schon einen Account
-  	\item[Nachbedingung(Erfolg):] Der \glspl{Studierender} erhält eine E-Mail mit einem
+  	\item[Nachbedingung:]	\begin{description}[leftmargin=6em] \item[Erfolg]  Der \glspl{Studierender} erhält eine E-Mail mit einem
   	neuen Passwort
-  	\item[Nachbedingung(Fehlschlag):] Der \glspl{Studierender} erhält keine E-Mail
+  	\item[Fehlschlag] Der \glspl{Studierender} erhält keine E-Mail \end{description}
   	\item[Beschreibung:]~
   	\begin{enumerate}
   	  \item[1.] Öffnen der Internetseite
@@ -1554,11 +1559,11 @@ Im Administratiorbereich:
   
   \item \label{UCstudLogout}
     \begin{description}
-  	\item[Anwendung:] Abmeldung
+  	\item[Abmeldung]
   	\item[Ziel:] Student meldet sich ab
   	\item[Vorbedingung:] Der \glspl{Studierender} ist angemeldet und befindet sich im \glspl{Studierender}nbereich
-  	\item[Nachbedingung(Erfolg):] Der \glspl{Studierender} ist abgemeldet und befindet sich auf der Startseite
-  	\item[Nachbedingung(Fehlschlag):] Der \glspl{Studierender} ist nicht abgemeldet
+  	\item[Nachbedingung:]	\begin{description}[leftmargin=6em] \item[Erfolg]  Der \glspl{Studierender} ist abgemeldet und befindet sich auf der Startseite
+  	\item[Fehlschlag] Der \glspl{Studierender} ist nicht abgemeldet \end{description}
   	\item[Beschreibung:]~
   	\begin{enumerate}
   	  \item[1.] \gls{Studierender} ist im \glspl{Studierender}nbereich der Webseite
@@ -1576,11 +1581,11 @@ Im Administratiorbereich:
 \begin{enumerate} [label=\swtLabel{B}]
   \item \label{UCbetreuerAnmeldung}
 	 \begin{description}
-		\item[Anwendung:] \gls{Projektbetreuer} meldet sich an
+		\item[\gls{Projektbetreuer} meldet sich an]
   		\item[Ziel:] Anmeldung des \gls{Projektbetreuer}s
   		\item[Vorbedingung:] Konto des \gls{Projektbetreuer}s wurde angelegt
-  		\item[Nachbedingung(Erfolg):] \gls{Projektbetreuer} ist angemeldet
-  		\item[Nachbedingung(Fehlschlag):] \gls{Projektbetreuer} ist nicht angemeldet
+  		\item[Nachbedingung:]	\begin{description}[leftmargin=6em] \item[Erfolg]  \gls{Projektbetreuer} ist angemeldet
+  		\item[Fehlschlag] \gls{Projektbetreuer} ist nicht angemeldet \end{description}
   		\item[Beschreibung]~
   		\begin{enumerate}
   			\item[1.] Der \gls{Projektbetreuer} gibt seine Zugangsdaten ein
@@ -1598,12 +1603,12 @@ Im Administratiorbereich:
   
   \item \label{UCbetreuerThemaErstellenÄndern}
 	\begin{description}
-  		\item[Anwendung:] \gls{Projekt} erstellen/ändern
+  		\item[\gls{Projekt} erstellen/ändern]
   		\item[Ziel:] Eröffnung/Änderung eines \glspl{Projekt}s
   		\item[Vorbedingung:] -keine-
-  		\item[Nachbedingung(Erfolg):] \gls{Projekt}daten sind im System eingetragen
-  		\item[Nachbedingung(Fehlschlag):] \gls{Projekt}daten sind nicht im System
-  		eingetragen
+  		\item[Nachbedingung:]	\begin{description}[leftmargin=6em] \item[Erfolg]  \gls{Projekt}daten sind im System eingetragen
+  		\item[Fehlschlag] \gls{Projekt}daten sind nicht im System 
+  		eingetragen \end{description}
   		\item[Beschreibung:]~
   	\begin{enumerate}
   	  \item[1.] \gls{Projektbetreuer} befindet sich auf der Website mit den \gls{Projekt}
@@ -1622,12 +1627,12 @@ Im Administratiorbereich:
  
   \item \label{UCbetreuerJoinProjekt}
 	\begin{description}
-  		\item[Anwendung:] \gls{Projektbetreuer} werden
+  		\item[\gls{Projektbetreuer} werden]
   		\item[Ziel:] \gls{Projektbetreuer} eines bestimmten \glspl{Projekt}s werden
   		\item[Vorbedingung:] Man ist noch nicht \gls{Projektbetreuer} des ausgewählten \glspl{Projekt}s
-  		\item[Nachbedingung(Erfolg):] Erfolgreich \gls{Projektbetreuer} des ausgewählten
+  		\item[Nachbedingung:]	\begin{description}[leftmargin=6em] \item[Erfolg]  Erfolgreich \gls{Projektbetreuer} des ausgewählten
   		\glspl{Projekt}s geworden
-  		\item[Nachbedingung(Fehlschlag):] Man ist nicht \gls{Projektbetreuer} des \glspl{Projekt}s
+  		\item[Fehlschlag] Man ist nicht \gls{Projektbetreuer} des \glspl{Projekt}s \end{description}
   		\item[Beschreibung:]~
   	\begin{enumerate} 
   	  \item[1.] \gls{Projektbetreuer} befindet sich auf der Website mit den \glspl{Projekt}n
@@ -1642,17 +1647,17 @@ Im Administratiorbereich:
   
   \item \label{UCbetreuerEinsichtEinteilungProjekt}
   \begin{description}
-  	\item[Anwendung:] Einsicht der \gls{Einteilung}sergebnisse und zusätzlicher Informationen
+  	\item[Einsicht der \gls{Einteilung}sergebnisse und zusätzlicher Informationen]
   	\item[Ziel:] Der \gls{Projektbetreuer} kann sehen, wer zu seinen \glspl{Projekt}n zugeteilt wurde und erhält weitere Informationen
   	\item[Vorbedingung:] \gls{Projektbetreuer} ist angemeldet und befindet sich auf der
   	Webseite im Betreuerbereich  %TODO noch kein GUI entwurf
-  	\item[Nachbedingung(Erfolg):] \gls{Projektbetreuer} befindet sich in der Maske
+  	\item[Nachbedingung:]	\begin{description}[leftmargin=6em] \item[Erfolg]  \gls{Projektbetreuer} befindet sich in der Maske
   	\gls{Einteilung}sergebnisse. %TODO verweis
   	Falls der \gls{Admin} die \gls{Einteilung}sergebnisse bereits veröffentlicht hat, kann er
   	sehen, wer seinen \glspl{Projekt}n zugeteilt wurde. Sonst sieht er, dass die \gls{Einteilung}
   	noch im Gange ist
-  	\item[Nachbedingung(Fehlschlag):] Der \gls{Projektbetreuer} ist nicht in der
-  	Maske \gls{Einteilung}sergebnisse
+  	\item[Fehlschlag] Der \gls{Projektbetreuer} ist nicht in der
+  	Maske \gls{Einteilung}sergebnisse \end{description}
   	\item[Beschreibung:]~
   	\begin{enumerate}
   		\item[1.] Der \gls{Projektbetreuer} klickt auf \enquote{\gls{Einteilung}sergebnisse} 
@@ -1668,12 +1673,12 @@ Im Administratiorbereich:
   
   \item \label{UCbetreuerLeaveProjekt}
 	\begin{description}
-  		\item[Anwendung:] \gls{Projekt} verlassen
+  		\item[\gls{Projekt} verlassen]
   		\item[Ziel:] Ein \gls{Projekt} nicht mehr betreuen
   		\item[Vorbedingung:] Man ist \gls{Projektbetreuer} eines \glspl{Projekt}s, in dem noch mindestens
   		ein anderer \gls{Projektbetreuer} ist.
-  		\item[Nachbedingung(Erfolg):] Man betreut das \gls{Projekt} nicht länger
-  		\item[Nachbedingung(Fehlschlag):] Man ist immer noch \gls{Projektbetreuer} des \glspl{Projekt}s
+  		\item[Nachbedingung:]	\begin{description}[leftmargin=6em] \item[Erfolg]  Man betreut das \gls{Projekt} nicht länger
+  		\item[Fehlschlag] Man ist immer noch \gls{Projektbetreuer} des \glspl{Projekt}s \end{description}
   		\item[Beschreibung:]~
   	\begin{enumerate} 
   	  \item[1.] \gls{Projektbetreuer} befindet sich auf der Website mit den \glspl{Projekt}n, die
@@ -1689,11 +1694,11 @@ Im Administratiorbereich:
   
   \item \label{UCbetreuerNoteneintragung}
     \begin{description}
-  	\item[Anwendung:] Noten für \gls{Team} eintragen
+  	\item[Noten für \gls{Team} eintragen]
   	\item[Ziel:] Speichern der Noten in der Datenbank
   	\item[Vorbedingung:] \gls{Team} hat \glspl{Studierender}n als Teilnehmer
-  	\item[Nachbedingung(Erfolg):] Eintragung/Änderung der Noten
-  	\item[Nachbedingung(Fehlschlag):] Notenänderung wird verworfen
+  	\item[Nachbedingung:]	\begin{description}[leftmargin=6em] \item[Erfolg]  Eintragung/Änderung der Noten
+  	\item[Fehlschlag] Notenänderung wird verworfen \end{description}
   	\item[Beschreibung:]~
   	\begin{enumerate} 
   	  \item[1.] \gls{Projektbetreuer} befindet sich auf der Website mit der Notenübersicht
@@ -1707,11 +1712,11 @@ Im Administratiorbereich:
   
   \item \label{UCbetreuerLogout}
     \begin{description}
-  	\item[Anwendung:] Abmeldung
+  	\item[Abmeldung]
   	\item[Ziel:] \gls{Projektbetreuer} meldet sich ab
   	\item[Vorbedingung:] Der \gls{Projektbetreuer} ist angemeldet und befindet sich im Betreuerbereich
-  	\item[Nachbedingung(Erfolg):] Der \gls{Projektbetreuer} ist abgemeldet und befindet sich auf der Startseite
-  	\item[Nachbedingung(Fehlschlag):] Der \gls{Projektbetreuer} ist nicht abgemeldet
+  	\item[Nachbedingung:]	\begin{description}[leftmargin=6em] \item[Erfolg]  Der \gls{Projektbetreuer} ist abgemeldet und befindet sich auf der Startseite
+  	\item[Fehlschlag] Der \gls{Projektbetreuer} ist nicht abgemeldet \end{description}
   	\item[Beschreibung:]~
   	\begin{enumerate}
   	  \item[1.] \gls{Projektbetreuer} ist im Betreuerbereich der Webseite
