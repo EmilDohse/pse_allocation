@@ -145,7 +145,7 @@ kann es eine konsistente und bequeme Benutzerschnittstelle anbieten.
 Es löst das Problem, die \glspl{Studierender}n auf die angebotenen \glspl{Projekt} zu verteilen
 und kann dabei über die Modifikation von Parametern leicht konfiguriert werden.
 Durch zusätzlich angebotene Features, wie die Verwaltung der Themen durch die \gls{Projektbetreuer} selbst 
-oder die Möglichkeit zur automatischen Benachrichtigung der betroffenen \glspl{Studierender}n und Betreuer über die
+oder die Möglichkeit zur automatischen Benachrichtigung der betroffenen \glspl{Studierender}n und \gls{Projektbetreuer} über die
 \gls{Einteilung}, soll der Administrationsaufwand drastisch reduziert werden. 
 
 Insgesamt entsteht dadurch für alle Beteiligten ein effektiver und smarter Workflow.
@@ -366,7 +366,7 @@ ein Verweis auf den Anwendungsfall, der die Funktion beschreibt und testet.
   \label{FAbetreuerNoten} \testRef{UCbetreuerNoteneintragung}
   \item Einem \gls{Projekt} als Betreuer beitreten \label{FAbetreuerJoinProjekt}
   \testRef{UCbetreuerJoinProjekt}
-  \item Ein \gls{Projekt} als Betreuer verlassen \label{FAbetreuerLeaveprojekt}
+  \item Ein \gls{Projekt} als \gls{Projektbetreuer} verlassen \label{FAbetreuerLeaveprojekt}
   \testRef{UCbetreuerLeaveProjekt}
 
 \end{enumerate}
@@ -524,7 +524,7 @@ ein Verweis auf den Anwendungsfall, der die Funktion beschreibt und testet.
 \end{enumerate}
 
 \subsection{Betreuerdaten}
-Über einen Betreuer werden folgende Daten gespeichert:
+Über einen \gls{Projektbetreuer} werden folgende Daten gespeichert:
 \begin{enumerate}[label=\swtLabel{D}, resume] 
 	\item Name \label{DbetAnfang}
 	\item Vorname
@@ -590,7 +590,7 @@ ein Verweis auf den Anwendungsfall, der die Funktion beschreibt und testet.
   länger als 5 Sekunden. Ausgenommen hiervon sind \ref{FAadminInit}, \ref{FAimport},
   \ref{FAexport}, \ref{FAabbruch} und \ref{FAimport2} bei welchen die Antwortzeit im Schnitt
   unter 60 Sekunden liegt
-  \item Für Betreuer ist die Antwortzeit des Webservers im Schnitt nicht
+  \item Für \gls{Projektbetreuer} ist die Antwortzeit des Webservers im Schnitt nicht
   länger als 5 Sekunden
   \item Die \gls{Einteilung}sfunktion \ref{FAeinteilung} ist im Schnitt in unter 24
   Stunden fertig
@@ -954,14 +954,14 @@ Im Administratiorbereich:
 \begin{enumerate} [label=\swtLabel{B}]
   \item \label{UCbetreuerAnmeldung}
 	 \begin{description}
-		\item[Anwendung:] Betreuer meldet sich an
-  		\item[Ziel:] Anmeldung des Betreuers
-  		\item[Vorbedingung:] Konto des Betreuers wurde angelegt
-  		\item[Nachbedingung(Erfolg):] Betreuer ist angemeldet
-  		\item[Nachbedingung(Fehlschlag):] Betreuer ist nicht angemeldet
+		\item[Anwendung:] \gls{Projektbetreuer} meldet sich an
+  		\item[Ziel:] Anmeldung des \gls{Projektbetreuer}s
+  		\item[Vorbedingung:] Konto des \gls{Projektbetreuer}s wurde angelegt
+  		\item[Nachbedingung(Erfolg):] \gls{Projektbetreuer} ist angemeldet
+  		\item[Nachbedingung(Fehlschlag):] \gls{Projektbetreuer} ist nicht angemeldet
   		\item[Beschreibung]~
   		\begin{enumerate}
-  			\item[1.] Der Betreuer gibt seine Zugangsdaten ein
+  			\item[1.] Der \gls{Projektbetreuer} gibt seine Zugangsdaten ein
   			\item[2.] Wenn die Anmeldedaten korrekt sind, wird er auf den
   			Betreuerbereich weitergeleitet
   		\end{enumerate}
@@ -976,18 +976,18 @@ Im Administratiorbereich:
   
   \item \label{UCbetreuerThemaErstellenÄndern}
 	\begin{description}
-  		\item[Anwendung:] Thema erstellen/ändern
-  		\item[Ziel:] Eröffnung/Änderung eines \gls{PSE}-Themas
+  		\item[Anwendung:] \gls{Projekt} erstellen/ändern
+  		\item[Ziel:] Eröffnung/Änderung eines \glspl{Projekt}s
   		\item[Vorbedingung:] -keine-
-  		\item[Nachbedingung(Erfolg):] Themendaten sind im System eingetragen
-  		\item[Nachbedingung(Fehlschlag):] Themendaten sind nicht im System
+  		\item[Nachbedingung(Erfolg):] \gls{Projekt}daten sind im System eingetragen
+  		\item[Nachbedingung(Fehlschlag):] \gls{Projekt}daten sind nicht im System
   		eingetragen
   		\item[Beschreibung:]~
   	\begin{enumerate}
-  	  \item[1.] Betreuer befindet sich auf der Website mit den \gls{PSE}-Themen
-  	  \item[2.] Existiert das Thema schon, so wählt der Betreuer dieses aus
-  	  \item[3.] Betreuer füllt die Eingabemaske aus
-  	  \item[4.] Betreuer speichert die neuen Daten ab
+  	  \item[1.] \gls{Projektbetreuer} befindet sich auf der Website mit den \gls{Projekt}
+  	  \item[2.] Existiert das \gls{Projekt} schon, so wählt der \gls{Projektbetreuer} dieses aus
+  	  \item[3.] \gls{Projektbetreuer} füllt die Eingabemaske aus
+  	  \item[4.] \gls{Projektbetreuer} speichert die neuen Daten ab
   	\end{enumerate}
   	\item[Erweiterungen:] -keine-
   	\item[Alternativen:]~
@@ -1000,17 +1000,17 @@ Im Administratiorbereich:
  
   \item \label{UCbetreuerJoinProjekt}
 	\begin{description}
-  		\item[Anwendung:] Gruppenbetreuer werden
-  		\item[Ziel:] Betreuer einer bestimmten Gruppe werden
-  		\item[Vorbedingung:] Man ist noch nicht Betreuer der ausgewählten Gruppe
-  		\item[Nachbedingung(Erfolg):] Erfolgreich Betreuer der ausgewählten
-  		Gruppe geworden
-  		\item[Nachbedingung(Fehlschlag):] Man ist nicht Betreuer der Gruppe
+  		\item[Anwendung:] \gls{Projektbetreuer} werden
+  		\item[Ziel:] \gls{Projektbetreuer} eines bestimmten \glspl{Projekt}s werden
+  		\item[Vorbedingung:] Man ist noch nicht \gls{Projektbetreuer} des ausgewählten \glspl{Projekt}s
+  		\item[Nachbedingung(Erfolg):] Erfolgreich \gls{Projektbetreuer} des ausgewählten
+  		\glspl{Projekt}s geworden
+  		\item[Nachbedingung(Fehlschlag):] Man ist nicht \gls{Projektbetreuer} des \glspl{Projekt}s
   		\item[Beschreibung:]~
   	\begin{enumerate} 
-  	  \item[1.] Betreuer befindet sich auf der Website mit den \gls{PSE}-Gruppen
-  	  \item[2.] Betreuer wählt die Gruppe aus, welcher er betreuen möchte
-  	  \item[3.] Betreuer tritt der Gruppe bei
+  	  \item[1.] \gls{Projektbetreuer} befindet sich auf der Website mit den \glspl{Projekt}n
+  	  \item[2.] \gls{Projektbetreuer} wählt das \gls{Projekt} aus, welches er betreuen möchte
+  	  \item[3.] \gls{Projektbetreuer} tritt dem \gls{Projekt} bei
   	\end{enumerate}
   	\item[Erweiterungen:] -keine-
   	\item[Alternativen:] -keine-
@@ -1021,7 +1021,7 @@ Im Administratiorbereich:
   \item \label{UCbetreuerEinsichtEinteilungProjekt}
   \begin{description}
   	\item[Anwendung:] Einsicht der \gls{Einteilung}sergebnisse und zusätzlicher Informationen
-  	\item[Ziel:] Der Betreuer kann sehen, wer zu seinen \glspl{Projekt}n zugeteilt wurde und erhält weitere Informationen
+  	\item[Ziel:] Der \gls{Projektbetreuer} kann sehen, wer zu seinen \glspl{Projekt}n zugeteilt wurde und erhält weitere Informationen
   	\item[Vorbedingung:] \gls{Projektbetreuer} ist angemeldet und befindet sich auf der
   	Webseite im Betreuerbereich  %TODO noch kein GUI entwurf
   	\item[Nachbedingung(Erfolg):] \gls{Projektbetreuer} befindet sich in der Maske
@@ -1046,18 +1046,18 @@ Im Administratiorbereich:
   
   \item \label{UCbetreuerLeaveProjekt}
 	\begin{description}
-  		\item[Anwendung:] Gruppe verlassen
-  		\item[Ziel:] Eine Gruppe nicht mehr betreuen
-  		\item[Vorbedingung:] Man ist Betreuer einer Gruppe, in der noch mindestens
-  		ein anderer Betreuer ist.
-  		\item[Nachbedingung(Erfolg):] Man betreut die Gruppe nicht länger
-  		\item[Nachbedingung(Fehlschlag):] Man ist immer noch Betreuer der Gruppe
+  		\item[Anwendung:] \gls{Projekt} verlassen
+  		\item[Ziel:] Ein \gls{Projekt} nicht mehr betreuen
+  		\item[Vorbedingung:] Man ist \gls{Projektbetreuer} eines \glspl{Projekt}s, in dem noch mindestens
+  		ein anderer \gls{Projektbetreuer} ist.
+  		\item[Nachbedingung(Erfolg):] Man betreut das \gls{Projekt} nicht länger
+  		\item[Nachbedingung(Fehlschlag):] Man ist immer noch \gls{Projektbetreuer} des \glspl{Projekt}s
   		\item[Beschreibung:]~
   	\begin{enumerate} 
-  	  \item[1.] Betreuer befindet sich auf der Website mit den \gls{PSE}-Gruppen, die
+  	  \item[1.] \gls{Projektbetreuer} befindet sich auf der Website mit den \glspl{Projekt}n, die
   	  er betreut.
-  	  \item[2.] Betreuer wählt die Gruppe aus, welche er verlassen möchte.
-  	  \item[3.] Betreuer verlässt die Gruppe.
+  	  \item[2.] \gls{Projektbetreuer} wählt das \gls{Projekt} aus, welches er verlassen möchte.
+  	  \item[3.] \gls{Projektbetreuer} verlässt das \gls{Projekt}.
   	\end{enumerate}
   	\item[Erweiterungen:] -keine-
   	\item[Alternativen:] -keine-
@@ -1067,15 +1067,15 @@ Im Administratiorbereich:
   
   \item \label{UCbetreuerNoteneintragung}
     \begin{description}
-  	\item[Anwendung:] Noten für Gruppenteilnehmer eintragen
+  	\item[Anwendung:] Noten für \gls{Team} eintragen
   	\item[Ziel:] Speichern der Noten in der Datenbank
-  	\item[Vorbedingung:] Gruppe hat \glspl{Studierender}n als Teilnehmer
+  	\item[Vorbedingung:] \gls{Team} hat \glspl{Studierender}n als Teilnehmer
   	\item[Nachbedingung(Erfolg):] Eintragung/Änderung der Noten
   	\item[Nachbedingung(Fehlschlag):] Notenänderung wird verworfen
   	\item[Beschreibung:]~
   	\begin{enumerate} 
-  	  \item[1.] Betreuer befindet sich auf der Website mit der Notenübersicht
-  	  \item[2.] Betreuer trägt neue Noten für eine beliebige Phase ein oder
+  	  \item[1.] \gls{Projektbetreuer} befindet sich auf der Website mit der Notenübersicht
+  	  \item[2.] \gls{Projektbetreuer} trägt neue Noten für einen \glspl{Studierender}n ein oder
   	  ändert bestehende Noten
   	\end{enumerate}
   	\item[Erweiterungen:] -keine-
@@ -1086,13 +1086,13 @@ Im Administratiorbereich:
   \item \label{UCbetreuerLogout}
     \begin{description}
   	\item[Anwendung:] Abmeldung
-  	\item[Ziel:] Betreuer meldet sich ab
-  	\item[Vorbedingung:] Der Betreuer ist angemeldet und befindet sich im Betreuerbereich
-  	\item[Nachbedingung(Erfolg):] Der Betreuer ist abgemeldet und befindet sich auf der Startseite
-  	\item[Nachbedingung(Fehlschlag):] Der Betreuer ist nicht abgemeldet
+  	\item[Ziel:] \gls{Projektbetreuer} meldet sich ab
+  	\item[Vorbedingung:] Der \gls{Projektbetreuer} ist angemeldet und befindet sich im Betreuerbereich
+  	\item[Nachbedingung(Erfolg):] Der \gls{Projektbetreuer} ist abgemeldet und befindet sich auf der Startseite
+  	\item[Nachbedingung(Fehlschlag):] Der \gls{Projektbetreuer} ist nicht abgemeldet
   	\item[Beschreibung:]~
   	\begin{enumerate}
-  	  \item[1.] Betreuer ist im Betreuerbereich der Webseite
+  	  \item[1.] \gls{Projektbetreuer} ist im Betreuerbereich der Webseite
       \item[2.] Klick auf \enquote{Ausloggen} in der Seitenleiste
       \item[3.] Die Startseite erscheint
   	\end{enumerate}
@@ -1284,7 +1284,7 @@ Im Administratiorbereich:
   	\end{enumerate}
   	\item[Erweiterungen:]~
   	\begin{enumerate}
-  	  \item[nach 3)] Betreuer und \glspl{Studierender} werden per E"=Mail über die \gls{Einteilung} informiert
+  	  \item[nach 3)] \gls{Projektbetreuer} und \glspl{Studierender} werden per E"=Mail über die \gls{Einteilung} informiert
   	 \end{enumerate}
   	\item[Alternativen:] -keine-
   	\item[Benötigte FA:] \ref{FAadminAuswahl},
@@ -1294,20 +1294,20 @@ Im Administratiorbereich:
   \item \label{UCadminCreateBetreuer}
   \begin{description}
   \item[Anwendung:] Erstellen eines Betreueraccounts
-  \item[Ziel:] Hinzufügen eines Betreuers in das System
+  \item[Ziel:] Hinzufügen eines \gls{Projektbetreuer} in das System
   	\item[Vorbedingung:] -keine-
-  	\item[Nachbedingung(Erfolg):] Der Betreueraccount wurde erstellt
-  	\item[Nachbedingung(Fehlschlag):] Der Betreueraccount wurde nicht erstellt
+  	\item[Nachbedingung(Erfolg):] Der \gls{Projektbetreuer}account wurde erstellt
+  	\item[Nachbedingung(Fehlschlag):] Der \gls{Projektbetreuer}account wurde nicht erstellt
   	\item[Beschreibung:]~
   	 \begin{enumerate} 
   	   \item[1.] Öffnen der Betreuerübersicht (\autoref{GUIprojLeiterUebersicht})
   	   \item[2.] Ausfüllen der einzeln abgetrennten Zeile  
   	   \item[3.] Durch Klick auf \enquote{Projektleiter hinzufügen} wird der neu
-  	   angelegte Betreuer dem System hinzugefügt
+  	   angelegte \gls{Projektbetreuer} dem System hinzugefügt
   	 \end{enumerate} 
   	\item[Erweiterungen:]~
   	 \begin{enumerate}
-  	   \item[4)] Der Betreuer erhält seine Zugangsdaten per E-Mail
+  	   \item[4)] Der \gls{Projektbetreuer} erhält seine Zugangsdaten per E-Mail
   	 \end{enumerate}  
   \item[Alternativen:] -keine-
   \item[Benötigte FA:] \ref{FAadminCreateAccounts}
