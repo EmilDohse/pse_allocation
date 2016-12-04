@@ -7,7 +7,7 @@
 \usepackage{enumitem}
 \usepackage{graphicx}
 
-\setlist[description]{leftmargin=8em,style=nextline}
+\setlist[description]{leftmargin=8em,style=nextline, noitemsep}
 \hyphenation{Web-in-scribe}
 \usepackage[binary-units=true]{siunitx}
   \usepackage[autostyle=true,german=quotes]{csquotes}
@@ -77,21 +77,21 @@ dient als zusammenfassendes \gls{Guetekriterium} einer \gls{Einteilung}  }}
 nicht zugeteilt wurden }}
 
 \newglossaryentry{Matrikelnummer}{name=Matrikelnummer, plural=Matrikelnummern,
-	description={Eindeutige Nummer, die einen \glspl{Studierender}n am KIT identifiziert}}
+	description={Eine \gls{Matrikelnummer} ist eine eindeutige Nummer, die einen \glspl{Studierender}n am KIT identifiziert}}
 
 \newglossaryentry{Benutzername}{name=Benutzername, plural=Benutzernamen,
-	description={Eindeutiger Name, der im System einem \gls{Admin}, \gls{Projektbetreuer} oder \glspl{Studierender}n zugeordnet ist}} 
+	description={Ein \gls{Benutzername} ist ein eindeutiger Name, der im System einem \gls{Admin}, \gls{Projektbetreuer} oder \glspl{Studierender}n zugeordnet ist}} 
 
 
 \newglossaryentry{Bewertung}{name=Projektbewertung, plural=Projektbewertungen,
-	description={Eine Angabe eines \glspl{Studierender}n oder einer \gls{Lerngruppe}, in welche \glspl{Projekt} sie gerne, beziehungsweise weniger gerne, bei der \gls{Einteilung} zugeordnet werden möchte}}
+	description={Eine \gls{Bewertung} ist eine Angabe eines \glspl{Studierender}n oder einer \gls{Lerngruppe}, in welche \glspl{Projekt} sie gerne, beziehungsweise weniger gerne, bei der \gls{Einteilung} zugeordnet werden möchte}}
 	
 
 \newglossaryentry{Einteilung}{name=Einteilung, plural=Einteilungen,
-	description={Eine Zuordnung von \glspl{Studierender}n zu \glspl{Team}. Im System können mehrere \glspl{Einteilung} existieren, aus denen der \gls{Admin} genau eine Auswählen kann, welche dann Veröffentlicht wird}}
+	description={Eine \gls{Einteilung} ist eine Zuordnung von \glspl{Studierender}n zu \glspl{Team}. Im System können mehrere \glspl{Einteilung} existieren, aus denen der \gls{Admin} genau eine Auswählen kann, welche dann Veröffentlicht wird}}
 	
-\newglossaryentry{Vorraussetzung}{name=Vorraussetzung, plural=Vorraussetzungen,
-	description={Formale Bedingungen, die laut Prüfungsordnung erfüllt sein müssen, damit man beim \gls{PSE} teilnehmen darf}}
+\newglossaryentry{Voraussetzung}{name=Voraussetzung, plural=Voraussetzungen,
+	description={Eine \gls{Voraussetzung} ist eine formale Bedingungen, die laut Prüfungsordnung erfüllt sein müssen, damit man beim \gls{PSE} teilnehmen darf}}
 
 \newglossaryentry{Einteilungskonfiguration}{name=Einteilungskonfiguration,
 plural=Einteilungskonfigurationen, description={Das System besitzt bei der
@@ -99,7 +99,7 @@ Berechnung einer \gls{Einteilung} diverse Parameter und Kriterien, nach denen
 die \gls{Einteilung} erfolgen kann. Eine \gls{Einteilungskonfiguration} meint
 genau eine Festlegung dieser Parameter und Kriterien auf einen konkreten Wert}}
 	
-\newglossaryentry{CMS}{name=Campus Management System, description={Das Campus Management System ist ein System zur Verwaltung von \glspl{Studierender}ndaten. Das System ist vor allem für das Speichern von Prüfungs- und \gls{Teilleistung}sdaten zuständig
+\newglossaryentry{CMS}{name=Campus Management System, description={Das \gls{CMS} ist ein System zur Verwaltung von \glspl{Studierender}ndaten. Das System ist vor allem für das Speichern von Prüfungs- und \gls{Teilleistung}sdaten zuständig
 }}
 
 \newglossaryentry{TSE}{name=TSE, description={Das \gls{Modul} \gls{TSE} (\gls{Team}arbeit und
@@ -110,10 +110,10 @@ und bewertet die \gls{Team}fähigkeit der Teilnehmer}}
 
 	
 \newglossaryentry{Shibboleth}{name=Shibboleth,
-	description={Der \gls{Shibboleth} Identity Provider ermöglich es, KIT-Benutzer gegenüber Institutionen außerhalb und innerhalb des KIT zu authentifizieren. Dabei wird der Benutzer von einem Serviceprovider zu dem Identity Provider weitergeleitet und kann sich dort authentifizieren. Bei erfolgreicher Authentifizierung wird der Benutzer wieder zu dem Serviceprovider zurückgeitet und diesem wird mitgeteilt, dass die Authentifizierung erfolgreich war.	Zusätzlich ist es möglich, dem Serviceprovider weitere Attribute des Benutzers zu übermitteln}}	
+	description={Der \gls{Shibboleth} Identity Provider ermöglich es, KIT-Benutzer gegenüber Institutionen außerhalb und innerhalb des KIT zu authentifizieren. Dabei wird der Benutzer von einem Serviceprovider zu dem Identity Provider weitergeleitet und kann sich dort authentifizieren. Bei erfolgreicher Authentifizierung wird der Benutzer wieder zu dem Serviceprovider zurückgeleitet und diesem wird mitgeteilt, dass die Authentifizierung erfolgreich war.	Zusätzlich ist es möglich, dem Serviceprovider weitere Attribute des Benutzers zu übermitteln}}	
 
-\newglossaryentry{KIT-Account}{name=KIT-Account, plural=KIT-Accounts,
-	description={Der KIT-Account stellt Zugangsmöglichkeiten zu Systemen und Diensten am KIT dar und wird allgemein als "Login" im KIT-Umfeld benutzt. Der \gls{KIT-Account} eines \glspl{Studierender}n wird umgangsprachlich häufig als \enquote{u-Account} bezeichnet, da er für \glspl{Studierender} stets mit einem \emph{u} beginnt}}
+\newglossaryentry{SCC-Account}{name=SCC-Account, plural=SCC-Accounts,
+	description={Der SCC-Account stellt Zugangsmöglichkeiten zu Systemen und Diensten am SCC dar und wird allgemein als "Login" im KIT-Umfeld benutzt. Der \gls{SCC-Account} eines \glspl{Studierender}n wird umgangssprachlich häufig als \enquote{u-Account} bezeichnet, da er für \glspl{Studierender} stets mit einem \emph{u} beginnt}}
 	
 \begin{document}
 
@@ -171,7 +171,7 @@ Insgesamt entsteht dadurch für alle Beteiligten ein effektiver und smarter Work
    \item Das Produkt teilt nach folgenden Kriterien \glspl{Studierender}n \glspl{Team} zu:
    \label{Mzuteilung}
    \begin{itemize}
-     \item Wer die \glspl{Vorraussetzung} nicht erfüllt, wird nicht eingeteilt
+     \item Wer die \glspl{Voraussetzung} nicht erfüllt, wird nicht eingeteilt
      \item \glspl{Lerngruppe} sollten zusammenbleiben
      \item \glspl{Bewertung} der \glspl{Studierender}n werden berücksichtigt
    \end{itemize}
@@ -300,7 +300,7 @@ ein Verweis auf den Anwendungsfall, der die Funktion beschreibt und testet.
 
 \subsection{\gls{Einteilung}sfunktionen}
 \subsubsection{Pflichtfunktionen}
-\begin{enumerate}[label=\swtLabel{FA}, resume]
+\begin{enumerate}[label=\swtLabel{FA}]
   \item \gls{Einteilung} der \glspl{Studierender}n zu \glspl{Projekt}n. Hierbei werden
   folgende Kriterien, soweit möglich, berücksichtigt: \testRef{UCadminVergleichGuete},
   \testRef{UCadminEinteilungStart}
@@ -428,7 +428,7 @@ ein Verweis auf den Anwendungsfall, der die Funktion beschreibt und testet.
 
 \subsubsection{Pflichtfunktionen}
 
-\begin{enumerate}[label=\swtLabel{FA}]
+\begin{enumerate}[label=\swtLabel{FA}, resume]
   \item Registrierung eines \glspl{Studierender}n mit Datenerfassung: \testRef{UCstudReg}
   \label{FAregistrierung}
   \begin{itemize}
@@ -460,9 +460,8 @@ ein Verweis auf den Anwendungsfall, der die Funktion beschreibt und testet.
 \begin{enumerate}[label=\swtLabel{FA}, resume]
 	\item Anzeigen von \gls{Projekt}beschreibung in \gls{Bewertung}seingabemaske
 	\label{FAbeschreibung-Bewertung} \testRef{UCstudProjektbeschreibung}
-	\item Anmeldung über u"=Account \label{FAstudUanmeldung} \testRef{UCstudAnmeldung}%TODO
-	% Glossareintrag
-	\item Verifikation der E"=Mail"= Adresse über einen Verifikationslink, der an
+	\item Anmeldung über \gls{SCC-Account} \label{FAstudUanmeldung} \testRef{UCstudAnmeldung}
+	\item Verifikation der E"=Mail"=Adresse über einen Verifikationslink, der an
 	die vom \glspl{Studierender}n angegebene E"=Mail"=Adresse versandt wird
 	\label{FAemailverifikation} \testRef{UCstudVerifikationEmail}
 	\item Anfordern eines neuen Passworts \label{FApasswortvergessen}
@@ -504,9 +503,9 @@ ein Verweis auf den Anwendungsfall, der die Funktion beschreibt und testet.
 \section{Produktdaten}
 
 \subsection{Allgemeine Daten}
-\begin{enumerate}[label=\swtLabel{D},resume]
+\begin{enumerate}[label=\swtLabel{D}]
   \item Aktuelles Semester
-  \item Verfügbare \glspl{SPO}s
+  \item Verfügbare \glspl{SPO}
 \end{enumerate}
 
 \subsection{Semesterdaten}
@@ -529,7 +528,7 @@ ein Verweis auf den Anwendungsfall, der die Funktion beschreibt und testet.
 
 \subsection{\gls{Admin}daten}
 Über den \gls{Admin} werden folgende Daten gespeichert:
-\begin{enumerate}[label=\swtLabel{D}] 
+\begin{enumerate}[label=\swtLabel{D}, resume] 
 	\item Passwort
 	\item Nutzername
 \end{enumerate}
@@ -541,7 +540,7 @@ ein Verweis auf den Anwendungsfall, der die Funktion beschreibt und testet.
   \item Name
   \item Vorname
   \item Im Falle von Authentifizierung ohne \gls{Shibboleth}: Passwort
-  \item Im Falle von Authentifizierung mit \gls{Shibboleth}: \gls{KIT-Account}
+  \item Im Falle von Authentifizierung mit \gls{Shibboleth}: \gls{SCC-Account}
   \item \gls{Matrikelnummer}
   \item Semester
   \item \gls{SPO}
@@ -1290,7 +1289,7 @@ Im Administratiorbereich:
   	\end{enumerate}
   	\item[Erweiterungen:]~
   	\begin{enumerate}
-  	  \item[zu 3)] Statt der Registrierungsmaske wird hier der \gls{KIT-Account}
+  	  \item[zu 3)] Statt der Registrierungsmaske wird hier der \gls{SCC-Account}
   	  verwendet
   	  \item[nach 4)] Dem \glspl{Studierender}n wird nach dem Abschicken seiner Daten eine
   	  \\
@@ -1341,7 +1340,7 @@ Im Administratiorbereich:
   	\end{enumerate}
   	\item[Erweiterungen:]
   	\begin{enumerate}
-  	  \item[2)] Kein Formular, sondern Anmeldung über \gls{KIT-Account}
+  	  \item[2)] Kein Formular, sondern Anmeldung über \gls{SCC-Account}
   	\end{enumerate}    	
   	\item[Alternativen:]
 	\begin{enumerate}
