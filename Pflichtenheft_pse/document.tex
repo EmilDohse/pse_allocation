@@ -687,15 +687,15 @@ Im \gls{Admin}bereich:
 	\item \label{UCadminAnmeldung}
     \begin{description}
     \item[Anmeldung des \gls{Admin}s]
-    \item[Ziel:] \gls{Admin} wird angemeldet
+    \item[Ziel:] \gls{Admin} soll angemeldet werden
   	\item[Vorbedingung:] -keine-
   	\item[Nachbedingung:]	\begin{description}[leftmargin=6em] \item[Erfolg]  Der \gls{Admin} ist angemeldet
   	\item[Fehlschlag] Der \gls{Admin} ist nicht angemeldet \end{description} 
   	\item[Beschreibung:]
   	\begin{enumerate}
   	  \item[1.] \gls{Admin} öffnet die Webseite (\autoref{GUIindex})
-  	  \item[2.] \gls{Admin} füllt das Formular mit \gls{Benutzername} und Passwort zum Anmelden aus und schickt
-  	  dieses ab
+  	  \item[2.] \gls{Admin} füllt das Formular mit \gls{Benutzername} und
+  	  Passwort aus und klickt auf \enquote{Login}
   	  \item[3.] Sind die Anmeldedaten korrekt, so wird der \gls{Admin} zum
   	  \gls{Admin}bereich weitergeleitet
   	\end{enumerate}
@@ -710,7 +710,8 @@ Im \gls{Admin}bereich:
 	\item \label{UCadminAnmeldezeit}
 	\begin{description}
 		\item[Setzten der frühestmöglichen Anmeldezeit]
-		\item[Ziel:] Ein frühestmöglicher Zeitpunkt für die Anmeldung von \glspl{Studierender}n soll festgelegt werden
+		\item[Ziel:] Ein frühestmöglicher Zeitpunkt für die Registrierung und
+		Anmeldung von \glspl{Studierender}n soll festgelegt werden
 		\item[Vorbedingung:] \gls{Admin} ist angemeldet und im \gls{Admin}bereich der Webseite
 		\item[Nachbedingung:]	\begin{description}[leftmargin=6em] \item[Erfolg]  Vor dem eingegeben Datum können sich
 		\glspl{Studierender} nicht registrieren und einloggen
@@ -756,20 +757,22 @@ Im \gls{Admin}bereich:
   	\item[Fehlschlag] Neue \gls{Projekt}daten sind nicht eingetragen \end{description}
   	\item[Beschreibung:]
   	\begin{enumerate} 
-  	  \item[1.] \gls{Projekt}übersicht öffnen (\autoref{GUIprojUebersicht})
-  	  \item[2.] Wenn das \gls{Projekt} schon existiert, so werden die \gls{Projekt}daten
-  	  verglichen
-  	  \item[3.] Ausfüllen der Eingabemaske (\autoref{GUIprojEdit})
-  	  \item[4.] Stimmen die \gls{Projekt}daten nicht überein, so werden die betroffenen
-  	  Daten angepasst
-  	  \item[5.] Durch Abspeichern der Eingaben werden die Daten in der Datenbank
-  	  geändert/hinzugefügt
+  	  \item[1.] \gls{Projekt}übersicht über einen klick auf \enquote{Projekte}
+  	  öffnen (\autoref{GUIprojUebersicht})
+  	  \item[2.] Wenn das \gls{Projekt} schon existiert, so wird es über einen
+  	  klick auf den \gls{Projekt}namen geöffnet 
+  	  
+  	  \item[3.] Nun können Änderungen der Projektdaten in der Eingabemaske
+  	  getätigt werden (\autoref{GUIprojEdit})
+  	  \item[5.] Durch Abspeichern der Eingaben über den \enquote{Speichern}-Knopf
+  	  werden die Daten in der Datenbank geändert/hinzugefügt
   	\end{enumerate}
   	\item[Erweiterungen:] -keine-
   	\item[Alternativen:]
   	\begin{enumerate}
-  	  \item[2a)] Wenn nicht, dann wird das \gls{Projekt} neu angelegt
-  	  \item[4a)] Falls doch, so ist dieser Anwendungsfall abgeschlossen
+  	  \item[2a)] Wenn nicht, dann wird das \gls{Projekt} über einen klick auf \enquote{neues Projekt} erstellt
+  	  \item[3a)] Falls es sich um ein neues Projekt handelt müssen alle Daten neu
+  	  eingegeben werden
   	\end{enumerate} 
   	\item[Benötigte FA:] \ref{FAadminCreateProjekt}, \ref{FAadminProjektänderung}
   \end{description}
@@ -779,15 +782,22 @@ Im \gls{Admin}bereich:
   \begin{description}
   \item[Löschen eines \glspl{Projekt}s]
   \item[Ziel:] Löschen eines \glspl{Projekt}s aus der Datenbank
-  	\item[Vorbedingung:] \gls{Projekt} existiert bereits in der Datenbank und die
+  	\item[Vorbedingung:] \gls{Admin} ist angemeldet und im \gls{Admin}bereich der
+  	Webseite. Weiterhin existiert das \gls{Projekt} bereits in der Datenbank und die
   	\glspl{Studierender}n konnten noch keine \gls{Bewertung} abgeben
   	\item[Nachbedingung:]	\begin{description}[leftmargin=6em] \item[Erfolg]  \gls{Projekt} ist aus der Datenbank entfernt
   	\item[Fehlschlag] \gls{Projekt} ist immer noch in der Datenbank \end{description}
   	\item[Beschreibung:]
   	\begin{enumerate} 
-  	  \item[1.] \gls{Projekt}übersicht öffnen (\autoref{GUIprojUebersicht})
-  	  \item[2.] \gls{Projekt} aus Liste entfernen
-  	  \item[3.] \gls{Projekt}daten werden aus der Datenbank entfernt
+  	  \item[1.] Über einen klick auf \enquote{Projekte} die
+  	  \gls{Projekt}übersicht öffnen (\autoref{GUIprojUebersicht})
+  	  \item[2.] Klick auf den Namen des zu löschenden \gls{Projekt}s aus der
+  	  Liste
+  	  \item[3.] Nun ist die Projekteingabe geöffnet (\autoref{GUIprojEdit})
+  	  \item[4.] Klick auf \enquote{Projekt löschen}
+  	  \item[5.] Ein Warnhinweis erscheint welcher mit \enquote{Ok} zu bestätigen
+  	  ist
+  	  \item[6.] Das \gls{Projekt} ist nun gelöscht
   	\end{enumerate}
   	\item[Erweiterungen:] -keine-
   	\item[Alternativen:] -keine-
@@ -800,6 +810,7 @@ Im \gls{Admin}bereich:
   \item[\gls{Einteilung}]
   \item[Ziel:] Finden einer \gls{Einteilung} für eine bestimmte \gls{Einteilungskonfiguration}
   	\item[Vorbedingung:] Alle \glspl{Projekt} in der Datenbank sind vollständig
+  	und der \gls{Admin} befindet sich im Reiter \enquote{Einteilung}
   	\item[Nachbedingung:]	\begin{description}[leftmargin=6em] \item[Erfolg]  Es wurde eine \gls{Einteilung} gefunden
   	\item[Fehlschlag] Es wurde keine \gls{Einteilung} gefunden \end{description}
   	\item[Beschreibung:]
@@ -807,15 +818,16 @@ Im \gls{Admin}bereich:
   	  \item[1.] Einstellen der \gls{Einteilungskonfiguration}, nach der eingeteilt werden
   	  soll (siehe \autoref{GUIeinteilung})
   	  \item[2.] Durch Klick auf \enquote{Zur Berechnung hinzufügen} wird die
-  	  Berechnung gestartet
+  	  Berechnung mit dieser \gls{Einteilungskonfiguration} gestartet
   	  \item[3.] Nach Abschluss der Berechnung wird das Ergebnis,  inklusive
   	  eingestellter \gls{Einteilungskonfiguration}, abgespeichert
   	\end{enumerate}
   	\item[Erweiterungen:] -keine-
   	\item[Alternativen:] 
   	\begin{enumerate}
-  	  \item[3a)] Hier ist auch ein frühzeitiger Abbruch durch den \gls{Admin}
-  	  möglich. Dies wird im Ergebnis vermerkt.
+  	  \item[3a)] Hier ist auch ein frühzeitiger Abbruch durch einen klick auf
+  	  \enquote{Ausgewählte Einteilung stoppen} möglich.
+  	  Dies wird im Ergebnis vermerkt
   	 \end{enumerate}  
   	 \item[Benötigte FA:] \ref{FAadminParameter},
   	 \ref{FAadminEinteilungstart}, \ref{FAabbruch},
