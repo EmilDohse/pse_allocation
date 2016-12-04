@@ -8,6 +8,7 @@
 \hyphenation{Web-in-scribe}
 \usepackage[binary-units=true]{siunitx}
   \usepackage[autostyle=true,german=quotes]{csquotes}
+
 \makeglossaries
 %für die Nummerierung der Listen
 \newcommand{\swtLabel}[1]{\textbf{/#1\arabic*0/}}
@@ -1848,5 +1849,7 @@ keepaspectratio=true]{gui/adminproperties.png}}
 %TODO LIZENZ
 \end{enumerate}
 \pagebreak
-\printglossaries
+{\setlist[description]{leftmargin=8em,style=nextline}
+\printglossary[nonumberlist]
+}
 \end{document}
