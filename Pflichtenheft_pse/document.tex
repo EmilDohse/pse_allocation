@@ -1,13 +1,9 @@
 \documentclass[parskip=full]{scrartcl}
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage[toc]{glossaries} % Muss vor babel, wegen der Überschrift
-\usepackage[ngerman]{babel}
-\usepackage[hidelinks]{hyperref}
-\usepackage{enumitem}
-\usepackage{graphicx}
 
-\setlist[description]{leftmargin=8em,style=nextline}
+\usepackage{studarbeit}
+
+
+\setlist[description]{leftmargin=8em,style=nextline, noitemsep}
 \hyphenation{Web-in-scribe}
 \usepackage[binary-units=true]{siunitx}
   \usepackage[autostyle=true,german=quotes]{csquotes}
@@ -117,14 +113,15 @@ und bewertet die \gls{Team}fähigkeit der Teilnehmer}}
 	
 \begin{document}
 
-\title{Elipse\\
-        \large  \gls{Einteilung}s Interface für das \gls{PSE}}
-
+\title{Elipse -- Einteilungs Interface für das PSE}
 \author{D. Biester, E. Dohse, P. Faller, P. Loth, L. Seufert, S. Kopmann}
-        
-\maketitle
- 
-\pagebreak
+\thesistype{Pflichtenheft}
+\zweitgutachter{}
+\betreuer{Dipl.-Inform.~Andreas~Zwinkau, M.Sc.~Andreas~Fried}
+\coverimage{4665389330_d09f3d6b75_z.jpg}
+
+\mytitlepage
+
 \tableofcontents
 \pagebreak
 
@@ -298,9 +295,9 @@ Im folgenden werden die funktionalen Anforderungen an das Produkt beschrieben.
 Hierbei befindet sich hinter jeder funktionalen Anforderung in eckigen Klammern
 ein Verweis auf den Anwendungsfall, der die Funktion beschreibt und testet.
 
-\subsection{\gls{Einteilung}sfunktionen}
+\subsection{Einteilungsfunktionen}
 \subsubsection{Pflichtfunktionen}
-\begin{enumerate}[label=\swtLabel{FA}, resume]
+\begin{enumerate}[label=\swtLabel{FA}]
   \item \gls{Einteilung} der \glspl{Studierender}n zu \glspl{Projekt}n. Hierbei werden
   folgende Kriterien, soweit möglich, berücksichtigt: \testRef{UCadminVergleichGuete},
   \testRef{UCadminEinteilungStart}
@@ -336,7 +333,7 @@ ein Verweis auf den Anwendungsfall, der die Funktion beschreibt und testet.
 \end{enumerate}
 
 
-\subsection{\gls{Admin}funktionen}
+\subsection{Adminfunktionen}
 
 \subsubsection{Pflichtfunktionen}
 
@@ -424,7 +421,7 @@ ein Verweis auf den Anwendungsfall, der die Funktion beschreibt und testet.
   \ref{UCadminRemoveStudFromTeam}, \ref{UCadminSwapStudsBetweenTeams}]
 \end{enumerate}
 
-\subsection{\glspl{Studierender}nfunktionen}
+\subsection{Studierendenfunktionen}
 
 \subsubsection{Pflichtfunktionen}
 
@@ -519,7 +516,7 @@ ein Verweis auf den Anwendungsfall, der die Funktion beschreibt und testet.
     \item Bisherige \gls{Einteilung}sergebnisse
 \end{enumerate}
 
-\subsection{\gls{SPO}-Daten}
+\subsection{SPO-Daten}
 \begin{enumerate}[label=\swtLabel{D}, resume]
 	\item Name
 	\item Notwendige \glspl{Teilleistung}
@@ -527,14 +524,14 @@ ein Verweis auf den Anwendungsfall, der die Funktion beschreibt und testet.
 \end{enumerate}
 
 
-\subsection{\gls{Admin}daten}
+\subsection{Admindaten}
 Über den \gls{Admin} werden folgende Daten gespeichert:
 \begin{enumerate}[label=\swtLabel{D}] 
 	\item Passwort
 	\item Nutzername
 \end{enumerate}
 
-\subsection{\glspl{Studierender}ndaten} 
+\subsection{Studierendendaten} 
 Über \glspl{Studierender} werden folgende Daten gespeichert:
 \begin{enumerate}[label=\swtLabel{D}, resume] 
   \item E"=Mail"=Adresse \label{SDatenAnfang}
@@ -554,7 +551,7 @@ ein Verweis auf den Anwendungsfall, der die Funktion beschreibt und testet.
   \gls{Lerngruppe}
   \item Note
 \end{enumerate}
-\subsection{\glspl{Lerngruppe}daten} 
+\subsection{Lerngruppendaten} 
 \begin{enumerate}[label=\swtLabel{D}, resume] 
   \item Name
   \item Passwort
@@ -573,7 +570,7 @@ ein Verweis auf den Anwendungsfall, der die Funktion beschreibt und testet.
 	\item Passwort \label{DbetEnde}
 \end{enumerate}
 
-\subsection{\gls{Projekt}daten}
+\subsection{Projektdaten}
 Über ein \gls{Projekt} werden folgende Daten speichern:
 \begin{enumerate}[label=\swtLabel{D},resume] 
   \item Name \label{DProjektAnfang}
@@ -651,7 +648,7 @@ Im Administratiorbereich:
 \includegraphics[width=\linewidth]{diagramme_pflichtenheft/UseCase_Diagram.PNG}
 \captionof{figure}{Übersicht über die Anwendungsfälle}
 
-\subsubsection{\gls{Admin}}
+\subsubsection{Admin}
 \begin{enumerate} [label=\swtLabel{A}]
 	
 	\item \label{UCadminInit}
@@ -1268,7 +1265,7 @@ Im Administratiorbereich:
   \end{description}
   
 \end{enumerate}  
-\subsubsection{\glspl{Studierender}}
+\subsubsection{Studierender}
 
 \begin{enumerate}[label=\swtLabel{S}]
 	\item \label{UCstudReg}
@@ -1760,7 +1757,7 @@ Im Administratiorbereich:
 \fbox{\includegraphics[width=\textwidth,
 keepaspectratio=true]{gui/index.png}}
 \captionof{figure}{Startseite} \label{GUIindex}
-
+\pagebreak
 \fbox{\includegraphics[width=\textwidth,
 keepaspectratio=true]{gui/registrierung.png}}
 \captionof{figure}{Registrierungsansicht} \label{GUIregi}
