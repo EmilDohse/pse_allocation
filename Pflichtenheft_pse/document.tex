@@ -840,12 +840,14 @@ Im \gls{Admin}bereich:
   \begin{description}
   \item[Finale Auswahl der \gls{Einteilung}]
   \item[Ziel:] Finden der bestmöglichen \gls{Einteilung}
-  	\item[Vorbedingung:] Es wurde mindestens eine \gls{Einteilung} berechnet
+  	\item[Vorbedingung:] Es wurde mindestens eine \gls{Einteilung} berechnet und
+  	der \gls{Admin} befindet sich im Administratorbereich
   	\item[Nachbedingung:]	\begin{description}[leftmargin=6em] \item[Erfolg]  Es wurde eine \gls{Einteilung} ausgewählt
   	\item[Fehlschlag] Es wurde keine \gls{Einteilung} ausgewählt \end{description}
   	\item[Beschreibung:]
   	\begin{enumerate} 
-  	  \item[1.] Öffnen der \gls{Einteilung}sübersicht (\autoref{GUIeinteilungErgeb})
+  	  \item[1.] Öffnen der \gls{Einteilung}sübersicht über klick auf 
+  	  \enquote{Einteilungsergebnisse} (\autoref{GUIeinteilungErgeb})
   	  \item[2.] Auswahl des Reiters, der die zu veröffentliche \gls{Einteilung} enthält
   	  \item[3.] Durch Klick auf \enquote{Einteilung veröffentlichen} wird diese
   	  \gls{Einteilung} final ausgewählt 
@@ -863,16 +865,18 @@ Im \gls{Admin}bereich:
   \item \label{UCadminCreateBetreuer}
   \begin{description}
   \item[Erstellen eines Betreueraccounts]
-  \item[Ziel:] Hinzufügen eines \gls{Projektbetreuer} in das System
-  	\item[Vorbedingung:] -keine-
+  \item[Ziel:] Hinzufügen eines \gls{Projektbetreuer}s in das Produkt
+  	\item[Vorbedingung:] Der \gls{Admin} befindet sich im Administratorbereich
   	\item[Nachbedingung:]	\begin{description}[leftmargin=6em] \item[Erfolg]  Der \gls{Projektbetreuer}account wurde erstellt
   	\item[Fehlschlag] Der \gls{Projektbetreuer}account wurde nicht erstellt \end{description}
   	\item[Beschreibung:]
   	 \begin{enumerate} 
-  	   \item[1.] Öffnen der Betreuerübersicht (\autoref{GUIprojLeiterUebersicht})
-  	   \item[2.] Ausfüllen der einzeln abgetrennten Zeile  
+  	   \item[1.] Öffnen der Betreuerübersicht über einen Klick auf
+  	   \enquote{Projektleiter} (\autoref{GUIprojLeiterUebersicht})
+  	   \item[2.] Ausfüllen der Betreuerdaten über dem Knopf \enquote{Betreuer
+  	   hinzufügen}
   	   \item[3.] Durch Klick auf \enquote{Projektleiter hinzufügen} wird der neu
-  	   angelegte \gls{Projektbetreuer} dem System hinzugefügt
+  	   angelegte \gls{Projektbetreuer} dem Produkt hinzugefügt
   	 \end{enumerate} 
   	\item[Erweiterungen:]
   	 \begin{enumerate}
@@ -912,7 +916,8 @@ Im \gls{Admin}bereich:
   	\begin{enumerate}
   	  \item[1.] \gls{Admin} ist im \gls{Admin}bereich der Webseite
       \item[2.] Klick auf \enquote{Einteilungsergebnisse} in der Seitenleiste
-      \item[3.] Der \gls{Admin} wählt eine \gls{Einteilung} aus
+      (\autoref{GUIeinteilungErgeb})
+      \item[3.] Der \gls{Admin} wählt einen \gls{Einteilung}sreiter aus
       \item[4.] Der \gls{Admin} sieht nun Details über die \gls{Einteilung}
   	\end{enumerate}
   	\item[Erweiterungen:] -keine-
@@ -936,6 +941,7 @@ Im \gls{Admin}bereich:
     \begin{enumerate}
       \item[1.] \gls{Admin} ist im \gls{Admin}bereich der Webseite
       \item[2.] Klick auf \enquote{Einstellungen} in der Seitenleiste
+      (\autoref{GUIeinstellungen})
       \item[3.] Der \gls{Admin} wählt unter \enquote{SPOs} die \gls{SPO}, der er eine
       \gls{Teilleistung} hinzufügen möchte
       \item[4.] Der \gls{Admin} gibt unter \enquote{SPOs} in das Textfeld
@@ -964,10 +970,11 @@ Im \gls{Admin}bereich:
     \begin{enumerate}
       \item[1.] Der \gls{Admin} ist im \gls{Admin}bereich der Webseite
       \item[2.] Klick auf \enquote{Einstellungen} in der Seitenleiste
+      (\autoref{GUIeinstellungen})
       \item[3.] Der \gls{Admin} wählt unter \enquote{\glspl{SPO}} die \gls{SPO}, die er
       sichtbar oder unsichtbar machen möchte
       \item[4.] Der Adminstrator setzt oder entfernt das Häckchen bei
-      \enquote{\gls{SPO} für \glspl{Studierender} anzeigen} %TODO richtige bezeichnung
+      \enquote{\gls{SPO} aktiv} 
       \item[5.] Falls es weitere \glspl{SPO} gibt, bei denen er die Sichtbarkeit
       verändern möchte, fängt er bei 3. erneut an  
     \end{enumerate}
@@ -993,6 +1000,7 @@ Im \gls{Admin}bereich:
     \begin{enumerate}
       \item[1.] \gls{Admin} ist im \gls{Admin}bereich der Webseite
       \item[2.] Klick auf \enquote{Einstellungen} in der Seitenleiste
+      (\autoref{GUIeinstellungen})
        \item[3.] Der \gls{Admin} wählt unter \enquote{\glspl{SPO}} die \gls{SPO}, bei der er
        eine \gls{Teilleistung} entfernen möchte
       \item[4.] Der \gls{Admin} setzt die Checkbox bei den \glspl{Teilleistung} die er
@@ -1020,7 +1028,7 @@ Im \gls{Admin}bereich:
     \begin{enumerate}
       \item[1.] Der \gls{Admin} ist im \gls{Admin}bereich der Webseite
       \item[2.] Klick auf \enquote{Export/Import}
-      in der Seitenleiste
+      in der Seitenleiste (\autoref{GUIexportimport})
        \item[3.] Der \gls{Admin} klickt auf den \enquote{Import}"=Knopf neben dem entsprechenden Datentyp, der importiert werden soll.
        \item[4.] Der \gls{Admin} kann in einem System"=Popup"=Fenster die Datei zum Importieren auswählen.
       \item[5.] Der \gls{Admin} wird über den Ausgang des Imports benachrichtigt.
@@ -1042,6 +1050,7 @@ Im \gls{Admin}bereich:
     \begin{enumerate}
       \item[1.] Der \gls{Admin} ist im \gls{Admin}bereich der Webseite
       \item[2.] Klick auf \enquote{Export/Import} in der Seitenleiste
+      (\autoref{GUIeinstellungen})
        \item[3.] Der \gls{Admin} klickt auf den \enquote{Export}"=Knopf neben dem entsprechenden Datentyp, der exportiert werden soll.
        \item[4.] Der \gls{Admin} kann in einem System"=Popup"=Fenster den Speicherort der Exportdaten auswählen.
       \item[5.] Der \gls{Admin} wird über den Ausgang des Exports benachrichtigt.
@@ -1063,7 +1072,7 @@ Im \gls{Admin}bereich:
     \begin{enumerate}
       \item[1.] Der \gls{Admin} ist im \gls{Admin}bereich der Webseite
       \item[2.] Klick auf \enquote{Export/Import}
-      in der Seitenleiste
+      in der Seitenleiste (\autoref{GUIeinstellungen})
        \item[3.] Der \gls{Admin} klickt auf den \enquote{Datei importieren}"=Knopf im \enquote{CMS Datenabgleich}"=Bereich.
        \item[4.] Der \gls{Admin} kann in einem System"=Popup"=Fenster die Datei zum Importieren auswählen.
       \item[5.] Der \gls{Admin} wird über den Ausgang des Imports benachrichtigt.
@@ -1086,7 +1095,7 @@ Im \gls{Admin}bereich:
     \begin{enumerate}
       \item[1.] Der \gls{Admin} ist im \gls{Admin}bereich der Webseite
       \item[2.] Klick auf \enquote{Export/Import}
-      in der Seitenleiste
+      in der Seitenleiste (\autoref{GUIeinstellungen})
        \item[3.] Der \gls{Admin} sieht die tabellarisch aufgezählten Konflikte im \enquote{CMS Datenabgleich}"=Bereich.
     \end{enumerate}
     \item[Erweiterungen:] -keine-
@@ -1106,7 +1115,7 @@ Im \gls{Admin}bereich:
     \begin{enumerate}
       \item[1.] Der \gls{Admin} ist im \gls{Admin}bereich der Webseite
       \item[2.] Klick auf \enquote{Export/Import}
-      in der Seitenleiste
+      in der Seitenleiste (\autoref{GUIeinstellungen})
        \item[3.] Der \gls{Admin} klickt auf den \enquote{Datei exportieren}"=Knopf im \enquote{CMS Datenabgleich}"=Bereich.
        \item[4.] Der \gls{Admin} kann in einem System"=Popup"=Fenster den Speicherort der Export"=Daten auswählen.
       \item[5.] Der \gls{Admin} wird über den Ausgang des Exports benachrichtigt.
@@ -1127,8 +1136,10 @@ Im \gls{Admin}bereich:
   	\item[Beschreibung:]
   	\begin{enumerate}
   	  \item[1.] \gls{Admin} ist im \gls{Admin}bereich der Webseite
-      \item[2.] Klick auf \enquote{\gls{Einteilung}sergebnisse} in der Seitenleiste
+      \item[2.] Klick auf \enquote{\gls{Einteilung}sergebnisse} in der
+      Seitenleiste (\autoref{GUIeinteilungErgeb})
       \item[3.] Der \gls{Admin} wählt den Reiter \enquote{Vergleich} aus
+      (\autoref{GUIvergleich})
       \item[4.] Der \gls{Admin} sieht nun einen Vergleich der \glspl{Einteilung}
   	\end{enumerate}
   	\item[Erweiterungen:] -keine-
@@ -1143,14 +1154,15 @@ Im \gls{Admin}bereich:
     \begin{description}
   	\item[Nutzen der Stapelverarbeitung]
   	\item[Ziel:] Serielle Berechnung von \glspl{Einteilung}
-  	\item[Vorbedingung:] Der \gls{Admin} befindet sich im Bereich
-  	\enquote{\gls{Einteilung}}
+  	\item[Vorbedingung:] Der \gls{Admin} befindet sich im Administratorbereich.
+  	Bewertungsdeadline der Studierenden ist abgelaufen
   	\item[Nachbedingung:]	\begin{description}[leftmargin=6em] \item[Erfolg]  Alle gewünschten \glspl{Einteilung} werden berechnet
   	\item[Fehlschlag] Es werden nicht alle \glspl{Einteilung} berechnet \end{description}
   	\item[Beschreibung:]
   	\begin{enumerate}
   	  \item[1.] \gls{Admin} ist im \gls{Admin}bereich der Webseite
       \item[2.] Klick auf \enquote{\gls{Einteilung}} in der Seitenleiste
+      (\autoref{GUIeinteilung})
       \item[3.] Der \gls{Admin} stellt die \gls{Einteilungskonfiguration} einer \gls{Einteilung} ein
       \item[4.] Klick auf \enquote{Zur Berechnung hinzufügen}
       \item[5.] Ist diese \gls{Einteilung} die Erste in der Liste, so wird die
@@ -1180,7 +1192,7 @@ Im \gls{Admin}bereich:
   	\item[Beschreibung:]
   	\begin{enumerate}
   	  \item[1.] \gls{Admin} ist im Bereich \enquote{Studenten
-  	  hinzufügen/löschen}
+  	  hinzufügen/löschen} (\autoref{GUIstudentEdit})
       \item[2.] Ausfüllen der Maske \enquote{Student hinzufügen}
       \item[3.] Klick auf \enquote{Hinzufügen}
   	\end{enumerate}
@@ -1201,7 +1213,7 @@ Im \gls{Admin}bereich:
   	\item[Beschreibung:]
   	\begin{enumerate}
   	  \item[1.] \gls{Admin} ist im Bereich \enquote{Studenten
-  	  hinzufügen/löschen}
+  	  hinzufügen/löschen} (\autoref{GUIstudentEdit})
       \item[2.] Ausfüllen der Maske \enquote{Student löschen}
       \item[3.] Klick auf \enquote{löschen}
   	\end{enumerate}
@@ -1213,15 +1225,17 @@ Im \gls{Admin}bereich:
   \item \label{UCadminAddStudToTeam}
     \begin{description}
   	\item[Einen \glspl{Studierender}n zu einem \gls{Team} hinzufügen]
-  	\item[Ziel:] Einen \glspl{Studierender}n manuell zu einem \gls{Team} hinzufügen
+  	\item[Ziel:] Einen nicht zugeteilten \glspl{Studierender}n manuell zu einem
+  	\gls{Team} hinzufügen
   	\item[Vorbedingung:] Der \gls{Admin} befindet sich im Bereich
-  	\enquote{\gls{Einteilung}sergebnisse}
+  	\enquote{\gls{Einteilung}sergebnisse} 
   	\item[Nachbedingung:]	\begin{description}[leftmargin=6em] \item[Erfolg]  Der \glspl{Studierender} wurde dem \gls{Team} hinzugefügt
   	\item[Fehlschlag] Der \glspl{Studierender} wurde dem \gls{Team} nicht 
   	hinzugefügt \end{description}
   	\item[Beschreibung:]
   	\begin{enumerate}
   	  \item[1.] \gls{Admin} ist im Bereich \enquote{\gls{Einteilung}sergebnisse}
+  	  (\autoref{GUIeinteilungErgeb})
       \item[2.] Auswahl des \glspl{Studierender}n unter \enquote{Nicht zugeteilte
       Personen}
       \item[3.] Auswahl des \glspl{Team} im Drop"=Down"=Menü
@@ -1242,12 +1256,15 @@ Im \gls{Admin}bereich:
   	\item[Ziel:] Einen \glspl{Studierender}n manuell aus einem \gls{Team} entfernen
   	\item[Vorbedingung:] Der \gls{Admin} befindet sich im Bereich
   	\enquote{\gls{Einteilung}sergebnisse}
-  	\item[Nachbedingung:]	\begin{description}[leftmargin=6em] \item[Erfolg]  Der \glspl{Studierender} wurde aus dem \gls{Team} entfernt
+  	\item[Nachbedingung:]	\begin{description}[leftmargin=6em] \item[Erfolg]  Der
+  	\glspl{Studierender} wurde aus dem \gls{Team} entfernt und befindet sich
+  	bei \enquote{Nicht zugeteilte Personen}
   	\item[Fehlschlag] Der \glspl{Studierender} wurde nicht aus dem \gls{Team} 
   	entfernt \end{description}
   	\item[Beschreibung:]
   	\begin{enumerate}
   	  \item[1.] \gls{Admin} ist im Bereich \enquote{\gls{Einteilung}sergebnisse}
+  	  (\autoref{GUIeinteilungErgeb})
       \item[2.] Auswahl des \glspl{Studierender}n in der \gls{Team}übersicht
       \item[3.] im Drop"=Down"=Menü \enquote{Nicht zugeteilte
       Personen} auswählen
@@ -1274,8 +1291,9 @@ Im \gls{Admin}bereich:
   	\item[Beschreibung:]
   	\begin{enumerate}
   	  \item[1.] \gls{Admin} ist im Bereich \enquote{\gls{Einteilung}sergebnisse}
+  	  (\autoref{GUIeinteilungErgeb})
       \item[2.] Auswahl der beiden \glspl{Studierender}n in der \gls{Team}übersicht
-      \item[3.] Klick auf \enquote{markierte Personen tauschen}
+      \item[3.] Klick auf \enquote{markierte 2 Personen tauschen}
   	\end{enumerate}
   	\item[Erweiterungen:]
   	\begin{enumerate}
