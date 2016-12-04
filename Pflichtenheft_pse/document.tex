@@ -8,6 +8,7 @@
 \hyphenation{Web-in-scribe}
 \usepackage[binary-units=true]{siunitx}
   \usepackage[autostyle=true,german=quotes]{csquotes}
+
 \makeglossaries
 %für die Nummerierung der Listen
 \newcommand{\swtLabel}[1]{\textbf{/#1\arabic*0/}}
@@ -30,7 +31,7 @@ werden sie bei der \gls{Einteilung} gesondert berücksichtigt, sodass \glspl{Stu
 \newglossaryentry{Guetekriterium}{name=Gütekriterium,
 plural=Gütekriterien,description={\glspl{Guetekriterium} sind Kriterien, welche
 die Güte einer \gls{Einteilung} bestimmen. Anhand von \glspl{Guetekriterium} kann ein Vergleich
-und eine \gls{Bewertung} von \gls{Einteilung}en vorgenommen werden
+und eine Bewertung von \gls{Einteilung}en vorgenommen werden
 }}
 \newglossaryentry{Projekt}{name=Projekt,
 plural=Projekte, description={Ein \gls{Projekt} ist ein zielgerichtetes Vorhaben,
@@ -88,7 +89,9 @@ nicht zugeteilt wurden }}
 	description={Eine \gls{Einteilung} ist eine Zuordnung von \glspl{Studierender}n zu \glspl{Team}. Im System können mehrere \glspl{Einteilung} existieren, aus denen der \gls{Admin} genau eine Auswählen kann, welche dann veröffentlicht wird}}
 	
 \newglossaryentry{Voraussetzung}{name=Voraussetzung, plural=Voraussetzungen,
-	description={Eine \gls{Voraussetzung} ist eine formale Bedingungen, die laut Prüfungsordnung erfüllt sein müssen, damit man beim \gls{PSE} teilnehmen darf}}
+	description={Eine \gls{Voraussetzung} ist eine formale Bedingungen, die laut
+	Prüfungsordnung erfüllt sein müssen, damit ein \gls{Studierender} beim
+	\gls{PSE} teilnehmen darf}}
 
 \newglossaryentry{Einteilungskonfiguration}{name=Einteilungskonfiguration,
 plural=Einteilungskonfigurationen, description={Das System besitzt bei der
@@ -111,6 +114,12 @@ und bewertet die \gls{Team}fähigkeit der Teilnehmer}}
 
 \newglossaryentry{SCC-Account}{name=SCC-Account, plural=SCC-Accounts,
 	description={Der SCC-Account stellt Zugangsmöglichkeiten zu Systemen und Diensten am SCC dar und wird allgemein als "Login" im KIT-Umfeld benutzt. Der \gls{SCC-Account} eines \glspl{Studierender}n wird umgangssprachlich häufig als \enquote{u-Account} bezeichnet, da der Benutzername für \glspl{Studierender} stets mit einem \emph{u} beginnt}}
+
+\newglossaryentry{HTTP}{name=HTTP,
+	description={Das Hypertext Transfer Protocol ist ein Protokoll zur Übertragung von Daten über ein Rechnernetz. Es wird hauptsächlich eingesetzt, um Webseiten (Hypertext-Dokumente) aus dem World Wide Web (WWW) in einen Webbrowser zu laden. Es ist jedoch nicht prinzipiell darauf beschränkt}}
+	
+\newglossaryentry{SMTP}{name=SMTP,
+	description={Das Simple Mail Transfer Protocol ist ein Protokoll der Internetprotokollfamilie, das zum Austausch von E-Mails in Computernetzen dient. Es wird dabei vorrangig zum Einspeisen und zum Weiterleiten von E-Mails verwendet. Zum Abholen von Nachrichten kommen andere, spezialisierte Protokolle zum Einsatz. SMTP-Server nehmen traditionell Verbindungen auf Port 25 („smtp“) entgegen}}
 	
 \begin{document}
 
@@ -267,7 +276,7 @@ Hierbei werden die \glspl{Lerngruppe} und \glspl{Bewertung} der \glspl{Studieren
 \end{itemize}
 \subsection{Server-Software}
 \begin{itemize} 
-  \item Webserver (\texttt{HTTP, SMTP})
+  \item Webserver (\texttt{\gls{HTTP}, \gls{SMTP}})
   \item SQL"=Server
   \item ILP"=Solver Gurobi %TODO lizens
 \end{itemize}
@@ -302,8 +311,8 @@ ein Verweis auf den Anwendungsfall, der die Funktion beschreibt und testet.
 \subsubsection{Pflichtfunktionen}
 \begin{enumerate}[label=\swtLabel{FA}]
   \item \gls{Einteilung} der \glspl{Studierender}n zu \glspl{Projekt}n. Hierbei werden
-  folgende Kriterien, soweit möglich, berücksichtigt: \testRef{UCadminVergleichGuete},
-  \testRef{UCadminEinteilungStart}
+  folgende Kriterien, soweit möglich, berücksichtigt:
+  \testRef{UCadminEinteilungStart}, \testRef{UCadminVergleichGuete}
   \begin{itemize}
     \item Wer die durch seine \gls{SPO} gegebenen Voraussetzungen nicht erfüllt,
     wird nicht eingeteilt \label{FAeinteilung}
@@ -483,9 +492,9 @@ ein Verweis auf den Anwendungsfall, der die Funktion beschreibt und testet.
   \item Einsehen der \gls{Einteilung} zu eigenen \glspl{Projekt}n
   \label{FAbetreuerEinsichtEinteilung}
   \testRef{UCbetreuerEinsichtEinteilungProjekt}
-  \item Einsehen, ob zugeteilte \glspl{Studierender} noch Nachprüfungen
+  \item Einsicht, ob zugeteilte \glspl{Studierender} noch Nachprüfungen
   ausstehen haben \label{FAbetreuerEinsichtNachpruefung} \testRef{UCbetreuerEinsichtEinteilungProjekt}
-  \item Einsehen, ob zugeteilte \glspl{Studierender} schon im Campus Management
+  \item Einsicht, ob zugeteilte \glspl{Studierender} schon im Campus Management
   System für \gls{PSE} und \gls{TSE} angemeldet sind
   \label{FAbetreuerEinsichtTSE} \testRef{UCbetreuerEinsichtEinteilungProjekt}
   \item Abmeldung \label{FAbetreuerAbmeldung} \testRef{UCbetreuerLogout}
@@ -544,8 +553,8 @@ ein Verweis auf den Anwendungsfall, der die Funktion beschreibt und testet.
   \item \gls{Matrikelnummer}
   \item Semester
   \item \gls{SPO}
-  \item bestandene \glspl{Teilleistung} 
-  \item ausstehende Nachprüfungen \label{SDatenEnde}
+  \item Bestandene \glspl{Teilleistung} 
+  \item Ausstehende Nachprüfungen \label{SDatenEnde}
   
   \item Falls keiner \gls{Lerngruppe} beigetreten: \gls{Bewertung}, welchem \gls{Projekt} er oder
   sie am liebsten zugeteilt werden würde
@@ -625,15 +634,17 @@ Im \glspl{Studierender}nbereich:
 \begin{enumerate} [label=\swtLabel{T}]
   
   
-  \item Registrierung als Student, Erstellen oder beitreten einer  \gls{Lerngruppe} und Abgeben einer \gls{Bewertung}
-  \item Deadlines zur Registrierung als Student und zur \gls{Bewertung}sabgabe werden eingehalten
+  \item Registrierung als \gls{Studierender}, erstellen oder beitreten einer 
+  \gls{Lerngruppe} und abgeben einer \gls{Bewertung}
+  \item Deadlines zur Registrierung als \gls{Studierender} und zur
+  \gls{Bewertung}sabgabe werden eingehalten
   %TODO hier noch das wir größtenteils über die Anwendungsfälle testen
 
 \end{enumerate}
 Im \gls{Admin}bereich:
    \begin{enumerate} [label=\swtLabel{T}, resume]
   \item Einloggen als \gls{Admin}, Erstellung eines Semesters mit mehreren \glspl{SPO}
-  \item \gls{Einteilung}sberechnung und anschließendem manuellen Editieren und
+  \item \gls{Einteilung}sberechnung und anschließendes manuelles Editieren und
   Veröffentlichen dieser
 \end{enumerate}
   Im Betreuerbereich:
@@ -683,15 +694,15 @@ Im \gls{Admin}bereich:
 	\item \label{UCadminAnmeldung}
     \begin{description}
     \item[Anmeldung des \gls{Admin}s]
-    \item[Ziel:] \gls{Admin} wird angemeldet
+    \item[Ziel:] \gls{Admin} soll angemeldet werden
   	\item[Vorbedingung:] -keine-
   	\item[Nachbedingung:]	\begin{description}[leftmargin=6em] \item[Erfolg]  Der \gls{Admin} ist angemeldet
   	\item[Fehlschlag] Der \gls{Admin} ist nicht angemeldet \end{description} 
   	\item[Beschreibung:]
   	\begin{enumerate}
-  	  \item[1.] \gls{Admin} öffnet die Website (\autoref{GUIindex})
-  	  \item[2.] \gls{Admin} füllt das Formular mit \gls{Benutzername} und Passwort zum Anmelden aus und schickt
-  	  dieses ab
+  	  \item[1.] \gls{Admin} öffnet die Webseite (\autoref{GUIindex})
+  	  \item[2.] \gls{Admin} füllt das Formular mit \gls{Benutzername} und
+  	  Passwort aus und klickt auf \enquote{Login}
   	  \item[3.] Sind die Anmeldedaten korrekt, so wird der \gls{Admin} zum
   	  \gls{Admin}bereich weitergeleitet
   	\end{enumerate}
@@ -706,7 +717,8 @@ Im \gls{Admin}bereich:
 	\item \label{UCadminAnmeldezeit}
 	\begin{description}
 		\item[Setzten der frühestmöglichen Anmeldezeit]
-		\item[Ziel:] Ein frühestmöglicher Zeitpunkt für die Anmeldung von \glspl{Studierender}n soll festgelegt werden
+		\item[Ziel:] Ein frühestmöglicher Zeitpunkt für die Registrierung und
+		Anmeldung von \glspl{Studierender}n soll festgelegt werden
 		\item[Vorbedingung:] \gls{Admin} ist angemeldet und im \gls{Admin}bereich der Webseite
 		\item[Nachbedingung:]	\begin{description}[leftmargin=6em] \item[Erfolg]  Vor dem eingegeben Datum können sich
 		\glspl{Studierender} nicht registrieren und einloggen
@@ -752,20 +764,22 @@ Im \gls{Admin}bereich:
   	\item[Fehlschlag] Neue \gls{Projekt}daten sind nicht eingetragen \end{description}
   	\item[Beschreibung:]
   	\begin{enumerate} 
-  	  \item[1.] \gls{Projekt}übersicht öffnen (\autoref{GUIprojUebersicht})
-  	  \item[2.] Wenn das \gls{Projekt} schon existiert, so werden die \gls{Projekt}daten
-  	  verglichen
-  	  \item[3.] Ausfüllen der Eingabemaske (\autoref{GUIprojEdit})
-  	  \item[4.] Stimmen die \gls{Projekt}daten nicht überein, so werden die betroffenen
-  	  Daten angepasst
-  	  \item[5.] Durch Abspeichern der Eingaben werden die Daten in der Datenbank
-  	  geändert/hinzugefügt
+  	  \item[1.] \gls{Projekt}übersicht über einen klick auf \enquote{Projekte}
+  	  öffnen (\autoref{GUIprojUebersicht})
+  	  \item[2.] Wenn das \gls{Projekt} schon existiert, so wird es über einen
+  	  klick auf den \gls{Projekt}namen geöffnet 
+  	  
+  	  \item[3.] Nun können Änderungen der Projektdaten in der Eingabemaske
+  	  getätigt werden (\autoref{GUIprojEdit})
+  	  \item[5.] Durch Abspeichern der Eingaben über den \enquote{Speichern}-Knopf
+  	  werden die Daten in der Datenbank geändert/hinzugefügt
   	\end{enumerate}
   	\item[Erweiterungen:] -keine-
   	\item[Alternativen:]
   	\begin{enumerate}
-  	  \item[2a)] Wenn nicht, dann wird das \gls{Projekt} neu angelegt
-  	  \item[3a)] Falls doch, so ist dieser Anwendungsfall abgeschlossen
+  	  \item[2a)] Wenn nicht, dann wird das \gls{Projekt} über einen klick auf \enquote{neues Projekt} erstellt
+  	  \item[3a)] Falls es sich um ein neues Projekt handelt müssen alle Daten neu
+  	  eingegeben werden
   	\end{enumerate} 
   	\item[Benötigte FA:] \ref{FAadminCreateProjekt}, \ref{FAadminProjektänderung}
   \end{description}
@@ -775,15 +789,22 @@ Im \gls{Admin}bereich:
   \begin{description}
   \item[Löschen eines \glspl{Projekt}s]
   \item[Ziel:] Löschen eines \glspl{Projekt}s aus der Datenbank
-  	\item[Vorbedingung:] \gls{Projekt} existiert bereits in der Datenbank und die
+  	\item[Vorbedingung:] \gls{Admin} ist angemeldet und im \gls{Admin}bereich der
+  	Webseite. Weiterhin existiert das \gls{Projekt} bereits in der Datenbank und die
   	\glspl{Studierender}n konnten noch keine \gls{Bewertung} abgeben
   	\item[Nachbedingung:]	\begin{description}[leftmargin=6em] \item[Erfolg]  \gls{Projekt} ist aus der Datenbank entfernt
   	\item[Fehlschlag] \gls{Projekt} ist immer noch in der Datenbank \end{description}
   	\item[Beschreibung:]
   	\begin{enumerate} 
-  	  \item[1.] \gls{Projekt}übersicht öffnen (\autoref{GUIprojUebersicht})
-  	  \item[2.] \gls{Projekt} aus Liste entfernen
-  	  \item[3.] \gls{Projekt}daten werden aus der Datenbank entfernt
+  	  \item[1.] Über einen klick auf \enquote{Projekte} die
+  	  \gls{Projekt}übersicht öffnen (\autoref{GUIprojUebersicht})
+  	  \item[2.] Klick auf den Namen des zu löschenden \gls{Projekt}s aus der
+  	  Liste
+  	  \item[3.] Nun ist die Projekteingabe geöffnet (\autoref{GUIprojEdit})
+  	  \item[4.] Klick auf \enquote{Projekt löschen}
+  	  \item[5.] Ein Warnhinweis erscheint welcher mit \enquote{Ok} zu bestätigen
+  	  ist
+  	  \item[6.] Das \gls{Projekt} ist nun gelöscht
   	\end{enumerate}
   	\item[Erweiterungen:] -keine-
   	\item[Alternativen:] -keine-
@@ -796,22 +817,24 @@ Im \gls{Admin}bereich:
   \item[\gls{Einteilung}]
   \item[Ziel:] Finden einer \gls{Einteilung} für eine bestimmte \gls{Einteilungskonfiguration}
   	\item[Vorbedingung:] Alle \glspl{Projekt} in der Datenbank sind vollständig
+  	und der \gls{Admin} befindet sich im Reiter \enquote{Einteilung}
   	\item[Nachbedingung:]	\begin{description}[leftmargin=6em] \item[Erfolg]  Es wurde eine \gls{Einteilung} gefunden
   	\item[Fehlschlag] Es wurde keine \gls{Einteilung} gefunden \end{description}
   	\item[Beschreibung:]
   	\begin{enumerate} 
-  	  \item[1.] Einstellen der \gls{Einteilungskonfiguration}, nach denen eingeteilt werden
-  	  soll(siehe \autoref{GUIeinteilung})
+  	  \item[1.] Einstellen der \gls{Einteilungskonfiguration}, nach der eingeteilt werden
+  	  soll (siehe \autoref{GUIeinteilung})
   	  \item[2.] Durch Klick auf \enquote{Zur Berechnung hinzufügen} wird die
-  	  Berechnung gestartet
+  	  Berechnung mit dieser \gls{Einteilungskonfiguration} gestartet
   	  \item[3.] Nach Abschluss der Berechnung wird das Ergebnis,  inklusive
   	  eingestellter \gls{Einteilungskonfiguration}, abgespeichert
   	\end{enumerate}
   	\item[Erweiterungen:] -keine-
   	\item[Alternativen:] 
   	\begin{enumerate}
-  	  \item[3a)] Hier ist auch ein frühzeitiger Abbruch durch den \gls{Admin}
-  	  möglich. Dies wird im Ergebnis vermerkt.
+  	  \item[3a)] Hier ist auch ein frühzeitiger Abbruch durch einen klick auf
+  	  \enquote{Ausgewählte Einteilung stoppen} möglich.
+  	  Dies wird im Ergebnis vermerkt
   	 \end{enumerate}  
   	 \item[Benötigte FA:] \ref{FAadminParameter},
   	 \ref{FAadminEinteilungstart}, \ref{FAabbruch},
@@ -823,19 +846,22 @@ Im \gls{Admin}bereich:
   \begin{description}
   \item[Finale Auswahl der \gls{Einteilung}]
   \item[Ziel:] Finden der bestmöglichen \gls{Einteilung}
-  	\item[Vorbedingung:] Es wurde mindestens eine \gls{Einteilung} berechnet
+  	\item[Vorbedingung:] Es wurde mindestens eine \gls{Einteilung} berechnet und
+  	der \gls{Admin} befindet sich im Administratorbereich
   	\item[Nachbedingung:]	\begin{description}[leftmargin=6em] \item[Erfolg]  Es wurde eine \gls{Einteilung} ausgewählt
   	\item[Fehlschlag] Es wurde keine \gls{Einteilung} ausgewählt \end{description}
   	\item[Beschreibung:]
   	\begin{enumerate} 
-  	  \item[1.] Öffnen der \gls{Einteilung}sübersicht (\autoref{GUIeinteilungErgeb})
+  	  \item[1.] Öffnen der \gls{Einteilung}sübersicht über klick auf 
+  	  \enquote{Einteilungsergebnisse} (\autoref{GUIeinteilungErgeb})
   	  \item[2.] Auswahl des Reiters, der die zu veröffentliche \gls{Einteilung} enthält
   	  \item[3.] Durch Klick auf \enquote{Einteilung veröffentlichen} wird diese
   	  \gls{Einteilung} final ausgewählt 
   	\end{enumerate}
   	\item[Erweiterungen:]
   	\begin{enumerate}
-  	  \item[nach 3)] \gls{Projektbetreuer} und \glspl{Studierender} werden per E"=Mail über die \gls{Einteilung} informiert
+  	  \item[4.] \gls{Projektbetreuer} und \glspl{Studierender} werden per E"=Mail
+  	  über die \gls{Einteilung} informiert
   	 \end{enumerate}
   	\item[Alternativen:] -keine-
   	\item[Benötigte FA:] \ref{FAadminAuswahl},
@@ -845,20 +871,22 @@ Im \gls{Admin}bereich:
   \item \label{UCadminCreateBetreuer}
   \begin{description}
   \item[Erstellen eines Betreueraccounts]
-  \item[Ziel:] Hinzufügen eines \gls{Projektbetreuer} in das System
-  	\item[Vorbedingung:] -keine-
+  \item[Ziel:] Hinzufügen eines \gls{Projektbetreuer}s in das Produkt
+  	\item[Vorbedingung:] Der \gls{Admin} befindet sich im Administratorbereich
   	\item[Nachbedingung:]	\begin{description}[leftmargin=6em] \item[Erfolg]  Der \gls{Projektbetreuer}account wurde erstellt
   	\item[Fehlschlag] Der \gls{Projektbetreuer}account wurde nicht erstellt \end{description}
   	\item[Beschreibung:]
   	 \begin{enumerate} 
-  	   \item[1.] Öffnen der Betreuerübersicht (\autoref{GUIprojLeiterUebersicht})
-  	   \item[2.] Ausfüllen der einzeln abgetrennten Zeile  
+  	   \item[1.] Öffnen der Betreuerübersicht über einen Klick auf
+  	   \enquote{Projektleiter} (\autoref{GUIprojLeiterUebersicht})
+  	   \item[2.] Ausfüllen der Betreuerdaten über dem Knopf \enquote{Betreuer
+  	   hinzufügen}
   	   \item[3.] Durch Klick auf \enquote{Projektleiter hinzufügen} wird der neu
-  	   angelegte \gls{Projektbetreuer} dem System hinzugefügt
+  	   angelegte \gls{Projektbetreuer} dem Produkt hinzugefügt
   	 \end{enumerate} 
   	\item[Erweiterungen:]
   	 \begin{enumerate}
-  	   \item[4)] Der \gls{Projektbetreuer} erhält seine Zugangsdaten per E-Mail
+  	   \item[4.] Der \gls{Projektbetreuer} erhält seine Zugangsdaten per E-Mail
   	 \end{enumerate}  
   \item[Alternativen:] -keine-
   \item[Benötigte FA:] \ref{FAadminCreateAccounts}
@@ -894,7 +922,8 @@ Im \gls{Admin}bereich:
   	\begin{enumerate}
   	  \item[1.] \gls{Admin} ist im \gls{Admin}bereich der Webseite
       \item[2.] Klick auf \enquote{Einteilungsergebnisse} in der Seitenleiste
-      \item[3.] Der \gls{Admin} wählt eine \gls{Einteilung} aus
+      (\autoref{GUIeinteilungErgeb})
+      \item[3.] Der \gls{Admin} wählt einen \gls{Einteilung}sreiter aus
       \item[4.] Der \gls{Admin} sieht nun Details über die \gls{Einteilung}
   	\end{enumerate}
   	\item[Erweiterungen:] -keine-
@@ -907,17 +936,18 @@ Im \gls{Admin}bereich:
     \item[Hinzufügen einer wählbaren \gls{Teilleistung} zu einer
     \gls{SPO}]
     \item[Ziel:] Bei der Registrierung wird \glspl{Studierender}n eine weitere
-    \glspl{Teilleistung} zur Auswahlahl angeboten
+    \glspl{Teilleistung} zur Auswahl angeboten
     \item[Vorbedingung:] Der \gls{Admin} ist angemeldet und befindet sich im \gls{Admin}bereich
     \item[Nachbedingung:]	\begin{description}[leftmargin=6em] \item[Erfolg]  Der \gls{Admin} ist im Bereich
-    \enquote{Einstellungen} und hat eine neue \glspl{Teilleistung} zu einer \gls{SPO}
+    \enquote{Einstellungen} und hat eine neue \gls{Teilleistung} zu einer \gls{SPO}
     hinzugefügt
-    \item[Fehlschlag] Es wurde keine \glspl{Teilleistung} zu einer \gls{SPO} 
+    \item[Fehlschlag] Es wurde keine \gls{Teilleistung} zu einer \gls{SPO} 
     hinzugefügt \end{description}
     \item[Beschreibung:]
     \begin{enumerate}
       \item[1.] \gls{Admin} ist im \gls{Admin}bereich der Webseite
       \item[2.] Klick auf \enquote{Einstellungen} in der Seitenleiste
+      (\autoref{GUIeinstellungen})
       \item[3.] Der \gls{Admin} wählt unter \enquote{SPOs} die \gls{SPO}, der er eine
       \gls{Teilleistung} hinzufügen möchte
       \item[4.] Der \gls{Admin} gibt unter \enquote{SPOs} in das Textfeld
@@ -936,20 +966,21 @@ Im \gls{Admin}bereich:
     \begin{description}
     \item[\glspl{SPO} wählen, die \glspl{Studierender}n angezeigt werden]
     \item[Ziel:] Nur die relevanten \glspl{SPO} werden bei der Registrierung von
-    Studenten angezeigt
+    \glspl{Studierender}n angezeigt
     \item[Vorbedingung:] Der \gls{Admin} ist angemeldet und befindet sich im \gls{Admin}bereich
     \item[Nachbedingung:]	\begin{description}[leftmargin=6em] \item[Erfolg]  Der \gls{Admin} ist im Bereich
-    \enquote{Einstellungen} und nur noch die Relavanten \glspl{SPO} werden für
+    \enquote{Einstellungen} und nur noch die relevanten \glspl{SPO} werden für
         \glspl{Studierender} angezeigt
     \item[Fehlschlag] Es gibt keine Veränderung \end{description}
     \item[Beschreibung:]
     \begin{enumerate}
       \item[1.] Der \gls{Admin} ist im \gls{Admin}bereich der Webseite
       \item[2.] Klick auf \enquote{Einstellungen} in der Seitenleiste
+      (\autoref{GUIeinstellungen})
       \item[3.] Der \gls{Admin} wählt unter \enquote{\glspl{SPO}} die \gls{SPO}, die er
       sichtbar oder unsichtbar machen möchte
       \item[4.] Der Adminstrator setzt oder entfernt das Häckchen bei
-      \enquote{\gls{SPO} für \glspl{Studierender} anzeigen} %TODO richtige bezeichnung
+      \enquote{\gls{SPO} aktiv} 
       \item[5.] Falls es weitere \glspl{SPO} gibt, bei denen er die Sichtbarkeit
       verändern möchte, fängt er bei 3. erneut an  
     \end{enumerate}
@@ -963,25 +994,26 @@ Im \gls{Admin}bereich:
     \item[Entfernen einer wählbaren \gls{Teilleistung} von einer
     \gls{SPO}]
     \item[Ziel:] Bei der Registrierung wird \glspl{Studierender}n die entfernte
-    \glspl{Teilleistung} nicht mehr angezeigt
+    \gls{Teilleistung} nicht mehr angezeigt
     \item[Vorbedingung:] Der \gls{Admin} ist angemeldet und befindet sich im
     \gls{Admin}bereich. Weiterhin gibt es eine \gls{SPO} mit einer wählbaren
-    \glspl{Teilleistung}
+    \gls{Teilleistung}
     \item[Nachbedingung:]	\begin{description}[leftmargin=6em] \item[Erfolg]  Der \gls{Admin} ist im Bereich
-    \enquote{Einstellungen} und die entfernte \glspl{Teilleistung} wird in der \gls{SPO}
+    \enquote{Einstellungen} und die entfernte \gls{Teilleistung} wird in der \gls{SPO}
     nicht mehr angezeigt
-    \item[Fehlschlag] Es wurde keine \glspl{Teilleistung} entfernt \end{description}
+    \item[Fehlschlag] Es wurde keine \gls{Teilleistung} entfernt \end{description}
     \item[Beschreibung:]
     \begin{enumerate}
       \item[1.] \gls{Admin} ist im \gls{Admin}bereich der Webseite
       \item[2.] Klick auf \enquote{Einstellungen} in der Seitenleiste
+      (\autoref{GUIeinstellungen})
        \item[3.] Der \gls{Admin} wählt unter \enquote{\glspl{SPO}} die \gls{SPO}, bei der er
-       eine \glspl{Teilleistung} entfernen möchte
+       eine \gls{Teilleistung} entfernen möchte
       \item[4.] Der \gls{Admin} setzt die Checkbox bei den \glspl{Teilleistung} die er
       entfernen möchte
-      \item[5.] Der \gls{Admin} klickt \enquote{markierte \glspl{Teilleistung}
-      löchen}
-      \item[5.] Die \glspl{Teilleistung} erscheint nun nicht mehr in der Aufzählung der
+      \item[5.] Der \gls{Admin} klickt auf \enquote{markierte
+      \glspl{Teilleistung} löschen}
+      \item[5.] Die \gls{Teilleistung} erscheint nun nicht mehr in der Aufzählung der
       \glspl{Teilleistung} 
     \end{enumerate}
     \item[Erweiterungen:] -keine-
@@ -1002,7 +1034,7 @@ Im \gls{Admin}bereich:
     \begin{enumerate}
       \item[1.] Der \gls{Admin} ist im \gls{Admin}bereich der Webseite
       \item[2.] Klick auf \enquote{Export/Import}
-      in der Seitenleiste
+      in der Seitenleiste (\autoref{GUIexportimport})
        \item[3.] Der \gls{Admin} klickt auf den \enquote{Import}"=Knopf neben dem entsprechenden Datentyp, der importiert werden soll.
        \item[4.] Der \gls{Admin} kann in einem System"=Popup"=Fenster die Datei zum Importieren auswählen.
       \item[5.] Der \gls{Admin} wird über den Ausgang des Imports benachrichtigt.
@@ -1024,6 +1056,7 @@ Im \gls{Admin}bereich:
     \begin{enumerate}
       \item[1.] Der \gls{Admin} ist im \gls{Admin}bereich der Webseite
       \item[2.] Klick auf \enquote{Export/Import} in der Seitenleiste
+      (\autoref{GUIeinstellungen})
        \item[3.] Der \gls{Admin} klickt auf den \enquote{Export}"=Knopf neben dem entsprechenden Datentyp, der exportiert werden soll.
        \item[4.] Der \gls{Admin} kann in einem System"=Popup"=Fenster den Speicherort der Exportdaten auswählen.
       \item[5.] Der \gls{Admin} wird über den Ausgang des Exports benachrichtigt.
@@ -1045,7 +1078,7 @@ Im \gls{Admin}bereich:
     \begin{enumerate}
       \item[1.] Der \gls{Admin} ist im \gls{Admin}bereich der Webseite
       \item[2.] Klick auf \enquote{Export/Import}
-      in der Seitenleiste
+      in der Seitenleiste (\autoref{GUIeinstellungen})
        \item[3.] Der \gls{Admin} klickt auf den \enquote{Datei importieren}"=Knopf im \enquote{CMS Datenabgleich}"=Bereich.
        \item[4.] Der \gls{Admin} kann in einem System"=Popup"=Fenster die Datei zum Importieren auswählen.
       \item[5.] Der \gls{Admin} wird über den Ausgang des Imports benachrichtigt.
@@ -1062,12 +1095,13 @@ Im \gls{Admin}bereich:
     \item[Vorbedingung:] Der \gls{Admin} ist angemeldet und befindet sich im
     \gls{Admin}bereich. Es müssen \glspl{Studierender}ndaten existieren und ein Campus"=Management"=System"=Daten"=Import (vgl. \ref{UCadminImport2}) hat stattgefunden .
     \item[Nachbedingung:]	\begin{description}[leftmargin=6em] \item[Erfolg]  Der \gls{Admin} ist im \gls{Admin}bereich und sieht die tabellarisch aufgezählten Konflikte
-    \item[Fehlschlag] ~ \end{description}
+    \item[Fehlschlag] Der \gls{Admin} erhält keine Auskunft über Konflikte 
+    \end{description}
     \item[Beschreibung:]
     \begin{enumerate}
       \item[1.] Der \gls{Admin} ist im \gls{Admin}bereich der Webseite
       \item[2.] Klick auf \enquote{Export/Import}
-      in der Seitenleiste
+      in der Seitenleiste (\autoref{GUIeinstellungen})
        \item[3.] Der \gls{Admin} sieht die tabellarisch aufgezählten Konflikte im \enquote{CMS Datenabgleich}"=Bereich.
     \end{enumerate}
     \item[Erweiterungen:] -keine-
@@ -1087,7 +1121,7 @@ Im \gls{Admin}bereich:
     \begin{enumerate}
       \item[1.] Der \gls{Admin} ist im \gls{Admin}bereich der Webseite
       \item[2.] Klick auf \enquote{Export/Import}
-      in der Seitenleiste
+      in der Seitenleiste (\autoref{GUIeinstellungen})
        \item[3.] Der \gls{Admin} klickt auf den \enquote{Datei exportieren}"=Knopf im \enquote{CMS Datenabgleich}"=Bereich.
        \item[4.] Der \gls{Admin} kann in einem System"=Popup"=Fenster den Speicherort der Export"=Daten auswählen.
       \item[5.] Der \gls{Admin} wird über den Ausgang des Exports benachrichtigt.
@@ -1108,8 +1142,10 @@ Im \gls{Admin}bereich:
   	\item[Beschreibung:]
   	\begin{enumerate}
   	  \item[1.] \gls{Admin} ist im \gls{Admin}bereich der Webseite
-      \item[2.] Klick auf \enquote{\gls{Einteilung}sergebnisse} in der Seitenleiste
+      \item[2.] Klick auf \enquote{\gls{Einteilung}sergebnisse} in der
+      Seitenleiste (\autoref{GUIeinteilungErgeb})
       \item[3.] Der \gls{Admin} wählt den Reiter \enquote{Vergleich} aus
+      (\autoref{GUIvergleich})
       \item[4.] Der \gls{Admin} sieht nun einen Vergleich der \glspl{Einteilung}
   	\end{enumerate}
   	\item[Erweiterungen:] -keine-
@@ -1124,17 +1160,18 @@ Im \gls{Admin}bereich:
     \begin{description}
   	\item[Nutzen der Stapelverarbeitung]
   	\item[Ziel:] Serielle Berechnung von \glspl{Einteilung}
-  	\item[Vorbedingung:] Der \gls{Admin} befindet sich im Bereich
-  	\enquote{\gls{Einteilung}}
+  	\item[Vorbedingung:] Der \gls{Admin} befindet sich im Administratorbereich.
+  	Bewertungsdeadline der Studierenden ist abgelaufen
   	\item[Nachbedingung:]	\begin{description}[leftmargin=6em] \item[Erfolg]  Alle gewünschten \glspl{Einteilung} werden berechnet
   	\item[Fehlschlag] Es werden nicht alle \glspl{Einteilung} berechnet \end{description}
   	\item[Beschreibung:]
   	\begin{enumerate}
   	  \item[1.] \gls{Admin} ist im \gls{Admin}bereich der Webseite
       \item[2.] Klick auf \enquote{\gls{Einteilung}} in der Seitenleiste
+      (\autoref{GUIeinteilung})
       \item[3.] Der \gls{Admin} stellt die \gls{Einteilungskonfiguration} einer \gls{Einteilung} ein
       \item[4.] Klick auf \enquote{Zur Berechnung hinzufügen}
-      \item[5.] Ist diese \gls{Einteilung} die erste in der Liste, so wird die
+      \item[5.] Ist diese \gls{Einteilung} die Erste in der Liste, so wird die
       Berechnung dieser direkt gestartet
       \item[6.] Wiederhole Schritte 3 und 4 bis alle gewünschten \glspl{Einteilung} in
       der Liste stehen
@@ -1161,7 +1198,7 @@ Im \gls{Admin}bereich:
   	\item[Beschreibung:]
   	\begin{enumerate}
   	  \item[1.] \gls{Admin} ist im Bereich \enquote{Studenten
-  	  hinzufügen/löschen}
+  	  hinzufügen/löschen} (\autoref{GUIstudentEdit})
       \item[2.] Ausfüllen der Maske \enquote{Student hinzufügen}
       \item[3.] Klick auf \enquote{Hinzufügen}
   	\end{enumerate}
@@ -1182,7 +1219,7 @@ Im \gls{Admin}bereich:
   	\item[Beschreibung:]
   	\begin{enumerate}
   	  \item[1.] \gls{Admin} ist im Bereich \enquote{Studenten
-  	  hinzufügen/löschen}
+  	  hinzufügen/löschen} (\autoref{GUIstudentEdit})
       \item[2.] Ausfüllen der Maske \enquote{Student löschen}
       \item[3.] Klick auf \enquote{löschen}
   	\end{enumerate}
@@ -1194,15 +1231,17 @@ Im \gls{Admin}bereich:
   \item \label{UCadminAddStudToTeam}
     \begin{description}
   	\item[Einen \glspl{Studierender}n zu einem \gls{Team} hinzufügen]
-  	\item[Ziel:] Einen \glspl{Studierender}n manuell zu einem \gls{Team} hinzufügen
+  	\item[Ziel:] Einen nicht zugeteilten \glspl{Studierender}n manuell zu einem
+  	\gls{Team} hinzufügen
   	\item[Vorbedingung:] Der \gls{Admin} befindet sich im Bereich
-  	\enquote{\gls{Einteilung}sergebnisse}
+  	\enquote{\gls{Einteilung}sergebnisse} 
   	\item[Nachbedingung:]	\begin{description}[leftmargin=6em] \item[Erfolg]  Der \glspl{Studierender} wurde dem \gls{Team} hinzugefügt
   	\item[Fehlschlag] Der \glspl{Studierender} wurde dem \gls{Team} nicht 
   	hinzugefügt \end{description}
   	\item[Beschreibung:]
   	\begin{enumerate}
   	  \item[1.] \gls{Admin} ist im Bereich \enquote{\gls{Einteilung}sergebnisse}
+  	  (\autoref{GUIeinteilungErgeb})
       \item[2.] Auswahl des \glspl{Studierender}n unter \enquote{Nicht zugeteilte
       Personen}
       \item[3.] Auswahl des \glspl{Team} im Drop"=Down"=Menü
@@ -1210,7 +1249,7 @@ Im \gls{Admin}bereich:
   	\end{enumerate}
   	\item[Erweiterungen:]
   	\begin{enumerate}
-  	  \item [zu 4.)] Überschreitet der \gls{Admin} die von ihm eingestellten
+  	  \item [4a)] Überschreitet der \gls{Admin} die von ihm eingestellten
   	  Parameter (z.B. maximale \gls{Team}größe), so wird ihm eine Warnung angezeigt
   	\end{enumerate}  
   	\item[Alternativen:] -keine-
@@ -1223,12 +1262,15 @@ Im \gls{Admin}bereich:
   	\item[Ziel:] Einen \glspl{Studierender}n manuell aus einem \gls{Team} entfernen
   	\item[Vorbedingung:] Der \gls{Admin} befindet sich im Bereich
   	\enquote{\gls{Einteilung}sergebnisse}
-  	\item[Nachbedingung:]	\begin{description}[leftmargin=6em] \item[Erfolg]  Der \glspl{Studierender} wurde aus dem \gls{Team} entfernt
+  	\item[Nachbedingung:]	\begin{description}[leftmargin=6em] \item[Erfolg]  Der
+  	\glspl{Studierender} wurde aus dem \gls{Team} entfernt und befindet sich
+  	bei \enquote{Nicht zugeteilte Personen}
   	\item[Fehlschlag] Der \glspl{Studierender} wurde nicht aus dem \gls{Team} 
   	entfernt \end{description}
   	\item[Beschreibung:]
   	\begin{enumerate}
   	  \item[1.] \gls{Admin} ist im Bereich \enquote{\gls{Einteilung}sergebnisse}
+  	  (\autoref{GUIeinteilungErgeb})
       \item[2.] Auswahl des \glspl{Studierender}n in der \gls{Team}übersicht
       \item[3.] im Drop"=Down"=Menü \enquote{Nicht zugeteilte
       Personen} auswählen
@@ -1236,7 +1278,7 @@ Im \gls{Admin}bereich:
   	\end{enumerate}
   	\item[Erweiterungen:]
   	\begin{enumerate}
-  	  \item [zu 4.)] Überschreitet der \gls{Admin} die von ihm eingestellten
+  	  \item [4a)] Überschreitet der \gls{Admin} die von ihm eingestellten
   	  Parameter (z.B. minimale \gls{Team}größe), so wird ihm eine Warnung angezeigt
   	\end{enumerate}  
   	\item[Alternativen:] -keine-
@@ -1255,12 +1297,13 @@ Im \gls{Admin}bereich:
   	\item[Beschreibung:]
   	\begin{enumerate}
   	  \item[1.] \gls{Admin} ist im Bereich \enquote{\gls{Einteilung}sergebnisse}
+  	  (\autoref{GUIeinteilungErgeb})
       \item[2.] Auswahl der beiden \glspl{Studierender}n in der \gls{Team}übersicht
-      \item[3.] Klick auf \enquote{markierte Personen tauschen}
+      \item[3.] Klick auf \enquote{markierte 2 Personen tauschen}
   	\end{enumerate}
   	\item[Erweiterungen:]
   	\begin{enumerate}
-  	  \item [zu 4.)] Überschreitet der \gls{Admin} die von ihm eingestellten
+  	  \item [4a)] Überschreitet der \gls{Admin} die von ihm eingestellten
   	  Parameter (z.B. zerrissene \glspl{Lerngruppe}), so wird ihm eine Warnung angezeigt
   	\end{enumerate}  
   	\item[Alternativen:] -keine-
@@ -1290,11 +1333,11 @@ Im \gls{Admin}bereich:
   	\end{enumerate}
   	\item[Erweiterungen:]
   	\begin{enumerate}
-  	  \item[zu 3)] Statt der Registrierungsmaske wird hier der \gls{SCC-Account}
+  	  \item[3a)] Statt der Registrierungsmaske wird hier der \gls{SCC-Account}
   	  verwendet
-  	  \item[nach 4)] Dem \glspl{Studierender}n wird nach dem Abschicken seiner Daten eine
-  	  \\
-  	  Verifikations-Email gesendet. (siehe \testRef{UCstudVerifikationEmail})
+  	  \item[4a)] Dem \glspl{Studierender}n wird nach dem Abschicken seiner Daten
+  	  eine Verifikations-Email gesendet. (siehe
+  	  \testRef{UCstudVerifikationEmail})
   	 \end{enumerate} 
   	\item[Alternativen:]
   	\begin{enumerate}
@@ -1311,8 +1354,8 @@ Im \gls{Admin}bereich:
     \item[Ziel:] Verifikation der E"=Mail"=Adresse
     \item[Vorbedingung:] \gls{Studierender} muss sich registriert haben und seine
     E"=Mail"=Adresse korrekt angegeben haben.
-    \item[Nachbedingung:]	\begin{description}[leftmargin=6em] \item[Erfolg]  \gls{Studierender} kann sich nun Anmelden und hat
-    Zugriff auf den \glspl{Studierender}nbereich
+    \item[Nachbedingung:]	\begin{description}[leftmargin=6em] \item[Erfolg] 
+    \gls{Studierender} kann sich nun anmelden und hat Zugriff auf den \glspl{Studierender}nbereich
     \item[Fehlschlag] \gls{Studierender} kann sich nicht mit seinem Account anmelden \end{description}
     \item[Beschreibung:]
     \begin{enumerate}
@@ -1333,7 +1376,7 @@ Im \gls{Admin}bereich:
   	\item[Fehlschlag] Der \glspl{Studierender} ist nicht angemeldet \end{description}
   	\item[Beschreibung:]
   	\begin{enumerate}
-  	  \item[1.] \gls{Studierender} öffnet die Website
+  	  \item[1.] \gls{Studierender} öffnet die Webseite
   	  \item[2.] \gls{Studierender} füllt das Formular zum Anmelden aus und schickt
   	  dieses ab %TODO: Verweis auf Bild
   	  \item[3.] Sind die Anmeldedaten korrekt, so wird der \glspl{Studierender} zum
@@ -1341,7 +1384,7 @@ Im \gls{Admin}bereich:
   	\end{enumerate}
   	\item[Erweiterungen:]
   	\begin{enumerate}
-  	  \item[2)] Kein Formular, sondern Anmeldung über \gls{SCC-Account}
+  	  \item[2a)] Kein Formular, sondern Anmeldung über \gls{SCC-Account}
   	\end{enumerate}    	
   	\item[Alternativen:]
 	\begin{enumerate}
@@ -1357,7 +1400,7 @@ Im \gls{Admin}bereich:
   \item[Ziel:] Eine neue \gls{Lerngruppe} ist in der Datenbank vermerkt und der
   Ersteller ist erstes Mitglied dieser
   	\item[Vorbedingung:] \gls{Studierender} ist angemeldet und befindet sich auf der
-  	Website im \glspl{Studierender}nportal
+  	Webseite im \glspl{Studierender}nportal
   	\item[Nachbedingung:]	\begin{description}[leftmargin=6em] \item[Erfolg]  Die \gls{Lerngruppe} wurde erfolgreich erstellt
   	\item[Fehlschlag] Die \gls{Lerngruppe} wurde nicht erstellt \end{description}
   	\item[Beschreibung:]
@@ -1400,9 +1443,10 @@ Im \gls{Admin}bereich:
   	\begin{enumerate}
   	  \item[2a)] Ist die \gls{Lerngruppe} schon vollständig, so wird der
   	  \glspl{Studierender} nicht der Gruppe zugewiesen
-  	  \item[3)] Ist der \glspl{Studierender} nicht der \gls{Lerngruppe} zugewiesen worden,
-  	  so werden die zuletzt gespeicherten \gls{Bewertung} verwendet
-  	  \item[4)] Die gesamte \glspl{Lerngruppe} wird per E-Mail informiert
+  	  \item[3.] Ist der \glspl{Studierender} nicht der \gls{Lerngruppe}
+  	  zugewiesen worden, so werden die zuletzt gespeicherten \glspl{Bewertung}
+  	  verwendet
+  	  \item[4.] Die gesamte \glspl{Lerngruppe} wird per E-Mail informiert
   	 \end{enumerate}
   	\item[Alternativen:]
   	\begin{enumerate}
@@ -1464,7 +1508,7 @@ Im \gls{Admin}bereich:
   \item[Ziel:] \gls{Studierender} kann sich während der \gls{Einteilung} die Beschreibung
   der zu bewertenden \glspl{Projekt} nochmals ansehen
   	\item[Vorbedingung:] \gls{Studierender} ist angemeldet und befindet sich in der
-  	Projekt\gls{Bewertung}smaske %TODO verweis
+  	\gls{Bewertung}smaske %TODO verweis
   	
   	\item[Nachbedingung:]	\begin{description}[leftmargin=6em] \item[Erfolg]  \gls{Studierender} kann die \gls{Projekt}beschreibung als
   	\enquote{Overlay} sehen %TODO wirklich als overlay? wie sieht der Studierend
@@ -1487,7 +1531,7 @@ Im \gls{Admin}bereich:
       \item \label{UCstudLeaveLernG}
   \begin{description}
   \item[Austritt aus einer \gls{Lerngruppe}]
-  \item[Ziel:] \gls{Studierender} möchte aus einer \gls{Lerngruppe} austreten
+  \item[Ziel:] \gls{Studierender} tritt aus einer \gls{Lerngruppe} aus
   	\item[Vorbedingung:] \gls{Studierender} ist angemeldet und befindet sich auf der
   	Webseite im \glspl{Studierender}nbereich. Weiterhin ist er Mitglied
   	einer \gls{Lerngruppe}
@@ -1518,7 +1562,7 @@ Im \gls{Admin}bereich:
   \item[\gls{Studierender} bewertet \glspl{Projekt}]
   \item[Ziel:] Der \glspl{Studierender} hat eine \gls{Bewertung} abgegeben
   	\item[Vorbedingung:] Der \glspl{Studierender} ist angemeldet und im \glspl{Studierender}nportal der
-  	Website
+  	Webseite
   	\item[Nachbedingung:]	\begin{description}[leftmargin=6em] \item[Erfolg]  Die \gls{Bewertung} wurde gespeichert
   	\item[Fehlschlag] Die \gls{Bewertung} wurde nicht gespeichert \end{description}
   	\item[Beschreibung:]
@@ -1553,14 +1597,18 @@ Im \gls{Admin}bereich:
       \item[4.] Der \glspl{Studierender} erhält eine E"=Mail mit seinem neuen Passwort
   	\end{enumerate}
   	\item[Erweiterungen:] -keine-
-  	\item[Alternativen:] -keine-
+  	\item[Alternativen:]
+	\begin{enumerate}
+		\item[4a)] Ist die E"=Mail"=Adresse nicht im System gespeichert, so erhält
+		der \gls{Studierender} eine Fehlermeldung
+	\end{enumerate}
   	\item[Benötigte FA:] \ref{FApasswortvergessen}
   \end{description}
   
   \item \label{UCstudLogout}
     \begin{description}
   	\item[Abmeldung]
-  	\item[Ziel:] Student meldet sich ab
+  	\item[Ziel:] \gls{Studierender} meldet sich ab
   	\item[Vorbedingung:] Der \glspl{Studierender} ist angemeldet und befindet sich im \glspl{Studierender}nbereich
   	\item[Nachbedingung:]	\begin{description}[leftmargin=6em] \item[Erfolg]  Der \glspl{Studierender} ist abgemeldet und befindet sich auf der Startseite
   	\item[Fehlschlag] Der \glspl{Studierender} ist nicht abgemeldet \end{description}
@@ -1611,7 +1659,8 @@ Im \gls{Admin}bereich:
   		eingetragen \end{description}
   		\item[Beschreibung:]
   	\begin{enumerate}
-  	  \item[1.] \gls{Projektbetreuer} befindet sich auf der Website mit den \gls{Projekt}
+  	  \item[1.] \gls{Projektbetreuer} befindet sich auf der Webseite mit den
+  	  \glspl{Projekt}n
   	  \item[2.] Existiert das \gls{Projekt} schon, so wählt der \gls{Projektbetreuer} dieses aus
   	  \item[3.] \gls{Projektbetreuer} füllt die Eingabemaske aus
   	  \item[4.] \gls{Projektbetreuer} speichert die neuen Daten ab
@@ -1628,14 +1677,18 @@ Im \gls{Admin}bereich:
   \item \label{UCbetreuerJoinProjekt}
 	\begin{description}
   		\item[\gls{Projektbetreuer} werden]
-  		\item[Ziel:] \gls{Projektbetreuer} eines bestimmten \glspl{Projekt}s werden
-  		\item[Vorbedingung:] Man ist noch nicht \gls{Projektbetreuer} des ausgewählten \glspl{Projekt}s
+  		\item[Ziel:] \gls{Projektbetreuer} eines \glspl{Projekt}s werden
+  		\item[Vorbedingung:] Der Benutzer ist noch nicht \gls{Projektbetreuer} des
+  		ausgewählten \glspl{Projekt}s
   		\item[Nachbedingung:]	\begin{description}[leftmargin=6em] \item[Erfolg]  Erfolgreich \gls{Projektbetreuer} des ausgewählten
   		\glspl{Projekt}s geworden
-  		\item[Fehlschlag] Man ist nicht \gls{Projektbetreuer} des \glspl{Projekt}s \end{description}
+  		\item[Fehlschlag] Der Benutzer ist nicht \gls{Projektbetreuer} des
+  		\glspl{Projekt}s
+  		\end{description}
   		\item[Beschreibung:]
   	\begin{enumerate} 
-  	  \item[1.] \gls{Projektbetreuer} befindet sich auf der Website mit den \glspl{Projekt}n
+  	  \item[1.] \gls{Projektbetreuer} befindet sich auf der Webseite mit den
+  	  \glspl{Projekt}n
   	  \item[2.] \gls{Projektbetreuer} wählt das \gls{Projekt} aus, welches er betreuen möchte
   	  \item[3.] \gls{Projektbetreuer} tritt dem \gls{Projekt} bei
   	\end{enumerate}
@@ -1661,7 +1714,11 @@ Im \gls{Admin}bereich:
   	\item[Beschreibung:]
   	\begin{enumerate}
   		\item[1.] Der \gls{Projektbetreuer} klickt auf \enquote{\gls{Einteilung}sergebnisse} 
-		\item[2.] Der \gls{Projektbetreuer} sieht, welche \glspl{Studierender} in welchen \glspl{Team} seinem \gls{Projekt} zugeordnet wurden. Zusätzlich erhält er die Information, ob \glspl{Studierender} sich im CMS schon zum \gls{PSE} und \gls{TSE} angemeldet haben und ob noch \glspl{Teilleistung} offen sind.
+		\item[2.] Der \gls{Projektbetreuer} sieht, welche \glspl{Studierender} in
+		welchen \glspl{Team} seinem \gls{Projekt} zugeordnet wurden. Zusätzlich
+		erhält er die Information, ob \glspl{Studierender} sich im CMS schon zum
+		\gls{PSE} und \gls{TSE} angemeldet haben und ob noch \glspl{Teilleistung}
+		offen sind
   	\end{enumerate}
   	\item[Erweiterungen:] -keine-
   	
@@ -1675,14 +1732,16 @@ Im \gls{Admin}bereich:
 	\begin{description}
   		\item[\gls{Projekt} verlassen]
   		\item[Ziel:] Ein \gls{Projekt} nicht mehr betreuen
-  		\item[Vorbedingung:] Man ist \gls{Projektbetreuer} eines \glspl{Projekt}s, in dem noch mindestens
-  		ein anderer \gls{Projektbetreuer} ist.
-  		\item[Nachbedingung:]	\begin{description}[leftmargin=6em] \item[Erfolg]  Man betreut das \gls{Projekt} nicht länger
-  		\item[Fehlschlag] Man ist immer noch \gls{Projektbetreuer} des \glspl{Projekt}s \end{description}
+  		\item[Vorbedingung:] Der Benutzer ist \gls{Projektbetreuer} eines
+  		\glspl{Projekt}s, in dem noch mindestens ein anderer \gls{Projektbetreuer} ist.
+  		\item[Nachbedingung:]	\begin{description}[leftmargin=6em] \item[Erfolg]  Der
+  		Benutzer betreut das \gls{Projekt} nicht länger
+  		\item[Fehlschlag] Der Benutzer ist immer noch \gls{Projektbetreuer} des
+  		\glspl{Projekt}s \end{description}
   		\item[Beschreibung:]
   	\begin{enumerate} 
-  	  \item[1.] \gls{Projektbetreuer} befindet sich auf der Website mit den \glspl{Projekt}n, die
-  	  er betreut.
+  	  \item[1.] \gls{Projektbetreuer} befindet sich auf der Webseite mit den
+  	  \glspl{Projekt}n, die er betreut.
   	  \item[2.] \gls{Projektbetreuer} wählt das \gls{Projekt} aus, welches er verlassen möchte.
   	  \item[3.] \gls{Projektbetreuer} verlässt das \gls{Projekt}.
   	\end{enumerate}
@@ -1701,7 +1760,8 @@ Im \gls{Admin}bereich:
   	\item[Fehlschlag] Notenänderung wird verworfen \end{description}
   	\item[Beschreibung:]
   	\begin{enumerate} 
-  	  \item[1.] \gls{Projektbetreuer} befindet sich auf der Website mit der Notenübersicht
+  	  \item[1.] \gls{Projektbetreuer} befindet sich auf der Webseite mit der
+  	  Notenübersicht
   	  \item[2.] \gls{Projektbetreuer} trägt neue Noten für einen \glspl{Studierender}n ein oder
   	  ändert bestehende Noten
   	\end{enumerate}
@@ -1825,5 +1885,7 @@ keepaspectratio=true]{gui/adminproperties.png}}
 %TODO LIZENZ
 \end{enumerate}
 \pagebreak
-\printglossaries
+{\setlist[description]{leftmargin=8em,style=nextline}
+\printglossary[nonumberlist]
+}
 \end{document}
