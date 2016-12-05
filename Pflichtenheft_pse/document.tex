@@ -58,11 +58,15 @@ plural=Teilleistungen, description={Eine \glspl{Teilleistung} ist eine von den \
 \newglossaryentry{Modul}{name=Modul,
 plural=Module, description={Ein \gls{Modul} ist ein Zusammenschluss verschiedener \glspl{Teilleistung}, welche das gleiche Thema abdecken
 }}
+
 \newglossaryentry{happiness}{name=Studierenden-Happiness,
 plural=Studierenden-Happiness, description={Die Studierenden-Happiness ist ein
 \gls{Guetekriterium} welches sich aus allen anderen \glspl{Guetekriterium}
 (\ref{FAadminGüte}), welche verschieden gewichtet werden, zusammensetzt. Es
 dient als zusammenfassendes \gls{Guetekriterium} einer \gls{Einteilung}  }} 
+
+\newglossaryentry{System}{name=System,
+plural=Systeme, description={Das in Betrieb befindliche Produkt}} 
 
 \newglossaryentry{gesplitteteGruppe}{name=Anzahl der getrennten \glspl{Lerngruppe},
  description={ Die Anzahl der getrennten \glspl{Lerngruppe} ist ein
@@ -98,6 +102,18 @@ plural=Einteilungskonfigurationen, description={Das System besitzt bei der
 Berechnung einer \gls{Einteilung} diverse Parameter und Kriterien, nach denen
 die \gls{Einteilung} erfolgen kann. Eine \gls{Einteilungskonfiguration} meint
 genau eine Festlegung dieser Parameter und Kriterien auf einen konkreten Wert}}
+	
+	\newglossaryentry{Studierendenbereich}{name=Studierendenbereich,
+plural=Studierendenbereiche, description={Der Bereich der Webseite der Benutzern
+die als Studierende angemeldet sind zur Verfügung steht.}}
+
+	\newglossaryentry{Betreuerbereich}{name=Betreuerbereich,
+plural=Betreuerbereiche, description={Der Bereich der Webseite der Benutzern
+die als Betreuer angemeldet sind zur Verfügung steht.}}
+
+	\newglossaryentry{Administratorbereich}{name=Administratorbereich,
+plural=Administratorbereiche, description={Der Bereich der Webseite der Benutzern
+die als Administrator angemeldet sind zur Verfügung steht.}}
 	
 \newglossaryentry{CMS}{name=Campus Management System, description={Das \gls{CMS} ist ein System zur Verwaltung von \glspl{Studierender}ndaten. Das System ist vor allem für das Speichern von Prüfungs- und \gls{Teilleistung}sdaten zuständig
 }}
@@ -142,7 +158,7 @@ bisher über die Software \enquote{Webinscribe} gelöst.
 \enquote{Webinscribe} ist dazu entworfen worden, \glspl{Studierender} zu Tutorien einzuteilen.
 Zwar ähneln die Anforderungen an die \gls{PSE}-\gls{Team}einteilung denen der Tutoriumseinteilung,
 jedoch sind sie nicht absolut deckungsgleich. 
-Dadurch ist die aktuelle Lösung mit Webinscribe umständlich in der Bedienung und lässt Wünsche bezüglich hilfreicher Features offen.
+Dadurch ist die aktuelle Lösung mit \enquote{Webinscribe} umständlich in der Bedienung und lässt Wünsche bezüglich hilfreicher Features offen.
 So müssen beispielsweise die angebotenen Themen als Tutorien eingetragen werden. 
 Auch eine manuelle Änderung der \gls{Einteilung} ist nicht über eine Eingabemaske
 möglich.
@@ -214,7 +230,7 @@ Absteigend nach Priorität sortiert:
         ersten Studienjahr bestanden haben
         \item Wer sich zum zweiten mal bewirbt, soll bei der \gls{Einteilung} bevorzugt werden
     \end{itemize}    
-\item Anzeige der \gls{Projektdetails} für \glspl{Studierender} %TODO genauer beschreiben. Was sind Details?
+\item Anzeige der \gls{Projektdetails} für \glspl{Studierender} 
 \item Warnung an den \gls{Admin}, falls er bei der manuellen Nachjustierung 
     der \gls{Einteilung} die bei der \gls{Einteilungskonfiguration} angegebenen Grenzen überschreitet
     \item Authentifizierung via \gls{Shibboleth}
@@ -278,16 +294,16 @@ Hierbei werden die \glspl{Lerngruppe} und \glspl{Bewertung} der \glspl{Studieren
 \begin{itemize} 
   \item Webserver (\texttt{\gls{HTTP}, \gls{SMTP}})
   \item SQL"=Server
-  \item ILP"=Solver Gurobi %TODO lizens
+  \item ILP"=Solver Gurobi 
 \end{itemize}
 \subsection{Server-Hardware}
 Mindestens:
 \begin{itemize} 
   \item $\SI{16}{\giga\byte}$ Ram
   \item Intel i7 Quadcore mit 4 weiteren virtuellen Kernen 
-  %TODO nachfragen was hier noch gebraucht wird
+  
 \end{itemize}
-% hier überlegen ob man noch Orgware und Produkt-Schnittstellen dazu nimmt
+
 
 \subsection{Client-Software}
 \begin{itemize}
@@ -297,8 +313,7 @@ Mindestens:
 oder neuer
 \subsection{Client-Hardware}
 \begin{itemize}
-  \item Heim-PC mit Internetzugang %TODO wolllen wir igendeine art der  mobilen
-  %nutzung zulassen? u
+  \item Heim-PC mit Internetzugang 
 \end{itemize}
 
 \section{Funktionale Anforderungen}
@@ -361,7 +376,7 @@ ein Verweis auf den Anwendungsfall, der die Funktion beschreibt und testet.
   \item Setzen der \gls{Bewertung}sdeadline \label{FAadminDeadline} \testRef{UCadminDeadline}
   \item Einstellen einer \gls{Einteilungskonfiguration} \label{FAadminParameter}
   \testRef{UCadminEinteilungStart}
-  %TODO Verweis auf GUI? oder Textuell? genauer was kann man konfiirerengu
+  
   \item Starten der \gls{Einteilung}sberechnung \label{FAadminEinteilungstart}
   \testRef{UCadminEinteilungStart}
   \item Übersicht über die aktuelle \gls{Einteilung} \label{FAadminÜbersicht}
@@ -386,7 +401,7 @@ ein Verweis auf den Anwendungsfall, der die Funktion beschreibt und testet.
   \item Export von \gls{Einteilung}s"=, \gls{SPO}"= und \glspl{Studierender}ndaten \label{FAexport}\testRef{UCadminExport}
   \item Erstellung eines \glspl{Projekt}s \label{FAadminCreateProjekt}
   \testRef{UCadminProjektErstellenÄndern}
-  \item Ändern der \gls{Projektdetails}: Name, Beschreibung, \gls{Projektbetreuer}, %TODO
+  \item Ändern der \gls{Projektdetails}: Name, Beschreibung, \gls{Projektbetreuer}, 
         minimale und maximale Teilnehmerzahl,  der \glspl{Team} (vlg.
         \ref{DProjektAnfang} bis \ref{DProjektEnde})
         \label{FAadminProjektänderung} \testRef{UCadminProjektErstellenÄndern}
@@ -401,8 +416,7 @@ ein Verweis auf den Anwendungsfall, der die Funktion beschreibt und testet.
 
 \begin{enumerate}[label=\swtLabel{FA}, resume]
   \item Abbrechen der \gls{Einteilung}sberechnung \label{FAabbruch} \testRef{UCadminEinteilungStart}
-  %TODO Was ist damit gemeint? \item Hinzufügen/Löschen von Studierenden
-  %und Bearbeitung der Daten
+
   \item Hinzufügen von Berechnungen zur Stapelverarbeitung \label{FAadminStapel}
   \testRef{UCadminStapelverarbeitung}
   \item Hinzufügen wählbarer \glspl{Teilleistung} zu \glspl{SPO}
@@ -478,7 +492,7 @@ ein Verweis auf den Anwendungsfall, der die Funktion beschreibt und testet.
 \end{enumerate}
 
 \subsection{Betreuerfunktionen}
-%TODO ein oder 2 Sätze in wieweit betreuer komplett wunsch ist 
+
 \subsubsection{Wunschfunktionen}
 
 \begin{enumerate}[label=\swtLabel{FA}, resume]
@@ -565,8 +579,8 @@ ein Verweis auf den Anwendungsfall, der die Funktion beschreibt und testet.
 \begin{enumerate}[label=\swtLabel{D}, resume] 
   \item Name
   \item Passwort
-  \item \gls{Bewertung} der \glspl{Projekt}, zu welchem die \glspl{Lerngruppe}mitglieder
-  (\glspl{Studierender}) am liebsten zugeteilt werden würden
+  \item \gls{Bewertung} der \glspl{Projekt}, zu welchen die \glspl{Lerngruppe}mitglieder
+  (\glspl{Studierender}) am liebsten zugeteilt würden
   \item Mitglieder der \gls{Lerngruppe}
 \end{enumerate}
 
@@ -613,19 +627,23 @@ ein Verweis auf den Anwendungsfall, der die Funktion beschreibt und testet.
   Stunden fertig
 	\item Der Session-Timeout der Internetseite liegt für \glspl{Studierender} bei 30
 	Minuten
-	\item Benutzbarkeit (\gls{Admin}): Nach Einführung von 4h können Nutzer die
-	\gls{Einteilung} administrieren
+	\item Benutzbarkeit (\gls{Admin}): Nach Einführung in die Benutzung des
+	Adminbereichs von 4h können Nutzer die \gls{Einteilung} administrieren
 	\item Benutzbarkeit (\glspl{Studierender}): Mehr als 90\% der \glspl{Studierender}n können
 	sich ohne Anleitung registrieren, anmelden und ihre \gls{Bewertung} abgeben
 	\item Leichte Erweiterbarkeit der \gls{Einteilung}sberechnung um weitere Kriterien
 	\item Sicherheit: Passwörter müssen mindestens 8 Zeichen lang sein und werden
 	nicht in Klartext gespeichert
  
-%TODO was fehlt hier noch
+
 
 \end{enumerate}
 \section{Globale Testfälle}
-Folgende Funktionssequenzen sind zu überprüfen:
+Der Test der funktionalen Anforderungen verläuft primär über die
+Anwendungsfälle, welche über Verweise nach jeder funktionalen Anforderung direkt
+erreichbar sind. 
+
+Folgende Funktionssequenzen sind noch zusätzlich zu prüfen:
 
 Im \glspl{Studierender}nbereich:
 
@@ -635,9 +653,10 @@ Im \glspl{Studierender}nbereich:
   
   \item Registrierung als \gls{Studierender}, erstellen oder beitreten einer 
   \gls{Lerngruppe} und abgeben einer \gls{Bewertung}
-  \item Deadlines zur Registrierung als \gls{Studierender} und zur
-  \gls{Bewertung}sabgabe werden eingehalten
-  %TODO hier noch das wir größtenteils über die Anwendungsfälle testen
+  \item Fristen zur Registrierung als \gls{Studierender} und zur
+  \gls{Bewertung}sabgabe werden eingehalten (es werden immer die des aktiven
+  Semesters verwendet) 
+ 
 
 \end{enumerate}
 Im \gls{Admin}bereich:
@@ -678,7 +697,7 @@ Im \gls{Admin}bereich:
 
 		\item[Beschreibung:]
 		\begin{enumerate} [label=\arabic*.]
-			\item Der \gls{Admin} stellt auf dem Server Gurobi bereit %TODO Gurobi Glossar
+			\item Der \gls{Admin} stellt auf dem Server Gurobi bereit 
 			\item Er startet Web"= und Datenbankserver 
 			\item Er startet das Produkt
 		\end{enumerate}
@@ -738,7 +757,8 @@ Im \gls{Admin}bereich:
 	\item \label{UCadminDeadline}
 	\begin{description}
 		\item[Setzten der \gls{Bewertung}sdeadline ]
-		\item[Ziel:] Ein spätester Zeitpunkt für die Anmeldung von \glspl{Studierender}n soll festgelegt werden
+		\item[Ziel:] Ein spätester Zeitpunkt für die Anmeldung von
+		\glspl{Studierender}n soll festgelegt werden
 		\item[Vorbedingung:] \gls{Admin} ist angemeldet und im \gls{Admin}bereich der Webseite
 		\item[Nachbedingung:]	\begin{description}[leftmargin=6em] \item[Erfolg]  Nach dem eingegebenen Datum können sich keine \glspl{Studierender}n mehr anmelden
 		\item[Fehlschlag] Anmelden ist weiter möglich \end{description}
@@ -1489,10 +1509,10 @@ Im \gls{Admin}bereich:
   	\item[Vorbedingung:] \gls{Studierender} ist angemeldet und befindet sich im
   	\glspl{Studierender}nbereich
   	\item[Nachbedingung:]	\begin{description}[leftmargin=6em] \item[Erfolg]  \gls{Studierender} befindet sich in der Maske
-  	\gls{Einteilung}sergebnisse. %TODO verweis
+  	\gls{Einteilung}sergebnisse. 
   	Falls der \gls{Admin} die \gls{Einteilung}sergebnisse bereits veröffentlicht hat,
   	kann er sehen, welchem \gls{Projekt} er zugeteilt wurde. Sonst sieht er, dass
-  	die \gls{Einteilung} noch im Gange ist %TODO Gehört der Abschnitt hier rein?
+  	die \gls{Einteilung} noch im Gange ist 
   	\item[Fehlschlag] Der \glspl{Studierender} ist nicht in der 
   	Maske \gls{Einteilung}sergebnisse \end{description}
   	\item[Beschreibung:]
@@ -1541,7 +1561,7 @@ Im \gls{Admin}bereich:
   \item[Ziel:] \gls{Studierender} tritt aus einer \gls{Lerngruppe} aus
   	\item[Vorbedingung:] \gls{Studierender} ist angemeldet und befindet sich im
   	\glspl{Studierender}nbereich. Weiterhin ist er Mitglied einer \gls{Lerngruppe}
-  	%TODO verweis
+
   	
   	\item[Nachbedingung:]	\begin{description}[leftmargin=6em] \item[Erfolg]  \gls{Studierender} ist kein Mitglied der
   	\gls{Lerngruppe} mehr
@@ -1852,7 +1872,7 @@ Im \gls{Admin}bereich:
 \includegraphics[width=\linewidth]{diagramme_pflichtenheft/ClassDiagram.PNG}
 \captionof{figure}{Schematischer Aufbau des Produkts}
 
-%TODO Brauchen wir das? \subsection{Dynamische Modelle}
+
 
 \subsection{Benutzerschnittstelle}
 \begin{enumerate}
@@ -1937,7 +1957,7 @@ keepaspectratio=true]{gui/adminproperties.png}}
 \medskip
 
 }
-%TODO LIZENZ
+
 \end{enumerate}
 \pagebreak
 {\setlist[description]{leftmargin=8em,style=nextline}
