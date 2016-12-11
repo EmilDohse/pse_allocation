@@ -1,0 +1,421 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Package xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_3T7KAL-ZEeafRvZF0ZYxOg" name="Daten">
+  <packagedElement xmi:type="uml:Class" xmi:id="_UlveQL-aEeafRvZF0ZYxOg" name="User">
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_UlveQb-aEeafRvZF0ZYxOg" name="username" visibility="private">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_UlveQr-aEeafRvZF0ZYxOg" name="password" visibility="private">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+    </ownedAttribute>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_UlwFUL-aEeafRvZF0ZYxOg" name="Admin" visibility="public">
+    <generalization xmi:type="uml:Generalization" xmi:id="_UlwFUb-aEeafRvZF0ZYxOg" general="_UlveQL-aEeafRvZF0ZYxOg"/>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_UlwFUr-aEeafRvZF0ZYxOg" name="createPartialPerformance">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_UlwFU7-aEeafRvZF0ZYxOg" name="name">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+      </ownedParameter>
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_UlwFVL-aEeafRvZF0ZYxOg" name="isNecessary">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EBoolean"/>
+      </ownedParameter>
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_UlwFVb-aEeafRvZF0ZYxOg" name="success" direction="return">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EBoolean"/>
+      </ownedParameter>
+    </ownedOperation>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_UlwFVr-aEeafRvZF0ZYxOg" name="createSPO">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_UlwFV7-aEeafRvZF0ZYxOg" name="name">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+      </ownedParameter>
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_UlwFWL-aEeafRvZF0ZYxOg" direction="return">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EBoolean"/>
+      </ownedParameter>
+    </ownedOperation>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_UlwFWb-aEeafRvZF0ZYxOg" name="createSemester">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_UlwFWr-aEeafRvZF0ZYxOg" name="name">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+      </ownedParameter>
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_UlwFW7-aEeafRvZF0ZYxOg" direction="return">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EBoolean"/>
+      </ownedParameter>
+    </ownedOperation>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_UlwFXL-aEeafRvZF0ZYxOg" name="addPartialPerformanceToSpo">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_UlwFXb-aEeafRvZF0ZYxOg" name="performance" type="_Ulwsdb-aEeafRvZF0ZYxOg"/>
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_UlwFXr-aEeafRvZF0ZYxOg" name="toSpo" type="_UlxTcL-aEeafRvZF0ZYxOg"/>
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_UlwFX7-aEeafRvZF0ZYxOg" direction="return">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EBoolean"/>
+      </ownedParameter>
+    </ownedOperation>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_UlwFYL-aEeafRvZF0ZYxOg" name="addSpoToSemester">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_UlwFYb-aEeafRvZF0ZYxOg" name="spo" type="_UlxTcL-aEeafRvZF0ZYxOg"/>
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_UlwFYr-aEeafRvZF0ZYxOg" name="toSemester" type="_Ulx6hr-aEeafRvZF0ZYxOg"/>
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_UlwFY7-aEeafRvZF0ZYxOg" direction="return">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EBoolean"/>
+      </ownedParameter>
+    </ownedOperation>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_UlwFZL-aEeafRvZF0ZYxOg" name="removeSpoFromSemester">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_UlwFZb-aEeafRvZF0ZYxOg" name="spoToRemove" type="_UlxTcL-aEeafRvZF0ZYxOg"/>
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_UlwFZr-aEeafRvZF0ZYxOg" direction="return">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EBoolean"/>
+      </ownedParameter>
+    </ownedOperation>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_UlwFZ7-aEeafRvZF0ZYxOg" name="removePartialPerformanceFromSpo">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_UlwFaL-aEeafRvZF0ZYxOg" name="ppToRemove" type="_Ulwsdb-aEeafRvZF0ZYxOg"/>
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_UlwFab-aEeafRvZF0ZYxOg" direction="return">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EBoolean"/>
+      </ownedParameter>
+    </ownedOperation>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_UlwFar-aEeafRvZF0ZYxOg" name="startAllocation"/>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_UlwFa7-aEeafRvZF0ZYxOg" name="setBeginningOfSignIn">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_UlwFbL-aEeafRvZF0ZYxOg" name="start">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EDate"/>
+      </ownedParameter>
+    </ownedOperation>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_UlwFbb-aEeafRvZF0ZYxOg" name="setTermOfApplication">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_UlwFbr-aEeafRvZF0ZYxOg" name="term">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EDate"/>
+      </ownedParameter>
+    </ownedOperation>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_UlwFb7-aEeafRvZF0ZYxOg" name="setRatingDeadline">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_UlwFcL-aEeafRvZF0ZYxOg" name="deadline">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EDate"/>
+      </ownedParameter>
+    </ownedOperation>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_UlwFcb-aEeafRvZF0ZYxOg" name="deleteProject">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_UlwFcr-aEeafRvZF0ZYxOg" name="projectToDelete" type="_UlzIpL-aEeafRvZF0ZYxOg"/>
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_UlwFc7-aEeafRvZF0ZYxOg" direction="return">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EBoolean"/>
+      </ownedParameter>
+    </ownedOperation>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_UlwsYL-aEeafRvZF0ZYxOg" name="Student">
+    <generalization xmi:type="uml:Generalization" xmi:id="_UlwsYb-aEeafRvZF0ZYxOg" general="_UlveQL-aEeafRvZF0ZYxOg"/>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_UlwsYr-aEeafRvZF0ZYxOg" name="emailAddress" visibility="private">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_UlwsY7-aEeafRvZF0ZYxOg" name="emailVerified" visibility="private">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EBoolean"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_UlwsZL-aEeafRvZF0ZYxOg" name="firstName" visibility="private">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_UlwsZb-aEeafRvZF0ZYxOg" name="lastName" visibility="private">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_UlwsZr-aEeafRvZF0ZYxOg" name="matriculationNumber" visibility="private">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EInt"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_UlwsZ7-aEeafRvZF0ZYxOg" name="semester" visibility="private">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EInt"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_UlwsaL-aEeafRvZF0ZYxOg" name="rating" visibility="private" type="_Ul2zAL-aEeafRvZF0ZYxOg"/>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_Ulwsab-aEeafRvZF0ZYxOg" name="createLearningGroup">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_Ulwsar-aEeafRvZF0ZYxOg" name="name">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+      </ownedParameter>
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_Ulwsa7-aEeafRvZF0ZYxOg" name="password">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+      </ownedParameter>
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_UlwsbL-aEeafRvZF0ZYxOg" direction="return">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EBoolean"/>
+      </ownedParameter>
+    </ownedOperation>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_Ulwsbb-aEeafRvZF0ZYxOg" name="joinLearningGroup">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_Ulwsbr-aEeafRvZF0ZYxOg" name="name">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+      </ownedParameter>
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_Ulwsb7-aEeafRvZF0ZYxOg" name="password">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+      </ownedParameter>
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_UlwscL-aEeafRvZF0ZYxOg" direction="return">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EBoolean"/>
+      </ownedParameter>
+    </ownedOperation>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_Ulwscb-aEeafRvZF0ZYxOg" name="leaveLearningGroup">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_Ulwscr-aEeafRvZF0ZYxOg" direction="return">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EBoolean"/>
+      </ownedParameter>
+    </ownedOperation>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_Ulwsc7-aEeafRvZF0ZYxOg" name="forgotPassword">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_UlwsdL-aEeafRvZF0ZYxOg" name="newPWtoEmail">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+      </ownedParameter>
+    </ownedOperation>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_Ulwsdb-aEeafRvZF0ZYxOg" name="PartialPerformance" visibility="public">
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_Ulwsdr-aEeafRvZF0ZYxOg" name="name" visibility="private">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_Ulwsd7-aEeafRvZF0ZYxOg" name="necessary" visibility="private">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EBoolean"/>
+    </ownedAttribute>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_UlwseL-aEeafRvZF0ZYxOg" name="changeName">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_Ulwseb-aEeafRvZF0ZYxOg" name="newName" effect="update">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+      </ownedParameter>
+    </ownedOperation>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_Ulwser-aEeafRvZF0ZYxOg" name="changeNecessary">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_Ulwse7-aEeafRvZF0ZYxOg" name="isNecessary" effect="update">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EBoolean"/>
+      </ownedParameter>
+    </ownedOperation>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_UlxTcL-aEeafRvZF0ZYxOg" name="SPO">
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_UlxTcb-aEeafRvZF0ZYxOg" name="name" visibility="private">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_UlxTcr-aEeafRvZF0ZYxOg" name="partialperformance" type="_Ulwsdb-aEeafRvZF0ZYxOg" association="_Ulx6gL-aEeafRvZF0ZYxOg">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_UlxTc7-aEeafRvZF0ZYxOg"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_UlxTdL-aEeafRvZF0ZYxOg" value="*"/>
+    </ownedAttribute>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_UlxTdb-aEeafRvZF0ZYxOg" name="addPartialPerformance">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_UlxTdr-aEeafRvZF0ZYxOg" name="performanceToAdd" type="_Ulwsdb-aEeafRvZF0ZYxOg"/>
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_UlxTd7-aEeafRvZF0ZYxOg" direction="return">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EBoolean"/>
+      </ownedParameter>
+    </ownedOperation>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_UlxTeL-aEeafRvZF0ZYxOg" name="removePartialPerformance">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_UlxTeb-aEeafRvZF0ZYxOg" name="performanceToRemove" type="_Ulwsdb-aEeafRvZF0ZYxOg" effect="delete"/>
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_UlxTer-aEeafRvZF0ZYxOg" direction="return">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EBoolean"/>
+      </ownedParameter>
+    </ownedOperation>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_UlxTe7-aEeafRvZF0ZYxOg" name="changeName">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_UlxTfL-aEeafRvZF0ZYxOg" name="newName" effect="update">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+      </ownedParameter>
+    </ownedOperation>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_Ulx6gL-aEeafRvZF0ZYxOg" memberEnd="_UlxTcr-aEeafRvZF0ZYxOg _Ulx6g7-aEeafRvZF0ZYxOg">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_Ulx6gb-aEeafRvZF0ZYxOg" source="org.eclipse.papyrus">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_Ulx6gr-aEeafRvZF0ZYxOg" key="nature" value="UML_Nature"/>
+    </eAnnotations>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_Ulx6g7-aEeafRvZF0ZYxOg" name="spo" type="_UlxTcL-aEeafRvZF0ZYxOg" association="_Ulx6gL-aEeafRvZF0ZYxOg">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Ulx6hL-aEeafRvZF0ZYxOg" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Ulx6hb-aEeafRvZF0ZYxOg" value="1"/>
+    </ownedEnd>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_Ulx6hr-aEeafRvZF0ZYxOg" name="Semester">
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_Ulx6h7-aEeafRvZF0ZYxOg" name="name" visibility="private">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_Ulx6iL-aEeafRvZF0ZYxOg" name="spo" type="_UlxTcL-aEeafRvZF0ZYxOg" association="_UlyhkL-aEeafRvZF0ZYxOg">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Ulx6ib-aEeafRvZF0ZYxOg"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Ulx6ir-aEeafRvZF0ZYxOg" value="*"/>
+    </ownedAttribute>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_Ulx6i7-aEeafRvZF0ZYxOg" name="addSPO">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_Ulx6jL-aEeafRvZF0ZYxOg" name="spoToAdd" type="_UlxTcL-aEeafRvZF0ZYxOg"/>
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_Ulx6jb-aEeafRvZF0ZYxOg" direction="return">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EBoolean"/>
+      </ownedParameter>
+    </ownedOperation>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_Ulx6jr-aEeafRvZF0ZYxOg" name="removeSPO">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_Ulx6j7-aEeafRvZF0ZYxOg" name="spoToRemove" type="_UlxTcL-aEeafRvZF0ZYxOg" effect="delete"/>
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_Ulx6kL-aEeafRvZF0ZYxOg" direction="return">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EBoolean"/>
+      </ownedParameter>
+    </ownedOperation>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_Ulx6kb-aEeafRvZF0ZYxOg" name="changeName">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_Ulx6kr-aEeafRvZF0ZYxOg" name="newName" effect="update">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+      </ownedParameter>
+    </ownedOperation>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_UlyhkL-aEeafRvZF0ZYxOg" memberEnd="_Ulx6iL-aEeafRvZF0ZYxOg _Ulyhk7-aEeafRvZF0ZYxOg">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_Ulyhkb-aEeafRvZF0ZYxOg" source="org.eclipse.papyrus">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_Ulyhkr-aEeafRvZF0ZYxOg" key="nature" value="UML_Nature"/>
+    </eAnnotations>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_Ulyhk7-aEeafRvZF0ZYxOg" name="semester" type="_Ulx6hr-aEeafRvZF0ZYxOg" association="_UlyhkL-aEeafRvZF0ZYxOg"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_UlyhlL-aEeafRvZF0ZYxOg" name="learningGroup" visibility="package">
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_Ulyhlb-aEeafRvZF0ZYxOg" name="name" visibility="private">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_Ulyhlr-aEeafRvZF0ZYxOg" name="password" visibility="private">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_Ulyhl7-aEeafRvZF0ZYxOg" name="student" type="_UlwsYL-aEeafRvZF0ZYxOg" association="_UlzIoL-aEeafRvZF0ZYxOg">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_UlyhmL-aEeafRvZF0ZYxOg" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Ulyhmb-aEeafRvZF0ZYxOg" value="*"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_Ulyhmr-aEeafRvZF0ZYxOg" name="projectrating" type="_Ul2zAL-aEeafRvZF0ZYxOg" association="_Ul2zBL-aEeafRvZF0ZYxOg"/>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_Ulyhm7-aEeafRvZF0ZYxOg" name="addStudent">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_UlyhnL-aEeafRvZF0ZYxOg" name="studentToAdd" type="_UlwsYL-aEeafRvZF0ZYxOg"/>
+    </ownedOperation>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_Ulyhnb-aEeafRvZF0ZYxOg" name="removeStudent">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_Ulyhnr-aEeafRvZF0ZYxOg" name="studentToRemove" type="_UlwsYL-aEeafRvZF0ZYxOg" effect="delete"/>
+    </ownedOperation>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_UlzIoL-aEeafRvZF0ZYxOg" name="hatMitglieder" memberEnd="_Ulyhl7-aEeafRvZF0ZYxOg _UlzIo7-aEeafRvZF0ZYxOg">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_UlzIob-aEeafRvZF0ZYxOg" source="org.eclipse.papyrus">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_UlzIor-aEeafRvZF0ZYxOg" key="nature" value="UML_Nature"/>
+    </eAnnotations>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_UlzIo7-aEeafRvZF0ZYxOg" name="learninggroup" type="_UlyhlL-aEeafRvZF0ZYxOg" association="_UlzIoL-aEeafRvZF0ZYxOg"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_UlzIpL-aEeafRvZF0ZYxOg" name="Project">
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_UlzIpb-aEeafRvZF0ZYxOg" name="name" visibility="private">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_UlzIpr-aEeafRvZF0ZYxOg" name="description" visibility="private">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_UlzIp7-aEeafRvZF0ZYxOg" name="numberOfTeams" visibility="private">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EInt"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_UlzIqL-aEeafRvZF0ZYxOg" name="maxMembers" visibility="private">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EInt"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_UlzIqb-aEeafRvZF0ZYxOg" name="minMembers" visibility="private">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EInt"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_UlzIqr-aEeafRvZF0ZYxOg" name="url" visibility="private">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_UlzIq7-aEeafRvZF0ZYxOg" name="team" type="_Ul092b-aEeafRvZF0ZYxOg" association="_Ul2L9L-aEeafRvZF0ZYxOg">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_UlzIrL-aEeafRvZF0ZYxOg" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_UlzIrb-aEeafRvZF0ZYxOg" value="*"/>
+    </ownedAttribute>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_UlzIrr-aEeafRvZF0ZYxOg" name="addStudent">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_UlzIr7-aEeafRvZF0ZYxOg" name="studentToAdd" type="_UlwsYL-aEeafRvZF0ZYxOg"/>
+    </ownedOperation>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_UlzIsL-aEeafRvZF0ZYxOg" name="removeStudent">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_UlzIsb-aEeafRvZF0ZYxOg" name="studentToRemove" type="_UlwsYL-aEeafRvZF0ZYxOg" effect="delete"/>
+    </ownedOperation>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_UlzIsr-aEeafRvZF0ZYxOg" name="addAdviser">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_UlzIs7-aEeafRvZF0ZYxOg" name="adviserToAdd" type="_UlzvsL-aEeafRvZF0ZYxOg"/>
+    </ownedOperation>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_UlzItL-aEeafRvZF0ZYxOg" name="removeAdviser">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_UlzItb-aEeafRvZF0ZYxOg" name="adviserToRemove" type="_UlzvsL-aEeafRvZF0ZYxOg" effect="delete"/>
+    </ownedOperation>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_UlzItr-aEeafRvZF0ZYxOg" name="changeName">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_UlzIt7-aEeafRvZF0ZYxOg" name="newName">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+      </ownedParameter>
+    </ownedOperation>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_UlzIuL-aEeafRvZF0ZYxOg" name="changeDescription">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_UlzIub-aEeafRvZF0ZYxOg" name="newDescription">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+      </ownedParameter>
+    </ownedOperation>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_UlzIur-aEeafRvZF0ZYxOg" name="changeNumberOfTeams">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_UlzIu7-aEeafRvZF0ZYxOg" name="newNumber">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EInt"/>
+      </ownedParameter>
+    </ownedOperation>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_UlzIvL-aEeafRvZF0ZYxOg" name="changeMaxMembers">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_UlzIvb-aEeafRvZF0ZYxOg" name="newMax">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EInt"/>
+      </ownedParameter>
+    </ownedOperation>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_UlzIvr-aEeafRvZF0ZYxOg" name="changeMinMembers">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_UlzIv7-aEeafRvZF0ZYxOg" name="newMin" effect="update">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EInt"/>
+      </ownedParameter>
+    </ownedOperation>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_UlzIwL-aEeafRvZF0ZYxOg" name="changeUrl">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_UlzIwb-aEeafRvZF0ZYxOg" name="newUrl" effect="update">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+      </ownedParameter>
+    </ownedOperation>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_UlzvsL-aEeafRvZF0ZYxOg" name="Adviser" visibility="package">
+    <generalization xmi:type="uml:Generalization" xmi:id="_Ulzvsb-aEeafRvZF0ZYxOg" general="_UlveQL-aEeafRvZF0ZYxOg"/>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_Ulzvsr-aEeafRvZF0ZYxOg" name="firstName" visibility="private">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_Ulzvs7-aEeafRvZF0ZYxOg" name="lastName" visibility="private">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_UlzvtL-aEeafRvZF0ZYxOg" name="email" visibility="private">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+    </ownedAttribute>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_Ulzvtb-aEeafRvZF0ZYxOg" name="createProject">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_Ulzvtr-aEeafRvZF0ZYxOg" name="projectName">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+      </ownedParameter>
+    </ownedOperation>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_Ulzvt7-aEeafRvZF0ZYxOg" name="joinProject">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_UlzvuL-aEeafRvZF0ZYxOg" name="projectToJoin" type="_UlzIpL-aEeafRvZF0ZYxOg"/>
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_Ul0WwL-aEeafRvZF0ZYxOg" direction="return">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EBoolean"/>
+      </ownedParameter>
+    </ownedOperation>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_Ul0Wwb-aEeafRvZF0ZYxOg" name="changeProject"/>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_Ul0Wwr-aEeafRvZF0ZYxOg" name="leaveProject">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_Ul0Ww7-aEeafRvZF0ZYxOg" direction="return">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EBoolean"/>
+      </ownedParameter>
+    </ownedOperation>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_Ul0WxL-aEeafRvZF0ZYxOg" name="changeEmail">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_Ul0Wxb-aEeafRvZF0ZYxOg" name="newEmail">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+      </ownedParameter>
+    </ownedOperation>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_Ul090L-aEeafRvZF0ZYxOg" name="advises" visibility="package" memberEnd="_Ul0907-aEeafRvZF0ZYxOg _Ul091r-aEeafRvZF0ZYxOg" navigableOwnedEnd="_Ul0907-aEeafRvZF0ZYxOg">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_Ul090b-aEeafRvZF0ZYxOg" source="org.eclipse.papyrus">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_Ul090r-aEeafRvZF0ZYxOg" key="nature" value="UML_Nature"/>
+    </eAnnotations>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_Ul0907-aEeafRvZF0ZYxOg" type="_UlzIpL-aEeafRvZF0ZYxOg" association="_Ul090L-aEeafRvZF0ZYxOg">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Ul091L-aEeafRvZF0ZYxOg" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Ul091b-aEeafRvZF0ZYxOg" value="*"/>
+    </ownedEnd>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_Ul091r-aEeafRvZF0ZYxOg" name="adviser" type="_UlzvsL-aEeafRvZF0ZYxOg" association="_Ul090L-aEeafRvZF0ZYxOg">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Ul0917-aEeafRvZF0ZYxOg" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Ul092L-aEeafRvZF0ZYxOg" value="1"/>
+    </ownedEnd>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_Ul092b-aEeafRvZF0ZYxOg" name="Team">
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_Ul092r-aEeafRvZF0ZYxOg" name="student" type="_UlwsYL-aEeafRvZF0ZYxOg" aggregation="composite" association="_Ul2L8L-aEeafRvZF0ZYxOg">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Ul0927-aEeafRvZF0ZYxOg"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Ul093L-aEeafRvZF0ZYxOg" value="*"/>
+    </ownedAttribute>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_Ul1k4L-aEeafRvZF0ZYxOg" memberEnd="_Ul1k5r-aEeafRvZF0ZYxOg _Ul1k47-aEeafRvZF0ZYxOg" navigableOwnedEnd="_Ul1k47-aEeafRvZF0ZYxOg">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_Ul1k4b-aEeafRvZF0ZYxOg" source="org.eclipse.papyrus">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_Ul1k4r-aEeafRvZF0ZYxOg" key="nature" value="UML_Nature"/>
+    </eAnnotations>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_Ul1k47-aEeafRvZF0ZYxOg" name="learninggroup" type="_UlyhlL-aEeafRvZF0ZYxOg" aggregation="composite" association="_Ul1k4L-aEeafRvZF0ZYxOg">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Ul1k5L-aEeafRvZF0ZYxOg"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Ul1k5b-aEeafRvZF0ZYxOg" value="*"/>
+    </ownedEnd>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_Ul1k5r-aEeafRvZF0ZYxOg" name="team" type="_Ul092b-aEeafRvZF0ZYxOg" association="_Ul1k4L-aEeafRvZF0ZYxOg">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Ul1k57-aEeafRvZF0ZYxOg" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Ul1k6L-aEeafRvZF0ZYxOg" value="1"/>
+    </ownedEnd>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_Ul2L8L-aEeafRvZF0ZYxOg" memberEnd="_Ul092r-aEeafRvZF0ZYxOg _Ul2L87-aEeafRvZF0ZYxOg">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_Ul2L8b-aEeafRvZF0ZYxOg" source="org.eclipse.papyrus">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_Ul2L8r-aEeafRvZF0ZYxOg" key="nature" value="UML_Nature"/>
+    </eAnnotations>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_Ul2L87-aEeafRvZF0ZYxOg" name="team" type="_Ul092b-aEeafRvZF0ZYxOg" association="_Ul2L8L-aEeafRvZF0ZYxOg"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_Ul2L9L-aEeafRvZF0ZYxOg" memberEnd="_UlzIq7-aEeafRvZF0ZYxOg _Ul2L97-aEeafRvZF0ZYxOg">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_Ul2L9b-aEeafRvZF0ZYxOg" source="org.eclipse.papyrus">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_Ul2L9r-aEeafRvZF0ZYxOg" key="nature" value="UML_Nature"/>
+    </eAnnotations>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_Ul2L97-aEeafRvZF0ZYxOg" name="project" type="_UlzIpL-aEeafRvZF0ZYxOg" association="_Ul2L9L-aEeafRvZF0ZYxOg"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_Ul2L-L-aEeafRvZF0ZYxOg" name="Configuration"/>
+  <packagedElement xmi:type="uml:Class" xmi:id="_Ul2zAL-aEeafRvZF0ZYxOg" name="ProjectRating">
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_Ul2zAb-aEeafRvZF0ZYxOg" name="ratingValuesForProjects">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EEList"/>
+    </ownedAttribute>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_Ul2zAr-aEeafRvZF0ZYxOg" name="changeRating">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_Ul2zA7-aEeafRvZF0ZYxOg" direction="return">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EBoolean"/>
+      </ownedParameter>
+    </ownedOperation>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_Ul2zBL-aEeafRvZF0ZYxOg" name="hasRating" memberEnd="_Ulyhmr-aEeafRvZF0ZYxOg _Ul2zB7-aEeafRvZF0ZYxOg">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_Ul2zBb-aEeafRvZF0ZYxOg" source="org.eclipse.papyrus">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_Ul2zBr-aEeafRvZF0ZYxOg" key="nature" value="UML_Nature"/>
+    </eAnnotations>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_Ul2zB7-aEeafRvZF0ZYxOg" name="learninggroup" type="_UlyhlL-aEeafRvZF0ZYxOg" association="_Ul2zBL-aEeafRvZF0ZYxOg"/>
+  </packagedElement>
+  <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_cs_SML-aEeafRvZF0ZYxOg">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_cs_SMb-aEeafRvZF0ZYxOg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+      <references xmi:type="ecore:EPackage" href="pathmap://PAPYRUS_ACTIONLANGUAGE_PROFILE/ActionLanguage-Profile.profile.uml#_Kv8EIKFXEeS_KNX0nfvIVQ"/>
+    </eAnnotations>
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_cs_5QL-aEeafRvZF0ZYxOg" source="duplicatedProfile"/>
+    <appliedProfile xmi:type="uml:Profile" href="pathmap://PAPYRUS_ACTIONLANGUAGE_PROFILE/ActionLanguage-Profile.profile.uml#ActionLanguage"/>
+  </profileApplication>
+</uml:Package>

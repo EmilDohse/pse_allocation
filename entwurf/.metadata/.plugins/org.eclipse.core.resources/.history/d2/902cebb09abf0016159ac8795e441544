@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_yOd2sLxlEeaDfsmls1n8dg" name="RootElement">
+  <packagedElement xmi:type="uml:Package" xmi:id="_wCr_wL-TEeafRvZF0ZYxOg" name="View">
+    <packagedElement xmi:type="uml:Dependency" xmi:id="_MiBKUL-YEeafRvZF0ZYxOg" client="_yOd2sLxlEeaDfsmls1n8dg" supplier="_2RlK8L-TEeafRvZF0ZYxOg"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Package" xmi:id="_2RlK8L-TEeafRvZF0ZYxOg" name="Controller">
+    <packagedElement xmi:type="uml:Dependency" xmi:id="_OQmMAL-YEeafRvZF0ZYxOg" client="_2RlK8L-TEeafRvZF0ZYxOg" supplier="_yOd2sLxlEeaDfsmls1n8dg"/>
+    <packagedElement xmi:type="uml:Dependency" xmi:id="_Tso98L-YEeafRvZF0ZYxOg" client="_2RlK8L-TEeafRvZF0ZYxOg" supplier="_wCr_wL-TEeafRvZF0ZYxOg"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Package" href="Modell.uml#_mW9E0L-UEeafRvZF0ZYxOg"/>
+  <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_Geou0LxnEeaDfsmls1n8dg">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_Gep88LxnEeaDfsmls1n8dg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+      <references xmi:type="ecore:EPackage" href="pathmap://PAPYRUS_ACTIONLANGUAGE_PROFILE/ActionLanguage-Profile.profile.uml#_Kv8EIKFXEeS_KNX0nfvIVQ"/>
+    </eAnnotations>
+    <appliedProfile xmi:type="uml:Profile" href="pathmap://PAPYRUS_ACTIONLANGUAGE_PROFILE/ActionLanguage-Profile.profile.uml#ActionLanguage"/>
+  </profileApplication>
+</uml:Model>
