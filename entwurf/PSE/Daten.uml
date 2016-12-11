@@ -201,6 +201,12 @@
       <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Ulx6ib-aEeafRvZF0ZYxOg"/>
       <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Ulx6ir-aEeafRvZF0ZYxOg" value="*"/>
     </ownedAttribute>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_JvyeML_jEea9YqwkR45jAQ" name="registrationStart" isUnique="false">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EDate"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_XFU78L_jEea9YqwkR45jAQ" name="ratingDeadline" isUnique="false">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EDate"/>
+    </ownedAttribute>
     <ownedOperation xmi:type="uml:Operation" xmi:id="_Ulx6i7-aEeafRvZF0ZYxOg" name="addSPO">
       <ownedParameter xmi:type="uml:Parameter" xmi:id="_Ulx6jL-aEeafRvZF0ZYxOg" name="spoToAdd" type="_UlxTcL-aEeafRvZF0ZYxOg"/>
       <ownedParameter xmi:type="uml:Parameter" xmi:id="_Ulx6jb-aEeafRvZF0ZYxOg" direction="return">
@@ -236,12 +242,19 @@
       <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_UlyhmL-aEeafRvZF0ZYxOg" value="1"/>
       <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Ulyhmb-aEeafRvZF0ZYxOg" value="*"/>
     </ownedAttribute>
-    <ownedAttribute xmi:type="uml:Property" xmi:id="_Ulyhmr-aEeafRvZF0ZYxOg" name="projectrating" type="_Ul2zAL-aEeafRvZF0ZYxOg" association="_Ul2zBL-aEeafRvZF0ZYxOg"/>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_Ulyhmr-aEeafRvZF0ZYxOg" name="projectrating" type="_Ul2zAL-aEeafRvZF0ZYxOg" association="_Ul2zBL-aEeafRvZF0ZYxOg">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_LWDb8L_kEea9YqwkR45jAQ"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_LWFRIL_kEea9YqwkR45jAQ" value="*"/>
+    </ownedAttribute>
     <ownedOperation xmi:type="uml:Operation" xmi:id="_Ulyhm7-aEeafRvZF0ZYxOg" name="addStudent">
       <ownedParameter xmi:type="uml:Parameter" xmi:id="_UlyhnL-aEeafRvZF0ZYxOg" name="studentToAdd" type="_UlwsYL-aEeafRvZF0ZYxOg"/>
     </ownedOperation>
     <ownedOperation xmi:type="uml:Operation" xmi:id="_Ulyhnb-aEeafRvZF0ZYxOg" name="removeStudent">
       <ownedParameter xmi:type="uml:Parameter" xmi:id="_Ulyhnr-aEeafRvZF0ZYxOg" name="studentToRemove" type="_UlwsYL-aEeafRvZF0ZYxOg" effect="delete"/>
+    </ownedOperation>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_ZFuQ8L_kEea9YqwkR45jAQ" name="setProjektRating">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_ZFuQ8b_kEea9YqwkR45jAQ" name="projekt" type="_UlzIpL-aEeafRvZF0ZYxOg"/>
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_ZFuQ8r_kEea9YqwkR45jAQ" name="rating" type="_Ul2zAL-aEeafRvZF0ZYxOg"/>
     </ownedOperation>
   </packagedElement>
   <packagedElement xmi:type="uml:Association" xmi:id="_UlzIoL-aEeafRvZF0ZYxOg" name="hatMitglieder" memberEnd="_Ulyhl7-aEeafRvZF0ZYxOg _UlzIo7-aEeafRvZF0ZYxOg">
@@ -273,12 +286,6 @@
       <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_UlzIrL-aEeafRvZF0ZYxOg" value="1"/>
       <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_UlzIrb-aEeafRvZF0ZYxOg" value="*"/>
     </ownedAttribute>
-    <ownedOperation xmi:type="uml:Operation" xmi:id="_UlzIrr-aEeafRvZF0ZYxOg" name="addStudent">
-      <ownedParameter xmi:type="uml:Parameter" xmi:id="_UlzIr7-aEeafRvZF0ZYxOg" name="studentToAdd" type="_UlwsYL-aEeafRvZF0ZYxOg"/>
-    </ownedOperation>
-    <ownedOperation xmi:type="uml:Operation" xmi:id="_UlzIsL-aEeafRvZF0ZYxOg" name="removeStudent">
-      <ownedParameter xmi:type="uml:Parameter" xmi:id="_UlzIsb-aEeafRvZF0ZYxOg" name="studentToRemove" type="_UlwsYL-aEeafRvZF0ZYxOg" effect="delete"/>
-    </ownedOperation>
     <ownedOperation xmi:type="uml:Operation" xmi:id="_UlzIsr-aEeafRvZF0ZYxOg" name="addAdviser">
       <ownedParameter xmi:type="uml:Parameter" xmi:id="_UlzIs7-aEeafRvZF0ZYxOg" name="adviserToAdd" type="_UlzvsL-aEeafRvZF0ZYxOg"/>
     </ownedOperation>
@@ -368,6 +375,12 @@
       <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Ul0927-aEeafRvZF0ZYxOg"/>
       <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Ul093L-aEeafRvZF0ZYxOg" value="*"/>
     </ownedAttribute>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_3xQmoL_jEea9YqwkR45jAQ" name="addStudent">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_3xQmob_jEea9YqwkR45jAQ" name="studentToAdd" type="_UlwsYL-aEeafRvZF0ZYxOg"/>
+    </ownedOperation>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_9jBw8L_jEea9YqwkR45jAQ" name="removeStudent">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_9jBw8b_jEea9YqwkR45jAQ" name="studentToRemove" type="_UlwsYL-aEeafRvZF0ZYxOg"/>
+    </ownedOperation>
   </packagedElement>
   <packagedElement xmi:type="uml:Association" xmi:id="_Ul1k4L-aEeafRvZF0ZYxOg" memberEnd="_Ul1k5r-aEeafRvZF0ZYxOg _Ul1k47-aEeafRvZF0ZYxOg" navigableOwnedEnd="_Ul1k47-aEeafRvZF0ZYxOg">
     <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_Ul1k4b-aEeafRvZF0ZYxOg" source="org.eclipse.papyrus">
@@ -411,6 +424,42 @@
     </eAnnotations>
     <ownedEnd xmi:type="uml:Property" xmi:id="_Ul2zB7-aEeafRvZF0ZYxOg" name="learninggroup" type="_UlyhlL-aEeafRvZF0ZYxOg" association="_Ul2zBL-aEeafRvZF0ZYxOg"/>
   </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_p8ARkL_kEea9YqwkR45jAQ" name="Allocation">
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_TEQoUL_lEea9YqwkR45jAQ" name="allocationElements" type="__HNEAL_kEea9YqwkR45jAQ"/>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_JNvHwL_oEea9YqwkR45jAQ" name="configuration" type="_Ul2L-L-aEeafRvZF0ZYxOg"/>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_E373EL_mEea9YqwkR45jAQ" name="getQualities">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_E373Eb_mEea9YqwkR45jAQ" name="qualities" type="_zCyacL_lEea9YqwkR45jAQ" direction="return">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Gd_O4L_mEea9YqwkR45jAQ"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_GeBEEL_mEea9YqwkR45jAQ" value="*"/>
+      </ownedParameter>
+    </ownedOperation>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_jFv5gL_mEea9YqwkR45jAQ" name="swapStudents">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_jFv5gb_mEea9YqwkR45jAQ" name="student1" type="_UlwsYL-aEeafRvZF0ZYxOg"/>
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_jFv5gr_mEea9YqwkR45jAQ" name="student2" type="_UlwsYL-aEeafRvZF0ZYxOg"/>
+    </ownedOperation>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_t4j70L_mEea9YqwkR45jAQ" name="changeStudentsTeam">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_t4j70b_mEea9YqwkR45jAQ" name="student" type="_UlwsYL-aEeafRvZF0ZYxOg"/>
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_t4j70r_mEea9YqwkR45jAQ" name="newTeam" type="_Ul092b-aEeafRvZF0ZYxOg"/>
+    </ownedOperation>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_XlUt0L_nEea9YqwkR45jAQ" name="addStudent">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_XlUt0b_nEea9YqwkR45jAQ" name="student" type="_UlwsYL-aEeafRvZF0ZYxOg"/>
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_XlUt0r_nEea9YqwkR45jAQ" name="team" type="_Ul092b-aEeafRvZF0ZYxOg"/>
+    </ownedOperation>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_a1QNgL_nEea9YqwkR45jAQ" name="removeStudent">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_a1QNgb_nEea9YqwkR45jAQ" name="student" type="_UlwsYL-aEeafRvZF0ZYxOg"/>
+    </ownedOperation>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_oncLAL_nEea9YqwkR45jAQ" name="publishAllocation"/>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_QmgsIL_oEea9YqwkR45jAQ" name="configurationRespected">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_QmgsIb_oEea9YqwkR45jAQ" name="respected" direction="return">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EBoolean"/>
+      </ownedParameter>
+    </ownedOperation>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="__HNEAL_kEea9YqwkR45jAQ" name="AllocationElement">
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_D1614L_lEea9YqwkR45jAQ" name="student" type="_UlwsYL-aEeafRvZF0ZYxOg"/>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_IMi34L_lEea9YqwkR45jAQ" name="team" type="_Ul092b-aEeafRvZF0ZYxOg"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Interface" xmi:id="_zCyacL_lEea9YqwkR45jAQ" name="AllocationQuality"/>
   <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_cs_SML-aEeafRvZF0ZYxOg">
     <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_cs_SMb-aEeafRvZF0ZYxOg" source="http://www.eclipse.org/uml2/2.0.0/UML">
       <references xmi:type="ecore:EPackage" href="pathmap://PAPYRUS_ACTIONLANGUAGE_PROFILE/ActionLanguage-Profile.profile.uml#_Kv8EIKFXEeS_KNX0nfvIVQ"/>
