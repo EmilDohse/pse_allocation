@@ -460,6 +460,33 @@
     <ownedAttribute xmi:type="uml:Property" xmi:id="_IMi34L_lEea9YqwkR45jAQ" name="team" type="_Ul092b-aEeafRvZF0ZYxOg"/>
   </packagedElement>
   <packagedElement xmi:type="uml:Interface" xmi:id="_zCyacL_lEea9YqwkR45jAQ" name="AllocationQuality"/>
+  <packagedElement xmi:type="uml:Class" xmi:id="_iODwcMI_Eeaytrx8NVtp5g" name="CMSConflict">
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_dV2ZccJBEeaytrx8NVtp5g" name="newPerformances" type="_Ulwsdb-aEeafRvZF0ZYxOg" association="_dV1LUMJBEeaytrx8NVtp5g">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_CXHlUMJFEeaytrx8NVtp5g"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_CXOTAMJFEeaytrx8NVtp5g" value="*"/>
+    </ownedAttribute>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_LR4g4MJFEeaytrx8NVtp5g" name="resetToOldData"/>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_ON93gMJFEeaytrx8NVtp5g" name="updateToNewData"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_NIzjEMJBEeaytrx8NVtp5g" visibility="public" memberEnd="_NI2mYMJBEeaytrx8NVtp5g _NI4bkMJBEeaytrx8NVtp5g">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_NI1YQMJBEeaytrx8NVtp5g" source="org.eclipse.papyrus">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_NI1YQcJBEeaytrx8NVtp5g" key="nature" value="UML_Nature"/>
+    </eAnnotations>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_NI4bkMJBEeaytrx8NVtp5g" type="_iODwcMI_Eeaytrx8NVtp5g" association="_NIzjEMJBEeaytrx8NVtp5g">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Xc_IoMJBEeaytrx8NVtp5g" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_XdNyIMJBEeaytrx8NVtp5g" value="1"/>
+    </ownedEnd>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_NI2mYMJBEeaytrx8NVtp5g" name="oldPerformances" type="_Ulwsdb-aEeafRvZF0ZYxOg" association="_NIzjEMJBEeaytrx8NVtp5g">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_OQVy4MJBEeaytrx8NVtp5g"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_OQYPIMJBEeaytrx8NVtp5g" value="*"/>
+    </ownedEnd>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_dV1LUMJBEeaytrx8NVtp5g" memberEnd="_dV2ZccJBEeaytrx8NVtp5g _dV3AgMJBEeaytrx8NVtp5g">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_dV1yYMJBEeaytrx8NVtp5g" source="org.eclipse.papyrus">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_dV2ZcMJBEeaytrx8NVtp5g" key="nature" value="UML_Nature"/>
+    </eAnnotations>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_dV3AgMJBEeaytrx8NVtp5g" type="_iODwcMI_Eeaytrx8NVtp5g" association="_dV1LUMJBEeaytrx8NVtp5g"/>
+  </packagedElement>
   <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_cs_SML-aEeafRvZF0ZYxOg">
     <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_cs_SMb-aEeafRvZF0ZYxOg" source="http://www.eclipse.org/uml2/2.0.0/UML">
       <references xmi:type="ecore:EPackage" href="pathmap://PAPYRUS_ACTIONLANGUAGE_PROFILE/ActionLanguage-Profile.profile.uml#_Kv8EIKFXEeS_KNX0nfvIVQ"/>
