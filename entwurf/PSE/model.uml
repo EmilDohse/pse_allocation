@@ -7,6 +7,35 @@
     <packagedElement xmi:type="uml:Dependency" xmi:id="_OQmMAL-YEeafRvZF0ZYxOg" client="_2RlK8L-TEeafRvZF0ZYxOg" supplier="_yOd2sLxlEeaDfsmls1n8dg"/>
     <packagedElement xmi:type="uml:Dependency" xmi:id="_Tso98L-YEeafRvZF0ZYxOg" client="_2RlK8L-TEeafRvZF0ZYxOg" supplier="_wCr_wL-TEeafRvZF0ZYxOg"/>
     <packagedElement xmi:type="uml:Dependency" xmi:id="_96TLoL-aEeafRvZF0ZYxOg" client="_2RlK8L-TEeafRvZF0ZYxOg" supplier="_mW9E0L-UEeafRvZF0ZYxOg"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="_Xkwu0MOlEear1bCosmpJKg" name="IndexPageController">
+      <generalization xmi:type="uml:Generalization" xmi:id="_Ox7VUMOnEear1bCosmpJKg" general="_LCeoEMOnEear1bCosmpJKg"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_lqEcoMOlEear1bCosmpJKg" name="indexPage"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_5oZzUMOlEear1bCosmpJKg" name="registerPage"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_qAh0oMOnEear1bCosmpJKg" name="login"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_rDrTsMOnEear1bCosmpJKg" name="register"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_tk-y0MOnEear1bCosmpJKg" name="passwordResetPage"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_ZVSRQMOlEear1bCosmpJKg" name="AdminPageController">
+      <generalization xmi:type="uml:Generalization" xmi:id="_QIbOMMOnEear1bCosmpJKg" general="_LCeoEMOnEear1bCosmpJKg"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_gSNxsMOmEear1bCosmpJKg" name="projectPage"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_kkll0MOmEear1bCosmpJKg" name="adviserPage"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_nTv6wMOmEear1bCosmpJKg" name="allocationPage"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_qDXisMOmEear1bCosmpJKg" name="resultsPage"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_uJS2QMOmEear1bCosmpJKg" name="exportImportPage"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_wvW5kMOmEear1bCosmpJKg" name="studentEditPage"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_yq1HwMOmEear1bCosmpJKg" name="propertiesPage"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_awo08MOlEear1bCosmpJKg" name="StudentPageController">
+      <generalization xmi:type="uml:Generalization" xmi:id="_N-CaQMOnEear1bCosmpJKg" general="_LCeoEMOnEear1bCosmpJKg"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_VX71cMOmEear1bCosmpJKg" name="learningGroupPage"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_YkGPcMOmEear1bCosmpJKg" name="ratingPage"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_bSehQMOmEear1bCosmpJKg" name="resultsPage"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_edT7AMOlEear1bCosmpJKg" name="AdviserPageController">
+      <generalization xmi:type="uml:Generalization" xmi:id="_SMewoMOnEear1bCosmpJKg" general="_LCeoEMOnEear1bCosmpJKg"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_An-YEMOnEear1bCosmpJKg" name="projectsPage"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_LCeoEMOnEear1bCosmpJKg" name="PageController"/>
   </packagedElement>
   <packagedElement xmi:type="uml:Package" xmi:id="_mW9E0L-UEeafRvZF0ZYxOg" name="Modell">
     <packagedElement xmi:type="uml:Package" xmi:id="_l02n4L-VEeafRvZF0ZYxOg" name="Einteilung">
@@ -103,6 +132,22 @@
       </packagedElement>
     </packagedElement>
     <packagedElement xmi:type="uml:Package" href="Daten.uml#_3T7KAL-ZEeafRvZF0ZYxOg"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="_X1Ap8MOoEear1bCosmpJKg" name="Authenticator">
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_WSOMEMOpEear1bCosmpJKg" name="handleRequest">
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_WSOMEcOpEear1bCosmpJKg" name="request" type="_b0Z3sMOoEear1bCosmpJKg"/>
+      </ownedOperation>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_gOv8EMOoEear1bCosmpJKg" name="Requests">
+      <packagedElement xmi:type="uml:Class" xmi:id="_b0Z3sMOoEear1bCosmpJKg" name="Request" isAbstract="true">
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_0Y3E8MOoEear1bCosmpJKg" name="sessionID" visibility="private">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_BWyT8MOpEear1bCosmpJKg" name="accessLevel" isStatic="true" isReadOnly="true">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+        </ownedAttribute>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_sOKUYMOoEear1bCosmpJKg" name="execute"/>
+      </packagedElement>
+    </packagedElement>
   </packagedElement>
   <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_Geou0LxnEeaDfsmls1n8dg">
     <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_Gep88LxnEeaDfsmls1n8dg" source="http://www.eclipse.org/uml2/2.0.0/UML">
