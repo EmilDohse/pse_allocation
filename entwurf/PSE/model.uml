@@ -14,6 +14,7 @@
       <ownedOperation xmi:type="uml:Operation" xmi:id="_qAh0oMOnEear1bCosmpJKg" name="login"/>
       <ownedOperation xmi:type="uml:Operation" xmi:id="_rDrTsMOnEear1bCosmpJKg" name="register"/>
       <ownedOperation xmi:type="uml:Operation" xmi:id="_tk-y0MOnEear1bCosmpJKg" name="passwordResetPage"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_mLKfoManEeai1aFEI6YYkw" name="passwordReset"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="_ZVSRQMOlEear1bCosmpJKg" name="AdminPageController">
       <generalization xmi:type="uml:Generalization" xmi:id="_QIbOMMOnEear1bCosmpJKg" general="_LCeoEMOnEear1bCosmpJKg"/>
@@ -24,16 +25,63 @@
       <ownedOperation xmi:type="uml:Operation" xmi:id="_uJS2QMOmEear1bCosmpJKg" name="exportImportPage"/>
       <ownedOperation xmi:type="uml:Operation" xmi:id="_wvW5kMOmEear1bCosmpJKg" name="studentEditPage"/>
       <ownedOperation xmi:type="uml:Operation" xmi:id="_yq1HwMOmEear1bCosmpJKg" name="propertiesPage"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_u9GvAMaqEeai1aFEI6YYkw" name="addAdviser"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_x_jMUMaqEeai1aFEI6YYkw" name="logout"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_P2aHUMarEeai1aFEI6YYkw" name="removeAdviser"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_XYupQMarEeai1aFEI6YYkw" name="addProject"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_YkJ6kMarEeai1aFEI6YYkw" name="removeProject"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_y97qsMarEeai1aFEI6YYkw" name="projectEditPage"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_6qqs4MarEeai1aFEI6YYkw" name="editProject"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_XYnfEMasEeai1aFEI6YYkw" name="addAllocation"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_av484MasEeai1aFEI6YYkw" name="cancelAllocation"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_MU95gMauEeai1aFEI6YYkw" name="swapStudents"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_N6IggMauEeai1aFEI6YYkw" name="moveStudent"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_R3yo4MauEeai1aFEI6YYkw" name="publishAllocation"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_dyGewMauEeai1aFEI6YYkw" name="duplicateAllocation"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_l8JvEMauEeai1aFEI6YYkw" name="removeAllocation"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_gUf4IMawEeai1aFEI6YYkw" name="undoAllocationEdit"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_C2Om0MaxEeai1aFEI6YYkw" name="importAllocation"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_EJZe4MaxEeai1aFEI6YYkw" name="exportAllocation"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_H7J5QMaxEeai1aFEI6YYkw" name="importSPO"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_JZxMUMaxEeai1aFEI6YYkw" name="exportSPO"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_LbpkgMaxEeai1aFEI6YYkw" name="importProjects"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_NZ9EQMaxEeai1aFEI6YYkw" name="exportProjects"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_Q7M9cMaxEeai1aFEI6YYkw" name="importStudents"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_S-kjYMaxEeai1aFEI6YYkw" name="exportStudents"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_axGrkMaxEeai1aFEI6YYkw" name="cmsImport"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_caS28MaxEeai1aFEI6YYkw" name="cmsExport"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_oX4DQMaxEeai1aFEI6YYkw" name="solveConflicts"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_y3vUYMaxEeai1aFEI6YYkw" name="addStudent"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_zvFMEMaxEeai1aFEI6YYkw" name="removeStudent"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_IUUxwMayEeai1aFEI6YYkw" name="addSemester"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_JcU7oMayEeai1aFEI6YYkw" name="addSPO"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_OupJ0MayEeai1aFEI6YYkw" name="removeSemester"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_QgKKwMayEeai1aFEI6YYkw" name="removeSPO"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_Z0v7kMayEeai1aFEI6YYkw" name="editSemester"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_iGFfoMayEeai1aFEI6YYkw" name="addAchievement"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_sep18MayEeai1aFEI6YYkw" name="removeAchievement"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="_awo08MOlEear1bCosmpJKg" name="StudentPageController">
       <generalization xmi:type="uml:Generalization" xmi:id="_N-CaQMOnEear1bCosmpJKg" general="_LCeoEMOnEear1bCosmpJKg"/>
       <ownedOperation xmi:type="uml:Operation" xmi:id="_VX71cMOmEear1bCosmpJKg" name="learningGroupPage"/>
       <ownedOperation xmi:type="uml:Operation" xmi:id="_YkGPcMOmEear1bCosmpJKg" name="ratingPage"/>
       <ownedOperation xmi:type="uml:Operation" xmi:id="_bSehQMOmEear1bCosmpJKg" name="resultsPage"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_DFT6wMaoEeai1aFEI6YYkw" name="rate"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_RkObYMaoEeai1aFEI6YYkw" name="logout"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_rjEjAMaoEeai1aFEI6YYkw" name="createLearningGroup"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_xFJrgMaoEeai1aFEI6YYkw" name="leaveLearningGroup"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_zBhRkMaoEeai1aFEI6YYkw" name="joinLearningGroup"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="_edT7AMOlEear1bCosmpJKg" name="AdviserPageController">
       <generalization xmi:type="uml:Generalization" xmi:id="_SMewoMOnEear1bCosmpJKg" general="_LCeoEMOnEear1bCosmpJKg"/>
       <ownedOperation xmi:type="uml:Operation" xmi:id="_An-YEMOnEear1bCosmpJKg" name="projectsPage"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_DrLEEMasEeai1aFEI6YYkw" name="addProject"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_FCDXcMasEeai1aFEI6YYkw" name="removeProject"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_GMvB4MasEeai1aFEI6YYkw" name="editProject"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_HH8s8MasEeai1aFEI6YYkw" name="joinProject"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_IThvQMasEeai1aFEI6YYkw" name="leaveProject"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_QwKkYMasEeai1aFEI6YYkw" name="logout"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_4_A0oMaxEeai1aFEI6YYkw" name="saveStudentGrades"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="_LCeoEMOnEear1bCosmpJKg" name="PageController"/>
   </packagedElement>
