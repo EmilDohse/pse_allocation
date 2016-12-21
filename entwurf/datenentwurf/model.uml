@@ -47,6 +47,12 @@
     <ownedAttribute xmi:type="uml:Property" xmi:id="_l3uQUMHzEeagReBCXbSilQ" name="registeredTSE" isUnique="false">
       <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#boolean"/>
     </ownedAttribute>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_BajNwMeHEeaAyP4HN694TA" name="gradePSE" isUnique="false">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_GMujUMeHEeaAyP4HN694TA" name="gradeTSE" isUnique="false">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+    </ownedAttribute>
     <ownedOperation xmi:type="uml:Operation" xmi:id="_76zqoMahEeai1aFEI6YYkw" name="getStudent" isStatic="true">
       <ownedParameter xmi:type="uml:Parameter" xmi:id="_mIGW0MaiEeai1aFEI6YYkw" name="matriculationNumber" isUnique="false">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
@@ -189,6 +195,18 @@
       <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_g0TbMMFuEeaslZZEf0Ym4w"/>
       <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_g0YTsMFuEeaslZZEf0Ym4w" value="*"/>
     </ownedAttribute>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_WQzq8MeHEeaAyP4HN694TA" name="minTeamSize" isUnique="false">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_ZKo-0MeHEeaAyP4HN694TA" name="maxTeamSize" isUnique="false">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_fP-lYMeHEeaAyP4HN694TA" name="projectInfo" isUnique="false">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_MvrBAMeJEeaAyP4HN694TA" name="projectURL" isUnique="false">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+    </ownedAttribute>
   </packagedElement>
   <packagedElement xmi:type="uml:Class" xmi:id="_ur_JQMFZEeaslZZEf0Ym4w" name="Team">
     <ownedAttribute xmi:type="uml:Property" xmi:id="_QgzuoMFaEeaslZZEf0Ym4w" name="project" type="_gvCtQMFZEeaslZZEf0Ym4w" isUnique="false"/>
@@ -229,8 +247,17 @@
       <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_sUAv0MFaEeaslZZEf0Ym4w"/>
       <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_sUKg0MFaEeaslZZEf0Ym4w" value="*"/>
     </ownedAttribute>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_MbxfgMeHEeaAyP4HN694TA" name="forename" isUnique="false">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_PxRbsMeHEeaAyP4HN694TA" name="surename" isUnique="false">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_Se5fkMeHEeaAyP4HN694TA" name="emailAddress" isUnique="false">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+    </ownedAttribute>
   </packagedElement>
-  <packagedElement xmi:type="uml:Association" xmi:id="_p83SQMFaEeaslZZEf0Ym4w" memberEnd="_p83SQ8FaEeaslZZEf0Ym4w _p83SRMFaEeaslZZEf0Ym4w">
+  <packagedElement xmi:type="uml:Association" xmi:id="_p83SQMFaEeaslZZEf0Ym4w" memberEnd="_p83SQ8FaEeaslZZEf0Ym4w _p83SRMFaEeaslZZEf0Ym4w" navigableOwnedEnd="_p83SRMFaEeaslZZEf0Ym4w">
     <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_p83SQcFaEeaslZZEf0Ym4w" source="org.eclipse.papyrus">
       <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_p83SQsFaEeaslZZEf0Ym4w" key="nature" value="UML_Nature"/>
     </eAnnotations>
@@ -381,7 +408,6 @@
     </eAnnotations>
     <ownedEnd xmi:type="uml:Property" xmi:id="_dAQMtMFsEeaslZZEf0Ym4w" type="_TxAeoMFbEeaslZZEf0Ym4w" association="_dAQMsMFsEeaslZZEf0Ym4w"/>
   </packagedElement>
-  <packagedElement xmi:type="uml:Interface" xmi:id="_iDNJMMFsEeaslZZEf0Ym4w" name="qualityCriteria"/>
   <packagedElement xmi:type="uml:Class" xmi:id="_-4J7QMFsEeaslZZEf0Ym4w" name="GeneralData">
     <ownedAttribute xmi:type="uml:Property" xmi:id="_HgrQQMFtEeaslZZEf0Ym4w" name="currentSemester" isStatic="true" type="_LmDMMMFXEeaslZZEf0Ym4w" isUnique="false"/>
     <ownedAttribute xmi:type="uml:Property" xmi:id="_S5bRMsFtEeaslZZEf0Ym4w" type="_LmDMMMFXEeaslZZEf0Ym4w" association="_S5YN4MFtEeaslZZEf0Ym4w"/>
