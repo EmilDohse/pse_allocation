@@ -59,18 +59,31 @@
       </ownedParameter>
       <ownedParameter xmi:type="uml:Parameter" xmi:id="_qbLVkMaiEeai1aFEI6YYkw" name="student" type="_Ae9VQMFSEeaslZZEf0Ym4w" isUnique="false" direction="return"/>
     </ownedOperation>
-    <ownedOperation xmi:type="uml:Operation" xmi:id="_rxnkEMaiEeai1aFEI6YYkw" name="getStudentsBySemester" isStatic="true">
-      <ownedParameter xmi:type="uml:Parameter" xmi:id="_yPNSkMaiEeai1aFEI6YYkw" name="semester" type="_LmDMMMFXEeaslZZEf0Ym4w" isUnique="false"/>
-      <ownedParameter xmi:type="uml:Parameter" xmi:id="_4uSO0MaiEeai1aFEI6YYkw" name="students" type="_Ae9VQMFSEeaslZZEf0Ym4w" isUnique="false" direction="return">
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_C1vnAMajEeai1aFEI6YYkw"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_C15YAMajEeai1aFEI6YYkw" value="*"/>
-      </ownedParameter>
-    </ownedOperation>
     <ownedOperation xmi:type="uml:Operation" xmi:id="_50WfAMaiEeai1aFEI6YYkw" name="getStudents" isStatic="true">
       <ownedParameter xmi:type="uml:Parameter" xmi:id="__n2HoMaiEeai1aFEI6YYkw" name="students" type="_Ae9VQMFSEeaslZZEf0Ym4w" isUnique="false" direction="return">
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_FjEI4MajEeai1aFEI6YYkw"/>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_FjN54MajEeai1aFEI6YYkw" value="*"/>
       </ownedParameter>
+    </ownedOperation>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_kB5gYMq1Eea3uLys6Tj-Hg" name="getCurrentLearningGroup">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_q670wMq1Eea3uLys6Tj-Hg" name="learningGroup" type="_VeF6QMFVEeaslZZEf0Ym4w" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_wTIBcMq1Eea3uLys6Tj-Hg" name="setCurrentLearningGroup">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_1vkcAMq1Eea3uLys6Tj-Hg" name="learningGroup" type="_VeF6QMFVEeaslZZEf0Ym4w" isUnique="false"/>
+    </ownedOperation>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_4FLBcMq1Eea3uLys6Tj-Hg" name="getCurrentRating">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_-fc9QMq1Eea3uLys6Tj-Hg" name="project" type="_gvCtQMFZEeaslZZEf0Ym4w" isUnique="false"/>
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_NwfeYMq2Eea3uLys6Tj-Hg" name="rating" type="_x3u3EMFaEeaslZZEf0Ym4w" isUnique="false" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_RVhrYMq2Eea3uLys6Tj-Hg" name="setCurrentRating">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_UfH5kMq2Eea3uLys6Tj-Hg" name="project" type="_gvCtQMFZEeaslZZEf0Ym4w" isUnique="false"/>
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_WZTuUMq2Eea3uLys6Tj-Hg" name="rating" type="_x3u3EMFaEeaslZZEf0Ym4w" isUnique="false"/>
+    </ownedOperation>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_HRDD0Mq4Eea3uLys6Tj-Hg" name="getCurrentProject">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_Obbm4Mq4Eea3uLys6Tj-Hg" name="project" type="_gvCtQMFZEeaslZZEf0Ym4w" isUnique="false" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_O9dV4Mq4Eea3uLys6Tj-Hg" name="getCurrentTeam">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_T2LYUMq4Eea3uLys6Tj-Hg" name="team" type="_ur_JQMFZEeaslZZEf0Ym4w" isUnique="false" direction="return"/>
     </ownedOperation>
   </packagedElement>
   <packagedElement xmi:type="uml:Class" xmi:id="_VeF6QMFVEeaslZZEf0Ym4w" name="LearningGroup">
@@ -98,9 +111,10 @@
     </ownedAttribute>
     <ownedOperation xmi:type="uml:Operation" xmi:id="_-NO44MakEeai1aFEI6YYkw" name="getLearningGroup" isStatic="true">
       <ownedParameter xmi:type="uml:Parameter" xmi:id="_iv16MMalEeai1aFEI6YYkw" name="name" isUnique="false">
-        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
       </ownedParameter>
       <ownedParameter xmi:type="uml:Parameter" xmi:id="_qAnZIMalEeai1aFEI6YYkw" name="learningGroup" type="_VeF6QMFVEeaslZZEf0Ym4w" isUnique="false" direction="return"/>
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_wZp1UMq3Eea3uLys6Tj-Hg" name="semester" type="_LmDMMMFXEeaslZZEf0Ym4w" isUnique="false"/>
     </ownedOperation>
     <ownedOperation xmi:type="uml:Operation" xmi:id="_rIBtIMalEeai1aFEI6YYkw" name="getLearningGroups" isStatic="true">
       <ownedParameter xmi:type="uml:Parameter" xmi:id="_yTlU4MalEeai1aFEI6YYkw" name="learningGroups" type="_VeF6QMFVEeaslZZEf0Ym4w" direction="return">
@@ -163,8 +177,20 @@
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_rdOWgcakEeai1aFEI6YYkw" value="*"/>
       </ownedParameter>
     </ownedOperation>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_Zm7EYMq3Eea3uLys6Tj-Hg" name="getTeams">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_g49uoMq3Eea3uLys6Tj-Hg" name="teams" type="_ur_JQMFZEeaslZZEf0Ym4w" direction="return">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_ha8aUMq3Eea3uLys6Tj-Hg"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_ha-PgMq3Eea3uLys6Tj-Hg" value="*"/>
+      </ownedParameter>
+    </ownedOperation>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_7c4nUMq5Eea3uLys6Tj-Hg" name="getAdvisers">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_-TbWoMq5Eea3uLys6Tj-Hg" name="advisers" type="_dK6CsMFaEeaslZZEf0Ym4w" isUnique="false" direction="return">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_-x-T0Mq5Eea3uLys6Tj-Hg"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_-yAJAMq5Eea3uLys6Tj-Hg" value="*"/>
+      </ownedParameter>
+    </ownedOperation>
   </packagedElement>
-  <packagedElement xmi:type="uml:Association" xmi:id="_Y31yYMFXEeaslZZEf0Ym4w" memberEnd="_Y31yY8FXEeaslZZEf0Ym4w _Y31yZMFXEeaslZZEf0Ym4w">
+  <packagedElement xmi:type="uml:Association" xmi:id="_Y31yYMFXEeaslZZEf0Ym4w" memberEnd="_Y31yY8FXEeaslZZEf0Ym4w _Y31yZMFXEeaslZZEf0Ym4w" navigableOwnedEnd="_Y31yZMFXEeaslZZEf0Ym4w">
     <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_Y31yYcFXEeaslZZEf0Ym4w" source="org.eclipse.papyrus">
       <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_Y31yYsFXEeaslZZEf0Ym4w" key="nature" value="UML_Nature"/>
     </eAnnotations>
@@ -207,6 +233,23 @@
     <ownedAttribute xmi:type="uml:Property" xmi:id="_MvrBAMeJEeaAyP4HN694TA" name="projectURL" isUnique="false">
       <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
     </ownedAttribute>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_Hx__UMq5Eea3uLys6Tj-Hg" name="getProjects" isStatic="true">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_LoXz8Mq5Eea3uLys6Tj-Hg" name="projects" type="_gvCtQMFZEeaslZZEf0Ym4w" direction="return">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_MHyT0Mq5Eea3uLys6Tj-Hg"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_MH0JAMq5Eea3uLys6Tj-Hg" value="*"/>
+      </ownedParameter>
+    </ownedOperation>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_NDOBUMq5Eea3uLys6Tj-Hg" name="getProject" isStatic="true">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_P-rs4Mq5Eea3uLys6Tj-Hg" name="name" isUnique="false">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </ownedParameter>
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_RfhNgMq5Eea3uLys6Tj-Hg" name="semester" type="_LmDMMMFXEeaslZZEf0Ym4w"/>
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_TjlXAMq5Eea3uLys6Tj-Hg" name="project" type="_gvCtQMFZEeaslZZEf0Ym4w" isUnique="false" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_a9MB0Mq5Eea3uLys6Tj-Hg" name="getRating">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_dpiTUMq5Eea3uLys6Tj-Hg" name="student" type="_Ae9VQMFSEeaslZZEf0Ym4w"/>
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_gMh0gMq5Eea3uLys6Tj-Hg" name="rating" type="_x3u3EMFaEeaslZZEf0Ym4w" isUnique="false" direction="return"/>
+    </ownedOperation>
   </packagedElement>
   <packagedElement xmi:type="uml:Class" xmi:id="_ur_JQMFZEeaslZZEf0Ym4w" name="Team">
     <ownedAttribute xmi:type="uml:Property" xmi:id="_QgzuoMFaEeaslZZEf0Ym4w" name="project" type="_gvCtQMFZEeaslZZEf0Ym4w" isUnique="false"/>
@@ -214,6 +257,22 @@
       <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_W59pEMFaEeaslZZEf0Ym4w" value="1"/>
       <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_W6GzAMFaEeaslZZEf0Ym4w" value="1"/>
     </ownedAttribute>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_j0ikYMq2Eea3uLys6Tj-Hg" name="getMembers">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_pF-o0Mq2Eea3uLys6Tj-Hg" name="members" type="_Ae9VQMFSEeaslZZEf0Ym4w" isUnique="false" direction="return">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_p8ZTcMq2Eea3uLys6Tj-Hg"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_p8bIoMq2Eea3uLys6Tj-Hg" value="*"/>
+      </ownedParameter>
+    </ownedOperation>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="__k-lcMq2Eea3uLys6Tj-Hg" name="getRating">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_Gn4ngMq3Eea3uLys6Tj-Hg" name="student" type="_Ae9VQMFSEeaslZZEf0Ym4w" isUnique="false"/>
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_JCWe0Mq3Eea3uLys6Tj-Hg" name="rating" type="_x3u3EMFaEeaslZZEf0Ym4w" isUnique="false" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_lePlwMq5Eea3uLys6Tj-Hg" name="getAdvisers">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_roT7UMq5Eea3uLys6Tj-Hg" name="advisers" type="_dK6CsMFaEeaslZZEf0Ym4w" isUnique="false" direction="return">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_sXTvUMq5Eea3uLys6Tj-Hg"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_sXVkgMq5Eea3uLys6Tj-Hg" value="*"/>
+      </ownedParameter>
+    </ownedOperation>
   </packagedElement>
   <packagedElement xmi:type="uml:Association" xmi:id="_A2fx4MFaEeaslZZEf0Ym4w" memberEnd="_A2fx48FaEeaslZZEf0Ym4w _A2pi4MFaEeaslZZEf0Ym4w" navigableOwnedEnd="_A2pi4MFaEeaslZZEf0Ym4w _A2fx48FaEeaslZZEf0Ym4w">
     <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_A2fx4cFaEeaslZZEf0Ym4w" source="org.eclipse.papyrus">
@@ -256,6 +315,12 @@
     <ownedAttribute xmi:type="uml:Property" xmi:id="_Se5fkMeHEeaAyP4HN694TA" name="emailAddress" isUnique="false">
       <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
     </ownedAttribute>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_zrJJUMq5Eea3uLys6Tj-Hg" name="getAdvisers" isStatic="true">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_5mLkYMq5Eea3uLys6Tj-Hg" name="advisers" type="_dK6CsMFaEeaslZZEf0Ym4w" isUnique="false" direction="return">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_6Ja0UMq5Eea3uLys6Tj-Hg"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_6JcpgMq5Eea3uLys6Tj-Hg" value="*"/>
+      </ownedParameter>
+    </ownedOperation>
   </packagedElement>
   <packagedElement xmi:type="uml:Association" xmi:id="_p83SQMFaEeaslZZEf0Ym4w" memberEnd="_p83SQ8FaEeaslZZEf0Ym4w _p83SRMFaEeaslZZEf0Ym4w" navigableOwnedEnd="_p83SRMFaEeaslZZEf0Ym4w">
     <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_p83SQcFaEeaslZZEf0Ym4w" source="org.eclipse.papyrus">
@@ -311,10 +376,30 @@
       <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_8MB78cFbEeaslZZEf0Ym4w" value="*"/>
     </ownedAttribute>
     <ownedAttribute xmi:type="uml:Property" xmi:id="_Y_0dIMFsEeaslZZEf0Ym4w" name="configuration" type="_SDu0wMFsEeaslZZEf0Ym4w" isUnique="false"/>
-    <ownedAttribute xmi:type="uml:Property" xmi:id="_dAQMs8FsEeaslZZEf0Ym4w" type="_SDu0wMFsEeaslZZEf0Ym4w" association="_dAQMsMFsEeaslZZEf0Ym4w"/>
     <ownedAttribute xmi:type="uml:Property" xmi:id="_5UQhUMawEeai1aFEI6YYkw" name="name">
       <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
     </ownedAttribute>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_t_JsUMq4Eea3uLys6Tj-Hg" name="allocationParameters" type="_SDu0wMFsEeaslZZEf0Ym4w" isUnique="false">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_ydBl0Mq4Eea3uLys6Tj-Hg"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_ydDbAMq4Eea3uLys6Tj-Hg" value="*"/>
+    </ownedAttribute>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_9Kr30Mq3Eea3uLys6Tj-Hg" name="getAllocations" isStatic="true">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_D7jHoMq4Eea3uLys6Tj-Hg" name="allocations" type="_TxAeoMFbEeaslZZEf0Ym4w" isUnique="false" direction="return">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_E2zO8Mq4Eea3uLys6Tj-Hg"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_E21rMMq4Eea3uLys6Tj-Hg" value="*"/>
+      </ownedParameter>
+    </ownedOperation>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_VULAUMq4Eea3uLys6Tj-Hg" name="getAllocation" isStatic="true">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_asqH8Mq4Eea3uLys6Tj-Hg" name="name">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </ownedParameter>
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_dpnBQMq4Eea3uLys6Tj-Hg" name="allocation" type="_TxAeoMFbEeaslZZEf0Ym4w" isUnique="false" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_etI60Mq4Eea3uLys6Tj-Hg" name="isFinal">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_jOfmIMq4Eea3uLys6Tj-Hg" name="final" isUnique="false" direction="return">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
+      </ownedParameter>
+    </ownedOperation>
   </packagedElement>
   <packagedElement xmi:type="uml:Association" xmi:id="_tKNikMFbEeaslZZEf0Ym4w" memberEnd="_tKNik8FbEeaslZZEf0Ym4w _tKNilMFbEeaslZZEf0Ym4w">
     <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_tKNikcFbEeaslZZEf0Ym4w" source="org.eclipse.papyrus">
@@ -359,6 +444,18 @@
       <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_fXf5QMFeEeaslZZEf0Ym4w"/>
       <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_fXpqQMFeEeaslZZEf0Ym4w" value="*"/>
     </ownedAttribute>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_qfW-AMnvEeaI8drxh6MEwA" name="getSPOs" isStatic="true">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_vjniEMnvEeaI8drxh6MEwA" name="spos" type="_EO6-4MFdEeaslZZEf0Ym4w" isUnique="false" direction="return">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_z4Fn8MnvEeaI8drxh6MEwA"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_z4G2EMnvEeaI8drxh6MEwA" value="*"/>
+      </ownedParameter>
+    </ownedOperation>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_2elJEMnvEeaI8drxh6MEwA" name="getSPO" isStatic="true">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_40TqUMnvEeaI8drxh6MEwA" name="name">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </ownedParameter>
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_73aO8MnvEeaI8drxh6MEwA" name="spo" type="_EO6-4MFdEeaslZZEf0Ym4w" direction="return"/>
+    </ownedOperation>
   </packagedElement>
   <packagedElement xmi:type="uml:Association" xmi:id="_MQpZoMFdEeaslZZEf0Ym4w" memberEnd="_MQyjksFdEeaslZZEf0Ym4w _MQyjk8FdEeaslZZEf0Ym4w">
     <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_MQyjkMFdEeaslZZEf0Ym4w" source="org.eclipse.papyrus">
@@ -373,6 +470,21 @@
     <ownedAttribute xmi:type="uml:Property" xmi:id="_9lWaIMFtEeaslZZEf0Ym4w" name="name" isUnique="false">
       <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
     </ownedAttribute>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_F5TnIMnvEeaI8drxh6MEwA" name="getAchievements" isStatic="true">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_NjkkIMnvEeaI8drxh6MEwA" name="achievements" type="_V3-gQMFdEeaslZZEf0Ym4w" isUnique="false" direction="return">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_yWui4MnvEeaI8drxh6MEwA"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_yWwYEMnvEeaI8drxh6MEwA" value="*"/>
+      </ownedParameter>
+    </ownedOperation>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_OjRGkMnvEeaI8drxh6MEwA" name="getAchievement" isStatic="true">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_XkczMMnvEeaI8drxh6MEwA" name="name">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </ownedParameter>
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_Zbl7AMnvEeaI8drxh6MEwA" name="achievement" type="_V3-gQMFdEeaslZZEf0Ym4w" isUnique="false" direction="return">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_wWRHAMnvEeaI8drxh6MEwA" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_wWS8MMnvEeaI8drxh6MEwA" value="1"/>
+      </ownedParameter>
+    </ownedOperation>
   </packagedElement>
   <packagedElement xmi:type="uml:Association" xmi:id="_GzQucMFeEeaslZZEf0Ym4w" memberEnd="_GzQuc8FeEeaslZZEf0Ym4w _GzafcMFeEeaslZZEf0Ym4w">
     <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_GzQuccFeEeaslZZEf0Ym4w" source="org.eclipse.papyrus">
@@ -401,12 +513,26 @@
       <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_f7zgMcFeEeaslZZEf0Ym4w" value="*"/>
     </ownedEnd>
   </packagedElement>
-  <packagedElement xmi:type="uml:Class" xmi:id="_SDu0wMFsEeaslZZEf0Ym4w" name="Configuration"/>
-  <packagedElement xmi:type="uml:Association" xmi:id="_dAQMsMFsEeaslZZEf0Ym4w" memberEnd="_dAQMs8FsEeaslZZEf0Ym4w _dAQMtMFsEeaslZZEf0Ym4w">
+  <packagedElement xmi:type="uml:Class" xmi:id="_SDu0wMFsEeaslZZEf0Ym4w" name="AllocationParameter" isAbstract="true">
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_5QbzUMq4Eea3uLys6Tj-Hg" name="name">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_-IypYMq4Eea3uLys6Tj-Hg" name="value" isUnique="false">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#double"/>
+    </ownedAttribute>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_dAQMsMFsEeaslZZEf0Ym4w" memberEnd="_dAQMs8FsEeaslZZEf0Ym4w _dAQMtMFsEeaslZZEf0Ym4w" navigableOwnedEnd="_dAQMs8FsEeaslZZEf0Ym4w">
     <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_dAQMscFsEeaslZZEf0Ym4w" source="org.eclipse.papyrus">
       <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_dAQMssFsEeaslZZEf0Ym4w" key="nature" value="UML_Nature"/>
     </eAnnotations>
-    <ownedEnd xmi:type="uml:Property" xmi:id="_dAQMtMFsEeaslZZEf0Ym4w" type="_TxAeoMFbEeaslZZEf0Ym4w" association="_dAQMsMFsEeaslZZEf0Ym4w"/>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_dAQMtMFsEeaslZZEf0Ym4w" type="_TxAeoMFbEeaslZZEf0Ym4w" association="_dAQMsMFsEeaslZZEf0Ym4w">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_0EnOsMq4Eea3uLys6Tj-Hg" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_0EqSAMq4Eea3uLys6Tj-Hg" value="1"/>
+    </ownedEnd>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_dAQMs8FsEeaslZZEf0Ym4w" type="_SDu0wMFsEeaslZZEf0Ym4w" association="_dAQMsMFsEeaslZZEf0Ym4w">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_0xGhQMq4Eea3uLys6Tj-Hg"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_0xKLoMq4Eea3uLys6Tj-Hg" value="*"/>
+    </ownedEnd>
   </packagedElement>
   <packagedElement xmi:type="uml:Class" xmi:id="_-4J7QMFsEeaslZZEf0Ym4w" name="GeneralData">
     <ownedAttribute xmi:type="uml:Property" xmi:id="_HgrQQMFtEeaslZZEf0Ym4w" name="currentSemester" isStatic="true" type="_LmDMMMFXEeaslZZEf0Ym4w" isUnique="false"/>
