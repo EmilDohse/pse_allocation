@@ -155,6 +155,22 @@
           </ownedParameter>
         </ownedOperation>
       </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_mDqNoMuCEeahYOf6GolIPg" name="Configuration">
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_pL-pcMuCEeahYOf6GolIPg" name="students" visibility="private">
+          <type xmi:type="uml:Class" href="Daten.uml#_UlwsYL-aEeafRvZF0ZYxOg"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_tUyR4MuCEeahYOf6GolIPg" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_tU4YgMuCEeahYOf6GolIPg" value="*"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_xh0TAMuCEeahYOf6GolIPg" name="projects" visibility="private">
+          <type xmi:type="uml:Class" href="Daten.uml#_UlzIpL-aEeafRvZF0ZYxOg"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_1dI5EMuCEeahYOf6GolIPg" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_1dNxkMuCEeahYOf6GolIPg" value="*"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_58tbsMuCEeahYOf6GolIPg" name="criteria" visibility="private" type="_VGHLwMa-EeaM6Joq_bmpoA">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_9Dp-gMuCEeahYOf6GolIPg" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_9Dto4MuCEeahYOf6GolIPg" value="*"/>
+        </ownedAttribute>
+      </packagedElement>
     </packagedElement>
     <packagedElement xmi:type="uml:Package" xmi:id="_5OpuIL-VEeafRvZF0ZYxOg" name="ImportExport">
       <packagedElement xmi:type="uml:Class" xmi:id="_D4umMMI-Eeaytrx8NVtp5g" name="Importer" isAbstract="true">
