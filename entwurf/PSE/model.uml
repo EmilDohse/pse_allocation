@@ -117,58 +117,55 @@
         <ownedOperation xmi:type="uml:Operation" xmi:id="_w7maAMbAEeaM6Joq_bmpoA" name="getBasicMatrix() : GRBVar[][]" visibility="public"/>
         <ownedOperation xmi:type="uml:Operation" xmi:id="_CFTF4MbBEeaM6Joq_bmpoA" name="getModel() : GRBModel"/>
         <ownedOperation xmi:type="uml:Operation" xmi:id="_8-hvYMd7EeaM6Joq_bmpoA" name="calculate">
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="_BifCwMd8EeaM6Joq_bmpoA" name="configuration">
-            <type xmi:type="uml:Class" href="Daten.uml#_Ul2L-L-aEeafRvZF0ZYxOg"/>
-          </ownedParameter>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_BifCwMd8EeaM6Joq_bmpoA" name="configuration" type="_mDqNoMuCEeahYOf6GolIPg"/>
           <ownedParameter xmi:type="uml:Parameter" xmi:id="_Dx6uwMd8EeaM6Joq_bmpoA" direction="return">
-            <type xmi:type="uml:Class" href="Daten.uml#_p8ARkL_kEea9YqwkR45jAQ"/>
+            <type xmi:type="uml:Class" href="Daten.uml#_KMHa0MuJEeaAhqxXa-EytA"/>
           </ownedParameter>
         </ownedOperation>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="_Fi0Z0Ma6EeaM6Joq_bmpoA" name="AbstractAllocator" isAbstract="true">
         <ownedAttribute xmi:type="uml:Property" xmi:id="_NS2H4Md7EeaM6Joq_bmpoA" name="queue" visibility="private">
-          <type xmi:type="uml:Class" href="Daten.uml#_Ul2L-L-aEeafRvZF0ZYxOg"/>
+          <type xmi:type="uml:Class" href="Daten.uml#_KMHa0MuJEeaAhqxXa-EytA"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_RKZBMMd7EeaM6Joq_bmpoA"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_RKa2YMd7EeaM6Joq_bmpoA" value="*"/>
         </ownedAttribute>
         <ownedOperation xmi:type="uml:Operation" xmi:id="_QPVm4Ma6EeaM6Joq_bmpoA" name="addToQueue">
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="_bJlOMMd7EeaM6Joq_bmpoA" name="configuration">
-            <type xmi:type="uml:Class" href="Daten.uml#_Ul2L-L-aEeafRvZF0ZYxOg"/>
-          </ownedParameter>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_bJlOMMd7EeaM6Joq_bmpoA" name="configuration" type="_mDqNoMuCEeahYOf6GolIPg"/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="_e-IWkMa6EeaM6Joq_bmpoA" name="cancelAllocation">
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="_WmYIwMd7EeaM6Joq_bmpoA" name="configuration">
-            <type xmi:type="uml:Class" href="Daten.uml#_Ul2L-L-aEeafRvZF0ZYxOg"/>
-          </ownedParameter>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_WmYIwMd7EeaM6Joq_bmpoA" name="configuration" type="_mDqNoMuCEeahYOf6GolIPg"/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="_c5NYwMd7EeaM6Joq_bmpoA" name="getQueue" visibility="public">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="_lJGyYMd7EeaM6Joq_bmpoA" direction="return">
-            <type xmi:type="uml:Class" href="Daten.uml#_Ul2L-L-aEeafRvZF0ZYxOg"/>
+            <type xmi:type="uml:Class" href="Daten.uml#_KMHa0MuJEeaAhqxXa-EytA"/>
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_SJP0AMuKEeaAhqxXa-EytA"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_SJSQQMuKEeaAhqxXa-EytA" value="*"/>
           </ownedParameter>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="_nWrdMMd7EeaM6Joq_bmpoA" name="calculate" isAbstract="true">
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="_saA0MMd7EeaM6Joq_bmpoA" name="configuration">
-            <type xmi:type="uml:Class" href="Daten.uml#_Ul2L-L-aEeafRvZF0ZYxOg"/>
-          </ownedParameter>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_saA0MMd7EeaM6Joq_bmpoA" name="configuration" type="_mDqNoMuCEeahYOf6GolIPg"/>
           <ownedParameter xmi:type="uml:Parameter" xmi:id="_6sD9gMd7EeaM6Joq_bmpoA" direction="return">
-            <type xmi:type="uml:Class" href="Daten.uml#_p8ARkL_kEea9YqwkR45jAQ"/>
+            <type xmi:type="uml:Class" href="Daten.uml#_KMHa0MuJEeaAhqxXa-EytA"/>
           </ownedParameter>
         </ownedOperation>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="_mDqNoMuCEeahYOf6GolIPg" name="Configuration">
         <ownedAttribute xmi:type="uml:Property" xmi:id="_pL-pcMuCEeahYOf6GolIPg" name="students" visibility="private">
-          <type xmi:type="uml:Class" href="Daten.uml#_UlwsYL-aEeafRvZF0ZYxOg"/>
+          <type xmi:type="uml:Class" href="Daten.uml#_KMKePsuJEeaAhqxXa-EytA"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_tUyR4MuCEeahYOf6GolIPg" value="1"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_tU4YgMuCEeahYOf6GolIPg" value="*"/>
         </ownedAttribute>
         <ownedAttribute xmi:type="uml:Property" xmi:id="_xh0TAMuCEeahYOf6GolIPg" name="projects" visibility="private">
-          <type xmi:type="uml:Class" href="Daten.uml#_UlzIpL-aEeafRvZF0ZYxOg"/>
+          <type xmi:type="uml:Class" href="Daten.uml#_KMKeJsuJEeaAhqxXa-EytA"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_1dI5EMuCEeahYOf6GolIPg" value="1"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_1dNxkMuCEeahYOf6GolIPg" value="*"/>
         </ownedAttribute>
         <ownedAttribute xmi:type="uml:Property" xmi:id="_58tbsMuCEeahYOf6GolIPg" name="criteria" visibility="private" type="_VGHLwMa-EeaM6Joq_bmpoA">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_9Dp-gMuCEeahYOf6GolIPg" value="1"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_9Dto4MuCEeahYOf6GolIPg" value="*"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_MQAvwMuKEeaAhqxXa-EytA" name="AllocationName" visibility="private">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
         </ownedAttribute>
       </packagedElement>
     </packagedElement>
@@ -179,7 +176,7 @@
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
           </ownedParameter>
           <ownedParameter xmi:type="uml:Parameter" xmi:id="_2WjlMMI-Eeaytrx8NVtp5g" name="semester">
-            <type xmi:type="uml:Class" href="Daten.uml#_Ulx6hr-aEeafRvZF0ZYxOg"/>
+            <type xmi:type="uml:Class" href="Daten.uml#_KMGzwMuJEeaAhqxXa-EytA"/>
           </ownedParameter>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="_4ASjIMI-Eeaytrx8NVtp5g" name="exportAllocation">
@@ -187,15 +184,14 @@
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
           </ownedParameter>
           <ownedParameter xmi:type="uml:Parameter" xmi:id="_PG0Z0MI_Eeaytrx8NVtp5g" name="allocation">
-            <type xmi:type="uml:Class" href="Daten.uml#_p8ARkL_kEea9YqwkR45jAQ"/>
+            <type xmi:type="uml:Class" href="Daten.uml#_KMHa0MuJEeaAhqxXa-EytA"/>
           </ownedParameter>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="_QYCxIMI_Eeaytrx8NVtp5g" name="importCMSData" visibility="public">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="_Wf3D8MI_Eeaytrx8NVtp5g" name="file">
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
           </ownedParameter>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="_uYLj8MI_Eeaytrx8NVtp5g" direction="return">
-            <type xmi:type="uml:Class" href="Daten.uml#_iODwcMI_Eeaytrx8NVtp5g"/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_uYLj8MI_Eeaytrx8NVtp5g" type="_PzRxYMeIEeaAyP4HN694TA" direction="return">
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_42BmYMJAEeaytrx8NVtp5g"/>
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_42HF8MJAEeaytrx8NVtp5g" value="*"/>
           </ownedParameter>
@@ -208,10 +204,10 @@
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="_PzRxYMeIEeaAyP4HN694TA" name="CMSConflict">
         <ownedAttribute xmi:type="uml:Property" xmi:id="_ZmD6EMeIEeaAyP4HN694TA" name="student" isUnique="false">
-          <type xmi:type="uml:Class" href="Daten.uml#_UlwsYL-aEeafRvZF0ZYxOg"/>
+          <type xmi:type="uml:Class" href="Daten.uml#_KMKePsuJEeaAhqxXa-EytA"/>
         </ownedAttribute>
         <ownedAttribute xmi:type="uml:Property" xmi:id="_gYCkMMeIEeaAyP4HN694TA" name="achievement" isUnique="false">
-          <type xmi:type="uml:Class" href="Daten.uml#_Ulwsdb-aEeafRvZF0ZYxOg"/>
+          <type xmi:type="uml:Class" href="Daten.uml#_KMJ3EMuJEeaAhqxXa-EytA"/>
         </ownedAttribute>
         <ownedAttribute xmi:type="uml:Property" xmi:id="_7Ky1AMeIEeaAyP4HN694TA" name="newCompleted" isUnique="false">
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EBoolean"/>
@@ -221,33 +217,33 @@
     <packagedElement xmi:type="uml:Package" xmi:id="_75tmML-VEeafRvZF0ZYxOg" name="Benachrichtigung">
       <packagedElement xmi:type="uml:Class" xmi:id="_QKYagMI9Eeaytrx8NVtp5g" name="Notifier" isAbstract="true">
         <ownedOperation xmi:type="uml:Operation" xmi:id="_XKg1YMI9Eeaytrx8NVtp5g" name="notifyAllUsers">
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="_uFduMMI9Eeaytrx8NVtp5g" name="allocation">
-            <type xmi:type="uml:Class" href="Daten.uml#_p8ARkL_kEea9YqwkR45jAQ"/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_uFduMMI9Eeaytrx8NVtp5g" name="allocation" isUnique="false">
+            <type xmi:type="uml:Class" href="Daten.uml#_KMHa0MuJEeaAhqxXa-EytA"/>
           </ownedParameter>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="_zJAgkMI9Eeaytrx8NVtp5g" name="notifyUser" visibility="public">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="_5VhGIMI9Eeaytrx8NVtp5g" name="allocation">
-            <type xmi:type="uml:Class" href="Daten.uml#_p8ARkL_kEea9YqwkR45jAQ"/>
+            <type xmi:type="uml:Class" href="Daten.uml#_KMHa0MuJEeaAhqxXa-EytA"/>
           </ownedParameter>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="_9u0BoMI9Eeaytrx8NVtp5g" name="user">
-            <type xmi:type="uml:Class" href="Daten.uml#_UlveQL-aEeafRvZF0ZYxOg"/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_9u0BoMI9Eeaytrx8NVtp5g" name="user" isUnique="false">
+            <type xmi:type="uml:Class" href="Daten.uml#_KMLsTMuJEeaAhqxXa-EytA"/>
           </ownedParameter>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="_8EWXYMeBEeaM6Joq_bmpoA" name="sendNewPassword">
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="_ApXasMeCEeaM6Joq_bmpoA" name="student">
-            <type xmi:type="uml:Class" href="Daten.uml#_UlwsYL-aEeafRvZF0ZYxOg"/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_ApXasMeCEeaM6Joq_bmpoA" name="user" isUnique="false">
+            <type xmi:type="uml:Class" href="Daten.uml#_KMLsTMuJEeaAhqxXa-EytA"/>
           </ownedParameter>
         </ownedOperation>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="_lTvi0MeAEeaM6Joq_bmpoA" name="Verifier">
         <ownedOperation xmi:type="uml:Operation" xmi:id="_7VwBcMeAEeaM6Joq_bmpoA" name="sendVerificationMail" visibility="public">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="_H3m_gMeBEeaM6Joq_bmpoA" name="student">
-            <type xmi:type="uml:Class" href="Daten.uml#_UlwsYL-aEeafRvZF0ZYxOg"/>
+            <type xmi:type="uml:Class" href="Daten.uml#_KMKePsuJEeaAhqxXa-EytA"/>
           </ownedParameter>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="_KoNe4MeBEeaM6Joq_bmpoA" name="verify">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="_QHej8MeBEeaM6Joq_bmpoA" name="student">
-            <type xmi:type="uml:Class" href="Daten.uml#_UlwsYL-aEeafRvZF0ZYxOg"/>
+            <type xmi:type="uml:Class" href="Daten.uml#_KMKePsuJEeaAhqxXa-EytA"/>
           </ownedParameter>
           <ownedParameter xmi:type="uml:Parameter" xmi:id="_a4yxcMeBEeaM6Joq_bmpoA" name="code">
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
@@ -260,7 +256,7 @@
       <packagedElement xmi:type="uml:Class" xmi:id="_VYv_YMd4EeaM6Joq_bmpoA" name="QualityCriteria" isAbstract="true">
         <ownedOperation xmi:type="uml:Operation" xmi:id="_ZNqbcMd4EeaM6Joq_bmpoA" name="calculate" isAbstract="true">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="_me0IcMd4EeaM6Joq_bmpoA" name="allocation">
-            <type xmi:type="uml:Class" href="Daten.uml#_p8ARkL_kEea9YqwkR45jAQ"/>
+            <type xmi:type="uml:Class" href="Daten.uml#_KMHa0MuJEeaAhqxXa-EytA"/>
           </ownedParameter>
           <ownedParameter xmi:type="uml:Parameter" xmi:id="_uUJF8Md4EeaM6Joq_bmpoA" direction="return">
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EInt"/>
