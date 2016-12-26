@@ -160,7 +160,8 @@
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_1dI5EMuCEeahYOf6GolIPg" value="1"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_1dNxkMuCEeahYOf6GolIPg" value="*"/>
         </ownedAttribute>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="_58tbsMuCEeahYOf6GolIPg" name="criteria" visibility="private" type="_VGHLwMa-EeaM6Joq_bmpoA">
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_58tbsMuCEeahYOf6GolIPg" name="parameters" visibility="private" isUnique="false">
+          <type xmi:type="uml:Class" href="Daten.uml#_KMIB5suJEeaAhqxXa-EytA"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_9Dp-gMuCEeahYOf6GolIPg" value="1"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_9Dto4MuCEeahYOf6GolIPg" value="*"/>
         </ownedAttribute>
