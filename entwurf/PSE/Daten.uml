@@ -29,6 +29,9 @@
       <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_KMGz08uJEeaAhqxXa-EytA"/>
       <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_KMGz1MuJEeaAhqxXa-EytA" value="*"/>
     </ownedAttribute>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_eDEeQMwlEeaOWLxvwFaKFw" name="infoText">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+    </ownedAttribute>
     <ownedOperation xmi:type="uml:Operation" xmi:id="_KMGz1cuJEeaAhqxXa-EytA" name="getSemester" isStatic="true">
       <ownedParameter xmi:type="uml:Parameter" xmi:id="_KMGz1suJEeaAhqxXa-EytA" name="semesterName" isUnique="false">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
@@ -315,7 +318,7 @@
       <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_KMJ3JsuJEeaAhqxXa-EytA"/>
       <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_KMJ3J8uJEeaAhqxXa-EytA" value="*"/>
     </ownedAttribute>
-    <ownedAttribute xmi:type="uml:Property" xmi:id="_KMJ3KMuJEeaAhqxXa-EytA" name="joinable" isUnique="false">
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_KMJ3KMuJEeaAhqxXa-EytA" name="private" isUnique="false">
       <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#boolean"/>
     </ownedAttribute>
     <ownedOperation xmi:type="uml:Operation" xmi:id="_KMJ3KcuJEeaAhqxXa-EytA" name="getLearningGroup" isStatic="true">
