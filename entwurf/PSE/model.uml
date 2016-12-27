@@ -12,7 +12,7 @@
       <ownedOperation xmi:type="uml:Operation" xmi:id="_lqEcoMOlEear1bCosmpJKg" name="indexPage"/>
       <ownedOperation xmi:type="uml:Operation" xmi:id="_5oZzUMOlEear1bCosmpJKg" name="registerPage"/>
       <ownedOperation xmi:type="uml:Operation" xmi:id="_qAh0oMOnEear1bCosmpJKg" name="login"/>
-      <ownedOperation xmi:type="uml:Operation" xmi:id="_rDrTsMOnEear1bCosmpJKg" name="register"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_rDrTsMOnEear1bCosmpJKg" name="register" method="_C4I3oMwdEeaOWLxvwFaKFw"/>
       <ownedOperation xmi:type="uml:Operation" xmi:id="_tk-y0MOnEear1bCosmpJKg" name="passwordResetPage"/>
       <ownedOperation xmi:type="uml:Operation" xmi:id="_uWIQsMd9EeaM6Joq_bmpoA" name="passwordReset"/>
       <ownedOperation xmi:type="uml:Operation" xmi:id="_P9iaQMeAEeaM6Joq_bmpoA" name="verificationPage"/>
@@ -335,6 +335,48 @@
     <message xmi:type="uml:Message" xmi:id="_80WN4MX1EeaKWv2imlcLSQ" name="" messageSort="reply" receiveEvent="_80XcAMX1EeaKWv2imlcLSQ"/>
     <message xmi:type="uml:Message" xmi:id="_DfX7cMX2EeaKWv2imlcLSQ" name="" messageSort="reply" receiveEvent="_Dfa-wMX2EeaKWv2imlcLSQ" sendEvent="_DfZJkMX2EeaKWv2imlcLSQ"/>
     <message xmi:type="uml:Message" xmi:id="_OBHb4MX2EeaKWv2imlcLSQ" name="" messageSort="reply" receiveEvent="_OBIqAMX2EeaKWv2imlcLSQ" sendEvent="_OBIC8MX2EeaKWv2imlcLSQ"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Interaction" xmi:id="_C4I3oMwdEeaOWLxvwFaKFw" name="register" specification="_rDrTsMOnEear1bCosmpJKg">
+    <ownedComment xmi:type="uml:Comment" xmi:id="_mO0mcMwfEeaOWLxvwFaKFw">
+      <body>looks whether student already exists</body>
+    </ownedComment>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_TRcBUMwdEeaOWLxvwFaKFw" name="indexPageController" type="_Xkwu0MOlEear1bCosmpJKg" isUnique="false"/>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_h8TTQMwdEeaOWLxvwFaKFw" name="Student" isStatic="true" isUnique="false">
+      <type xmi:type="uml:Class" href="Daten.uml#_KMKePsuJEeaAhqxXa-EytA"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_xL7CoMweEeaOWLxvwFaKFw" name="student" isUnique="false">
+      <type xmi:type="uml:Class" href="Daten.uml#_KMKePsuJEeaAhqxXa-EytA"/>
+    </ownedAttribute>
+    <lifeline xmi:type="uml:Lifeline" xmi:id="_MNW6kMwdEeaOWLxvwFaKFw" name="indexPageController" represents="_TRcBUMwdEeaOWLxvwFaKFw" coveredBy="_B7zVwMweEeaOWLxvwFaKFw _B7yusMweEeaOWLxvwFaKFw _ZONsUMweEeaOWLxvwFaKFw _fVLqkcweEeaOWLxvwFaKFw _mU85EMweEeaOWLxvwFaKFw _GKoRMMwfEeaOWLxvwFaKFw _R2xvQMwfEeaOWLxvwFaKFw _9I45AMwgEeaOWLxvwFaKFw _9I6HIMwgEeaOWLxvwFaKFw _LnOf8MwjEeaOWLxvwFaKFw _PqDcMMwjEeaOWLxvwFaKFw"/>
+    <lifeline xmi:type="uml:Lifeline" xmi:id="_dJ8-kMwdEeaOWLxvwFaKFw" name="student" represents="_h8TTQMwdEeaOWLxvwFaKFw" coveredBy="_WiiwQMweEeaOWLxvwFaKFw _WiiJMMweEeaOWLxvwFaKFw _ZOOTYMweEeaOWLxvwFaKFw _fVLqkMweEeaOWLxvwFaKFw"/>
+    <lifeline xmi:type="uml:Lifeline" xmi:id="_mUuPkMweEeaOWLxvwFaKFw" name="student" represents="_xL7CoMweEeaOWLxvwFaKFw" coveredBy="_mU85EcweEeaOWLxvwFaKFw _glCzIMwiEeaOWLxvwFaKFw"/>
+    <fragment xmi:type="uml:ExecutionOccurrenceSpecification" xmi:id="_9I6HIMwgEeaOWLxvwFaKFw" name="BehaviorExecSpecStart" covered="_MNW6kMwdEeaOWLxvwFaKFw" execution="_B7yusMweEeaOWLxvwFaKFw"/>
+    <fragment xmi:type="uml:BehaviorExecutionSpecification" xmi:id="_B7yusMweEeaOWLxvwFaKFw" name="BehaviorExecSpec" covered="_MNW6kMwdEeaOWLxvwFaKFw" finish="_B7zVwMweEeaOWLxvwFaKFw" start="_9I6HIMwgEeaOWLxvwFaKFw"/>
+    <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_LnOf8MwjEeaOWLxvwFaKFw" name="register_MessageRecv" covered="_MNW6kMwdEeaOWLxvwFaKFw" message="_LnN44MwjEeaOWLxvwFaKFw"/>
+    <fragment xmi:type="uml:BehaviorExecutionSpecification" xmi:id="_WiiJMMweEeaOWLxvwFaKFw" name="BehaviorExecSpec0" covered="_dJ8-kMwdEeaOWLxvwFaKFw" finish="_WiiwQMweEeaOWLxvwFaKFw" start="_ZOOTYMweEeaOWLxvwFaKFw"/>
+    <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_ZOOTYMweEeaOWLxvwFaKFw" name="getStudent_MessageRecv" covered="_dJ8-kMwdEeaOWLxvwFaKFw" message="_ZONFQMweEeaOWLxvwFaKFw"/>
+    <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_ZONsUMweEeaOWLxvwFaKFw" name="getStudent_MessageSend" covered="_MNW6kMwdEeaOWLxvwFaKFw" message="_ZONFQMweEeaOWLxvwFaKFw"/>
+    <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_fVLqkMweEeaOWLxvwFaKFw" name="getStudent_MessageSend0" covered="_dJ8-kMwdEeaOWLxvwFaKFw" message="_fVLDgMweEeaOWLxvwFaKFw"/>
+    <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_fVLqkcweEeaOWLxvwFaKFw" name="getStudent_MessageRecv0" covered="_MNW6kMwdEeaOWLxvwFaKFw" message="_fVLDgMweEeaOWLxvwFaKFw"/>
+    <fragment xmi:type="uml:ExecutionOccurrenceSpecification" xmi:id="_WiiwQMweEeaOWLxvwFaKFw" name="BehaviorExecSpec0Finish" covered="_dJ8-kMwdEeaOWLxvwFaKFw" execution="_WiiJMMweEeaOWLxvwFaKFw"/>
+    <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_mU85EMweEeaOWLxvwFaKFw" name="MessageSend" covered="_MNW6kMwdEeaOWLxvwFaKFw" message="_mU8SAMweEeaOWLxvwFaKFw"/>
+    <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_PqDcMMwjEeaOWLxvwFaKFw" name="MessageSend0" covered="_MNW6kMwdEeaOWLxvwFaKFw" message="_PqC1IMwjEeaOWLxvwFaKFw"/>
+    <fragment xmi:type="uml:ExecutionOccurrenceSpecification" xmi:id="_B7zVwMweEeaOWLxvwFaKFw" name="BehaviorExecSpecFinish" covered="_MNW6kMwdEeaOWLxvwFaKFw" execution="_B7yusMweEeaOWLxvwFaKFw"/>
+    <fragment xmi:type="uml:DestructionOccurrenceSpecification" xmi:id="_glCzIMwiEeaOWLxvwFaKFw" name="DestructionOccurrenceSpecification0" covered="_mUuPkMweEeaOWLxvwFaKFw"/>
+    <fragment xmi:type="uml:ExecutionOccurrenceSpecification" xmi:id="_GKoRMMwfEeaOWLxvwFaKFw" name="BehaviorExecSpec1Start" covered="_MNW6kMwdEeaOWLxvwFaKFw"/>
+    <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_mU85EcweEeaOWLxvwFaKFw" name="MessageRecv" covered="_mUuPkMweEeaOWLxvwFaKFw" message="_mU8SAMweEeaOWLxvwFaKFw"/>
+    <fragment xmi:type="uml:ExecutionOccurrenceSpecification" xmi:id="_9I45AMwgEeaOWLxvwFaKFw" name="BehaviorExecSpecStart" covered="_MNW6kMwdEeaOWLxvwFaKFw" execution="_B7yusMweEeaOWLxvwFaKFw"/>
+    <fragment xmi:type="uml:ExecutionOccurrenceSpecification" xmi:id="_R2xvQMwfEeaOWLxvwFaKFw" name="BehaviorExecSpec2Start" covered="_MNW6kMwdEeaOWLxvwFaKFw"/>
+    <fragment xmi:type="uml:ExecutionOccurrenceSpecification" xmi:id="_TgfXsMwiEeaOWLxvwFaKFw" name="BehaviorExecSpec1Start"/>
+    <message xmi:type="uml:Message" xmi:id="_ZONFQMweEeaOWLxvwFaKFw" name="getStudent" receiveEvent="_ZOOTYMweEeaOWLxvwFaKFw" sendEvent="_ZONsUMweEeaOWLxvwFaKFw">
+      <signature xmi:type="uml:Operation" href="Daten.uml#_KMKeXcuJEeaAhqxXa-EytA"/>
+    </message>
+    <message xmi:type="uml:Message" xmi:id="_fVLDgMweEeaOWLxvwFaKFw" name="null" messageSort="reply" receiveEvent="_fVLqkcweEeaOWLxvwFaKFw" sendEvent="_fVLqkMweEeaOWLxvwFaKFw">
+      <signature xmi:type="uml:Operation" href="Daten.uml#_KMKeXcuJEeaAhqxXa-EytA"/>
+    </message>
+    <message xmi:type="uml:Message" xmi:id="_mU8SAMweEeaOWLxvwFaKFw" name="create" messageSort="createMessage" receiveEvent="_mU85EcweEeaOWLxvwFaKFw" sendEvent="_mU85EMweEeaOWLxvwFaKFw"/>
+    <message xmi:type="uml:Message" xmi:id="_LnN44MwjEeaOWLxvwFaKFw" name="register_Message" messageSort="asynchSignal" receiveEvent="_LnOf8MwjEeaOWLxvwFaKFw" signature="_rDrTsMOnEear1bCosmpJKg"/>
+    <message xmi:type="uml:Message" xmi:id="_PqC1IMwjEeaOWLxvwFaKFw" name="Website" messageSort="asynchSignal" sendEvent="_PqDcMMwjEeaOWLxvwFaKFw"/>
   </packagedElement>
   <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_Geou0LxnEeaDfsmls1n8dg">
     <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_Gep88LxnEeaDfsmls1n8dg" source="http://www.eclipse.org/uml2/2.0.0/UML">
