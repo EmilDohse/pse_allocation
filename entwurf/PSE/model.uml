@@ -52,13 +52,11 @@
       <ownedOperation xmi:type="uml:Operation" xmi:id="_hZXbIMeEEeaM6Joq_bmpoA" name="editAccount"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="_1_8XoNM3EeaGDdIgG295zA" name="AdminProjectController" visibility="public">
-      <generalization xmi:type="uml:Generalization" xmi:id="_23OPwNP5Eea2isGX0y1Bow" general="_ZVSRQMOlEear1bCosmpJKg"/>
       <ownedOperation xmi:type="uml:Operation" xmi:id="_QSPxUNM5EeaGDdIgG295zA" name="addProject"/>
       <ownedOperation xmi:type="uml:Operation" xmi:id="_SszvQNM5EeaGDdIgG295zA" name="removeProject"/>
       <ownedOperation xmi:type="uml:Operation" xmi:id="_eZZSMNM5EeaGDdIgG295zA" name="editProject"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="_DkuD4NM7EeaGDdIgG295zA" name="AdminEditAllocationController">
-      <generalization xmi:type="uml:Generalization" xmi:id="_1_CqkNP5Eea2isGX0y1Bow" general="_ZVSRQMOlEear1bCosmpJKg"/>
       <ownedOperation xmi:type="uml:Operation" xmi:id="_JYGXwNM7EeaGDdIgG295zA" name="swapStudents"/>
       <ownedOperation xmi:type="uml:Operation" xmi:id="_NmMI0NM7EeaGDdIgG295zA" name="moveStudents"/>
       <ownedOperation xmi:type="uml:Operation" xmi:id="_UGWqMNM7EeaGDdIgG295zA" name="publishAllocation"/>
@@ -67,7 +65,6 @@
       <ownedOperation xmi:type="uml:Operation" xmi:id="_gAKJwNM7EeaGDdIgG295zA" name="undoAllocationEdit"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="_sqoRQNM7EeaGDdIgG295zA" name="AdminImportExportController">
-      <generalization xmi:type="uml:Generalization" xmi:id="_4wEnwNP5Eea2isGX0y1Bow" general="_ZVSRQMOlEear1bCosmpJKg"/>
       <ownedOperation xmi:type="uml:Operation" xmi:id="_UUhzoNM8EeaGDdIgG295zA" name="importAllocation"/>
       <ownedOperation xmi:type="uml:Operation" xmi:id="_XUvcUNM8EeaGDdIgG295zA" name="exportAllocation"/>
       <ownedOperation xmi:type="uml:Operation" xmi:id="_jJvUYNM8EeaGDdIgG295zA" name="importSPO"/>
@@ -81,7 +78,6 @@
       <ownedOperation xmi:type="uml:Operation" xmi:id="_FVH_oNM9EeaGDdIgG295zA" name="solveConflicts"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="_dMyYUNM9EeaGDdIgG295zA" name="AdminPropertiesController">
-      <generalization xmi:type="uml:Generalization" xmi:id="_3ocRUNP5Eea2isGX0y1Bow" general="_ZVSRQMOlEear1bCosmpJKg"/>
       <ownedOperation xmi:type="uml:Operation" xmi:id="_BA_bgNM-EeaGDdIgG295zA" name="addSemester"/>
       <ownedOperation xmi:type="uml:Operation" xmi:id="_DLEtcNM-EeaGDdIgG295zA" name="removeSemester"/>
       <ownedOperation xmi:type="uml:Operation" xmi:id="_E3CgANM-EeaGDdIgG295zA" name="addSPO"/>
@@ -91,11 +87,9 @@
       <ownedOperation xmi:type="uml:Operation" xmi:id="_S0pDUNM-EeaGDdIgG295zA" name="removeAchievement"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="_NqJqcNP5Eea2isGX0y1Bow" name="AdminPageController2">
-      <generalization xmi:type="uml:Generalization" xmi:id="_5ktwwNP5Eea2isGX0y1Bow" general="_ZVSRQMOlEear1bCosmpJKg"/>
       <ownedOperation xmi:type="uml:Operation" xmi:id="_qyTkoMd9EeaM6Joq_bmpoA" name="addAdviser"/>
       <ownedOperation xmi:type="uml:Operation" xmi:id="_1OjhEMd9EeaM6Joq_bmpoA" name="removeAdviser"/>
       <ownedOperation xmi:type="uml:Operation" xmi:id="_AY4rgMd-EeaM6Joq_bmpoA" name="addAllocation"/>
-      <ownedOperation xmi:type="uml:Operation" xmi:id="_CdvfMMd-EeaM6Joq_bmpoA" name="cancelAllocation"/>
       <ownedOperation xmi:type="uml:Operation" xmi:id="_l2FFwMd-EeaM6Joq_bmpoA" name="addStudent"/>
       <ownedOperation xmi:type="uml:Operation" xmi:id="_oN21cMd-EeaM6Joq_bmpoA" name="removeStudent"/>
     </packagedElement>

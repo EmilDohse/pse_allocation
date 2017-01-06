@@ -1,0 +1,34 @@
+Packages
+
+	Views
+		Das View Package beinhaltet alle Views. Views sind HTML-Dateien, welche als Antwort auf einen Http-Request von einem Controller (s.Controllers) weiter an den Endbenutzer gesendet werden und von seinem Webbrowser angezeigt wird. Diese Html-Dateien können Inline-Scala-Code enthalten, welcher Daten, welche der Controller als Parameter übergibt, in HTML einfügt und so dynamisch vom Controller aus dem Modell geladene Daten beim Endbenutzer ankommen und angezeigt werden können.
+
+	Controllers
+		Das Controllers Package beinhaltet alle Controller. Controller sind die Schnittstelle zwischen den Views (s.Views) und dem Modell (s.Modell). Die Aufgabe von einem Controller besteht darin, Http-Requests zu bearbeiten und zu beantworten. Das Bearbeiten beinhaltet meist ein oder mehrere Abfragen ans Modell um Daten zu holen. Diese Daten werden dann als Parameter dem passenden View gegeben und dort in HTMl Code eingebettet (s. Views). Welche Controller Methode aufgerufen wird entscheidet die Route-Datei (s.Play Beschreibung).
+
+		Classes
+			StudentPageController
+				Dieser Controller ist zuständig für alle Http-Requests, welche im Studentenbereich aufkommen. Dazu zählen das Senden einer neuen HTML-Seite bei einem Klick auf einen Link, als auch das Reagieren auf Benutzereingaben, wie das abschicken eines Formulars.
+				
+				Methods
+					learningGroupPage
+						
+			IndexPageController
+				Dieser Controller ist zuständig für alle Http-Requests, die in dem Bereich aufkommen, welche ohne Anmeldung zugänglich sind. Dazu zählt neben der Index-Seite auch die Passwort vergessen-Seite und die E-Mail-Verifikations-Seite.
+			AdminPageController
+				Dieser Controller ist zuständig für das Bearbeiten der Http-Requests, welche durch das Klicken eines Links und nicht eines Buttons versendet werden.
+			AdviserPageController
+				Dieser Controller ist für das Bearbeiten der Http-Requests zuständig, welche im Betreuerbereich aufkommen. 
+			AdminGeneralController
+				Dieser Controller ist für das Bearbeiten der Http-Requests zuständig, welche abgeschickt werden, wenn Betreuer, Studenten oder Einteilungen hinzugefügt oder gelöscht werden sollen.
+			AdminImportExportController
+				Dieser Controller ist für das Bearbeiten der Http-Requests zuständig, welche Importieren und Exportieren auf der Import/Export-Seite regeln.
+			AdminPropertiesController
+				Dieser Controller ist für das Bearbeiten der Http-Requests zuständig, welche beim Ändern der Einstellungen abgeschickt werden.
+			AdminProjectController
+				Dieser Controller ist für das Bearbeiten der Http-Requests zuständig, welche beim Hinzufügen, Ändern und Löschen eines Projektes im Administratorbereich abgeschickt werden.
+			AdminEditAllocationController
+				Dieser Controller ist für das Bearbeiten der Http-Requests zuständig, welche beim Editieren einer Einteilung abgeschickt werden.
+
+	Modell
+		Das Modell beinhaltet einen Großteil der Programmlogik und alle Klassen die benötigt werden um das Programm zu realisieren. Dazu gehören Datenklassen, Klassen für die Authentifizierung und Autorisierung, die Einteilung per ILP und weitere.
