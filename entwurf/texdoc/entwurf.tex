@@ -1,0 +1,83 @@
+%%This is a very basic article template.
+%%There is just one section and two subsections.
+\documentclass[parskip=full]{scrartcl}
+
+\usepackage{studarbeit}
+\usepackage[binary-units=true]{siunitx}
+  \usepackage[autostyle=true,german=quotes]{csquotes}
+
+\begin{document}
+
+\title{Elipse -- Einteilungs Interface für das PSE}
+\author{D. Biester, E. Dohse, P. Faller, P. Loth, L. Seufert, S. Kopmann}
+\thesistype{Entwurfsdokument}
+\zweitgutachter{}
+\betreuer{Dipl.-Inform.~Andreas~Zwinkau, M.Sc.~Andreas~Fried}
+\coverimage{ElipseLogo.png}
+
+\tableofcontents
+\pagebreak
+
+
+\section{Änderungen zum Pflichtenheft}
+
+\section{Sequenzdiagramme}
+
+\section{Klassendiagramme}
+
+\section{ILP}
+Zur berechnung einer Einteilung wird ein ILP verwendet. Hierbei ist das ILP
+aufgeteilt in ein Basismodell und einteilungskriterien.
+\subsection{Basismodell}
+Das Basismodell besteht aus einer N x M Matrix B binärer Variablen. Hierbei ist
+N die anzahl der Studierenden die die Pflichtvoraussetzungen für das PSE erfüllt
+haben. M ist die Anzahl der Teams plus einem Team
+der nicht zugeteilten. Der Matrixeintrag
+%TODO fallunterscheidung Student s in team t
+Außerdem werden hier die folgenden Basisconstraints definiert:
+
+
+%TODO formeln zu constraints
+ \begin{itemize}
+   \item Jeder Student kann maximal in einem Team sein
+   \item Die Teamgröße ist größergleich der vorgegebenen minimalen Teamgröße
+   oder 0
+   \item Die Teamgröße ist kleinergleich der vorgegebenen maximalen Teamgröße
+ \end{itemize}
+ 
+ Es gibt weiterhin einen Optimierungsterm der durch, in der für die Berechnung
+ relevanten Konfiguration gegebenen Kriterien erweitert wird. Dieser wird leer
+ initialisiert.
+
+
+\subsection{Kriterien}
+Die Kriterien dienen dazu, den im Basismodell enthaltenen Optimierungsterm zu
+erweitern. Dabei werden die eingestellten Parameter als Multiplikatoren für
+die Boni der Kriterien. Diese Boni sind an der ++ Wertung normiert.
+
+\subsubsection{CriterionAllocated}
+Das Kriterium sorgt dafür das möglichst viele Studierende Teams zugeteilt
+werden. 
+\subsubsection{CriterionRating}
+Das Kriterium sorgt dafür das die Bewertungen der Studierenden berücksichtigt
+werden.
+\subsubsection{CriterionLearningGroup}
+Das Kriterium sorgt dafür das Lerngruppen eher zusammenbleiben.
+\subsubsection{CriterionRegisteredAgain}
+Das Kriterium sorgt dafür das Studierenden die sich schon einmal für einen PSE
+Platz beworben haben bevorzugt werden.
+\subsubsection{CriterionPreferredTeamSize}
+Das Kriterium sorgt dafür das Teams möglichst die gewünschte Teamgröße haben.
+\subsubsection{CriterionSameSemester}
+Das Kriterium sorgt dafür das Studierende des gleichen Semesters im selben Team
+landen.
+\subsubsection{CriterionPreferHigherSemester}
+Das Kriterium sorgt dafür das Studierende höheren Semesters bevorzugt werden
+\subsubsection{CriterionAdditionalPerformances}
+Das Kriterium sorgt dafür Studierende die mehr als die die zur Teilname am PSE
+benötigten Teilleistungen bestanden haben bevorzugt werden.
+\subsubsection{CriterionNoSingularStudent}
+Das Kriterium sorgt dafür das möglichst kein Team aus einer Lerngrupe sowie
+einem einzelnen Studierenden besteht.
+
+\end{document}
