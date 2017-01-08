@@ -1,10 +1,10 @@
 %%This is a very basic article template.
 %%There is just one section and two subsections.
 \documentclass[parskip=full]{scrartcl}
-
+\usepackage{amsfonts}
 \usepackage{studarbeit}
 \usepackage[binary-units=true]{siunitx}
-  \usepackage[autostyle=true,german=quotes]{csquotes}
+ \usepackage[autostyle=true,german=quotes]{csquotes}
 
 \begin{document}
 
@@ -19,6 +19,7 @@
 \pagebreak
 
 
+
 \section{Änderungen zum Pflichtenheft}
 
 \section{Sequenzdiagramme}
@@ -29,20 +30,37 @@
 Zur berechnung einer Einteilung wird ein ILP verwendet. Hierbei ist das ILP
 aufgeteilt in ein Basismodell und einteilungskriterien.
 \subsection{Basismodell}
-Das Basismodell besteht aus einer N x M Matrix B binärer Variablen. Hierbei ist
-N die anzahl der Studierenden die die Pflichtvoraussetzungen für das PSE erfüllt
-haben. M ist die Anzahl der Teams plus einem Team
-der nicht zugeteilten. Der Matrixeintrag
-%TODO fallunterscheidung Student s in team t
-Außerdem werden hier die folgenden Basisconstraints definiert:
+Das Basismodell besteht aus einer $N x M$ Matrix $B$ binärer Variablen. Hierbei
+ist $N$ die anzahl der Studierenden die die Pflichtvoraussetzungen für das PSE
+erfüllt haben. $M$ ist die Anzahl der Teams plus einem Team
+der nicht zugeteilten (welches sich in der Zeile $M$ befindet). Der
+Matrixeintrag $B(k,j)$ ist 1 wenn der Student $k$ in Team $j$ ist und sonst 0.
+Außerdem werden im Basismodell die folgenden Basisconstraints definiert:
 
 
 %TODO formeln zu constraints
  \begin{itemize}
-   \item Jeder Student kann maximal in einem Team sein
+   \item Jeder Student ist in einem Team \begin{equation*}
+   \sum_{j = 1}^{M} B(k,j) = 1 \text{ für } k \in \{ 1\ldots N \}
+   \end{equation*}
    \item Die Teamgröße ist größergleich der vorgegebenen minimalen Teamgröße
-   oder 0
+   oder 0. Ausgenommen hiervon ist das Team der nicht zugeteilten.
+  	\begin{equation*}
+  	\begin{split}
+  	\sum_{k = 1}^{N} B(k,j)  \ge minTeamSize \text{ } \land \sum_{k = 1}^{N}
+  	B(k,j)=0 \\ \text{ für } j \in \{
+  	1\ldots M - 1
+  	\}
+  	\end{split}
+  	\end{equation*}
    \item Die Teamgröße ist kleinergleich der vorgegebenen maximalen Teamgröße
+   \begin{equation*}
+  	\sum_{k = 1}^{N} B(k,j) \le maxTeamSize 
+  	 \text{ für } j \in \{
+  	1\ldots M - 1
+  	\}
+  
+  	\end{equation*}
  \end{itemize}
  
  Es gibt weiterhin einen Optimierungsterm der durch, in der für die Berechnung
@@ -52,15 +70,32 @@ Außerdem werden hier die folgenden Basisconstraints definiert:
 
 \subsection{Kriterien}
 Die Kriterien dienen dazu, den im Basismodell enthaltenen Optimierungsterm zu
-erweitern. Dabei werden die eingestellten Parameter als Multiplikatoren für
-die Boni der Kriterien. Diese Boni sind an der ++ Wertung normiert.
+erweitern. Dabei werden die eingestellten Parameter $p_i$ ($i$ für das
+jeweilige Kriterium) als Multiplikatoren für die Boni der Kriterien verwendet.
+Diese Boni sind an der \enquote{++ Wertung} normiert. 
 
 \subsubsection{CriterionAllocated}
 Das Kriterium sorgt dafür das möglichst viele Studierende Teams zugeteilt
-werden. 
+werden. Hierzu wird dem Optimierungsterm für jeden zugeltilten Student ein Bonus
+von 10. Für nicht zugeteilte gibt es einen Bonus von 1. \begin{equation*}
+p_i \cdot 10 \cdot \sum_{k = 1}^{N} \sum_{j = 1}^{M-1} B(k,j) \text{ für die
+Zugeteilten}
+\end{equation*}
+\begin{equation*}
+\sum_{k = 1}^{N} B(k,M) \text{ für die nicht
+Zugeteilten}
+\end{equation*}
 \subsubsection{CriterionRating}
 Das Kriterium sorgt dafür das die Bewertungen der Studierenden berücksichtigt
-werden.
+werden. Für ein \enquote{++} gibt es einen Bonus von 10, für ein \enquote{+} 8,
+für ein \enquote{o} 6, für ein \enquote{-} 4 und für ein \enquote{-{}-}. Sei
+hierfür $w_{kj}$ die Wertung des Studierenden $k$ für das Projekt $j$ (für $j =
+M$ ist $w_{kj} := 0$) .
+\begin{equation*}
+p_i \cdot w_{kj} \cdot B(k,j) \text{ für } k \in \{ 1\ldots N \} \text{ und }j
+\in \{ 1\ldots M -1 \}
+\end{equation*}
+
 \subsubsection{CriterionLearningGroup}
 Das Kriterium sorgt dafür das Lerngruppen eher zusammenbleiben.
 \subsubsection{CriterionRegisteredAgain}
