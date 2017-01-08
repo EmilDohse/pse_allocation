@@ -97,20 +97,37 @@ p_i \cdot w_{kj} \cdot B(k,j) \text{ für } k \in \{ 1\ldots N \} \text{ und }j
 \end{equation*}
 
 \subsubsection{CriterionLearningGroup}
-Das Kriterium sorgt dafür das Lerngruppen eher zusammenbleiben.
+Das Kriterium sorgt dafür das Lerngruppen eher zusammenbleiben. Hierfür gibt es
+für jedes Paar Studierender einer Lerngruppe die zusammenbleiben einen Bonus
+$x_l$ von $\frac{10}{size_l}$ wobei $size_l$ die Lerngruppengröße der Lerngruppe
+$l$ ist.
+\begin{equation*}
+\end{equation*} %TODO die Gleichung
+
 \subsubsection{CriterionRegisteredAgain}
 Das Kriterium sorgt dafür das Studierenden die sich schon einmal für einen PSE
-Platz beworben haben bevorzugt werden.
+Platz beworben haben bevorzugt werden. Hierfür wird dem Optimierungsterm
+$p_i \cdot 10 \cdot \sum_{j = 1}^{M-1} B(k,j)$ hinzugefügt, wenn der
+Studierende $k$ sich schon einmal um einen Platz beworben hat.
 \subsubsection{CriterionPreferredTeamSize}
 Das Kriterium sorgt dafür das Teams möglichst die gewünschte Teamgröße haben.
+Das Team der nicht zugeteilten ist ausgeschlossen.
+\begin{equation*}
+p_i \cdot 10 \cdot \sum_{k = 1}^{N} B(k,j) = preferredTeamSize_j
+\text{ für das Projekt }  j \in \{ 1\ldots M-1 \} %TODO überarbeitedn damit hir das if wegfällt
+\end{equation*}
 \subsubsection{CriterionSameSemester}
 Das Kriterium sorgt dafür das Studierende des gleichen Semesters im selben Team
 landen.
 \subsubsection{CriterionPreferHigherSemester}
-Das Kriterium sorgt dafür das Studierende höheren Semesters bevorzugt werden
+Das Kriterium sorgt dafür das Studierende höheren Semesters bevorzugt werden. Hierfür wird dem Optimierungsterm
+$p_i \cdot 10 \cdot \sum_{j = 1}^{M-1} B(k,j)$ hinzugefügt, wenn der
+Studierende $k$ in einem höheren Semester ist.
 \subsubsection{CriterionAdditionalPerformances}
 Das Kriterium sorgt dafür Studierende die mehr als die die zur Teilname am PSE
-benötigten Teilleistungen bestanden haben bevorzugt werden.
+benötigten Teilleistungen bestanden haben bevorzugt werden. Hierfür wird dem Optimierungsterm
+$p_i \cdot 10 \cdot \sum_{j = 1}^{M-1} B(k,j)$ hinzugefügt, wenn der Studierende
+$k$ mehr als die zur Teilname am PSE benötigten Teilleistungen bestanden hat.
 \subsubsection{CriterionNoSingularStudent}
 Das Kriterium sorgt dafür das möglichst kein Team aus einer Lerngrupe sowie
 einem einzelnen Studierenden besteht.
