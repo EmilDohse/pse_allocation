@@ -30,11 +30,22 @@
 Zur berechnung einer Einteilung wird ein ILP verwendet. Hierbei ist das ILP
 aufgeteilt in ein Basismodell und einteilungskriterien.
 \subsection{Basismodell}
-Das Basismodell besteht aus einer $N x M$ Matrix $B$ binärer Variablen. Hierbei
-ist $N$ die anzahl der Studierenden die die Pflichtvoraussetzungen für das PSE
+Das Basismodell besteht aus einer $N \times M$ Matrix $B$ binärer Variablen.
+Hierbei ist $N$ die anzahl der Studierenden die die Pflichtvoraussetzungen für das PSE
 erfüllt haben. $M$ ist die Anzahl der Teams plus einem Team
 der nicht zugeteilten (welches sich in der Zeile $M$ befindet). Der
 Matrixeintrag $B(k,j)$ ist 1 wenn der Student $k$ in Team $j$ ist und sonst 0.
+Weiterhin gibt es Hilvsvariablen für häufig verwendetes: 
+\begin{itemize}
+  \item $x_j$ ist eine Hilfsvariable für die Teamgröße des Teams $j$. Sie berechnet
+sich durch
+\begin{equation*}
+x_j \le \sum_{k = 1}^{N} B(k,j) ,\text{ } x_j \ge \sum_{k = 1}^{N} B(k,j) \text{
+als Constraints}
+\end{equation*}
+\end{itemize}
+
+
 Außerdem werden im Basismodell die folgenden Basisconstraints definiert:
 
 
@@ -44,23 +55,17 @@ Außerdem werden im Basismodell die folgenden Basisconstraints definiert:
    \sum_{j = 1}^{M} B(k,j) = 1 \text{ für } k \in \{ 1\ldots N \}
    \end{equation*}
    \item Die Teamgröße ist größergleich der vorgegebenen minimalen Teamgröße
-   oder 0. Ausgenommen hiervon ist das Team der nicht zugeteilten.
-  	\begin{equation*}
-  	\begin{split}
-  	\sum_{k = 1}^{N} B(k,j)  \ge minTeamSize \text{ } \land \sum_{k = 1}^{N}
-  	B(k,j)=0 \\ \text{ für } j \in \{
-  	1\ldots M - 1
-  	\}
-  	\end{split}
-  	\end{equation*}
-   \item Die Teamgröße ist kleinergleich der vorgegebenen maximalen Teamgröße
-   \begin{equation*}
-  	\sum_{k = 1}^{N} B(k,j) \le maxTeamSize 
-  	 \text{ für } j \in \{
-  	1\ldots M - 1
-  	\}
-  
-  	\end{equation*}
+   oder 0. Die Teamgröße ist kleinergleich der vorgegebenen maximalen Teamgröße
+   Ausgenommen hiervon ist das Team der nicht zugeteilten. Hierzu wird eine
+   Hilvsvariable $y_j$ pro Team $j$ verwendet. Die Constraints lauten:
+   \begin{gather*}
+    0 \le y_j \le 1\\
+     y_j \le x_j\text{ (wenn } x_j = 0 \Rightarrow y_j = 0
+    \text{)} \\ 
+    x_j \le maxTeamSize_j \cdot y_j \text{ (wenn } x_j \geq 0 \Rightarrow y_j
+    = 1 \text{ und } x_j \le maxTeamSize \text{)} \\
+    x_j \ge minTeamSize_j \cdot y_j \text{ (} x_j \ge minTeamSize_j \text{)}
+   \end{gather*}
  \end{itemize}
  
  Es gibt weiterhin einen Optimierungsterm der durch, in der für die Berechnung
@@ -99,10 +104,18 @@ p_i \cdot w_{kj} \cdot B(k,j) \text{ für } k \in \{ 1\ldots N \} \text{ und }j
 \subsubsection{CriterionLearningGroup}
 Das Kriterium sorgt dafür das Lerngruppen eher zusammenbleiben. Hierfür gibt es
 für jedes Paar Studierender einer Lerngruppe die zusammenbleiben einen Bonus
-$x_l$ von $\frac{10}{size_l}$ wobei $size_l$ die Lerngruppengröße der Lerngruppe
-$l$ ist.
-\begin{equation*}
-\end{equation*} %TODO die Gleichung
+$LgBonus_l$ von $\frac{10}{size_l}$ wobei $size_l$ die Lerngruppengröße der
+Lerngruppe $l$ ist.
+\begin{gather*}
+\text{Als Constraints: }\\
+0 \le y_{lpt} \le 1  \\
+y_{lpt} \le B(k_1,t) + B(k_2,t) -1, \; y_{lpt} \le B(k_2,t), \; y_{lpt} \le
+B(k_2,t) \\
+\text{$y_{lpt} := 1$ wenn das Paar $p$ aus
+Lerngruppe $l$ im gleichen Team $t$ ist} \\
+\text{Zum Optimierungsterm: } \\
+p_i \cdot LgBonus_l \cdot y_{lpt} \text{ für alle Paare, Lerngruppen und Teams}
+\end{gather*} %TODO die Gleichung
 
 \subsubsection{CriterionRegisteredAgain}
 Das Kriterium sorgt dafür das Studierenden die sich schon einmal für einen PSE
