@@ -12,14 +12,68 @@ Packages
 				
 				Methods
 					learningGroupPage
+						Diese Methode gibt die Seite zurück, auf der der Student sieht in welcher Lerngruppe er ist, oder wenn er in keiner aktuell ist, eine erstellen oder einer beitreten kann.
+					ratingPage
+						Diese Methode gibt die Seite zurück, auf der der Student seine Bewertungen abgeben kann.
+					resultsPage
+						Diese Methode gibt die Seite zurück, auf der der Student das Ergebnis der Einteilungsberechnung einsehen kann. Er sieht also sein Projekt und seine Teammitglieder.
+					rate
+						Diese Methode fügt die Daten der Bewertungen eines Studenten in das System ein und leitet den Studenten wieder zurück auf die Bewertungsseite, wo er nun seine eingegebene Bewertungen sehen kann.
+					createLearningGroup
+						Diese Methode erstellt eine neue Lerngruppe im System hinzu und fügt den Ersteller der Lerngruppe als erstes Mitglied in diese ein. Der Student wird anschließend auf die Lerngruppen-Seite zurückgeleitet.
+					leaveLearningGroup
+						Diese Methode entfernt den Student aus der aktuellen Lerngruppe. Anschließend wird der Student auf die Lerngruppen-Seite zurück geleitet.
+					joinLearningGroup
+						Diese Methode fügt den Studenten zu einer Lerngruppe hinzu, falls eine Lerngruppe mit dem Namen und dem zugehörigen Passwort existiert. Anschließend wird der Student auf die Lerngruppen-Seite zurückgeleitet.
+					accountPage
+						Diese Methode gibt die Seite zurück, auf der der Student seine Studentendaten wie E-Mail-Adresse und Passwort ändern kann.
+					editAccount
+						Diese Methode editiert die Daten des Studenten, welche er auf der Account-Seite geändert hat.
 						
 			IndexPageController
 				Dieser Controller ist zuständig für alle Http-Requests, die in dem Bereich aufkommen, welche ohne Anmeldung zugänglich sind. Dazu zählt neben der Index-Seite auch die Passwort vergessen-Seite und die E-Mail-Verifikations-Seite.
+
+				Methods
+					indexPage
+						Diese Methode gibt die Seite zurück, welche die Startseite ist. Auf dieser Seite kann sich Administrator, Betreuer und Student anmelden oder aktuelle Informationen einsehen.
+					registerPage
+						Diese Methode gibt die Seite zurück, auf der sich ein Student registrieren kann.
+					login
+						Diese Methode initiiert die Login-Prozedur und leitet den Anzumeldenden je nach Autorisierung auf die passende Seite weiter.
+					register
+						Diese Methode registriert einen Studenten und fügt diesen in die Datenbank ein, sofern alle seine Daten stimmig sind.
+					passwordResetPage
+						Diese Methode gibt die Seite zurück, die ein Passwort-Rücksetz-Formular für Studenten und Betreuer anzeigt.
+					passwordReset
+						Diese Methode schickt eine Email anhand der Daten aus dem Passwort-Rücksetz-Formular an den Studenten oder den Betreurer, welche ein neues Passwort enthält.
+					verificationPage
+						Diese Methode gibt die Seite zurück, welche einen Studenten verifiziert. Dies funktioniert, indem der Student eine Mail mit einen Link auf diese Seite erhält, welche noch einen Code als Parameter übergibt. Anhand dieses Parameters wird der Student verifiziert.
 			AdminPageController
 				Dieser Controller ist zuständig für das Bearbeiten der Http-Requests, welche durch das Klicken eines Links und nicht eines Buttons versendet werden.
+			
+				Methods
+					projectPage
+						Diese Methode gibt die Seite zurück, auf der der Administrator Projekte sieht.
+					adviserPage
+						Diese Methode gibt die Seite zurück, auf der der Administrator alle Projektbetreuer sehen, neue hinzufügen oder bereits existierende entfernen kann.
+					allocationPage
+						Diese Methode gibt die Seite zurück, auf der der Administrator Einteilungen berechnen kann und voher Parameter einstellen kann. Außerdem sieht er noch zu berechnende Konfigurationen und kann diese aus der Berechnungsliste entfernen.
+					resultsPage
+						Diese Methode gibt die Seite zurück, auf der der Administrator die Ergebnisse der Berechnungen sehen, vergleichen und editieren kann.
+					exportImportPage
+						Diese Methode gibt die Seite zurück, auf der der Administrator Einteilungen, Studentendaten, SPOs, Projekte und CMS-Daten ex- und importieren kann.
+					studentEditPage
+						Diese Methode gibt die Seite zurück, auf der der Administrator Studenten manuell hinzufügen oder löschen kann.
+					propertiesPage
+						Diese Methode gibt die Seite zurück, auf der der Administrator die Semester-Einstellungen vornehmen kann.
+					projectsEditPage
+						Diese Methode gibt die Seite zurück, auf der der Administrator Projekte sieht, Projekte hinzufügen, editieren oder entfernen kann.
 			AdviserPageController
-				Dieser Controller ist für das Bearbeiten der Http-Requests zuständig, welche im Betreuerbereich aufkommen. 
-			AdminGeneralController
+				Dieser Controller ist für das Bearbeiten der Http-Requests zuständig, welche im Betreuerbereich aufkommen.
+			
+				Methods
+					
+			GeneralAdminController
 				Dieser Controller ist für das Bearbeiten der Http-Requests zuständig, welche abgeschickt werden, wenn Betreuer, Studenten oder Einteilungen hinzugefügt oder gelöscht werden sollen.
 			AdminImportExportController
 				Dieser Controller ist für das Bearbeiten der Http-Requests zuständig, welche Importieren und Exportieren auf der Import/Export-Seite regeln.
