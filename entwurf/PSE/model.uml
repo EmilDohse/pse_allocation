@@ -93,23 +93,6 @@
   </packagedElement>
   <packagedElement xmi:type="uml:Package" xmi:id="_mW9E0L-UEeafRvZF0ZYxOg" name="Modell">
     <packagedElement xmi:type="uml:Package" xmi:id="_l02n4L-VEeafRvZF0ZYxOg" name="Einteilung">
-      <packagedElement xmi:type="uml:Class" xmi:id="_VGHLwMa-EeaM6Joq_bmpoA" name="Criterion" isAbstract="true">
-        <ownedAttribute xmi:type="uml:Property" xmi:id="_nCi8IMa-EeaM6Joq_bmpoA" name="optimizationTerm : GRBLinExpr"/>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="_sCwGoMa-EeaM6Joq_bmpoA" name="minValue">
-          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EInt"/>
-        </ownedAttribute>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="_uHUmcMa-EeaM6Joq_bmpoA" name="maxValue">
-          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EInt"/>
-        </ownedAttribute>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="_wgMiUMa-EeaM6Joq_bmpoA" name="weight">
-          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EInt"/>
-        </ownedAttribute>
-        <ownedOperation xmi:type="uml:Operation" xmi:id="_3Q0hkMa-EeaM6Joq_bmpoA" name="useCriteria" isAbstract="true">
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="_croaUMd8EeaM6Joq_bmpoA" name="weight">
-            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EInt"/>
-          </ownedParameter>
-        </ownedOperation>
-      </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="_Fm-HwMa_EeaM6Joq_bmpoA" name="ILPAllocator" visibility="public">
         <generalization xmi:type="uml:Generalization" xmi:id="_pH_UsMd5EeaM6Joq_bmpoA" general="_Fi0Z0Ma6EeaM6Joq_bmpoA"/>
         <ownedAttribute xmi:type="uml:Property" xmi:id="_7lhbgMa_EeaM6Joq_bmpoA" name="basicMatrix : GRBVar[][]" visibility="private"/>
@@ -144,6 +127,12 @@
             <type xmi:type="uml:Class" href="Daten.uml#_KMHa0MuJEeaAhqxXa-EytA"/>
           </ownedParameter>
         </ownedOperation>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_hagn0NZwEeaRjsQpEJ4FDw" name="getAllCriteria" isStatic="true">
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_qQWnINZwEeaRjsQpEJ4FDw" type="_lNCMUNZyEeaRjsQpEJ4FDw" direction="return">
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_ruVoENZwEeaRjsQpEJ4FDw"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_ruagkNZwEeaRjsQpEJ4FDw" value="*"/>
+          </ownedParameter>
+        </ownedOperation>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="_mDqNoMuCEeahYOf6GolIPg" name="Configuration">
         <ownedAttribute xmi:type="uml:Property" xmi:id="_pL-pcMuCEeahYOf6GolIPg" name="students" visibility="private">
@@ -170,33 +159,37 @@
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_6UOxANTcEeaAJqHYRqQXrg" value="*"/>
         </ownedAttribute>
       </packagedElement>
-      <packagedElement xmi:type="uml:Class" xmi:id="_FKmoMNTeEeaAJqHYRqQXrg" name="CriterionAllocated">
-        <generalization xmi:type="uml:Generalization" xmi:id="_tP3bcNTfEeaAJqHYRqQXrg" general="_VGHLwMa-EeaM6Joq_bmpoA"/>
+      <packagedElement xmi:type="uml:Class" xmi:id="_FKmoMNTeEeaAJqHYRqQXrg" name="CriterionAllocated"/>
+      <packagedElement xmi:type="uml:Class" xmi:id="_fGp6gNTeEeaAJqHYRqQXrg" name="CriterionSameSemester"/>
+      <packagedElement xmi:type="uml:Class" xmi:id="_gCnzgNTeEeaAJqHYRqQXrg" name="CriterionNoSingularStudent"/>
+      <packagedElement xmi:type="uml:Class" xmi:id="_gRWzENTeEeaAJqHYRqQXrg" name="CriterionAdditionalPerfomances"/>
+      <packagedElement xmi:type="uml:Class" xmi:id="_hQNA8NTeEeaAJqHYRqQXrg" name="CriterionRegisteredAgain"/>
+      <packagedElement xmi:type="uml:Class" xmi:id="_hgHFMNTeEeaAJqHYRqQXrg" name="CriterionPreferredTeamSize"/>
+      <packagedElement xmi:type="uml:Class" xmi:id="_h2chkNTeEeaAJqHYRqQXrg" name="CriterionLearningGroup"/>
+      <packagedElement xmi:type="uml:Class" xmi:id="_iNUwgNTeEeaAJqHYRqQXrg" name="CriterionRating"/>
+      <packagedElement xmi:type="uml:Class" xmi:id="_ijueUNTeEeaAJqHYRqQXrg" name="CriterionPreferHigherSemester"/>
+      <packagedElement xmi:type="uml:Interface" xmi:id="_lNCMUNZyEeaRjsQpEJ4FDw" name="Criterion">
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_sLX3cNZyEeaRjsQpEJ4FDw" name="useCriteria">
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_wvSHgNZyEeaRjsQpEJ4FDw" name="weight">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+          </ownedParameter>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_y2JtYNZyEeaRjsQpEJ4FDw" name="allocator" type="_Fm-HwMa_EeaM6Joq_bmpoA"/>
+        </ownedOperation>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_z9tLUNZyEeaRjsQpEJ4FDw" name="getName">
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_4SCHQNZyEeaRjsQpEJ4FDw" direction="return">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          </ownedParameter>
+        </ownedOperation>
       </packagedElement>
-      <packagedElement xmi:type="uml:Class" xmi:id="_fGp6gNTeEeaAJqHYRqQXrg" name="CriterionSameSemester">
-        <generalization xmi:type="uml:Generalization" xmi:id="_o_-TkNTfEeaAJqHYRqQXrg" general="_VGHLwMa-EeaM6Joq_bmpoA"/>
-      </packagedElement>
-      <packagedElement xmi:type="uml:Class" xmi:id="_gCnzgNTeEeaAJqHYRqQXrg" name="CriterionNoSingularStudent">
-        <generalization xmi:type="uml:Generalization" xmi:id="_ud4twNTfEeaAJqHYRqQXrg" general="_VGHLwMa-EeaM6Joq_bmpoA"/>
-      </packagedElement>
-      <packagedElement xmi:type="uml:Class" xmi:id="_gRWzENTeEeaAJqHYRqQXrg" name="CriterionAdditionalPerfomances">
-        <generalization xmi:type="uml:Generalization" xmi:id="_oKD_QNTfEeaAJqHYRqQXrg" general="_VGHLwMa-EeaM6Joq_bmpoA"/>
-      </packagedElement>
-      <packagedElement xmi:type="uml:Class" xmi:id="_hQNA8NTeEeaAJqHYRqQXrg" name="CriterionRegisteredAgain">
-        <generalization xmi:type="uml:Generalization" xmi:id="_qDlssNTfEeaAJqHYRqQXrg" general="_VGHLwMa-EeaM6Joq_bmpoA"/>
-      </packagedElement>
-      <packagedElement xmi:type="uml:Class" xmi:id="_hgHFMNTeEeaAJqHYRqQXrg" name="CriterionPreferredTeamSize">
-        <generalization xmi:type="uml:Generalization" xmi:id="_pf04UNTfEeaAJqHYRqQXrg" general="_VGHLwMa-EeaM6Joq_bmpoA"/>
-      </packagedElement>
-      <packagedElement xmi:type="uml:Class" xmi:id="_h2chkNTeEeaAJqHYRqQXrg" name="CriterionLearningGroup">
-        <generalization xmi:type="uml:Generalization" xmi:id="_rKzzcNTfEeaAJqHYRqQXrg" general="_VGHLwMa-EeaM6Joq_bmpoA"/>
-      </packagedElement>
-      <packagedElement xmi:type="uml:Class" xmi:id="_iNUwgNTeEeaAJqHYRqQXrg" name="CriterionRating">
-        <generalization xmi:type="uml:Generalization" xmi:id="_r4IMcNTfEeaAJqHYRqQXrg" general="_VGHLwMa-EeaM6Joq_bmpoA"/>
-      </packagedElement>
-      <packagedElement xmi:type="uml:Class" xmi:id="_ijueUNTeEeaAJqHYRqQXrg" name="CriterionPreferHigherSemester">
-        <generalization xmi:type="uml:Generalization" xmi:id="_ojkrcNTfEeaAJqHYRqQXrg" general="_VGHLwMa-EeaM6Joq_bmpoA"/>
-      </packagedElement>
+      <packagedElement xmi:type="uml:Realization" xmi:id="_9MjggNZyEeaRjsQpEJ4FDw" client="_gCnzgNTeEeaAJqHYRqQXrg" supplier="_lNCMUNZyEeaRjsQpEJ4FDw"/>
+      <packagedElement xmi:type="uml:Realization" xmi:id="_96in4NZyEeaRjsQpEJ4FDw" client="_FKmoMNTeEeaAJqHYRqQXrg" supplier="_lNCMUNZyEeaRjsQpEJ4FDw"/>
+      <packagedElement xmi:type="uml:Realization" xmi:id="_-ed0UNZyEeaRjsQpEJ4FDw" client="_iNUwgNTeEeaAJqHYRqQXrg" supplier="_lNCMUNZyEeaRjsQpEJ4FDw"/>
+      <packagedElement xmi:type="uml:Realization" xmi:id="_-78agNZyEeaRjsQpEJ4FDw" client="_h2chkNTeEeaAJqHYRqQXrg" supplier="_lNCMUNZyEeaRjsQpEJ4FDw"/>
+      <packagedElement xmi:type="uml:Realization" xmi:id="__fzVgNZyEeaRjsQpEJ4FDw" client="_hQNA8NTeEeaAJqHYRqQXrg" supplier="_lNCMUNZyEeaRjsQpEJ4FDw"/>
+      <packagedElement xmi:type="uml:Realization" xmi:id="__7_iQNZyEeaRjsQpEJ4FDw" client="_hgHFMNTeEeaAJqHYRqQXrg" supplier="_lNCMUNZyEeaRjsQpEJ4FDw"/>
+      <packagedElement xmi:type="uml:Realization" xmi:id="_AnjnwNZzEeaRjsQpEJ4FDw" client="_fGp6gNTeEeaAJqHYRqQXrg" supplier="_lNCMUNZyEeaRjsQpEJ4FDw"/>
+      <packagedElement xmi:type="uml:Realization" xmi:id="_BD8o0NZzEeaRjsQpEJ4FDw" client="_ijueUNTeEeaAJqHYRqQXrg" supplier="_lNCMUNZyEeaRjsQpEJ4FDw"/>
+      <packagedElement xmi:type="uml:Realization" xmi:id="_BeugUNZzEeaRjsQpEJ4FDw" client="_gRWzENTeEeaAJqHYRqQXrg" supplier="_lNCMUNZyEeaRjsQpEJ4FDw"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Package" xmi:id="_5OpuIL-VEeafRvZF0ZYxOg" name="ImportExport">
       <packagedElement xmi:type="uml:Class" xmi:id="_D4umMMI-Eeaytrx8NVtp5g" name="Importer" isAbstract="true">

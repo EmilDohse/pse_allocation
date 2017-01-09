@@ -128,8 +128,8 @@
       <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_KMIB5cuJEeaAhqxXa-EytA" value="*"/>
     </ownedEnd>
   </packagedElement>
-  <packagedElement xmi:type="uml:Class" xmi:id="_KMIB5suJEeaAhqxXa-EytA" name="AllocationParameter" isAbstract="true">
-    <ownedAttribute xmi:type="uml:Property" xmi:id="_KMIB58uJEeaAhqxXa-EytA" name="name" isStatic="true">
+  <packagedElement xmi:type="uml:Class" xmi:id="_KMIB5suJEeaAhqxXa-EytA" name="AllocationParameter">
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_KMIB58uJEeaAhqxXa-EytA" name="name">
       <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
     </ownedAttribute>
     <ownedAttribute xmi:type="uml:Property" xmi:id="_KMIB6MuJEeaAhqxXa-EytA" name="value" isUnique="false">
