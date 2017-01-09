@@ -71,7 +71,7 @@ Außerdem werden im Basismodell die folgenden Basisconstraints definiert:
  Es gibt weiterhin einen Optimierungsterm der durch, in der für die Berechnung
  relevanten Konfiguration gegebenen Kriterien erweitert wird. Dieser wird leer
  initialisiert.
-
+%TODO allgemeines and und or
 
 \subsection{Kriterien}
 Die Kriterien dienen dazu, den im Basismodell enthaltenen Optimierungsterm zu
@@ -86,14 +86,11 @@ von 10. Für nicht zugeteilte gibt es einen Bonus von 1. \begin{equation*}
 p_i \cdot 10 \cdot \sum_{k = 1}^{N} \sum_{j = 1}^{M-1} B(k,j) \text{ für die
 Zugeteilten}
 \end{equation*}
-\begin{equation*}
-\sum_{k = 1}^{N} B(k,M) \text{ für die nicht
-Zugeteilten}
-\end{equation*}
+
 \subsubsection{CriterionRating}
 Das Kriterium sorgt dafür das die Bewertungen der Studierenden berücksichtigt
 werden. Für ein \enquote{++} gibt es einen Bonus von 10, für ein \enquote{+} 8,
-für ein \enquote{o} 6, für ein \enquote{-} 4 und für ein \enquote{-{}-}. Sei
+für ein \enquote{o} 6, für ein \enquote{-} 4 und für ein \enquote{-{}-} 2. Sei
 hierfür $w_{kj}$ die Wertung des Studierenden $k$ für das Projekt $j$ (für $j =
 M$ ist $w_{kj} := 0$) .
 \begin{equation*}
@@ -104,7 +101,7 @@ p_i \cdot w_{kj} \cdot B(k,j) \text{ für } k \in \{ 1\ldots N \} \text{ und }j
 \subsubsection{CriterionLearningGroup}
 Das Kriterium sorgt dafür das Lerngruppen eher zusammenbleiben. Hierfür gibt es
 für jedes Paar Studierender einer Lerngruppe die zusammenbleiben einen Bonus
-$LgBonus_l$ von $\frac{10}{size_l}$ wobei $size_l$ die Lerngruppengröße der
+$LgBonus_l$ von $\frac{10}{pair_l}$ wobei $pair_l$ die Anzahl der Paare der
 Lerngruppe $l$ ist.
 \begin{gather*}
 \text{Als Constraints: }\\
@@ -115,7 +112,7 @@ B(k_2,t) \\
 Lerngruppe $l$ im gleichen Team $t$ ist} \\
 \text{Zum Optimierungsterm: } \\
 p_i \cdot LgBonus_l \cdot y_{lpt} \text{ für alle Paare, Lerngruppen und Teams}
-\end{gather*} %TODO die Gleichung
+\end{gather*} 
 
 \subsubsection{CriterionRegisteredAgain}
 Das Kriterium sorgt dafür das Studierenden die sich schon einmal für einen PSE
