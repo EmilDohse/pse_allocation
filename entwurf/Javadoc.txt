@@ -48,6 +48,7 @@ Packages
 						Diese Methode schickt eine Email anhand der Daten aus dem Passwort-Rücksetz-Formular an den Studenten oder den Betreurer, welche ein neues Passwort enthält.
 					verificationPage
 						Diese Methode gibt die Seite zurück, welche einen Studenten verifiziert. Dies funktioniert, indem der Student eine Mail mit einen Link auf diese Seite erhält, welche noch einen Code als Parameter übergibt. Anhand dieses Parameters wird der Student verifiziert.
+
 			AdminPageController
 				Dieser Controller ist zuständig für das Bearbeiten der Http-Requests, welche durch das Klicken eines Links und nicht eines Buttons versendet werden.
 			
@@ -68,19 +69,60 @@ Packages
 						Diese Methode gibt die Seite zurück, auf der der Administrator die Semester-Einstellungen vornehmen kann.
 					projectsEditPage
 						Diese Methode gibt die Seite zurück, auf der der Administrator Projekte sieht, Projekte hinzufügen, editieren oder entfernen kann.
+
 			AdviserPageController
 				Dieser Controller ist für das Bearbeiten der Http-Requests zuständig, welche im Betreuerbereich aufkommen.
 			
 				Methods
-					
+					projectsPage
+						Diese Methode gibt die Seite zurück, auf der der Betreuer Projekte sieht, Projekte hinzufügen, editieren oder entfernen kann. Editieren und Entfernen eines Projektes ist beschränkt auf Betreuer, welche dem Projekt beigetreten sind.
+					addProject
+						Diese Methode fügt ein neues Projekt in das System ein und leitet den Betreuer zurück auf die Seite zum editieren des Projektes.
+					removeProject
+						Diese Methode löscht ein Projekt und alle dazugehörenden Daten aus dem System und leitet den Betreuer auf die Seite zum editieren und hinzufügen von Projekten. Nur Betreuer welche dem Projekt beigetreten sind können dieses editieren.
+					editProject
+						Diese Methode editiert ein bereits vorhandenes Projekt. Die zu editierenden Daten übermittelt der Betreuer über ein Formular, welches er zum editieren abschickt. Nur Betreuer welche dem Projekt beigetreten sind können dieses editieren. Anschließend wird der Betreuer auf die Seite zum Hinzufügen und Editieren von Projekten weitergeleitet.
+					joinProject
+						Diese Methode fügt einen Betreuer zu einem bereits existierenden Projekt hinzu, sodass dieser auch die Möglichkeit besitzt das Projekt zu editieren oder zu löschen und nach der Veröffentlichung einer Einteilung auch Teams und deren Mitglieder sieht. Nach dem Beitreten wird der Betreuer auf die Seite zum Hinzufügen und Editieren von Projekten weitergeleitet.
+					leaveProject
+						Diese Methode entfernt einen Betreuer aus einem existierenden Projekt, sodass dieser nicht mehr das Projekt editieren oder löschen kann. Anschließend wird der Betreuer auf die Seite zum Hinzufügen und Editieren von Projekten weitergeleitet.
+					saveStudentsGrades
+						Diese Methode speichert alle von einem Betreuer in ein Formular eingegebenen Noten, sodass diese vom Administrator in das CMS importiert werden können. Anschließend wird der Betreuer auf die Projektseite des jeweiligen Projektes weitergeleitet.
+					accountPage
+						Diese Methode gibt die Seite zurück, auf der der Betreuer seine Studentendaten wie E-Mail-Adresse und Passwort ändern kann.
+					editAccount
+						Diese Methode editiert die Daten des Betreuers, welche er auf der Account-Seite geändert hat.
+
 			GeneralAdminController
 				Dieser Controller ist für das Bearbeiten der Http-Requests zuständig, welche abgeschickt werden, wenn Betreuer, Studenten oder Einteilungen hinzugefügt oder gelöscht werden sollen.
+					
+					Methods
+						addAdviser
+							Diese Methode fügt einen Betreuer mit den Daten aus dem vom Administrator auszufüllenden Formular zum System hinzu. Der Administrator wird anschließend auf die Betreuerübersicht weitergeleitet.
+						removeAdviser
+							Diese Methode entfernt einen Betreuer und dessen Daten aus dem System. Der Administrator wird anschließend auf die Betreuerübersicht weitergeleitet.
+						addAllocation
+							Diese Methode fügt eine Einteilungskonfiguration in die Berechnungswarteschlange hinzu. Der Administrator wird anschließend auf die Berechnungsübersichtsseite weitergeleitet.
+						addStudent
+							Diese Methode fügt einen Studenten in das System hinzu. Der Administrator wird anschließend auf die Seite zum weiteren Hinzufügen und Löschen von Studenten weitergeleitet.
+						removeStudent
+							Diese Methode löscht einen Studenten aus dem System. Der Administrator wird anschließend auf die Seite zum weiteren Hinzufügen und Löschen von Studenten weitergeleitet.
+
 			AdminImportExportController
 				Dieser Controller ist für das Bearbeiten der Http-Requests zuständig, welche Importieren und Exportieren auf der Import/Export-Seite regeln.
 			AdminPropertiesController
 				Dieser Controller ist für das Bearbeiten der Http-Requests zuständig, welche beim Ändern der Einstellungen abgeschickt werden.
 			AdminProjectController
 				Dieser Controller ist für das Bearbeiten der Http-Requests zuständig, welche beim Hinzufügen, Ändern und Löschen eines Projektes im Administratorbereich abgeschickt werden.
+					
+					Methods
+						addProject
+						Diese Methode fügt ein neues Projekt in das System ein und leitet den Administrator zurück auf die Seite zum editieren des Projektes.
+					removeProject
+						Diese Methode löscht ein Projekt und alle dazugehörenden Daten aus dem System und leitet den Administrator weiter auf die Seite zum editieren und hinzufügen von Projekten.
+					editProject
+						Diese Methode editiert ein bereits vorhandenes Projekt. Die zu editierenden Daten übermittelt der Administrator über ein Formular, welches er zum editieren abschickt. Anschließend wird der Administrator auf die Seite zum Hinzufügen und Editieren von Projekten weitergeleitet.
+						
 			AdminEditAllocationController
 				Dieser Controller ist für das Bearbeiten der Http-Requests zuständig, welche beim Editieren einer Einteilung abgeschickt werden.
 
