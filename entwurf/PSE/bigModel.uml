@@ -140,23 +140,25 @@
     </packagedElement>
   </packagedElement>
   <packagedElement xmi:type="uml:Package" xmi:id="_pj1OoNaMEeayPeVBIOoRFQ" name="Gütekriterien">
-    <packagedElement xmi:type="uml:Class" xmi:id="_pj1OodaMEeayPeVBIOoRFQ" name="QualityCriteria" isAbstract="true">
-      <ownedOperation xmi:type="uml:Operation" xmi:id="_pj1OotaMEeayPeVBIOoRFQ" name="calculate" isAbstract="true">
-        <ownedParameter xmi:type="uml:Parameter" xmi:id="_pj1Oo9aMEeayPeVBIOoRFQ" name="allocation"/>
-        <ownedParameter xmi:type="uml:Parameter" xmi:id="_pj1OpNaMEeayPeVBIOoRFQ" direction="return">
-          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EInt"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="_pj1OpdaMEeayPeVBIOoRFQ" name="StudentHappiness"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="_pj1Op9aMEeayPeVBIOoRFQ" name="NotAllocatedStudents"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="_pj1OqdaMEeayPeVBIOoRFQ" name="splitLearningGroups"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="_Y_C2UNc_EeabnpNmGsIysQ" name="QualityCriteriaLoader">
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_3GbgoNc_EeabnpNmGsIysQ" name="getAllQualityCriteria" isStatic="true">
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_-xdSoNc_EeabnpNmGsIysQ" type="_bZQO8Nc_EeabnpNmGsIysQ" direction="return">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_ASwGQNdAEeabnpNmGsIysQ"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_ASx7cNdAEeabnpNmGsIysQ" value="*"/>
         </ownedParameter>
       </ownedOperation>
     </packagedElement>
-    <packagedElement xmi:type="uml:Class" xmi:id="_pj1OpdaMEeayPeVBIOoRFQ" name="StudentHappiness">
-      <generalization xmi:type="uml:Generalization" xmi:id="_pj1OptaMEeayPeVBIOoRFQ" general="_pj1OodaMEeayPeVBIOoRFQ"/>
+    <packagedElement xmi:type="uml:Interface" xmi:id="_bZQO8Nc_EeabnpNmGsIysQ" name="QualityCriterion">
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_fMLG8Nc_EeabnpNmGsIysQ" name="calculate" visibility="public" isAbstract="true">
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_lKEowNc_EeabnpNmGsIysQ" name="allocation" type="_XCaFYNaNEeayPeVBIOoRFQ"/>
+      </ownedOperation>
     </packagedElement>
-    <packagedElement xmi:type="uml:Class" xmi:id="_pj1Op9aMEeayPeVBIOoRFQ" name="NotAllocatedStudents">
-      <generalization xmi:type="uml:Generalization" xmi:id="_pj1OqNaMEeayPeVBIOoRFQ" general="_pj1OodaMEeayPeVBIOoRFQ"/>
-    </packagedElement>
-    <packagedElement xmi:type="uml:Class" xmi:id="_pj1OqdaMEeayPeVBIOoRFQ" name="splitLearningGroups">
-      <generalization xmi:type="uml:Generalization" xmi:id="_pj1OqtaMEeayPeVBIOoRFQ" general="_pj1OodaMEeayPeVBIOoRFQ"/>
-    </packagedElement>
+    <packagedElement xmi:type="uml:Realization" xmi:id="_nZfGoNc_EeabnpNmGsIysQ" client="_pj1OpdaMEeayPeVBIOoRFQ" supplier="_bZQO8Nc_EeabnpNmGsIysQ"/>
+    <packagedElement xmi:type="uml:Realization" xmi:id="_pUWQ0Nc_EeabnpNmGsIysQ" client="_pj1Op9aMEeayPeVBIOoRFQ" supplier="_bZQO8Nc_EeabnpNmGsIysQ"/>
+    <packagedElement xmi:type="uml:Realization" xmi:id="_qnzcwNc_EeabnpNmGsIysQ" client="_pj1OqdaMEeayPeVBIOoRFQ" supplier="_bZQO8Nc_EeabnpNmGsIysQ"/>
   </packagedElement>
   <packagedElement xmi:type="uml:Package" xmi:id="_pj1Oq9aMEeayPeVBIOoRFQ" name="Benachrichtigung">
     <packagedElement xmi:type="uml:Class" xmi:id="_pj1OrNaMEeayPeVBIOoRFQ" name="Notifier">
@@ -673,7 +675,10 @@
     <packagedElement xmi:type="uml:Class" xmi:id="_z27kMNaOEeayPeVBIOoRFQ" name="Controller"/>
     <packagedElement xmi:type="uml:Class" xmi:id="_z27kMdaOEeayPeVBIOoRFQ" name="AdminPageController">
       <generalization xmi:type="uml:Generalization" xmi:id="_z27kMtaOEeayPeVBIOoRFQ" general="_z27kMNaOEeayPeVBIOoRFQ"/>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="_2RiicNavEeayPeVBIOoRFQ" name="qualityCriteria" type="_pj1OodaMEeayPeVBIOoRFQ" association="_2Rh7YNavEeayPeVBIOoRFQ"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_QVvBstdAEeabnpNmGsIysQ" name="qualityCriteria" type="_bZQO8Nc_EeabnpNmGsIysQ" association="_QVuaoNdAEeabnpNmGsIysQ">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_TPy_ENdAEeabnpNmGsIysQ"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_TP0NMNdAEeabnpNmGsIysQ" value="*"/>
+      </ownedAttribute>
       <ownedOperation xmi:type="uml:Operation" xmi:id="_z27kM9aOEeayPeVBIOoRFQ" name="projectPage"/>
       <ownedOperation xmi:type="uml:Operation" xmi:id="_z27kNNaOEeayPeVBIOoRFQ" name="adviserPage"/>
       <ownedOperation xmi:type="uml:Operation" xmi:id="_z27kNdaOEeayPeVBIOoRFQ" name="allocationPage"/>
@@ -846,12 +851,6 @@
     </eAnnotations>
     <ownedEnd xmi:type="uml:Property" xmi:id="_rdi0Y9avEeayPeVBIOoRFQ" type="_z27kRNaOEeayPeVBIOoRFQ" association="_rdiNUNavEeayPeVBIOoRFQ"/>
   </packagedElement>
-  <packagedElement xmi:type="uml:Association" xmi:id="_2Rh7YNavEeayPeVBIOoRFQ" memberEnd="_2RiicNavEeayPeVBIOoRFQ _2RiicdavEeayPeVBIOoRFQ">
-    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_2Rh7YdavEeayPeVBIOoRFQ" source="org.eclipse.papyrus">
-      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_2Rh7YtavEeayPeVBIOoRFQ" key="nature" value="UML_Nature"/>
-    </eAnnotations>
-    <ownedEnd xmi:type="uml:Property" xmi:id="_2RiicdavEeayPeVBIOoRFQ" type="_z27kMdaOEeayPeVBIOoRFQ" association="_2Rh7YNavEeayPeVBIOoRFQ"/>
-  </packagedElement>
   <packagedElement xmi:type="uml:Association" xmi:id="_fb3VwNawEeayPeVBIOoRFQ" memberEnd="_fb380tawEeayPeVBIOoRFQ _fb4j4NawEeayPeVBIOoRFQ">
     <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_fb380NawEeayPeVBIOoRFQ" source="org.eclipse.papyrus">
       <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_fb380dawEeayPeVBIOoRFQ" key="nature" value="UML_Nature"/>
@@ -881,6 +880,12 @@
       <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="__8uTQNc8EeabnpNmGsIysQ" key="nature" value="UML_Nature"/>
     </eAnnotations>
     <ownedEnd xmi:type="uml:Property" xmi:id="__8vhYNc8EeabnpNmGsIysQ" type="_9-tOwNc5EeabnpNmGsIysQ" association="__8tsMNc8EeabnpNmGsIysQ"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_QVuaoNdAEeabnpNmGsIysQ" memberEnd="_QVvBstdAEeabnpNmGsIysQ _QVwP0NdAEeabnpNmGsIysQ">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_QVvBsNdAEeabnpNmGsIysQ" source="org.eclipse.papyrus">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_QVvBsddAEeabnpNmGsIysQ" key="nature" value="UML_Nature"/>
+    </eAnnotations>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_QVwP0NdAEeabnpNmGsIysQ" type="_z27kMdaOEeayPeVBIOoRFQ" association="_QVuaoNdAEeabnpNmGsIysQ"/>
   </packagedElement>
   <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_M3anUNapEeayPeVBIOoRFQ">
     <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_M3ccgNapEeayPeVBIOoRFQ" source="http://www.eclipse.org/uml2/2.0.0/UML">
