@@ -28,7 +28,19 @@
 
 \section{ILP}
 Zur berechnung einer Einteilung wird ein ILP verwendet. Hierbei ist das ILP
-aufgeteilt in ein Basismodell und einteilungskriterien.
+aufgeteilt in ein Basismodell und Einteilungskriterien. 
+
+Für die Constraints werden im Weiteren für $\wedge$ (logisch AND) und
+$\vee$ (logisch OR) die Folgenden Formeln verwendet:
+
+\begin{gather*}
+\text{Für } y = x_1 \wedge x_2 \wedge \ldots \wedge x_n: \\
+\left(\sum_{k=1}^{N}x_k \right)-ny \le n-1\\
+ny - \sum_{k=1}^{N}x_k \le 0\\
+\text{Für } y = x_1 \vee x_2 \vee \ldots \vee x_n:\\
+ny - \sum_{k=1}^{N}x_k \le n-1\\
+\left(\sum_{k=1}^{N}x_k \right) - ny \le 0
+\end{gather*}
 \subsection{Basismodell}
 Das Basismodell besteht aus einer $N \times M$ Matrix $B$ binärer Variablen.
 Hierbei ist $N$ die anzahl der Studierenden die die Pflichtvoraussetzungen für das PSE
@@ -40,8 +52,8 @@ Weiterhin gibt es Hilvsvariablen für häufig verwendetes:
   \item $x_j$ ist eine Hilfsvariable für die Teamgröße des Teams $j$. Sie berechnet
 sich durch
 \begin{equation*}
-x_j \le \sum_{k = 1}^{N} B(k,j) ,\text{ } x_j \ge \sum_{k = 1}^{N} B(k,j) \text{
-als Constraints}
+x_j = \sum_{k = 1}^{N} B(k,j) \text{
+als Constraint}
 \end{equation*}
 \end{itemize}
 
@@ -49,7 +61,7 @@ als Constraints}
 Außerdem werden im Basismodell die folgenden Basisconstraints definiert:
 
 
-%TODO formeln zu constraints
+
  \begin{itemize}
    \item Jeder Student ist in einem Team \begin{equation*}
    \sum_{j = 1}^{M} B(k,j) = 1 \text{ für } k \in \{ 1\ldots N \}
@@ -60,18 +72,20 @@ Außerdem werden im Basismodell die folgenden Basisconstraints definiert:
    Hilvsvariable $y_j$ pro Team $j$ verwendet. Die Constraints lauten:
    \begin{gather*}
     0 \le y_j \le 1\\
-     y_j \le x_j\text{ (wenn } x_j = 0 \Rightarrow y_j = 0
-    \text{)} \\ 
-    x_j \le maxTeamSize_j \cdot y_j \text{ (wenn } x_j \geq 0 \Rightarrow y_j
-    = 1 \text{ und } x_j \le maxTeamSize \text{)} \\
-    x_j \ge minTeamSize_j \cdot y_j \text{ (} x_j \ge minTeamSize_j \text{)}
+     y_j \le x_j\\ 
+    x_j \le maxSize_j \cdot y_j \\ 
+    x_j \ge minSize_j \cdot y_j \\
+    \text{Somit ist } y_j = \begin{cases}
+    1 & \text{wenn $minSize_j \le x_j \le maxSize_j \vee x_j = 0$} \\
+    0 & \text{sonst} 
+    \end{cases}
    \end{gather*}
  \end{itemize}
  
  Es gibt weiterhin einen Optimierungsterm der durch, in der für die Berechnung
  relevanten Konfiguration gegebenen Kriterien erweitert wird. Dieser wird leer
  initialisiert.
-%TODO allgemeines and und or
+
 
 \subsection{Kriterien}
 Die Kriterien dienen dazu, den im Basismodell enthaltenen Optimierungsterm zu
@@ -82,34 +96,42 @@ Diese Boni sind an der \enquote{++ Wertung} normiert.
 \subsubsection{CriterionAllocated}
 Das Kriterium sorgt dafür das möglichst viele Studierende Teams zugeteilt
 werden. Hierzu wird dem Optimierungsterm für jeden zugeltilten Student ein Bonus
-von 10. Für nicht zugeteilte gibt es einen Bonus von 1. \begin{equation*}
+von 10. Für nicht zugeteilte gibt es einen Bonus von 1. \begin{gather*}
+\text{Zum Optimierungsterm:}\\
 p_i \cdot 10 \cdot \sum_{k = 1}^{N} \sum_{j = 1}^{M-1} B(k,j) \text{ für die
 Zugeteilten}
-\end{equation*}
+\end{gather*}
 
 \subsubsection{CriterionRating}
 Das Kriterium sorgt dafür das die Bewertungen der Studierenden berücksichtigt
 werden. Für ein \enquote{++} gibt es einen Bonus von 10, für ein \enquote{+} 8,
 für ein \enquote{o} 6, für ein \enquote{-} 4 und für ein \enquote{-{}-} 2. Sei
-hierfür $w_{kj}$ die Wertung des Studierenden $k$ für das Projekt $j$ (für $j =
-M$ ist $w_{kj} := 0$) .
-\begin{equation*}
-p_i \cdot w_{kj} \cdot B(k,j) \text{ für } k \in \{ 1\ldots N \} \text{ und }j
-\in \{ 1\ldots M -1 \}
-\end{equation*}
+hierfür $w_{kj}$ die Wertung des Studierenden $k$ für das Projekt zu dem Team
+$j$ gehört (für $j = M$ ist $w_{kj} := 0$).
+\begin{gather*}
+\text{Zum Optimierungsterm:}\\
+p_i \cdot \sum_{k=1}^{N}\sum_{j=1}^{M-1}w_{kj} \cdot B(k,j) 
+\end{gather*}
 
 \subsubsection{CriterionLearningGroup}
 Das Kriterium sorgt dafür das Lerngruppen eher zusammenbleiben. Hierfür gibt es
-für jedes Paar Studierender einer Lerngruppe die zusammenbleiben einen Bonus
-$LgBonus_l$ von $\frac{10}{pair_l}$ wobei $pair_l$ die Anzahl der Paare der
+für jedes Paar Studierender $p:= (a,b)$ mit $a,b \in \{ 1\ldots N\}: a > b$
+einer Lerngruppe die zusammenbleiben einen Bonus $LgBonus_l$ von $\frac{10}{pair_l}$ wobei $pair_l$ die Anzahl der Paare der
 Lerngruppe $l$ ist.
 \begin{gather*}
 \text{Als Constraints: }\\
 0 \le y_{lpt} \le 1  \\
-y_{lpt} \le B(k_1,t) + B(k_2,t) -1, \; y_{lpt} \le B(k_2,t), \; y_{lpt} \le
-B(k_2,t) \\
-\text{$y_{lpt} := 1$ wenn das Paar $p$ aus
+y_{lpt} = B(a,t) \wedge B(b,t)
+%y_{lpt} \le B(k_1,t) + B(k_2,t) -1, \; y_{lpt} \le B(k_2,t), \; y_{lpt} \le
+%B(k_2,t) 
+\\
+y_{lpt} =
+\begin{cases}
+1 & \text{wenn das Paar $p$ aus
 Lerngruppe $l$ im gleichen Team $t$ ist} \\
+0 &\text{sonst}
+\end{cases}
+\\
 \text{Zum Optimierungsterm: } \\
 p_i \cdot LgBonus_l \cdot y_{lpt} \text{ für alle Paare, Lerngruppen und Teams}
 \end{gather*} 
@@ -121,11 +143,18 @@ $p_i \cdot 10 \cdot \sum_{j = 1}^{M-1} B(k,j)$ hinzugefügt, wenn der
 Studierende $k$ sich schon einmal um einen Platz beworben hat.
 \subsubsection{CriterionPreferredTeamSize}
 Das Kriterium sorgt dafür das Teams möglichst die gewünschte Teamgröße haben.
-Das Team der nicht zugeteilten ist ausgeschlossen.
-\begin{equation*}
-p_i \cdot 10 \cdot \sum_{k = 1}^{N} B(k,j) = preferredTeamSize_j
-\text{ für das Projekt }  j \in \{ 1\ldots M-1 \} %TODO überarbeitedn damit hir das if wegfällt
-\end{equation*}
+Das Team der nicht zugeteilten ist ausgeschlossen. Seien pro Team $j \in \{1\ldots M-1 \} \; c_j,o_j,z_j$ binäre Variablen.
+Dabei sei: 
+\begin{gather*}
+\text{Als Constraints: }\\
+z_j =x_j - preferredTeamSize\\
+-maxSize_j \cdot (1-o_j) \le z_j \le maxSize_j \cdot (1-o_j)\\
+0.1\cdot(1-o_j) - (maxSize_j + 0.1)\cdot c_j \le z_j \le -0.1\cdot
+(1-o_j)+(maxSize_j +0.1)\cdot(1-c_j)\\
+\text{Zum Optimierungsterm:} \\
+ p_i \cdot 10 \cdot \sum_{j = 1}^{M-1}
+o_j
+\end{gather*}
 \subsubsection{CriterionSameSemester}
 Das Kriterium sorgt dafür das Studierende des gleichen Semesters im selben Team
 landen.
