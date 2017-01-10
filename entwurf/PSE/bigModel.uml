@@ -473,7 +473,7 @@
       </ownedAttribute>
       <ownedAttribute xmi:type="uml:Property" xmi:id="_BPZIMtaREeayPeVBIOoRFQ" name="startSemester" type="_XCfk-daNEeayPeVBIOoRFQ" association="_BPYhINaREeayPeVBIOoRFQ"/>
       <ownedAttribute xmi:type="uml:Property" xmi:id="_KUHsQNc6EeabnpNmGsIysQ" name="semesterAtRegistration">
-        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EInt"/>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
       </ownedAttribute>
       <ownedOperation xmi:type="uml:Operation" xmi:id="_XCasmNaNEeayPeVBIOoRFQ" name="getStudent" isStatic="true">
         <ownedParameter xmi:type="uml:Parameter" xmi:id="_XCasmdaNEeayPeVBIOoRFQ" name="matriculationNumber" isUnique="false">
@@ -507,7 +507,14 @@
       <ownedOperation xmi:type="uml:Operation" xmi:id="_XCasq9aNEeayPeVBIOoRFQ" name="getCurrentTeam">
         <ownedParameter xmi:type="uml:Parameter" xmi:id="_XCasrNaNEeayPeVBIOoRFQ" name="team" type="_XCdvydaNEeayPeVBIOoRFQ" isUnique="false" direction="return"/>
       </ownedOperation>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_RndYMNdUEeaNuJJjyLw2Ng" name="getCurrentSemester">
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_ZQzvMNdUEeaNuJJjyLw2Ng" name="semester" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+        </ownedParameter>
+      </ownedOperation>
     </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_pTj2kNdTEeaNuJJjyLw2Ng" name="PSEServerConfigStartup"/>
+    <packagedElement xmi:type="uml:Realization" xmi:id="_Dax3ENdUEeaNuJJjyLw2Ng" client="_pTj2kNdTEeaNuJJjyLw2Ng" supplier="_1QKygNdTEeaNuJJjyLw2Ng"/>
   </packagedElement>
   <packagedElement xmi:type="uml:Association" xmi:id="_XCaFeNaNEeayPeVBIOoRFQ" memberEnd="_XChaMNaNEeayPeVBIOoRFQ _XCaFe9aNEeayPeVBIOoRFQ">
     <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_XCaFedaNEeayPeVBIOoRFQ" source="org.eclipse.papyrus">
@@ -958,6 +965,12 @@
     <message xmi:type="uml:Message" xmi:id="_PvItANdGEeabnpNmGsIysQ" name="Website" messageSort="asynchSignal" sendEvent="_PvJ7INdGEeabnpNmGsIysQ"/>
   </packagedElement>
   <packagedElement xmi:type="uml:Interaction" xmi:id="_IcX0kNdHEeabnpNmGsIysQ" name="addToQueue" specification="_pjyyb9aMEeayPeVBIOoRFQ"/>
+  <packagedElement xmi:type="uml:Interface" xmi:id="_1QKygNdTEeaNuJJjyLw2Ng" name="ServerConfigStartup">
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_7YnXcNdTEeaNuJJjyLw2Ng" name="onStartup">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_BFmIYNdUEeaNuJJjyLw2Ng" name="serverConfig" type="_5ONVYNdTEeaNuJJjyLw2Ng"/>
+    </ownedOperation>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_5ONVYNdTEeaNuJJjyLw2Ng" name="ServerConfig"/>
   <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_M3anUNapEeayPeVBIOoRFQ">
     <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_M3ccgNapEeayPeVBIOoRFQ" source="http://www.eclipse.org/uml2/2.0.0/UML">
       <references xmi:type="ecore:EPackage" href="http://www.eclipse.org/papyrus/PapyrusJava/1#/"/>
