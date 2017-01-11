@@ -11,5 +11,6 @@ import RootElement.Einteilung.Criterion;
  * Das Kriterium sorgt dafür das Studierende des, für das PSE vorgesehenen
 *Semesters und Studierende höherer Semester eher nicht in das selbe Team kommen. 
  */
-public class CriterionSameSemester {
+public class CriterionSameSemester implements Criterion {
+	private String name;
 };

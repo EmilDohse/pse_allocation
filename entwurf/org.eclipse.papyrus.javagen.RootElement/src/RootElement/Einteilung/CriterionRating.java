@@ -11,5 +11,6 @@ import RootElement.Einteilung.Criterion;
  * Das Kriterium sorgt dafür das die Bewertungen der Studierenden berücksichtigt
 werden.
  */
-public class CriterionRating {
+public class CriterionRating implements Criterion {
+	private String name;
 };

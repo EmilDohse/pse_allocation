@@ -10,5 +10,6 @@ import RootElement.Einteilung.Criterion;
 /**
  * Das Kriterium sorgt dafür das Lerngruppen eher zusammenbleiben.
  */
-public class CriterionLearningGroup {
+public class CriterionLearningGroup implements Criterion {
+	private String name;
 };

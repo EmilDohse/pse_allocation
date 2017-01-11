@@ -11,5 +11,6 @@ import RootElement.Einteilung.Criterion;
  * Das Kriterium sorgt dafür das möglichst kein Team aus einer Lerngrupe sowie
 einem einzelnen Studierenden besteht.
  */
-public class CriterionNoSingularStudent {
+public class CriterionNoSingularStudent implements Criterion {
+	private String name;
 };
