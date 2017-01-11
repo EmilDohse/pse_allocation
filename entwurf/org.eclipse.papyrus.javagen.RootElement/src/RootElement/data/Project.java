@@ -79,6 +79,50 @@ public class Project {
     public Team[] getTeams() {
         return this.teams;
     }
+    
+    /**
+     * Setter für den Namen des Projektes.
+     * @param name Der Name des Projektes.
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+    /**
+     * Setter der maximalen Größe für Teams dieses Projektes.
+     * @param maxTeamSize Die maximale Größe für Teams dieses Projektes.
+     */
+    public void setMaxTeamSize(int maxTeamSize) {
+        this.maxTeamSize = maxTeamSize;
+    }
+    /**
+     * Setter der minimalen Größe für Teams dieses Projektes.
+     * @param minTeamSize Die minimale Größe für Teams dieses Projektes.
+     */
+    public void setMinTeamSize(int minTeamSize) {
+        this.minTeamSize = minTeamSize;
+    }
+    /**
+     * Setter für die Information über dieses Projektes.
+     * @param projektInfo Die Information des Projektes.
+     */
+    public void setProjectInfo(String projectInfo) {
+        this.projectInfo = projectInfo;
+    }
+    /**
+     * Setter für die URL des Projektes.
+     * @param projectURL Die URL des Projektes.
+     */
+    public void setProjectURL(String projectURL) {
+        this.projectURL = projectURL;
+    }
+    /**
+     * Setter für die Teams des Projektes.
+     * @param team Die Teams des Projektes.
+     */
+    public void setTeams(Team[] teams) {
+        this.teams = teams;
+    }
+    
 	/**
 	 * Diese Methode gibt alle Projekte zurück.
 	 * @return projects Alle Projekte.
