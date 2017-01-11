@@ -263,7 +263,7 @@
     <packagedElement xmi:type="uml:Class" xmi:id="_XCdvydaNEeayPeVBIOoRFQ" name="Team">
       <ownedAttribute xmi:type="uml:Property" xmi:id="_XCdvy9aNEeayPeVBIOoRFQ" name="project" type="_XCe94NaNEeayPeVBIOoRFQ" association="_XCbTgNaNEeayPeVBIOoRFQ">
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_XCdvzNaNEeayPeVBIOoRFQ" value="1"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_XCdvzdaNEeayPeVBIOoRFQ" value="*"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_XCdvzdaNEeayPeVBIOoRFQ" value="1"/>
       </ownedAttribute>
       <ownedOperation xmi:type="uml:Operation" xmi:id="_XCdvztaNEeayPeVBIOoRFQ" name="getMembers">
         <ownedParameter xmi:type="uml:Parameter" xmi:id="_XCdvz9aNEeayPeVBIOoRFQ" name="members" type="_XCasfNaNEeayPeVBIOoRFQ" isUnique="false" direction="return">
@@ -548,7 +548,7 @@
       <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_XCbTgtaNEeayPeVBIOoRFQ" key="nature" value="UML_Nature"/>
     </eAnnotations>
     <ownedEnd xmi:type="uml:Property" xmi:id="_XCbTg9aNEeayPeVBIOoRFQ" name="teams" type="_XCdvydaNEeayPeVBIOoRFQ" association="_XCbTgNaNEeayPeVBIOoRFQ">
-      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_XCbThNaNEeayPeVBIOoRFQ"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_XCbThNaNEeayPeVBIOoRFQ" value="1"/>
       <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_XCbThdaNEeayPeVBIOoRFQ" value="*"/>
     </ownedEnd>
   </packagedElement>
@@ -972,7 +972,7 @@
     <ownedAttribute xmi:type="uml:Property" xmi:id="_Lil90Nd3EeaYE9KsYjq_PA" name="allocator" type="_pjyyYdaMEeayPeVBIOoRFQ"/>
     <ownedAttribute xmi:type="uml:Property" xmi:id="_t4uEANd4EeaYE9KsYjq_PA" name="criterion" type="_pjyyk9aMEeayPeVBIOoRFQ"/>
     <lifeline xmi:type="uml:Lifeline" xmi:id="_jrPOQNd2EeaYE9KsYjq_PA" name="allocationQueue" represents="_r5x9ANd2EeaYE9KsYjq_PA" coveredBy="_vghaMNd2EeaYE9KsYjq_PA _vghaMtd2EeaYE9KsYjq_PA _vghaMdd2EeaYE9KsYjq_PA _yWKKkNd2EeaYE9KsYjq_PA _BV4SMNd3EeaYE9KsYjq_PA _s_ADMdd3EeaYE9KsYjq_PA"/>
-    <lifeline xmi:type="uml:Lifeline" xmi:id="_BVHdMNd3EeaYE9KsYjq_PA" name="allocator" represents="_Lil90Nd3EeaYE9KsYjq_PA" coveredBy="_BV4SMdd3EeaYE9KsYjq_PA _TT1Fgtd3EeaYE9KsYjq_PA _TT1Fgdd3EeaYE9KsYjq_PA _qMEBgNd3EeaYE9KsYjq_PA _s_ADMtd3EeaYE9KsYjq_PA _2m_4MNd3EeaYE9KsYjq_PA _5l9jsNd3EeaYE9KsYjq_PA _5l9jsdd3EeaYE9KsYjq_PA _QQpL4dd4EeaYE9KsYjq_PA _ydFAAdd4EeaYE9KsYjq_PA _-3QBstd4EeaYE9KsYjq_PA _-3QBsdd4EeaYE9KsYjq_PA _BCULEtd5EeaYE9KsYjq_PA _DrhpAdd5EeaYE9KsYjq_PA"/>
+    <lifeline xmi:type="uml:Lifeline" xmi:id="_BVHdMNd3EeaYE9KsYjq_PA" name="allocator" represents="_Lil90Nd3EeaYE9KsYjq_PA" coveredBy="_BV4SMdd3EeaYE9KsYjq_PA _TT1Fgtd3EeaYE9KsYjq_PA _TT1Fgdd3EeaYE9KsYjq_PA _qMEBgNd3EeaYE9KsYjq_PA _s_ADMtd3EeaYE9KsYjq_PA _2m_4MNd3EeaYE9KsYjq_PA _5l9jsNd3EeaYE9KsYjq_PA _5l9jsdd3EeaYE9KsYjq_PA _QQpL4dd4EeaYE9KsYjq_PA _ydFAAdd4EeaYE9KsYjq_PA _DrhpAdd5EeaYE9KsYjq_PA"/>
     <lifeline xmi:type="uml:Lifeline" xmi:id="_QPmDANd4EeaYE9KsYjq_PA" name="criterion" represents="_t4uEANd4EeaYE9KsYjq_PA" coveredBy="_QQpL4td4EeaYE9KsYjq_PA _kIZZcNd4EeaYE9KsYjq_PA _kITS0dd4EeaYE9KsYjq_PA _w3aCsNd4EeaYE9KsYjq_PA _ydFAAtd4EeaYE9KsYjq_PA _BCULEdd5EeaYE9KsYjq_PA _DrhpAtd5EeaYE9KsYjq_PA"/>
     <fragment xmi:type="uml:ExecutionOccurrenceSpecification" xmi:id="_vghaMNd2EeaYE9KsYjq_PA" name="BehaviorExecSpecStart" covered="_jrPOQNd2EeaYE9KsYjq_PA" execution="_vghaMdd2EeaYE9KsYjq_PA"/>
     <fragment xmi:type="uml:BehaviorExecutionSpecification" xmi:id="_vghaMdd2EeaYE9KsYjq_PA" name="BehaviorExecSpec" covered="_jrPOQNd2EeaYE9KsYjq_PA" finish="_vghaMtd2EeaYE9KsYjq_PA" start="_vghaMNd2EeaYE9KsYjq_PA"/>
@@ -994,11 +994,11 @@
     <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_ydFAAdd4EeaYE9KsYjq_PA" name="useCriteria_MessageSend" covered="_BVHdMNd3EeaYE9KsYjq_PA" message="_ydFAANd4EeaYE9KsYjq_PA"/>
     <fragment xmi:type="uml:BehaviorExecutionSpecification" xmi:id="_kITS0dd4EeaYE9KsYjq_PA" name="BehaviorExecSpec2" covered="_QPmDANd4EeaYE9KsYjq_PA" finish="_kIZZcNd4EeaYE9KsYjq_PA" start="_ydFAAtd4EeaYE9KsYjq_PA"/>
     <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_ydFAAtd4EeaYE9KsYjq_PA" name="useCriteria_MessageRecv" covered="_QPmDANd4EeaYE9KsYjq_PA" message="_ydFAANd4EeaYE9KsYjq_PA"/>
-    <fragment xmi:type="uml:BehaviorExecutionSpecification" xmi:id="_-3QBsdd4EeaYE9KsYjq_PA" name="BehaviorExecSpec3" covered="_BVHdMNd3EeaYE9KsYjq_PA" finish="_-3QBstd4EeaYE9KsYjq_PA" start="_BCULEtd5EeaYE9KsYjq_PA"/>
+    <fragment xmi:type="uml:BehaviorExecutionSpecification" xmi:id="_-3QBsdd4EeaYE9KsYjq_PA" name="BehaviorExecSpec3" finish="_-3QBstd4EeaYE9KsYjq_PA" start="_BCULEtd5EeaYE9KsYjq_PA"/>
     <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_BCULEdd5EeaYE9KsYjq_PA" name="getModel() : GRBModel_MessageSend" covered="_QPmDANd4EeaYE9KsYjq_PA" message="_BCULENd5EeaYE9KsYjq_PA"/>
-    <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_BCULEtd5EeaYE9KsYjq_PA" name="getModel() : GRBModel_MessageRecv" covered="_BVHdMNd3EeaYE9KsYjq_PA" message="_BCULENd5EeaYE9KsYjq_PA"/>
+    <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_BCULEtd5EeaYE9KsYjq_PA" name="getModel() : GRBModel_MessageRecv" message="_BCULENd5EeaYE9KsYjq_PA"/>
     <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_DrhpAdd5EeaYE9KsYjq_PA" name="getModel() : GRBModel_Message0Send" covered="_BVHdMNd3EeaYE9KsYjq_PA" message="_DrhpANd5EeaYE9KsYjq_PA"/>
-    <fragment xmi:type="uml:ExecutionOccurrenceSpecification" xmi:id="_-3QBstd4EeaYE9KsYjq_PA" name="BehaviorExecSpec3Finish" covered="_BVHdMNd3EeaYE9KsYjq_PA" execution="_-3QBsdd4EeaYE9KsYjq_PA"/>
+    <fragment xmi:type="uml:ExecutionOccurrenceSpecification" xmi:id="_-3QBstd4EeaYE9KsYjq_PA" name="BehaviorExecSpec3Finish" execution="_-3QBsdd4EeaYE9KsYjq_PA"/>
     <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_DrhpAtd5EeaYE9KsYjq_PA" name="getModel() : GRBModel_Message0Recv" covered="_QPmDANd4EeaYE9KsYjq_PA" message="_DrhpANd5EeaYE9KsYjq_PA"/>
     <fragment xmi:type="uml:ExecutionOccurrenceSpecification" xmi:id="_w3aCsNd4EeaYE9KsYjq_PA" name="BehaviorExecSpec2Start" covered="_QPmDANd4EeaYE9KsYjq_PA" execution="_kITS0dd4EeaYE9KsYjq_PA"/>
     <fragment xmi:type="uml:ExecutionOccurrenceSpecification" xmi:id="_kIZZcNd4EeaYE9KsYjq_PA" name="BehaviorExecSpec2Finish" covered="_QPmDANd4EeaYE9KsYjq_PA" execution="_kITS0dd4EeaYE9KsYjq_PA"/>
