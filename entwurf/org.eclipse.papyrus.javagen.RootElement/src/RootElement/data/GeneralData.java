@@ -8,7 +8,7 @@ import RootElement.data.Semester;
 
 /************************************************************/
 /**
- * Diese Klasse beinhaltet generelle Daten, die zum Benutzen wichtig sind.
+ * Diese Klasse beinhaltet generelle Daten, über den Zustand der Software.
  */
 public class GeneralData {
 	/**

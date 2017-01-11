@@ -11,7 +11,7 @@ import RootElement.data.Team;
 
 /************************************************************/
 /**
- * Diese Klasse repräsentiert ein Semseter.
+ * Diese Klasse reprÃ¼sentiert ein Semseter.
  */
 public class Semester {
 	/**
@@ -19,7 +19,7 @@ public class Semester {
 	 */
 	private String name;
 	/**
-	 * Die für dieses Semseter verfügbaren SPOs
+	 * Die fÃ¼r dieses Semseter verfÃ¼gbaren SPOs
 	 */
 	private SPO[] spos;
 	/**
@@ -31,35 +31,35 @@ public class Semester {
 	 */
 	private Allocation finalAllocation;
 	/**
-	 * Getter für den Namen des Semesters.
+	 * Getter fÃ¼r den Namen des Semesters.
 	 * @return Der Name des Semesters.
 	 */
 	public String getName() {
 	    return name;
 	}
 	/**
-	 * Getter für die SPOs des Semesters.
-	 * @return Die verfügbaren SPOs des Semesters.
+	 * Getter fÃ¼r die SPOs des Semesters.
+	 * @return Die verfÃ¼gbaren SPOs des Semesters.
 	 */
 	public SPO[] getSpos() {
 	    return spos;
 	}
 	/**
-	 * Getter für den Infotext.
+	 * Getter fÃ¼r den Infotext.
 	 * @return Der Infotext des Semesters.
 	 */
 	public String getInfoText() {
 	    return infoText;
 	}
 	/**
-	 * Getter für die finale Einteilung.
+	 * Getter fÃ¼r die finale Einteilung.
 	 * @return Die finale Einteilung.
 	 */
 	public Allocation getFinalAllocation() {
 	    return finalAllocation;
 	}
 	/**
-	 * Diese Methode gibt ein spezifisches Semester zurück.
+	 * Diese Methode gibt ein spezifisches Semester zurÃ¼ck.
 	 * @param semesterName Der Name des Semseters.
 	 * @return semester Das gesuchte Semester.
 	 */
@@ -67,21 +67,21 @@ public class Semester {
 	}
 
 	/**
-	 * Diese Methode gibt alles Semseter zurück, die erstellt wurden.
+	 * Diese Methode gibt alles Semseter zurÃ¼ck, die erstellt wurden.
 	 * @return semesters Allle Semseter.
 	 */
 	public static RootElement.data.Semester getSemesters() {
 	}
 
 	/**
-	 * Diese Methode gibt alles Teams zurück.
+	 * Diese Methode gibt alles Teams zurÃ¼ck.
 	 * @return teams All existing teams.
 	 */
 	public Team getTeams() {
 	}
 
 	/**
-	 * Diese Methode gibt alle Betreuer dieses Semesters zurück.
+	 * Diese Methode gibt alle Betreuer dieses Semesters zurÃ¼ck.
 	 * @return advisers Alle Betreuer des Semesters.
 	 */
 	public Adviser getAdvisers() {

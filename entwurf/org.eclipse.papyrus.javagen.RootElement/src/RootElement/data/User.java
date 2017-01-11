@@ -18,7 +18,7 @@ public class User {
 	 */
 	private String password;
 	/**
-	 * Die Email-Adresse des Benutzers.
+	 * Die E-Mail-Adresse des Benutzers.
 	 */
 	private String emailAddress;
 	/**
@@ -30,35 +30,35 @@ public class User {
 	 */
 	private String lastName;
 	/**
-	 * Getter für den Benutzernamen.
+	 * Getter fÃ¼r den Benutzernamen.
 	 * @return Der Benutzername.
 	 */
 	public String getUserName() {
 	    return username;
 	}
 	/**
-	 * Getter für das Benutzerpasswort.
+	 * Getter fÃ¼r das Benutzerpasswort.
 	 * @return Das Benutzerpasswort.
 	 */
 	public String getPassword() {
 	    return password;
 	}
 	/**
-	 * Getter für die EMail-Addresse.
+	 * Getter fÃ¼r die E-Mail-Addresse.
 	 * @return Die EMail-Addresse.
 	 */
 	public String getEmailAddress() {
 	    return emailAddress;
 	}
 	/**
-	 * Getter für den Vornamen.
+	 * Getter fÃ¼r den Vornamen.
 	 * @return Der Vorname.
 	 */
 	public String getFirstName() {
 	    return firstName;
 	}
 	/**
-	 * Getter für den Nachnamen.
+	 * Getter fÃ¼r den Nachnamen.
 	 * @return Der Nachname.
 	 */
 	public String getLastName() {

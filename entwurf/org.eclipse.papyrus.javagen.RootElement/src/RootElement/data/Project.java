@@ -18,11 +18,11 @@ public class Project {
 	 */
 	private String name;
 	/**
-	 * Die minimale Anzahl der Teilnehmer einer Gruppe für dieses Projekt.
+	 * Die minimale Anzahl der Teilnehmer einer Gruppe fÃ¼r dieses Projekt.
 	 */
 	private int minTeamSize;
 	/**
-	 * Die maximale Anzahl der Teilnehmer einer Gruppe für dieses Projekt.
+	 * Die maximale Anzahl der Teilnehmer einer Gruppe fÃ¼r dieses Projekt.
 	 */
 	private int maxTeamSize;
 	/**
@@ -38,56 +38,56 @@ public class Project {
 	 */
 	private Team[] teams;
 	/**
-	 * Getter für den Namen des Projektes.
+	 * Getter fÃ¼r den Namen des Projektes.
 	 * @return Der Name des Projektes.
 	 */
 	public String getName() {
 	    return name;
 	}
 	/**
-	 * Getter der maximalen Größe für Teams dieses Projektes.
-	 * @return Die maximale Teamgröße.
+	 * Getter der maximalen GrÃ¼Ã¼e fÃ¼r Teams dieses Projektes.
+	 * @return Die maximale TeamgrÃ¼Ã¼e.
 	 */
 	public int getMaxTeamSize() {
 	    return this.maxTeamSize;
 	}
 	/**
-     * Getter der minimalen Größe für Teams dieses Projektes.
-     * @return Die minimale Teamgröße.
+     * Getter der minimalen GrÃ¼Ã¼e fÃ¼r Teams dieses Projektes.
+     * @return Die minimale TeamgrÃ¼Ã¼e.
      */
     public int getMinTeamSize() {
         return this.minTeamSize;
     }
     /**
-     * Getter für die Information über dieses Projektes.
+     * Getter fÃ¼r die Information Ã¼ber dieses Projektes.
      * @return Die Information des Projektes.
      */
     public String getProjectInfo() {
         return this.projectInfo;
     }
     /**
-     * Getter für die URL des Projektes.
+     * Getter fÃ¼r die URL des Projektes.
      * @return Die URL des Projektes.
      */
     public String getProjectURL() {
         return this.projectURL;
     }
     /**
-     * Getter für die Teams des Projektes.
+     * Getter fÃ¼r die Teams des Projektes.
      * @return Die Teams des Projektes.
      */
     public Team[] getTeams() {
         return this.teams;
     }
 	/**
-	 * Diese Methode gibt alle Projekte zurück.
+	 * Diese Methode gibt alle Projekte zurÃ¼ck.
 	 * @return projects Alle Projekte.
 	 */
 	public static RootElement.data.Project getProjects() {
 	}
 
 	/**
-	 * Diese Methode gibt ein spezifisches Projekt zurück, welches über seinen Namen und
+	 * Diese Methode gibt ein spezifisches Projekt zurÃ¼ck, welches Ã¼ber seinen Namen und
 	 * das Semester, in dem es erstellt wurde, identifiziert wird.
 	 * @param name Der Name des Projektes.
 	 * @param semester Das Semester, in dem das Projekt erstellt wurde.
@@ -97,8 +97,8 @@ public class Project {
 	}
 
 	/**
-	 * Diese Methode gibt die Bewertung eines spezifischen Studenten für dieses Projekt zurück.
-	 * @param student Der Student, dessen Bewertung zurückgegeben werdedn soll.
+	 * Diese Methode gibt die Bewertung eines spezifischen Studenten fÃ¼r dieses Projekt zurÃ¼ck.
+	 * @param student Der Student, dessen Bewertung zurÃ¼ckgegeben werdedn soll.
 	 * @return rating Die Bewertung des Studenten.
 	 */
 	public Rating getRating(Student student) {

@@ -6,7 +6,7 @@ package RootElement.data;
 
 /************************************************************/
 /**
- * Diese Klasse stellt einen Parameter für die Einteilungsberechnung dar.
+ * Diese Klasse stellt einen Parameter fÃ¼r die Einteilungsberechnung dar.
  */
 public class AllocationParameter {
 	/**
@@ -18,14 +18,14 @@ public class AllocationParameter {
 	 */
 	private double value;
 	/**
-	 * Getter für den Namen des Parameters.
+	 * Getter fÃ¼r den Namen des Parameters.
 	 * @return Der Name des Parameters.
 	 */
 	public String getName() {
 	    return name;
 	}
 	/**
-	 * Getter für den Wert des Parameters.
+	 * Getter fÃ¼r den Wert des Parameters.
 	 * @return Der Wert des Parameters.
 	 */
 	public doulbe getValue() {

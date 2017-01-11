@@ -17,14 +17,14 @@ public class Adviser extends User {
 	 **/
 	private Project[] projects;
 	/**
-	 * Getter für die Projekte, die der Betreuer beaufsichtigt.
+	 * Getter fÃ¼r die Projekte, die der Betreuer beaufsichtigt.
 	 * @return Die Projekte, die der Betreuer beaufsichtigt.
 	 */
 	public Project[] getProjects() {
 	    return projects;
 	}
 	/**
-	 * Diese Methode gibt alle Betreuer zurück, die es jemals gab.
+	 * Diese Methode gibt alle Betreuer zurÃ¼ck, die es jemals gab.
 	 * @return advisers Alle Betreuer.
 	 */
 	public static RootElement.data.Adviser getAdvisers() {
