@@ -8,33 +8,33 @@ import RootElement.data.Achievement;
 
 /************************************************************/
 /**
- * 
+ * Diese Klasse stellt eine Studienprüfungsordnung dar.
  */
 public class SPO {
 	/**
-	 * 
+	 * Der Name der Prüfungsordnung.
 	 */
 	public String name;
 	/**
-	 * 
+	 * Die nach dieser Prüfungsordnung benötigten Teilleistungen für die Teilnahme am PSE.s
 	 */
 	public Achievement[] necessaryAchievements;
 	/**
-	 * 
+	 * Die zum Einstellen verfügbaren Teilleistungen.
 	 */
 	public Achievement[] avaliableAchievements;
 
 	/**
-	 * 
-	 * @return spos 
+	 * Diese Methode gibt alle SPOs zurück.
+	 * @return spos Alle SPOs.
 	 */
 	public static RootElement.data.SPO getSPOs() {
 	}
 
 	/**
-	 * 
-	 * @param name 
-	 * @return spo 
+	 * Dies Methode gibt eine bestimmte SPO zurück, die über ihren Namen identifiziert wird.
+	 * @param name Der Name der SPO.
+	 * @return spo Die SPO
 	 */
 	public static RootElement.data.SPO getSPO(String name) {
 	}
