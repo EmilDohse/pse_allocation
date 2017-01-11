@@ -11,32 +11,32 @@ import RootElement.data.Student;
 
 /************************************************************/
 /**
- * 
+ * This class represents a team (of 4 to 6 students) working on a PSE project.
  */
 public class Team {
 	/**
-	 * 
+	 * ??
 	 */
 	public Project[] project;
 
 	/**
-	 * 
-	 * @return members 
+	 * This method returns the members of the team.
+	 * @return members The team's members.
 	 */
 	public Student getMembers() {
 	}
 
 	/**
-	 * 
-	 * @param student 
-	 * @return rating 
+	 * This method returns the rating of a specific student for the team's project.
+	 * @param student The student.
+	 * @return rating The student's rating.
 	 */
 	public Rating getRating(Student student) {
 	}
 
 	/**
-	 * 
-	 * @return advisers 
+	 * This method returns the team's advisers.
+	 * @return advisers The team's advisers.
 	 */
 	public Adviser getAdvisers() {
 	}

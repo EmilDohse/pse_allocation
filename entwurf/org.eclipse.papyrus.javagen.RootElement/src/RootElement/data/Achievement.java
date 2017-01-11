@@ -6,25 +6,25 @@ package RootElement.data;
 
 /************************************************************/
 /**
- * 
+ * This class represtents stundents' achievements, e.g. passed exams.
  */
 public class Achievement {
 	/**
-	 * 
+	 * The achievement's name.
 	 */
 	public String name;
 
 	/**
-	 * 
-	 * @return achievements 
+	 * This method returns all achievements ever created.
+	 * @return achievements All achievements ever created.
 	 */
 	public static RootElement.data.Achievement getAchievements() {
 	}
 
 	/**
-	 * 
-	 * @param name 
-	 * @return achievement 
+	 * This method returns a specific achievement by a given name.
+	 * @param name The achievement's name.
+	 * @return achievement The achievement you're searching for.
 	 */
 	public static RootElement.data.Achievement getAchievement(String name) {
 	}
