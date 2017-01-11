@@ -33,6 +33,10 @@ public class Project {
 	 * URL zu der Website des Projektes.
 	 */
 	public String projectURL;
+	/**
+	 * Teams des Projekt
+	 */
+	private Team[] teams;
 
 	/**
 	 * Diese Methode gibt alle Projekte zurück.
