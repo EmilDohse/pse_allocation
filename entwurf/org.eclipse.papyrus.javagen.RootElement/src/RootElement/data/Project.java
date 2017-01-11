@@ -14,46 +14,47 @@ import RootElement.data.Student;
  */
 public class Project {
 	/**
-	 * The project's name.
+	 * Der Name des Projektes.
 	 */
 	public String name;
 	/**
-	 * The minimum number of members.
+	 * Die minimale Anzahl der Teilnehmer einer Gruppe für dieses Projekt.
 	 */
 	public int minTeamSize;
 	/**
-	 * The maximum number of members.
+	 * Die maximale Anzahl der Teilnehmer einer Gruppe für dieses Projekt.
 	 */
 	public int maxTeamSize;
 	/**
-	 * The project's description for the students.
+	 * Die Projektbeschreibung.
 	 */
 	public String projectInfo;
 	/**
-	 * URL to the porject's website.
+	 * URL zu der Website des Projektes.
 	 */
 	public String projectURL;
 
 	/**
-	 * This method is used to get all projects.
-	 * @return projects All projects.
+	 * Diese Methode gibt alle Projekte zurück.
+	 * @return projects Alle Projekte.
 	 */
 	public static RootElement.data.Project getProjects() {
 	}
 
 	/**
-	 * This method is used to get a specific project of a chosen semester.
-	 * @param name The project's name.
-	 * @param semester The semester the project was created in.
-	 * @return project The project you are searching for.
+	 * Diese Methode gibt ein spezifisches Projekt zurück, welches über seinen Namen und
+	 * das Semester, in dem es erstellt wurde, identifiziert wird.
+	 * @param name Der Name des Projektes.
+	 * @param semester Das Semester, in dem das Projekt erstellt wurde.
+	 * @return project Das spezifiscche Projekt.
 	 */
 	public static RootElement.data.Project getProject(String name, Semester semester) {
 	}
 
 	/**
-	 * This method returns the rating for this project of a specific student.
-	 * @param student The student you want the rating for this project from.
-	 * @return rating The student's rating for this project.
+	 * Diese Methode gibt die Bewertung eines spezifischen Studenten für dieses Projekt zurück.
+	 * @param student Der Student, dessen Bewertung zurückgegeben werdedn soll.
+	 * @return rating Die Bewertung des Studenten.
 	 */
 	public Rating getRating(Student student) {
 	}

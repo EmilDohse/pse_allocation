@@ -15,116 +15,119 @@ import RootElement.data.User;
 
 /************************************************************/
 /**
- * This class represents a student participating in PSE.
+ * Diese Klasse stellt einen Studierenden dar, der am PSE teilnimmt.
  **/
 public class Student extends User {
 	/**
-	 * The student's matriculation number.
+	 * Die Matrikelnummer des Studierenden.
 	 */
 	public int matriculationNumber;
 	/**
-	 * The semesters the student has registered 
+	 * Das Semester, in dem er sich zum ersten Mal registriert hat. 
 	 */
 	public Semester[] registeredSemesters;
 	/**
-	 * The students SPO.
+	 * Die SPO des Studierenden
 	 */
 	public SPO spo;
 	/**
-	 * The achievements accomplished by the student.
+	 * Die bestandenen Teilleistungen.
 	 */
 	public Achievement[] completedAchievements;
 	/**
-	 * True if student has registered for PSE in campus management system, false otherwise.
+	 * Wahr, wenn sich der Studierende bereits im campus management system für das PSE angemeldet hat.
+	 * Falsch, sonst.
 	 */
 	public boolean registeredPSE;
 	/**
-	 * True if student has registered for TSE in campus management system, false otherwise.
+	 * Wahr, wenn sich der Studierende bereits im campus management system für das TSE angemeldet hat.
+     * Falsch, sonst.
 	 */
 	public boolean registeredTSE;
 	/**
-	 * The student's PSE grade.
+	 * Die PSE-Note des Studierenden.
 	 */
 	public int gradePSE;
 	/**
-	 * The student's TSE grade.
+	 * Die TSE-Note des Studierenden.
 	 */
 	public int gradeTSE;
 	/**
-	 * The student'sReceivable Achievements.
+	 * Die noch ausstehenden Teilleistungen des Studierenden.
 	 */
 	public Achievement[] oralTestAchievment;
 	/**
-	 * The first semester the student registered at PSE.
+	 * Das Semster der Erstregistrierung.
 	 */
 	public Semester startSemester;
 	/**
-	 * The student's current semester at first registration.
+	 * Das Semester, in dem sich der Studierende zum Zeitpunkt der Registrierung befindet.
 	 */
 	public int semesterAtRegistration;
 
 	/**
-	 * This method returns a specific student by the matriculation number.
-	 * @param matriculationNumber The matriculation  number of the student.
-	 * @return student The student you're searching for.
+	 * Diese Methode gibt einen spezifischen Studierenden zurück, der durch seine Matrikelnummer
+	 * identifiziert wird.
+	 * @param matriculationNumber Die Matrikelnummer des Studierenden.
+	 * @return student Der Studierende.
 	 */
 	public static RootElement.data.Student getStudent(int matriculationNumber) {
 	}
 
 	/**
-	 * This method returns all students.
-	 * @return students All students.
+	 * Diese Methode gibt alle Studierenden zurück.
+	 * @return students Alle Studierende.
 	 */
 	public static RootElement.data.Student getStudents() {
 	}
 
 	/**
-	 * This method returns the current learning group of the student.
-	 * @return learningGroup The student's current learning group.
+	 * Diese Methode gibt die Lerngruppe des Studierenden zurück.
+	 * @return learningGroup Die Lerngruppe des Studierenden.
 	 */
 	public LearningGroup getCurrentLearningGroup() {
 	}
 
 	/**
-	 * This method sets the current learning group of the student.
-	 * @param learningGroup The learning group the student is joining.
+	 * Diese Methode weist dem Studierenden eine neue Lerngruppe zu.
+	 * @param learningGroup Die neue Lerngruppe des Studierenden.
 	 */
 	public void setCurrentLearningGroup(LearningGroup learningGroup) {
 	}
 
 	/**
-	 * This method returns the students rating for a specific project.
-	 * @param project The project.
-	 * @return rating The student's rating for a specific project.
+	 * Diese Methode gibt die Bewertung des Studiereden zu einem bestimmten Projekt zurück.
+	 * @param project Das Projekt.
+	 * @return rating Die Bewertung des Studierenden für das bestimmte Projekt.
 	 */
 	public Rating getCurrentRating(Project project) {
 	}
 
 	/**
-	 * This method sets the students rating for a specific project.
-	 * @param project The project the student is rating.
-	 * @param rating The stundent's rating.
+	 * Diese Methode setzt eine Bewertung des Studierenden für ein bestimmtes Projekt.
+	 * @param project Das zu bewertende Projekt.
+	 * @param rating Die Bewertung des Studierenden.
 	 */
 	public void setCurrentRating(Project project, Rating rating) {
 	}
 
 	/**
-	 * This method returns the student's current project.
-	 * @return project The student's project.
+	 * Diese Methode gibt das Projekt zurück, dem der Studierende zugeteilt ist.
+	 * @return project Das Projekt des Studeirenden.
 	 */
 	public Project getCurrentProject() {
 	}
 
 	/**
-	 * This method returns the student's team.
-	 * @return team The student's team.
+	 * Diese Methode gibt das Team, in dem der Studierende sich befindet, zurück.
+	 * @return team Das Team des Studierenden.
 	 */
 	public Team getCurrentTeam() {
 	}
 
 	/**
-	 * This method returns the student's current semester.
-	 * @return semester The student's current semester.
+	 * Diese Methode gibt das aktuelle Semester des Studierenden zurück.
+	 * @return semester Das Semester, in dem Studierende sich aktuell befindet.
 	 */
 	public int getCurrentSemester() {
 	}

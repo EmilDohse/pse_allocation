@@ -11,51 +11,51 @@ import RootElement.data.Team;
 
 /************************************************************/
 /**
- * This class represents a semester in the data model.
+ * Diese Klasse repräsentiert ein Semseter.
  */
 public class Semester {
 	/**
-	 * The semester's name in format: *******
+	 * Der Name des Semesters im Format: *******
 	 */
 	public String name;
 	/**
-	 * The available SPOs for this semster.
+	 * Die für dieses Semseter verfügbaren SPOs
 	 */
 	public SPO[] spos;
 	/**
-	 * A description for the students.
+	 * Eine Beschreibung/Infotext des Semesters.
 	 */
 	public String infoText;
 	/**
-	 * The final allocation for this semster.
+	 * Die finale Einteilung der Studierenden auf die Projekte/Teams.
 	 */
 	public Allocation finalAllocation;
 
 	/**
-	 * This method returns a specific semester by a given name.
-	 * @param semesterName The name of the semester.
-	 * @return semester The searched semester.
+	 * Diese Methode gibt ein spezifisches Semester zurück.
+	 * @param semesterName Der Name des Semseters.
+	 * @return semester Das gesuchte Semester.
 	 */
 	public static RootElement.data.Semester getSemester(String semesterName) {
 	}
 
 	/**
-	 * This class returns all semesters ever created.
-	 * @return semesters All semseters ever created.
+	 * Diese Methode gibt alles Semseter zurück, die erstellt wurden.
+	 * @return semesters Allle Semseter.
 	 */
 	public static RootElement.data.Semester getSemesters() {
 	}
 
 	/**
-	 * This method returns all existing teams of this semester.
+	 * Diese Methode gibt alles Teams zurück.
 	 * @return teams All existing teams.
 	 */
 	public Team getTeams() {
 	}
 
 	/**
-	 * This method returns all existing advisors of this semster.
-	 * @return advisers All existing advisors
+	 * Diese Methode gibt alle Betreuer zurück.
+	 * @return advisers Alle Betreuer des Semesters.
 	 */
 	public Adviser getAdvisers() {
 	}

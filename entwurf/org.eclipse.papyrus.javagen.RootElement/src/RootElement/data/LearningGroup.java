@@ -8,41 +8,41 @@ import RootElement.data.Semester;
 
 /************************************************************/
 /**
- * This class represents a group of students, who want to register for PSE together.
+ * Diese Klasse repräsentiert eine Lerngruppe, das heißt eine Gruppe von Studierenden,
+ * die sich gemeinsam zum PSE anmelden wollen.
  */
 public class LearningGroup {
 	/**
-	 * The name/identifier of the learning group.
+	 * Der name der LErngruppe.
 	 */
 	public String name;
 	/**
-	 * The password needed to join the learning group.
+	 * Das nötige Passwort, um der Lerngruppe beizutreten.
 	 */
 	public String password;
 	/**
-	 * The semster the learning group was created in.
+	 * Das Semster, in dem die Lerngruppe erstellt wurde.
 	 */
 	public Semester semester;
 
 	/**
-	 * False if this learning group was created by a student, true otherwise.
-	 * Every student who is not a member of a learning group is handled as a private learning
-	 * group with one member.
+	 * Studierende, die keiner Lerngruppe angehören, werden als private Lerngruppe der
+	 * Größe 1 gespeichert. Eine private Lerngruppe kann also niemals von einem Studenten erstellt werden.
 	 */
 	public boolean isPrivate;
 	
 	/**
-	 * This method is used to get a specific learning group from a chosen semster.
-	 * @param name The name of the learning group.
-	 * @param semester The semster the learning group was created in.
-	 * @return learningGroup The specific learning group you're searching for.
+	 * Diese Methode gibt eine spezifische Lerngruppe zurück.
+	 * @param name Der Name der Lerngruppe.
+	 * @param semester Das Semster, in dem die Lerngruppe erstellt wurde.
+	 * @return learningGroup Die spezifische Lerngruppe.
 	 */
 	public static RootElement.data.LearningGroup getLearningGroup(String name, Semester semester) {
 	}
 
 	/**
-	 * This method is used to get all learning groups ever created.
-	 * @return learningGroups All learninggroups.
+	 * Diese Methode gibt alle jemals erstellten Lerngruppen zurück.
+	 * @return learningGroups Alle LErngruppen.
 	 */
 	public static RootElement.data.LearningGroup getLearningGroups() {
 	}
