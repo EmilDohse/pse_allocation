@@ -1,10 +1,11 @@
-- Assoziationen statt Atribute nei allem
+//- Assoziationen statt Atribute nei allem
 - And und OR beim ILP allgemein und dann in den formeln verwenden
 - Tabwelle zwischen Controller und View URL
-- Idiot List enfernen und im JavaDoc bei der Registrierung nur Studenten durchlassen die HM und LA haben
+//- Idiot List enfernen und im JavaDoc bei der Registrierung nur Studenten durchlassen die HM und LA haben
 - Eigener "Datenbankentwurf"? Betreuer waren nur mäßig begeistert das bei uns nicht genau steht wo das ORM anliegt
-- Zyklen im Datenmodell überprüfen und gegebenenfalls entfernen
+//- Zyklen im Datenmodell überprüfen und gegebenenfalls entfernen
 - Lerngruppen und Studenten Trennen? Macht es mehr sinn das es keine ein-mann-Leerngruppe gibt?
-- first name statt vorname
+//- first name statt vorname
 - Gurobi Sequenzdiagramm
 - Spezifikation: was wird wie ex und importiert?
+- package namen anglifiziern
