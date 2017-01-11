@@ -197,10 +197,18 @@ $k$ mehr als die zur Teilname am PSE benötigten Teilleistungen bestanden hat.
 Das Kriterium sorgt dafür das möglichst kein Team aus einer Lerngrupe sowie
 einem einzelnen Studierenden besteht.
 Sei $lg_i$ die Lerngruppengröße der $i$-ten Lerngruppe, es gebe $O$ Lerngruppen.
+Weiterhin sei $\delta_j$ eine binäre Hilfsvariable.
 \begin{gather*}
 \text{Als Constraints:} \\
-a_{ji} \le x_j -lg_i -1 \\
-a_{ji} \ge 0.1 \cdot (x_j -lg_i-1)\\
+-9 \cdot a_{ji} \le x_j -lg_i -1 \le 9\cdot a_{ji}\\
+0.1 \cdot a_{ji} - 9.1 \cdot \delta_j \le x_j -lg_i -1 \le -0.1 \cdot a_{ji} +
+9.1 \cdot (1-\delta_j)\\
+\text{Somit ist } a_{ji} = \begin{cases}
+    0 & \text{wenn $x_j = lg_i +1$} \\
+    1 & \text{sonst} 
+    \end{cases}\\
+%a_{ji} \le x_j -lg_i -1 \\
+%a_{ji} \ge 0.1 \cdot (x_j -lg_i-1)\\
 \text{Zum Optimierungsterm: }\\
 p_i \cdot 10 \cdot \sum_{j = 1}^{M-1} \sum_{i = 1}^{O}a_{ji}
 \end{gather*}
