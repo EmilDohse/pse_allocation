@@ -15,13 +15,34 @@ public class Rating {
 	/**
 	 * Der Wert der Bewertung.
 	 */
-	public int rating;
+	private int rating;
 	/**
 	 * Das Projekt, dem die Bewertung gilt.
 	 */
-	public Project project;
+	private Project project;
 	/**
 	 * Die Lerngruppe, welche die Bewertung abgegeben hat.
 	 */
-	public LearningGroup learningGroup;
-};
+	private LearningGroup learningGroup;
+	/**
+	 * Getter für den Wert der Bewertung.
+	 * @return Der Wert der Bewertung.
+	 */
+	public int getRating() {
+	    return rating;
+	}
+	/**
+	 * Getter für das Projekt der Bewertung.
+	 * @return Das Projekt, das bewertet wird.
+	 */
+	public Project getProject() {
+	    return project;
+	}
+	/**
+	 * Getter für die Lerngruppe.
+	 * @return Die Lerngruppe, die bewertet.
+	 */
+	public LearningGroup getLearningGroup() {
+	    return this.learningGroup;
+	}
+}

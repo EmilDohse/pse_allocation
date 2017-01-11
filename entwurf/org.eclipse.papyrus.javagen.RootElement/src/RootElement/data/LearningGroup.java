@@ -15,20 +15,48 @@ public class LearningGroup {
 	/**
 	 * Der name der LErngruppe.
 	 */
-	public String name;
+	private String name;
 	/**
 	 * Das nötige Passwort, um der Lerngruppe beizutreten.
 	 */
-	public String password;
+	private String password;
 	/**
 	 * Das Semster, in dem die Lerngruppe erstellt wurde.
 	 */
-	public Semester semester;
+	private Semester semester;
 	/**
 	 * Die Mitglieder der Lerngruppe.
 	 */
 	private Student[] members;
-
+	
+	/**
+	 * Getter für den Namen.
+	 * @return Name der Lerngruppe.
+	 */
+	public String getName() {
+	    return name;
+	}
+	/**
+	 * Getter für das Passwort.
+	 * @return Das Passwort, um der Lerngruppe beizutreten.
+	 */
+	public String getPassword() {
+	    return password;
+	}
+	/**
+	 * Getter für das Semester, in dem die Lerngruppe erstellt wurde.
+	 * @return Das Semester,in dem die Lerngruppe erstellt wurde.
+	 */
+	public Semester getSemester() {
+	    return Semester;
+	}
+	/**
+	 * Getter für die Mitglieder der Lerngruppe.
+	 * @return Die Mitglieder der Lerngruppe.
+	 */
+	public Student[] getMembers() {
+	    return members;
+	}
 	/**
 	 * Studierende, die keiner Lerngruppe angehören, werden als private Lerngruppe der
 	 * Größe 1 gespeichert. Eine private Lerngruppe kann also niemals von einem Studenten erstellt werden.

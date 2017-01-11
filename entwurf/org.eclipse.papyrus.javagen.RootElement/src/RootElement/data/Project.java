@@ -16,28 +16,69 @@ public class Project {
 	/**
 	 * Der Name des Projektes.
 	 */
-	public String name;
+	private String name;
 	/**
 	 * Die minimale Anzahl der Teilnehmer einer Gruppe für dieses Projekt.
 	 */
-	public int minTeamSize;
+	private int minTeamSize;
 	/**
 	 * Die maximale Anzahl der Teilnehmer einer Gruppe für dieses Projekt.
 	 */
-	public int maxTeamSize;
+	private int maxTeamSize;
 	/**
 	 * Die Projektbeschreibung.
 	 */
-	public String projectInfo;
+	private String projectInfo;
 	/**
 	 * URL zu der Website des Projektes.
 	 */
-	public String projectURL;
+	private String projectURL;
 	/**
 	 * Teams des Projekt
 	 */
 	private Team[] teams;
-
+	/**
+	 * Getter für den Namen des Projektes.
+	 * @return Der Name des Projektes.
+	 */
+	public String getName() {
+	    return name;
+	}
+	/**
+	 * Getter der maximalen Größe für Teams dieses Projektes.
+	 * @return Die maximale Teamgröße.
+	 */
+	public int getMaxTeamSize() {
+	    return this.maxTeamSize;
+	}
+	/**
+     * Getter der minimalen Größe für Teams dieses Projektes.
+     * @return Die minimale Teamgröße.
+     */
+    public int getMinTeamSize() {
+        return this.minTeamSize;
+    }
+    /**
+     * Getter für die Information über dieses Projektes.
+     * @return Die Information des Projektes.
+     */
+    public String getProjectInfo() {
+        return this.projectInfo;
+    }
+    /**
+     * Getter für die URL des Projektes.
+     * @return Die URL des Projektes.
+     */
+    public String getProjectURL() {
+        return this.projectURL;
+    }
+    /**
+     * Getter für die Teams des Projektes.
+     * @return Die Teams des Projektes.
+     */
+    public Team[] getTeams() {
+        return this.teams;
+    }
 	/**
 	 * Diese Methode gibt alle Projekte zurück.
 	 * @return projects Alle Projekte.

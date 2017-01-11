@@ -12,9 +12,23 @@ public class AllocationParameter {
 	/**
 	 * Der Name des Parameters.
 	 */
-	public String name;
+	private String name;
 	/**
 	 * Die Gewichtung des Parameters.
 	 */
-	public double value;
+	private double value;
+	/**
+	 * Getter für den Namen des Parameters.
+	 * @return Der Name des Parameters.
+	 */
+	public String getName() {
+	    return name;
+	}
+	/**
+	 * Getter für den Wert des Parameters.
+	 * @return Der Wert des Parameters.
+	 */
+	public doulbe getValue() {
+	    return value;
+	}
 };

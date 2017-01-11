@@ -21,54 +21,132 @@ public class Student extends User {
 	/**
 	 * Die Matrikelnummer des Studierenden.
 	 */
-	public int matriculationNumber;
+	private int matriculationNumber;
 	/**
 	 * Das Semester, in dem er sich zum ersten Mal registriert hat. 
 	 */
-	public Semester[] registeredSemesters;
+	private Semester[] registeredSemesters;
 	/**
 	 * Die SPO des Studierenden
      */
-	public SPO spo;
+	private SPO spo;
 	/**
 	 * Die Lerngruppe des Studierenden.
 	 */
-	private LearningGroup[] learningGroup;
+	private LearningGroup[] learningGroups;
 	/**
 	 * Die bestandenen Teilleistungen.
 	 */
-	public Achievement[] completedAchievements;
+	private Achievement[] completedAchievements;
 	/**
 	 * Wahr, wenn sich der Studierende bereits im campus management system für das PSE angemeldet hat.
 	 * Falsch, sonst.
 	 */
-	public boolean registeredPSE;
+	private boolean registeredPSE;
 	/**
 	 * Wahr, wenn sich der Studierende bereits im campus management system für das TSE angemeldet hat.
      * Falsch, sonst.
 	 */
-	public boolean registeredTSE;
+	private boolean registeredTSE;
 	/**
 	 * Die PSE-Note des Studierenden.
 	 */
-	public int gradePSE;
+	private int gradePSE;
 	/**
 	 * Die TSE-Note des Studierenden.
 	 */
-	public int gradeTSE;
+	private int gradeTSE;
 	/**
 	 * Die noch ausstehenden Teilleistungen des Studierenden.
 	 */
-	public Achievement[] oralTestAchievment;
+	private Achievement[] oralTestAchievment;
 	/**
 	 * Das Semster der Erstregistrierung.
 	 */
-	public Semester startSemester;
+	private Semester startSemester;
 	/**
 	 * Das Semester, in dem sich der Studierende zum Zeitpunkt der Registrierung befindet.
 	 */
-	public int semesterAtRegistration;
-
+	private int semesterAtRegistration;
+	/**
+	 * Getter für die Matrikelnummer.
+	 * @return Die Matrikelnummer.
+	 */
+	public int getMatriculationNumber() {
+	    return this.matriculationNumber;
+	}
+	/**
+     * Getter für die Semester, in denen der Studierende registriert ist.
+     * @return Die Semester, in denen der Studierende registriert ist.
+     */
+	public Semester[] getRegisteredSemesters() {
+	    return this.registeredSemesters;
+	}
+	/**
+	 * Getter für die SPO des Studierenden.
+	 * @return Die SPO des Studierenden.
+	 */
+	public SPO getSPO() {
+	    return this.spo;
+	}
+	/**
+     * Getter für die Lerngruppen des Studierenden.
+     * @return Die Lerngruppen des Studierenden.
+     */
+	public LearningGroup[] getLearningGroups() {
+	    return this.learningGroups;
+	}
+	/**
+     * Getter für die abgeschlossenen Teilleistungen des Studierenden.
+     * @return Die abgeschlossenen Teilleistungen des Studierenden.
+     */
+	public Achievement[] getCompletedAchievements() {
+	    return this.completedAchievements;
+	}
+	/**
+     * Getter für die Variable, ob der Studierende im campus management system für das PSE angemeldet ist.
+     * @return Wahr, wenn er angemeldet ist, falsch sonst.
+     */
+	public boolean isRegisteredPSE() {
+	    return this.registeredPSE;
+	}
+	/**
+     * Getter für die Variable, ob der Studierende im campus management system für das TSE angemeldet ist.
+     * @return Wahr, wenn er angemeldet ist, falsch sonst.
+     */
+	public boolean isRegisteredTSE() {
+	    return this.registeredTSE;
+	}
+	/**
+     * Getter für die PSE-Note des Studierenden.
+     * @return Die Note des Studierenden fürs PSE.
+     */
+	public int getGradePSE() {
+	    return this.gradePSE;
+	}
+	/**
+     * Getter für die TSE-Note des Studierenden.
+     * @return Die Note des Studierenden fürs TSE.
+     */
+	public int getGradeTSE() {
+	    return this.gradeTSE;
+	}
+	/**
+     * Getter für die noch ausstehenden Teilleistungen des Studierenden.
+     * @return Die noch ausstehenden Teilleistungen des Studierenden.
+     */
+	public Achievement[] getOralTestAchievement() {
+	    return this.oralTestAchievment;
+	}
+	/**
+     * Getter für das Semester des Studierenden.
+     * @return Die noch ausstehenden Teilleistungen des Studierenden.
+     */
+	public Semester getSemester() {
+	    return this.semesterAtRegistration;
+	}
+	
+	public 
 	/**
 	 * Diese Methode gibt einen spezifischen Studierenden zurück, der durch seine Matrikelnummer
 	 * identifiziert wird.

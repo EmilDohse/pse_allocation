@@ -14,11 +14,18 @@ import RootElement.data.Student;
  * Diese KLasse stellt ein Team eines Projektes dar.
  */
 public class Team {
+    
 	/**
 	 * Das Porjekt des Teams
 	 */
-	public Project project;
-
+	private Project project;
+	/**
+	 * Getter für das Projekt.
+	 * @return Das Projekt.
+	 */
+	public Project getProject() {
+	    return project;
+	}
 	/**
 	 * Diese Methode gibt die Studierenden(Mitgliederr) des Teams zurück.
 	 * @return members Die Mitglieder des Teams.
