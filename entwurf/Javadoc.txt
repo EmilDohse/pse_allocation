@@ -143,7 +143,16 @@ Packages
 							Diese Methode lässt den Administrator ein neues Semester erstellen und anschließend Konfigurieren. Nach dem Erstellen wird der Administrator deshalb auf die Einstellungsseite für das Semester.
 						removeSemester
 							Diese Methode lässt den Administrator ein Semester löschen, wenn mit diesem keine Studentendaten verbunden sind. Der Administrator wird daraufhin zur Einstellungsseite zurückgeleitet.
-						
+						addSPO
+							Diese Methode fügt eine neue leere SPO, mit einem vom Administrator bestimmten Namen, hinzu. Der Administrator wird daraufhin auf die Einstellungsseite zurückgeleitet.
+						removeSPO
+							Diese Methode löscht eine bereits vorhandene SPO. Die SPO kann nur gelöscht werden, wenn kein Student diese SPO verwendet. Der Administrator wird daraufhin auf die Einstellungsseite zurückgeleitet.
+						editSemester
+							Diese Methode übernimmt die Änderungen, welche der Administrator im Semester-Ändern-Formular festgelegt hat. Dazu gehören die Deadlines und die Allgemeinen Informationen.
+						addAchievement
+							Diese Methode fügt eine neue Teilleistung zu einer bereits vorhandenen SPO hinzu. Der Administrator kann die Teilleistung als notwendig oder als nicht notwendig deklarieren und deren Namen ändern. Der Administrator wird daraufhin zur Einstellungsseite zurückgeleitet.
+						removeAchievement
+							Diese Methode löscht eine bereits existierende Teilleistung aus einer SPO. Der Administrator wird daraufhin zur Einstellungsseite zurück geleitet.
 			AdminProjectController
 				Dieser Controller ist für das Bearbeiten der Http-Requests zuständig, welche beim Hinzufügen, Ändern und Löschen eines Projektes im Administratorbereich abgeschickt werden.
 					
