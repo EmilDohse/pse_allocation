@@ -10,44 +10,40 @@ import RootElement.data.User;
 
 /************************************************************/
 /**
- * 
+ * Klasse die alle Benachrichtigungen der Benutzer (Studenten und Betreuer) per email übernimmt
  */
 public class Notifier {
 
 	/**
+	 * Verschickt an alle Benutzer (Betreuer und Studenten) eine email mit ihrem zugeteilten Team/Project
 	 * 
-	 * @param allocation 
+	 * @param allocation veröffentlichte Einteilung
 	 */
 	public void notifyAllUsers(Allocation allocation) {
 	}
 
 	/**
+	 * Verschickt an einen Benutzer (Betreuer oder Student) eine email mit seinem zugeteilten Team/Project
 	 * 
-	 * @param allocation 
-	 * @param user 
+	 * @param allocation veröffentlichte Einteilung
+	 * @param user Benutzer, der benachrichtigt wird
 	 */
 	public void notifyUser(Allocation allocation, User user) {
 	}
 
 	/**
+	 * Verschickt ein neu generiertes Passwort an einen Benutzer
 	 * 
-	 * @param user 
+	 * @param user Benutzer, der das neue Passwort erhält
 	 */
 	public void sendNewPassword(User user) {
 	}
 
 	/**
+	 * Verschickt eine email zur Verifikation der email-Adresse an einen Studenten
 	 * 
-	 * @param student 
+	 * @param student Student, der die email erhält
 	 */
 	public void sendVerificationMail(Student student) {
-	}
-
-	/**
-	 * 
-	 * @param student 
-	 * @param code 
-	 */
-	public void verify(Student student, EcorePrimitiveTypes.EString code) {
 	}
 };

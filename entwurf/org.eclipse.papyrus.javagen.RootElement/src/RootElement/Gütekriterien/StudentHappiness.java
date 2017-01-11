@@ -8,7 +8,10 @@ import RootElement.Gütekriterien.QualityCriterion;
 
 /************************************************************/
 /**
- * 
+ * Gütekriterium, das die Studentenhappiness berechnet
  */
-public class StudentHappiness {
+public class StudentHappiness implements QualityCriterion{
+	
+	public void calculate(Allocation allocation){
+	}
 };

@@ -6,7 +6,8 @@
 //- Zyklen im Datenmodell überprüfen und gegebenenfalls entfernen
 - Lerngruppen und Studenten Trennen? Macht es mehr sinn das es keine ein-mann-Leerngruppe gibt?
 //- first name statt vorname
-- Gurobi Sequenzdiagramm
+//- Gurobi Sequenzdiagramm
 - Spezifikation: was wird wie ex und importiert?
 - package namen anglifiziern
 - importer vervollständigen zu controller funktionen
+- gütekriterium berechnen rückgabewert

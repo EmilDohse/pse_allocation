@@ -206,10 +206,6 @@
               <element xmi:type="uml:Operation" href="bigModel.uml#_EMGgMNatEeayPeVBIOoRFQ"/>
               <layoutConstraint xmi:type="notation:Location" xmi:id="_ENPvsdatEeayPeVBIOoRFQ"/>
             </children>
-            <children xmi:type="notation:Shape" xmi:id="_MSG-ANatEeayPeVBIOoRFQ" type="Operation_ClassOperationLabel">
-              <element xmi:type="uml:Operation" href="bigModel.uml#_MQ5dENatEeayPeVBIOoRFQ"/>
-              <layoutConstraint xmi:type="notation:Location" xmi:id="_MSG-AdatEeayPeVBIOoRFQ"/>
-            </children>
             <styles xmi:type="notation:TitleStyle" xmi:id="_pj2dYdaMEeayPeVBIOoRFQ"/>
             <styles xmi:type="notation:SortingStyle" xmi:id="_pj2dYtaMEeayPeVBIOoRFQ"/>
             <styles xmi:type="notation:FilteringStyle" xmi:id="_pj2dY9aMEeayPeVBIOoRFQ"/>

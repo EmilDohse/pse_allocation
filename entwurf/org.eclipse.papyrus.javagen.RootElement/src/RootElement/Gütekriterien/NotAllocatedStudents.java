@@ -8,7 +8,10 @@ import RootElement.Gütekriterien.QualityCriterion;
 
 /************************************************************/
 /**
- * 
+ * Gütekriterium, das die Anzahl der nicht zugeteilten Studenten berechnet
  */
-public class NotAllocatedStudents {
+public class NotAllocatedStudents implements QualityCriterion{
+	
+	public void calculate(Allocation allocation){
+	}
 };
