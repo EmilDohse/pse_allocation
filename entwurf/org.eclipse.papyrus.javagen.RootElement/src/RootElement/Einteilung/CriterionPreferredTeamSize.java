@@ -8,7 +8,7 @@ import RootElement.Einteilung.Criterion;
 
 /************************************************************/
 /**
- * 
+ * Das Kriterium sorgt dafür das Teams möglichst die gewünschte Teamgröße haben.
  */
 public class CriterionPreferredTeamSize {
 };

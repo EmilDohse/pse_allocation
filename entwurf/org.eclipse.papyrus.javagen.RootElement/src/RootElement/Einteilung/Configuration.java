@@ -10,23 +10,33 @@ import RootElement.data.Student;
 
 /************************************************************/
 /**
- * 
+ * Eine Konfiguration dient als Sammlung von Daten die zur Einteilungsberechnung benötigt werden
  */
 public class Configuration {
 	/**
-	 * 
+	 * Der Name der Einteilung der angezeigt wird
 	 */
-	private EcorePrimitiveTypes.EString AllocationName;
+	private String AllocationName;
 	/**
-	 * 
+	 * Alle Studenten die bei der Einteilung berücksichtigt werden
 	 */
-	public Student[] students;
+	private Student[] students;
 	/**
-	 * 
+	 * Alle Lerngruppen die bei der Einteilung berücksichtigt werden
 	 */
-	public Project[] projects;
+	private LearningGroup[] learningGroups;
 	/**
-	 * 
+	 * Die Projekte die bei der Einteilung berücksichtigt werden
 	 */
-	public AllocationParameter[] parameters;
+	private Project[] projects;
+	/**
+	 * Die Parameter für Kriterien die bei der Einteilung berücksichtigt werden
+	 */
+	private List<AllocationParameter> parameters;
+	/**
+	 * getter für den Einteilungsname
+	 */
+	public String getName(){
+		
+	}
 };

@@ -31,20 +31,20 @@ public class Student extends User {
      */
 	private SPO spo;
 	/**
-	 * Die Lerngruppe des Studierenden.
+	 * Die Lerngruppen des Studierenden.
 	 */
-	private LearningGroup[] learningGroups;
+	private List<LearningGroup> learningGroups;
 	/**
 	 * Die bestandenen Teilleistungen.
 	 */
 	private Achievement[] completedAchievements;
 	/**
-	 * Wahr, wenn sich der Studierende bereits im campus management system für das PSE angemeldet hat.
+	 * Wahr, wenn sich der Studierende bereits im campus management system fï¿½r das PSE angemeldet hat.
 	 * Falsch, sonst.
 	 */
 	private boolean registeredPSE;
 	/**
-	 * Wahr, wenn sich der Studierende bereits im campus management system für das TSE angemeldet hat.
+	 * Wahr, wenn sich der Studierende bereits im campus management system fï¿½r das TSE angemeldet hat.
      * Falsch, sonst.
 	 */
 	private boolean registeredTSE;
@@ -69,77 +69,77 @@ public class Student extends User {
 	 */
 	private int semesterAtRegistration;
 	/**
-	 * Getter für die Matrikelnummer.
+	 * Getter fï¿½r die Matrikelnummer.
 	 * @return Die Matrikelnummer.
 	 */
 	public int getMatriculationNumber() {
 	    return this.matriculationNumber;
 	}
 	/**
-     * Getter für die Semester, in denen der Studierende registriert ist.
+     * Getter fï¿½r die Semester, in denen der Studierende registriert ist.
      * @return Die Semester, in denen der Studierende registriert ist.
      */
 	public Semester[] getRegisteredSemesters() {
 	    return this.registeredSemesters;
 	}
 	/**
-	 * Getter für die SPO des Studierenden.
+	 * Getter fï¿½r die SPO des Studierenden.
 	 * @return Die SPO des Studierenden.
 	 */
 	public SPO getSPO() {
 	    return this.spo;
 	}
 	/**
-     * Getter für die Lerngruppen des Studierenden.
+     * Getter fï¿½r die Lerngruppen des Studierenden.
      * @return Die Lerngruppen des Studierenden.
      */
 	public LearningGroup[] getLearningGroups() {
 	    return this.learningGroups;
 	}
 	/**
-     * Getter für die abgeschlossenen Teilleistungen des Studierenden.
+     * Getter fï¿½r die abgeschlossenen Teilleistungen des Studierenden.
      * @return Die abgeschlossenen Teilleistungen des Studierenden.
      */
 	public Achievement[] getCompletedAchievements() {
 	    return this.completedAchievements;
 	}
 	/**
-     * Getter für die Variable, ob der Studierende im campus management system für das PSE angemeldet ist.
+     * Getter fï¿½r die Variable, ob der Studierende im campus management system fï¿½r das PSE angemeldet ist.
      * @return Wahr, wenn er angemeldet ist, falsch sonst.
      */
 	public boolean isRegisteredPSE() {
 	    return this.registeredPSE;
 	}
 	/**
-     * Getter für die Variable, ob der Studierende im campus management system für das TSE angemeldet ist.
+     * Getter fï¿½r die Variable, ob der Studierende im campus management system fï¿½r das TSE angemeldet ist.
      * @return Wahr, wenn er angemeldet ist, falsch sonst.
      */
 	public boolean isRegisteredTSE() {
 	    return this.registeredTSE;
 	}
 	/**
-     * Getter für die PSE-Note des Studierenden.
-     * @return Die Note des Studierenden fürs PSE.
+     * Getter fï¿½r die PSE-Note des Studierenden.
+     * @return Die Note des Studierenden fï¿½rs PSE.
      */
 	public int getGradePSE() {
 	    return this.gradePSE;
 	}
 	/**
-     * Getter für die TSE-Note des Studierenden.
-     * @return Die Note des Studierenden fürs TSE.
+     * Getter fï¿½r die TSE-Note des Studierenden.
+     * @return Die Note des Studierenden fï¿½rs TSE.
      */
 	public int getGradeTSE() {
 	    return this.gradeTSE;
 	}
 	/**
-     * Getter für die noch ausstehenden Teilleistungen des Studierenden.
+     * Getter fï¿½r die noch ausstehenden Teilleistungen des Studierenden.
      * @return Die noch ausstehenden Teilleistungen des Studierenden.
      */
 	public Achievement[] getOralTestAchievement() {
 	    return this.oralTestAchievment;
 	}
 	/**
-     * Getter für das Semester des Studierenden.
+     * Getter fï¿½r das Semester des Studierenden.
      * @return Die noch ausstehenden Teilleistungen des Studierenden.
      */
 	public Semester getSemester() {
@@ -148,7 +148,7 @@ public class Student extends User {
 	
 	public 
 	/**
-	 * Diese Methode gibt einen spezifischen Studierenden zurück, der durch seine Matrikelnummer
+	 * Diese Methode gibt einen spezifischen Studierenden zurï¿½ck, der durch seine Matrikelnummer
 	 * identifiziert wird.
 	 * @param matriculationNumber Die Matrikelnummer des Studierenden.
 	 * @return student Der Studierende.
@@ -157,14 +157,14 @@ public class Student extends User {
 	}
 
 	/**
-	 * Diese Methode gibt alle Studierenden zurück.
+	 * Diese Methode gibt alle Studierenden zurï¿½ck.
 	 * @return students Alle Studierende.
 	 */
 	public static RootElement.data.Student getStudents() {
 	}
 
 	/**
-	 * Diese Methode gibt die Lerngruppe des Studierenden zurück.
+	 * Diese Methode gibt die Lerngruppe des Studierenden zurï¿½ck.
 	 * @return learningGroup Die Lerngruppe des Studierenden.
 	 */
 	public LearningGroup getCurrentLearningGroup() {
@@ -178,15 +178,15 @@ public class Student extends User {
 	}
 
 	/**
-	 * Diese Methode gibt die Bewertung des Studiereden zu einem bestimmten Projekt zurück.
+	 * Diese Methode gibt die Bewertung des Studiereden zu einem bestimmten Projekt zurï¿½ck.
 	 * @param project Das Projekt.
-	 * @return rating Die Bewertung des Studierenden für das bestimmte Projekt.
+	 * @return rating Die Bewertung des Studierenden fï¿½r das bestimmte Projekt.
 	 */
 	public Rating getCurrentRating(Project project) {
 	}
 
 	/**
-	 * Diese Methode setzt eine Bewertung des Studierenden für ein bestimmtes Projekt.
+	 * Diese Methode setzt eine Bewertung des Studierenden fï¿½r ein bestimmtes Projekt.
 	 * @param project Das zu bewertende Projekt.
 	 * @param rating Die Bewertung des Studierenden.
 	 */
@@ -194,21 +194,21 @@ public class Student extends User {
 	}
 
 	/**
-	 * Diese Methode gibt das Projekt zurück, dem der Studierende zugeteilt ist.
+	 * Diese Methode gibt das Projekt zurï¿½ck, dem der Studierende zugeteilt ist.
 	 * @return project Das Projekt des Studeirenden.
 	 */
 	public Project getCurrentProject() {
 	}
 
 	/**
-	 * Diese Methode gibt das Team, in dem der Studierende sich befindet, zurück.
+	 * Diese Methode gibt das Team, in dem der Studierende sich befindet, zurï¿½ck.
 	 * @return team Das Team des Studierenden.
 	 */
 	public Team getCurrentTeam() {
 	}
 
 	/**
-	 * Diese Methode gibt das aktuelle Semester des Studierenden zurück.
+	 * Diese Methode gibt das aktuelle Semester des Studierenden zurï¿½ck.
 	 * @return semester Das Semester, in dem Studierende sich aktuell befindet.
 	 */
 	public int getCurrentSemester() {

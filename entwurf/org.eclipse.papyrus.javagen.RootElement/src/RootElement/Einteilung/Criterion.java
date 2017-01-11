@@ -8,20 +8,20 @@ import RootElement.Einteilung.GurobiAllocator;
 
 /************************************************************/
 /**
- * 
+ * Ein Kriterium ist dazu da den Optimierungsterm des ILP-Modells zu erweitern
  */
 public interface Criterion {
 
 	/**
-	 * 
-	 * @param weight 
-	 * @param allocator 
+	 * bildet den Optimierungsterm und fügt ihn dem GurobiAllocator hinzu
+	 * @param weight Der vom Admin eingestellte Parameter dieses Kriteriums	
+	 * @param allocator Die Allocator instanz welche dieses Kriterium verwenden soll
 	 */
 	public void useCriteria(int weight, GurobiAllocator allocator);
 
 	/**
-	 * 
-	 * @return  
+	 * getter für den Namen des Kriteriums
+	 * @return  gibt den Namen zurück
 	 */
 	public String getName();
 };

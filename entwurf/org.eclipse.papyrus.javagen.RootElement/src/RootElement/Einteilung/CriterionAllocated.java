@@ -8,7 +8,8 @@ import RootElement.Einteilung.Criterion;
 
 /************************************************************/
 /**
- * 
+ * Das Kriterium sorgt dafür das möglichst viele Studierende Teams zugeteilt
+werden.
  */
 public class CriterionAllocated {
 };

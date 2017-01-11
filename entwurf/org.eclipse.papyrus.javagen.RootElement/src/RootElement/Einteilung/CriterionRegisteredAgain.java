@@ -8,7 +8,8 @@ import RootElement.Einteilung.Criterion;
 
 /************************************************************/
 /**
- * 
+ * Das Kriterium sorgt dafür das Studierenden die sich schon einmal für einen PSE
+*Platz beworben haben bevorzugt werden.
  */
 public class CriterionRegisteredAgain {
 };

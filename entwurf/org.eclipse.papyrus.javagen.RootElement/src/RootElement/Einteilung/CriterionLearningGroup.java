@@ -8,7 +8,7 @@ import RootElement.Einteilung.Criterion;
 
 /************************************************************/
 /**
- * 
+ * Das Kriterium sorgt dafür das Lerngruppen eher zusammenbleiben.
  */
 public class CriterionLearningGroup {
 };
