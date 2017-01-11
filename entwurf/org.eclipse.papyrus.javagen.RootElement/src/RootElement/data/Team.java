@@ -11,7 +11,7 @@ import RootElement.data.Student;
 
 /************************************************************/
 /**
- * This class represents a team (of 4 to 6 students) working on a PSE project.
+ * Diese KLasse stellt ein Team eines Projektes dar.
  */
 public class Team {
 	/**
@@ -20,23 +20,23 @@ public class Team {
 	public Project[] project;
 
 	/**
-	 * This method returns the members of the team.
-	 * @return members The team's members.
+	 * Diese Methode gibt die Studierenden(Mitgliederr) des Teams zurück.
+	 * @return members Die Mitglieder des Teams.
 	 */
 	public Student getMembers() {
 	}
 
 	/**
-	 * This method returns the rating of a specific student for the team's project.
-	 * @param student The student.
-	 * @return rating The student's rating.
+	 * Diese Methode gibt die Bewertung eines Studierenden zu dem Projekt dieses Teams zurück.
+	 * @param student Der Studierende, dessen Bewertung zurückgegeben werden soll.
+	 * @return rating Die Bewertung des Studierenden.
 	 */
 	public Rating getRating(Student student) {
 	}
 
 	/**
-	 * This method returns the team's advisers.
-	 * @return advisers The team's advisers.
+	 * Diese Methode gibt die Betreuer des Teams zurück.
+	 * @return advisers Die Betreuer des Teams.
 	 */
 	public Adviser getAdvisers() {
 	}

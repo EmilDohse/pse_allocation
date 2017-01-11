@@ -6,27 +6,27 @@ package RootElement.data;
 
 /************************************************************/
 /**
- * 
+ * Diese Klasse stellt einen Benutzer der Anwendung dar.
  */
 public class User {
 	/**
-	 * 
+	 * Der Anmeldename des Benutzers.
 	 */
 	public String username;
 	/**
-	 * 
+	 * Das Anmeldepasswort des Benutzers.
 	 */
 	public String password;
 	/**
-	 * 
+	 * Die Email-Adresse des Benutzers.
 	 */
 	public String emailAddress;
 	/**
-	 * 
+	 * Vorname des Benutzers.
 	 */
 	public String firstName;
 	/**
-	 * 
+	 * Nachname des Benutzers.
 	 */
 	public String lastName;
 };

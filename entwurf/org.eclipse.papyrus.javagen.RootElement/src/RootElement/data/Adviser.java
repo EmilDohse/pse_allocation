@@ -9,17 +9,17 @@ import RootElement.data.User;
 
 /************************************************************/
 /**
- * 
+ * Diese Klasse stellt einen Betreuer dar.
  */
 public class Adviser extends User {
 	/**
-	 * 
-	 */
+	 * Die Projekte, die der Betreuer beaufsichtigt
+	 **/
 	public Project[] projects;
 
 	/**
-	 * 
-	 * @return advisers 
+	 * Diese Methode gibt alle Betreuer zurück, die es jemals gab.
+	 * @return advisers Alle Betreuer.
 	 */
 	public static RootElement.data.Adviser getAdvisers() {
 	}

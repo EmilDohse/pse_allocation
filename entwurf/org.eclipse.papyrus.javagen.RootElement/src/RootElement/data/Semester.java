@@ -54,7 +54,7 @@ public class Semester {
 	}
 
 	/**
-	 * Diese Methode gibt alle Betreuer zurück.
+	 * Diese Methode gibt alle Betreuer dieses Semesters zurück.
 	 * @return advisers Alle Betreuer des Semesters.
 	 */
 	public Adviser getAdvisers() {

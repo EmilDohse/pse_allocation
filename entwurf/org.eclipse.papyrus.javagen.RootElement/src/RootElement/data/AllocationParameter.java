@@ -6,15 +6,15 @@ package RootElement.data;
 
 /************************************************************/
 /**
- * 
+ * Diese Klasse stellt einen Parameter für die Einteilungsberechnung dar.
  */
 public class AllocationParameter {
 	/**
-	 * 
+	 * Der Name des Parameters.
 	 */
 	public String name;
 	/**
-	 * 
+	 * Die Gewichtung des Parameters.
 	 */
 	public double value;
 };

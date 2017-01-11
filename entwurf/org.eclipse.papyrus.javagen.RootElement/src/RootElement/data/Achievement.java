@@ -6,25 +6,25 @@ package RootElement.data;
 
 /************************************************************/
 /**
- * This class represtents stundents' achievements, e.g. passed exams.
+ * Diese Klasse stellt eine Teilleistung im Studium dar.
  */
 public class Achievement {
 	/**
-	 * The achievement's name.
+	 * Der Name der Teilleistung.
 	 */
 	public String name;
 
 	/**
-	 * This method returns all achievements ever created.
-	 * @return achievements All achievements ever created.
+	 * Diese Methode gibt alle Teilleistungen zurück.
+	 * @return achievements Alle existierenden Teilleistungen.
 	 */
 	public static RootElement.data.Achievement getAchievements() {
 	}
 
 	/**
-	 * This method returns a specific achievement by a given name.
-	 * @param name The achievement's name.
-	 * @return achievement The achievement you're searching for.
+	 * Diese Methode gibt eine bestimmte Teilleistung zurück, die durch ihren Namen identifiziert wird.
+	 * @param name Der Name der Teilleistung.
+	 * @return achievement Die bestimmte Teilleistung.
 	 */
 	public static RootElement.data.Achievement getAchievement(String name) {
 	}
