@@ -158,14 +158,28 @@ Packages
 					
 					Methods
 						addProject
-						Diese Methode fügt ein neues Projekt in das System ein und leitet den Administrator zurück auf die Seite zum editieren des Projektes.
-					removeProject
-						Diese Methode löscht ein Projekt und alle dazugehörenden Daten aus dem System und leitet den Administrator weiter auf die Seite zum editieren und hinzufügen von Projekten.
-					editProject
-						Diese Methode editiert ein bereits vorhandenes Projekt. Die zu editierenden Daten übermittelt der Administrator über ein Formular, welches er zum editieren abschickt. Anschließend wird der Administrator auf die Seite zum Hinzufügen und Editieren von Projekten weitergeleitet.
+							Diese Methode fügt ein neues Projekt in das System ein und leitet den Administrator zurück auf die Seite zum editieren des Projektes.
+						removeProject
+							Diese Methode löscht ein Projekt und alle dazugehörenden Daten aus dem System und leitet den Administrator weiter auf die Seite zum editieren und hinzufügen von Projekten.
+						editProject
+							Diese Methode editiert ein bereits vorhandenes Projekt. Die zu editierenden Daten übermittelt der Administrator über ein Formular, welches er zum editieren abschickt. Anschließend wird der Administrator auf die Seite zum Hinzufügen und Editieren von Projekten weitergeleitet.
 						
 			AdminEditAllocationController
 				Dieser Controller ist für das Bearbeiten der Http-Requests zuständig, welche beim Editieren einer Einteilung abgeschickt werden.
 
+					Methods
+						swapStudents
+							Diese Methode tauscht zwei Studenten, welche der Administrator vorher in einem Formular ausgewählt hat. Ein Tausch innerhalb eines Teams wird nicht unterbunden, hat jedoch keine Auswirkung. Anschließend wird der Administrator auf die Seite zur Einteilungs-Bearbeitung zurückgeleitet.
+						moveStudents
+							Diese Methode verschiebt ein oder mehrere ausgewählte Studenten in ein anderes Team. Das verschieben in das gleiche Team wird nicht unterbunden, hat jedoch keine Auswirkung. Anschließend wird der Administrator auf die Seite zur Einteilungs-Bearbeitung zurückgeleitet.
+						publishAllocation
+							Diese Methode veröffentlicht eine Einteilung. Dazu gehört, die Einteilung als final zu deklarieren und Betreuer und Studenten per E-Mail über deren Einteilung zu informieren. Der Administrator wird anschließend auf die Einteilungs-Bearbeitungs-Seite zurückgeleitet.
+						duplicateAllocation
+							Diese Methode erstellt eine Kopie einer kompletten Einteilung. Diese Funktion ist dafür gedacht, dass der Administrator sehen kann, ob durch seine manuelle Änderungen ein optimaleres Ergebnis entstand. Der Administrator wird anschließend auf die Seite zur Einteilungs-Bearbeitung
+zurückgeleitet.
+						removeAllocation
+							Diese Methode löscht eine bereits vorhandene Einteilung. Der Administrator wird anschließend auf die Seite zur Einteilungs-Bearbeitung zurückgeleitet.
+						undoAllocationEdit
+							Diese Methode macht die letzte Editierung rückgängig. Dies ist jedoch nicht session-übergreifend möglich. Der Administrator wird anschließend auf die Seite zur Einteilungs-Bearbeitung zurückgeleitet.
 	Modell
 		Das Modell beinhaltet einen Großteil der Programmlogik und alle Klassen die benötigt werden um das Programm zu realisieren. Dazu gehören Datenklassen, Klassen für die Authentifizierung und Autorisierung, die Einteilung per ILP und weitere.
