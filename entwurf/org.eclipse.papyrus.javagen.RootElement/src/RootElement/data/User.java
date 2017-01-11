@@ -64,4 +64,40 @@ public class User {
 	public String getLastName() {
 	    return lastName;
 	}
+	
+	/**
+     * Setter für den Benutzernamen.
+     * @param username Der Benutzername
+     */
+    public void setUserName(String username) {
+        this.username = username;
+    }
+    /**
+     * Setter für das Benutzerpasswort.
+     * @param password Das Passwort
+     */
+    public void setPassword(String password) {
+        this.password = password;
+    }
+    /**
+     * Setter für die EMail-Addresse.
+     * @param email Die Email
+     */
+    public void setEmailAddress(String email) {
+        this.emailAddress = email;
+    }
+    /**
+     * Setter für den Vornamen.
+     * @param Der Vorname
+     */
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+    /**
+     * Setter für den Nachnamen.
+     * @param lastName Der Nachname
+     */
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 };

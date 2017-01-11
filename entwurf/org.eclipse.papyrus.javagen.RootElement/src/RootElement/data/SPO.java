@@ -46,6 +46,29 @@ public class SPO {
 	public Achievement[] getAvailableAchievements() {
         return availableAchievements;
     }
+	
+	
+	/**
+     * Setter-Methode für name.
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+    /**
+     * Setter-Methode für die benötigten Teilleistungen.
+     */
+    public void setNecessaryAchievements(Achievement[] neccessaryAchievements) {
+        this.necessaryAchievements = necessaryachievements;
+    }
+    /**
+     * Setter-Methode für die verfügbaren Teilleistungen.
+     */
+    public void setAvailableAchievements(Achievement[] availableAchievements) {
+        this.avaliableAchievements = availableAchievements;
+    }
+	
+	
+	
 	/**
 	 * Diese Methode gibt alle SPOs zurÃ¼ck.
 	 * @return spos Alle SPOs.

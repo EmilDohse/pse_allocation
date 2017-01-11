@@ -26,6 +26,14 @@ public class Team {
 	public Project getProject() {
 	    return project;
 	}
+	
+	/**
+     * Setter für das Projekt.
+     * @param project Das Projekt.
+     */
+    public void setProject(Project project) {
+        this.project = project;
+    }
 	/**
 	 * Diese Methode gibt die Studierenden (Mitglieder) des Teams zurÃ¼ck.
 	 * @return members Die Mitglieder des Teams.

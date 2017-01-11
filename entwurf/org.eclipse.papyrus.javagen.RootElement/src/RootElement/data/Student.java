@@ -146,6 +146,84 @@ public class Student extends User {
 	    return this.semesterAtRegistration;
 	}
 	
+	/**
+     * Setter für die Matrikelnummer.
+     * @param matriculationNumber Die Matrikelnummer des Studierenden.
+     */
+    public void setMatriculationNumber(int  matriculationNumber) {
+        this.matriculationNumber = matriculationNumber;
+    }
+    /**
+     * Setter für die Semester, in denen der Studierende registriert ist.
+     * @param registeredSemesters Die Semester, in denen der Studierende registriert ist.
+     */
+    public void setRegisteredSemesters(Semester[] registeredSemesters) {
+        this.registeredSemesters = registeresSemesters;
+    }
+    /**
+     * Setter für die SPO des Studierenden.
+     * @param spo Die SPO des Studierenden.
+     */
+    public void setSPO(SPO spo) {
+        this.spo = spo;
+    }
+    /**
+     * Setter für die Lerngruppen des Studierenden.
+     * @param learningGroups Die Lerngruppen, in denen der Studierende war.
+     */
+    public void setLearningGroups(LearningGroup[] learningGroups) {
+        this.learningGroups = learningGroups;
+    }
+    /**
+     * Setter für die abgeschlossenen Teilleistungen des Studierenden.
+     * @param completedAchievements Die vom Studierenden abgeschlossenen Teilleistungen.
+     */
+    public void setCompletedAchievements(Achievement[] completedAchievements) {
+        this.completedAchievements = completedAchievements;
+    }
+    /**
+     * Setter für die Variable, ob der Studierende im campus management system für das PSE angemeldet ist.
+     * @param registeredPSE Wahr, wenn der Studierende im CMS angemeldet ist, sonst false
+     */
+    public void setRegisteredPSE(boolean registeredPSE) {
+        this.registeredPSE = registeredPSE;
+    }
+    /**
+     * Setter für die Variable, ob der Studierende im campus management system für das TSE angemeldet ist.
+     * @param registeredTSE Wahr, wenn der Studierende im CMS angemeldet ist, sonst false
+     */
+    public void setRegisteredTSE(boolean registeredTSE) {
+        return this.registeredTSE;
+    }
+    /**
+     * Setter für die PSE-Note des Studierenden.
+     * @param Die Note des Studierenden fürs PSE.
+     */
+    public void setGradePSE(int gradePSE) {
+        this.gradePSE = gradePSE;
+    }
+    /**
+     * Setter für die TSE-Note des Studierenden.
+     * @param gradeTSE Die Note des Studierenden fürs TSE.
+     */
+    public void setGradeTSE(int gradeTSE) {
+        this.gradeTSE = gradeTSE;
+    }
+    /**
+     * Setter für die noch ausstehenden Teilleistungen des Studierenden.
+     * @param oralTestAchievement Die noch aussteheneden Teilleistungen des Studierenden.
+     */
+    public void setOralTestAchievement(Achievement[] oralTestAchievement) {
+        this.oralTestAchievment = oralTestAchievement;
+    }
+    /**
+     * Setter für das Semester des Studierenden.
+     * @param semesterAtRegistration Das Semester des Studierenden.
+     */
+    public void setSemester(Semester semesterAtRegistration) {
+        this.semesterAtRegistration = semesterAtRegistration;
+    }
+    
 	public 
 	/**
 	 * Diese Methode gibt einen spezifischen Studierenden zurÃ¼ck, der durch seine Matrikelnummer
