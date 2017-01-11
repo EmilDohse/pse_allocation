@@ -24,6 +24,10 @@ public class LearningGroup {
 	 * Das Semster, in dem die Lerngruppe erstellt wurde.
 	 */
 	public Semester semester;
+	/**
+	 * Die Mitglieder der Lerngruppe.
+	 */
+	private Student[] members;
 
 	/**
 	 * Studierende, die keiner Lerngruppe angehören, werden als private Lerngruppe der
