@@ -8,13 +8,13 @@ import RootElement.data.Allocation;
 
 /************************************************************/
 /**
- * 
+ * Interface aller Gütekriterien
  */
 public interface QualityCriterion {
 
 	/**
-	 * 
-	 * @param allocation 
+	 * Berechnet das Gütekriterium einer Berechnung
+	 * @param allocation Berechnung, für die das Gütekriterium berechnet wird
 	 */
 	public void calculate(Allocation allocation);
 };

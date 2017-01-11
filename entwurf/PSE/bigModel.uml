@@ -182,12 +182,6 @@
       <ownedOperation xmi:type="uml:Operation" xmi:id="_EMGgMNatEeayPeVBIOoRFQ" name="sendVerificationMail">
         <ownedParameter xmi:type="uml:Parameter" xmi:id="_LjzGgNatEeayPeVBIOoRFQ" name="student" type="_XCasfNaNEeayPeVBIOoRFQ"/>
       </ownedOperation>
-      <ownedOperation xmi:type="uml:Operation" xmi:id="_MQ5dENatEeayPeVBIOoRFQ" name="verify" visibility="public">
-        <ownedParameter xmi:type="uml:Parameter" xmi:id="_RPe28NatEeayPeVBIOoRFQ" name="student" type="_XCasfNaNEeayPeVBIOoRFQ"/>
-        <ownedParameter xmi:type="uml:Parameter" xmi:id="_UcdJQNatEeayPeVBIOoRFQ" name="code">
-          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
-        </ownedParameter>
-      </ownedOperation>
     </packagedElement>
   </packagedElement>
   <packagedElement xmi:type="uml:Package" xmi:id="_KEVFYNaNEeayPeVBIOoRFQ" name="data">

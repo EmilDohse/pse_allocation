@@ -8,14 +8,14 @@ import RootElement.Gütekriterien.QualityCriterion;
 
 /************************************************************/
 /**
- * 
+ * Klasse, die alle Gütekriterien lädt
  */
 public class QualityCriteriaLoader {
 
 	/**
-	 * 
-	 * @return  
+	 * Gibt alle gütekriterien zurück
+	 * @return  Liste aller Gütekriterien
 	 */
-	public static QualityCriterion getAllQualityCriteria() {
+	public static QualityCriterion[] getAllQualityCriteria() {
 	}
 };
