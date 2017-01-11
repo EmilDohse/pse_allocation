@@ -42,12 +42,15 @@
       <generalization xmi:type="uml:Generalization" xmi:id="_pjyyYtaMEeayPeVBIOoRFQ" general="_pjyya9aMEeayPeVBIOoRFQ"/>
       <ownedAttribute xmi:type="uml:Property" xmi:id="_pjyyY9aMEeayPeVBIOoRFQ" name="basicMatrix : GRBVar[][]" visibility="private"/>
       <ownedAttribute xmi:type="uml:Property" xmi:id="_pjyyZNaMEeayPeVBIOoRFQ" name="model : GRBModel" visibility="private"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_3uLH8NgBEeajp5oxlrL6UQ" name="optTerm : GRBLinExpr" visibility="private"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_O3Lq4NgCEeajp5oxlrL6UQ" name="teamSize : GRBVar[]" visibility="private"/>
       <ownedOperation xmi:type="uml:Operation" xmi:id="_pjyyZdaMEeayPeVBIOoRFQ" name="getBasicMatrix() : GRBVar[][]" visibility="public"/>
       <ownedOperation xmi:type="uml:Operation" xmi:id="_pjyyZtaMEeayPeVBIOoRFQ" name="getModel() : GRBModel"/>
       <ownedOperation xmi:type="uml:Operation" xmi:id="_pjyyZ9aMEeayPeVBIOoRFQ" name="calculate">
         <ownedParameter xmi:type="uml:Parameter" xmi:id="_pjyyaNaMEeayPeVBIOoRFQ" name="configuration" type="_pjyyfNaMEeayPeVBIOoRFQ"/>
       </ownedOperation>
       <ownedOperation xmi:type="uml:Operation" xmi:id="_pjyyataMEeayPeVBIOoRFQ" name="getOptimizationTerm() : GRBLinExpr"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_S3cbUNgCEeajp5oxlrL6UQ" name="getTeamSizes() : GRBVar[]"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="_pjyya9aMEeayPeVBIOoRFQ" name="AbstractAllocator" visibility="private" isAbstract="true">
       <ownedAttribute xmi:type="uml:Property" xmi:id="_lCJbE9arEeayPeVBIOoRFQ" name="criteria" type="_pjyyk9aMEeayPeVBIOoRFQ" association="_lCJbENarEeayPeVBIOoRFQ">
@@ -79,6 +82,10 @@
       <ownedAttribute xmi:type="uml:Property" xmi:id="_vO-CItawEeayPeVBIOoRFQ" name="parameters" type="_XCfk8NaNEeayPeVBIOoRFQ" association="_vO9bENawEeayPeVBIOoRFQ">
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_xRRRENawEeayPeVBIOoRFQ" value="1"/>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_xRTtUNawEeayPeVBIOoRFQ" value="*"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_r1PyINgBEeajp5oxlrL6UQ" name="learninggroup" type="_XCgzHNaNEeayPeVBIOoRFQ" association="_r1Mu0NgBEeajp5oxlrL6UQ">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_vOT_sNgBEeajp5oxlrL6UQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_vObUcNgBEeajp5oxlrL6UQ" value="*"/>
       </ownedAttribute>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="_pjyyitaMEeayPeVBIOoRFQ" name="CriterionAllocated"/>
@@ -117,7 +124,7 @@
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_xkSF8NarEeayPeVBIOoRFQ"/>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_xkT7INarEeayPeVBIOoRFQ" value="*"/>
       </ownedAttribute>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="_3i6akNc6EeabnpNmGsIysQ" name="INSTANCE" visibility="private" type="_9-tOwNc5EeabnpNmGsIysQ"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_3i6akNc6EeabnpNmGsIysQ" name="instance" visibility="private" type="_9-tOwNc5EeabnpNmGsIysQ"/>
       <ownedAttribute xmi:type="uml:Property" xmi:id="_GbBB0Nc8EeabnpNmGsIysQ" name="Allocator" type="_pjyya9aMEeayPeVBIOoRFQ" association="_Ga-lkNc8EeabnpNmGsIysQ"/>
       <ownedAttribute xmi:type="uml:Property" xmi:id="__8uTQdc8EeabnpNmGsIysQ" name="currentlyCalculatedConfiguration" type="_pjyyfNaMEeayPeVBIOoRFQ" association="__8tsMNc8EeabnpNmGsIysQ"/>
       <ownedOperation xmi:type="uml:Operation" xmi:id="_9s868Nc6EeabnpNmGsIysQ" name="getInstance" visibility="public" isStatic="true">
@@ -971,9 +978,11 @@
     <ownedAttribute xmi:type="uml:Property" xmi:id="_r5x9ANd2EeaYE9KsYjq_PA" name="allocationQueue" type="_9-tOwNc5EeabnpNmGsIysQ"/>
     <ownedAttribute xmi:type="uml:Property" xmi:id="_Lil90Nd3EeaYE9KsYjq_PA" name="allocator" type="_pjyyYdaMEeayPeVBIOoRFQ"/>
     <ownedAttribute xmi:type="uml:Property" xmi:id="_t4uEANd4EeaYE9KsYjq_PA" name="criterion" type="_pjyyk9aMEeayPeVBIOoRFQ"/>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_BdR_oNgEEeafWaSGLylH5A" name="allocation" type="_XCaFYNaNEeayPeVBIOoRFQ"/>
     <lifeline xmi:type="uml:Lifeline" xmi:id="_jrPOQNd2EeaYE9KsYjq_PA" name="allocationQueue" represents="_r5x9ANd2EeaYE9KsYjq_PA" coveredBy="_vghaMNd2EeaYE9KsYjq_PA _vghaMtd2EeaYE9KsYjq_PA _vghaMdd2EeaYE9KsYjq_PA _yWKKkNd2EeaYE9KsYjq_PA _BV4SMNd3EeaYE9KsYjq_PA _s_ADMdd3EeaYE9KsYjq_PA"/>
-    <lifeline xmi:type="uml:Lifeline" xmi:id="_BVHdMNd3EeaYE9KsYjq_PA" name="allocator" represents="_Lil90Nd3EeaYE9KsYjq_PA" coveredBy="_BV4SMdd3EeaYE9KsYjq_PA _TT1Fgtd3EeaYE9KsYjq_PA _TT1Fgdd3EeaYE9KsYjq_PA _qMEBgNd3EeaYE9KsYjq_PA _s_ADMtd3EeaYE9KsYjq_PA _2m_4MNd3EeaYE9KsYjq_PA _5l9jsNd3EeaYE9KsYjq_PA _5l9jsdd3EeaYE9KsYjq_PA _QQpL4dd4EeaYE9KsYjq_PA _ydFAAdd4EeaYE9KsYjq_PA _DrhpAdd5EeaYE9KsYjq_PA"/>
-    <lifeline xmi:type="uml:Lifeline" xmi:id="_QPmDANd4EeaYE9KsYjq_PA" name="criterion" represents="_t4uEANd4EeaYE9KsYjq_PA" coveredBy="_QQpL4td4EeaYE9KsYjq_PA _kIZZcNd4EeaYE9KsYjq_PA _kITS0dd4EeaYE9KsYjq_PA _w3aCsNd4EeaYE9KsYjq_PA _ydFAAtd4EeaYE9KsYjq_PA _BCULEdd5EeaYE9KsYjq_PA _DrhpAtd5EeaYE9KsYjq_PA"/>
+    <lifeline xmi:type="uml:Lifeline" xmi:id="_BVHdMNd3EeaYE9KsYjq_PA" name="allocator" represents="_Lil90Nd3EeaYE9KsYjq_PA" coveredBy="_BV4SMdd3EeaYE9KsYjq_PA _TT1Fgtd3EeaYE9KsYjq_PA _TT1Fgdd3EeaYE9KsYjq_PA _qMEBgNd3EeaYE9KsYjq_PA _s_ADMtd3EeaYE9KsYjq_PA _2m_4MNd3EeaYE9KsYjq_PA _5l9jsNd3EeaYE9KsYjq_PA _5l9jsdd3EeaYE9KsYjq_PA _QQpL4dd4EeaYE9KsYjq_PA _ydFAAdd4EeaYE9KsYjq_PA _DrhpAdd5EeaYE9KsYjq_PA _9Mya0dgDEeafWaSGLylH5A"/>
+    <lifeline xmi:type="uml:Lifeline" xmi:id="_QPmDANd4EeaYE9KsYjq_PA" name="criterion" represents="_t4uEANd4EeaYE9KsYjq_PA" coveredBy="_QQpL4td4EeaYE9KsYjq_PA _kITS0dd4EeaYE9KsYjq_PA _w3aCsNd4EeaYE9KsYjq_PA _ydFAAtd4EeaYE9KsYjq_PA _BCULEdd5EeaYE9KsYjq_PA _DrhpAtd5EeaYE9KsYjq_PA _3cwV4dgDEeafWaSGLylH5A _5X6bANgDEeafWaSGLylH5A _7b8vUNgDEeafWaSGLylH5A"/>
+    <lifeline xmi:type="uml:Lifeline" xmi:id="_9LW3cNgDEeafWaSGLylH5A" name="allocation" represents="_BdR_oNgEEeafWaSGLylH5A" coveredBy="_9Mya0tgDEeafWaSGLylH5A"/>
     <fragment xmi:type="uml:ExecutionOccurrenceSpecification" xmi:id="_vghaMNd2EeaYE9KsYjq_PA" name="BehaviorExecSpecStart" covered="_jrPOQNd2EeaYE9KsYjq_PA" execution="_vghaMdd2EeaYE9KsYjq_PA"/>
     <fragment xmi:type="uml:BehaviorExecutionSpecification" xmi:id="_vghaMdd2EeaYE9KsYjq_PA" name="BehaviorExecSpec" covered="_jrPOQNd2EeaYE9KsYjq_PA" finish="_vghaMtd2EeaYE9KsYjq_PA" start="_vghaMNd2EeaYE9KsYjq_PA"/>
     <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_yWKKkNd2EeaYE9KsYjq_PA" name="addToQueue_MessageRecv" covered="_jrPOQNd2EeaYE9KsYjq_PA" message="_yVxwENd2EeaYE9KsYjq_PA"/>
@@ -992,7 +1001,7 @@
     <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_QQpL4dd4EeaYE9KsYjq_PA" name="Message0Send" covered="_BVHdMNd3EeaYE9KsYjq_PA" message="_QQpL4Nd4EeaYE9KsYjq_PA"/>
     <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_QQpL4td4EeaYE9KsYjq_PA" name="Message0Recv" covered="_QPmDANd4EeaYE9KsYjq_PA" message="_QQpL4Nd4EeaYE9KsYjq_PA"/>
     <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_ydFAAdd4EeaYE9KsYjq_PA" name="useCriteria_MessageSend" covered="_BVHdMNd3EeaYE9KsYjq_PA" message="_ydFAANd4EeaYE9KsYjq_PA"/>
-    <fragment xmi:type="uml:BehaviorExecutionSpecification" xmi:id="_kITS0dd4EeaYE9KsYjq_PA" name="BehaviorExecSpec2" covered="_QPmDANd4EeaYE9KsYjq_PA" finish="_kIZZcNd4EeaYE9KsYjq_PA" start="_ydFAAtd4EeaYE9KsYjq_PA"/>
+    <fragment xmi:type="uml:BehaviorExecutionSpecification" xmi:id="_kITS0dd4EeaYE9KsYjq_PA" name="BehaviorExecSpec2" covered="_QPmDANd4EeaYE9KsYjq_PA" finish="_7b8vUNgDEeafWaSGLylH5A" start="_ydFAAtd4EeaYE9KsYjq_PA"/>
     <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_ydFAAtd4EeaYE9KsYjq_PA" name="useCriteria_MessageRecv" covered="_QPmDANd4EeaYE9KsYjq_PA" message="_ydFAANd4EeaYE9KsYjq_PA"/>
     <fragment xmi:type="uml:BehaviorExecutionSpecification" xmi:id="_-3QBsdd4EeaYE9KsYjq_PA" name="BehaviorExecSpec3" finish="_-3QBstd4EeaYE9KsYjq_PA" start="_BCULEtd5EeaYE9KsYjq_PA"/>
     <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_BCULEdd5EeaYE9KsYjq_PA" name="getModel() : GRBModel_MessageSend" covered="_QPmDANd4EeaYE9KsYjq_PA" message="_BCULENd5EeaYE9KsYjq_PA"/>
@@ -1000,10 +1009,17 @@
     <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_DrhpAdd5EeaYE9KsYjq_PA" name="getModel() : GRBModel_Message0Send" covered="_BVHdMNd3EeaYE9KsYjq_PA" message="_DrhpANd5EeaYE9KsYjq_PA"/>
     <fragment xmi:type="uml:ExecutionOccurrenceSpecification" xmi:id="_-3QBstd4EeaYE9KsYjq_PA" name="BehaviorExecSpec3Finish" execution="_-3QBsdd4EeaYE9KsYjq_PA"/>
     <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_DrhpAtd5EeaYE9KsYjq_PA" name="getModel() : GRBModel_Message0Recv" covered="_QPmDANd4EeaYE9KsYjq_PA" message="_DrhpANd5EeaYE9KsYjq_PA"/>
+    <fragment xmi:type="uml:BehaviorExecutionSpecification" xmi:id="_1eKiQdgDEeafWaSGLylH5A" name="BehaviorExecSpec4" finish="_5X0UYNgDEeafWaSGLylH5A" start="_3c2cgNgDEeafWaSGLylH5A"/>
+    <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_3cwV4dgDEeafWaSGLylH5A" name="getBasicMatrix() : GRBVar[][]_MessageSend" covered="_QPmDANd4EeaYE9KsYjq_PA" message="_3cwV4NgDEeafWaSGLylH5A"/>
+    <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_3c2cgNgDEeafWaSGLylH5A" name="getBasicMatrix() : GRBVar[][]_MessageRecv" message="_3cwV4NgDEeafWaSGLylH5A"/>
+    <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_5X0UYNgDEeafWaSGLylH5A" name="getBasicMatrix() : GRBVar[][]_Message0Send" message="_5XuNwNgDEeafWaSGLylH5A"/>
+    <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_5X6bANgDEeafWaSGLylH5A" name="getBasicMatrix() : GRBVar[][]_Message0Recv" covered="_QPmDANd4EeaYE9KsYjq_PA" message="_5XuNwNgDEeafWaSGLylH5A"/>
     <fragment xmi:type="uml:ExecutionOccurrenceSpecification" xmi:id="_w3aCsNd4EeaYE9KsYjq_PA" name="BehaviorExecSpec2Start" covered="_QPmDANd4EeaYE9KsYjq_PA" execution="_kITS0dd4EeaYE9KsYjq_PA"/>
-    <fragment xmi:type="uml:ExecutionOccurrenceSpecification" xmi:id="_kIZZcNd4EeaYE9KsYjq_PA" name="BehaviorExecSpec2Finish" covered="_QPmDANd4EeaYE9KsYjq_PA" execution="_kITS0dd4EeaYE9KsYjq_PA"/>
-    <fragment xmi:type="uml:ExecutionOccurrenceSpecification" xmi:id="_qMEBgNd3EeaYE9KsYjq_PA" name="BehaviorExecSpec0Start" covered="_BVHdMNd3EeaYE9KsYjq_PA" execution="_TT1Fgdd3EeaYE9KsYjq_PA"/>
+    <fragment xmi:type="uml:ExecutionOccurrenceSpecification" xmi:id="_7b8vUNgDEeafWaSGLylH5A" name="BehaviorExecSpec2Finish" covered="_QPmDANd4EeaYE9KsYjq_PA" execution="_kITS0dd4EeaYE9KsYjq_PA"/>
+    <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_9Mya0dgDEeafWaSGLylH5A" name="MessageSend0" covered="_BVHdMNd3EeaYE9KsYjq_PA" message="_9Mya0NgDEeafWaSGLylH5A"/>
+    <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_9Mya0tgDEeafWaSGLylH5A" name="MessageRecv0" covered="_9LW3cNgDEeafWaSGLylH5A" message="_9Mya0NgDEeafWaSGLylH5A"/>
     <fragment xmi:type="uml:ExecutionOccurrenceSpecification" xmi:id="_TT1Fgtd3EeaYE9KsYjq_PA" name="BehaviorExecSpec0Finish" covered="_BVHdMNd3EeaYE9KsYjq_PA" execution="_TT1Fgdd3EeaYE9KsYjq_PA"/>
+    <fragment xmi:type="uml:ExecutionOccurrenceSpecification" xmi:id="_qMEBgNd3EeaYE9KsYjq_PA" name="BehaviorExecSpec0Start" covered="_BVHdMNd3EeaYE9KsYjq_PA" execution="_TT1Fgdd3EeaYE9KsYjq_PA"/>
     <message xmi:type="uml:Message" xmi:id="_yVxwENd2EeaYE9KsYjq_PA" name="addToQueue" messageSort="asynchSignal" receiveEvent="_yWKKkNd2EeaYE9KsYjq_PA" signature="_pjyyb9aMEeayPeVBIOoRFQ"/>
     <message xmi:type="uml:Message" xmi:id="_BVyLkNd3EeaYE9KsYjq_PA" name="create" messageSort="createMessage" receiveEvent="_BV4SMdd3EeaYE9KsYjq_PA" sendEvent="_BV4SMNd3EeaYE9KsYjq_PA"/>
     <message xmi:type="uml:Message" xmi:id="_s_ADMNd3EeaYE9KsYjq_PA" name="calculate" receiveEvent="_s_ADMtd3EeaYE9KsYjq_PA" sendEvent="_s_ADMdd3EeaYE9KsYjq_PA" signature="_pjyyddaMEeayPeVBIOoRFQ"/>
@@ -1013,6 +1029,9 @@
     <message xmi:type="uml:Message" xmi:id="_ydFAANd4EeaYE9KsYjq_PA" name="useCriteria" receiveEvent="_ydFAAtd4EeaYE9KsYjq_PA" sendEvent="_ydFAAdd4EeaYE9KsYjq_PA" signature="_pjyylNaMEeayPeVBIOoRFQ"/>
     <message xmi:type="uml:Message" xmi:id="_BCULENd5EeaYE9KsYjq_PA" name="getModel() : GRBModel_Message" messageSort="asynchCall" receiveEvent="_BCULEtd5EeaYE9KsYjq_PA" sendEvent="_BCULEdd5EeaYE9KsYjq_PA" signature="_pjyyZtaMEeayPeVBIOoRFQ"/>
     <message xmi:type="uml:Message" xmi:id="_DrhpANd5EeaYE9KsYjq_PA" name="getModel() : GRBModel_Message0" messageSort="reply" receiveEvent="_DrhpAtd5EeaYE9KsYjq_PA" sendEvent="_DrhpAdd5EeaYE9KsYjq_PA" signature="_pjyyZtaMEeayPeVBIOoRFQ"/>
+    <message xmi:type="uml:Message" xmi:id="_3cwV4NgDEeafWaSGLylH5A" name="getBasicMatrix() : GRBVar[][]_Message" messageSort="asynchCall" receiveEvent="_3c2cgNgDEeafWaSGLylH5A" sendEvent="_3cwV4dgDEeafWaSGLylH5A" signature="_pjyyZdaMEeayPeVBIOoRFQ"/>
+    <message xmi:type="uml:Message" xmi:id="_5XuNwNgDEeafWaSGLylH5A" name="getBasicMatrix() : GRBVar[][]_Message0" messageSort="reply" receiveEvent="_5X6bANgDEeafWaSGLylH5A" sendEvent="_5X0UYNgDEeafWaSGLylH5A" signature="_pjyyZdaMEeayPeVBIOoRFQ"/>
+    <message xmi:type="uml:Message" xmi:id="_9Mya0NgDEeafWaSGLylH5A" name="create" messageSort="createMessage" receiveEvent="_9Mya0tgDEeafWaSGLylH5A" sendEvent="_9Mya0dgDEeafWaSGLylH5A"/>
   </packagedElement>
   <packagedElement xmi:type="uml:Interface" xmi:id="_1QKygNdTEeaNuJJjyLw2Ng" name="ServerConfigStartup">
     <ownedOperation xmi:type="uml:Operation" xmi:id="_7YnXcNdTEeaNuJJjyLw2Ng" name="onStartup">
@@ -1020,10 +1039,22 @@
     </ownedOperation>
   </packagedElement>
   <packagedElement xmi:type="uml:Class" xmi:id="_5ONVYNdTEeaNuJJjyLw2Ng" name="ServerConfig"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_r1Mu0NgBEeajp5oxlrL6UQ" memberEnd="_r1PyINgBEeajp5oxlrL6UQ _r1QZMNgBEeajp5oxlrL6UQ">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_r1PLENgBEeajp5oxlrL6UQ" source="org.eclipse.papyrus">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_r1PLEdgBEeajp5oxlrL6UQ" key="nature" value="UML_Nature"/>
+    </eAnnotations>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_r1QZMNgBEeajp5oxlrL6UQ" name="configuration" type="_pjyyfNaMEeayPeVBIOoRFQ" association="_r1Mu0NgBEeajp5oxlrL6UQ"/>
+  </packagedElement>
   <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_M3anUNapEeayPeVBIOoRFQ">
     <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_M3ccgNapEeayPeVBIOoRFQ" source="http://www.eclipse.org/uml2/2.0.0/UML">
       <references xmi:type="ecore:EPackage" href="http://www.eclipse.org/papyrus/PapyrusJava/1#/"/>
     </eAnnotations>
     <appliedProfile xmi:type="uml:Profile" href="pathmap://PapyrusJava_PROFILES/PapyrusJava.profile.uml#_j9REUByGEduN1bTiWJ0lyw"/>
+  </profileApplication>
+  <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_CjsgANgCEeajp5oxlrL6UQ">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_Cju8QNgCEeajp5oxlrL6UQ" source="http://www.eclipse.org/uml2/2.0.0/UML">
+      <references xmi:type="ecore:EPackage" href="pathmap://PAPYRUS_ACTIONLANGUAGE_PROFILE/ActionLanguage-Profile.profile.uml#_Kv8EIKFXEeS_KNX0nfvIVQ"/>
+    </eAnnotations>
+    <appliedProfile xmi:type="uml:Profile" href="pathmap://PAPYRUS_ACTIONLANGUAGE_PROFILE/ActionLanguage-Profile.profile.uml#ActionLanguage"/>
   </profileApplication>
 </uml:Model>
