@@ -9,51 +9,51 @@ import RootElement.Einteilung.Configuration;
 
 /************************************************************/
 /**
- * 
+ * Die Queue ist dazu da die Stapelverarbeitung von Einteilungs berechnungen zu realisieren
  */
 public class AllocationQueue {
 	/**
-	 * 
+	 * Die intern verwendete queue
 	 */
-	public Configuration[] configurationQueue;
+	private List<Configuration> configurationQueue;
 	/**
-	 * 
+	 * Der Singelton der der Allocation queue
 	 */
-	private RootElement.Einteilung.AllocationQueue INSTANCE;
+	private static AllocationQueue instance
 	/**
-	 * 
+	 * Der Alocator der zur Berechnung verwendet wird
 	 */
-	public AbstractAllocator Allocator;
+	private AbstractAllocator Allocator;
 	/**
-	 * 
+	 * Die Konfiguration die aktuell zur Berechnung verwendet wird
 	 */
-	public Configuration currentlyCalculatedConfiguration;
+	private Configuration currentlyCalculatedConfiguration;
 
 	/**
-	 * 
-	 * @return  
+	 * gibt die eine existierende Instanz der AllocationQueue (Singeltion) zurück
+	 * @return  die Instanz der AllocationQueue
 	 */
-	public static RootElement.Einteilung.AllocationQueue getInstance() {
+	public static AllocationQueue getInstance() {
 	}
 
 	/**
-	 * 
-	 * @param configuration 
+	 * fügt der Berechnungsqueue ein element hinzu das dann berechnet wird
+	 * @param configuration Die Konfiguration die zur Berechnungswarteliste hinzugefügt wird
 	 */
 	public void addToQueue(Configuration configuration) {
 	}
 
 	/**
-	 * 
-	 * @param configuration 
+	 * Nimmt eine Konfiguration aus der Berechnungsqueue heraus. Falls diese Konfiguration bereits berechnet wird, wird die Berechnung abgebrochen
+	 * @param configuration Die Konfiguration die entfernt werden soll
 	 */
 	public void cancelAllocation(Configuration configuration) {
 	}
 
 	/**
-	 * 
-	 * @return queue 
+	 * Gibt die Queue der Berechnungen zurück, inklusive der Konfiguration die aktuell berechnet wird. 
+	 * @return queue Liste der Konfigurationen als FIFO-Queue angeordnet
 	 */
-	public Configuration getQueue() {
+	public List<Configuration> getQueue() {
 	}
 };

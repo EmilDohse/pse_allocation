@@ -9,24 +9,22 @@ import RootElement.Einteilung.Criterion;
 
 /************************************************************/
 /**
- * 
+ * Abstrakter Löser des Einteilungsproblems
  */
 abstract class AbstractAllocator {
-	/**
-	 * 
-	 */
-	public Criterion[] criteria;
+	
 
 	/**
-	 * 
-	 * @param configuration 
+	 * berechnet die Einteilung zu einer gegebenen Konfiguration
+	 * @param configuration Konfiguration die bei der Einteilungsberechnung berücksichtigt wird
 	 */
 	public abstract void calculate(Configuration configuration);
 
 	/**
-	 * 
-	 * @return  
+	 * gibt alle Kriterien,
+ 	 * geladen über eien Servieloader zuzrück 
+	 * @return Liste aller verfügbarer Kriterien
 	 */
-	public static Criterion getAllCriteria() {
+	public static List<Criterion> getAllCriteria() {
 	}
 };
