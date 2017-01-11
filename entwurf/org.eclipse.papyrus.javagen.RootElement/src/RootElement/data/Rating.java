@@ -9,19 +9,19 @@ import RootElement.data.Project;
 
 /************************************************************/
 /**
- * 
+ * This class represents a learning group's rating for a specific project. 
  */
 public class Rating {
 	/**
-	 * 
+	 * The rating value.
 	 */
 	public int rating;
 	/**
-	 * 
+	 * The project being rated.
 	 */
 	public Project project;
 	/**
-	 * 
+	 * The learning group which is rating.
 	 */
 	public LearningGroup learningGroup;
 };

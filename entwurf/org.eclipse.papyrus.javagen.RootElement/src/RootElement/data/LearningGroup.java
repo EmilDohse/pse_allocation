@@ -8,39 +8,41 @@ import RootElement.data.Semester;
 
 /************************************************************/
 /**
- * 
+ * This class represents a group of students, who want to register for PSE together.
  */
 public class LearningGroup {
 	/**
-	 * 
+	 * The name/identifier of the learning group.
 	 */
 	public String name;
 	/**
-	 * 
+	 * The password needed to join the learning group.
 	 */
 	public String password;
 	/**
-	 * 
+	 * The semster the learning group was created in.
 	 */
 	public Semester semester;
 
 	/**
-	 * 
+	 * False if this learning group was created by a student, true otherwise.
+	 * Every student who is not a member of a learning group is handled as a private learning
+	 * group with one member.
 	 */
-	public boolean private;
+	public boolean isPrivate;
 	
 	/**
-	 * 
-	 * @param name 
-	 * @return learningGroup 
-	 * @param semester 
+	 * This method is used to get a specific learning group from a chosen semster.
+	 * @param name The name of the learning group.
+	 * @param semester The semster the learning group was created in.
+	 * @return learningGroup The specific learning group you're searching for.
 	 */
 	public static RootElement.data.LearningGroup getLearningGroup(String name, Semester semester) {
 	}
 
 	/**
-	 * 
-	 * @return learningGroups 
+	 * This method is used to get all learning groups ever created.
+	 * @return learningGroups All learninggroups.
 	 */
 	public static RootElement.data.LearningGroup getLearningGroups() {
 	}

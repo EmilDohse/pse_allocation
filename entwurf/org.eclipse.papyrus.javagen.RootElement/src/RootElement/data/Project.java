@@ -14,46 +14,46 @@ import RootElement.data.Student;
  */
 public class Project {
 	/**
-	 * 
+	 * The project's name.
 	 */
 	public String name;
 	/**
-	 * 
+	 * The minimum number of members.
 	 */
 	public int minTeamSize;
 	/**
-	 * 
+	 * The maximum number of members.
 	 */
 	public int maxTeamSize;
 	/**
-	 * 
+	 * The project's description for the students.
 	 */
 	public String projectInfo;
 	/**
-	 * 
+	 * URL to the porject's website.
 	 */
 	public String projectURL;
 
 	/**
-	 * 
-	 * @return projects 
+	 * This method is used to get all projects.
+	 * @return projects All projects.
 	 */
 	public static RootElement.data.Project getProjects() {
 	}
 
 	/**
-	 * 
-	 * @param name 
-	 * @param semester 
-	 * @return project 
+	 * This method is used to get a specific project of a chosen semester.
+	 * @param name The project's name.
+	 * @param semester The semester the project was created in.
+	 * @return project The project you are searching for.
 	 */
 	public static RootElement.data.Project getProject(String name, Semester semester) {
 	}
 
 	/**
-	 * 
-	 * @param student 
-	 * @return rating 
+	 * This method returns the rating for this project of a specific student.
+	 * @param student The student you want the rating for this project from.
+	 * @return rating The student's rating for this project.
 	 */
 	public Rating getRating(Student student) {
 	}

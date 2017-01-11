@@ -8,19 +8,19 @@ import RootElement.data.Semester;
 
 /************************************************************/
 /**
- * 
+ * This class stores either often used or needed data.
  */
 public class GeneralData {
 	/**
-	 * 
+	 * The current semster.
 	 */
 	public Semester currentSemester;
 	/**
-	 * 
+	 * The administrator's name.
 	 */
 	public static String AdminName;
 	/**
-	 * 
+	 * The password for the adnministrator.
 	 */
 	public static String AdminPassword;
 };
