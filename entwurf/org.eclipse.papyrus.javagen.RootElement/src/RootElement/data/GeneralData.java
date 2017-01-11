@@ -14,13 +14,25 @@ public class GeneralData {
 	/**
 	 * Das momentane Semester.
 	 */
-	public Semester currentSemester;
+	private Semester currentSemester;
 	/**
 	 * Anmeldename des Admind.
 	 */
-	public static String AdminName;
+	private static String adminName;
 	/**
 	 * Anmeldepasswort des Admins.
 	 */
-	public static String AdminPassword;
+	private static String adminPassword;
+	
+	public Semester getCurrentSemester() {
+	    return currentSemester;
+	}
+	
+	public String getAdminName() {
+	    return this.adminName;
+	}
+	
+	public String getAdminPassword() {
+	    return this.adminPassword;
+	}
 };

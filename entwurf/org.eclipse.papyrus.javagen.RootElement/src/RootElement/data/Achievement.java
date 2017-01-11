@@ -12,8 +12,14 @@ public class Achievement {
 	/**
 	 * Der Name der Teilleistung.
 	 */
-	public String name;
-
+	private String name;
+	/**
+	 * Getter für den Namen der Teilleistung.
+	 * @return Der Name der Teilleistung.
+	 */
+	public String getName() {
+	    return name;
+	}
 	/**
 	 * Diese Methode gibt alle Teilleistungen zurück.
 	 * @return achievements Alle existierenden Teilleistungen.

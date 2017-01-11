@@ -14,16 +14,38 @@ public class SPO {
 	/**
 	 * Der Name der Prüfungsordnung.
 	 */
-	public String name;
+	private String name;
 	/**
 	 * Die nach dieser Prüfungsordnung benötigten Teilleistungen für die Teilnahme am PSE.s
 	 */
-	public Achievement[] necessaryAchievements;
+	private Achievement[] necessaryAchievements;
 	/**
 	 * Die zum Einstellen verfügbaren Teilleistungen.
 	 */
-	public Achievement[] avaliableAchievements;
-
+	private Achievement[] avaliableAchievements;
+	
+	
+	/**
+	 * Getter-Methode für name.
+	 * @return Der Name der SPO.
+	 */
+	public String getName() {
+	    return name;
+	}
+	/**
+     * Getter-Methode für die benötigten Teilleistungen.
+     * @return Die benötigten Teilleistungen.
+     */
+	public Achievement[] getNecessaryAchievements() {
+	    return necessaryAchievements;
+	}
+	/**
+     * Getter-Methode für die verfügbaren Teilleistungen.
+     * @return Die verfügbaren Teilleistungen.
+     */
+	public Achievement[] getAvailableAchievements() {
+        return availableAchievements;
+    }
 	/**
 	 * Diese Methode gibt alle SPOs zurück.
 	 * @return spos Alle SPOs.

@@ -15,8 +15,14 @@ public class Adviser extends User {
 	/**
 	 * Die Projekte, die der Betreuer beaufsichtigt
 	 **/
-	public Project[] projects;
-
+	private Project[] projects;
+	/**
+	 * Getter für die Projekte, die der Betreuer beaufsichtigt.
+	 * @return Die Projekte, die der Betreuer beaufsichtigt.
+	 */
+	public Project[] getProjects() {
+	    return projects;
+	}
 	/**
 	 * Diese Methode gibt alle Betreuer zurück, die es jemals gab.
 	 * @return advisers Alle Betreuer.

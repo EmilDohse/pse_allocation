@@ -12,21 +12,56 @@ public class User {
 	/**
 	 * Der Anmeldename des Benutzers.
 	 */
-	public String username;
+	private String username;
 	/**
 	 * Das Anmeldepasswort des Benutzers.
 	 */
-	public String password;
+	private String password;
 	/**
 	 * Die Email-Adresse des Benutzers.
 	 */
-	public String emailAddress;
+	private String emailAddress;
 	/**
 	 * Vorname des Benutzers.
 	 */
-	public String firstName;
+	private String firstName;
 	/**
 	 * Nachname des Benutzers.
 	 */
-	public String lastName;
+	private String lastName;
+	/**
+	 * Getter für den Benutzernamen.
+	 * @return Der Benutzername.
+	 */
+	public String getUserName() {
+	    return username;
+	}
+	/**
+	 * Getter für das Benutzerpasswort.
+	 * @return Das Benutzerpasswort.
+	 */
+	public String getPassword() {
+	    return password;
+	}
+	/**
+	 * Getter für die EMail-Addresse.
+	 * @return Die EMail-Addresse.
+	 */
+	public String getEmailAddress() {
+	    return emailAddress;
+	}
+	/**
+	 * Getter für den Vornamen.
+	 * @return Der Vorname.
+	 */
+	public String getFirstName() {
+	    return firstName;
+	}
+	/**
+	 * Getter für den Nachnamen.
+	 * @return Der Nachname.
+	 */
+	public String getLastName() {
+	    return lastName;
+	}
 };

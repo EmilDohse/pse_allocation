@@ -17,20 +17,47 @@ public class Semester {
 	/**
 	 * Der Name des Semesters im Format: *******
 	 */
-	public String name;
+	private String name;
 	/**
 	 * Die für dieses Semseter verfügbaren SPOs
 	 */
-	public SPO[] spos;
+	private SPO[] spos;
 	/**
 	 * Eine Beschreibung/Infotext des Semesters.
 	 */
-	public String infoText;
+	private String infoText;
 	/**
 	 * Die finale Einteilung der Studierenden auf die Projekte/Teams.
 	 */
-	public Allocation finalAllocation;
-
+	private Allocation finalAllocation;
+	/**
+	 * Getter für den Namen des Semesters.
+	 * @return Der Name des Semesters.
+	 */
+	public String getName() {
+	    return name;
+	}
+	/**
+	 * Getter für die SPOs des Semesters.
+	 * @return Die verfügbaren SPOs des Semesters.
+	 */
+	public SPO[] getSpos() {
+	    return spos;
+	}
+	/**
+	 * Getter für den Infotext.
+	 * @return Der Infotext des Semesters.
+	 */
+	public String getInfoText() {
+	    return infoText;
+	}
+	/**
+	 * Getter für die finale Einteilung.
+	 * @return Die finale Einteilung.
+	 */
+	public Allocation getFinalAllocation() {
+	    return finalAllocation;
+	}
 	/**
 	 * Diese Methode gibt ein spezifisches Semester zurück.
 	 * @param semesterName Der Name des Semseters.
