@@ -28,8 +28,12 @@ public class Student extends User {
 	public Semester[] registeredSemesters;
 	/**
 	 * Die SPO des Studierenden
-	 */
+     */
 	public SPO spo;
+	/**
+	 * Die Lerngruppe des Studierenden.
+	 */
+	private LearningGroup[] learningGroup;
 	/**
 	 * Die bestandenen Teilleistungen.
 	 */

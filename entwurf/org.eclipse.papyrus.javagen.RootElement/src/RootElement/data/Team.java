@@ -15,9 +15,9 @@ import RootElement.data.Student;
  */
 public class Team {
 	/**
-	 * ??
+	 * Das Porjekt des Teams
 	 */
-	public Project[] project;
+	public Project project;
 
 	/**
 	 * Diese Methode gibt die Studierenden(Mitgliederr) des Teams zurück.
