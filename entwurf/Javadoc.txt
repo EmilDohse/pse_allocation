@@ -183,3 +183,13 @@ zurückgeleitet.
 							Diese Methode macht die letzte Editierung rückgängig. Dies ist jedoch nicht session-übergreifend möglich. Der Administrator wird anschließend auf die Seite zur Einteilungs-Bearbeitung zurückgeleitet.
 	Modell
 		Das Modell beinhaltet einen Großteil der Programmlogik und alle Klassen die benötigt werden um das Programm zu realisieren. Dazu gehören Datenklassen, Klassen für die Authentifizierung und Autorisierung, die Einteilung per ILP und weitere.
+
+		Security
+			Das Security-Package beinhaltet alle Klassen, welche sich um Sicherheit und Verschlüsselung von Daten kümmern.
+		
+			SecurityModule
+				Das SecurityModule ist eine von der Bibliothek pac4j vorgeschriebene Klasse, welche die Bibliothek konfiguriert. Darin wird festgelegt, welche Authentifizierungsmethoden verwendet werden sollen.
+				
+				Methods
+					configure
+						Diese Methode wird von der Bibliothek aufgerufen und kreiert und konfiguriert die Authentifizierungsmethoden.
