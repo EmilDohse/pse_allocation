@@ -15,40 +15,50 @@ public class AdminPropertiesController extends Controller {
 	 * Diese Methode lässt den Administrator ein neues Semester erstellen 
 	 * und anschließend Konfigurieren. Nach dem Erstellen wird der 
 	 * Administrator deshalb auf die Einstellungsseite für das Semester.
+	 * 
+	 * @param die Seite, die als Antwort verschickt wird.
 	 */
-	public void addSemester() {
+	public Result addSemester() {
 	}
 
 	/**
 	 * Diese Methode lässt den Administrator ein Semester löschen, 
 	 * wenn mit diesem keine Studentendaten verbunden sind. 
 	 * Der Administrator wird daraufhin zur Einstellungsseite zurückgeleitet.
+	 * 
+	 * @param die Seite, die als Antwort verschickt wird.
 	 */
-	public void removeSemester() {
+	public Result removeSemester() {
 	}
 
 	/**
 	 * Diese Methode fügt eine neue leere SPO, mit einem vom 
 	 * Administrator bestimmten Namen, hinzu. Der Administrator 
 	 * wird daraufhin auf die Einstellungsseite zurückgeleitet.
+	 * 
+	 * @param die Seite, die als Antwort verschickt wird.
 	 */
-	public void addSPO() {
+	public Result addSPO() {
 	}
 
 	/**
 	 * Diese Methode löscht eine bereits vorhandene SPO. 
 	 * Die SPO kann nur gelöscht werden, wenn kein Student diese SPO verwendet. 
 	 * Der Administrator wird daraufhin auf die Einstellungsseite zurückgeleitet.
+	 * 
+	 * @param die Seite, die als Antwort verschickt wird.
 	 */
-	public void removeSPO() {
+	public Result removeSPO() {
 	}
 
 	/**
 	 * Diese Methode übernimmt die Änderungen, 
 	 * welche der Administrator im Semester-Ändern-Formular festgelegt hat. 
 	 * Dazu gehören die Deadlines und die Allgemeinen Informationen.
+	 * 
+	 * @param die Seite, die als Antwort verschickt wird.
 	 */
-	public void editSemester() {
+	public Result editSemester() {
 	}
 
 	/**
@@ -56,14 +66,18 @@ public class AdminPropertiesController extends Controller {
 	 * Der Administrator kann die Teilleistung als notwendig oder als nicht 
 	 * notwendig deklarieren und deren Namen ändern. Der Administrator 
 	 * wird daraufhin zur Einstellungsseite zurückgeleitet.
+	 * 
+	 * @param die Seite, die als Antwort verschickt wird.
 	 */
-	public void addAchievement() {
+	public Result addAchievement() {
 	}
 
 	/**
 	 * Diese Methode löscht eine bereits existierende Teilleistung aus einer SPO. 
 	 * Der Administrator wird daraufhin zur Einstellungsseite zurück geleitet.
+	 * 
+	 * @param die Seite, die als Antwort verschickt wird.
 	 */
-	public void removeAchievement() {
+	public Result removeAchievement() {
 	}
 }

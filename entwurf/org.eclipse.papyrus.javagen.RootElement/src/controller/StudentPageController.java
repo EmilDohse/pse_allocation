@@ -17,67 +17,85 @@ public class StudentPageController extends Controller {
 	 * Diese Methode gibt die Seite zurück, auf der der Student 
 	 * sieht in welcher Lerngruppe er ist, oder 
 	 * wenn er in keiner aktuell ist, eine erstellen oder einer beitreten kann.
+	 * 
+	 * @param die Seite, die als Antwort verschickt wird.
 	 */
-	public void learningGroupPage() {
+	public Result learningGroupPage() {
 	}
 
 	/**
 	 * Diese Methode gibt die Seite zurück, 
 	 * auf der der Student seine Bewertungen abgeben kann.
+	 * 
+	 * @param die Seite, die als Antwort verschickt wird.
 	 */
-	public void ratingPage() {
+	public Result ratingPage() {
 	}
 
 	/**
 	 * Diese Methode gibt die Seite zurück, auf der der Student das 
 	 * Ergebnis der Einteilungsberechnung einsehen kann. 
 	 * Er sieht also sein Projekt und seine Teammitglieder.
+	 * 
+	 * @param die Seite, die als Antwort verschickt wird.
 	 */
-	public void resultsPage() {
+	public Result resultsPage() {
 	}
 
 	/**
 	 * Diese Methode fügt die Daten der Bewertungen eines Studenten 
 	 * in das System ein und leitet den Studenten wieder zurück 
 	 * auf die Bewertungsseite, wo er nun seine eingegebene Bewertungen sehen kann.
+	 * 
+	 * @param die Seite, die als Antwort verschickt wird.
 	 */
-	public void rate() {
+	public Result rate() {
 	}
 
 	/**
 	 * Diese Methode erstellt eine neue Lerngruppe im System hinzu und 
 	 * fügt den Ersteller der Lerngruppe als erstes Mitglied in diese ein. 
 	 * Der Student wird anschließend auf die Lerngruppen-Seite zurückgeleitet.
+	 * 
+	 * @param die Seite, die als Antwort verschickt wird.
 	 */
-	public void createLearningGroup() {
+	public Result createLearningGroup() {
 	}
 
 	/**
 	 * Diese Methode entfernt den Student aus der aktuellen Lerngruppe. 
 	 * Anschließend wird der Student auf die Lerngruppen-Seite zurück geleitet.
+	 * 
+	 * @param die Seite, die als Antwort verschickt wird.
 	 */
-	public void leaveLearningGroup() {
+	public Result leaveLearningGroup() {
 	}
 
 	/**
 	 * Diese Methode fügt den Studenten zu einer Lerngruppe hinzu, 
 	 * falls eine Lerngruppe mit dem Namen und dem zugehörigen Passwort existiert. 
 	 * Anschließend wird der Student auf die Lerngruppen-Seite zurückgeleitet.
+	 * 
+	 * @param die Seite, die als Antwort verschickt wird.
 	 */
-	public void joinLearningGroup() {
+	public Result joinLearningGroup() {
 	}
 
 	/**
 	 * Diese Methode gibt die Seite zurück, auf der der 
 	 * Student seine Studentendaten wie E-Mail-Adresse und Passwort ändern kann.
+	 * 
+	 * @param die Seite, die als Antwort verschickt wird.
 	 */
-	public void accountPage() {
+	public Result accountPage() {
 	}
 
 	/**
 	 * Diese Methode editiert die Daten des Studenten, 
 	 * welche er auf der Account-Seite geändert hat.
+	 * 
+	 * @param die Seite, die als Antwort verschickt wird.
 	 */
-	public void editAccount() {
+	public Result editAccount() {
 	}
 }

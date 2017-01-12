@@ -21,8 +21,10 @@ public class AdminEditAllocationController extends Controller {
 	 * Ein Tausch innerhalb eines Teams wird nicht unterbunden, 
 	 * hat jedoch keine Auswirkung. Anschließend wird der Administrator 
 	 * auf die Seite zur Einteilungs-Bearbeitung zurückgeleitet.
+	 * 
+	 * @param die Seite, die als Antwort verschickt wird.
 	 */
-	public void swapStudents() {
+	public Result swapStudents() {
 	}
 
 	/**
@@ -30,8 +32,10 @@ public class AdminEditAllocationController extends Controller {
 	 * Das verschieben in das gleiche Team wird nicht unterbunden, 
 	 * hat jedoch keine Auswirkung. Anschließend wird der Administrator auf 
 	 * die Seite zur Einteilungs-Bearbeitung zurückgeleitet.
+	 * 
+	 * @param die Seite, die als Antwort verschickt wird.
 	 */
-	public void moveStudents() {
+	public Result moveStudents() {
 	}
 
 	/**
@@ -39,8 +43,10 @@ public class AdminEditAllocationController extends Controller {
 	 * die Einteilung als final zu deklarieren und Betreuer und Studenten per E-Mail 
 	 * über deren Einteilung zu informieren. Der Administrator wird anschließend 
 	 * auf die Einteilungs-Bearbeitungs-Seite zurückgeleitet.
+	 * 
+	 * @param die Seite, die als Antwort verschickt wird.
 	 */
-	public void publishAllocation() {
+	public Result publishAllocation() {
 	}
 
 	/**
@@ -49,16 +55,20 @@ public class AdminEditAllocationController extends Controller {
 	 * ob durch seine manuelle Änderungen ein optimaleres Ergebnis entstand. 
 	 * Der Administrator wird anschließend auf die Seite zur 
 	 * Einteilungs-Bearbeitung zurückgeleitet.
+	 * 
+	 * @param die Seite, die als Antwort verschickt wird.
 	 */
-	public void duplicateAllocation() {
+	public Result duplicateAllocation() {
 	}
 
 	/**
 	 * Diese Methode löscht eine bereits vorhandene Einteilung. 
 	 * Der Administrator wird anschließend auf die Seite 
 	 * zur Einteilungs-Bearbeitung zurückgeleitet.
+	 * 
+	 * @param die Seite, die als Antwort verschickt wird.
 	 */
-	public void removeAllocation() {
+	public Result removeAllocation() {
 	}
 
 	/**
@@ -66,7 +76,9 @@ public class AdminEditAllocationController extends Controller {
 	 * Dies ist jedoch nicht session-übergreifend möglich. 
 	 * Der Administrator wird anschließend auf die Seite 
 	 * zur Einteilungs-Bearbeitung zurückgeleitet.
+	 * 
+	 * @param die Seite, die als Antwort verschickt wird.
 	 */
-	public void undoAllocationEdit() {
+	public Result undoAllocationEdit() {
 	}
 }

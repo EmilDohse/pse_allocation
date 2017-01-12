@@ -15,16 +15,20 @@ public class AdminProjectController extends Controller {
 	/**
 	 * Diese Methode fügt ein neues Projekt in das System ein 
 	 * und leitet den Administrator zurück auf die Seite zum editieren des Projektes.
+	 * 
+	 * @param die Seite, die als Antwort verschickt wird.
 	 */
-	public void addProject() {
+	public Result addProject() {
 	}
 
 	/**
 	 * Diese Methode löscht ein Projekt und alle dazugehörenden Daten 
 	 * aus dem System und leitet den Administrator weiter 
 	 * auf die Seite zum editieren und hinzufügen von Projekten.
+	 * 
+	 * @param die Seite, die als Antwort verschickt wird.
 	 */
-	public void removeProject() {
+	public Result removeProject() {
 	}
 
 	/**
@@ -32,7 +36,9 @@ public class AdminProjectController extends Controller {
 	 * Die zu editierenden Daten übermittelt der Administrator über ein Formular, 
 	 * welches er zum editieren abschickt. Anschließend wird der 
 	 * Administrator auf die Seite zum Hinzufügen und Editieren von Projekten weitergeleitet.
+	 * 
+	 * @param die Seite, die als Antwort verschickt wird.
 	 */
-	public void editProject() {
+	public Result editProject() {
 	}
 }

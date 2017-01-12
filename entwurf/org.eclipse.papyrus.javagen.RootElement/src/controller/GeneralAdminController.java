@@ -22,37 +22,47 @@ public class GeneralAdminController extends Controller {
 	 * Diese Methode fügt einen Betreuer mit den Daten aus dem vom Administrator 
 	 * auszufüllenden Formular zum System hinzu. 
 	 * Der Administrator wird anschließend auf die Betreuerübersicht weitergeleitet.
+	 * 
+	 * @param die Seite, die als Antwort verschickt wird.
 	 */
-	public void addAdviser() {
+	public Result addAdviser() {
 	}
 
 	/**
 	 * Diese Methode entfernt einen Betreuer und dessen Daten aus dem System. 
 	 * Der Administrator wird anschließend auf die Betreuerübersicht weitergeleitet.
+	 * 
+	 * @param die Seite, die als Antwort verschickt wird.
 	 */
-	public void removeAdviser() {
+	public Result removeAdviser() {
 	}
 
 	/**
 	 * Diese Methode fügt eine Einteilungskonfiguration in die Berechnungswarteschlange hinzu. 
 	 * Der Administrator wird anschließend auf die Berechnungsübersichtsseite weitergeleitet.
+	 * 
+	 * @param die Seite, die als Antwort verschickt wird.
 	 */
-	public void addAllocation() {
+	public Result addAllocation() {
 	}
 
 	/**
 	 * Diese Methode fügt einen Studenten in das System hinzu. 
 	 * Der Administrator wird anschließend auf die Seite zum weiteren 
 	 * Hinzufügen und Löschen von Studenten weitergeleitet.
+	 * 
+	 * @param die Seite, die als Antwort verschickt wird.
 	 */
-	public void addStudent() {
+	public Result addStudent() {
 	}
 
 	/**
 	 * Diese Methode löscht einen Studenten aus dem System. 
 	 * Der Administrator wird anschließend auf die Seite zum 
 	 * weiteren Hinzufügen und Löschen von Studenten weitergeleitet.
+	 * 
+	 * @param die Seite, die als Antwort verschickt wird.
 	 */
-	public void removeStudent() {
+	public Result removeStudent() {
 	}
 }

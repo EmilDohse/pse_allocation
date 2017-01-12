@@ -16,15 +16,19 @@ public class AdviserPageController extends Controller {
 	 *  auf der der Betreuer Projekte sieht, Projekte hinzufügen, 
 	 *  editieren oder entfernen kann. Editieren und Entfernen eines 
 	 *  Projektes ist beschränkt auf Betreuer, welche dem Projekt beigetreten sind.
+	 *  
+	 *  @param die Seite, die als Antwort verschickt wird.
 	 */
-	public void projectsPage() {
+	public Result projectsPage() {
 	}
 
 	/**
 	 * Diese Methode fügt ein neues Projekt in das System ein 
 	 * und leitet den Betreuer zurück auf die Seite zum editieren des Projektes.
+	 * 
+	 * @param die Seite, die als Antwort verschickt wird.
 	 */
-	public void addProject() {
+	public Result addProject() {
 	}
 
 	/**
@@ -32,8 +36,10 @@ public class AdviserPageController extends Controller {
 	 * aus dem System und leitet den Betreuer auf die Seite zum editieren 
 	 * und hinzufügen von Projekten. Nur Betreuer welche dem Projekt 
 	 * beigetreten sind können dieses editieren.
+	 * 
+	 * @param die Seite, die als Antwort verschickt wird.
 	 */
-	public void removeProject() {
+	public Result removeProject() {
 	}
 
 	/**
@@ -43,8 +49,10 @@ public class AdviserPageController extends Controller {
 	 * Nur Betreuer welche dem Projekt beigetreten sind können 
 	 * dieses editieren. Anschließend wird der Betreuer auf die 
 	 * Seite zum Hinzufügen und Editieren von Projekten weitergeleitet.
+	 * 
+	 * @param die Seite, die als Antwort verschickt wird.
 	 */
-	public void editProject() {
+	public Result editProject() {
 	}
 
 	/**
@@ -53,8 +61,10 @@ public class AdviserPageController extends Controller {
 	 * zu löschen und nach der Veröffentlichung einer Einteilung auch Teams und 
 	 * deren Mitglieder sieht. Nach dem Beitreten wird der Betreuer auf 
 	 * die Seite zum Hinzufügen und Editieren von Projekten weitergeleitet.
+	 * 
+	 * @param die Seite, die als Antwort verschickt wird.
 	 */
-	public void joinProject() {
+	public Result joinProject() {
 	}
 
 	/**
@@ -62,8 +72,10 @@ public class AdviserPageController extends Controller {
 	 * sodass dieser nicht mehr das Projekt editieren oder löschen kann. 
 	 * Anschließend wird der Betreuer auf die Seite zum Hinzufügen 
 	 * und Editieren von Projekten weitergeleitet.
+	 * 
+	 * @param die Seite, die als Antwort verschickt wird.
 	 */
-	public void leaveProject() {
+	public Result leaveProject() {
 	}
 
 	/**
@@ -71,22 +83,28 @@ public class AdviserPageController extends Controller {
 	 * Formular eingegebenen Noten, sodass diese vom Administrator in das 
 	 * CMS importiert werden können. Anschließend wird der Betreuer 
 	 * auf die Projektseite des jeweiligen Projektes weitergeleitet.
+	 * 
+	 * @param die Seite, die als Antwort verschickt wird.
 	 */
-	public void saveStudentsGrades() {
+	public Result saveStudentsGrades() {
 	}
 
 	/**
 	 * Diese Methode gibt die Seite zurück, 
 	 * auf der der Betreuer seine Studentendaten 
 	 * wie E-Mail-Adresse und Passwort ändern kann.
+	 * 
+	 * @param die Seite, die als Antwort verschickt wird.
 	 */
-	public void accountPage() {
+	public Result accountPage() {
 	}
 
 	/**
 	 * Diese Methode editiert die Daten des Betreuers, 
 	 * welche er auf der Account-Seite geändert hat.
+	 * 
+	 * @param die Seite, die als Antwort verschickt wird.
 	 */
-	public void editAccount() {
+	public Result editAccount() {
 	}
 }

@@ -23,45 +23,57 @@ public class IndexPageController extends Controller {
 	 * Diese Methode gibt die Seite zurück, welche die Startseite ist. 
 	 * Auf dieser Seite kann sich Administrator, Betreuer und Student 
 	 * anmelden oder aktuelle Informationen einsehen.
+	 * 
+	 * @param die Seite, die als Antwort verschickt wird.
 	 */
-	public void indexPage() {
+	public Result indexPage() {
 	}
 
 	/**
 	 * Diese Methode gibt die Seite zurück, 
 	 * auf der sich ein Student registrieren kann.
+	 * 
+	 * @param die Seite, die als Antwort verschickt wird.
 	 */
-	public void registerPage() {
+	public Result registerPage() {
 	}
 
 	/**
 	 * Diese Methode initiiert die Login-Prozedur und leitet den 
 	 * Anzumeldenden je nach Autorisierung auf die passende Seite weiter.
+	 * 
+	 * @param die Seite, die als Antwort verschickt wird.
 	 */
-	public void login() {
+	public Result login() {
 	}
 
 	/**
 	 * Diese Methode registriert einen Studenten und fügt diesen 
 	 * in die Datenbank ein, sofern alle notwendigen Teillestungen 
 	 * als bestanden angegeben wurden.
+	 * 
+	 * @param die Seite, die als Antwort verschickt wird.
 	 */
-	public void register() {
+	public Result register() {
 	}
 
 	/**
 	 * Diese Methode gibt die Seite zurück, die ein 
 	 * Passwort-Rücksetz-Formular für Studenten und Betreuer anzeigt.
+	 * 
+	 * @param die Seite, die als Antwort verschickt wird.
 	 */
-	public void passwordResetPage() {
+	public Result passwordResetPage() {
 	}
 
 	/**
 	 * Diese Methode schickt eine Email anhand der Daten aus 
 	 * dem Passwort-Rücksetz-Formular an den Studenten 
 	 * oder den Betreurer, welche ein neues Passwort enthält.
+	 * 
+	 * @param die Seite, die als Antwort verschickt wird.
 	 */
-	public void passwordReset() {
+	public Result passwordReset() {
 	}
 
 	/**
@@ -69,7 +81,9 @@ public class IndexPageController extends Controller {
 	 * Dies funktioniert, indem der Student eine Mail mit einen Link auf diese 
 	 * Seite erhält, welche noch einen Code als Parameter übergibt. 
 	 * Anhand dieses Parameters wird der Student verifiziert.
+	 * 
+	 * @param die Seite, die als Antwort verschickt wird.
 	 */
-	public void verificationPage() {
+	public Result verificationPage() {
 	}
 }

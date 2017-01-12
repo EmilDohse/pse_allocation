@@ -19,58 +19,74 @@ public class AdminPageController extends Controller {
 
 	/**
 	 * Diese Methode gibt die Seite zurück, auf der der Administrator Projekte sieht.
+	 * 
+	 * @param die Seite, die als Antwort verschickt wird.
 	 */
-	public void projectPage() {
+	public Result projectPage() {
 	}
 
 	/**
 	 * Diese Methode gibt die Seite zurück, auf der der Administrator 
 	 * alle Projektbetreuer sehen, neue hinzufügen oder bereits 
 	 * existierende entfernen kann.
+	 * 
+	 * @param die Seite, die als Antwort verschickt wird.
 	 */
-	public void adviserPage() {
+	public Result adviserPage() {
 	}
 
 	/**
 	 * Diese Methode gibt die Seite zurück, 
 	 * auf der der Administrator Einteilungen berechnen kann und voher Parameter einstellen kann. 
 	 * Außerdem sieht er noch zu berechnende Konfigurationen und kann diese aus der Berechnungsliste entfernen.
+	 * 
+	 * @param die Seite, die als Antwort verschickt wird.
 	 */
-	public void allocationPage() {
+	public Result allocationPage() {
 	}
 
 	/**
 	 * Diese Methode gibt die Seite zurück, auf der der Administrator 
 	 * die Ergebnisse der Berechnungen sehen, vergleichen und editieren kann.
+	 * 
+	 * @param die Seite, die als Antwort verschickt wird.
 	 */
-	public void resultsPage() {
+	public Result resultsPage() {
 	}
 
 	/**
 	 * Diese Methode gibt die Seite zurück, auf der der Administrator Einteilungen, 
 	 * Studentendaten, SPOs, Projekte und CMS-Daten ex- und importieren kann.
+	 * 
+	 * @param die Seite, die als Antwort verschickt wird.
 	 */
-	public void exportImportPage() {
+	public Result exportImportPage() {
 	}
 
 	/**
 	 * Diese Methode gibt die Seite zurück, auf der der 
 	 * Administrator Studenten manuell hinzufügen oder löschen kann.
+	 * 
+	 * @param die Seite, die als Antwort verschickt wird.
 	 */
-	public void studentEditPage() {
+	public Result studentEditPage() {
 	}
 
 	/**
 	 * Diese Methode gibt die Seite zurück, auf der der 
 	 * Administrator die Semester-Einstellungen vornehmen kann.
+	 * 
+	 * @param die Seite, die als Antwort verschickt wird.
 	 */
-	public void propertiesPage() {
+	public Result propertiesPage() {
 	}
 
 	/**
 	 * Diese Methode gibt die Seite zurück, auf der der Administrator Projekte sieht, 
 	 * Projekte hinzufügen, editieren oder entfernen kann.
+	 * 
+	 * @param die Seite, die als Antwort verschickt wird.
 	 */
-	public void projectEditPage() {
+	public Result projectEditPage() {
 	}
 }
