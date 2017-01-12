@@ -12,3 +12,21 @@ sowie Bewertung Liste der Form
 
 Projekte
 Name; Institut; Anzahl Teams; Min. Teamgröße; Max. Teamgröße
+
+akzeptiert und exportiert
+Name; Institut; Anzahl Teams; Min. Teamgröße; Max. Teamgröße;projectURL;projectInfo
+
+Allocation:
+Projektname;Mitglieder;
+
+CMSImport
+Matrnr; angemeldet; prüfung
+
+CMSExport
+Matrnr; notepse; notetse
+
+SPO ImEx:
+name;availableAchievements;necessaryAchievements
+
+Achievements als name,name,..
+ 
