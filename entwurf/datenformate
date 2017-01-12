@@ -1,0 +1,32 @@
+Student akzeptiert
+Mat Num; Name; Lerngruppe; SPO; Fachsemester; hat HM; hat SWT; hat Algo; Bewertung Thema 1; ... ; Bewertung Thema 23
+
+akzeptier und exportiert
+Mat Num; Name; Lerngruppe; SPO; Fachsemester; Bestandene Teilleistungen; Noch ausstehende mündliche Prüfungen; Bewertungen
+
+wobei Bestandene Teilleistungen und Noch ausstehende mündliche Prüfungen Liste der Form
+HM, LA, Algo
+
+sowie Bewertung Liste der Form
+1, 2, 3
+
+Projekte
+Name; Institut; Anzahl Teams; Min. Teamgröße; Max. Teamgröße
+
+akzeptiert und exportiert
+Name; Institut; Anzahl Teams; Min. Teamgröße; Max. Teamgröße;projectURL;projectInfo
+
+Allocation:
+Projektname;Mitglieder;
+
+CMSImport
+Matrnr; angemeldet; prüfung
+
+CMSExport
+Matrnr; notepse; notetse
+
+SPO ImEx:
+name;availableAchievements;necessaryAchievements
+
+Achievements als name,name,..
+ 
