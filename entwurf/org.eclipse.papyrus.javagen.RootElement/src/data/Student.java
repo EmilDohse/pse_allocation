@@ -59,6 +59,10 @@ public class Student extends User {
 	 * Das Semester, in dem sich der Studierende zum Zeitpunkt der Registrierung befindet.
 	 */
 	private int semesterAtRegistration;
+	/**
+	 * Wahrheitswert, ob die E-Mail-Adresse verifiziert wurde.
+	 */
+	private boolean emailVerified;
 	
 	/**
 	 * Getter für die Matrikelnummer.
@@ -312,7 +316,7 @@ public class Student extends User {
 	/**
 	 * Diese Methode gibt das Projekt zurück, dem der Studierende zugeteilt ist.
 	 * 
-	 * @return project Das Projekt des Studeirenden.
+	 * @return Das Projekt des Studierenden.
 	 */
 	public Project getCurrentProject() {
 	}
@@ -320,7 +324,7 @@ public class Student extends User {
 	/**
 	 * Diese Methode gibt das Team, in dem der Studierende sich befindet, zurück.
 	 * 
-	 * @return team Das Team des Studierenden.
+	 * @return Das Team des Studierenden.
 	 */
 	public Team getCurrentTeam() {
 	}
@@ -328,8 +332,24 @@ public class Student extends User {
 	/**
 	 * Diese Methode gibt das aktuelle Semester des Studierenden zurück.
 	 * 
-	 * @return semester Das Semester, in dem Studierende sich aktuell befindet.
+	 * @return Das Semester, in dem Studierende sich aktuell befindet.
 	 */
 	public int getCurrentSemester() {
+	}
+	
+	/**
+	 * Diese Methode gibt zurück, ob die E-Mail-Adresse verifiziert wurde.
+	 * 
+	 * @return wahr, wenn die E-Mail-Adresse verifiziert wurde, falsch sonst.
+	 */
+	public boolean isEmailVerified() {
+	}
+
+	/**
+	 * Diese Methode setzt per Boolean, ob die E-Mail-Adresse verifiziert wurde oder nicht.
+	 * 
+	 * @param isEmailVerified wahr, wenn die E-Mail-Adresse verifiziert wurde, falsch sonst.
+	 */
+	public void setIsEmailVerified(boolean isEmailVerified) {
 	}
 }

@@ -211,6 +211,9 @@
         <ownedParameter xmi:type="uml:Parameter" xmi:id="_BEheItjEEeaEXNeJ9TLOMA" name="code" isUnique="false">
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
         </ownedParameter>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_ylGrwNkGEeai5fU4J-zNlw" name="result" isUnique="false" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#boolean"/>
+        </ownedParameter>
       </ownedOperation>
       <ownedOperation xmi:type="uml:Operation" xmi:id="_ZAw00NjEEeaEXNeJ9TLOMA" name="getVerificationCode">
         <ownedParameter xmi:type="uml:Parameter" xmi:id="_ZAw00djEEeaEXNeJ9TLOMA" name="student" type="_XCasfNaNEeayPeVBIOoRFQ" isUnique="false"/>
@@ -567,6 +570,9 @@
       <ownedAttribute xmi:type="uml:Property" xmi:id="_BPZIMtaREeayPeVBIOoRFQ" name="startSemester" type="_XCfk-daNEeayPeVBIOoRFQ" association="_BPYhINaREeayPeVBIOoRFQ"/>
       <ownedAttribute xmi:type="uml:Property" xmi:id="_KUHsQNc6EeabnpNmGsIysQ" name="semesterAtRegistration">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_w65h0NkIEeai5fU4J-zNlw" name="emailVerified">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#boolean"/>
       </ownedAttribute>
       <ownedOperation xmi:type="uml:Operation" xmi:id="_XCasmNaNEeayPeVBIOoRFQ" name="getStudent" isStatic="true">
         <ownedParameter xmi:type="uml:Parameter" xmi:id="_XCasmdaNEeayPeVBIOoRFQ" name="matriculationNumber" isUnique="false">
