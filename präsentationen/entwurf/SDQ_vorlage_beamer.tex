@@ -16,9 +16,10 @@
 
 % use 'beamerthemekit' for standard 4:3 ratio
 % for widescreen slides (16:9), use 'beamerthemekitwide'
-
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
 \usepackage{templates/beamerthemekit}
-% \usepackage{templates/beamerthemekitwide}
+%\usepackage{templates/beamerthemekitwide}
 
 %% TITLE PICTURE
 
@@ -29,14 +30,14 @@
 % *.eps format if you use latex+dvips+ps2pdf, 
 % *.jpg/*.png/*.pdf if you use pdflatex)
 
-%\titleimage{mypicture}
+\titleimage{controller}
 
 %% TITLE LOGO
 
 % for a custom logo on the front page, copy your file into the 'logos'
 % directory, insert the filename in the line below and uncomment it
 
-%\titlelogo{mylogo}
+\titlelogo{ElipseLogo}
 
 % (*.eps format if you use latex+dvips+ps2pdf,
 % *.jpg/*.png/*.pdf if you use pdflatex)
@@ -49,11 +50,11 @@
 
 % the presentation starts here
 
-\title[Short title]{Full title:\\ With all details}
-\subtitle{Something for XYZ 2009}
-\author{Firstname1 Lastname1, Firstname2 Lastname2}
+\title[Elipse]{Elipse -- Einteilungs Interface für das PSE}
+\subtitle{Entwurfspräsentation}
+\author{D. Biester, E. Dohse, P. Faller, P. Loth, L. Seufert, S. Kopmann}
 
-\institute{Chair for Software Design and Quality}
+\institute{IPD Snelting}
 
 % Bibliography
 
@@ -64,7 +65,7 @@
 \begin{document}
 
 % change the following line to "ngerman" for German style date and logos
-%\selectlanguage{english}
+\selectlanguage{ngerman}
 
 %title page
 \begin{frame}
@@ -72,60 +73,152 @@
 \end{frame}
 
 %table of contents
-\begin{frame}{Outline/Gliederung}
-\tableofcontents
-\end{frame}
+%\begin{frame}{Outline/Gliederung}
+%\tableofcontents
+%\end{frame}
 
-\section{Section 1}
-\subsection{Subsection 1.1}
-\begin{frame}{Example slide A}
+% \section{Section 1}
+% %\subsection{Subsection 1.1}
+% \begin{frame}{Einführung}
+% \begin{itemize}
+% \item PCM, Citation: \cite{becker2008a} %\language
+% \pause
+% \item Bullet point 2
+% \item \dots
+% \end{itemize}
+% \end{frame}
+% 
+% \subsection{Subsection 1.2}
+% \begin{frame}{Example slide B}
+% \begin{block}{Block 1}
+% \begin{itemize}
+% \item Bullet point 1
+% \pause
+% \item Bullet point 2
+% \item \dots
+% \end{itemize}
+% \end{block}
+% \end{frame}
+% 
+% \section{Section 2}
+% \begin{frame}{Example slide C}
+% \begin{exampleblock}{Example 1}
+% \begin{itemize}
+% \item Bullet point 1
+% \pause
+% \item Bullet point 2
+% \item \dots
+% \end{itemize}
+% \end{exampleblock}
+% \end{frame}
+% 
+% \begin{frame}{Example slide D}
+% \begin{alertblock}{Alert 1}
+% \begin{itemize}
+% \item Bullet point 1
+% \pause
+% \item Bullet point 2
+% \item \dots
+% \end{itemize}
+% \end{alertblock}
+% \end{frame}
+\section{Überblick}
+\begin{frame}{Überblick}
+Grobentwurf:
 \begin{itemize}
-\item PCM, Citation: \cite{becker2008a} %\language
-\pause
-\item Bullet point 2
-\item \dots
+  \item Model-View-Controller
+  \item Play-Framework
+  \item ILP (Gurobi)
+  \item %TODO ergänzen: einzelene Module 
 \end{itemize}
 \end{frame}
 
-\subsection{Subsection 1.2}
-\begin{frame}{Example slide B}
-\begin{block}{Block 1}
-\begin{itemize}
-\item Bullet point 1
-\pause
-\item Bullet point 2
-\item \dots
-\end{itemize}
-\end{block}
+\begin{frame}
+\includegraphics[width=\linewidth]{bilder/Class_Diagram.PNG}
 \end{frame}
 
-\section{Section 2}
-\begin{frame}{Example slide C}
-\begin{exampleblock}{Example 1}
+\subsection{Controller}
+\begin{frame}{Controller}
+Die Controller -- keine großen Überraschungen
 \begin{itemize}
-\item Bullet point 1
-\pause
-\item Bullet point 2
-\item \dots
+  \item Do-Undo %TODO sollen wir das hier erwähen?
+  \item %TODO was noch?
 \end{itemize}
-\end{exampleblock}
+\includegraphics[width=\linewidth]{bilder/controller.png}
+%TODO sollen wir controller überhaupt zeigen? wenn ja bild
 \end{frame}
 
-\begin{frame}{Example slide D}
-\begin{alertblock}{Alert 1}
+\subsection{Datenmodell}
+\begin{frame}{Datenmodell}
+% \begin{itemize}
+%   \item Verwaltung über mehrere Semester
+%   \item 
+%TODO was noch?
+% \end{itemize}
+\includegraphics[width=\linewidth]{bilder/daten.png}
+%TODO bild 
+\end{frame}
+
+\subsection{Einteilung}
+\begin{frame}{Einteilunhg}
+% \begin{itemize}
+%   \item  
+%TODO was hier?
+% \end{itemize}
+\includegraphics[width=\linewidth]{bilder/einteilung.png}
+%TODO bild 
+\end{frame}
+
+\section{Sequenzdiagramm} %TODO gehört das zu einteilung?
+\begin{frame}{Sequenzdiagramm}
+%TODO hier einfügen
+\end{frame}
+
+\section{ILP}
+\begin{frame}{ILP-Modell}
+Aufteilung des ILP-Modells:
 \begin{itemize}
-\item Bullet point 1
-\pause
-\item Bullet point 2
-\item \dots
+  \item Basismodell
+  \item Kriterien
 \end{itemize}
-\end{alertblock}
+\includegraphics[width=\linewidth]{bilder/einteilung.png}
+%TODO bild von UML
+\end{frame}
+
+\begin{frame}{Basismodell}
+Das Basismodell besteht aus:
+\begin{itemize}
+  \item $N \times M$ Matrix - Student $n$ in Team $m$
+  \item Basisconstraints 
+  \item Optimierungsterm
+  \item Hilfsvariablen
+\end{itemize}
+%\includegraphics[width=\linewidth]{bilder/basismodell.png}
+%TODO einen  basisconstraint?
+\end{frame}
+
+\begin{frame}{Kriterien}
+\begin{itemize}
+  \item Greifen auf Basismodell zu
+  \item Erweitern Optimierungsterm und Constraints
+  \item Sind über Serviceloader eingebunden
+\end{itemize}
+%TODO bild der Kriterien
+\end{frame}
+
+\begin{frame}{Beispielkriterium} %TODO welches? und bearbeiten
+Aufteilung des ILP-Modells:
+\begin{itemize}
+  \item Basismodell
+  \item Kriterien
+\end{itemize}
+
 \end{frame}
 
 \appendix
 \beginbackup
 
-\begin{frame}[allowframebreaks]{References}
+\begin{frame}{Fragen}
 \printbibliography
 \end{frame}
 
