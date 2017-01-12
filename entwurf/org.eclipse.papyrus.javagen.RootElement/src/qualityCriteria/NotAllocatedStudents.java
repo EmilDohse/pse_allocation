@@ -4,12 +4,16 @@
 
 package qualityCriteria;
 
+import data.Allocation;
+
 /************************************************************/
 /**
  * Gütekriterium, das die Anzahl der nicht zugeteilten Studenten berechnet
  */
-public class NotAllocatedStudents implements QualityCriterion{
-	
-	public String calculate(Allocation allocation){
+public class NotAllocatedStudents implements QualityCriterion {
+
+	public String calculate(Allocation allocation) {
+		// TODO
+		return null;
 	}
 }

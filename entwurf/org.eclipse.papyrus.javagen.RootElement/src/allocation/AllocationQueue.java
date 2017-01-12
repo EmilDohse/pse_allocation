@@ -4,6 +4,8 @@
 
 package allocation;
 
+import java.util.List;
+
 /************************************************************/
 /**
  * Die Queue ist dazu da die Stapelverarbeitung von Einteilungs berechnungen zu realisieren
@@ -16,7 +18,7 @@ public class AllocationQueue {
 	/**
 	 * Der Singelton der der Allocation queue
 	 */
-	private static AllocationQueue instance
+	private static AllocationQueue instance;
 	/**
 	 * Der Alocator der zur Berechnung verwendet wird
 	 */
@@ -32,6 +34,7 @@ public class AllocationQueue {
 	 * @return  die Instanz der AllocationQueue
 	 */
 	public static AllocationQueue getInstance() {
+		return instance;
 	}
 
 	/**
@@ -56,5 +59,6 @@ public class AllocationQueue {
 	 * @return queue Liste der Konfigurationen als FIFO-Queue angeordnet
 	 */
 	public List<Configuration> getQueue() {
+		return configurationQueue;
 	}
 }

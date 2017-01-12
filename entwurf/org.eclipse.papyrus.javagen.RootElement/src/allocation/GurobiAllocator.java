@@ -4,6 +4,8 @@
 
 package allocation;
 
+import gurobi.*;
+
 /************************************************************/
 /**
  * Der Gurobi Allocator dient zur Berechnung einer Einteilung mit dem ILP Solvver Gurobi. Weiterhin stellt er ein Basismodell und einen Optimierungsterm zur verfügung, welche von den Kriterien verwendet werden.
@@ -31,6 +33,8 @@ public class GurobiAllocator extends AbstractAllocator {
 	 * @return die Basismatrix
 	 */
 	public GRBVar[][] getBasicMatrix() {
+		//TODO
+		return null;
 	}
 
 	/**
@@ -38,6 +42,8 @@ public class GurobiAllocator extends AbstractAllocator {
 	 * @return das Model
 	 */
 	public GRBModel getModel(){
+		//TODO
+		return null;
 	}
 
 	/**
@@ -52,5 +58,7 @@ public class GurobiAllocator extends AbstractAllocator {
 	 * @return der Optimierungsterm
 	 */
 	public GRBLinExpr getOptimizationTerm(){
+		//TODO
+		return null;
 	}
 }

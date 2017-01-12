@@ -4,6 +4,8 @@
 
 package allocation;
 
+import java.util.List;
+
 /************************************************************/
 /**
  * Abstrakter Löser des Einteilungsproblems
@@ -25,5 +27,7 @@ abstract class AbstractAllocator {
 	 * @return Liste aller verfügbarer Kriterien
 	 */
 	public static List<Criterion> getAllCriteria() {
+		//TODO
+		return null;
 	}
 }

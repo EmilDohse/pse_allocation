@@ -34,16 +34,16 @@ public class GeneralData {
 	 * 
 	 * @return Der Anmeldename des Administrators.
 	 */
-	public String getAdminName() {
-	    return this.adminName;
+	public static String getAdminName() {
+	    return adminName;
 	}
 	/**
 	 * Getter für das Anmeldepasswort des Administrators.
 	 * 
 	 * @return Das Anmeldepasswort des Administrators.
 	 */
-	public String getAdminPassword() {
-        return this.adminPassword;
+	public static String getAdminPassword() {
+        return adminPassword;
     }
 	/**
 	 * Setter für das aktuelle Semester.
@@ -58,15 +58,15 @@ public class GeneralData {
 	 * 
 	 * @param adminName Der Anmeldename des Administrators.
 	 */
-    public void setAdminName(String adminName) {
-        this.adminName = adminName;
+    public static void setAdminName(String adminName) {
+        GeneralData.adminName = adminName;
     }
     /**
      * Setter für das Anmeldepasswort des Administrators.
      * 
      * @param adminPassword Das Anmeldepasswort des Administrators.
      */
-    public void setAdminPassword(String adminPassword) {
-        this.adminPassword = adminPassword;
+    public static void setAdminPassword(String adminPassword) {
+        GeneralData.adminPassword = adminPassword;
     }
 }

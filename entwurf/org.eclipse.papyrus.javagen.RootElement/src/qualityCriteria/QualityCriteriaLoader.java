@@ -13,8 +13,10 @@ public class QualityCriteriaLoader {
 	/**
 	 * Gibt alle gütekriterien zurück.
 	 * 
-	 * @return  Liste aller Gütekriterien
+	 * @return Liste aller Gütekriterien
 	 */
 	public static QualityCriterion[] getAllQualityCriteria() {
+		// TODO
+		return null;
 	}
 }

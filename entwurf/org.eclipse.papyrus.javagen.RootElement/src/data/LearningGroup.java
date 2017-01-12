@@ -6,8 +6,8 @@ package data;
 
 /************************************************************/
 /**
- * Diese Klasse repräsentiert eine Lerngruppe, das heißt eine Gruppe von Studierenden,
- * die sich gemeinsam zum PSE anmelden wollen.
+ * Diese Klasse repräsentiert eine Lerngruppe, das heißt eine Gruppe von
+ * Studierenden, die sich gemeinsam zum PSE anmelden wollen.
  */
 public class LearningGroup {
 	/**
@@ -26,107 +26,121 @@ public class LearningGroup {
 	 * Die Mitglieder der Lerngruppe.
 	 */
 	private Student[] members;
-	
+
 	/**
-     * Studierende, die keiner Lerngruppe angehören, werden als private Lerngruppe der
-     * Größe 1 gespeichert. Eine private Lerngruppe kann also niemals von einem Studenten erstellt werden.
-     */
-    private boolean isPrivate;
-	
+	 * Studierende, die keiner Lerngruppe angehören, werden als private
+	 * Lerngruppe der Größe 1 gespeichert. Eine private Lerngruppe kann also
+	 * niemals von einem Studenten erstellt werden.
+	 */
+	private boolean isPrivate;
+
 	/**
 	 * Getter für den Namen.
 	 * 
 	 * @return Name der Lerngruppe.
 	 */
 	public String getName() {
-	    return name;
+		return name;
 	}
+
 	/**
 	 * Getter für das Passwort.
 	 * 
 	 * @return Das Passwort, um der Lerngruppe beizutreten.
 	 */
 	public String getPassword() {
-	    return password;
+		return password;
 	}
+
 	/**
 	 * Getter für das Semester, in dem die Lerngruppe erstellt wurde.
 	 * 
 	 * @return Das Semester,in dem die Lerngruppe erstellt wurde.
 	 */
 	public Semester getSemester() {
-	    return Semester;
+		return semester;
 	}
+
 	/**
 	 * Getter für die Mitglieder der Lerngruppe.
 	 * 
 	 * @return Die Mitglieder der Lerngruppe.
 	 */
 	public Student[] getMembers() {
-	    return members;
+		return members;
 	}
-	
-	public boolean isPrivate() {
-	    return this.isPrivate;
-	}
-	
+
 	/**
-     * Setter für den Namen.
-     * 
-     * @param name Name der Lerngruppe.
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
-    /**
-     * Setter für das Passwort.
-     * 
-     * @param password Das Passwort, um der Lerngruppe beizutreten.
-     */
-    public void setPassword(String password) {
-        this.password = password;
-    }
-    /**
-     * Setter für das Semester, in dem die Lerngruppe erstellt wurde.
-     * 
-     * @param semester Das Semester,in dem die Lerngruppe erstellt wurde.
-     */
-    public void setSemester(Semester semseter) {
-        this.semester = semester;
-    }
-    /**
-     * Setter für die Mitglieder der Lerngruppe.
-     * 
-     * @param members Die Mitglieder der Lerngruppe.
-     */
-    public void setMembers(Student[] members) {
-        this.members = members;
-    }
-    /**
-     * Getter ob Lerngruppe privat ist.
-     * 
-     * @return Wahr, wenn privat, sonst falsch.
-     */
-    public boolean isPrivate() {
-        return this.isPrivate;
-    }
-    /**
-     * Setter ob Lerngruppe privat ist.
-     * 
-     * @param isPrivate Wahr, wenn privat, sonst falsch.
-     */
-    public boolean setPrivate(boolean isPrivate) {
-        this.isPrivate = isPrivate;
-    }
-	
+	 * Setter für den Namen.
+	 * 
+	 * @param name
+	 *            Name der Lerngruppe.
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	/**
+	 * Setter für das Passwort.
+	 * 
+	 * @param password
+	 *            Das Passwort, um der Lerngruppe beizutreten.
+	 */
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	/**
+	 * Setter für das Semester, in dem die Lerngruppe erstellt wurde.
+	 * 
+	 * @param semester
+	 *            Das Semester,in dem die Lerngruppe erstellt wurde.
+	 */
+	public void setSemester(Semester semester) {
+		this.semester = semester;
+	}
+
+	/**
+	 * Setter für die Mitglieder der Lerngruppe.
+	 * 
+	 * @param members
+	 *            Die Mitglieder der Lerngruppe.
+	 */
+	public void setMembers(Student[] members) {
+		this.members = members;
+	}
+
+	/**
+	 * Getter ob Lerngruppe privat ist.
+	 * 
+	 * @return Wahr, wenn privat, sonst falsch.
+	 */
+	public boolean isPrivate() {
+		return this.isPrivate;
+	}
+
+	/**
+	 * Setter ob Lerngruppe privat ist.
+	 * 
+	 * @param isPrivate
+	 *            Wahr, wenn privat, sonst falsch.
+	 */
+	public boolean setPrivate(boolean isPrivate) {
+		return this.isPrivate = isPrivate;
+	}
+
 	/**
 	 * Diese Methode gibt eine spezifische Lerngruppe zurück.
 	 * 
-	 * @param name Der Name der Lerngruppe.
-	 * @param semester Das Semster, in dem die Lerngruppe erstellt wurde.
+	 * @param name
+	 *            Der Name der Lerngruppe.
+	 * @param semester
+	 *            Das Semster, in dem die Lerngruppe erstellt wurde.
 	 * @return learningGroup Die spezifische Lerngruppe.
 	 */
 	public static LearningGroup getLearningGroup(String name, Semester semester) {
+		// TODO
+		return null;
 	}
 
 	/**
@@ -135,5 +149,7 @@ public class LearningGroup {
 	 * @return learningGroups Alle LErngruppen.
 	 */
 	public static LearningGroup getLearningGroups() {
+		// TODO
+		return null;
 	}
 }

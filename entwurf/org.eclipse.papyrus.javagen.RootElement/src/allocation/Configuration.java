@@ -4,9 +4,12 @@
 
 package allocation;
 
+import java.util.List;
+
 import data.AllocationParameter;
 import data.Project;
 import data.Student;
+import data.LearningGroup;
 
 /************************************************************/
 /**
@@ -16,7 +19,7 @@ public class Configuration {
 	/**
 	 * Der Name der Einteilung der angezeigt wird
 	 */
-	private String AllocationName;
+	private String allocationName;
 	/**
 	 * Alle Studenten die bei der Einteilung berücksichtigt werden
 	 */
@@ -24,7 +27,7 @@ public class Configuration {
 	/**
 	 * Alle Lerngruppen die bei der Einteilung berücksichtigt werden
 	 */
-	private LearningGroup[] learningGroups;
+	private List<LearningGroup> learningGroups;
 	/**
 	 * Die Projekte die bei der Einteilung berücksichtigt werden
 	 */
@@ -37,6 +40,6 @@ public class Configuration {
 	 * getter für den Einteilungsname
 	 */
 	public String getName(){
-		
+		return allocationName;
 	}
 }

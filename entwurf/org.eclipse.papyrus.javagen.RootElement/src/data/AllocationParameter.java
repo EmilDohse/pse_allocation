@@ -30,7 +30,7 @@ public class AllocationParameter {
 	 * 
 	 * @return Der Wert des Parameters.
 	 */
-	public doulbe getValue() {
+	public double getValue() {
 	    return value;
 	}
 	

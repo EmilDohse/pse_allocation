@@ -38,6 +38,8 @@ public class Team {
 	 * @return members Die Mitglieder des Teams.
 	 */
 	public Student getMembers() {
+		//TODO
+				return null;
 	}
 
 	/**
@@ -47,6 +49,8 @@ public class Team {
 	 * @return rating Die Bewertung des Studierenden.
 	 */
 	public Rating getRating(Student student) {
+		//TODO
+				return null;
 	}
 
 	/**
@@ -55,5 +59,7 @@ public class Team {
 	 * @return advisers Die Betreuer des Teams.
 	 */
 	public Adviser getAdvisers() {
+		//TODO
+				return null;
 	}
 }

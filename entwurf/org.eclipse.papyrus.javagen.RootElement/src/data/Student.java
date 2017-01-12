@@ -4,6 +4,8 @@
 
 package data;
 
+import java.util.List;
+
 /************************************************************/
 /**
  * Diese Klasse stellt einen Studierenden dar, der am PSE teilnimmt.
@@ -14,9 +16,9 @@ public class Student extends User {
 	 */
 	private int matriculationNumber;
 	/**
-	 * Das Semester, in dem er sich zum ersten Mal registriert hat. 
+	 * Die Semester, in denen der student registriert ist. 
 	 */
-	private Semester[] registeredSemesters;
+	private List<Semester> registeredSemesters;
 	/**
 	 * Die SPO des Studierenden
      */
@@ -78,7 +80,7 @@ public class Student extends User {
      * 
      * @return Die Semester, in denen der Studierende registriert ist.
      */
-	public Semester[] getRegisteredSemesters() {
+	public List<Semester> getRegisteredSemesters() {
 	    return this.registeredSemesters;
 	}
 	
@@ -96,7 +98,7 @@ public class Student extends User {
      * 
      * @return Die Lerngruppen des Studierenden.
      */
-	public LearningGroup[] getLearningGroups() {
+	public List<LearningGroup> getLearningGroups() {
 	    return this.learningGroups;
 	}
 	
@@ -157,10 +159,11 @@ public class Student extends User {
 	/**
      * Getter für das Semester des Studierenden.
      * 
-     * @return Die noch ausstehenden Teilleistungen des Studierenden.
+     * @return Das aktuelle Semester des Studierenden.
      */
 	public Semester getSemester() {
-	    return this.semesterAtRegistration;
+		//TODO Was zur Hölle soll hier passieren?
+	    return this.startSemester;
 	}
 	
 	/**
@@ -176,8 +179,8 @@ public class Student extends User {
      * 
      * @param registeredSemesters Die Semester, in denen der Studierende registriert ist.
      */
-    public void setRegisteredSemesters(Semester[] registeredSemesters) {
-        this.registeredSemesters = registeresSemesters;
+    public void setRegisteredSemesters(List<Semester> registeredSemesters) {
+        this.registeredSemesters = registeredSemesters;
     }
     
     /**
@@ -194,7 +197,7 @@ public class Student extends User {
      * 
      * @param learningGroups Die Lerngruppen, in denen der Studierende war.
      */
-    public void setLearningGroups(LearningGroup[] learningGroups) {
+    public void setLearningGroups(List<LearningGroup> learningGroups) {
         this.learningGroups = learningGroups;
     }
     
@@ -222,7 +225,7 @@ public class Student extends User {
      * @param registeredTSE Wahr, wenn der Studierende im CMS angemeldet ist, sonst false
      */
     public void setRegisteredTSE(boolean registeredTSE) {
-        return this.registeredTSE;
+        this.registeredTSE = registeredTSE;
     }
     
     /**
@@ -257,7 +260,8 @@ public class Student extends User {
      * 
      * @param semesterAtRegistration Das Semester des Studierenden.
      */
-    public void setSemester(Semester semesterAtRegistration) {
+    public void setSemester(int semesterAtRegistration) {
+    	//TODO Was soll hier passieren? Bezeichner widersprechen sich
         this.semesterAtRegistration = semesterAtRegistration;
     }
      
@@ -269,6 +273,8 @@ public class Student extends User {
 	 * @return student Der Studierende.
 	 */
 	public static Student getStudent(int matriculationNumber) {
+		//TODO
+				return null;
 	}
 
 	/**
@@ -277,6 +283,8 @@ public class Student extends User {
 	 * @return students Alle Studierende.
 	 */
 	public static Student getStudents() {
+		//TODO
+				return null;
 	}
 
 	/**
@@ -285,6 +293,8 @@ public class Student extends User {
 	 * @return learningGroup Die Lerngruppe des Studierenden.
 	 */
 	public LearningGroup getCurrentLearningGroup() {
+		//TODO
+				return null;
 	}
 
 	/**
@@ -302,6 +312,8 @@ public class Student extends User {
 	 * @return rating Die Bewertung des Studierenden für das bestimmte Projekt.
 	 */
 	public Rating getCurrentRating(Project project) {
+		//TODO
+				return null;
 	}
 
 	/**
@@ -319,6 +331,8 @@ public class Student extends User {
 	 * @return Das Projekt des Studierenden.
 	 */
 	public Project getCurrentProject() {
+		//TODO
+				return null;
 	}
 
 	/**
@@ -327,6 +341,8 @@ public class Student extends User {
 	 * @return Das Team des Studierenden.
 	 */
 	public Team getCurrentTeam() {
+		//TODO
+				return null;
 	}
 
 	/**
@@ -335,6 +351,8 @@ public class Student extends User {
 	 * @return Das Semester, in dem Studierende sich aktuell befindet.
 	 */
 	public int getCurrentSemester() {
+		//TODO
+				return 0;
 	}
 	
 	/**
@@ -343,6 +361,8 @@ public class Student extends User {
 	 * @return wahr, wenn die E-Mail-Adresse verifiziert wurde, falsch sonst.
 	 */
 	public boolean isEmailVerified() {
+		//TODO
+				return false;
 	}
 
 	/**

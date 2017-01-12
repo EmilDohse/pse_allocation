@@ -10,4 +10,22 @@ package allocation;
  */
 public class CriterionLearningGroup implements Criterion {
 	private String name;
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void useCriteria(int weight, GurobiAllocator allocator) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public String getName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

@@ -4,54 +4,65 @@
 
 package data;
 
+import java.util.List;
+import java.util.Map;
+
 /************************************************************/
 /**
  * Diese Klasse stellt eine Einteilung der Studierenden in einem Semester dar.
  */
 public class Allocation {
-    			/**
-    			 * 
-    			 */
-    			public EcorePrimitiveTypes.EMap studentTeamMap;
-    			/**
-    			 * Die Studierenden.
-    			 */
-    			public Student[] ;
-    			/**
-    			 * Das Semster der Einteilung.
-    			 */
-    			public Semester semester;
-    			/**
-    			 * Die Teams, die durch die Einteilung entstehen.
-    			 */
-    			public Team[] teams;
-    			/**
-    			 * Der Name der Einteilung.
-    			 */
-    			public String name;
-	
+	/**
+	 * 
+	 */
+	public Map studentTeamMap;
+	/**
+	 * Die Studierenden.
+	 */
+	public List<Student> students;
+	/**
+	 * Das Semster der Einteilung.
+	 */
+	public Semester semester;
+	/**
+	 * Die Teams, die durch die Einteilung entstehen.
+	 */
+	public Team[] teams;
+	/**
+	 * Der Name der Einteilung.
+	 */
+	public String name;
+
 	/**
 	 * Diese Methode gibt alle Einteilungen zurück.
 	 * 
 	 * @return allocations Alle Einteilungen.
 	 */
 	public static Allocation getAllocations() {
+		// TODO
+		return null;
 	}
-	
+
 	/**
-	 * Diese Methode gibt eine Spezifische Einteilung zurück, die über ihren Namen identifiziert wird.
+	 * Diese Methode gibt eine Spezifische Einteilung zurück, die über ihren
+	 * Namen identifiziert wird.
 	 * 
-	 * @param name Der Name der Einteilung.
+	 * @param name
+	 *            Der Name der Einteilung.
 	 * @return allocation Die Einteilung mit dem gegebenen Namen.
 	 */
 	public static Allocation getAllocation(String name) {
+		// TODO
+		return null;
 	}
-	
+
 	/**
 	 * Diese Methode gibt zurück, ob die Einteilung üfinal ist oder nicht.
 	 * 
 	 * @return final Wahr, wenn Einteilung final, sonst falsch
 	 */
 	public boolean isFinal() {
+		// TODO
+		return false;
 	}
 }

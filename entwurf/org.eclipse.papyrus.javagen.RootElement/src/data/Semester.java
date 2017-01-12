@@ -4,6 +4,8 @@
 
 package data;
 
+import java.util.Date;
+
 /************************************************************/
 /**
  * Diese Klasse reprüsentiert ein Semseter.
@@ -32,7 +34,7 @@ public class Semester {
 	/**
 	 * Der Zeitpunkt ab dem sich Studenten nicht mehr registrieren können.
 	 */
-	private Date registrtationEnd;
+	private Date registrationEnd;
 	
 	/**
 	 * Getter für den Namen des Semesters.
@@ -107,6 +109,8 @@ public class Semester {
 	 * @return semester Das gesuchte Semester.
 	 */
 	public static Semester getSemester(String semesterName) {
+		//TODO
+				return null;
 	}
 
 	/**
@@ -115,6 +119,8 @@ public class Semester {
 	 * @return semesters Alle Semseter.
 	 */
 	public static Semester getSemesters() {
+		//TODO
+				return null;
 	}
 
 	/**
@@ -123,6 +129,8 @@ public class Semester {
 	 * @return teams Alle existierenden Teams.
 	 */
 	public Team getTeams() {
+		//TODO
+				return null;
 	}
 
 	/**
@@ -131,6 +139,8 @@ public class Semester {
 	 * @return advisers Alle Betreuer des Semesters.
 	 */
 	public Adviser getAdvisers() {
+		//TODO
+				return null;
 	}
 	
 	/**

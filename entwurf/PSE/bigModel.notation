@@ -848,10 +848,6 @@
             <layoutConstraint xmi:type="notation:Location" xmi:id="_-BDYINc5EeabnpNmGsIysQ" y="5"/>
           </children>
           <children xmi:type="notation:BasicCompartment" xmi:id="_-BDYIdc5EeabnpNmGsIysQ" type="Class_AttributeCompartment_CN">
-            <children xmi:type="notation:Shape" xmi:id="_3kfH4Nc6EeabnpNmGsIysQ" type="Property_ClassAttributeLabel">
-              <element xmi:type="uml:Property" href="bigModel.uml#_3i6akNc6EeabnpNmGsIysQ"/>
-              <layoutConstraint xmi:type="notation:Location" xmi:id="_3kfH4dc6EeabnpNmGsIysQ"/>
-            </children>
             <styles xmi:type="notation:TitleStyle" xmi:id="_-BDYItc5EeabnpNmGsIysQ"/>
             <styles xmi:type="notation:SortingStyle" xmi:id="_-BDYI9c5EeabnpNmGsIysQ"/>
             <styles xmi:type="notation:FilteringStyle" xmi:id="_-BDYJNc5EeabnpNmGsIysQ"/>

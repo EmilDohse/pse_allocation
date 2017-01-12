@@ -8,8 +8,8 @@ import qualityCriteria.QualityCriterion;
 
 /************************************************************/
 /**
- * Dieser Controller ist zuständig für das Bearbeiten der Http-Requests, 
- * welche durch das Klicken eines Links und nicht eines Buttons versendet werden.
+ * Dieser Controller ist zuständig für das Bearbeiten der Http-Requests, welche
+ * durch das Klicken eines Links und nicht eines Buttons versendet werden.
  */
 public class AdminPageController extends Controller {
 	/**
@@ -18,75 +18,102 @@ public class AdminPageController extends Controller {
 	public QualityCriterion[] qualityCriteria;
 
 	/**
-	 * Diese Methode gibt die Seite zurück, auf der der Administrator Projekte sieht.
+	 * Diese Methode gibt die Seite zurück, auf der der Administrator Projekte
+	 * sieht.
 	 * 
-	 * @param die Seite, die als Antwort verschickt wird.
+	 * @param die
+	 *            Seite, die als Antwort verschickt wird.
 	 */
 	public Result projectPage() {
+		// TODO
+		return null;
 	}
 
 	/**
-	 * Diese Methode gibt die Seite zurück, auf der der Administrator 
-	 * alle Projektbetreuer sehen, neue hinzufügen oder bereits 
-	 * existierende entfernen kann.
+	 * Diese Methode gibt die Seite zurück, auf der der Administrator alle
+	 * Projektbetreuer sehen, neue hinzufügen oder bereits existierende
+	 * entfernen kann.
 	 * 
-	 * @param die Seite, die als Antwort verschickt wird.
+	 * @param die
+	 *            Seite, die als Antwort verschickt wird.
 	 */
 	public Result adviserPage() {
+		// TODO
+		return null;
 	}
 
 	/**
-	 * Diese Methode gibt die Seite zurück, 
-	 * auf der der Administrator Einteilungen berechnen kann und voher Parameter einstellen kann. 
-	 * Außerdem sieht er noch zu berechnende Konfigurationen und kann diese aus der Berechnungsliste entfernen.
+	 * Diese Methode gibt die Seite zurück, auf der der Administrator
+	 * Einteilungen berechnen kann und voher Parameter einstellen kann. Außerdem
+	 * sieht er noch zu berechnende Konfigurationen und kann diese aus der
+	 * Berechnungsliste entfernen.
 	 * 
-	 * @param die Seite, die als Antwort verschickt wird.
+	 * @param die
+	 *            Seite, die als Antwort verschickt wird.
 	 */
 	public Result allocationPage() {
+		// TODO
+		return null;
 	}
 
 	/**
-	 * Diese Methode gibt die Seite zurück, auf der der Administrator 
-	 * die Ergebnisse der Berechnungen sehen, vergleichen und editieren kann.
+	 * Diese Methode gibt die Seite zurück, auf der der Administrator die
+	 * Ergebnisse der Berechnungen sehen, vergleichen und editieren kann.
 	 * 
-	 * @param die Seite, die als Antwort verschickt wird.
+	 * @param die
+	 *            Seite, die als Antwort verschickt wird.
 	 */
 	public Result resultsPage() {
+		// TODO
+		return null;
 	}
 
 	/**
-	 * Diese Methode gibt die Seite zurück, auf der der Administrator Einteilungen, 
-	 * Studentendaten, SPOs, Projekte und CMS-Daten ex- und importieren kann.
+	 * Diese Methode gibt die Seite zurück, auf der der Administrator
+	 * Einteilungen, Studentendaten, SPOs, Projekte und CMS-Daten ex- und
+	 * importieren kann.
 	 * 
-	 * @param die Seite, die als Antwort verschickt wird.
+	 * @param die
+	 *            Seite, die als Antwort verschickt wird.
 	 */
 	public Result exportImportPage() {
+		// TODO
+		return null;
 	}
 
 	/**
-	 * Diese Methode gibt die Seite zurück, auf der der 
-	 * Administrator Studenten manuell hinzufügen oder löschen kann.
+	 * Diese Methode gibt die Seite zurück, auf der der Administrator Studenten
+	 * manuell hinzufügen oder löschen kann.
 	 * 
-	 * @param die Seite, die als Antwort verschickt wird.
+	 * @param die
+	 *            Seite, die als Antwort verschickt wird.
 	 */
 	public Result studentEditPage() {
+		// TODO
+		return null;
 	}
 
 	/**
-	 * Diese Methode gibt die Seite zurück, auf der der 
-	 * Administrator die Semester-Einstellungen vornehmen kann.
+	 * Diese Methode gibt die Seite zurück, auf der der Administrator die
+	 * Semester-Einstellungen vornehmen kann.
 	 * 
-	 * @param die Seite, die als Antwort verschickt wird.
+	 * @param die
+	 *            Seite, die als Antwort verschickt wird.
 	 */
 	public Result propertiesPage() {
+		// TODO
+		return null;
 	}
 
 	/**
-	 * Diese Methode gibt die Seite zurück, auf der der Administrator Projekte sieht, 
-	 * Projekte hinzufügen, editieren oder entfernen kann.
+	 * Diese Methode gibt die Seite zurück, auf der der Administrator Projekte
+	 * sieht, Projekte hinzufügen, editieren oder entfernen kann.
 	 * 
-	 * @param die Seite, die als Antwort verschickt wird.
+	 * @param die
+	 *            Seite, die als Antwort verschickt wird.
 	 */
 	public Result projectEditPage() {
+		// TODO
+		return null;
 	}
 }

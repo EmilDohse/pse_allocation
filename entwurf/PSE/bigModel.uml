@@ -90,7 +90,7 @@
       </ownedOperation>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="_pjyyfNaMEeayPeVBIOoRFQ" name="Configuration">
-      <ownedAttribute xmi:type="uml:Property" xmi:id="_pjyyhtaMEeayPeVBIOoRFQ" name="AllocationName" visibility="private">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_pjyyhtaMEeayPeVBIOoRFQ" name="allocationName" visibility="private">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
       </ownedAttribute>
       <ownedAttribute xmi:type="uml:Property" xmi:id="_fb380tawEeayPeVBIOoRFQ" name="students" type="_XCasfNaNEeayPeVBIOoRFQ" association="_fb3VwNawEeayPeVBIOoRFQ">
@@ -182,7 +182,6 @@
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_xkSF8NarEeayPeVBIOoRFQ"/>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_xkT7INarEeayPeVBIOoRFQ" value="*"/>
       </ownedAttribute>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="_3i6akNc6EeabnpNmGsIysQ" name="instance" visibility="private" type="_9-tOwNc5EeabnpNmGsIysQ"/>
       <ownedAttribute xmi:type="uml:Property" xmi:id="_GbBB0Nc8EeabnpNmGsIysQ" name="Allocator" type="_pjyya9aMEeayPeVBIOoRFQ" association="_Ga-lkNc8EeabnpNmGsIysQ"/>
       <ownedAttribute xmi:type="uml:Property" xmi:id="__8uTQdc8EeabnpNmGsIysQ" name="currentlyCalculatedConfiguration" type="_pjyyfNaMEeayPeVBIOoRFQ" association="__8tsMNc8EeabnpNmGsIysQ"/>
       <ownedOperation xmi:type="uml:Operation" xmi:id="_9s868Nc6EeabnpNmGsIysQ" name="getInstance" visibility="public" isStatic="true">
