@@ -1,0 +1,36 @@
+\begin{texdocpackage}{notificationSystem}
+\label{texdoclet:notificationSystem}
+
+\begin{texdocclass}{class}{Notifier}
+\label{texdoclet:notificationSystem.Notifier}
+\begin{texdocclassintro}
+Klasse die alle Benachrichtigungen der Benutzer (Studenten und Betreuer) per E-Mail übernimmt.\end{texdocclassintro}
+\begin{texdocclassconstructors}
+\texdocconstructor{public}{Notifier}{()}{}{}
+\end{texdocclassconstructors}
+\begin{texdocclassmethods}
+\texdocmethod{public}{void}{notifyAllUsers}{(Allocation allocation)}{Verschickt an alle Benutzer (Betreuer und Studenten) eine E-Mail mit ihrem zugeteilten Team$/$Projekt.}{\begin{texdocparameters}
+\texdocparameter{allocation}{veröffentlichte Einteilung}
+\end{texdocparameters}
+}
+\texdocmethod{public}{void}{notifyUser}{(Allocation allocation, User user)}{Verschickt an einen Benutzer (Betreuer oder Student) eine E-Mmail mit seinem zugeteilten Team$/$Project}{\begin{texdocparameters}
+\texdocparameter{allocation}{veröffentlichte Einteilung}
+\texdocparameter{user}{Benutzer, der benachrichtigt wird}
+\end{texdocparameters}
+}
+\texdocmethod{public}{void}{sendNewPassword}{(User user)}{Verschickt ein neu generiertes Passwort an einen Benutzer.}{\begin{texdocparameters}
+\texdocparameter{user}{Benutzer, der das neue Passwort erhält}
+\end{texdocparameters}
+}
+\texdocmethod{public}{void}{sendVerificationMail}{(Student student)}{Verschickt eine email zur Verifikation der email-Adresse an einen Studenten.}{\begin{texdocparameters}
+\texdocparameter{student}{Student, der die email erhält}
+\end{texdocparameters}
+}
+\end{texdocclassmethods}
+\end{texdocclass}
+
+
+\end{texdocpackage}
+
+
+

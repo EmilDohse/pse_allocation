@@ -1,0 +1,60 @@
+\begin{texdocpackage}{security}
+\label{texdoclet:security}
+
+\begin{texdocclass}{class}{SecurityModule}
+\label{texdoclet:security.SecurityModule}
+\begin{texdocclassintro}
+Das SecurityModule ist eine von der Bibliothek pac4j vorgeschriebene Klasse, welche die Bibliothek konfiguriert. 
+ Darin wird festgelegt, welche Authentifizierungsmethoden verwendet werden sollen.\end{texdocclassintro}
+\begin{texdocclassconstructors}
+\texdocconstructor{public}{SecurityModule}{()}{}{}
+\end{texdocclassconstructors}
+\begin{texdocclassmethods}
+\texdocmethod{public}{void}{configure}{()}{Diese Methode wird von der Bibliothek aufgerufen und 
+ kreiert und konfiguriert die Authentifizierungsmethoden.}{}
+\end{texdocclassmethods}
+\end{texdocclass}
+
+
+\begin{texdocclass}{class}{Verifier}
+\label{texdoclet:security.Verifier}
+\begin{texdocclassintro}
+Der Verifier ist für die Verifikation von E-Mail-Adressen der Studenten
+ zuständig und managt das Erstellen von Verifikations-Codes und den Prozess
+ des Verifizierens an sich.
+ 
+ Die Theorie des Verifikations-Prozesses: Der Student bekommt an die
+ E-Mail-Adresse, welche verifiziert werden soll, einen Link zugeschickt, der
+ den Code beinhaltet, der vorher mit dem Verifier unter Angabe des Studenten,
+ wessen E-Mail-Adresse verifiziert werden soll, generiert wurde. Duch Klicken
+ diese Linkes, wird die E-Mail-Adresse verifiziert, wenn der Verifier
+ feststellt, dass der Code für die E-Mail-Adresse generiert wurde.\end{texdocclassintro}
+\begin{texdocclassconstructors}
+\texdocconstructor{public}{Verifier}{()}{}{}
+\end{texdocclassconstructors}
+\begin{texdocclassmethods}
+\texdocmethod{public static}{Verifier}{getInstance}{()}{Diese Methode ist Teil des Singeltons. Sie gibt die einzige Instanz des
+ Verifiers zurück.}{\texdocreturn{die einzige Verifier-Instanz.}
+}
+\texdocmethod{public}{String}{getVerificationCode}{(Student student)}{Diese Methode generiert einen Code, der dazu verwendet werden kann, um
+ die E-Mail-Adresse eines Studenten zu verifizieren.}{\begin{texdocparameters}
+\texdocparameter{student}{Der Student, dessen E-Mail-Adresse mit dem zurückgegebenen
+            Code verifiziert werden soll.}
+\end{texdocparameters}
+\texdocreturn{der Code, der zur Verifikation der E-Mail-Adresse benötigt wird.}
+}
+\texdocmethod{public}{boolean}{verify}{(Student student, String code)}{Diese Methode verifiziert eine E-Mail-Adresse. Dazu wird geschaut, ob der
+ Code auch wirklich dem Studenten zur Verifikation geschickt wurde.}{\begin{texdocparameters}
+\texdocparameter{student}{Der Student, dessen E-Mail-Adresse verifiziert werden soll.}
+\texdocparameter{code}{Der Code, mit dem die E-Mail-Adresse verifiziert werden soll.}
+\end{texdocparameters}
+\texdocreturn{true wenn die Verifikation positiv war, false sonst.}
+}
+\end{texdocclassmethods}
+\end{texdocclass}
+
+
+\end{texdocpackage}
+
+
+
