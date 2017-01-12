@@ -18,7 +18,7 @@ public class User {
 	 */
 	private String password;
 	/**
-	 * Die Email-Adresse des Benutzers.
+	 * Die E-Mail-Adresse des Benutzers.
 	 */
 	private String emailAddress;
 	/**
@@ -30,38 +30,74 @@ public class User {
 	 */
 	private String lastName;
 	/**
-	 * Getter für den Benutzernamen.
+	 * Getter fÃ¼r den Benutzernamen.
 	 * @return Der Benutzername.
 	 */
 	public String getUserName() {
 	    return username;
 	}
 	/**
-	 * Getter für das Benutzerpasswort.
+	 * Getter fÃ¼r das Benutzerpasswort.
 	 * @return Das Benutzerpasswort.
 	 */
 	public String getPassword() {
 	    return password;
 	}
 	/**
-	 * Getter für die EMail-Addresse.
+	 * Getter fÃ¼r die E-Mail-Addresse.
 	 * @return Die EMail-Addresse.
 	 */
 	public String getEmailAddress() {
 	    return emailAddress;
 	}
 	/**
-	 * Getter für den Vornamen.
+	 * Getter fÃ¼r den Vornamen.
 	 * @return Der Vorname.
 	 */
 	public String getFirstName() {
 	    return firstName;
 	}
 	/**
-	 * Getter für den Nachnamen.
+	 * Getter fÃ¼r den Nachnamen.
 	 * @return Der Nachname.
 	 */
 	public String getLastName() {
 	    return lastName;
 	}
+	
+	/**
+     * Setter für den Benutzernamen.
+     * @param username Der Benutzername
+     */
+    public void setUserName(String username) {
+        this.username = username;
+    }
+    /**
+     * Setter für das Benutzerpasswort.
+     * @param password Das Passwort
+     */
+    public void setPassword(String password) {
+        this.password = password;
+    }
+    /**
+     * Setter für die EMail-Addresse.
+     * @param email Die Email
+     */
+    public void setEmailAddress(String email) {
+        this.emailAddress = email;
+    }
+    /**
+     * Setter für den Vornamen.
+     * @param Der Vorname
+     */
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+    /**
+     * Setter für den Nachnamen.
+     * @param lastName Der Nachname
+     */
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 };

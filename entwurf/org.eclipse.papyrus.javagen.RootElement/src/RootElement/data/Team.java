@@ -16,33 +16,41 @@ import RootElement.data.Student;
 public class Team {
     
 	/**
-	 * Das Porjekt des Teams
+	 * Das Projekt des Teams
 	 */
 	private Project project;
 	/**
-	 * Getter für das Projekt.
+	 * Getter fÃ¼r das Projekt.
 	 * @return Das Projekt.
 	 */
 	public Project getProject() {
 	    return project;
 	}
+	
 	/**
-	 * Diese Methode gibt die Studierenden(Mitgliederr) des Teams zurück.
+     * Setter für das Projekt.
+     * @param project Das Projekt.
+     */
+    public void setProject(Project project) {
+        this.project = project;
+    }
+	/**
+	 * Diese Methode gibt die Studierenden (Mitglieder) des Teams zurÃ¼ck.
 	 * @return members Die Mitglieder des Teams.
 	 */
 	public Student getMembers() {
 	}
 
 	/**
-	 * Diese Methode gibt die Bewertung eines Studierenden zu dem Projekt dieses Teams zurück.
-	 * @param student Der Studierende, dessen Bewertung zurückgegeben werden soll.
+	 * Diese Methode gibt die Bewertung eines Studierenden zum Projekt dieses Teams zurÃ¼ck.
+	 * @param student Der Studierende, dessen Bewertung zurÃ¼ckgegeben werden soll.
 	 * @return rating Die Bewertung des Studierenden.
 	 */
 	public Rating getRating(Student student) {
 	}
 
 	/**
-	 * Diese Methode gibt die Betreuer des Teams zurück.
+	 * Diese Methode gibt die Betreuer des Teams zurÃ¼ck.
 	 * @return advisers Die Betreuer des Teams.
 	 */
 	public Adviser getAdvisers() {

@@ -35,14 +35,14 @@ public class Allocation {
     			public String name;
 	
 	/**
-	 * Diese Methode gibt alle Einteilungen zurück.
+	 * Diese Methode gibt alle Einteilungen zurÃ¼ck.
 	 * @return allocations Alle Einteilungen.
 	 */
 	public static RootElement.data.Allocation getAllocations() {
 	}
 	
 	/**
-	 * Diese Methode gibt eine Spezifische Einteilung zurück, die über ihren Namen identifiziert wird.
+	 * Diese Methode gibt eine Spezifische Einteilung zurÃ¼ck, die Ã¼ber ihren Namen identifiziert wird.
 	 * @param name Der Name der Einteilung.
 	 * @return allocation Die Einteilung mit dem gegebenen Namen.
 	 */
@@ -50,7 +50,7 @@ public class Allocation {
 	}
 	
 	/**
-	 * Diese Methode gibt zurück, ob die Einteilung ´final ist oder nicht.
+	 * Diese Methode gibt zurÃ¼ck, ob die Einteilung Ã¼final ist oder nicht.
 	 * @return final Wahr, wenn Einteilung final, sonst falsch
 	 */
 	public boolean isFinal() {

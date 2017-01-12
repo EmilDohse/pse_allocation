@@ -22,7 +22,7 @@ abstract class AbstractAllocator {
 
 	/**
 	 * gibt alle Kriterien,
- 	 * geladen über eien Servieloader zuzrück 
+ 	 * geladen über einen Servieloader, zurück 
 	 * @return Liste aller verfügbarer Kriterien
 	 */
 	public static List<Criterion> getAllCriteria() {

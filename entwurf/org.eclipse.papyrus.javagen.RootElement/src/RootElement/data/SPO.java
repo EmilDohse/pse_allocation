@@ -8,53 +8,72 @@ import RootElement.data.Achievement;
 
 /************************************************************/
 /**
- * Diese Klasse stellt eine Studienprüfungsordnung dar.
+ * Diese Klasse stellt eine StudienprÃ¼fungsordnung dar.
  */
 public class SPO {
 	/**
-	 * Der Name der Prüfungsordnung.
+	 * Der Name der PrÃ¼fungsordnung.
 	 */
 	private String name;
 	/**
-	 * Die nach dieser Prüfungsordnung benötigten Teilleistungen für die Teilnahme am PSE.s
+	 * Die nach dieser PrÃ¼fungsordnung benÃ¼tigten Teilleistungen fÃ¼r die Teilnahme am PSE.
 	 */
 	private Achievement[] necessaryAchievements;
 	/**
-	 * Die zum Einstellen verfügbaren Teilleistungen.
+	 * Die zum Einstellen verfÃ¼gbaren Teilleistungen.
 	 */
 	private Achievement[] avaliableAchievements;
-	
-	
 	/**
-	 * Getter-Methode für name.
+	 * Getter-Methode fÃ¼r name.
 	 * @return Der Name der SPO.
 	 */
 	public String getName() {
 	    return name;
 	}
 	/**
-     * Getter-Methode für die benötigten Teilleistungen.
-     * @return Die benötigten Teilleistungen.
+     * Getter-Methode fÃ¼r die benÃ¼tigten Teilleistungen.
+     * @return Die benÃ¼tigten Teilleistungen.
      */
 	public Achievement[] getNecessaryAchievements() {
 	    return necessaryAchievements;
 	}
 	/**
-     * Getter-Methode für die verfügbaren Teilleistungen.
-     * @return Die verfügbaren Teilleistungen.
+     * Getter-Methode fÃ¼r die verfÃ¼gbaren Teilleistungen.
+     * @return Die verfÃ¼gbaren Teilleistungen.
      */
 	public Achievement[] getAvailableAchievements() {
         return availableAchievements;
     }
 	/**
-	 * Diese Methode gibt alle SPOs zurück.
+     * Setter-Methode für name.
+     * @param name Der Name der SPO.
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+    /**
+     * Setter-Methode für die benötigten Teilleistungen.
+     * @param neccessaryAchievemens Die benötigten Teilleistungen.
+     */
+    public void setNecessaryAchievements(Achievement[] neccessaryAchievements) {
+        this.necessaryAchievements = necessaryachievements;
+    }
+    /**
+     * Setter-Methode für die verfügbaren Teilleistungen.
+     * @param availableAchievements Die verfügbaren Teilleistungen.
+     */
+    public void setAvailableAchievements(Achievement[] availableAchievements) {
+        this.avaliableAchievements = availableAchievements;
+    }	
+	/**
+	 * Diese Methode gibt alle SPOs zurÃ¼ck.
 	 * @return spos Alle SPOs.
 	 */
 	public static RootElement.data.SPO getSPOs() {
 	}
 
 	/**
-	 * Dies Methode gibt eine bestimmte SPO zurück, die über ihren Namen identifiziert wird.
+	 * Dies Methode gibt eine bestimmte SPO zurÃ¼ck, die Ã¼ber ihren Namen identifiziert wird.
 	 * @param name Der Name der SPO.
 	 * @return spo Die SPO
 	 */

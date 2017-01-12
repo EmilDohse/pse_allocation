@@ -9,7 +9,7 @@ import RootElement.data.Project;
 
 /************************************************************/
 /**
- * Diese Klasse stellt eine Bewertung eines Studierenden oder einerr Lerngruppe für ein Projekt dar.
+ * Diese Klasse stellt eine Bewertung eines Studierenden oder einerr Lerngruppe fÃ¼r ein Projekt dar.
  */
 public class Rating {
 	/**
@@ -25,24 +25,46 @@ public class Rating {
 	 */
 	private LearningGroup learningGroup;
 	/**
-	 * Getter für den Wert der Bewertung.
+	 * Getter fÃ¼r den Wert der Bewertung.
 	 * @return Der Wert der Bewertung.
 	 */
 	public int getRating() {
 	    return rating;
 	}
 	/**
-	 * Getter für das Projekt der Bewertung.
+	 * Getter fÃ¼r das Projekt der Bewertung.
 	 * @return Das Projekt, das bewertet wird.
 	 */
 	public Project getProject() {
 	    return project;
 	}
 	/**
-	 * Getter für die Lerngruppe.
+	 * Getter fÃ¼r die Lerngruppe.
 	 * @return Die Lerngruppe, die bewertet.
 	 */
 	public LearningGroup getLearningGroup() {
 	    return this.learningGroup;
 	}
+	
+	/**
+     * Setter fÃ¼r den Wert der Bewertung.
+     * @param rating Der Wert der Bewertung.
+     */
+    public void setRating(int rating) {
+        this.rating = rating;
+    }
+    /**
+     * Setter fÃ¼r das Projekt der Bewertung.
+     * @param project Das Projekt, das bewertet wird.
+     */
+    public void setProject(Project project) {
+        this.project = project;
+    }
+    /**
+     * Setter fÃ¼r die Lerngruppe.
+     * @param learningGroup Die Lerngruppe, die bewertet.
+     */
+    public void setLearningGroup(LearningGroup learningGroup) {
+        this.learningGroup = learningGroup;
+    }
 }

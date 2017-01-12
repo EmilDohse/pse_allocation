@@ -24,7 +24,14 @@ public class Adviser extends User {
 	    return projects;
 	}
 	/**
-	 * Diese Methode gibt alle Betreuer zurück, die es jemals gab.
+     * Setter für die Projekte, die der Betreuer beaufsichtigt.
+     * @param projects Die Projekte, die der Betreuer beaufsichtigt.
+     */
+    public void getProjects(Project[] projects) {
+        this.projects = projects;
+    }
+	/**
+	 * Diese Methode gibt alle Betreuer zurÃ¼ck, die es jemals gab.
 	 * @return advisers Alle Betreuer.
 	 */
 	public static RootElement.data.Adviser getAdvisers() {
