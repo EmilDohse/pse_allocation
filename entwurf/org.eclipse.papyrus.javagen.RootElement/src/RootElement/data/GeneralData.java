@@ -16,23 +16,53 @@ public class GeneralData {
 	 */
 	private Semester currentSemester;
 	/**
-	 * Anmeldename des Admind.
+	 * Anmeldename des Administrators.
 	 */
 	private static String adminName;
 	/**
-	 * Anmeldepasswort des Admins.
+	 * Anmeldepasswort des Administrators.
 	 */
 	private static String adminPassword;
-	
+	/**
+	 * Getter für das aktuelle Semester.
+	 * @return Das aktuelle Semester.
+	 */
 	public Semester getCurrentSemester() {
 	    return currentSemester;
 	}
-	
+	/**
+	 * Getter für den Anmeldenamen des Administrators.
+	 * @return Der Anmeldename des Administrators.
+	 */
 	public String getAdminName() {
 	    return this.adminName;
 	}
-	
+	/**
+	 * Getter für das Anmeldepasswort des Administrators.
+	 * @return Das Anmeldepasswort des Administrators.
+	 */
 	public String getAdminPassword() {
-	    return this.adminPassword;
-	}
-};
+        return this.adminPassword;
+    }
+	/**
+	 * Setter für das aktuelle Semester.
+	 * @param currentSemester Das aktuelle Semester.
+	 */
+	public void setCurrentSemester(Semester currentSemester) {
+        this.currentSemester = currentSemester;
+    }
+	/**
+	 * Setter für den Anmeldenamen des Administrators.
+	 * @param adminName Der Anmeldename des Administrators.
+	 */
+    public void setAdminName(String adminName) {
+        this.adminName = adminName;
+    }
+    /**
+     * Setter für das Anmeldepasswort des Administrators.
+     * @param adminPassword Das Anmeldepasswort des Administrators.
+     */
+    public void setAdminPassword(String adminPassword) {
+        this.adminPassword = adminPassword;
+    }
+}

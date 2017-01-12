@@ -45,4 +45,26 @@ public class Rating {
 	public LearningGroup getLearningGroup() {
 	    return this.learningGroup;
 	}
+	
+	/**
+     * Setter für den Wert der Bewertung.
+     * @param rating Der Wert der Bewertung.
+     */
+    public void setRating(int rating) {
+        this.rating = rating;
+    }
+    /**
+     * Setter für das Projekt der Bewertung.
+     * @param project Das Projekt, das bewertet wird.
+     */
+    public void setProject(Project project) {
+        this.project = project;
+    }
+    /**
+     * Setter für die Lerngruppe.
+     * @param learningGroup Die Lerngruppe, die bewertet.
+     */
+    public void setLearningGroup(LearningGroup learningGroup) {
+        this.learningGroup = learningGroup;
+    }
 }

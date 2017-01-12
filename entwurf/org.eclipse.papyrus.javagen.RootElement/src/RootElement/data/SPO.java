@@ -23,8 +23,6 @@ public class SPO {
 	 * Die zum Einstellen verfÃ¼gbaren Teilleistungen.
 	 */
 	private Achievement[] avaliableAchievements;
-	
-	
 	/**
 	 * Getter-Methode fÃ¼r name.
 	 * @return Der Name der SPO.
@@ -46,29 +44,27 @@ public class SPO {
 	public Achievement[] getAvailableAchievements() {
         return availableAchievements;
     }
-	
-	
 	/**
      * Setter-Methode für name.
+     * @param name Der Name der SPO.
      */
     public void setName(String name) {
         this.name = name;
     }
     /**
      * Setter-Methode für die benötigten Teilleistungen.
+     * @param neccessaryAchievemens Die benötigten Teilleistungen.
      */
     public void setNecessaryAchievements(Achievement[] neccessaryAchievements) {
         this.necessaryAchievements = necessaryachievements;
     }
     /**
      * Setter-Methode für die verfügbaren Teilleistungen.
+     * @param availableAchievements Die verfügbaren Teilleistungen.
      */
     public void setAvailableAchievements(Achievement[] availableAchievements) {
         this.avaliableAchievements = availableAchievements;
-    }
-	
-	
-	
+    }	
 	/**
 	 * Diese Methode gibt alle SPOs zurÃ¼ck.
 	 * @return spos Alle SPOs.

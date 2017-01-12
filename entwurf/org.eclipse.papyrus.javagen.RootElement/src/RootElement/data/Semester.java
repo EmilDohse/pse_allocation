@@ -58,6 +58,36 @@ public class Semester {
 	public Allocation getFinalAllocation() {
 	    return finalAllocation;
 	}
+	
+	/**
+     * Setter für den Namen des Semesters.
+     * @param name Der Name des Semesters.
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+    /**
+     * Setter für die SPOs des Semesters.
+     * @param spos Die verfügbaren SPOs des Semesters.
+     */
+    public void setSpos(SPO[] spos) {
+        this.spos = spos;
+    }
+    /**
+     * Setter für den Infotext.
+     * @param infoText Der Infotext des Semesters.
+     */
+    public void setInfoText(String infoText) {
+        this.infoText = infoText;
+    }
+    /**
+     * Setter für die finale Einteilung.
+     * @param finalAllocation Die finale Einteilung.
+     */
+    public void setFinalAllocation(Allocation finalAllocation) {
+        this.finalAllocation = finalAllocation;
+    }
+    
 	/**
 	 * Diese Methode gibt ein spezifisches Semester zurück.
 	 * @param semesterName Der Name des Semseters.

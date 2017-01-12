@@ -21,6 +21,13 @@ public class Achievement {
 	    return name;
 	}
 	/**
+	 * Setter für den Namen der Teilleistung.
+	 * @param name Der Name der Teilleistung.
+	 */
+	public void setName(String name) {
+	    this.name = name;
+	}
+	/**
 	 * Diese Methode gibt alle Teilleistungen zurÃ¼ck.
 	 * @return achievements Alle existierenden Teilleistungen.
 	 */

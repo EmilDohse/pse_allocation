@@ -13,7 +13,7 @@ import RootElement.data.Semester;
  */
 public class LearningGroup {
 	/**
-	 * Der name der LErngruppe.
+	 * Der name der Lerngruppe.
 	 */
 	private String name;
 	/**
@@ -28,6 +28,12 @@ public class LearningGroup {
 	 * Die Mitglieder der Lerngruppe.
 	 */
 	private Student[] members;
+	
+	/**
+     * Studierende, die keiner Lerngruppe angehüren, werden als private Lerngruppe der
+     * Grüüe 1 gespeichert. Eine private Lerngruppe kann also niemals von einem Studenten erstellt werden.
+     */
+    private boolean isPrivate;
 	
 	/**
 	 * Getter für den Namen.
@@ -57,11 +63,53 @@ public class LearningGroup {
 	public Student[] getMembers() {
 	    return members;
 	}
+	
+	public boolean isPrivate() {
+	    return this.isPrivate;
+	}
+	
 	/**
-	 * Studierende, die keiner Lerngruppe angehüren, werden als private Lerngruppe der
-	 * Grüüe 1 gespeichert. Eine private Lerngruppe kann also niemals von einem Studenten erstellt werden.
-	 */
-	public boolean isPrivate;
+     * Setter für den Namen.
+     * @param name Name der Lerngruppe.
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+    /**
+     * Setter für das Passwort.
+     * @param password Das Passwort, um der Lerngruppe beizutreten.
+     */
+    public void setPassword(String password) {
+        this.password = password;
+    }
+    /**
+     * Setter für das Semester, in dem die Lerngruppe erstellt wurde.
+     * @param semester Das Semester,in dem die Lerngruppe erstellt wurde.
+     */
+    public void setSemester(Semester semseter) {
+        this.semester = semester;
+    }
+    /**
+     * Setter für die Mitglieder der Lerngruppe.
+     * @param members Die Mitglieder der Lerngruppe.
+     */
+    public void setMembers(Student[] members) {
+        this.members = members;
+    }
+    /**
+     * Getter ob Lerngruppe privat ist.
+     * @return Wahr, wenn privat, sonst falsch.
+     */
+    public boolean isPrivate() {
+        return this.isPrivate;
+    }
+    /**
+     * Setter ob Lerngruppe privat ist.
+     * @param isPrivate Wahr, wenn privat, sonst falsch.
+     */
+    public boolean setPrivate(boolean isPrivate) {
+        this.isPrivate = isPrivate;
+    }
 	
 	/**
 	 * Diese Methode gibt eine spezifische Lerngruppe zurück.

@@ -18,17 +18,32 @@ public class AllocationParameter {
 	 */
 	private double value;
 	/**
-	 * Getter fÃ¼r den Namen des Parameters.
+	 * Getter für den Namen des Parameters.
 	 * @return Der Name des Parameters.
 	 */
 	public String getName() {
 	    return name;
 	}
 	/**
-	 * Getter fÃ¼r den Wert des Parameters.
+	 * Getter für den Wert des Parameters.
 	 * @return Der Wert des Parameters.
 	 */
 	public doulbe getValue() {
 	    return value;
 	}
+	
+	/**
+     * Setter für den Namen des Parameters.
+     * @param name Der Name des Parameters.
+     */
+    public void getName(String name) {
+        this.name = name;
+    }
+    /**
+     * Setter für den Wert des Parameters.
+     * @param value Der Wert des Parameters.
+     */
+    public void getValue(double value) {
+        this.value = value;
+    }
 };

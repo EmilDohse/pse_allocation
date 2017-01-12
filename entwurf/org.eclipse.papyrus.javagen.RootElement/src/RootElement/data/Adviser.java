@@ -17,12 +17,19 @@ public class Adviser extends User {
 	 **/
 	private Project[] projects;
 	/**
-	 * Getter fÃ¼r die Projekte, die der Betreuer beaufsichtigt.
+	 * Getter für die Projekte, die der Betreuer beaufsichtigt.
 	 * @return Die Projekte, die der Betreuer beaufsichtigt.
 	 */
 	public Project[] getProjects() {
 	    return projects;
 	}
+	/**
+     * Setter für die Projekte, die der Betreuer beaufsichtigt.
+     * @param projects Die Projekte, die der Betreuer beaufsichtigt.
+     */
+    public void getProjects(Project[] projects) {
+        this.projects = projects;
+    }
 	/**
 	 * Diese Methode gibt alle Betreuer zurÃ¼ck, die es jemals gab.
 	 * @return advisers Alle Betreuer.
