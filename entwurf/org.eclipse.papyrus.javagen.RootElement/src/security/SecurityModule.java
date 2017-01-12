@@ -6,12 +6,14 @@ package security;
 
 /************************************************************/
 /**
- * 
+ * Das SecurityModule ist eine von der Bibliothek pac4j vorgeschriebene Klasse, welche die Bibliothek konfiguriert. 
+ * Darin wird festgelegt, welche Authentifizierungsmethoden verwendet werden sollen.
  */
 public class SecurityModule {
 
 	/**
-	 * 
+	 * Diese Methode wird von der Bibliothek aufgerufen und 
+	 * kreiert und konfiguriert die Authentifizierungsmethoden.
 	 */
 	public void configure() {
 	}
