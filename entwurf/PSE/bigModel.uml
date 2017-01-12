@@ -28,6 +28,39 @@
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
         </ownedParameter>
       </ownedOperation>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_BMfNsNjMEeab3rkMjf7TzQ" name="importSPO" visibility="public">
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_JbIqINjMEeab3rkMjf7TzQ" name="file">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_LAZXwNjMEeab3rkMjf7TzQ" name="exportSPO">
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_SNJ5YNjMEeab3rkMjf7TzQ" name="file">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+        </ownedParameter>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_VRZGcNjMEeab3rkMjf7TzQ" name="spo" type="_XCbTjNaNEeayPeVBIOoRFQ"/>
+      </ownedOperation>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_eK-WQNjMEeab3rkMjf7TzQ" name="importStudents">
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_jV90cNjMEeab3rkMjf7TzQ" name="file">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_lgkDwNjMEeab3rkMjf7TzQ" name="exportStudents">
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_rIbrMNjMEeab3rkMjf7TzQ" name="file">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+        </ownedParameter>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_wnWK8NjMEeab3rkMjf7TzQ" name="semester" type="_XCfk-daNEeayPeVBIOoRFQ"/>
+      </ownedOperation>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_2A8s4NjMEeab3rkMjf7TzQ" name="importProjects">
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_8s61oNjMEeab3rkMjf7TzQ" name="file">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_-UkI4NjMEeab3rkMjf7TzQ" name="exportProjects">
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_HWEloNjNEeab3rkMjf7TzQ" name="file">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+        </ownedParameter>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_J3jD4NjNEeab3rkMjf7TzQ" name="semester" type="_XCfk-daNEeayPeVBIOoRFQ"/>
+      </ownedOperation>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="_pjyLX9aMEeayPeVBIOoRFQ" name="CMSConflict">
       <ownedAttribute xmi:type="uml:Property" xmi:id="_pjyLYNaMEeayPeVBIOoRFQ" name="student" type="_XCasfNaNEeayPeVBIOoRFQ" isUnique="false"/>
@@ -35,6 +68,8 @@
       <ownedAttribute xmi:type="uml:Property" xmi:id="_pjyLYtaMEeayPeVBIOoRFQ" name="newCompleted" isUnique="false">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EBoolean"/>
       </ownedAttribute>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_0WkZQNjNEeab3rkMjf7TzQ" name="setToImportedValue"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_27t2kNjNEeab3rkMjf7TzQ" name="discardImportedValue"/>
     </packagedElement>
   </packagedElement>
   <packagedElement xmi:type="uml:Package" xmi:id="_pjyyYNaMEeayPeVBIOoRFQ" name="allocation">
@@ -796,6 +831,7 @@
     <packagedElement xmi:type="uml:Class" xmi:id="_z27kS9aOEeayPeVBIOoRFQ" name="AdminImportExportController">
       <generalization xmi:type="uml:Generalization" xmi:id="_z27kTNaOEeayPeVBIOoRFQ" general="_z27kMNaOEeayPeVBIOoRFQ"/>
       <ownedAttribute xmi:type="uml:Property" xmi:id="_8wNL09arEeayPeVBIOoRFQ" name="importer" type="_pjyLUdaMEeayPeVBIOoRFQ" association="_8wNL0NarEeayPeVBIOoRFQ"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_ZbIRENjOEeab3rkMjf7TzQ" name="cmsconflict" type="_pjyLX9aMEeayPeVBIOoRFQ" association="_ZbEmsNjOEeab3rkMjf7TzQ"/>
       <ownedOperation xmi:type="uml:Operation" xmi:id="_z27kTdaOEeayPeVBIOoRFQ" name="importAllocation">
         <ownedParameter xmi:type="uml:Parameter" xmi:id="_alfyQNipEealgIE4utjr-g" name="result" type="_0_XecNioEealgIE4utjr-g" isUnique="false" direction="return"/>
       </ownedOperation>
@@ -1201,6 +1237,12 @@
   </packagedElement>
   <packagedElement xmi:type="uml:Package" xmi:id="_GVNu8Ni0EealgIE4utjr-g" name="pac4j">
     <packagedElement xmi:type="uml:Class" xmi:id="_ILn28Ni0EealgIE4utjr-g" name="AbstractModule"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_ZbEmsNjOEeab3rkMjf7TzQ" memberEnd="_ZbIRENjOEeab3rkMjf7TzQ _ZbKtUNjOEeab3rkMjf7TzQ">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_ZbF00NjOEeab3rkMjf7TzQ" source="org.eclipse.papyrus">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_ZbGb4NjOEeab3rkMjf7TzQ" key="nature" value="UML_Nature"/>
+    </eAnnotations>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_ZbKtUNjOEeab3rkMjf7TzQ" type="_z27kS9aOEeayPeVBIOoRFQ" association="_ZbEmsNjOEeab3rkMjf7TzQ"/>
   </packagedElement>
   <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_M3anUNapEeayPeVBIOoRFQ">
     <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_M3ccgNapEeayPeVBIOoRFQ" source="http://www.eclipse.org/uml2/2.0.0/UML">
