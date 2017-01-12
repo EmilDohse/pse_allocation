@@ -7,8 +7,8 @@ package allocation;
 /************************************************************/
 /**
  * Das Kriterium sorgt dafür das die Bewertungen der Studierenden berücksichtigt
-werden.
+ * werden.
  */
 public class CriterionRating implements Criterion {
 	private String name;
-};
+}

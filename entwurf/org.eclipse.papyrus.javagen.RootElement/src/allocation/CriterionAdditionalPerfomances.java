@@ -7,8 +7,8 @@ package allocation;
 /************************************************************/
 /**
  * Das Kriterium sorgt dafür Studierende die mehr als die die zur Teilname am PSE
-benötigten Teilleistungen bestanden haben bevorzugt werden.
+ * benötigten Teilleistungen bestanden haben bevorzugt werden.
  */
 public class CriterionAdditionalPerfomances implements Criterion {
 	private String name;
-};
+}

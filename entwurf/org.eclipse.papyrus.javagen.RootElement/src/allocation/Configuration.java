@@ -39,4 +39,4 @@ public class Configuration {
 	public String getName(){
 		
 	}
-};
+}

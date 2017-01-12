@@ -28,6 +28,7 @@ public class AllocationQueue {
 
 	/**
 	 * gibt die eine existierende Instanz der AllocationQueue (Singeltion) zurück
+	 * 
 	 * @return  die Instanz der AllocationQueue
 	 */
 	public static AllocationQueue getInstance() {
@@ -35,6 +36,7 @@ public class AllocationQueue {
 
 	/**
 	 * fügt der Berechnungsqueue ein element hinzu das dann berechnet wird
+	 * 
 	 * @param configuration Die Konfiguration die zur Berechnungswarteliste hinzugefügt wird
 	 */
 	public void addToQueue(Configuration configuration) {
@@ -42,6 +44,7 @@ public class AllocationQueue {
 
 	/**
 	 * Nimmt eine Konfiguration aus der Berechnungsqueue heraus. Falls diese Konfiguration bereits berechnet wird, wird die Berechnung abgebrochen
+	 * 
 	 * @param configuration Die Konfiguration die entfernt werden soll
 	 */
 	public void cancelAllocation(Configuration configuration) {
@@ -49,8 +52,9 @@ public class AllocationQueue {
 
 	/**
 	 * Gibt die Queue der Berechnungen zurück, inklusive der Konfiguration die aktuell berechnet wird. 
+	 * 
 	 * @return queue Liste der Konfigurationen als FIFO-Queue angeordnet
 	 */
 	public List<Configuration> getQueue() {
 	}
-};
+}

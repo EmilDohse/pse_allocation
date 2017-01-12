@@ -10,6 +10,6 @@ package qualityCriteria;
  */
 public class StudentHappiness implements QualityCriterion{
 	
-	public void calculate(Allocation allocation){
+	public String calculate(Allocation allocation){
 	}
-};
+}

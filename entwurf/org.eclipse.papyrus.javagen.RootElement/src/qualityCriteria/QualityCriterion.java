@@ -14,7 +14,8 @@ public interface QualityCriterion {
 
 	/**
 	 * Berechnet das Gütekriterium einer Berechnung
+	 * 
 	 * @param allocation Berechnung, für die das Gütekriterium berechnet wird
 	 */
 	public void calculate(Allocation allocation);
-};
+}

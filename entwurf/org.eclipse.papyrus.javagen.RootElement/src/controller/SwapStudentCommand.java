@@ -21,4 +21,4 @@ public class SwapStudentCommand extends EditAllocationCommand {
 	 */
 	public void undo() {
 	}
-};
+}

@@ -26,7 +26,17 @@ public class Semester {
 	 */
 	private Allocation finalAllocation;
 	/**
+	 * Der Zeitpunkt ab dem sich Studenten registrieren können.
+	 */
+	private Date registrationStart;
+	/**
+	 * Der Zeitpunkt ab dem sich Studenten nicht mehr registrieren können.
+	 */
+	private Date registrtationEnd;
+	
+	/**
 	 * Getter für den Namen des Semesters.
+	 * 
 	 * @return Der Name des Semesters.
 	 */
 	public String getName() {
@@ -34,6 +44,7 @@ public class Semester {
 	}
 	/**
 	 * Getter für die SPOs des Semesters.
+	 * 
 	 * @return Die verfügbaren SPOs des Semesters.
 	 */
 	public SPO[] getSpos() {
@@ -41,6 +52,7 @@ public class Semester {
 	}
 	/**
 	 * Getter für den Infotext.
+	 * 
 	 * @return Der Infotext des Semesters.
 	 */
 	public String getInfoText() {
@@ -48,6 +60,7 @@ public class Semester {
 	}
 	/**
 	 * Getter für die finale Einteilung.
+	 * 
 	 * @return Die finale Einteilung.
 	 */
 	public Allocation getFinalAllocation() {
@@ -56,6 +69,7 @@ public class Semester {
 	
 	/**
      * Setter für den Namen des Semesters.
+     * 
      * @param name Der Name des Semesters.
      */
     public void setName(String name) {
@@ -63,6 +77,7 @@ public class Semester {
     }
     /**
      * Setter für die SPOs des Semesters.
+     * 
      * @param spos Die verfügbaren SPOs des Semesters.
      */
     public void setSpos(SPO[] spos) {
@@ -70,6 +85,7 @@ public class Semester {
     }
     /**
      * Setter für den Infotext.
+     * 
      * @param infoText Der Infotext des Semesters.
      */
     public void setInfoText(String infoText) {
@@ -77,6 +93,7 @@ public class Semester {
     }
     /**
      * Setter für die finale Einteilung.
+     * 
      * @param finalAllocation Die finale Einteilung.
      */
     public void setFinalAllocation(Allocation finalAllocation) {
@@ -85,30 +102,70 @@ public class Semester {
     
 	/**
 	 * Diese Methode gibt ein spezifisches Semester zurück.
+	 * 
 	 * @param semesterName Der Name des Semseters.
 	 * @return semester Das gesuchte Semester.
 	 */
-	public static RootElement.data.Semester getSemester(String semesterName) {
+	public static Semester getSemester(String semesterName) {
 	}
 
 	/**
 	 * Diese Methode gibt alles Semseter zurück, die erstellt wurden.
-	 * @return semesters Allle Semseter.
+	 * 
+	 * @return semesters Alle Semseter.
 	 */
-	public static RootElement.data.Semester getSemesters() {
+	public static Semester getSemesters() {
 	}
 
 	/**
 	 * Diese Methode gibt alles Teams zurück.
-	 * @return teams All existing teams.
+	 * 
+	 * @return teams Alle existierenden Teams.
 	 */
 	public Team getTeams() {
 	}
 
 	/**
 	 * Diese Methode gibt alle Betreuer dieses Semesters zurück.
+	 * 
 	 * @return advisers Alle Betreuer des Semesters.
 	 */
 	public Adviser getAdvisers() {
 	}
-};
+	
+	/**
+	 * Setter für den Startzeitpunkt der Registrierung.
+	 * 
+	 * @param start der Startzeitpunkt.
+	 */
+	public void setRegistrationStart(Date start) {
+		this.registrationStart = start;
+	}
+	
+	/**
+	 * Getter für den Startpunkt der Registrierung.
+	 * 
+	 * @retun den Startzeitpunkt.
+	 */
+	public Date getRegistrtaionStart() {
+		return registrationStart;
+	}
+	
+	/**
+	 * Setter für den Endzeitpunkt der Registrierung.
+	 * 
+	 * @param start der Endzeitpunkt.
+	 */
+	public void setRegistrationEnd(Date end) {
+		this.registrationEnd = end;
+	}
+	
+	/**
+	 * Getter für den Endzeitpunkt der Registrierung.
+	 * 
+	 * @retun den Endzeitpunkt.
+	 */
+	public Date getRegistrationEnd() {
+		return registrationEnd;
+	}
+}

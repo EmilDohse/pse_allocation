@@ -17,4 +17,4 @@ public class SecurityModule {
 	 */
 	public void configure() {
 	}
-};
+}

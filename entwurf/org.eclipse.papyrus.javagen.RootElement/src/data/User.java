@@ -29,36 +29,46 @@ public class User {
 	 * Nachname des Benutzers.
 	 */
 	private String lastName;
+	
 	/**
 	 * Getter für den Benutzernamen.
+	 * 
 	 * @return Der Benutzername.
 	 */
 	public String getUserName() {
 	    return username;
 	}
+	
 	/**
 	 * Getter für das Benutzerpasswort.
+	 * 
 	 * @return Das Benutzerpasswort.
 	 */
 	public String getPassword() {
 	    return password;
 	}
+	
 	/**
 	 * Getter für die E-Mail-Addresse.
+	 * 
 	 * @return Die EMail-Addresse.
 	 */
 	public String getEmailAddress() {
 	    return emailAddress;
 	}
+	
 	/**
 	 * Getter für den Vornamen.
+	 * 
 	 * @return Der Vorname.
 	 */
 	public String getFirstName() {
 	    return firstName;
 	}
+	
 	/**
 	 * Getter für den Nachnamen.
+	 * 
 	 * @return Der Nachname.
 	 */
 	public String getLastName() {
@@ -66,38 +76,47 @@ public class User {
 	}
 	
 	/**
-     * Setter f�r den Benutzernamen.
+     * Setter für den Benutzernamen.
+     * 
      * @param username Der Benutzername
      */
     public void setUserName(String username) {
         this.username = username;
     }
+    
     /**
-     * Setter f�r das Benutzerpasswort.
+     * Setter für das Benutzerpasswort.
+     * 
      * @param password Das Passwort
      */
     public void setPassword(String password) {
         this.password = password;
     }
+    
     /**
-     * Setter f�r die EMail-Addresse.
-     * @param email Die Email
+     * Setter für die E-Mail-Addresse.
+     * 
+     * @param email Die E-Mail
      */
     public void setEmailAddress(String email) {
         this.emailAddress = email;
     }
+    
     /**
-     * Setter f�r den Vornamen.
-     * @param Der Vorname
+     * Setter für den Vornamen.
+     * 
+     * @param firstName Der Vorname
      */
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
+    
     /**
-     * Setter f�r den Nachnamen.
+     * Setter für den Nachnamen.
+     * 
      * @param lastName Der Nachname
      */
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
-};
+}

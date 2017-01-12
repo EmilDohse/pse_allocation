@@ -100,4 +100,4 @@ public class AdminImportExportController extends Controller {
 	 */
 	public void solveConflicts() {
 	}
-};
+}

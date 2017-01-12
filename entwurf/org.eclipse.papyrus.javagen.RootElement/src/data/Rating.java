@@ -21,8 +21,10 @@ public class Rating {
 	 * Die Lerngruppe, welche die Bewertung abgegeben hat.
 	 */
 	private LearningGroup learningGroup;
+	
 	/**
 	 * Getter für den Wert der Bewertung.
+	 * 
 	 * @return Der Wert der Bewertung.
 	 */
 	public int getRating() {
@@ -30,6 +32,7 @@ public class Rating {
 	}
 	/**
 	 * Getter für das Projekt der Bewertung.
+	 * 
 	 * @return Das Projekt, das bewertet wird.
 	 */
 	public Project getProject() {
@@ -37,6 +40,7 @@ public class Rating {
 	}
 	/**
 	 * Getter für die Lerngruppe.
+	 * 
 	 * @return Die Lerngruppe, die bewertet.
 	 */
 	public LearningGroup getLearningGroup() {
@@ -45,6 +49,7 @@ public class Rating {
 	
 	/**
      * Setter für den Wert der Bewertung.
+     * 
      * @param rating Der Wert der Bewertung.
      */
     public void setRating(int rating) {
@@ -52,6 +57,7 @@ public class Rating {
     }
     /**
      * Setter für das Projekt der Bewertung.
+     * 
      * @param project Das Projekt, das bewertet wird.
      */
     public void setProject(Project project) {
@@ -59,6 +65,7 @@ public class Rating {
     }
     /**
      * Setter für die Lerngruppe.
+     * 
      * @param learningGroup Die Lerngruppe, die bewertet.
      */
     public void setLearningGroup(LearningGroup learningGroup) {

@@ -13,6 +13,7 @@ abstract class AbstractAllocator {
 
 	/**
 	 * berechnet die Einteilung zu einer gegebenen Konfiguration
+	 * 
 	 * @param configuration Konfiguration die bei der Einteilungsberechnung berücksichtigt wird
 	 */
 	public abstract void calculate(Configuration configuration);
@@ -20,8 +21,9 @@ abstract class AbstractAllocator {
 	/**
 	 * gibt alle Kriterien,
  	 * geladen über einen Servieloader, zurück 
+ 	 * 
 	 * @return Liste aller verfügbarer Kriterien
 	 */
 	public static List<Criterion> getAllCriteria() {
 	}
-};
+}

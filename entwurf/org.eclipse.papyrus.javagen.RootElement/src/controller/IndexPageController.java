@@ -72,4 +72,4 @@ public class IndexPageController extends Controller {
 	 */
 	public void verificationPage() {
 	}
-};
+}

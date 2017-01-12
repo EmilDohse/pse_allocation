@@ -15,13 +15,15 @@ public class Achievement {
 	private String name;
 	/**
 	 * Getter für den Namen der Teilleistung.
+	 * 
 	 * @return Der Name der Teilleistung.
 	 */
 	public String getName() {
 	    return name;
 	}
 	/**
-	 * Setter f�r den Namen der Teilleistung.
+	 * Setter für den Namen der Teilleistung.
+	 * 
 	 * @param name Der Name der Teilleistung.
 	 */
 	public void setName(String name) {
@@ -29,16 +31,18 @@ public class Achievement {
 	}
 	/**
 	 * Diese Methode gibt alle Teilleistungen zurück.
+	 * 
 	 * @return achievements Alle existierenden Teilleistungen.
 	 */
-	public static RootElement.data.Achievement getAchievements() {
+	public static Achievement getAchievements() {
 	}
 
 	/**
 	 * Diese Methode gibt eine bestimmte Teilleistung zurück, die durch ihren Namen identifiziert wird.
+	 * 
 	 * @param name Der Name der Teilleistung.
 	 * @return achievement Die bestimmte Teilleistung.
 	 */
-	public static RootElement.data.Achievement getAchievement(String name) {
+	public static Achievement getAchievement(String name) {
 	}
-};
+}

@@ -53,4 +53,4 @@ public class GurobiAllocator extends AbstractAllocator {
 	 */
 	public GRBLinExpr getOptimizationTerm(){
 	}
-};
+}

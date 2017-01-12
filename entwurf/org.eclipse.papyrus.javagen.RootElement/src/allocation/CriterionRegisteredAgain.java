@@ -7,8 +7,8 @@ package allocation;
 /************************************************************/
 /**
  * Das Kriterium sorgt dafür das Studierenden die sich schon einmal für einen PSE
-*Platz beworben haben bevorzugt werden.
+ * Platz beworben haben bevorzugt werden.
  */
 public class CriterionRegisteredAgain implements Criterion {
 	private String name;
-};
+} 

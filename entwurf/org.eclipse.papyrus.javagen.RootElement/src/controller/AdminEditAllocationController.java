@@ -69,4 +69,4 @@ public class AdminEditAllocationController extends Controller {
 	 */
 	public void undoAllocationEdit() {
 	}
-};
+}

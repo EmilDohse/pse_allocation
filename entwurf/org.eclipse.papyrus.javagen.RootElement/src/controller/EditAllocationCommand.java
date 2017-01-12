@@ -20,4 +20,4 @@ public abstract class EditAllocationCommand {
 	 */
 	public void undo() {
 	}
-};
+}

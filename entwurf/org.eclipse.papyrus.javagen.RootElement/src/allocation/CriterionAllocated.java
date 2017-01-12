@@ -7,8 +7,8 @@ package allocation;
 /************************************************************/
 /**
  * Das Kriterium sorgt dafür das möglichst viele Studierende Teams zugeteilt
-werden.
+ * werden.
  */
 public class CriterionAllocated implements Criterion {
 	private String name;
-};
+}

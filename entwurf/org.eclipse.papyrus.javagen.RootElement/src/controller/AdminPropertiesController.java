@@ -66,4 +66,4 @@ public class AdminPropertiesController extends Controller {
 	 */
 	public void removeAchievement() {
 	}
-};
+}

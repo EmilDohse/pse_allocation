@@ -21,60 +21,75 @@ public class SPO {
 	 * Die zum Einstellen verfügbaren Teilleistungen.
 	 */
 	private Achievement[] avaliableAchievements;
+	
 	/**
-	 * Getter-Methode für name.
+	 * Getter-Methode für den Namen.
+	 * 
 	 * @return Der Name der SPO.
 	 */
 	public String getName() {
 	    return name;
 	}
+	
 	/**
-     * Getter-Methode für die benütigten Teilleistungen.
-     * @return Die benütigten Teilleistungen.
+     * Getter-Methode für die benötigten Teilleistungen.
+     * 
+     * @return Die benötigten Teilleistungen.
      */
 	public Achievement[] getNecessaryAchievements() {
 	    return necessaryAchievements;
 	}
+	
 	/**
      * Getter-Methode für die verfügbaren Teilleistungen.
+     * 
      * @return Die verfügbaren Teilleistungen.
      */
 	public Achievement[] getAvailableAchievements() {
         return availableAchievements;
     }
+	
 	/**
-     * Setter-Methode f�r name.
+     * Setter-Methode für den Name.
+     * 
      * @param name Der Name der SPO.
      */
     public void setName(String name) {
         this.name = name;
     }
+    
     /**
-     * Setter-Methode f�r die ben�tigten Teilleistungen.
-     * @param neccessaryAchievemens Die ben�tigten Teilleistungen.
+     * Setter-Methode für die benötigten Teilleistungen.
+     * 
+     * @param neccessaryAchievemens Die benötigten Teilleistungen.
      */
     public void setNecessaryAchievements(Achievement[] neccessaryAchievements) {
         this.necessaryAchievements = necessaryachievements;
     }
+    
     /**
-     * Setter-Methode f�r die verf�gbaren Teilleistungen.
-     * @param availableAchievements Die verf�gbaren Teilleistungen.
+     * Setter-Methode für die verfügbaren Teilleistungen.
+     * 
+     * @param availableAchievements Die verfügbaren Teilleistungen.
      */
     public void setAvailableAchievements(Achievement[] availableAchievements) {
         this.avaliableAchievements = availableAchievements;
-    }	
+    }
+    
 	/**
 	 * Diese Methode gibt alle SPOs zurück.
+	 * 
 	 * @return spos Alle SPOs.
 	 */
-	public static RootElement.data.SPO getSPOs() {
+	public static SPO getSPOs() {
 	}
 
 	/**
 	 * Dies Methode gibt eine bestimmte SPO zurück, die über ihren Namen identifiziert wird.
+	 * 
 	 * @param name Der Name der SPO.
 	 * @return spo Die SPO
 	 */
-	public static RootElement.data.SPO getSPO(String name) {
+	public static SPO getSPO(String name) {
 	}
-};
+}

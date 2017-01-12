@@ -10,4 +10,4 @@ package allocation;
  */
 public class CriterionLearningGroup implements Criterion {
 	private String name;
-};
+}

@@ -73,4 +73,4 @@ public class AdminPageController extends Controller {
 	 */
 	public void projectEditPage() {
 	}
-};
+}

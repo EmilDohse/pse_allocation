@@ -11,9 +11,10 @@ package qualityCriteria;
 public class QualityCriteriaLoader {
 
 	/**
-	 * Gibt alle gütekriterien zurück
+	 * Gibt alle gütekriterien zurück.
+	 * 
 	 * @return  Liste aller Gütekriterien
 	 */
 	public static QualityCriterion[] getAllQualityCriteria() {
 	}
-};
+}

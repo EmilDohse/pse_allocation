@@ -14,8 +14,10 @@ public class Team {
 	 * Das Projekt des Teams
 	 */
 	private Project project;
+	
 	/**
 	 * Getter für das Projekt.
+	 * 
 	 * @return Das Projekt.
 	 */
 	public Project getProject() {
@@ -23,7 +25,8 @@ public class Team {
 	}
 	
 	/**
-     * Setter f�r das Projekt.
+     * Setter für das Projekt.
+     * 
      * @param project Das Projekt.
      */
     public void setProject(Project project) {
@@ -31,6 +34,7 @@ public class Team {
     }
 	/**
 	 * Diese Methode gibt die Studierenden (Mitglieder) des Teams zurück.
+	 * 
 	 * @return members Die Mitglieder des Teams.
 	 */
 	public Student getMembers() {
@@ -38,6 +42,7 @@ public class Team {
 
 	/**
 	 * Diese Methode gibt die Bewertung eines Studierenden zum Projekt dieses Teams zurück.
+	 * 
 	 * @param student Der Studierende, dessen Bewertung zurückgegeben werden soll.
 	 * @return rating Die Bewertung des Studierenden.
 	 */
@@ -46,8 +51,9 @@ public class Team {
 
 	/**
 	 * Diese Methode gibt die Betreuer des Teams zurück.
+	 * 
 	 * @return advisers Die Betreuer des Teams.
 	 */
 	public Adviser getAdvisers() {
 	}
-};
+}

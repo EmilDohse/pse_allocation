@@ -9,4 +9,4 @@ package data;
  * 
  */
 public class PSEServerConfigStartup {
-};
+}

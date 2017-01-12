@@ -12,6 +12,7 @@ public interface Criterion {
 
 	/**
 	 * bildet den Optimierungsterm und fügt ihn dem GurobiAllocator hinzu
+	 * 
 	 * @param weight Der vom Admin eingestellte Parameter dieses Kriteriums	
 	 * @param allocator Die Allocator instanz welche dieses Kriterium verwenden soll
 	 */
@@ -19,7 +20,8 @@ public interface Criterion {
 
 	/**
 	 * getter für den Namen des Kriteriums
+	 * 
 	 * @return  gibt den Namen zurück
 	 */
 	public String getName();
-};
+}

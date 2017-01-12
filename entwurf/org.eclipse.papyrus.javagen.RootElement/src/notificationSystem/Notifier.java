@@ -10,12 +10,12 @@ import data.User;
 
 /************************************************************/
 /**
- * Klasse die alle Benachrichtigungen der Benutzer (Studenten und Betreuer) per email übernimmt
+ * Klasse die alle Benachrichtigungen der Benutzer (Studenten und Betreuer) per E-Mail übernimmt.
  */
 public class Notifier {
 
 	/**
-	 * Verschickt an alle Benutzer (Betreuer und Studenten) eine email mit ihrem zugeteilten Team/Project
+	 * Verschickt an alle Benutzer (Betreuer und Studenten) eine E-Mail mit ihrem zugeteilten Team/Projekt.
 	 * 
 	 * @param allocation veröffentlichte Einteilung
 	 */
@@ -23,7 +23,7 @@ public class Notifier {
 	}
 
 	/**
-	 * Verschickt an einen Benutzer (Betreuer oder Student) eine email mit seinem zugeteilten Team/Project
+	 * Verschickt an einen Benutzer (Betreuer oder Student) eine E-Mmail mit seinem zugeteilten Team/Project
 	 * 
 	 * @param allocation veröffentlichte Einteilung
 	 * @param user Benutzer, der benachrichtigt wird
@@ -32,7 +32,7 @@ public class Notifier {
 	}
 
 	/**
-	 * Verschickt ein neu generiertes Passwort an einen Benutzer
+	 * Verschickt ein neu generiertes Passwort an einen Benutzer.
 	 * 
 	 * @param user Benutzer, der das neue Passwort erhält
 	 */
@@ -40,10 +40,10 @@ public class Notifier {
 	}
 
 	/**
-	 * Verschickt eine email zur Verifikation der email-Adresse an einen Studenten
+	 * Verschickt eine email zur Verifikation der email-Adresse an einen Studenten.
 	 * 
 	 * @param student Student, der die email erhält
 	 */
 	public void sendVerificationMail(Student student) {
 	}
-};
+}

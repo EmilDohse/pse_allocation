@@ -35,4 +35,4 @@ public class AdminProjectController extends Controller {
 	 */
 	public void editProject() {
 	}
-};
+}

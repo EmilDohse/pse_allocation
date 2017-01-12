@@ -55,4 +55,4 @@ public class GeneralAdminController extends Controller {
 	 */
 	public void removeStudent() {
 	}
-};
+}

@@ -80,4 +80,4 @@ public class StudentPageController extends Controller {
 	 */
 	public void editAccount() {
 	}
-};
+}

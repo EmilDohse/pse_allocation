@@ -89,4 +89,4 @@ public class AdviserPageController extends Controller {
 	 */
 	public void editAccount() {
 	}
-};
+}

@@ -18,7 +18,7 @@ public class Importer {
 	 * @param file 
 	 * @param semester 
 	 */
-	public void importAllocation(EcorePrimitiveTypes.EString file, Semester semester) {
+	public void importAllocation(String file, Semester semester) {
 	}
 
 	/**
@@ -26,7 +26,7 @@ public class Importer {
 	 * @param file 
 	 * @param allocation 
 	 */
-	public void exportAllocation(EcorePrimitiveTypes.EString file, Allocation allocation) {
+	public void exportAllocation(String file, Allocation allocation) {
 	}
 
 	/**
@@ -34,13 +34,13 @@ public class Importer {
 	 * @param file 
 	 * @return  
 	 */
-	public CMSConflict importCMSData(EcorePrimitiveTypes.EString file) {
+	public CMSConflict importCMSData(String file) {
 	}
 
 	/**
 	 * 
 	 * @param file 
 	 */
-	public void exportCMSData(EcorePrimitiveTypes.EString file) {
+	public void exportCMSData(String file) {
 	}
-};
+}

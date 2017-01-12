@@ -5,9 +5,9 @@
 package allocation;
 
 /************************************************************/
-/** Das Kriterium sorgt dafür das Studierende höheren Semesters bevorzugt werden.
- * 
+/** 
+ * Das Kriterium sorgt dafür das Studierende höheren Semesters bevorzugt werden.
  */
 public class CriterionPreferHigherSemester implements Criterion {
 	private String name;
-};
+}

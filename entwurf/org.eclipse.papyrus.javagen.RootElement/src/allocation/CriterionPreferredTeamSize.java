@@ -10,4 +10,4 @@ package allocation;
  */
 public class CriterionPreferredTeamSize implements Criterion {
 	private String name;
-};
+}

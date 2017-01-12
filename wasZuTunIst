@@ -10,7 +10,7 @@
 // gütekriterium berechnen rückgabewert
 // Spezifikation: was wird wie ex und importiert?
 - Tabelle zwischen Controller und View URL
-- package namen anglifiziern
+//- package namen anglifiziern
 - Attribute alle private
 - Getter, Setter, Konstruktoren in die Javadocs
 - Privater Konstruktor in den singleton auch im diagramm
@@ -28,3 +28,5 @@ Klassendiagrammausschnitte ins Doc
 - wo haben wir entwurfsmuster verwendet
 - einleitung schreiben
 - tipps unnd tricks dokument zur bewertung lesen und schaun was wir eingehalten haben und was nicht (rückmeldung an mich für vortrag)
+-Javadoc importer
+-javadoc pseServerConfigStartup
