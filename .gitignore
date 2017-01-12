@@ -1,0 +1,16 @@
+/Pflichtenheft_pse
+*.aux
+*.log
+*.pdf
+*.gz
+*.glo
+*.ist
+*.gls
+*.ilg
+*.glg
+*.out
+*.bcf
+*.nav
+*.snm
+*.toc
+
