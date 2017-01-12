@@ -1,10 +1,12 @@
 %%This is a very basic article template.
 %%There is just one section and two subsections.
 \documentclass[parskip=full]{scrartcl}
+\usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{studarbeit}
 \usepackage[binary-units=true]{siunitx}
  \usepackage[autostyle=true,german=quotes]{csquotes}
+
 
 \begin{document}
 
@@ -34,15 +36,14 @@ aufgeteilt in ein Basismodell und Einteilungskriterien.
 
 Für die Constraints werden im Weiteren für $\wedge$ (logisch AND) und
 $\vee$ (logisch OR) die Folgenden Formeln verwendet:
-
-\begin{gather*}
-\text{Für } y = x_1 \wedge x_2 \wedge \ldots \wedge x_n: \\
-\left(\sum_{k=1}^{N}x_k \right)-ny \le n-1\\
-ny - \sum_{k=1}^{N}x_k \le 0\\
-\text{Für } y = x_1 \vee x_2 \vee \ldots \vee x_n:\\
-ny - \sum_{k=1}^{N}x_k \le n-1\\
-\left(\sum_{k=1}^{N}x_k \right) - ny \le 0
-\end{gather*}
+\begin{align*}
+\intertext{Für $y = x_1 \wedge x_2 \wedge \ldots \wedge x_n$:} 
+\left(\sum_{k=1}^{N}x_k \right)-ny & \le n-1\\
+ny - \sum_{k=1}^{N}x_k & \le 0\\
+\intertext{Für  $y = x_1 \vee x_2 \vee \ldots \vee x_n$:}
+ny - \sum_{k=1}^{N}x_k & \le n-1\\
+\left(\sum_{k=1}^{N}x_k \right) - ny  &\le 0
+\end{align*}
 \subsection{Basismodell}
 Das Basismodell besteht aus einer $N \times M$ Matrix $B$ binärer Variablen.
 Hierbei ist $N$ die anzahl der Studierenden die die Pflichtvoraussetzungen für das PSE
@@ -54,7 +55,7 @@ Weiterhin gibt es Hilvsvariablen für häufig verwendetes:
   \item $x_j$ ist eine Hilfsvariable für die Teamgröße des Teams $j$. Sie berechnet
 sich durch
 \begin{equation*}
-x_j = \sum_{k = 1}^{N} B(k,j) \text{
+\sum_{k = 1}^{N} B(k,j) = x_j  \text{
 als Constraint}
 \end{equation*}
 \end{itemize}
@@ -72,16 +73,16 @@ Außerdem werden im Basismodell die folgenden Basisconstraints definiert:
    oder 0. Die Teamgröße ist kleinergleich der vorgegebenen maximalen Teamgröße
    Ausgenommen hiervon ist das Team der nicht zugeteilten. Hierzu wird eine
    Hilvsvariable $y_j$ pro Team $j$ verwendet. Die Constraints lauten:
-   \begin{gather*}
-    0 \le y_j \le 1\\
-     y_j \le x_j\\ 
-    x_j \le maxSize_j \cdot y_j \\ 
-    x_j \ge minSize_j \cdot y_j \\
-    \text{Somit ist } y_j = \begin{cases}
-    1 & \text{wenn $minSize_j \le x_j \le maxSize_j \vee x_j = 0$} \\
-    0 & \text{sonst} 
-    \end{cases}
-   \end{gather*}
+   \begin{align*}
+    0 &\le  y_j \le 1\\
+     y_j &\le x_j\\ 
+    x_j &\le maxSize_j \cdot y_j \\ 
+    x_j &\ge minSize_j \cdot y_j 
+    \end{align*}
+    $\text{Somit ist } y_j = &\begin{cases}
+    1 \;\; \text{wenn $minSize_j \le x_j \le maxSize_j \vee x_j = 0$} \\
+    0 \;\; \text{sonst} 
+    \end{cases}$
  \end{itemize}
  
  Es gibt weiterhin einen Optimierungsterm der durch, in der für die Berechnung
@@ -98,11 +99,11 @@ Diese Boni sind an der \enquote{++ Wertung} normiert.
 \subsubsection{CriterionAllocated}
 Das Kriterium sorgt dafür das möglichst viele Studierende Teams zugeteilt
 werden. Hierzu wird dem Optimierungsterm für jeden zugeltilten Student ein Bonus
-von 10. Für nicht zugeteilte gibt es einen Bonus von 1. \begin{gather*}
-\text{Zum Optimierungsterm:}\\
+von 10. Für nicht zugeteilte gibt es einen Bonus von 1. \begin{align*}
+\intertext{Zum Optimierungsterm:}
 p_i \cdot 10 \cdot \sum_{k = 1}^{N} \sum_{j = 1}^{M-1} B(k,j) \text{ für die
 Zugeteilten}
-\end{gather*}
+\end{align*}
 
 \subsubsection{CriterionRating}
 Das Kriterium sorgt dafür das die Bewertungen der Studierenden berücksichtigt
@@ -110,33 +111,32 @@ werden. Für ein \enquote{++} gibt es einen Bonus von 10, für ein \enquote{+} 8
 für ein \enquote{o} 6, für ein \enquote{-} 4 und für ein \enquote{-{}-} 2. Sei
 hierfür $w_{kj}$ die Wertung des Studierenden $k$ für das Projekt zu dem Team
 $j$ gehört (für $j = M$ ist $w_{kj} := 0$).
-\begin{gather*}
-\text{Zum Optimierungsterm:}\\
-p_i \cdot \sum_{k=1}^{N}\sum_{j=1}^{M-1}w_{kj} \cdot B(k,j) 
-\end{gather*}
+\begin{align*}
+\intertext{Zum Optimierungsterm:}
+p_i \cdot \sum_{k=1}^{N}\sum_{j=1}^{M-1}w_{kj} \cdot B(k,j)
+\end{align*}
 
 \subsubsection{CriterionLearningGroup}
 Das Kriterium sorgt dafür das Lerngruppen eher zusammenbleiben. Hierfür gibt es
 für jedes Paar Studierender $p:= (a,b)$ mit $a,b \in \{ 1\ldots N\}: a > b$
 einer Lerngruppe die zusammenbleiben einen Bonus $LgBonus_l$ von $\frac{10}{pair_l}$ wobei $pair_l$ die Anzahl der Paare der
 Lerngruppe $l$ ist.
-\begin{gather*}
-\text{Als Constraints: }\\
-0 \le y_{lpt} \le 1  \\
-y_{lpt} = B(a,t) \wedge B(b,t)
+\begin{align*}
+\intertext{Als Constraints: }
+0 &\le y_{lpt} \le 1  \\
+y_{lpt} &= B(a,t) \wedge B(b,t)
 %y_{lpt} \le B(k_1,t) + B(k_2,t) -1, \; y_{lpt} \le B(k_2,t), \; y_{lpt} \le
 %B(k_2,t) 
-\\
-y_{lpt} =
-\begin{cases}
-1 & \text{wenn das Paar $p$ aus
-Lerngruppe $l$ im gleichen Team $t$ ist} \\
-0 &\text{sonst}
-\end{cases}
-\\
-\text{Zum Optimierungsterm: } \\
+\end{align*}
+$y_{lpt} =\begin{cases}
+1 \;\; \text{wenn das Paar $p$ aus
+Lerngruppe $l$ im  gleichen Team $t$ ist} \\
+0 \;\;\text{sonst}
+\end{cases}$
+\begin{align*}
+\intertext{Zum Optimierungsterm: } 
 p_i \cdot LgBonus_l \cdot y_{lpt} \text{ für alle Paare, Lerngruppen und Teams}
-\end{gather*} 
+\end{align*} 
 
 \subsubsection{CriterionRegisteredAgain}
 Das Kriterium sorgt dafür das Studierenden die sich schon einmal für einen PSE
@@ -147,45 +147,45 @@ Studierende $k$ sich schon einmal um einen Platz beworben hat.
 Das Kriterium sorgt dafür das Teams möglichst die gewünschte Teamgröße haben.
 Das Team der nicht zugeteilten ist ausgeschlossen. Seien pro Team $j \in \{1\ldots M-1 \} \; c_j,o_j,z_j$ binäre Variablen.
 Dabei sei: 
-\begin{gather*}
-\text{Als Constraints: }\\
-z_j =x_j - preferredTeamSize\\
--maxSize_j \cdot (1-o_j) \le z_j \le maxSize_j \cdot (1-o_j)\\
-0.1\cdot(1-o_j) - (maxSize_j + 0.1)\cdot c_j \le z_j \le -0.1\cdot
+\begin{align*}
+\intertext{Als Constraints: }
+z_j &=x_j - preferredTeamSize\\
+-maxSize_j \cdot (1-o_j) &\le z_j \le maxSize_j \cdot (1-o_j)\\
+0.1\cdot(1-o_j) - (maxSize_j + 0.1)\cdot c_j &\le z_j \le -0.1\cdot
 (1-o_j)+(maxSize_j +0.1)\cdot(1-c_j)\\
-\text{Zum Optimierungsterm:} \\
- p_i \cdot 10 \cdot \sum_{j = 1}^{M-1}
+\intertext{Zum Optimierungsterm:} 
+ &p_i \cdot 10 \cdot \sum_{j = 1}^{M-1}
 o_j
-\end{gather*}
+\end{align*}
 \subsubsection{CriterionSameSemester}
 Das Kriterium sorgt dafür das Studierende des, für das PSE vorgesehenen
 Semesters und Studierende höherer Semester eher nicht in das selbe Team kommen. 
 Seien $a_{1t},a_{2t},a_{3t},a_{4t}$ Hilfsvariablen, bis auf $a_{1t}$ alle binär.
 $drittSemester$ die Menge der Studierenden im für das PSE vorgesehenen Semester.
-\begin{gather*}
-\text{Als Constraints:} \\
-a_{1t} = \sum_{k \in drittSemester} B(k,t) \\
-(1 - a_{2t}) \le x_t - a_{1t} \\ (1 - a_{2t}) \ge 0.1 \cdot x_t - a_{1t} \\
-\text{Somit ist } a_{2t} = \begin{cases}
-    1 & \text{wenn $a_{1t} = x_t$} \\
-    0 & \text{sonst} 
-    \end{cases}\\
-(1-a_{3t}) \le a_{1t} \\
-(1-a_{3t}) \ge 0.1 \cdot a_{1t}\\
-\text{Somit ist } a_{3t} = \begin{cases}
-    1 & \text{wenn $a_{1t} = 0$} \\
-    0 & \text{sonst} 
-    \end{cases}\\
-a_{4t} \le x_t \\
-a_{4t} \ge 0.1 \cdot x_t \\
-\text{Somit ist } a_{4t} = \begin{cases}
-    1 & \text{wenn $x_t > 0$} \\
-    0 & \text{sonst} 
-    \end{cases}\\
-e_t = (a_{2t} \vee a_{3t}) \wedge a_{4t}\\
-\text{Zum Optimierungsterm:} \\
-p_i \cdot 10 \cdot \sum_{j=1 }^{M-1} e_j
-\end{gather*}
+\begin{align*}
+\intertext{Als Constraints:} 
+a_{1t} &= \sum_{k \in drittSemester} B(k,t) \\
+(1 - a_{2t}) &\le x_t - a_{1t} \\ (1 - a_{2t}) &\ge 0.1 \cdot x_t - a_{1t} \\
+\intertext{$\text{Somit ist } a_{2t} = \begin{cases}
+    1 \;\; \text{wenn $a_{1t} = x_t$} \\
+    0 \;\; \text{sonst} 
+\end{cases}$}
+(1-a_{3t}) &\le a_{1t} \\
+(1-a_{3t}) &\ge 0.1 \cdot a_{1t}\\
+\intertext{\text{Somit ist } a_{3t} = \begin{cases}
+    1 \;\; \text{wenn $a_{1t} = 0$} \\
+    0 \;\; \text{sonst} 
+\end{cases}}
+a_{4t} &\le x_t \\
+a_{4t} &\ge 0.1 \cdot x_t \\
+\intertext{\text{Somit ist } a_{4t} = \begin{cases}
+    1 \;\; \text{wenn $x_t > 0$} \\
+    0 \;\; \text{sonst} 
+\end{cases}}
+e_t &= (a_{2t} \vee a_{3t}) \wedge a_{4t}\\
+\intertext{Zum Optimierungsterm:} 
+&p_i \cdot 10 \cdot \sum_{j=1 }^{M-1} e_j
+\end{align*}
 \subsubsection{CriterionPreferHigherSemester}
 Das Kriterium sorgt dafür das Studierende höheren Semesters bevorzugt werden.
 Hierfür wird dem Optimierungsterm $p_i \cdot 10 \cdot \sum_{j = 1}^{M-1} B(k,j)$ hinzugefügt, wenn der
@@ -200,19 +200,19 @@ Das Kriterium sorgt dafür das möglichst kein Team aus einer Lerngrupe sowie
 einem einzelnen Studierenden besteht.
 Sei $lg_i$ die Lerngruppengröße der $i$-ten Lerngruppe, es gebe $O$ Lerngruppen.
 Weiterhin sei $\delta_j$ eine binäre Hilfsvariable.
-\begin{gather*}
-\text{Als Constraints:} \\
--9 \cdot a_{ji} \le x_j -lg_i -1 \le 9\cdot a_{ji}\\
-0.1 \cdot a_{ji} - 9.1 \cdot \delta_j \le x_j -lg_i -1 \le -0.1 \cdot a_{ji} +
+\begin{align*}
+\intertext{Als Constraints:} 
+-9 \cdot a_{ji} &\le x_j -lg_i -1 \le 9\cdot a_{ji}\\
+0.1 \cdot a_{ji} - 9.1 \cdot \delta_j &\le x_j -lg_i -1 \le -0.1 \cdot a_{ji} +
 9.1 \cdot (1-\delta_j)\\
-\text{Somit ist } a_{ji} = \begin{cases}
-    0 & \text{wenn $x_j = lg_i +1$} \\
-    1 & \text{sonst} 
-    \end{cases}\\
+\intertext{\text{Somit ist } a_{ji} = \begin{cases}
+    0 \;\; \text{wenn $x_j = lg_i +1$} \\
+    1 \;\; \text{sonst} 
+\end{cases}}
 %a_{ji} \le x_j -lg_i -1 \\
 %a_{ji} \ge 0.1 \cdot (x_j -lg_i-1)\\
-\text{Zum Optimierungsterm: }\\
+\intertext{Zum Optimierungsterm: }
 p_i \cdot 10 \cdot \sum_{j = 1}^{M-1} \sum_{i = 1}^{O}a_{ji}
-\end{gather*}
+\end{align*}
 
 \end{document}
