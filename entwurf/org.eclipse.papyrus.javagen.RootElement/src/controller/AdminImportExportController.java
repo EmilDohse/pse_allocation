@@ -12,10 +12,6 @@ import importExport.Importer;
  * welche Importieren und Exportieren auf der Import/Export-Seite regeln.
  */
 public class AdminImportExportController extends Controller {
-	/**
-	 * 
-	 */
-	public Importer importer;
 
 	/**
 	 * Diese Methode importiert eine Einteilung, sodass sie in der Einteilungsübersicht erscheint. 

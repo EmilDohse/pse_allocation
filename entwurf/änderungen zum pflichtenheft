@@ -1,7 +1,7 @@
-- Student data edit page
+- hinzufügen Student data edit page
 - Admin legt beterueraccount an (gui änderung)
 - betreuer kann sein passwort ändern
-- admin kann cms einteilungskonflikte beheben
 - unterscheidung zwischen pflichtteilleistung und wahlteilleistungen
 - Administrator kann einteilungen duplizieren zum editieren
--cms konflikte fallen komplett raus
+- cms konflikte fallen komplett raus  inklusive import von teilleistungen, import nur für pse/tse
+-jeder Student ist automatisch für die Bewertungen in einer ‘privaten’ Lerngruppe

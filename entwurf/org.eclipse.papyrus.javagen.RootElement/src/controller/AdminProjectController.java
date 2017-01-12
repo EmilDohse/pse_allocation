@@ -6,24 +6,32 @@ package controller;
 
 /************************************************************/
 /**
- * 
+ * Dieser Controller ist für das Bearbeiten der Http-Requests zuständig, 
+ * welche beim Hinzufügen, Ändern und Löschen eines Projektes 
+ * im Administratorbereich abgeschickt werden.
  */
 public class AdminProjectController extends Controller {
 
 	/**
-	 * 
+	 * Diese Methode fügt ein neues Projekt in das System ein 
+	 * und leitet den Administrator zurück auf die Seite zum editieren des Projektes.
 	 */
 	public void addProject() {
 	}
 
 	/**
-	 * 
+	 * Diese Methode löscht ein Projekt und alle dazugehörenden Daten 
+	 * aus dem System und leitet den Administrator weiter 
+	 * auf die Seite zum editieren und hinzufügen von Projekten.
 	 */
 	public void removeProject() {
 	}
 
 	/**
-	 * 
+	 * Diese Methode editiert ein bereits vorhandenes Projekt. 
+	 * Die zu editierenden Daten übermittelt der Administrator über ein Formular, 
+	 * welches er zum editieren abschickt. Anschließend wird der 
+	 * Administrator auf die Seite zum Hinzufügen und Editieren von Projekten weitergeleitet.
 	 */
 	public void editProject() {
 	}
