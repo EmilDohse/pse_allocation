@@ -146,6 +146,23 @@
       <generalization xmi:type="uml:Generalization" xmi:id="_NaV-kNi0EealgIE4utjr-g" general="_ILn28Ni0EealgIE4utjr-g"/>
       <ownedOperation xmi:type="uml:Operation" xmi:id="_pjzZctaMEeayPeVBIOoRFQ" name="configure"/>
     </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_lvTZcNjDEeaEXNeJ9TLOMA" name="Verifier" visibility="package">
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_BEheINjEEeaEXNeJ9TLOMA" name="verify">
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_BEheIdjEEeaEXNeJ9TLOMA" name="student" type="_XCasfNaNEeayPeVBIOoRFQ" isUnique="false"/>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_BEheItjEEeaEXNeJ9TLOMA" name="code" isUnique="false">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_ZAw00NjEEeaEXNeJ9TLOMA" name="getVerificationCode">
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_ZAw00djEEeaEXNeJ9TLOMA" name="student" type="_XCasfNaNEeayPeVBIOoRFQ" isUnique="false"/>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_ZAw00tjEEeaEXNeJ9TLOMA" name="code" isUnique="false" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_rujwsNjEEeaEXNeJ9TLOMA" name="getInstance" isStatic="true">
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_rujwsdjEEeaEXNeJ9TLOMA" name="instance" type="_lvTZcNjDEeaEXNeJ9TLOMA" isUnique="false" direction="return"/>
+      </ownedOperation>
+    </packagedElement>
   </packagedElement>
   <packagedElement xmi:type="uml:Package" xmi:id="_pj1OoNaMEeayPeVBIOoRFQ" name="Gütekriterien">
     <packagedElement xmi:type="uml:Class" xmi:id="_pj1OpdaMEeayPeVBIOoRFQ" name="StudentHappiness"/>
@@ -185,12 +202,6 @@
       </ownedOperation>
       <ownedOperation xmi:type="uml:Operation" xmi:id="_EMGgMNatEeayPeVBIOoRFQ" name="sendVerificationMail">
         <ownedParameter xmi:type="uml:Parameter" xmi:id="_LjzGgNatEeayPeVBIOoRFQ" name="student" type="_XCasfNaNEeayPeVBIOoRFQ"/>
-      </ownedOperation>
-      <ownedOperation xmi:type="uml:Operation" xmi:id="_MQ5dENatEeayPeVBIOoRFQ" name="verify" visibility="public">
-        <ownedParameter xmi:type="uml:Parameter" xmi:id="_RPe28NatEeayPeVBIOoRFQ" name="student" type="_XCasfNaNEeayPeVBIOoRFQ"/>
-        <ownedParameter xmi:type="uml:Parameter" xmi:id="_UcdJQNatEeayPeVBIOoRFQ" name="code">
-          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
-        </ownedParameter>
       </ownedOperation>
     </packagedElement>
   </packagedElement>
