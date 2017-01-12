@@ -11,3 +11,9 @@
 - package namen anglifiziern
 - importer vervollständigen zu controller funktionen
 - gütekriterium berechnen rückgabewert
+- Attribute alle private
+- Getter, Setter, Konstruktoren in die Javadocs
+- Privater Konstruktor in den singleton auch im diagramm
+- Liste von Lerngruppen beim Student zu einfachem Attribut machen (Diag + Code + Docs)
+- Erstellen von Play und Gurobi Package im Diagramm
+- Importer Methoden richtig machen
