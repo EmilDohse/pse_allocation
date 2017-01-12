@@ -6,60 +6,86 @@ package controller;
 
 /************************************************************/
 /**
- * 
+ * Dieser Controller ist für das Bearbeiten der Http-Requests zuständig, 
+ * welche im Betreuerbereich aufkommen.
  */
 public class AdviserPageController extends Controller {
 
 	/**
-	 * 
+	 * Diese Methode gibt die Seite zurück,
+	 *  auf der der Betreuer Projekte sieht, Projekte hinzufügen, 
+	 *  editieren oder entfernen kann. Editieren und Entfernen eines 
+	 *  Projektes ist beschränkt auf Betreuer, welche dem Projekt beigetreten sind.
 	 */
 	public void projectsPage() {
 	}
 
 	/**
-	 * 
+	 * Diese Methode fügt ein neues Projekt in das System ein 
+	 * und leitet den Betreuer zurück auf die Seite zum editieren des Projektes.
 	 */
 	public void addProject() {
 	}
 
 	/**
-	 * 
+	 * Diese Methode löscht ein Projekt und alle dazugehörenden Daten 
+	 * aus dem System und leitet den Betreuer auf die Seite zum editieren 
+	 * und hinzufügen von Projekten. Nur Betreuer welche dem Projekt 
+	 * beigetreten sind können dieses editieren.
 	 */
 	public void removeProject() {
 	}
 
 	/**
-	 * 
+	 * Diese Methode editiert ein bereits vorhandenes Projekt. 
+	 * Die zu editierenden Daten übermittelt der Betreuer über ein Formular, 
+	 * welches er zum editieren abschickt. 
+	 * Nur Betreuer welche dem Projekt beigetreten sind können 
+	 * dieses editieren. Anschließend wird der Betreuer auf die 
+	 * Seite zum Hinzufügen und Editieren von Projekten weitergeleitet.
 	 */
 	public void editProject() {
 	}
 
 	/**
-	 * 
+	 * Diese Methode fügt einen Betreuer zu einem bereits existierenden Projekt hinzu, 
+	 * sodass dieser auch die Möglichkeit besitzt das Projekt zu editieren oder 
+	 * zu löschen und nach der Veröffentlichung einer Einteilung auch Teams und 
+	 * deren Mitglieder sieht. Nach dem Beitreten wird der Betreuer auf 
+	 * die Seite zum Hinzufügen und Editieren von Projekten weitergeleitet.
 	 */
 	public void joinProject() {
 	}
 
 	/**
-	 * 
+	 * Diese Methode entfernt einen Betreuer aus einem existierenden Projekt, 
+	 * sodass dieser nicht mehr das Projekt editieren oder löschen kann. 
+	 * Anschließend wird der Betreuer auf die Seite zum Hinzufügen 
+	 * und Editieren von Projekten weitergeleitet.
 	 */
 	public void leaveProject() {
 	}
 
 	/**
-	 * 
+	 * Diese Methode speichert alle von einem Betreuer in ein 
+	 * Formular eingegebenen Noten, sodass diese vom Administrator in das 
+	 * CMS importiert werden können. Anschließend wird der Betreuer 
+	 * auf die Projektseite des jeweiligen Projektes weitergeleitet.
 	 */
 	public void saveStudentsGrades() {
 	}
 
 	/**
-	 * 
+	 * Diese Methode gibt die Seite zurück, 
+	 * auf der der Betreuer seine Studentendaten 
+	 * wie E-Mail-Adresse und Passwort ändern kann.
 	 */
 	public void accountPage() {
 	}
 
 	/**
-	 * 
+	 * Diese Methode editiert die Daten des Betreuers, 
+	 * welche er auf der Account-Seite geändert hat.
 	 */
 	public void editAccount() {
 	}

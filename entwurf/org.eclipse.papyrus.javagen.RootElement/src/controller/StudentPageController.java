@@ -6,60 +6,77 @@ package controller;
 
 /************************************************************/
 /**
- * 
+ * Dieser Controller ist zuständig für alle Http-Requests, 
+ * welche im Studentenbereich aufkommen. Dazu zählen das Senden einer neuen 
+ * HTML-Seite bei einem Klick auf einen Link, als auch das Reagieren 
+ * auf Benutzereingaben, wie das abschicken eines Formulars.
  */
 public class StudentPageController extends Controller {
 
 	/**
-	 * 
+	 * Diese Methode gibt die Seite zurück, auf der der Student 
+	 * sieht in welcher Lerngruppe er ist, oder 
+	 * wenn er in keiner aktuell ist, eine erstellen oder einer beitreten kann.
 	 */
 	public void learningGroupPage() {
 	}
 
 	/**
-	 * 
+	 * Diese Methode gibt die Seite zurück, 
+	 * auf der der Student seine Bewertungen abgeben kann.
 	 */
 	public void ratingPage() {
 	}
 
 	/**
-	 * 
+	 * Diese Methode gibt die Seite zurück, auf der der Student das 
+	 * Ergebnis der Einteilungsberechnung einsehen kann. 
+	 * Er sieht also sein Projekt und seine Teammitglieder.
 	 */
 	public void resultsPage() {
 	}
 
 	/**
-	 * 
+	 * Diese Methode fügt die Daten der Bewertungen eines Studenten 
+	 * in das System ein und leitet den Studenten wieder zurück 
+	 * auf die Bewertungsseite, wo er nun seine eingegebene Bewertungen sehen kann.
 	 */
 	public void rate() {
 	}
 
 	/**
-	 * 
+	 * Diese Methode erstellt eine neue Lerngruppe im System hinzu und 
+	 * fügt den Ersteller der Lerngruppe als erstes Mitglied in diese ein. 
+	 * Der Student wird anschließend auf die Lerngruppen-Seite zurückgeleitet.
 	 */
 	public void createLearningGroup() {
 	}
 
 	/**
-	 * 
+	 * Diese Methode entfernt den Student aus der aktuellen Lerngruppe. 
+	 * Anschließend wird der Student auf die Lerngruppen-Seite zurück geleitet.
 	 */
 	public void leaveLearningGroup() {
 	}
 
 	/**
-	 * 
+	 * Diese Methode fügt den Studenten zu einer Lerngruppe hinzu, 
+	 * falls eine Lerngruppe mit dem Namen und dem zugehörigen Passwort existiert. 
+	 * Anschließend wird der Student auf die Lerngruppen-Seite zurückgeleitet.
 	 */
 	public void joinLearningGroup() {
 	}
 
 	/**
-	 * 
+	 * Diese Methode gibt die Seite zurück, auf der der 
+	 * Student seine Studentendaten wie E-Mail-Adresse und Passwort ändern kann.
 	 */
 	public void accountPage() {
 	}
 
 	/**
-	 * 
+	 * Diese Methode editiert die Daten des Studenten, 
+	 * welche er auf der Account-Seite geändert hat.
 	 */
 	public void editAccount() {
 	}

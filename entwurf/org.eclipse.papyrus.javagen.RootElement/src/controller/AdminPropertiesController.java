@@ -6,48 +6,63 @@ package controller;
 
 /************************************************************/
 /**
- * 
+ * Dieser Controller ist für das Bearbeiten der Http-Requests zuständig, 
+ * welche beim Ändern der Einstellungen abgeschickt werden.
  */
 public class AdminPropertiesController extends Controller {
 
 	/**
-	 * 
+	 * Diese Methode lässt den Administrator ein neues Semester erstellen 
+	 * und anschließend Konfigurieren. Nach dem Erstellen wird der 
+	 * Administrator deshalb auf die Einstellungsseite für das Semester.
 	 */
 	public void addSemester() {
 	}
 
 	/**
-	 * 
+	 * Diese Methode lässt den Administrator ein Semester löschen, 
+	 * wenn mit diesem keine Studentendaten verbunden sind. 
+	 * Der Administrator wird daraufhin zur Einstellungsseite zurückgeleitet.
 	 */
 	public void removeSemester() {
 	}
 
 	/**
-	 * 
+	 * Diese Methode fügt eine neue leere SPO, mit einem vom 
+	 * Administrator bestimmten Namen, hinzu. Der Administrator 
+	 * wird daraufhin auf die Einstellungsseite zurückgeleitet.
 	 */
 	public void addSPO() {
 	}
 
 	/**
-	 * 
+	 * Diese Methode löscht eine bereits vorhandene SPO. 
+	 * Die SPO kann nur gelöscht werden, wenn kein Student diese SPO verwendet. 
+	 * Der Administrator wird daraufhin auf die Einstellungsseite zurückgeleitet.
 	 */
 	public void removeSPO() {
 	}
 
 	/**
-	 * 
+	 * Diese Methode übernimmt die Änderungen, 
+	 * welche der Administrator im Semester-Ändern-Formular festgelegt hat. 
+	 * Dazu gehören die Deadlines und die Allgemeinen Informationen.
 	 */
 	public void editSemester() {
 	}
 
 	/**
-	 * 
+	 * Diese Methode fügt eine neue Teilleistung zu einer bereits vorhandenen SPO hinzu. 
+	 * Der Administrator kann die Teilleistung als notwendig oder als nicht 
+	 * notwendig deklarieren und deren Namen ändern. Der Administrator 
+	 * wird daraufhin zur Einstellungsseite zurückgeleitet.
 	 */
 	public void addAchievement() {
 	}
 
 	/**
-	 * 
+	 * Diese Methode löscht eine bereits existierende Teilleistung aus einer SPO. 
+	 * Der Administrator wird daraufhin zur Einstellungsseite zurück geleitet.
 	 */
 	public void removeAchievement() {
 	}

@@ -8,7 +8,9 @@ import allocation.AllocationQueue;
 
 /************************************************************/
 /**
- * 
+ * Dieser Controller ist für das Bearbeiten der Http-Requests zuständig, 
+ * welche abgeschickt werden, wenn Betreuer, 
+ * Studenten oder Einteilungen hinzugefügt oder gelöscht werden sollen.
  */
 public class GeneralAdminController extends Controller {
 	/**
@@ -17,31 +19,39 @@ public class GeneralAdminController extends Controller {
 	public AllocationQueue allocatorQueue;
 
 	/**
-	 * 
+	 * Diese Methode fügt einen Betreuer mit den Daten aus dem vom Administrator 
+	 * auszufüllenden Formular zum System hinzu. 
+	 * Der Administrator wird anschließend auf die Betreuerübersicht weitergeleitet.
 	 */
 	public void addAdviser() {
 	}
 
 	/**
-	 * 
+	 * Diese Methode entfernt einen Betreuer und dessen Daten aus dem System. 
+	 * Der Administrator wird anschließend auf die Betreuerübersicht weitergeleitet.
 	 */
 	public void removeAdviser() {
 	}
 
 	/**
-	 * 
+	 * Diese Methode fügt eine Einteilungskonfiguration in die Berechnungswarteschlange hinzu. 
+	 * Der Administrator wird anschließend auf die Berechnungsübersichtsseite weitergeleitet.
 	 */
 	public void addAllocation() {
 	}
 
 	/**
-	 * 
+	 * Diese Methode fügt einen Studenten in das System hinzu. 
+	 * Der Administrator wird anschließend auf die Seite zum weiteren 
+	 * Hinzufügen und Löschen von Studenten weitergeleitet.
 	 */
 	public void addStudent() {
 	}
 
 	/**
-	 * 
+	 * Diese Methode löscht einen Studenten aus dem System. 
+	 * Der Administrator wird anschließend auf die Seite zum 
+	 * weiteren Hinzufügen und Löschen von Studenten weitergeleitet.
 	 */
 	public void removeStudent() {
 	}

@@ -29,4 +29,14 @@ SPO ImEx:
 name;availableAchievements;necessaryAchievements
 
 Achievements als name,name,..
+
+StudierendenHappiness:
+++ = 1.0
++ = 0.8
+0 = 0.6
+- = 0.4
+— = 0.2
+nicht zugeteilt = 0.0
+Summe über alle Studenten/Anzahl Studenten
+
  
