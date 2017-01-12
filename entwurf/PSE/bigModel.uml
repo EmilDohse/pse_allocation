@@ -110,15 +110,51 @@
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_vObUcNgBEeajp5oxlrL6UQ" value="*"/>
       </ownedAttribute>
     </packagedElement>
-    <packagedElement xmi:type="uml:Class" xmi:id="_pjyyitaMEeayPeVBIOoRFQ" name="CriterionAllocated"/>
-    <packagedElement xmi:type="uml:Class" xmi:id="_pjyyi9aMEeayPeVBIOoRFQ" name="CriterionSameSemester"/>
-    <packagedElement xmi:type="uml:Class" xmi:id="_pjyyjNaMEeayPeVBIOoRFQ" name="CriterionNoSingularStudent"/>
-    <packagedElement xmi:type="uml:Class" xmi:id="_pjyyjdaMEeayPeVBIOoRFQ" name="CriterionAdditionalPerfomances"/>
-    <packagedElement xmi:type="uml:Class" xmi:id="_pjyyjtaMEeayPeVBIOoRFQ" name="CriterionRegisteredAgain"/>
-    <packagedElement xmi:type="uml:Class" xmi:id="_pjyyj9aMEeayPeVBIOoRFQ" name="CriterionPreferredTeamSize"/>
-    <packagedElement xmi:type="uml:Class" xmi:id="_pjyykNaMEeayPeVBIOoRFQ" name="CriterionLearningGroup"/>
-    <packagedElement xmi:type="uml:Class" xmi:id="_pjyykdaMEeayPeVBIOoRFQ" name="CriterionRating"/>
-    <packagedElement xmi:type="uml:Class" xmi:id="_pjyyktaMEeayPeVBIOoRFQ" name="CriterionPreferHigherSemester"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="_pjyyitaMEeayPeVBIOoRFQ" name="CriterionAllocated">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_KJt9sNjoEeap7oWGANXduQ" name="name" visibility="private">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_pjyyi9aMEeayPeVBIOoRFQ" name="CriterionSameSemester">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_R1UXcNjoEeap7oWGANXduQ" name="name" visibility="private">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_pjyyjNaMEeayPeVBIOoRFQ" name="CriterionNoSingularStudent">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_MTrT0NjoEeap7oWGANXduQ" name="name" visibility="private">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_pjyyjdaMEeayPeVBIOoRFQ" name="CriterionAdditionalPerfomances">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_OOLRoNjoEeap7oWGANXduQ" name="name" visibility="private">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_pjyyjtaMEeayPeVBIOoRFQ" name="CriterionRegisteredAgain">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_UyXXYNjoEeap7oWGANXduQ" name="name" visibility="private">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_pjyyj9aMEeayPeVBIOoRFQ" name="CriterionPreferredTeamSize">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_TWpAQNjoEeap7oWGANXduQ" name="name" visibility="private">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_pjyykNaMEeayPeVBIOoRFQ" name="CriterionLearningGroup">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_Wfiq4NjoEeap7oWGANXduQ" name="name" visibility="private">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_pjyykdaMEeayPeVBIOoRFQ" name="CriterionRating">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_AU2xYNjoEeap7oWGANXduQ" name="name" visibility="private">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_pjyyktaMEeayPeVBIOoRFQ" name="CriterionPreferHigherSemester">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_P_qdYNjoEeap7oWGANXduQ" name="name" visibility="private">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+      </ownedAttribute>
+    </packagedElement>
     <packagedElement xmi:type="uml:Interface" xmi:id="_pjyyk9aMEeayPeVBIOoRFQ" name="Criterion">
       <ownedOperation xmi:type="uml:Operation" xmi:id="_pjyylNaMEeayPeVBIOoRFQ" name="useCriteria">
         <ownedParameter xmi:type="uml:Parameter" xmi:id="_pjyyldaMEeayPeVBIOoRFQ" name="weight">
@@ -161,6 +197,7 @@
       <ownedOperation xmi:type="uml:Operation" xmi:id="_pjyyc9aMEeayPeVBIOoRFQ" name="getQueue" visibility="public">
         <ownedParameter xmi:type="uml:Parameter" xmi:id="_pjyydNaMEeayPeVBIOoRFQ" name="queue" visibility="public" type="_pjyyfNaMEeayPeVBIOoRFQ" direction="return"/>
       </ownedOperation>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_1C5U8NjnEeap7oWGANXduQ" name="AllocationQueue" visibility="private" isStatic="true"/>
     </packagedElement>
   </packagedElement>
   <packagedElement xmi:type="uml:Package" xmi:id="_pjzZcNaMEeayPeVBIOoRFQ" name="security">
@@ -229,7 +266,7 @@
   </packagedElement>
   <packagedElement xmi:type="uml:Package" xmi:id="_KEVFYNaNEeayPeVBIOoRFQ" name="data">
     <packagedElement xmi:type="uml:Class" xmi:id="_XCchqdaNEeayPeVBIOoRFQ" name="Achievement">
-      <ownedAttribute xmi:type="uml:Property" xmi:id="_XCchqtaNEeayPeVBIOoRFQ" name="name" isUnique="false">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_XCchqtaNEeayPeVBIOoRFQ" name="name" visibility="private" isUnique="false">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
       </ownedAttribute>
       <ownedOperation xmi:type="uml:Operation" xmi:id="_XCchq9aNEeayPeVBIOoRFQ" name="getAchievements" isStatic="true">
@@ -250,15 +287,15 @@
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="_XCb6kNaNEeayPeVBIOoRFQ" name="GeneralData">
       <ownedAttribute xmi:type="uml:Property" xmi:id="_XCb6ktaNEeayPeVBIOoRFQ" name="currentSemester" type="_XCfk-daNEeayPeVBIOoRFQ" association="_XCdIttaNEeayPeVBIOoRFQ"/>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="_XCb6k9aNEeayPeVBIOoRFQ" name="AdminName" isStatic="true" isUnique="false">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_XCb6k9aNEeayPeVBIOoRFQ" name="AdminName" visibility="private" isStatic="true" isUnique="false">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
       </ownedAttribute>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="_XCb6lNaNEeayPeVBIOoRFQ" name="AdminPassword" isStatic="true" isUnique="false">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_XCb6lNaNEeayPeVBIOoRFQ" name="AdminPassword" visibility="private" isStatic="true" isUnique="false">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
       </ownedAttribute>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="_XChaLNaNEeayPeVBIOoRFQ" name="Rating">
-      <ownedAttribute xmi:type="uml:Property" xmi:id="_XChaL9aNEeayPeVBIOoRFQ" name="rating" isUnique="false">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_XChaL9aNEeayPeVBIOoRFQ" name="rating" visibility="private" isUnique="false">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
       </ownedAttribute>
       <ownedAttribute xmi:type="uml:Property" xmi:id="_XChaMNaNEeayPeVBIOoRFQ" name="project" type="_XCe94NaNEeayPeVBIOoRFQ" association="_XCaFeNaNEeayPeVBIOoRFQ">
@@ -268,21 +305,21 @@
       <ownedAttribute xmi:type="uml:Property" xmi:id="_XChaM9aNEeayPeVBIOoRFQ" name="learningGroup" type="_XCgzHNaNEeayPeVBIOoRFQ" association="_XCb6ldaNEeayPeVBIOoRFQ"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="_XCfk-daNEeayPeVBIOoRFQ" name="Semester">
-      <ownedAttribute xmi:type="uml:Property" xmi:id="_XCfk-taNEeayPeVBIOoRFQ" name="name">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_XCfk-taNEeayPeVBIOoRFQ" name="name" visibility="private">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
       </ownedAttribute>
       <ownedAttribute xmi:type="uml:Property" xmi:id="_XCfk_taNEeayPeVBIOoRFQ" name="spos" type="_XCbTjNaNEeayPeVBIOoRFQ" association="_XCeW3NaNEeayPeVBIOoRFQ">
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_XCfk_9aNEeayPeVBIOoRFQ"/>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_XCflANaNEeayPeVBIOoRFQ" value="*"/>
       </ownedAttribute>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="_XCflDtaNEeayPeVBIOoRFQ" name="infoText">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_XCflDtaNEeayPeVBIOoRFQ" name="infoText" visibility="private">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
       </ownedAttribute>
       <ownedAttribute xmi:type="uml:Property" xmi:id="_SiqU4daTEeayPeVBIOoRFQ" name="finalAllocation" type="_XCaFYNaNEeayPeVBIOoRFQ" association="_Sipt0NaTEeayPeVBIOoRFQ"/>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="_lpuTsNi0EealgIE4utjr-g" name="registrationStart" isUnique="false">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_lpuTsNi0EealgIE4utjr-g" name="registrationStart" visibility="private" isUnique="false">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EDate"/>
       </ownedAttribute>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="_pCEIgNi0EealgIE4utjr-g" name="registrationEnd" isUnique="false">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_pCEIgNi0EealgIE4utjr-g" name="registrationEnd" visibility="private" isUnique="false">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EDate"/>
       </ownedAttribute>
       <ownedOperation xmi:type="uml:Operation" xmi:id="_XCflD9aNEeayPeVBIOoRFQ" name="getSemester" isStatic="true">
@@ -333,10 +370,10 @@
       </ownedOperation>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="_XCfk8NaNEeayPeVBIOoRFQ" name="AllocationParameter">
-      <ownedAttribute xmi:type="uml:Property" xmi:id="_XCfk8daNEeayPeVBIOoRFQ" name="name">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_XCfk8daNEeayPeVBIOoRFQ" name="name" visibility="private">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
       </ownedAttribute>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="_XCfk8taNEeayPeVBIOoRFQ" name="value" isUnique="false">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_XCfk8taNEeayPeVBIOoRFQ" name="value" visibility="private" isUnique="false">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#double"/>
       </ownedAttribute>
     </packagedElement>
@@ -354,17 +391,17 @@
       </ownedOperation>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="_XCgzHNaNEeayPeVBIOoRFQ" name="LearningGroup">
-      <ownedAttribute xmi:type="uml:Property" xmi:id="_XCgzHdaNEeayPeVBIOoRFQ" name="name" isUnique="false">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_XCgzHdaNEeayPeVBIOoRFQ" name="name" visibility="private" isUnique="false">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
       </ownedAttribute>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="_XCgzHtaNEeayPeVBIOoRFQ" name="password" isUnique="false">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_XCgzHtaNEeayPeVBIOoRFQ" name="password" visibility="private" isUnique="false">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
       </ownedAttribute>
       <ownedAttribute xmi:type="uml:Property" xmi:id="_XCgzH9aNEeayPeVBIOoRFQ" name="semester" type="_XCfk-daNEeayPeVBIOoRFQ" association="_XCdIsNaNEeayPeVBIOoRFQ">
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_XCgzINaNEeayPeVBIOoRFQ" value="1"/>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_XCgzIdaNEeayPeVBIOoRFQ" value="1"/>
       </ownedAttribute>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="_XCgzKdaNEeayPeVBIOoRFQ" name="private" isUnique="false">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_XCgzKdaNEeayPeVBIOoRFQ" name="private" visibility="private" isUnique="false">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#boolean"/>
       </ownedAttribute>
       <ownedOperation xmi:type="uml:Operation" xmi:id="_XCgzKtaNEeayPeVBIOoRFQ" name="getLearningGroup" isStatic="true">
@@ -382,7 +419,7 @@
       </ownedOperation>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="_XCbTjNaNEeayPeVBIOoRFQ" name="SPO">
-      <ownedAttribute xmi:type="uml:Property" xmi:id="_XCbTjdaNEeayPeVBIOoRFQ" name="name">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_XCbTjdaNEeayPeVBIOoRFQ" name="name" visibility="private">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
       </ownedAttribute>
       <ownedAttribute xmi:type="uml:Property" xmi:id="_XCbTlNaNEeayPeVBIOoRFQ" name="necessaryAchievements" type="_XCchqdaNEeayPeVBIOoRFQ" association="_XCgzENaNEeayPeVBIOoRFQ">
@@ -407,25 +444,25 @@
       </ownedOperation>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="_XCe94NaNEeayPeVBIOoRFQ" name="Project" visibility="private">
-      <ownedAttribute xmi:type="uml:Property" xmi:id="_XCe94daNEeayPeVBIOoRFQ" name="name" isUnique="false">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_XCe94daNEeayPeVBIOoRFQ" name="name" visibility="private" isUnique="false">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
       </ownedAttribute>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="_XCe96daNEeayPeVBIOoRFQ" name="minTeamSize" isUnique="false">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_XCe96daNEeayPeVBIOoRFQ" name="minTeamSize" visibility="private" isUnique="false">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
       </ownedAttribute>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="_XCe96taNEeayPeVBIOoRFQ" name="maxTeamSize" isUnique="false">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_XCe96taNEeayPeVBIOoRFQ" name="maxTeamSize" visibility="private" isUnique="false">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
       </ownedAttribute>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="_XCe969aNEeayPeVBIOoRFQ" name="projectInfo" isUnique="false">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_XCe969aNEeayPeVBIOoRFQ" name="projectInfo" visibility="private" isUnique="false">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
       </ownedAttribute>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="_XCe97NaNEeayPeVBIOoRFQ" name="projectURL" isUnique="false">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_XCe97NaNEeayPeVBIOoRFQ" name="projectURL" visibility="private" isUnique="false">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
       </ownedAttribute>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="_UlqSwNjVEeai5fU4J-zNlw" name="teamCount">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_UlqSwNjVEeai5fU4J-zNlw" name="teamCount" visibility="private">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
       </ownedAttribute>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="_rVLswNjXEeai5fU4J-zNlw" name="institute" isUnique="false">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_rVLswNjXEeai5fU4J-zNlw" name="institute" visibility="private" isUnique="false">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
       </ownedAttribute>
       <ownedOperation xmi:type="uml:Operation" xmi:id="_XCe97daNEeayPeVBIOoRFQ" name="getProjects" isStatic="true">
@@ -447,24 +484,24 @@
       </ownedOperation>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="_XCbThtaNEeayPeVBIOoRFQ" name="User">
-      <ownedAttribute xmi:type="uml:Property" xmi:id="_XCbTh9aNEeayPeVBIOoRFQ" name="username">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_XCbTh9aNEeayPeVBIOoRFQ" name="username" visibility="private">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
       </ownedAttribute>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="_XCbTiNaNEeayPeVBIOoRFQ" name="password" isUnique="false">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_XCbTiNaNEeayPeVBIOoRFQ" name="password" visibility="private" isUnique="false">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
       </ownedAttribute>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="_XCbTidaNEeayPeVBIOoRFQ" name="emailAddress" isUnique="false">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_XCbTidaNEeayPeVBIOoRFQ" name="emailAddress" visibility="private" isUnique="false">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
       </ownedAttribute>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="_XCbTitaNEeayPeVBIOoRFQ" name="firstName" isUnique="false">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_XCbTitaNEeayPeVBIOoRFQ" name="firstName" visibility="private" isUnique="false">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
       </ownedAttribute>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="_XCbTi9aNEeayPeVBIOoRFQ" name="lastName" isUnique="false">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_XCbTi9aNEeayPeVBIOoRFQ" name="lastName" visibility="private" isUnique="false">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
       </ownedAttribute>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="_XCaFYNaNEeayPeVBIOoRFQ" name="Allocation">
-      <ownedAttribute xmi:type="uml:Property" xmi:id="_XCaFYtaNEeayPeVBIOoRFQ" name="studentTeamMap" isUnique="false">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_XCaFYtaNEeayPeVBIOoRFQ" name="studentTeamMap" visibility="private" isUnique="false">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EMap"/>
       </ownedAttribute>
       <ownedAttribute xmi:type="uml:Property" xmi:id="_XCaFY9aNEeayPeVBIOoRFQ" type="_XCasfNaNEeayPeVBIOoRFQ" association="_XCdIutaNEeayPeVBIOoRFQ">
@@ -476,7 +513,7 @@
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_XCaFaNaNEeayPeVBIOoRFQ"/>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_XCaFadaNEeayPeVBIOoRFQ" value="*"/>
       </ownedAttribute>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="_XCaFa9aNEeayPeVBIOoRFQ" name="name">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_XCaFa9aNEeayPeVBIOoRFQ" name="name" visibility="private">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
       </ownedAttribute>
       <ownedOperation xmi:type="uml:Operation" xmi:id="_XCaFb9aNEeayPeVBIOoRFQ" name="getAllocations" isStatic="true">
