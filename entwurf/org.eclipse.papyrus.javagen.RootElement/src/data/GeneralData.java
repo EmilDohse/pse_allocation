@@ -10,9 +10,9 @@ package data;
  */
 public class GeneralData {
 	/**
-	 * Das momentane Semester.
+	 * Name des momentanen Semesters.
 	 */
-	private Semester currentSemester;
+	private static String currentSemester;
 	/**
 	 * Anmeldename des Administrators.
 	 */
@@ -27,7 +27,7 @@ public class GeneralData {
 	 * @return Das aktuelle Semester.
 	 */
 	public Semester getCurrentSemester() {
-	    return currentSemester;
+	    return null;
 	}
 	/**
 	 * Getter für den Anmeldenamen des Administrators.
@@ -51,8 +51,8 @@ public class GeneralData {
 	 * @param currentSemester Das aktuelle Semester.
 	 */
 	public void setCurrentSemester(Semester currentSemester) {
-        this.currentSemester = currentSemester;
-    }
+		
+	}
 	/**
 	 * Setter für den Anmeldenamen des Administrators.
 	 * 

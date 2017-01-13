@@ -37,7 +37,69 @@ public class Project {
 	 * Das Institut, welches das Projekt anbietet.
 	 */
 	private String institute;
-
+	/**
+	 * Semester in dem das Projekt angeboten wird
+	 */
+	private Semester semester;
+	/**
+	 * Betreuer des Projekts
+	 */
+	private Adviser[] advisers;
+	
+	/**
+	 * Getter für die Betreuer des Projekts
+	 * 
+	 * @return Betreuer des Projekts
+	 */
+	public Adviser[] getAdvisers() {
+		return advisers;
+	}
+	
+	/**
+	 * Setter für die Betreuer des Projekts
+	 * 
+	 * @param advisers Betreuer des Projekts
+	 */
+	public void setAdvisers(Adviser[] advisers) {
+		this.advisers = advisers;
+	}
+	
+	/**
+	 * Fügt dem Projekts einen Betreuer hinzu
+	 * 
+	 * @param adviser Betreuer der hinzugefügt wird
+	 */
+	public void addAdviser(Adviser adviser) {
+		
+	}
+	
+	/**
+	 * Entfernt einen Betreuer vom Projekt
+	 * 
+	 * @param adviser Betreuer der entfernt wird
+	 */
+	public void removeAdviser(Adviser adviser) {
+		
+	}
+	
+	/**
+	 * Getter für das Semester des Projekts
+	 * 
+	 * @return Semester des Projekts
+	 */
+	public Semester getSemester() {
+		return semester;
+	}
+	
+	/**
+	 * Setter für das Semester des Projekts
+	 * 
+	 * @param semester Semester des Projekts
+	 */
+	public void setSemester(Semester semester) {
+		this.semester = semester;
+	}
+	
 	/**
 	 * Getter für den Namen des Projektes.
 	 * 
@@ -177,7 +239,7 @@ public class Project {
 	 * 
 	 * @return projects Alle Projekte.
 	 */
-	public static Project getProjects() {
+	public static Project[] getProjects() {
 		// TODO
 		return null;
 	}

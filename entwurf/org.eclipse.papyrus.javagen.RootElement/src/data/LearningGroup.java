@@ -26,6 +26,11 @@ public class LearningGroup {
 	 * Die Mitglieder der Lerngruppe.
 	 */
 	private Student[] members;
+	
+	/**
+	 * Die Projektbewertungen der Lerngruppe
+	 */
+	private Rating[] ratings;
 
 	/**
 	 * Studierende, die keiner Lerngruppe angehören, werden als private
@@ -34,6 +39,45 @@ public class LearningGroup {
 	 */
 	private boolean isPrivate;
 
+	/**
+	 * Getter für die Projektbewertungen
+	 * 
+	 * @return Projektbewertungen der Lerngruppe
+	 */
+	public Rating[] getRatings() {
+		return ratings
+	}
+	
+	/**
+	 * Setter für die Projektbewertungen
+	 * 
+	 * @param ratings Projektbewertungen der Lerngruppe
+	 */
+	public void setRatings(Rating[] ratings) {
+		this.ratings = ratings
+	}
+	
+	/**
+	 * Ändert die Bewertung für ein Projekt
+	 * 
+	 * @param project Projekt, für das die bewertung geändert wird
+	 * @param rating Bewertung des Projekts
+	 */
+	public void rate(Project project, int rating) {
+		
+	}
+	
+	/**
+	 * Gibt die Bewertung für ein Projekt zurück
+	 * 
+	 * @param project Projekt, für welches die Bewertung zurückgegeben wird
+	 * 
+	 * @return Bewertung des Projekts
+	 */
+	public int getRating(Project project) {
+		
+	}
+	
 	/**
 	 * Getter für den Namen.
 	 * 
@@ -109,6 +153,24 @@ public class LearningGroup {
 	public void setMembers(Student[] members) {
 		this.members = members;
 	}
+	
+	/**
+	 * Fügt einen Studenten zu der Lerngruppe hinzu
+	 *
+	 * @param student Student der hinzugefügt wird
+	 */
+	public void addMember(Student student) {
+		
+	}
+	
+	/**
+	 * Entfernt einen Studenten von der Lengruppe
+	 * 
+	 * @param student Student der entfernt wird
+	 */
+	public void removeMember(Student student) {
+		
+	}
 
 	/**
 	 * Getter ob Lerngruppe privat ist.
@@ -148,7 +210,7 @@ public class LearningGroup {
 	 * 
 	 * @return learningGroups Alle LErngruppen.
 	 */
-	public static LearningGroup getLearningGroups() {
+	public static LearningGroup[] getLearningGroups() {
 		// TODO
 		return null;
 	}

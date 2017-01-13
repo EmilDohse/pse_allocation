@@ -6,7 +6,14 @@ package data;
 
 /************************************************************/
 /**
- * 
+ * Klasse, die die Datenbank initialisiert
  */
-public class PSEServerConfigStartup {
+public class PSEServerConfigStartup implements ServerConfigStartup {
+	
+	/**
+	 * Initialisiert die Datenbank
+	 */
+	public void onStartup(ServerConfig serverConfig) {
+		
+	}
 }
