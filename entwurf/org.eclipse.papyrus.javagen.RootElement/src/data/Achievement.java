@@ -38,7 +38,7 @@ public class Achievement {
 	 * 
 	 * @return achievements Alle existierenden Teilleistungen.
 	 */
-	public static Achievement getAchievements() {
+	public static Achievement[] getAchievements() {
 		// TODO
 		return null;
 	}

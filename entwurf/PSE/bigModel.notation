@@ -1269,10 +1269,6 @@
               <element xmi:type="uml:Property" href="bigModel.uml#_XCe97NaNEeayPeVBIOoRFQ"/>
               <layoutConstraint xmi:type="notation:Location" xmi:id="_XCou9NaNEeayPeVBIOoRFQ"/>
             </children>
-            <children xmi:type="notation:Shape" xmi:id="_VtalANjVEeai5fU4J-zNlw" type="Property_ClassAttributeLabel">
-              <element xmi:type="uml:Property" href="bigModel.uml#_UlqSwNjVEeai5fU4J-zNlw"/>
-              <layoutConstraint xmi:type="notation:Location" xmi:id="_VtalAdjVEeai5fU4J-zNlw"/>
-            </children>
             <children xmi:type="notation:Shape" xmi:id="_rW488NjXEeai5fU4J-zNlw" type="Property_ClassAttributeLabel">
               <element xmi:type="uml:Property" href="bigModel.uml#_rVLswNjXEeai5fU4J-zNlw"/>
               <layoutConstraint xmi:type="notation:Location" xmi:id="_rW488djXEeai5fU4J-zNlw"/>
