@@ -13,6 +13,13 @@ public class CriterionRegisteredAgain implements Criterion {
     private String name;
 
     /**
+     * Standard-Konstruktor, der den Namen eindeutig setzt
+     */
+    public CriterionRegisteredAgain() {
+        
+    }
+    
+    /**
      * {@inheritDoc}
      */
     @Override

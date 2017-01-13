@@ -13,6 +13,13 @@ public class CriterionAdditionalPerfomances implements Criterion {
     private String name;
 
     /**
+     * Standard-Konstruktor, der den Namen eindeutig setzt
+     */
+    public CriterionAdditionalPerfomances() {
+
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override

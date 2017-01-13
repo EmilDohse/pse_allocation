@@ -11,7 +11,14 @@ package allocation;
  */
 public class CriterionAllocated implements Criterion {
     private String name;
-
+    
+    /**
+     * Standard-Konstruktor, der den Namen eindeutig setzt
+     */
+    public CriterionAllocated() {
+        
+    }
+    
     /**
      * {@inheritDoc}
      */

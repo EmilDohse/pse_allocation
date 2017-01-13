@@ -33,6 +33,13 @@ public class GurobiAllocator extends AbstractAllocator {
     private GRBModel model;
 
     /**
+     * Konstruktor, der das Basismodell initialisiert
+     */
+    public GurobiAllocator() {
+        
+    }
+    
+    /**
      * Getter für die Basismatrix
      * 
      * @return Ddie Basismatrix

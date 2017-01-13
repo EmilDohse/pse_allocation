@@ -13,6 +13,13 @@ public class CriterionPreferredTeamSize implements Criterion {
     private String name;
 
     /**
+     * Standard-Konstruktor, der den Namen eindeutig setzt
+     */
+    public CriterionPreferredTeamSize() {
+        
+    }
+    
+    /**
      * {@inheritDoc}
      */
     @Override

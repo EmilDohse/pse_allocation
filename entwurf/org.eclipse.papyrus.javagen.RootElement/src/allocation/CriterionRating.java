@@ -13,6 +13,13 @@ public class CriterionRating implements Criterion {
     private String name;
 
     /**
+     * Standard-Konstruktor, der den Namen eindeutig setzt
+     */
+    public CriterionRating() {
+        
+    }
+    
+    /**
      * {@inheritDoc}
      */
     @Override

@@ -13,6 +13,13 @@ public class CriterionSameSemester implements Criterion {
     private String name;
 
     /**
+     * Standard-Konstruktor, der den Namen eindeutig setzt
+     */
+    public CriterionSameSemester() {
+        
+    }
+    
+    /**
      * {@inheritDoc}
      */
     @Override
