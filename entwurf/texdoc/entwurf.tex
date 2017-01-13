@@ -79,7 +79,7 @@ Außerdem werden im Basismodell die folgenden Basisconstraints definiert:
     x_j &\le maxSize_j \cdot y_j \\ 
     x_j &\ge minSize_j \cdot y_j 
     \end{align*}
-    $\text{Somit ist } y_j = &\begin{cases}
+    $\text{Somit ist } y_j = \begin{cases}
     1 \;\; \text{wenn $minSize_j \le x_j \le maxSize_j \vee x_j = 0$} \\
     0 \;\; \text{sonst} 
     \end{cases}$
@@ -172,16 +172,16 @@ a_{1t} &= \sum_{k \in drittSemester} B(k,t) \\
 \end{cases}$}
 (1-a_{3t}) &\le a_{1t} \\
 (1-a_{3t}) &\ge 0.1 \cdot a_{1t}\\
-\intertext{\text{Somit ist } a_{3t} = \begin{cases}
+\intertext{$\text{Somit ist } a_{3t} = \begin{cases}
     1 \;\; \text{wenn $a_{1t} = 0$} \\
     0 \;\; \text{sonst} 
-\end{cases}}
+\end{cases}$}
 a_{4t} &\le x_t \\
 a_{4t} &\ge 0.1 \cdot x_t \\
-\intertext{\text{Somit ist } a_{4t} = \begin{cases}
+\intertext{$\text{Somit ist } a_{4t} = \begin{cases}
     1 \;\; \text{wenn $x_t > 0$} \\
     0 \;\; \text{sonst} 
-\end{cases}}
+\end{cases}$}
 e_t &= (a_{2t} \vee a_{3t}) \wedge a_{4t}\\
 \intertext{Zum Optimierungsterm:} 
 &p_i \cdot 10 \cdot \sum_{j=1 }^{M-1} e_j
@@ -205,10 +205,10 @@ Weiterhin sei $\delta_j$ eine binäre Hilfsvariable.
 -9 \cdot a_{ji} &\le x_j -lg_i -1 \le 9\cdot a_{ji}\\
 0.1 \cdot a_{ji} - 9.1 \cdot \delta_j &\le x_j -lg_i -1 \le -0.1 \cdot a_{ji} +
 9.1 \cdot (1-\delta_j)\\
-\intertext{\text{Somit ist } a_{ji} = \begin{cases}
+\intertext{$\text{Somit ist } a_{ji} = \begin{cases}
     0 \;\; \text{wenn $x_j = lg_i +1$} \\
     1 \;\; \text{sonst} 
-\end{cases}}
+\end{cases}$}
 %a_{ji} \le x_j -lg_i -1 \\
 %a_{ji} \ge 0.1 \cdot (x_j -lg_i-1)\\
 \intertext{Zum Optimierungsterm: }
