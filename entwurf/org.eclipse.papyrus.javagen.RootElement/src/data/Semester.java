@@ -8,7 +8,7 @@ import java.util.Date;
 
 /************************************************************/
 /**
- * Diese Klasse reprüsentiert ein Semseter.
+ * Diese Klasse repräsentiert ein Semseter.
  */
 public class Semester {
 	/**
@@ -35,6 +35,184 @@ public class Semester {
 	 * Der Zeitpunkt ab dem sich Studenten nicht mehr registrieren können.
 	 */
 	private Date registrationEnd;
+	/**
+	 * Alle Lerngruppen, die dieses Semester erstellt wurden
+	 */
+	private LearningGroup[] learningGroups;
+	/**
+	 * Alle Studenten, die sich für dieses Semester angemeldet haben
+	 */
+	private Student[] students;
+	/**
+	 * Alle Projekte, die für dieses Semester registriert wurden
+	 */
+	private Project[] projects;
+	/**
+	 * Alle Einteilungen, die für dieses Semester berechnet wurden
+	 */
+	private Allocation[] allocations;
+	
+	/**
+	 * Setter für die Einteilungen
+	 * 
+	 * @param allocations Einteilungen
+	 */
+	public void setAllocations(Allocation[] allocations) {
+		this.allocations = allocations;
+	}
+	
+	/**
+	 * Getter für die Einteilungen
+	 * 
+	 * @return Einteilungen
+	 */
+	public Allocation[] getAllocations() {
+		return allocations;
+	}
+	
+	/**
+	 * Fügt eine Einteilung hinzu
+	 * 
+	 * @param allocation Einteilung, die hinzugefügt wird
+	 */
+	public void addAllocation(Allocation allocation) {
+		
+	}
+	
+	/**
+	 * Entfernt eine Einteilung
+	 * 
+	 * @param allocation Einteilung, die entfernt wird
+	 */
+	public void removeAllocation(Allocation allocation) {
+		
+	}
+	
+	/**
+	 * Setter für die Projecte
+	 * 
+	 * @param projects Projekte
+	 */
+	public void setProjects(Project[] projects) {
+		this.projects = projects;
+	}
+	
+	/**
+	 * Getter für die Projekte
+	 * 
+	 * @return Projekte
+	 */
+	public Project[] getProjects() {
+		return projects;
+	}
+	
+	/**
+	 * Fügt ein Project hinzu
+	 * 
+	 * @param project Projekt, das hinzugefügt wird
+	 */
+	public void addProject(Project project) {
+		
+	}
+	
+	/**
+	 * Entfernt ein Projekt
+	 * 
+	 * @param project Projekt, das entfernt wird
+	 */
+	public void removeProject(Project project) {
+		
+	}
+	
+	/**
+	 * Setter für die Studenten
+	 * 
+	 * @param students Studenten
+	 */
+	public void setStudents(Student[] students) {
+		this.students = students;
+	}
+	
+	/**
+	 * Getter für die Studenten
+	 * 
+	 * @return Studenten
+	 */
+	public Student[] getStudents() {
+		return students;
+	}
+	
+	/**
+	 * Fügt einen Studenten hinzu
+	 * 
+	 * @param student Student, der hinzugefügt wird
+	 */
+	public void addStudent(Student student) {
+		
+	}
+	
+	/**
+	 * Entfernt einen Studenten
+	 * 
+	 * @param student Student, der entfernt wird
+	 */
+	public void removeStudent(Student student) {
+		
+	}
+	
+	/**
+	 * Setter für die Lerngruppen
+	 * 
+	 * @param learningGroups Lerngruppen
+	 */
+	public void setLearningGroups(LearningGroup[] learningGroups) {
+		this.learningGroups = learningGroups;
+	}
+	
+	/**
+	 * Getter für die Lerngruppen
+	 * 
+	 * @return Lerngruppen
+	 */
+	public LearningGroup[] getLearningGroups() {
+		return learningGroups;
+	}
+	
+	/**
+	 * Fügt eine Lerngruppe hinzu
+	 * 
+	 * @param learningGroup Lerngruppe, die hinzugefügt wird
+	 */
+	public void addLearningGroup(LearningGroup learningGroup) {
+		
+	}
+	
+	/**
+	 * Entfernt eine Lerngruppe
+	 * 
+	 * @param learningGroup Lerngruppe, die entfernt wird
+	 */
+	public void removeLearningGroup(LearningGroup learningGroup) {
+		
+	}
+	
+	/**
+	 * Fügt eine SPO hinzu
+	 * 
+	 * @param spo SPO, die hinzugefügt wird
+	 */
+	public void addSPO(SPO spo) {
+		
+	}
+	
+	/**
+	 * Entfernt eine SPO
+	 * 
+	 * @param spo SPO, die entfernt wird
+	 */
+	public void removeSPO(SPO spo) {
+		
+	}
 	
 	/**
 	 * Getter für den Namen des Semesters.
@@ -118,17 +296,17 @@ public class Semester {
 	 * 
 	 * @return semesters Alle Semseter.
 	 */
-	public static Semester getSemesters() {
+	public static Semester[] getSemesters() {
 		//TODO
 				return null;
 	}
 
 	/**
-	 * Diese Methode gibt alles Teams zurück.
+	 * Diese Methode gibt alle Teams zurück.
 	 * 
 	 * @return teams Alle existierenden Teams.
 	 */
-	public Team getTeams() {
+	public Team[] getTeams() {
 		//TODO
 				return null;
 	}
@@ -138,7 +316,7 @@ public class Semester {
 	 * 
 	 * @return advisers Alle Betreuer des Semesters.
 	 */
-	public Adviser getAdvisers() {
+	public Adviser[] getAdvisers() {
 		//TODO
 				return null;
 	}

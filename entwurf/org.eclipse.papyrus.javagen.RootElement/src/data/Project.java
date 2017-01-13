@@ -6,7 +6,7 @@ package data;
 
 /************************************************************/
 /**
- * 
+ * Klasse, die ein Project repräsentiert
  */
 public class Project {
 	/**
