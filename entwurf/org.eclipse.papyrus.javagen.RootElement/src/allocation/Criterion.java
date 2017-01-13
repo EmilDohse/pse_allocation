@@ -10,18 +10,20 @@ package allocation;
  */
 public interface Criterion {
 
-	/**
-	 * bildet den Optimierungsterm und fügt ihn dem GurobiAllocator hinzu
-	 * 
-	 * @param weight Der vom Admin eingestellte Parameter dieses Kriteriums	
-	 * @param allocator Die Allocator instanz welche dieses Kriterium verwenden soll
-	 */
-	public void useCriteria(int weight, GurobiAllocator allocator);
+    /**
+     * Bildet den Optimierungsterm und fügt ihn dem GurobiAllocator hinzu
+     * 
+     * @param weight
+     *            Der vom Admin eingestellte Parameter dieses Kriteriums
+     * @param allocator
+     *            Die Allocator-Instanz welche dieses Kriterium verwenden soll
+     */
+    public void useCriteria(int weight, GurobiAllocator allocator);
 
-	/**
-	 * getter für den Namen des Kriteriums
-	 * 
-	 * @return  gibt den Namen zurück
-	 */
-	public String getName();
+    /**
+     * Getter für den Namen des Kriteriums
+     * 
+     * @return Der Name des Kriteriums
+     */
+    public String getName();
 }

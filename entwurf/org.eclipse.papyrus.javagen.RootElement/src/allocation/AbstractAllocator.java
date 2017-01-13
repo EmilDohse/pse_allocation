@@ -11,23 +11,23 @@ import java.util.List;
  * Abstrakter Löser des Einteilungsproblems
  */
 abstract class AbstractAllocator {
-	
 
-	/**
-	 * berechnet die Einteilung zu einer gegebenen Konfiguration
-	 * 
-	 * @param configuration Konfiguration die bei der Einteilungsberechnung berücksichtigt wird
-	 */
-	public abstract void calculate(Configuration configuration);
+    /**
+     * Startet die Berechnung einer Einteilung
+     * 
+     * @param configuration
+     *            Die Konfiguration, nach der die Einteilung berechnet werden
+     *            soll
+     */
+    public abstract void calculate(Configuration configuration);
 
-	/**
-	 * gibt alle Kriterien,
- 	 * geladen über einen Servieloader, zurück 
- 	 * 
-	 * @return Liste aller verfügbarer Kriterien
-	 */
-	public static List<Criterion> getAllCriteria() {
-		//TODO
-		return null;
-	}
+    /**
+     * Gibt alle Kriterien, geladen über einen Servieloader, zurück
+     * 
+     * @return Liste aller verfügbarer Kriterien
+     */
+    public static List<Criterion> getAllCriteria() {
+        // TODO
+        return null;
+    }
 }

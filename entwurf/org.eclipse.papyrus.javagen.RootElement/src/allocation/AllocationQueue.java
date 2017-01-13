@@ -8,7 +8,7 @@ import java.util.List;
 
 /************************************************************/
 /**
- * Die Queue ist dazu da die Stapelverarbeitung von Einteilungs berechnungen zu realisieren
+ * Die Queue dient dazu, die Berechnung von Einteilungen als Stapelverarbeitung zu realisieren.
  */
 public class AllocationQueue {
 	/**
@@ -27,20 +27,25 @@ public class AllocationQueue {
 	 * Die Konfiguration die aktuell zur Berechnung verwendet wird
 	 */
 	private Configuration currentlyCalculatedConfiguration;
-
+	
 	/**
-	 * gibt die eine existierende Instanz der AllocationQueue (Singeltion) zurück
-	 * 
-	 * @return  die Instanz der AllocationQueue
+	 * Privater Konstruktor der zur Instanziierung des Singletons verwendet wird.
+	 */
+	private AllocationQueue() {
+	    
+	}
+	/**
+	 * Gibt die eine existierende Instanz der AllocationQueue (Singleton) zurück	 * 
+	 * @return  Die Instanz der AllocationQueue
 	 */
 	public static AllocationQueue getInstance() {
 		return instance;
 	}
 
 	/**
-	 * fügt der Berechnungsqueue ein element hinzu das dann berechnet wird
-	 * 
-	 * @param configuration Die Konfiguration die zur Berechnungswarteliste hinzugefügt wird
+	 * Fügt der Berechnungsqueue eine Konfiguration hinzu, die zur Berechnung verwendet werden soll
+	 *  
+	 * @param configuration Die Konfiguration, die zur Berechnungsqueue hinzugefügt wird
 	 */
 	public void addToQueue(Configuration configuration) {
 	}
@@ -48,15 +53,15 @@ public class AllocationQueue {
 	/**
 	 * Nimmt eine Konfiguration aus der Berechnungsqueue heraus. Falls diese Konfiguration bereits berechnet wird, wird die Berechnung abgebrochen
 	 * 
-	 * @param configuration Die Konfiguration die entfernt werden soll
+	 * @param configuration Die Konfiguration, die entfernt werden soll
 	 */
 	public void cancelAllocation(Configuration configuration) {
 	}
 
 	/**
-	 * Gibt die Queue der Berechnungen zurück, inklusive der Konfiguration die aktuell berechnet wird. 
+	 * Gibt die Queue der Berechnungen zurück, inklusive der Konfiguration die aktuell berechnet wird.
 	 * 
-	 * @return queue Liste der Konfigurationen als FIFO-Queue angeordnet
+	 * @return Liste der Konfigurationen als FIFO-Queue angeordnet
 	 */
 	public List<Configuration> getQueue() {
 		return configurationQueue;

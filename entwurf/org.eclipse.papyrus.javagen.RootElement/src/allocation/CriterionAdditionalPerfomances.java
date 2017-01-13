@@ -6,27 +6,27 @@ package allocation;
 
 /************************************************************/
 /**
- * Das Kriterium sorgt dafür Studierende die mehr als die die zur Teilname am PSE
- * benötigten Teilleistungen bestanden haben bevorzugt werden.
+ * Das Kriterium sorgt dafür, dass Studierende die mehr, als die zur Teilname am
+ * PSE benötigten, Teilleistungen bestanden haben bevorzugt werden.
  */
 public class CriterionAdditionalPerfomances implements Criterion {
-	private String name;
+    private String name;
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void useCriteria(int weight, GurobiAllocator allocator) {
-		// TODO Auto-generated method stub
-		
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void useCriteria(int weight, GurobiAllocator allocator) {
+        // TODO Auto-generated method stub
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getName() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }

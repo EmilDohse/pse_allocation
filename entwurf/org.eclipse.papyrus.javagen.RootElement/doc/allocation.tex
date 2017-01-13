@@ -4,22 +4,27 @@
 \begin{texdocclass}{class}{AllocationQueue}
 \label{texdoclet:allocation.AllocationQueue}
 \begin{texdocclassintro}
-Die Queue ist dazu da die Stapelverarbeitung von Einteilungs berechnungen zu realisieren\end{texdocclassintro}
+Die Queue dient dazu, die Berechnung von Einteilungen als
+Stapelverarbeitung zu realisieren.\end{texdocclassintro}
 \begin{texdocclassconstructors}
-\texdocconstructor{public}{AllocationQueue}{()}{}{}
+\texdocconstructor{private}{AllocationQueue}{()}{Privater Konstruktor der zur
+Instanziierung des Singletons verwendet wird.}{}
 \end{texdocclassconstructors}
 \begin{texdocclassmethods}
-\texdocmethod{public}{void}{addToQueue}{(Configuration configuration)}{fügt der Berechnungsqueue ein element hinzu das dann berechnet wird}{\begin{texdocparameters}
-\texdocparameter{configuration}{Die Konfiguration die zur Berechnungswarteliste hinzugefügt wird}
+\texdocmethod{public}{void}{addToQueue}{(Configuration configuration)}{Fügt der
+Berechnungsqueue eine Konfiguration hinzu, die
+zur Berechnung verwendet werden soll}{\begin{texdocparameters}
+\texdocparameter{configuration}{Die Konfiguration, die zur Berechnungsqueue
+hinzugefügt wird}
 \end{texdocparameters}
 }
 \texdocmethod{public}{void}{cancelAllocation}{(Configuration configuration)}{Nimmt eine Konfiguration aus der Berechnungsqueue heraus. Falls diese Konfiguration bereits berechnet wird, wird die Berechnung abgebrochen}{\begin{texdocparameters}
-\texdocparameter{configuration}{Die Konfiguration die entfernt werden soll}
+\texdocparameter{configuration}{Die Konfiguration, die entfernt werden soll}
 \end{texdocparameters}
 }
-\texdocmethod{public static}{AllocationQueue}{getInstance}{()}{gibt die eine existierende Instanz der AllocationQueue (Singeltion) zurück}{\texdocreturn{die Instanz der AllocationQueue}
-}
-\texdocmethod{public}{List\textless{}Configuration\textgreater{}}{getQueue}{()}{Gibt die Queue der Berechnungen zurück, inklusive der Konfiguration die aktuell berechnet wird.}{\texdocreturn{queue Liste der Konfigurationen als FIFO-Queue angeordnet}
+\texdocmethod{public static}{AllocationQueue}{getInstance}{()}{Gibt die eine
+existierende Instanz der AllocationQueue (Singleton) zurück}{\texdocreturn{Die Instanz der AllocationQueue} }
+\texdocmethod{public}{List\textless{}Configuration\textgreater{}}{getQueue}{()}{Gibt die Queue der Berechnungen zurück, inklusive der Konfiguration die aktuell berechnet wird.}{\texdocreturn{Liste der Konfigurationen als FIFO-Queue angeordnet}
 }
 \end{texdocclassmethods}
 \end{texdocclass}
@@ -28,12 +33,22 @@ Die Queue ist dazu da die Stapelverarbeitung von Einteilungs berechnungen zu rea
 \begin{texdocclass}{class}{Configuration}
 \label{texdoclet:allocation.Configuration}
 \begin{texdocclassintro}
-Eine Konfiguration dient als Sammlung von Daten die zur Einteilungsberechnung benötigt werden\end{texdocclassintro}
+Eine Konfiguration dient als Sammlung von Daten, die zur Einteilungsberechnung
+benötigt werden\end{texdocclassintro}
 \begin{texdocclassconstructors}
 \texdocconstructor{public}{Configuration}{()}{}{}
 \end{texdocclassconstructors}
 \begin{texdocclassmethods}
-\texdocmethod{public}{String}{getName}{()}{getter für den Einteilungsname}{}
+\texdocmethod{public}{String}{getName}{()}{Getter für den
+Einteilungsname}{\texdocreturn{Der Name der Einteilung, die berechnet werden
+soll}}
+\texdocmethod{public}{Student[]}{getStudents}{()}{Getter für
+Studenten}{\texdocreturn{Array von Studenten, die eingeteilt werden sollen}}
+\texdocmethod{public}{Project[]}{getProjects}{()}{Getter für
+Projekte}{\texdocreturn{Liste von Projekten, denen Studenten zugeteilt werden
+sollen}}
+\texdocmethod{public}{LearningGroup[]}{getLearningGroups}{()}{Getter für
+Lerngruppen}{\texdocreturn{Array von Lerngruppen, die zugeteilt werden sollen}}
 \end{texdocclassmethods}
 \end{texdocclass}
 
@@ -43,11 +58,13 @@ Eine Konfiguration dient als Sammlung von Daten die zur Einteilungsberechnung be
 \begin{texdocclassintro}
 Ein Kriterium ist dazu da den Optimierungsterm des ILP-Modells zu erweitern\end{texdocclassintro}
 \begin{texdocclassmethods}
-\texdocmethod{public}{String}{getName}{()}{getter für den Namen des Kriteriums}{\texdocreturn{gibt den Namen zurück}
-}
-\texdocmethod{public}{void}{useCriteria}{(int weight, GurobiAllocator allocator)}{bildet den Optimierungsterm und fügt ihn dem GurobiAllocator hinzu}{\begin{texdocparameters}
+\texdocmethod{public}{String}{getName}{()}{Getter für den Namen des
+Kriteriums}{\texdocreturn{Der Name des Kriteriums} }
+\texdocmethod{public}{void}{useCriteria}{(int weight, GurobiAllocator
+allocator)}{Bildet den Optimierungsterm und fügt ihn dem GurobiAllocator hinzu}{\begin{texdocparameters}
 \texdocparameter{weight}{Der vom Admin eingestellte Parameter dieses Kriteriums}
-\texdocparameter{allocator}{Die Allocator instanz welche dieses Kriterium verwenden soll}
+\texdocparameter{allocator}{Die Allocator-Instanz welche dieses Kriterium
+verwenden soll}
 \end{texdocparameters}
 }
 \end{texdocclassmethods}
@@ -57,14 +74,22 @@ Ein Kriterium ist dazu da den Optimierungsterm des ILP-Modells zu erweitern\end{
 \begin{texdocclass}{class}{CriterionAdditionalPerfomances}
 \label{texdoclet:allocation.CriterionAdditionalPerfomances}
 \begin{texdocclassintro}
-Das Kriterium sorgt dafür Studierende die mehr als die die zur Teilname am PSE
- benötigten Teilleistungen bestanden haben bevorzugt werden.\end{texdocclassintro}
+Das Kriterium sorgt dafür, dass Studierende die mehr, als die zur Teilname
+am PSE benötigten, Teilleistungen bestanden haben bevorzugt
+werden.\end{texdocclassintro}
 \begin{texdocclassconstructors}
 \texdocconstructor{public}{CriterionAdditionalPerfomances}{()}{}{}
 \end{texdocclassconstructors}
 \begin{texdocclassmethods}
-\texdocmethod{public}{String}{getName}{()}{\texdocinheritdoc{allocation.Criterion}{getter für den Namen des Kriteriums}}{}
-\texdocmethod{public}{void}{useCriteria}{(int weight, GurobiAllocator allocator)}{\texdocinheritdoc{allocation.Criterion}{bildet den Optimierungsterm und fügt ihn dem GurobiAllocator hinzu}}{}
+\texdocmethod{public}{String}{getName}{()}{Getter für den Namen des
+Kriteriums}{\texdocreturn{Der Name des Kriteriums} }
+\texdocmethod{public}{void}{useCriteria}{(int weight, GurobiAllocator
+allocator)}{Bildet den Optimierungsterm und fügt ihn dem GurobiAllocator hinzu}{\begin{texdocparameters}
+\texdocparameter{weight}{Der vom Admin eingestellte Parameter dieses Kriteriums}
+\texdocparameter{allocator}{Die Allocator-Instanz welche dieses Kriterium
+verwenden soll}
+\end{texdocparameters}
+}
 \end{texdocclassmethods}
 \end{texdocclass}
 
@@ -72,14 +97,21 @@ Das Kriterium sorgt dafür Studierende die mehr als die die zur Teilname am PSE
 \begin{texdocclass}{class}{CriterionAllocated}
 \label{texdoclet:allocation.CriterionAllocated}
 \begin{texdocclassintro}
-Das Kriterium sorgt dafür das möglichst viele Studierende Teams zugeteilt
- werden.\end{texdocclassintro}
+Das Kriterium sorgt dafür, dass möglichst viele Studierende in Teams eingeteilt
+werden.\end{texdocclassintro}
 \begin{texdocclassconstructors}
 \texdocconstructor{public}{CriterionAllocated}{()}{}{}
 \end{texdocclassconstructors}
 \begin{texdocclassmethods}
-\texdocmethod{public}{String}{getName}{()}{\texdocinheritdoc{allocation.Criterion}{getter für den Namen des Kriteriums}}{}
-\texdocmethod{public}{void}{useCriteria}{(int weight, GurobiAllocator allocator)}{\texdocinheritdoc{allocation.Criterion}{bildet den Optimierungsterm und fügt ihn dem GurobiAllocator hinzu}}{}
+\texdocmethod{public}{String}{getName}{()}{Getter für den Namen des
+Kriteriums}{\texdocreturn{Der Name des Kriteriums} }
+\texdocmethod{public}{void}{useCriteria}{(int weight, GurobiAllocator
+allocator)}{Bildet den Optimierungsterm und fügt ihn dem GurobiAllocator hinzu}{\begin{texdocparameters}
+\texdocparameter{weight}{Der vom Admin eingestellte Parameter dieses Kriteriums}
+\texdocparameter{allocator}{Die Allocator-Instanz welche dieses Kriterium
+verwenden soll}
+\end{texdocparameters}
+}
 \end{texdocclassmethods}
 \end{texdocclass}
 
@@ -87,102 +119,147 @@ Das Kriterium sorgt dafür das möglichst viele Studierende Teams zugeteilt
 \begin{texdocclass}{class}{CriterionLearningGroup}
 \label{texdoclet:allocation.CriterionLearningGroup}
 \begin{texdocclassintro}
-Das Kriterium sorgt dafür das Lerngruppen eher zusammenbleiben.\end{texdocclassintro}
+Das Kriterium sorgt dafür, dass Lerngruppen eher
+zusammenbleiben.\end{texdocclassintro}
 \begin{texdocclassconstructors}
 \texdocconstructor{public}{CriterionLearningGroup}{()}{}{}
 \end{texdocclassconstructors}
 \begin{texdocclassmethods}
-\texdocmethod{public}{String}{getName}{()}{\texdocinheritdoc{allocation.Criterion}{getter für den Namen des Kriteriums}}{}
-\texdocmethod{public}{void}{useCriteria}{(int weight, GurobiAllocator allocator)}{\texdocinheritdoc{allocation.Criterion}{bildet den Optimierungsterm und fügt ihn dem GurobiAllocator hinzu}}{}
-\end{texdocclassmethods}
+\texdocmethod{public}{String}{getName}{()}{Getter für den Namen des
+Kriteriums}{\texdocreturn{Der Name des Kriteriums} }
+\texdocmethod{public}{void}{useCriteria}{(int weight, GurobiAllocator
+allocator)}{Bildet den Optimierungsterm und fügt ihn dem GurobiAllocator hinzu}{\begin{texdocparameters}
+\texdocparameter{weight}{Der vom Admin eingestellte Parameter dieses Kriteriums}
+\texdocparameter{allocator}{Die Allocator-Instanz welche dieses Kriterium
+verwenden soll}
+\end{texdocparameters}
+}\end{texdocclassmethods}
 \end{texdocclass}
 
 
 \begin{texdocclass}{class}{CriterionNoSingularStudent}
 \label{texdoclet:allocation.CriterionNoSingularStudent}
 \begin{texdocclassintro}
-Das Kriterium sorgt dafür das möglichst kein Team aus einer Lerngrupe sowie
- einem einzelnen Studierenden besteht.\end{texdocclassintro}
+Das Kriterium sorgt dafür, dass möglichst kein Team aus einer Lerngrupe
+sowie einem einzelnen Studierenden besteht.\end{texdocclassintro}
 \begin{texdocclassconstructors}
 \texdocconstructor{public}{CriterionNoSingularStudent}{()}{}{}
 \end{texdocclassconstructors}
 \begin{texdocclassmethods}
-\texdocmethod{public}{String}{getName}{()}{\texdocinheritdoc{allocation.Criterion}{getter für den Namen des Kriteriums}}{}
-\texdocmethod{public}{void}{useCriteria}{(int weight, GurobiAllocator allocator)}{\texdocinheritdoc{allocation.Criterion}{bildet den Optimierungsterm und fügt ihn dem GurobiAllocator hinzu}}{}
-\end{texdocclassmethods}
+\texdocmethod{public}{String}{getName}{()}{Getter für den Namen des
+Kriteriums}{\texdocreturn{Der Name des Kriteriums} }
+\texdocmethod{public}{void}{useCriteria}{(int weight, GurobiAllocator
+allocator)}{Bildet den Optimierungsterm und fügt ihn dem GurobiAllocator hinzu}{\begin{texdocparameters}
+\texdocparameter{weight}{Der vom Admin eingestellte Parameter dieses Kriteriums}
+\texdocparameter{allocator}{Die Allocator-Instanz welche dieses Kriterium
+verwenden soll}
+\end{texdocparameters}
+}\end{texdocclassmethods}
 \end{texdocclass}
 
 
 \begin{texdocclass}{class}{CriterionPreferHigherSemester}
 \label{texdoclet:allocation.CriterionPreferHigherSemester}
 \begin{texdocclassintro}
-Das Kriterium sorgt dafür das Studierende höheren Semesters bevorzugt werden.\end{texdocclassintro}
+Das Kriterium sorgt dafür, dass Studierende höheren Semesters bevorzugt
+werden.\end{texdocclassintro}
 \begin{texdocclassconstructors}
 \texdocconstructor{public}{CriterionPreferHigherSemester}{()}{}{}
 \end{texdocclassconstructors}
 \begin{texdocclassmethods}
-\texdocmethod{public}{String}{getName}{()}{\texdocinheritdoc{allocation.Criterion}{getter für den Namen des Kriteriums}}{}
-\texdocmethod{public}{void}{useCriteria}{(int weight, GurobiAllocator allocator)}{\texdocinheritdoc{allocation.Criterion}{bildet den Optimierungsterm und fügt ihn dem GurobiAllocator hinzu}}{}
-\end{texdocclassmethods}
+\texdocmethod{public}{String}{getName}{()}{Getter für den Namen des
+Kriteriums}{\texdocreturn{Der Name des Kriteriums} }
+\texdocmethod{public}{void}{useCriteria}{(int weight, GurobiAllocator
+allocator)}{Bildet den Optimierungsterm und fügt ihn dem GurobiAllocator hinzu}{\begin{texdocparameters}
+\texdocparameter{weight}{Der vom Admin eingestellte Parameter dieses Kriteriums}
+\texdocparameter{allocator}{Die Allocator-Instanz welche dieses Kriterium
+verwenden soll}
+\end{texdocparameters}
+}\end{texdocclassmethods}
 \end{texdocclass}
 
 
 \begin{texdocclass}{class}{CriterionPreferredTeamSize}
 \label{texdoclet:allocation.CriterionPreferredTeamSize}
 \begin{texdocclassintro}
-Das Kriterium sorgt dafür das Teams möglichst die gewünschte Teamgröße haben.\end{texdocclassintro}
+Das Kriterium sorgt dafür, dass Teams möglichst die vom Admin gewünschte
+Teamgröße haben.\end{texdocclassintro}
 \begin{texdocclassconstructors}
 \texdocconstructor{public}{CriterionPreferredTeamSize}{()}{}{}
 \end{texdocclassconstructors}
 \begin{texdocclassmethods}
-\texdocmethod{public}{String}{getName}{()}{\texdocinheritdoc{allocation.Criterion}{getter für den Namen des Kriteriums}}{}
-\texdocmethod{public}{void}{useCriteria}{(int weight, GurobiAllocator allocator)}{\texdocinheritdoc{allocation.Criterion}{bildet den Optimierungsterm und fügt ihn dem GurobiAllocator hinzu}}{}
-\end{texdocclassmethods}
+\texdocmethod{public}{String}{getName}{()}{Getter für den Namen des
+Kriteriums}{\texdocreturn{Der Name des Kriteriums} }
+\texdocmethod{public}{void}{useCriteria}{(int weight, GurobiAllocator
+allocator)}{Bildet den Optimierungsterm und fügt ihn dem GurobiAllocator hinzu}{\begin{texdocparameters}
+\texdocparameter{weight}{Der vom Admin eingestellte Parameter dieses Kriteriums}
+\texdocparameter{allocator}{Die Allocator-Instanz welche dieses Kriterium
+verwenden soll}
+\end{texdocparameters}
+}\end{texdocclassmethods}
 \end{texdocclass}
 
 
 \begin{texdocclass}{class}{CriterionRating}
 \label{texdoclet:allocation.CriterionRating}
 \begin{texdocclassintro}
-Das Kriterium sorgt dafür das die Bewertungen der Studierenden berücksichtigt
- werden.\end{texdocclassintro}
+Das Kriterium sorgt dafür, dass die Bewertungen der Studierenden berücksichtigt
+werden.\end{texdocclassintro}
 \begin{texdocclassconstructors}
 \texdocconstructor{public}{CriterionRating}{()}{}{}
 \end{texdocclassconstructors}
 \begin{texdocclassmethods}
-\texdocmethod{public}{String}{getName}{()}{\texdocinheritdoc{allocation.Criterion}{getter für den Namen des Kriteriums}}{}
-\texdocmethod{public}{void}{useCriteria}{(int weight, GurobiAllocator allocator)}{\texdocinheritdoc{allocation.Criterion}{bildet den Optimierungsterm und fügt ihn dem GurobiAllocator hinzu}}{}
-\end{texdocclassmethods}
+\texdocmethod{public}{String}{getName}{()}{Getter für den Namen des
+Kriteriums}{\texdocreturn{Der Name des Kriteriums} }
+\texdocmethod{public}{void}{useCriteria}{(int weight, GurobiAllocator
+allocator)}{Bildet den Optimierungsterm und fügt ihn dem GurobiAllocator hinzu}{\begin{texdocparameters}
+\texdocparameter{weight}{Der vom Admin eingestellte Parameter dieses Kriteriums}
+\texdocparameter{allocator}{Die Allocator-Instanz welche dieses Kriterium
+verwenden soll}
+\end{texdocparameters}
+}\end{texdocclassmethods}
 \end{texdocclass}
 
 
 \begin{texdocclass}{class}{CriterionRegisteredAgain}
 \label{texdoclet:allocation.CriterionRegisteredAgain}
 \begin{texdocclassintro}
-Das Kriterium sorgt dafür das Studierenden die sich schon einmal für einen PSE
- Platz beworben haben bevorzugt werden.\end{texdocclassintro}
+Das Kriterium sorgt dafür, dass Studierende, die sich schon einmal für einen
+PSE Platz beworben haben, bevorzugt werden.\end{texdocclassintro}
 \begin{texdocclassconstructors}
 \texdocconstructor{public}{CriterionRegisteredAgain}{()}{}{}
 \end{texdocclassconstructors}
 \begin{texdocclassmethods}
-\texdocmethod{public}{String}{getName}{()}{\texdocinheritdoc{allocation.Criterion}{getter für den Namen des Kriteriums}}{}
-\texdocmethod{public}{void}{useCriteria}{(int weight, GurobiAllocator allocator)}{\texdocinheritdoc{allocation.Criterion}{bildet den Optimierungsterm und fügt ihn dem GurobiAllocator hinzu}}{}
-\end{texdocclassmethods}
+\texdocmethod{public}{String}{getName}{()}{Getter für den Namen des
+Kriteriums}{\texdocreturn{Der Name des Kriteriums} }
+\texdocmethod{public}{void}{useCriteria}{(int weight, GurobiAllocator
+allocator)}{Bildet den Optimierungsterm und fügt ihn dem GurobiAllocator hinzu}{\begin{texdocparameters}
+\texdocparameter{weight}{Der vom Admin eingestellte Parameter dieses Kriteriums}
+\texdocparameter{allocator}{Die Allocator-Instanz welche dieses Kriterium
+verwenden soll}
+\end{texdocparameters}
+}\end{texdocclassmethods}
 \end{texdocclass}
 
 
 \begin{texdocclass}{class}{CriterionSameSemester}
 \label{texdoclet:allocation.CriterionSameSemester}
 \begin{texdocclassintro}
-Das Kriterium sorgt dafür das Studierende des, für das PSE vorgesehenen
- Semesters und Studierende höherer Semester eher nicht in das selbe Team kommen.\end{texdocclassintro}
+Das Kriterium sorgt dafür, dass Studierende, des für das PSE vorgesehenen
+Semesters, und Studierende höherer Semester nicht in das selbe Team kommen.\end{texdocclassintro}
 \begin{texdocclassconstructors}
 \texdocconstructor{public}{CriterionSameSemester}{()}{}{}
 \end{texdocclassconstructors}
 \begin{texdocclassmethods}
-\texdocmethod{public}{String}{getName}{()}{\texdocinheritdoc{allocation.Criterion}{getter für den Namen des Kriteriums}}{}
-\texdocmethod{public}{void}{useCriteria}{(int weight, GurobiAllocator allocator)}{\texdocinheritdoc{allocation.Criterion}{bildet den Optimierungsterm und fügt ihn dem GurobiAllocator hinzu}}{}
-\end{texdocclassmethods}
+\texdocmethod{public}{String}{getName}{()}{Getter für den Namen des
+Kriteriums}{\texdocreturn{Der Name des Kriteriums} }
+\texdocmethod{public}{void}{useCriteria}{(int weight, GurobiAllocator
+allocator)}{Bildet den Optimierungsterm und fügt ihn dem GurobiAllocator hinzu}{\begin{texdocparameters}
+\texdocparameter{weight}{Der vom Admin eingestellte Parameter dieses Kriteriums}
+\texdocparameter{allocator}{Die Allocator-Instanz welche dieses Kriterium
+verwenden soll}
+\end{texdocparameters}
+}\end{texdocclassmethods}
 \end{texdocclass}
 
 

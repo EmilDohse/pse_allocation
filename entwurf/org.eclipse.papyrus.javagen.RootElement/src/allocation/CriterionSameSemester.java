@@ -6,27 +6,27 @@ package allocation;
 
 /************************************************************/
 /**
- * Das Kriterium sorgt dafür das Studierende des, für das PSE vorgesehenen
- * Semesters und Studierende höherer Semester eher nicht in das selbe Team kommen. 
+ * Das Kriterium sorgt dafür, dass Studierende, des für das PSE vorgesehenen
+ * Semesters, und Studierende höherer Semester nicht in das selbe Team kommen.
  */
 public class CriterionSameSemester implements Criterion {
-	private String name;
+    private String name;
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void useCriteria(int weight, GurobiAllocator allocator) {
-		// TODO Auto-generated method stub
-		
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void useCriteria(int weight, GurobiAllocator allocator) {
+        // TODO Auto-generated method stub
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getName() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }

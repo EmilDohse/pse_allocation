@@ -13,7 +13,7 @@ import data.LearningGroup;
 
 /************************************************************/
 /**
- * Eine Konfiguration dient als Sammlung von Daten die zur Einteilungsberechnung benötigt werden
+ * Eine Konfiguration dient als Sammlung von Daten, die zur Einteilungsberechnung benötigt werden
  */
 public class Configuration {
 	/**
@@ -27,19 +27,69 @@ public class Configuration {
 	/**
 	 * Alle Lerngruppen die bei der Einteilung berücksichtigt werden
 	 */
-	private List<LearningGroup> learningGroups;
+	private LearningGroup[] learningGroups;
 	/**
 	 * Die Projekte die bei der Einteilung berücksichtigt werden
 	 */
 	private Project[] projects;
 	/**
-	 * Die Parameter für Kriterien die bei der Einteilung berücksichtigt werden
+	 * Die Parameter für Kriterien, die bei der Einteilung berücksichtigt werden
 	 */
 	private List<AllocationParameter> parameters;
+	
 	/**
-	 * getter für den Einteilungsname
+	 * Konstruktor, der alle Felder als Parameter entgegen nimmt
+	 * 
+	 * @param allocationName Der Name der Einteilung die berechnet werden soll
+	 * @param students Array von Studenten, die eingeteilt werden sollen
+	 * @param learningGroups Liste von Lerngruppen, die zugeteilt werden sollen
+	 * @param projects Liste von Projekten, denen Studenten zugeteilt werden sollen
+	 * @param parameters Liste von Parametern, die der Admin eingestellt hat
+	 */
+	public Configuration(String allocationName, Student[] students, LearningGroup[] learningGroups, Project[] projects, List<AllocationParameters> parameters)
+	
+	/**
+	 * Getter für den Einteilungsname
+	 * 
+	 * @return Der Name der Einteilung, die berechnet werden soll
 	 */
 	public String getName(){
 		return allocationName;
 	}
+	
+	/**
+     * Getter für Studenten
+     * 
+     * @return Array von Studenten, die eingeteilt werden sollen
+     */
+    public Student[] getStudents(){
+        return students;
+    }
+    
+    /**
+     * Getter für Lerngruppen
+     * 
+     * @return Array von Lerngruppen, die zugeteilt werden sollen
+     */
+    public LearningGroup[] getLearningGroups(){
+        return learningGroups;
+    }
+    
+    /**
+     * Getter für Projekte
+     * 
+     * @return Liste von Projekten, denen Studenten zugeteilt werden sollen
+     */
+    public Project[] getProjects(){
+        return projects;
+    }
+    
+    /**
+     * Getter für Kriterien-Parameter
+     * 
+     * @return Liste von Parametern, die der Admin eingegeben hat
+     */
+    public List<AllocationParameter> getParameters(){
+        return parameters;
+    }
 }

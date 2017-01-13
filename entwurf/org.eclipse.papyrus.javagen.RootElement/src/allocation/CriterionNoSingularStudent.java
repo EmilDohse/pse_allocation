@@ -6,27 +6,27 @@ package allocation;
 
 /************************************************************/
 /**
- * Das Kriterium sorgt dafür das möglichst kein Team aus einer Lerngrupe sowie
+ * Das Kriterium sorgt dafür, dass möglichst kein Team aus einer Lerngrupe sowie
  * einem einzelnen Studierenden besteht.
  */
 public class CriterionNoSingularStudent implements Criterion {
-	private String name;
+    private String name;
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void useCriteria(int weight, GurobiAllocator allocator) {
-		// TODO Auto-generated method stub
-		
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void useCriteria(int weight, GurobiAllocator allocator) {
+        // TODO Auto-generated method stub
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getName() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }

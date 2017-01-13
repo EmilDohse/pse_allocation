@@ -6,27 +6,27 @@ package allocation;
 
 /************************************************************/
 /**
- * Das Kriterium sorgt dafür das möglichst viele Studierende Teams zugeteilt
- * werden.
+ * Das Kriterium sorgt dafür, dass möglichst viele Studierende in Teams
+ * eingeteilt werden.
  */
 public class CriterionAllocated implements Criterion {
-	private String name;
+    private String name;
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void useCriteria(int weight, GurobiAllocator allocator) {
-		// TODO Auto-generated method stub
-		
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void useCriteria(int weight, GurobiAllocator allocator) {
+        // TODO Auto-generated method stub
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getName() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }

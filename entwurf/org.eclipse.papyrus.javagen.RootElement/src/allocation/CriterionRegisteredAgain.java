@@ -6,27 +6,27 @@ package allocation;
 
 /************************************************************/
 /**
- * Das Kriterium sorgt dafür das Studierenden die sich schon einmal für einen PSE
- * Platz beworben haben bevorzugt werden.
+ * Das Kriterium sorgt dafür, dass Studierende, die sich schon einmal für einen
+ * PSE Platz beworben haben, bevorzugt werden.
  */
 public class CriterionRegisteredAgain implements Criterion {
-	private String name;
+    private String name;
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void useCriteria(int weight, GurobiAllocator allocator) {
-		// TODO Auto-generated method stub
-		
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void useCriteria(int weight, GurobiAllocator allocator) {
+        // TODO Auto-generated method stub
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-} 
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getName() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+}
