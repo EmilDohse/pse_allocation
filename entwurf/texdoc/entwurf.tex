@@ -4,6 +4,11 @@
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{studarbeit}
+\usepackage{graphicx}
+\usepackage{wrapfig}
+\usepackage{lscape}
+\usepackage{rotating}
+\usepackage{epstopdf}
 \usepackage[binary-units=true]{siunitx}
  \usepackage[autostyle=true,german=quotes]{csquotes}
 
@@ -179,10 +184,38 @@
 \pagebreak
 
 \section{Einleitung}
-
+%TODO Einleitung mit anschluss an Pflichtenheft 
+Als Architekturstil wird \enquote{Model-View-Controller} verwendet.
+Die Pakete und verwendete Frameworks:
+\begin{itemize}
+  \item Model
+  \begin{itemize}
+   \item Data 
+  \item ImportExport
+  \item notificationSystem
+  \item qualityCriteria
+  \item security
+  \item allocation (unter verwendung des ILP-Solvers Gurobi)
+   \end{itemize}
+   \item View
+   \begin{itemize}
+    \item Play-Framework
+   \end{itemize}
+   \item Controller
+   \begin{itemize}
+    \item Controller
+   \end{itemize}
+\end{itemize}
+%TODO
 \subsection{Änderungen zum Pflichtenheft}
+Beim Entwurf haben wir uns für ein Paar Änderungen entschieden.
+\begin{itemize}
+  \item %TODO Student data edit page was genau ist das
+  \item %TODO admin legt betreueraccouts an gui änderung
+  \item %TODO betreuer kann sein passwort ändern
+  \item %rest im änderungsdoc
+\end{itemize}
 
-\section{Sequenzdiagramme}
 
 \section{Klassendiagramme}
 \input{../org.eclipse.papyrus.javagen.RootElement/doc/controller.tex}
@@ -192,6 +225,10 @@
 \input{../org.eclipse.papyrus.javagen.RootElement/doc/qualityCriteria.tex}
 \input{../org.eclipse.papyrus.javagen.RootElement/doc/security.tex}
 \input{../org.eclipse.papyrus.javagen.RootElement/doc/allocation.tex}
+
+\section{Sequenzdiagramme}
+%TODO Sequenzdiagramm am ende einfügen
+
 \section{ILP}
 Zur berechnung einer Einteilung wird ein ILP verwendet. Hierbei ist das ILP
 aufgeteilt in ein Basismodell und Einteilungskriterien. 
@@ -377,4 +414,72 @@ Weiterhin sei $\delta_j$ eine binäre Hilfsvariable.
 p_i \cdot 10 \cdot \sum_{j = 1}^{M-1} \sum_{i = 1}^{O}a_{ji}
 \end{align*}
 
+ \section{Anhang}
+\subsection{Klassendiagramme}
+
+\begin{sidewaysfigure}
+\centering
+\includegraphics[width=\linewidth]{bilder/Class_Diagram.PNG}
+\caption{Vollständiges Klassendiagramm}
+\label{uml:classDiagram}
+\end{sidewaysfigure}
+
+\begin{sidewaysfigure}
+\centering
+\includegraphics[width=\linewidth]{bilder/controller.png}
+\caption{Controller}
+\label{uml:controller}
+\end{sidewaysfigure}
+
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth]{bilder/daten.png}
+\caption{Datenmodell}
+\label{uml:data}
+\end{figure}
+
+\begin{sidewaysfigure}
+\centering
+\includegraphics[width=\linewidth]{bilder/einteilung.png}
+\caption{Einteilung}
+\label{uml:allocation}
+\end{sidewaysfigure}
+
+\begin{sidewaysfigure}
+\centering
+\includegraphics[width=\linewidth]{bilder/qualityCriteria.png}
+\caption{Qualitätskriterien}
+\label{uml:qualityCriteria}
+\end{sidewaysfigure}
+
+\begin{sidewaysfigure}
+\centering
+\includegraphics[width=\linewidth]{bilder/security.png}
+\caption{Sicherheit}
+\label{uml:Sicherheit}
+\end{sidewaysfigure}
+
+\begin{sidewaysfigure}
+\centering
+\includegraphics[width=\linewidth]{bilder/importExport.png}
+\caption{Im- und Export}
+\label{uml:imExport}
+\end{sidewaysfigure}
+
+
+\subsection{Sequenzdiagramme}
+
+\begin{sidewaysfigure}
+\centering
+\includegraphics[width=\linewidth]{bilder/seqAddAllocation.png}
+\caption{Add Allocation}
+\label{seq:addAlloction}
+\end{sidewaysfigure}
+
+\begin{sidewaysfigure}
+\centering
+\includegraphics[width=\linewidth]{bilder/seqaddToQueue.png}
+\caption{Add to Queue}
+\label{seq:addToQueue}
+\end{sidewaysfigure}
 \end{document}
