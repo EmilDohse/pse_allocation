@@ -66,13 +66,9 @@
       <ownedAttribute xmi:type="uml:Property" xmi:id="_pjyyZNaMEeayPeVBIOoRFQ" name="model : GRBModel" visibility="private"/>
       <ownedAttribute xmi:type="uml:Property" xmi:id="_3uLH8NgBEeajp5oxlrL6UQ" name="optTerm : GRBLinExpr" visibility="private"/>
       <ownedAttribute xmi:type="uml:Property" xmi:id="_O3Lq4NgCEeajp5oxlrL6UQ" name="teamSize : GRBVar[]" visibility="private"/>
-      <ownedOperation xmi:type="uml:Operation" xmi:id="_pjyyZdaMEeayPeVBIOoRFQ" name="getBasicMatrix() : GRBVar[][]" visibility="public"/>
-      <ownedOperation xmi:type="uml:Operation" xmi:id="_pjyyZtaMEeayPeVBIOoRFQ" name="getModel() : GRBModel"/>
       <ownedOperation xmi:type="uml:Operation" xmi:id="_pjyyZ9aMEeayPeVBIOoRFQ" name="calculate">
         <ownedParameter xmi:type="uml:Parameter" xmi:id="_pjyyaNaMEeayPeVBIOoRFQ" name="configuration" type="_pjyyfNaMEeayPeVBIOoRFQ"/>
       </ownedOperation>
-      <ownedOperation xmi:type="uml:Operation" xmi:id="_pjyyataMEeayPeVBIOoRFQ" name="getOptimizationTerm() : GRBLinExpr"/>
-      <ownedOperation xmi:type="uml:Operation" xmi:id="_S3cbUNgCEeajp5oxlrL6UQ" name="getTeamSizes() : GRBVar[]"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="_pjyya9aMEeayPeVBIOoRFQ" name="AbstractAllocator" visibility="private" isAbstract="true">
       <ownedAttribute xmi:type="uml:Property" xmi:id="_lCJbE9arEeayPeVBIOoRFQ" name="criteria" type="_pjyyk9aMEeayPeVBIOoRFQ" association="_lCJbENarEeayPeVBIOoRFQ">
@@ -1237,10 +1233,10 @@
     <message xmi:type="uml:Message" xmi:id="_5l3dENd3EeaYE9KsYjq_PA" name="getAllCriteria" messageSort="reply" receiveEvent="_5l9jsdd3EeaYE9KsYjq_PA" sendEvent="_5l9jsNd3EeaYE9KsYjq_PA" signature="_pjyyeNaMEeayPeVBIOoRFQ"/>
     <message xmi:type="uml:Message" xmi:id="_QQpL4Nd4EeaYE9KsYjq_PA" name="create" messageSort="createMessage" receiveEvent="_QQpL4td4EeaYE9KsYjq_PA" sendEvent="_QQpL4dd4EeaYE9KsYjq_PA"/>
     <message xmi:type="uml:Message" xmi:id="_ydFAANd4EeaYE9KsYjq_PA" name="useCriteria" receiveEvent="_ydFAAtd4EeaYE9KsYjq_PA" sendEvent="_ydFAAdd4EeaYE9KsYjq_PA" signature="_pjyylNaMEeayPeVBIOoRFQ"/>
-    <message xmi:type="uml:Message" xmi:id="_BCULENd5EeaYE9KsYjq_PA" name="getModel() : GRBModel_Message" messageSort="asynchCall" receiveEvent="_BCULEtd5EeaYE9KsYjq_PA" sendEvent="_BCULEdd5EeaYE9KsYjq_PA" signature="_pjyyZtaMEeayPeVBIOoRFQ"/>
-    <message xmi:type="uml:Message" xmi:id="_DrhpANd5EeaYE9KsYjq_PA" name="getModel() : GRBModel_Message0" messageSort="reply" receiveEvent="_DrhpAtd5EeaYE9KsYjq_PA" sendEvent="_DrhpAdd5EeaYE9KsYjq_PA" signature="_pjyyZtaMEeayPeVBIOoRFQ"/>
-    <message xmi:type="uml:Message" xmi:id="_3cwV4NgDEeafWaSGLylH5A" name="getBasicMatrix() : GRBVar[][]_Message" messageSort="asynchCall" receiveEvent="_3c2cgNgDEeafWaSGLylH5A" sendEvent="_3cwV4dgDEeafWaSGLylH5A" signature="_pjyyZdaMEeayPeVBIOoRFQ"/>
-    <message xmi:type="uml:Message" xmi:id="_5XuNwNgDEeafWaSGLylH5A" name="getBasicMatrix() : GRBVar[][]_Message0" messageSort="reply" receiveEvent="_5X6bANgDEeafWaSGLylH5A" sendEvent="_5X0UYNgDEeafWaSGLylH5A" signature="_pjyyZdaMEeayPeVBIOoRFQ"/>
+    <message xmi:type="uml:Message" xmi:id="_BCULENd5EeaYE9KsYjq_PA" name="getModel() : GRBModel_Message" messageSort="asynchCall" receiveEvent="_BCULEtd5EeaYE9KsYjq_PA" sendEvent="_BCULEdd5EeaYE9KsYjq_PA"/>
+    <message xmi:type="uml:Message" xmi:id="_DrhpANd5EeaYE9KsYjq_PA" name="getModel() : GRBModel_Message0" messageSort="reply" receiveEvent="_DrhpAtd5EeaYE9KsYjq_PA" sendEvent="_DrhpAdd5EeaYE9KsYjq_PA"/>
+    <message xmi:type="uml:Message" xmi:id="_3cwV4NgDEeafWaSGLylH5A" name="getBasicMatrix() : GRBVar[][]_Message" messageSort="asynchCall" receiveEvent="_3c2cgNgDEeafWaSGLylH5A" sendEvent="_3cwV4dgDEeafWaSGLylH5A"/>
+    <message xmi:type="uml:Message" xmi:id="_5XuNwNgDEeafWaSGLylH5A" name="getBasicMatrix() : GRBVar[][]_Message0" messageSort="reply" receiveEvent="_5X6bANgDEeafWaSGLylH5A" sendEvent="_5X0UYNgDEeafWaSGLylH5A"/>
     <message xmi:type="uml:Message" xmi:id="_9Mya0NgDEeafWaSGLylH5A" name="create" messageSort="createMessage" receiveEvent="_9Mya0tgDEeafWaSGLylH5A" sendEvent="_9Mya0dgDEeafWaSGLylH5A"/>
   </packagedElement>
   <packagedElement xmi:type="uml:Association" xmi:id="_r1Mu0NgBEeajp5oxlrL6UQ" memberEnd="_r1PyINgBEeajp5oxlrL6UQ _r1QZMNgBEeajp5oxlrL6UQ">
