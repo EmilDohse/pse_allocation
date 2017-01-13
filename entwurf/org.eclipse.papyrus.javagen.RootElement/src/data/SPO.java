@@ -24,6 +24,42 @@ public class SPO {
 	private Achievement[] availableAchievements;
 
 	/**
+	 * Fügt eine verfügbare Teilleistung hinzu
+	 * 
+	 * @param achievement Teilleistung, die hinzugefügt wird
+	 */
+	public void addAvailableAchievement(Achievement achievement) {
+		
+	}
+	
+	/**
+	 * Entfernt eine verfügbar Teilleistung hinzu
+	 * 
+	 * @param achievement Teilleistung, die entfernt wird
+	 */
+	public void removeAvailableAchievement(Achievement achievement) {
+		
+	}
+	
+	/**
+	 * Fügt eine benötigte Teilleistung hinzu
+	 * 
+	 * @param achievement Teilleistung, die hinzugefügt wird
+	 */
+	public void addNecessaryAchievement(Achievement achievement) {
+		
+	}
+	
+	/**
+	 * Entfernt eine benötigte Teilleistung hinzu
+	 * 
+	 * @param achievement Teilleistung, die entfernt wird
+	 */
+	public void removeNecessaryAchievement(Achievement achievement) {
+		
+	}
+	
+	/**
 	 * Getter-Methode für den Namen.
 	 * 
 	 * @return Der Name der SPO.
@@ -85,7 +121,7 @@ public class SPO {
 	 * 
 	 * @return spos Alle SPOs.
 	 */
-	public static SPO getSPOs() {
+	public static SPO[] getSPOs() {
 		// TODO
 		return null;
 	}

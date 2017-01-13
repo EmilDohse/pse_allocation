@@ -52,11 +52,7 @@ public class Student extends User {
 	/**
 	 * Die noch ausstehenden Teilleistungen des Studierenden.
 	 */
-	private Achievement[] oralTestAchievment;
-	/**
-	 * Das Semster der Erstregistrierung.
-	 */
-	private Semester startSemester;
+	private Achievement[] oralTestAchievement;
 	/**
 	 * Das Semester, in dem sich der Studierende zum Zeitpunkt der Registrierung befindet.
 	 */
@@ -65,6 +61,42 @@ public class Student extends User {
 	 * Wahrheitswert, ob die E-Mail-Adresse verifiziert wurde.
 	 */
 	private boolean emailVerified;
+	
+	/**
+	 * Fügt eine Lerngruppe hinzu
+	 * 
+	 * @param learningGroup Lerngruppe, die hinzugefügt wird
+	 */
+	public void addLearningGroup(LearningGroup learningGroup) {
+		
+	}
+	
+	/**
+	 * Entfernt eine Lerngruppe
+	 * 
+	 * @param learningGroup Lerngruppe, die entfernt wird
+	 */
+	public void removeLearningGroup(LearningGroup learningGroup) {
+		
+	}
+	
+	/**
+	 * Fügt ein Semester als registriertes Semester hinzu
+	 * 
+	 * @param semester Semester, das hinzugefügt wird
+	 */
+	public void addRegistratetSemester(Semester semester) {
+		
+	}
+	
+	/**
+	 * Entfernt ein Semester als registriertes Semester
+	 * 
+	 * @param semester Semester, das entfernt wird
+	 */
+	public void removeRegistratetSemester(Semester semester) {
+		
+	}
 	
 	/**
 	 * Getter für die Matrikelnummer.
@@ -153,7 +185,7 @@ public class Student extends User {
      * @return Die noch ausstehenden Teilleistungen des Studierenden.
      */
 	public Achievement[] getOralTestAchievement() {
-	    return this.oralTestAchievment;
+	    return this.oralTestAchievement;
 	}
 	
 	/**
@@ -161,9 +193,8 @@ public class Student extends User {
      * 
      * @return Das aktuelle Semester des Studierenden.
      */
-	public Semester getSemester() {
-		//TODO Was zur Hölle soll hier passieren?
-	    return this.startSemester;
+	public int getSemester() {
+	    return 0;
 	}
 	
 	/**
@@ -282,7 +313,7 @@ public class Student extends User {
 	 * 
 	 * @return students Alle Studierende.
 	 */
-	public static Student getStudents() {
+	public static Student[] getStudents() {
 		//TODO
 				return null;
 	}
