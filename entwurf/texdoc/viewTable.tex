@@ -1,0 +1,85 @@
+%Test environment 
+\documentclass{article} 
+\usepackage[english]{babel}
+
+\begin{document}
+%end Test
+\begin{tabular}{ | l | l |}
+	\hline
+	/ & IndexPageController.indexPage() \\ \hline
+	/index & IndexPageController.indexPage() \\ \hline
+	/login & IndexPageController.login() \\ \hline
+	/register & IndexPageController.registerPage() \\ \hline
+	/reset & IndexPageController.passwordResetPage() \\ \hline
+	/resetPassword & IndexPageController.passwordReset() \\ \hline
+	/verify & IndexPageController.verificationPage() \\ \hline
+	/create & IndexPageController.register() \\ \hline
+	 \hline
+	/student & StudentPageController.learningGroupPage() \\ \hline
+	/student/group & StudentPageController.learningGroupPage() \\ \hline
+	/student/rating & StudentPageController.ratingPage() \\ \hline
+	/student/rate & StudentPageController.rate() \\ \hline
+	/student/results & StudentPageController.resultsPage() \\ \hline
+	/student/account & StudentPageController.accountPage() \\ \hline
+	/student/edit & StudentPageController.editAccount() \\ \hline
+	\hline
+	/adviser & AdviserPageController.projects(null) \\ \hline
+	/adviser/projects/:name & AdviserPageController.projects(name: String) \\ \hline
+	/adviser/add & AdviserPageController.addProject() \\ \hline
+	/adviser/remove & AdviserPageController.removeProject() \\ \hline
+	/adviser/edit & AdviserPageController.editProject() \\ \hline
+	/adviser/join & AdviserPageController.joinProject() \\ \hline
+	/adviser/leave & AdviserPageController.leaveProject() \\ \hline
+	/adviser/saveGrades & AdviserPageController.saveStudentsGrades() \\ \hline
+	/adviser/account & AdviserPageController.accountPage() \\ \hline
+	/adviser/edit & AdviserPageController.editAccount() \\ \hline
+	\hline
+	/admin & AdminPageController.projectPage() \\ \hline
+	/admin/projects & AdminPageController.projectPage() \\ \hline
+	/admin/advisers & AdminPageController.adviserPage() \\ \hline
+	/admin/allocation & AdminPageController.allocationPage() \\ \hline
+	/admin/results & AdminPageController.resultsPage() \\ \hline
+	/admin/exportImport & AdminPageController.exportImportPage() \\ \hline
+	/admin/studentEdit & AdminPageController.studentEditPage() \\ \hline
+	/admin/properties & AdminPageController.propertiesPage() \\ \hline
+	/admin/projectEdit/:name & AdminPageController.projectEditPage(name: String) \\ \hline
+	\hline
+	/admin/addProject & AdminProjectController.addProject() \\ \hline
+	/admin/removeProject & AdminProjectController.removeProject() \\ \hline
+	/admin/editProject & AdminProjectController.editProject() \\ \hline
+	\hline
+	/admin/addAdviser & GeneralAdminController.addAdviser() \\ \hline
+	/admin/removeAdviser & GeneralAdminController.removeAdviser() \\ \hline
+	/admin/addAllocation & GeneralAdminController.addAllocation() \\ \hline
+	/admin/addStudent & GeneralAdminController.addStudent() \\ \hline
+	/admin/removeStudent & GeneralAdminController.removeStudent() \\ \hline
+	\hline
+	/admin/addSemester & AdminPropertiesController.addSemester() \\ \hline
+	/admin/removeSemester & AdminPropertiesController.removeSemester() \\ \hline
+	/admin/addSPO & AdminPropertiesController.addSPO() \\ \hline
+	/admin/removeSPO & AdminPropertiesController.removeSPO \\ \hline
+	/admin/editSemester & AdminPropertiesController.editSemester \\ \hline
+	/admin/addAchievement & AdminPropertiesController.addAchievement() \\ \hline
+	/admin/removeAchievement & AdminPropertiesController.removeAchievement() \\ \hline
+	\hline
+	/admin/swapStudents & AdminEditAllocationController.swapStudents() \\ \hline
+	/admin/moveStudents & AdminEditAllocationController.moveStudents() \\ \hline
+	/admin/publishAllocation & AdminEditAllocationController.publishAllocation() \\ \hline
+	/admin/duplicateAllocation & AdminEditAllocationController.duplicateAllocation() \\ \hline
+	/admin/removeAllocation & AdminEditAllocationController.removeAllocation() \\ \hline
+	/admin/undoAllocationEdit & AdminEditAllocationController.undoAllocationEdit() \\ \hline
+	\hline
+	/admin/importAllocation & AdminImportExportController.importAllocation() \\ \hline
+	/admin/exportAllocation & AdminImportExportController.exportAllocation() \\ \hline
+	/admin/importSPO & AdminImportExportController.importSPO() \\ \hline
+	/admin/exportSPO & AdminImportExportController.exportSPO() \\ \hline
+	/admin/importProjects & AdminImportExportController.importProjects() \\ \hline
+	/admin/exportProjects & AdminImportExportController.exportProjects() \\ \hline
+	/admin/importCMSData & AdminImportExportController.importCMSData() \\ \hline
+	/admin/exportCMSData & AdminImportExportController.exportCMSData() \\ \hline
+	/admin/importStudents & AdminImportExportController.importStudents() \\ \hline
+	/admin/exportStudents & AdminImportExportController.exportStudents() \\ \hline
+\end{tabular}
+%Test environment 
+\end{document}
+%end Test
