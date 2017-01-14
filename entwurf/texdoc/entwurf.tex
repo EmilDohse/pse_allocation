@@ -23,7 +23,7 @@
 }
 % Environment for packages
 \newenvironment{texdocpackage}[1]{%
-	\newpage{}\gdef\packagename{#1}\chapter{Package \texttt{#1}}
+	\newpage{}\gdef\packagename{#1}\subsection{Package \texttt{#1}}
 	\rule{\hsize}{.7mm}
 }{}
 
@@ -32,18 +32,18 @@
 % Argument 2: the name of the class/interface
 \newenvironment{texdocclass}[2]{%
 	\gdef\classname{#2}
-	\subsection{\texttt{#1 \textbf{#2}}}
+	\subsubsection{\texttt{#1 \textbf{#2}}}
 }{\newpage{}}
 
 % Environment for class description
 \newenvironment{texdocclassintro}{
-	\subsubsection*{Description}
+	\paragraph*{Description}
 }{
 }
 
 % Environment around class fields
 \newenvironment{texdocclassfields}{%
-	\subsubsection*{Attributes}
+	\paragraph*{Attributes}
 	\begin{itemize}
 }{%
 	\end{itemize}
@@ -51,7 +51,7 @@
 
 % Environment around class methods
 \newenvironment{texdocclassmethods}{%
-	\subsubsection*{Methods}
+	\paragraph*{Methods}
 	\begin{itemize}
 }{%
 	\end{itemize}
@@ -59,7 +59,7 @@
 
 % Environment around class Constructors
 \newenvironment{texdocclassconstructors}{%
-	\subsubsection*{Constructors}
+	\paragraph*{Constructors}
 	\begin{itemize}
 }{%
 	\end{itemize}
@@ -67,7 +67,7 @@
 
 % Environment around enum constants
 \newenvironment{texdocenums}{%
-	\subsubsection*{Enum Constants}
+	\paragraph*{Enum Constants}
 	\begin{itemize}
 }{%
 	\end{itemize}
@@ -217,7 +217,7 @@ Beim Entwurf haben wir uns für ein Paar Änderungen entschieden.
 \end{itemize}
 
 
-\section{Klassendiagramme}
+\section{Dokumentation}
 \input{../org.eclipse.papyrus.javagen.RootElement/doc/controller.tex}
 \input{../org.eclipse.papyrus.javagen.RootElement/doc/data.tex}
 \input{../org.eclipse.papyrus.javagen.RootElement/doc/importExport.tex}
