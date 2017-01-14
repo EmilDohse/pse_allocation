@@ -21,8 +21,7 @@ public class AdminEditAllocationController extends Controller {
 	 * nicht unterbunden, hat jedoch keine Auswirkung. Anschließend wird der
 	 * Administrator auf die Seite zur Einteilungs-Bearbeitung zurückgeleitet.
 	 * 
-	 * @param die
-	 *            Seite, die als Antwort verschickt wird.
+	 * @return die Seite, die als Antwort verschickt wird.
 	 */
 	public Result swapStudents() {
 		// TODO
@@ -35,8 +34,7 @@ public class AdminEditAllocationController extends Controller {
 	 * hat jedoch keine Auswirkung. Anschließend wird der Administrator auf die
 	 * Seite zur Einteilungs-Bearbeitung zurückgeleitet.
 	 * 
-	 * @param die
-	 *            Seite, die als Antwort verschickt wird.
+	 * @return die Seite, die als Antwort verschickt wird.
 	 */
 	public Result moveStudents() {
 		// TODO
@@ -49,8 +47,7 @@ public class AdminEditAllocationController extends Controller {
 	 * Einteilung zu informieren. Der Administrator wird anschließend auf die
 	 * Einteilungs-Bearbeitungs-Seite zurückgeleitet.
 	 * 
-	 * @param die
-	 *            Seite, die als Antwort verschickt wird.
+	 * @return die Seite, die als Antwort verschickt wird.
 	 */
 	public Result publishAllocation() {
 		// TODO
@@ -64,8 +61,7 @@ public class AdminEditAllocationController extends Controller {
 	 * Administrator wird anschließend auf die Seite zur Einteilungs-Bearbeitung
 	 * zurückgeleitet.
 	 * 
-	 * @param die
-	 *            Seite, die als Antwort verschickt wird.
+	 * @return die Seite, die als Antwort verschickt wird.
 	 */
 	public Result duplicateAllocation() {
 		// TODO
@@ -77,8 +73,7 @@ public class AdminEditAllocationController extends Controller {
 	 * Administrator wird anschließend auf die Seite zur Einteilungs-Bearbeitung
 	 * zurückgeleitet.
 	 * 
-	 * @param die
-	 *            Seite, die als Antwort verschickt wird.
+	 * @return die Seite, die als Antwort verschickt wird.
 	 */
 	public Result removeAllocation() {
 		// TODO
@@ -90,8 +85,7 @@ public class AdminEditAllocationController extends Controller {
 	 * nicht session-übergreifend möglich. Der Administrator wird anschließend
 	 * auf die Seite zur Einteilungs-Bearbeitung zurückgeleitet.
 	 * 
-	 * @param die
-	 *            Seite, die als Antwort verschickt wird.
+	 * @return die Seite, die als Antwort verschickt wird.
 	 */
 	public Result undoAllocationEdit() {
 		// TODO

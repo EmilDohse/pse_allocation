@@ -23,8 +23,7 @@ public class GeneralAdminController extends Controller {
 	 * auszufüllenden Formular zum System hinzu. Der Administrator wird
 	 * anschließend auf die Betreuerübersicht weitergeleitet.
 	 * 
-	 * @param die
-	 *            Seite, die als Antwort verschickt wird.
+	 * @return die Seite, die als Antwort verschickt wird.
 	 */
 	public Result addAdviser() {
 		// TODO
@@ -36,8 +35,7 @@ public class GeneralAdminController extends Controller {
 	 * Der Administrator wird anschließend auf die Betreuerübersicht
 	 * weitergeleitet.
 	 * 
-	 * @param die
-	 *            Seite, die als Antwort verschickt wird.
+	 * @return die Seite, die als Antwort verschickt wird.
 	 */
 	public Result removeAdviser() {
 		// TODO
@@ -49,8 +47,7 @@ public class GeneralAdminController extends Controller {
 	 * Berechnungswarteschlange hinzu. Der Administrator wird anschließend auf
 	 * die Berechnungsübersichtsseite weitergeleitet.
 	 * 
-	 * @param die
-	 *            Seite, die als Antwort verschickt wird.
+	 * @return die Seite, die als Antwort verschickt wird.
 	 */
 	public Result addAllocation() {
 		// TODO
@@ -62,8 +59,7 @@ public class GeneralAdminController extends Controller {
 	 * wird anschließend auf die Seite zum weiteren Hinzufügen und Löschen von
 	 * Studenten weitergeleitet.
 	 * 
-	 * @param die
-	 *            Seite, die als Antwort verschickt wird.
+	 * @return die Seite, die als Antwort verschickt wird.
 	 */
 	public Result addStudent() {
 		// TODO
@@ -75,8 +71,7 @@ public class GeneralAdminController extends Controller {
 	 * wird anschließend auf die Seite zum weiteren Hinzufügen und Löschen von
 	 * Studenten weitergeleitet.
 	 * 
-	 * @param die
-	 *            Seite, die als Antwort verschickt wird.
+	 * @return die Seite, die als Antwort verschickt wird.
 	 */
 	public Result removeStudent() {
 		// TODO

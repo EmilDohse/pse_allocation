@@ -24,8 +24,7 @@ public class IndexPageController extends Controller {
 	 * dieser Seite kann sich Administrator, Betreuer und Student anmelden oder
 	 * aktuelle Informationen einsehen.
 	 * 
-	 * @param die
-	 *            Seite, die als Antwort verschickt wird.
+	 * @return die Seite, die als Antwort verschickt wird.
 	 */
 	public Result indexPage() {
 		// TODO
@@ -36,8 +35,7 @@ public class IndexPageController extends Controller {
 	 * Diese Methode gibt die Seite zurück, auf der sich ein Student
 	 * registrieren kann.
 	 * 
-	 * @param die
-	 *            Seite, die als Antwort verschickt wird.
+	 * @return die Seite, die als Antwort verschickt wird.
 	 */
 	public Result registerPage() {
 		// TODO
@@ -48,8 +46,7 @@ public class IndexPageController extends Controller {
 	 * Diese Methode initiiert die Login-Prozedur und leitet den Anzumeldenden
 	 * je nach Autorisierung auf die passende Seite weiter.
 	 * 
-	 * @param die
-	 *            Seite, die als Antwort verschickt wird.
+	 * @return die Seite, die als Antwort verschickt wird.
 	 */
 	public Result login() {
 		// TODO
@@ -61,8 +58,7 @@ public class IndexPageController extends Controller {
 	 * Datenbank ein, sofern alle notwendigen Teillestungen als bestanden
 	 * angegeben wurden.
 	 * 
-	 * @param die
-	 *            Seite, die als Antwort verschickt wird.
+	 * @return die Seite, die als Antwort verschickt wird.
 	 */
 	public Result register() {
 		// TODO
@@ -73,8 +69,7 @@ public class IndexPageController extends Controller {
 	 * Diese Methode gibt die Seite zurück, die ein Passwort-Rücksetz-Formular
 	 * für Studenten und Betreuer anzeigt.
 	 * 
-	 * @param die
-	 *            Seite, die als Antwort verschickt wird.
+	 * @return die Seite, die als Antwort verschickt wird.
 	 */
 	public Result passwordResetPage() {
 		// TODO
@@ -86,8 +81,7 @@ public class IndexPageController extends Controller {
 	 * Passwort-Rücksetz-Formular an den Studenten oder den Betreurer, welche
 	 * ein neues Passwort enthält.
 	 * 
-	 * @param die
-	 *            Seite, die als Antwort verschickt wird.
+	 * @return die Seite, die als Antwort verschickt wird.
 	 */
 	public Result passwordReset() {
 		// TODO
@@ -100,8 +94,7 @@ public class IndexPageController extends Controller {
 	 * Seite erhält, welche noch einen Code als Parameter übergibt. Anhand
 	 * dieses Parameters wird der Student verifiziert.
 	 * 
-	 * @param die
-	 *            Seite, die als Antwort verschickt wird.
+	 * @return die Seite, die als Antwort verschickt wird.
 	 */
 	public Result verificationPage() {
 		// TODO

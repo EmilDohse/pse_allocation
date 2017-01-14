@@ -16,8 +16,7 @@ public class AdminImportExportController extends Controller {
 	 * Einteilungsübersicht erscheint. Der Administrator wird daraufhin auf die
 	 * Import/Export-Seite zurückgeleitet.
 	 * 
-	 * @param die
-	 *            Seite, die als Antwort verschickt wird.
+	 * @return die Seite, die als Antwort verschickt wird.
 	 */
 	public Result importAllocation() {
 		// TODO
@@ -29,8 +28,7 @@ public class AdminImportExportController extends Controller {
 	 * einem Textformat eine Einteilung speichert. Der Administrator wird
 	 * daraufhin auf die Import/Export-Seite zurückgeleitet.
 	 * 
-	 * @param die
-	 *            Seite, die als Antwort verschickt wird.
+	 * @return die Seite, die als Antwort verschickt wird.
 	 */
 	public void exportAllocation() {
 	}
@@ -40,8 +38,7 @@ public class AdminImportExportController extends Controller {
 	 * Semesters erscheinen. Der Administrator wird daraufhin auf die
 	 * Import/Export-Seite zurückgeleitet.
 	 * 
-	 * @param die
-	 *            Seite, die als Antwort verschickt wird.
+	 * @return die Seite, die als Antwort verschickt wird.
 	 */
 	public void importSPO() {
 	}
@@ -51,8 +48,7 @@ public class AdminImportExportController extends Controller {
 	 * einem Textformat eine SPO speichert. Der Administrator wird daraufhin auf
 	 * die Import/Export-Seite zurückgeleitet.
 	 * 
-	 * @param die
-	 *            Seite, die als Antwort verschickt wird.
+	 * @return die Seite, die als Antwort verschickt wird.
 	 */
 	public void exportSPO() {
 	}
@@ -62,8 +58,7 @@ public class AdminImportExportController extends Controller {
 	 * aktuellen Semester hinzugefügt werden. Der Administrator wird daraufhin
 	 * auf die Import/Export-Seite zurückgeleitet.
 	 * 
-	 * @param die
-	 *            Seite, die als Antwort verschickt wird.
+	 * @return die Seite, die als Antwort verschickt wird.
 	 */
 	public void importProjects() {
 	}
@@ -73,8 +68,7 @@ public class AdminImportExportController extends Controller {
 	 * einem Textformat alle Projekte des aktuellen Semesters abspeichert. Der
 	 * Administrator wird daraufhin auf die Import/Export-Seite zurückgeleitet.
 	 * 
-	 * @param die
-	 *            Seite, die als Antwort verschickt wird.
+	 * @return die Seite, die als Antwort verschickt wird.
 	 */
 	public Result exportProjects() {
 		// TODO
@@ -87,8 +81,7 @@ public class AdminImportExportController extends Controller {
 	 * hinzu. Falls Konflikt auftreten, werden diese als Liste angezeigt. Der
 	 * Administrator wird daraufhin auf die Import/Export-Seite zurückgeleitet.
 	 * 
-	 * @param die
-	 *            Seite, die als Antwort verschickt wird.
+	 * @return die Seite, die als Antwort verschickt wird.
 	 */
 	public Result importCMSData() {
 		// TODO
@@ -101,8 +94,7 @@ public class AdminImportExportController extends Controller {
 	 * eingetragenen TSE und PSE Noten enthält. Der Administrator wird daraufhin
 	 * auf die Import/Export-Seite zurückgeleitet.
 	 * 
-	 * @param die
-	 *            Seite, die als Antwort verschickt wird.
+	 * @return die Seite, die als Antwort verschickt wird.
 	 */
 	public Result exportCMSData() {
 		// TODO
@@ -114,8 +106,7 @@ public class AdminImportExportController extends Controller {
 	 * aktuelle Semester hinzugefügt werden. Der Administrator wird daraufhin
 	 * auf die Import/Export-Seite zurückgeleitet.
 	 * 
-	 * @param die
-	 *            Seite, die als Antwort verschickt wird.
+	 * @return die Seite, die als Antwort verschickt wird.
 	 */
 	public Result importStudents() {
 		// TODO
@@ -127,8 +118,7 @@ public class AdminImportExportController extends Controller {
 	 * einem Textformat alle Studenten des aktuellen Semesters abspeichert. Der
 	 * Administrator wird daraufhin auf die Import/Export-Seite zurückgeleitet.
 	 * 
-	 * @param die
-	 *            Seite, die als Antwort verschickt wird.
+	 * @return die Seite, die als Antwort verschickt wird.
 	 */
 	public Result exportStudents() {
 		// TODO
@@ -141,8 +131,7 @@ public class AdminImportExportController extends Controller {
 	 * Konflikt aus, welchen Datensatz er behalten will. Der Administrator wird
 	 * anschließend auf die Import/Export-Seite zurückgeleitet.
 	 * 
-	 * @param die
-	 *            Seite, die als Antwort verschickt wird.
+	 * @return die Seite, die als Antwort verschickt wird.
 	 */
 	public Result solveConflicts() {
 		// TODO

@@ -17,8 +17,7 @@ public class AdviserPageController extends Controller {
 	 * Entfernen eines Projektes ist beschränkt auf Betreuer, welche dem Projekt
 	 * beigetreten sind.
 	 * 
-	 * @param die
-	 *            Seite, die als Antwort verschickt wird.
+	 * @return die Seite, die als Antwort verschickt wird.
 	 */
 	public Result projectsPage() {
 		// TODO
@@ -29,8 +28,7 @@ public class AdviserPageController extends Controller {
 	 * Diese Methode fügt ein neues Projekt in das System ein und leitet den
 	 * Betreuer zurück auf die Seite zum editieren des Projektes.
 	 * 
-	 * @param die
-	 *            Seite, die als Antwort verschickt wird.
+	 * @return die Seite, die als Antwort verschickt wird.
 	 */
 	public Result addProject() {
 		// TODO
@@ -43,8 +41,7 @@ public class AdviserPageController extends Controller {
 	 * von Projekten. Nur Betreuer welche dem Projekt beigetreten sind können
 	 * dieses editieren.
 	 * 
-	 * @param die
-	 *            Seite, die als Antwort verschickt wird.
+	 * @return die Seite, die als Antwort verschickt wird.
 	 */
 	public Result removeProject() {
 		// TODO
@@ -58,8 +55,7 @@ public class AdviserPageController extends Controller {
 	 * können dieses editieren. Anschließend wird der Betreuer auf die Seite zum
 	 * Hinzufügen und Editieren von Projekten weitergeleitet.
 	 * 
-	 * @param die
-	 *            Seite, die als Antwort verschickt wird.
+	 * @return die Seite, die als Antwort verschickt wird.
 	 */
 	public Result editProject() {
 		// TODO
@@ -74,8 +70,7 @@ public class AdviserPageController extends Controller {
 	 * Betreuer auf die Seite zum Hinzufügen und Editieren von Projekten
 	 * weitergeleitet.
 	 * 
-	 * @param die
-	 *            Seite, die als Antwort verschickt wird.
+	 * @return die Seite, die als Antwort verschickt wird.
 	 */
 	public Result joinProject() {
 		// TODO
@@ -88,8 +83,7 @@ public class AdviserPageController extends Controller {
 	 * Anschließend wird der Betreuer auf die Seite zum Hinzufügen und Editieren
 	 * von Projekten weitergeleitet.
 	 * 
-	 * @param die
-	 *            Seite, die als Antwort verschickt wird.
+	 * @return die Seite, die als Antwort verschickt wird.
 	 */
 	public Result leaveProject() {
 		// TODO
@@ -102,8 +96,7 @@ public class AdviserPageController extends Controller {
 	 * werden können. Anschließend wird der Betreuer auf die Projektseite des
 	 * jeweiligen Projektes weitergeleitet.
 	 * 
-	 * @param die
-	 *            Seite, die als Antwort verschickt wird.
+	 * @return die Seite, die als Antwort verschickt wird.
 	 */
 	public Result saveStudentsGrades() {
 		// TODO
@@ -114,8 +107,7 @@ public class AdviserPageController extends Controller {
 	 * Diese Methode gibt die Seite zurück, auf der der Betreuer seine
 	 * Studentendaten wie E-Mail-Adresse und Passwort ändern kann.
 	 * 
-	 * @param die
-	 *            Seite, die als Antwort verschickt wird.
+	 * @return die Seite, die als Antwort verschickt wird.
 	 */
 	public Result accountPage() {
 		// TODO
@@ -126,8 +118,7 @@ public class AdviserPageController extends Controller {
 	 * Diese Methode editiert die Daten des Betreuers, welche er auf der
 	 * Account-Seite geändert hat.
 	 * 
-	 * @param die
-	 *            Seite, die als Antwort verschickt wird.
+	 * @return die Seite, die als Antwort verschickt wird.
 	 */
 	public Result editAccount() {
 		// TODO

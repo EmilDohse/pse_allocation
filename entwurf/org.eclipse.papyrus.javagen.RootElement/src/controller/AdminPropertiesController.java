@@ -16,8 +16,7 @@ public class AdminPropertiesController extends Controller {
 	 * anschließend Konfigurieren. Nach dem Erstellen wird der Administrator
 	 * deshalb auf die Einstellungsseite für das Semester.
 	 * 
-	 * @param die
-	 *            Seite, die als Antwort verschickt wird.
+	 * @return die Seite, die als Antwort verschickt wird.
 	 */
 	public Result addSemester() {
 		// TODO
@@ -29,8 +28,7 @@ public class AdminPropertiesController extends Controller {
 	 * diesem keine Studentendaten verbunden sind. Der Administrator wird
 	 * daraufhin zur Einstellungsseite zurückgeleitet.
 	 * 
-	 * @param die
-	 *            Seite, die als Antwort verschickt wird.
+	 * @return die Seite, die als Antwort verschickt wird.
 	 */
 	public Result removeSemester() {
 		// TODO
@@ -42,8 +40,7 @@ public class AdminPropertiesController extends Controller {
 	 * bestimmten Namen, hinzu. Der Administrator wird daraufhin auf die
 	 * Einstellungsseite zurückgeleitet.
 	 * 
-	 * @param die
-	 *            Seite, die als Antwort verschickt wird.
+	 * @return die Seite, die als Antwort verschickt wird.
 	 */
 	public Result addSPO() {
 		// TODO
@@ -55,8 +52,7 @@ public class AdminPropertiesController extends Controller {
 	 * gelöscht werden, wenn kein Student diese SPO verwendet. Der Administrator
 	 * wird daraufhin auf die Einstellungsseite zurückgeleitet.
 	 * 
-	 * @param die
-	 *            Seite, die als Antwort verschickt wird.
+	 * @return die Seite, die als Antwort verschickt wird.
 	 */
 	public Result removeSPO() {
 		// TODO
@@ -68,8 +64,7 @@ public class AdminPropertiesController extends Controller {
 	 * Semester-Ändern-Formular festgelegt hat. Dazu gehören die Deadlines und
 	 * die Allgemeinen Informationen.
 	 * 
-	 * @param die
-	 *            Seite, die als Antwort verschickt wird.
+	 * @return die Seite, die als Antwort verschickt wird.
 	 */
 	public Result editSemester() {
 		// TODO
@@ -82,8 +77,7 @@ public class AdminPropertiesController extends Controller {
 	 * nicht notwendig deklarieren und deren Namen ändern. Der Administrator
 	 * wird daraufhin zur Einstellungsseite zurückgeleitet.
 	 * 
-	 * @param die
-	 *            Seite, die als Antwort verschickt wird.
+	 * @return die Seite, die als Antwort verschickt wird.
 	 */
 	public Result addAchievement() {
 		// TODO
@@ -95,8 +89,7 @@ public class AdminPropertiesController extends Controller {
 	 * SPO. Der Administrator wird daraufhin zur Einstellungsseite zurück
 	 * geleitet.
 	 * 
-	 * @param die
-	 *            Seite, die als Antwort verschickt wird.
+	 * @return die Seite, die als Antwort verschickt wird.
 	 */
 	public Result removeAchievement() {
 		// TODO

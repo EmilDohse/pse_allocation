@@ -21,8 +21,7 @@ public class AdminPageController extends Controller {
 	 * Diese Methode gibt die Seite zurück, auf der der Administrator Projekte
 	 * sieht.
 	 * 
-	 * @param die
-	 *            Seite, die als Antwort verschickt wird.
+	 * @return die Seite, die als Antwort verschickt wird.
 	 */
 	public Result projectPage() {
 		// TODO
@@ -34,8 +33,7 @@ public class AdminPageController extends Controller {
 	 * Projektbetreuer sehen, neue hinzufügen oder bereits existierende
 	 * entfernen kann.
 	 * 
-	 * @param die
-	 *            Seite, die als Antwort verschickt wird.
+	 * @return die Seite, die als Antwort verschickt wird.
 	 */
 	public Result adviserPage() {
 		// TODO
@@ -48,8 +46,7 @@ public class AdminPageController extends Controller {
 	 * sieht er noch zu berechnende Konfigurationen und kann diese aus der
 	 * Berechnungsliste entfernen.
 	 * 
-	 * @param die
-	 *            Seite, die als Antwort verschickt wird.
+	 * @return die Seite, die als Antwort verschickt wird.
 	 */
 	public Result allocationPage() {
 		// TODO
@@ -60,8 +57,7 @@ public class AdminPageController extends Controller {
 	 * Diese Methode gibt die Seite zurück, auf der der Administrator die
 	 * Ergebnisse der Berechnungen sehen, vergleichen und editieren kann.
 	 * 
-	 * @param die
-	 *            Seite, die als Antwort verschickt wird.
+	 * @return die Seite, die als Antwort verschickt wird.
 	 */
 	public Result resultsPage() {
 		// TODO
@@ -73,8 +69,7 @@ public class AdminPageController extends Controller {
 	 * Einteilungen, Studentendaten, SPOs, Projekte und CMS-Daten ex- und
 	 * importieren kann.
 	 * 
-	 * @param die
-	 *            Seite, die als Antwort verschickt wird.
+	 * @return die Seite, die als Antwort verschickt wird.
 	 */
 	public Result exportImportPage() {
 		// TODO
@@ -85,8 +80,7 @@ public class AdminPageController extends Controller {
 	 * Diese Methode gibt die Seite zurück, auf der der Administrator Studenten
 	 * manuell hinzufügen oder löschen kann.
 	 * 
-	 * @param die
-	 *            Seite, die als Antwort verschickt wird.
+	 * @return die Seite, die als Antwort verschickt wird.
 	 */
 	public Result studentEditPage() {
 		// TODO
@@ -97,8 +91,7 @@ public class AdminPageController extends Controller {
 	 * Diese Methode gibt die Seite zurück, auf der der Administrator die
 	 * Semester-Einstellungen vornehmen kann.
 	 * 
-	 * @param die
-	 *            Seite, die als Antwort verschickt wird.
+	 * @return die Seite, die als Antwort verschickt wird.
 	 */
 	public Result propertiesPage() {
 		// TODO
@@ -109,8 +102,7 @@ public class AdminPageController extends Controller {
 	 * Diese Methode gibt die Seite zurück, auf der der Administrator Projekte
 	 * sieht, Projekte hinzufügen, editieren oder entfernen kann.
 	 * 
-	 * @param die
-	 *            Seite, die als Antwort verschickt wird.
+	 * @return die Seite, die als Antwort verschickt wird.
 	 */
 	public Result projectEditPage() {
 		// TODO
