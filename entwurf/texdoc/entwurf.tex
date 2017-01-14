@@ -23,7 +23,7 @@
 }
 % Environment for packages
 \newenvironment{texdocpackage}[1]{%
-	\newpage{}\gdef\packagename{#1}\subsection{Package \texttt{#1}}
+	\newpage{}\gdef\packagename{#1}\subsection{Packet \texttt{#1}}
 	\rule{\hsize}{.7mm}
 }{}
 
@@ -37,13 +37,13 @@
 
 % Environment for class description
 \newenvironment{texdocclassintro}{
-	\paragraph*{Description}
+	\paragraph*{Beschreibung}
 }{
 }
 
 % Environment around class fields
 \newenvironment{texdocclassfields}{%
-	\paragraph*{Attributes}
+	\paragraph*{Attribute}
 	\begin{itemize}
 }{%
 	\end{itemize}
@@ -51,7 +51,7 @@
 
 % Environment around class methods
 \newenvironment{texdocclassmethods}{%
-	\paragraph*{Methods}
+	\paragraph*{Methoden}
 	\begin{itemize}
 }{%
 	\end{itemize}
@@ -59,7 +59,7 @@
 
 % Environment around class Constructors
 \newenvironment{texdocclassconstructors}{%
-	\paragraph*{Constructors}
+	\paragraph*{Konstruktoren}
 	\begin{itemize}
 }{%
 	\end{itemize}
@@ -67,7 +67,7 @@
 
 % Environment around enum constants
 \newenvironment{texdocenums}{%
-	\paragraph*{Enum Constants}
+	\paragraph*{Enum Konstanten}
 	\begin{itemize}
 }{%
 	\end{itemize}
@@ -114,7 +114,7 @@
 % Inserted when @inheritdoc is used
 %  Argument 1: Class where the documentation was inherited from
 %  Argument 2: Documentation
-\newcommand{\texdocinheritdoc}[2]{#2 (\textit{documentation inherited from \texttt{#1})}}
+\newcommand{\texdocinheritdoc}[2]{#2 (\textit{Dokumentation geerbt von \texttt{#1})}}
 
 % Formats a single see-BlockTag
 %  Argument 1: text
@@ -123,7 +123,7 @@
 
 % Environment around \texdocparameter invocations
 \newenvironment{texdocparameters}{%
-	\minisec{Parameters}
+	\minisec{Parameter}
 	\begin{tabular}{ll}
 }{%
 	\end{tabular}
@@ -131,13 +131,13 @@
 
 % Environment around \texdocthrow invocations
 \newenvironment{texdocthrows}{%
-        \minisec{Throws}
+        \minisec{Wirft}
         \begin{tabular}{ll}
 }{%
         \end{tabular}
 }
 
-\newcommand{\texdocreturn}[1]{\minisec{Returns} #1}
+\newcommand{\texdocreturn}[1]{\minisec{Rückgabe} #1}
 
 % Formats a parameter (this gets put inside the input of a \texdocmethod or 
 % \texdocconstructor macro)
