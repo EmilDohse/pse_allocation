@@ -225,7 +225,7 @@ verteilt:
 \item[data] ist für die komplette Datenhaltung zuständig. Es verwendet ORM zur
 Speicherung in eine Datenbank. \autoref{uml:data}
 \item[importExport] ist für den Im- und Export von Datensätzen aus dem und in
-das \texttt{\bf data}-Package verantwortlich. \autoref{uml:imExport}
+das \textsf{\textbf{data}}-Package verantwortlich. \autoref{uml:imExport}
 \item[notificationSystem] ist für das Benachrichtigen von Betreuern und
 Studenten per E-mail zuständig, falls eine Einteilung durch den Administrator
 veröffentlicht wurde. %TODO verliken auf notification
@@ -240,9 +240,9 @@ Berechnung von Einteilungen zuständig. Zur berechnung wird Gurobi verwendet.
 \end{description}
 
    \subsubsection{View}
-   Der View beinhaltet HTML-Seiten.   %TODO daniel einfügen
+   Das View Package beinhaltet alle Views. Views sind HTML-Dateien, welche als Antwort auf einen Http-Request von einem Controller (s.Controllers) weiter an den Endbenutzer gesendet werden und von seinem Webbrowser angezeigt wird. Diese Html-Dateien können Inline-Scala-Code enthalten, welcher Daten, welche der Controller als Parameter übergibt, in HTML einfügt und so dynamisch vom Controller aus dem Modell geladene Daten beim Endbenutzer ankommen und angezeigt werden können.
 \subsubsection{Controller}
-%TODO daniel einfügen
+Das Controllers Package beinhaltet alle Controller. Controller sind die Schnittstelle zwischen den Views (s.Views) und dem Modell (s.Modell). Die Aufgabe von einem Controller besteht darin, Http-Requests zu bearbeiten und zu beantworten. Das Bearbeiten beinhaltet meist ein oder mehrere Abfragen ans Modell um Daten zu holen. Diese Daten werden dann als Parameter dem passenden View gegeben und dort in HTMl Code eingebettet (s. Views). Welche Controller Methode aufgerufen wird entscheidet die Route-Datei (s.Play Beschreibung).
    \subsubsection{Externe Bibliotheken}
 \begin{itemize}
     \item Play-Framework (\url{https://www.playframework.com/})
