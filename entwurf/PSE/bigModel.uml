@@ -552,7 +552,7 @@
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="_XCasfNaNEeayPeVBIOoRFQ" name="Student">
       <generalization xmi:type="uml:Generalization" xmi:id="_XCasfdaNEeayPeVBIOoRFQ" general="_XCbThtaNEeayPeVBIOoRFQ"/>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="_XCasftaNEeayPeVBIOoRFQ" name="matriculationNumber">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_XCasftaNEeayPeVBIOoRFQ" name="matriculationNumber" visibility="private">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
       </ownedAttribute>
       <ownedAttribute xmi:type="uml:Property" xmi:id="_XCaskNaNEeayPeVBIOoRFQ" name="spo" type="_XCbTjNaNEeayPeVBIOoRFQ" association="_XCeW0NaNEeayPeVBIOoRFQ"/>
@@ -560,26 +560,26 @@
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_XCasktaNEeayPeVBIOoRFQ"/>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_XCask9aNEeayPeVBIOoRFQ" value="*"/>
       </ownedAttribute>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="_XCaslNaNEeayPeVBIOoRFQ" name="registeredPSE" isUnique="false">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_XCaslNaNEeayPeVBIOoRFQ" name="registeredPSE" visibility="private" isUnique="false">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#boolean"/>
       </ownedAttribute>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="_XCasldaNEeayPeVBIOoRFQ" name="registeredTSE" isUnique="false">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_XCasldaNEeayPeVBIOoRFQ" name="registeredTSE" visibility="private" isUnique="false">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#boolean"/>
       </ownedAttribute>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="_XCasltaNEeayPeVBIOoRFQ" name="gradePSE" isUnique="false">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_XCasltaNEeayPeVBIOoRFQ" name="gradePSE" visibility="private" isUnique="false">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
       </ownedAttribute>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="_XCasl9aNEeayPeVBIOoRFQ" name="gradeTSE" isUnique="false">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_XCasl9aNEeayPeVBIOoRFQ" name="gradeTSE" visibility="private" isUnique="false">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
       </ownedAttribute>
       <ownedAttribute xmi:type="uml:Property" xmi:id="_ShKncNaQEeayPeVBIOoRFQ" name="oralTestAchievment" type="_XCchqdaNEeayPeVBIOoRFQ" association="_ShIyQNaQEeayPeVBIOoRFQ">
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_ldGF8NaQEeayPeVBIOoRFQ"/>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_ldJwUNaQEeayPeVBIOoRFQ" value="*"/>
       </ownedAttribute>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="_KUHsQNc6EeabnpNmGsIysQ" name="semester">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_KUHsQNc6EeabnpNmGsIysQ" name="semester" visibility="private">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
       </ownedAttribute>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="_w65h0NkIEeai5fU4J-zNlw" name="emailVerified">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_w65h0NkIEeai5fU4J-zNlw" name="emailVerified" visibility="private">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#boolean"/>
       </ownedAttribute>
       <ownedOperation xmi:type="uml:Operation" xmi:id="_XCasmNaNEeayPeVBIOoRFQ" name="getStudent" isStatic="true">
