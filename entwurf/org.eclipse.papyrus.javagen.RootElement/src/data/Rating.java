@@ -17,10 +17,6 @@ public class Rating {
 	 * Das Projekt, dem die Bewertung gilt.
 	 */
 	private Project project;
-	/**
-	 * Die Lerngruppe, welche die Bewertung abgegeben hat.
-	 */
-	private LearningGroup learningGroup;
 	
 	/**
 	 * Getter für den Wert der Bewertung.
@@ -38,15 +34,7 @@ public class Rating {
 	public Project getProject() {
 	    return project;
 	}
-	/**
-	 * Getter für die Lerngruppe.
-	 * 
-	 * @return Die Lerngruppe, die bewertet.
-	 */
-	public LearningGroup getLearningGroup() {
-	    return this.learningGroup;
-	}
-	
+
 	/**
      * Setter für den Wert der Bewertung.
      * 
@@ -62,13 +50,5 @@ public class Rating {
      */
     public void setProject(Project project) {
         this.project = project;
-    }
-    /**
-     * Setter für die Lerngruppe.
-     * 
-     * @param learningGroup Die Lerngruppe, die bewertet.
-     */
-    public void setLearningGroup(LearningGroup learningGroup) {
-        this.learningGroup = learningGroup;
     }
 }

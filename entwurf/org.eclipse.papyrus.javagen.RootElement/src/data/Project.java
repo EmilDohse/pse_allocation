@@ -4,6 +4,8 @@
 
 package data;
 
+import java.util.List;
+
 /************************************************************/
 /**
  * Klasse, die ein Project repräsentiert
@@ -22,6 +24,10 @@ public class Project {
 	 */
 	private int maxTeamSize;
 	/**
+	 * Anzahl der Teams die zu diesem Projekt zugeteilt werden.
+	 */
+	private int numberOfTeams;
+	/**
 	 * Die Projektbeschreibung.
 	 */
 	private String projectInfo;
@@ -30,22 +36,30 @@ public class Project {
 	 */
 	private String projectURL;
 	/**
-	 * Teams des Projekt
-	 */
-	private List<Team> teams;
-	/**
 	 * Das Institut, welches das Projekt anbietet.
 	 */
 	private String institute;
-	/**
-	 * Semester in dem das Projekt angeboten wird
-	 */
-	private Semester semester;
 	/**
 	 * Betreuer des Projekts
 	 */
 	private List<Adviser> advisers;
 	
+	/**
+	 * Getter für die Anzahl der Teams.
+	 * @return Anzahl der Teams.
+	 */
+	public int getNumberOfTeams() {
+		return numberOfTeams;
+	}
+
+	/**
+	 * Setter für die Anzahl der Teams.
+	 * @param numberOfTeams Anzahl der Teams.
+	 */
+	public void setNumberOfTeams(int numberOfTeams) {
+		this.numberOfTeams = numberOfTeams;
+	}
+
 	/**
 	 * Getter für die Betreuer des Projekts.
 	 * 
@@ -80,24 +94,6 @@ public class Project {
 	 */
 	public void removeAdviser(Adviser adviser) {
 		
-	}
-	
-	/**
-	 * Getter für das Semester des Projekts.
-	 * 
-	 * @return Semester des Projekts.
-	 */
-	public Semester getSemester() {
-		return semester;
-	}
-	
-	/**
-	 * Setter für das Semester des Projekts.
-	 * 
-	 * @param semester Semester des Projekts.
-	 */
-	public void setSemester(Semester semester) {
-		this.semester = semester;
 	}
 	
 	/**
@@ -143,15 +139,6 @@ public class Project {
 	 */
 	public String getProjectURL() {
 		return this.projectURL;
-	}
-
-	/**
-	 * Getter für die Teams des Projektes.
-	 * 
-	 * @return Die Teams des Projektes.
-	 */
-	public Team[] getTeams() {
-		return this.teams;
 	}
 
 	/**
@@ -202,16 +189,6 @@ public class Project {
 	 */
 	public void setProjectURL(String projectURL) {
 		this.projectURL = projectURL;
-	}
-
-	/**
-	 * Setter für die Teams des Projektes.
-	 * 
-	 * @param team
-	 *            Die Teams des Projektes.
-	 */
-	public void setTeams(List<Team> teams) {
-		this.teams = teams;
 	}
 
 	/**
@@ -267,8 +244,8 @@ public class Project {
 	 *            Der Student, dessen Bewertung zurückgegeben werdedn soll.
 	 * @return Die Bewertung des Studenten.
 	 */
-	public Rating getRating(Student student) {
+	public int getRating(Student student) {
 		// TODO
-		return null;
+		return 0;
 	}
 }

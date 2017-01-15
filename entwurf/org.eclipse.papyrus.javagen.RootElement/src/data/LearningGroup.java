@@ -4,6 +4,8 @@
 
 package data;
 
+import java.util.List;
+
 /************************************************************/
 /**
  * Diese Klasse repräsentiert eine Lerngruppe, das heißt eine Gruppe von
@@ -18,10 +20,6 @@ public class LearningGroup {
 	 * Das nötige Passwort, um der Lerngruppe beizutreten.
 	 */
 	private String password;
-	/**
-	 * Das Semster, in dem die Lerngruppe erstellt wurde.
-	 */
-	private Semester semester;
 	/**
 	 * Die Mitglieder der Lerngruppe.
 	 */
@@ -98,15 +96,6 @@ public class LearningGroup {
 	}
 
 	/**
-	 * Getter für das Semester, in dem die Lerngruppe erstellt wurde.
-	 * 
-	 * @return Das Semester, in dem die Lerngruppe erstellt wurde.
-	 */
-	public Semester getSemester() {
-		return semester;
-	}
-
-	/**
 	 * Getter für die Mitglieder der Lerngruppe.
 	 * 
 	 * @return Die Mitglieder der Lerngruppe.
@@ -133,16 +122,6 @@ public class LearningGroup {
 	 */
 	public void setPassword(String password) {
 		this.password = password;
-	}
-
-	/**
-	 * Setter für das Semester, in dem die Lerngruppe erstellt wurde.
-	 * 
-	 * @param semester
-	 *            Das Semester,in dem die Lerngruppe erstellt wurde.
-	 */
-	public void setSemester(Semester semester) {
-		this.semester = semester;
 	}
 
 	/**

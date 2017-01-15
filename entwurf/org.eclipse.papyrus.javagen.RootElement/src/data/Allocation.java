@@ -13,19 +13,15 @@ import java.util.Map;
  */
 public class Allocation {
 	/**
-	 * Map, die jedem Studenten ein Team zuteilt.
+	 * Liste, die alle Teams enthält.
 	 */
-	private Map<Student, Team> studentTeamMap;
-	/**
-	 * Das Semster der Einteilung.
-	 */
-	private Semester semester;
+	private List<Team> teams;
 	/**
 	 * Der Name der Einteilung.
 	 */
 	private String name;
 	/**
-	 * Parameter, mit der die Einteilung gemacht wurden.
+	 * Parameter, mit der die Einteilung gemacht wurde.
 	 */
 	private List<AllocationParameter> parameters;
 
@@ -48,24 +44,6 @@ public class Allocation {
 	}
 	
 	/**
-	 * Getter für das Semester der Einteilung.
-	 * 
-	 * @return Semester der Einteilung.
-	 */
-	public Semester getSemester() {
-		return semester;
-	}
-	
-	/**
-	 * Setter für das Semester der Einteilung.
-	 * 
-	 * @param semester Semester der Einteilung.
-	 */
-	public void setSemester(Semester semester) {
-		this.semester = semester;
-	}
-	
-	/**
 	 * Getter für den Namen der Einteilung.
 	 * 
 	 * @return Name der Einteilung.
@@ -84,21 +62,21 @@ public class Allocation {
 	}
 	
 	/**
-	 * Getter für die Map der Einteilung.
+	 * Getter für die Liste der Teams.
 	 * 
-	 * @return Map der Einteilung.
+	 * @return Liste der Teams.
 	 */
-	public Map<Student, Team> getStudentTeamMap() {
-		return studentTeamMap;
+	public List<Team> getTeams() {
+		return teams;
 	}
 	
 	/**
-	 * Setter für die Map der Einteilung.
+	 * Setter für die Liste der Teams.
 	 * 
-	 * @param studentTeamMap Map der Einteilung.
+	 * @param teams Liste der Teams.
 	 */
-	public void setStudentTeamMap(Map<Student, Team> studentTeamMap) {
-		this.studentTeamMap = studentTeamMap;
+	public void setTeams(List<Team> teams) {
+		this.teams = teams;
 	}
 	
 	/**
@@ -110,17 +88,7 @@ public class Allocation {
 	 * @return Team, das dem Studenten zugeteilt wurde.
 	 */
 	public Team getTeam(Student student) {
-		return null;
-	}
-	
-	/**
-	 * Gibt die Studenten zurück, die einem bestimmten Team zugeteilt wurden
-	 * 
-	 * @param team Team, für welches die Mitglieder zurückgegeben werden
-	 * 
-	 * @return Studenten, die diesem Team zugeteilt wurden
-	 */
-	public List<Student> getStudents(Team team) {
+		//TODO
 		return null;
 	}
 	
@@ -159,13 +127,4 @@ public class Allocation {
 		return null;
 	}
 
-	/**
-	 * Diese Methode gibt zurück, ob die Einteilung final ist oder nicht.
-	 * 
-	 * @return Wahr, wenn Einteilung final, sonst falsch.
-	 */
-	public boolean isFinal() {
-		// TODO
-		return false;
-	}
 }

@@ -16,17 +16,9 @@ public class Student extends User {
 	 */
 	private int matriculationNumber;
 	/**
-	 * Die Semester, in denen der student registriert ist. 
-	 */
-	private List<Semester> registeredSemesters;
-	/**
 	 * Die SPO des Studierenden
      */
 	private SPO spo;
-	/**
-	 * Die Lerngruppe des Studierenden.
-	 */
-	private List<LearningGroup> learningGroup;
 	/**
 	 * Die bestandenen Teilleistungen.
 	 */
@@ -54,50 +46,13 @@ public class Student extends User {
 	 */
 	private List<Achievement> oralTestAchievement;
 	/**
-	 * Das Semester, in dem sich der Studierende zum Zeitpunkt der Registrierung befindet.
+	 * Das Fachsemester, in dem sich der Studierende zum Zeitpunkt des letzten Login befindet.
 	 */
-	private int semesterAtRegistration;
+	private int semester;
 	/**
 	 * Wahrheitswert, ob die E-Mail-Adresse verifiziert wurde.
 	 */
 	private boolean emailVerified;
-	
-	
-	/**
-	 * Fügt eine Lerngruppe hinzu.
-	 * 
-	 * @param learningGroup Lerngruppe, die hinzugefügt wird.
-	 */
-	public void addLearningGroup(LearningGroup learningGroup) {
-		
-	}
-	
-	/**
-	 * Entfernt eine Lerngruppe
-	 * 
-	 * @param learningGroup Lerngruppe, die entfernt wird
-	 */
-	public void removeLearningGroup(LearningGroup learningGroup) {
-		
-	}
-	
-	/**
-	 * Fügt ein Semester als registriertes Semester hinzu
-	 * 
-	 * @param semester Semester, das hinzugefügt wird
-	 */
-	public void addRegistratetSemester(Semester semester) {
-		
-	}
-	
-	/**
-	 * Entfernt ein Semester als registriertes Semester
-	 * 
-	 * @param semester Semester, das entfernt wird
-	 */
-	public void removeRegistratetSemester(Semester semester) {
-		
-	}
 	
 	/**
 	 * Getter für die Matrikelnummer.
@@ -106,15 +61,6 @@ public class Student extends User {
 	 */
 	public int getMatriculationNumber() {
 	    return this.matriculationNumber;
-	}
-	
-	/**
-     * Getter für die Semester, in denen der Studierende registriert ist.
-     * 
-     * @return Die Semester, in denen der Studierende registriert ist.
-     */
-	public List<Semester> getRegisteredSemesters() {
-	    return this.registeredSemesters;
 	}
 	
 	/**
@@ -127,20 +73,11 @@ public class Student extends User {
 	}
 	
 	/**
-     * Getter für die Lerngruppe des Studierenden.
-     * 
-     * @return Die Lerngruppe des Studierenden.
-     */
-	public LearningGroup getLearningGroup() {
-	    return this.learningGroup;
-	}
-	
-	/**
      * Getter für die abgeschlossenen Teilleistungen des Studierenden.
      * 
      * @return Die abgeschlossenen Teilleistungen des Studierenden.
      */
-	public Achievement[] getCompletedAchievements() {
+	public List<Achievement> getCompletedAchievements() {
 	    return this.completedAchievements;
 	}
 	
@@ -185,16 +122,17 @@ public class Student extends User {
      * 
      * @return Die noch ausstehenden Teilleistungen des Studierenden.
      */
-	public Achievement[] getOralTestAchievement() {
+	public List<Achievement> getOralTestAchievement() {
 	    return this.oralTestAchievement;
 	}
 	
 	/**
-     * Getter für das Semester des Studierenden.
+     * Getter für das Fachsemester des Studierenden.
      * 
-     * @return Das aktuelle Semester des Studierenden.
+     * @return Das aktuelle Fachsemester des Studierenden.
      */
 	public int getSemester() {
+		//TODO
 	    return 0;
 	}
 	
@@ -207,15 +145,6 @@ public class Student extends User {
     }
     
     /**
-     * Setter für die Semester, in denen der Studierende registriert ist.
-     * 
-     * @param registeredSemesters Die Semester, in denen der Studierende registriert ist.
-     */
-    public void setRegisteredSemesters(List<Semester> registeredSemesters) {
-        this.registeredSemesters = registeredSemesters;
-    }
-    
-    /**
      * Setter für die SPO des Studierenden.
      * 
      * @param spo Die SPO des Studierenden.
@@ -225,20 +154,11 @@ public class Student extends User {
     }
     
     /**
-     * Setter für die Lerngruppe des Studierenden.
-     * 
-     * @param learningGroup Die Lerngruppe, in der der Studierende ist.
-     */
-    public void setLearningGroup(LearningGroup learningGroup) {
-        this.learningGroup = learningGroup;
-    }
-    
-    /**
      * Setter für die abgeschlossenen Teilleistungen des Studierenden.
      * 
      * @param completedAchievements Die vom Studierenden abgeschlossenen Teilleistungen.
      */
-    public void setCompletedAchievements(Achievement[] completedAchievements) {
+    public void setCompletedAchievements(List<Achievement> completedAchievements) {
         this.completedAchievements = completedAchievements;
     }
     
@@ -283,18 +203,17 @@ public class Student extends User {
      * 
      * @param oralTestAchievement Die noch aussteheneden Teilleistungen des Studierenden.
      */
-    public void setOralTestAchievement(Achievement[] oralTestAchievement) {
+    public void setOralTestAchievement(List<Achievement> oralTestAchievement) {
         this.oralTestAchievement = oralTestAchievement;
     }
     
     /**
-     * Setter für das Semester des Studierenden.
+     * Setter für das Fachsemester des Studierenden.
      * 
-     * @param semesterAtRegistration Das Semester des Studierenden.
+     * @param semester Das Fachsemester des Studierenden.
      */
-    public void setSemester(int semesterAtRegistration) {
-    	//TODO Was soll hier passieren? Bezeichner widersprechen sich
-        this.semesterAtRegistration = semesterAtRegistration;
+    public void setSemester(int semester) {
+        this.semester = semester;
     }
      
 	/**
@@ -314,27 +233,9 @@ public class Student extends User {
 	 * 
 	 * @return Alle Studierende.
 	 */
-	public static Student[] getStudents() {
+	public static List<Student> getStudents() {
 		//TODO
 				return null;
-	}
-
-	/**
-	 * Diese Methode gibt die Lerngruppe des Studierenden zurück.
-	 * 
-	 * @return Die Lerngruppe des Studierenden.
-	 */
-	public LearningGroup getCurrentLearningGroup() {
-		//TODO
-				return null;
-	}
-
-	/**
-	 * Diese Methode weist dem Studierenden eine neue Lerngruppe zu.
-	 * 
-	 * @param learningGroup Die neue Lerngruppe des Studierenden.
-	 */
-	public void setCurrentLearningGroup(LearningGroup learningGroup) {
 	}
 
 	/**
@@ -343,9 +244,9 @@ public class Student extends User {
 	 * @param project Das Projekt.
 	 * @return Die Bewertung des Studierenden für das bestimmte Projekt.
 	 */
-	public Rating getCurrentRating(Project project) {
+	public int getRating(Project project) {
 		//TODO
-				return null;
+				return 0;
 	}
 
 	/**
@@ -354,7 +255,7 @@ public class Student extends User {
 	 * @param project Das zu bewertende Projekt.
 	 * @param rating Die Bewertung des Studierenden.
 	 */
-	public void setCurrentRating(Project project, Rating rating) {
+	public void setRating(Project project, int rating) {
 	}
 
 	/**
@@ -375,16 +276,6 @@ public class Student extends User {
 	public Team getCurrentTeam() {
 		//TODO
 				return null;
-	}
-
-	/**
-	 * Diese Methode gibt das aktuelle Semester des Studierenden zurück.
-	 * 
-	 * @return Das Semester, in dem Studierende sich aktuell befindet.
-	 */
-	public int getCurrentSemester() {
-		//TODO
-				return 0;
 	}
 	
 	/**
