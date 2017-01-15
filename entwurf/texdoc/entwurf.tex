@@ -1,6 +1,7 @@
 %%This is a very basic article template.
 %%There is just one section and two subsections.
 \documentclass[parskip=full]{scrartcl}
+\usepackage[table]{xcolor}
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{studarbeit}
@@ -11,7 +12,8 @@
 \usepackage{epstopdf}
 \usepackage[binary-units=true]{siunitx}
  \usepackage[autostyle=true,german=quotes]{csquotes}
- \usepackage{longtable}
+ \usepackage{longtable, booktabs}
+
 
 % ---------------------------------------------------------------------------
 % TexDoc macros start - everything below this point should be copied to your
@@ -166,7 +168,7 @@
 {$($ in \ref{#1}, page \pageref{#1}$)$}
 \fi}
 
-\newcommand{\paraRetText}[1]{\\\textbf{#1}\\}
+\newcommand{\paraRetText}[1]{\\\textbf{#1}:\\}
 \setlist[itemize]{leftmargin =*, noitemsep}
 \setlength{\parskip}{0.8em}
 % ---------------------------------------------------------------------------

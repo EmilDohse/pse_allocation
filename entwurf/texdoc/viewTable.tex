@@ -1,76 +1,78 @@
-\begin{longtable}{ | l | l |}
-	\hline
-	/ & IndexPageController.indexPage() \\ \hline
-	/index & IndexPageController.indexPage() \\ \hline
-	/login & IndexPageController.login() \\ \hline
-	/register & IndexPageController.registerPage() \\ \hline
-	/reset & IndexPageController.passwordResetPage() \\ \hline
-	/resetPassword & IndexPageController.passwordReset() \\ \hline
-	/verify & IndexPageController.verificationPage() \\ \hline
-	/create & IndexPageController.register() \\ \hline
-	 \hline
-	/student & StudentPageController.learningGroupPage() \\ \hline
-	/student/group & StudentPageController.learningGroupPage() \\ \hline
-	/student/rating & StudentPageController.ratingPage() \\ \hline
-	/student/rate & StudentPageController.rate() \\ \hline
-	/student/results & StudentPageController.resultsPage() \\ \hline
-	/student/account & StudentPageController.accountPage() \\ \hline
-	/student/edit & StudentPageController.editAccount() \\ \hline
-	\hline
-	/adviser & AdviserPageController.projectsPage(null) \\ \hline
-	/adviser/projects/:name & AdviserPageController.projectsPage(name: String) \\ \hline
-	/adviser/add & AdviserPageController.addProject() \\ \hline
-	/adviser/remove & AdviserPageController.removeProject() \\ \hline
-	/adviser/edit & AdviserPageController.editProject() \\ \hline
-	/adviser/join & AdviserPageController.joinProject() \\ \hline
-	/adviser/leave & AdviserPageController.leaveProject() \\ \hline
-	/adviser/saveGrades & AdviserPageController.saveStudentsGrades() \\ \hline
-	/adviser/account & AdviserPageController.accountPage() \\ \hline
-	/adviser/edit & AdviserPageController.editAccount() \\ \hline
-	\hline
-	/admin & AdminPageController.projectPage() \\ \hline
-	/admin/projects & AdminPageController.projectPage() \\ \hline
-	/admin/advisers & AdminPageController.adviserPage() \\ \hline
-	/admin/allocation & AdminPageController.allocationPage() \\ \hline
-	/admin/results & AdminPageController.resultsPage() \\ \hline
-	/admin/exportImport & AdminPageController.exportImportPage() \\ \hline
-	/admin/studentEdit & AdminPageController.studentEditPage() \\ \hline
-	/admin/properties & AdminPageController.propertiesPage() \\ \hline
-	/admin/projectEdit/:name & AdminPageController.projectEditPage(name: String) \\ \hline
-	\hline
-	/admin/addProject & AdminProjectController.addProject() \\ \hline
-	/admin/removeProject & AdminProjectController.removeProject() \\ \hline
-	/admin/editProject & AdminProjectController.editProject() \\ \hline
-	\hline
-	/admin/addAdviser & GeneralAdminController.addAdviser() \\ \hline
-	/admin/removeAdviser & GeneralAdminController.removeAdviser() \\ \hline
-	/admin/addAllocation & GeneralAdminController.addAllocation() \\ \hline
-	/admin/addStudent & GeneralAdminController.addStudent() \\ \hline
-	/admin/removeStudent & GeneralAdminController.removeStudent() \\ \hline
-	\hline
-	/admin/addSemester & AdminPropertiesController.addSemester() \\ \hline
-	/admin/removeSemester & AdminPropertiesController.removeSemester() \\ \hline
-	/admin/addSPO & AdminPropertiesController.addSPO() \\ \hline
-	/admin/removeSPO & AdminPropertiesController.removeSPO \\ \hline
-	/admin/editSemester & AdminPropertiesController.editSemester \\ \hline
-	/admin/addAchievement & AdminPropertiesController.addAchievement() \\ \hline
-	/admin/removeAchievement & AdminPropertiesController.removeAchievement() \\ \hline
-	\hline
-	/admin/swapStudents & AdminEditAllocationController.swapStudents() \\ \hline
-	/admin/moveStudents & AdminEditAllocationController.moveStudents() \\ \hline
-	/admin/publishAllocation & AdminEditAllocationController.publishAllocation() \\ \hline
-	/admin/duplicateAllocation & AdminEditAllocationController.duplicateAllocation() \\ \hline
-	/admin/removeAllocation & AdminEditAllocationController.removeAllocation() \\ \hline
-	/admin/undoAllocationEdit & AdminEditAllocationController.undoAllocationEdit() \\ \hline
-	\hline
-	/admin/importAllocation & AdminImportExportController.importAllocation() \\ \hline
-	/admin/exportAllocation & AdminImportExportController.exportAllocation() \\ \hline
-	/admin/importSPO & AdminImportExportController.importSPO() \\ \hline
-	/admin/exportSPO & AdminImportExportController.exportSPO() \\ \hline
-	/admin/importProjects & AdminImportExportController.importProjects() \\ \hline
-	/admin/exportProjects & AdminImportExportController.exportProjects() \\ \hline
-	/admin/importCMSData & AdminImportExportController.importCMSData() \\ \hline
-	/admin/exportCMSData & AdminImportExportController.exportCMSData() \\ \hline
-	/admin/importStudents & AdminImportExportController.importStudents() \\ \hline
-	/admin/exportStudents & AdminImportExportController.exportStudents() \\ \hline
+\rowcolors{2}{gray!10!white}{white}
+\begin{longtable}{ll}
+	URL & Controller Methode \\ 
+	\toprule
+	/ & IndexPageController.indexPage() \\  
+	/index & IndexPageController.indexPage() \\  
+	/login & IndexPageController.login() \\  
+	/register & IndexPageController.registerPage() \\  
+	/reset & IndexPageController.passwordResetPage() \\  
+	/resetPassword & IndexPageController.passwordReset() \\  
+	/verify & IndexPageController.verificationPage() \\  
+	/create & IndexPageController.register() \\  
+	\midrule 
+	/student & StudentPageController.learningGroupPage() \\  
+	/student/group & StudentPageController.learningGroupPage() \\  
+	/student/rating & StudentPageController.ratingPage() \\  
+	/student/rate & StudentPageController.rate() \\  
+	/student/results & StudentPageController.resultsPage() \\  
+	/student/account & StudentPageController.accountPage() \\  
+	/student/edit & StudentPageController.editAccount() \\  
+	\midrule 
+	/adviser & AdviserPageController.projectsPage(null) \\  
+	/adviser/projects/:name & AdviserPageController.projectsPage(name: String) \\  
+	/adviser/add & AdviserPageController.addProject() \\  
+	/adviser/remove & AdviserPageController.removeProject() \\  
+	/adviser/edit & AdviserPageController.editProject() \\  
+	/adviser/join & AdviserPageController.joinProject() \\  
+	/adviser/leave & AdviserPageController.leaveProject() \\  
+	/adviser/saveGrades & AdviserPageController.saveStudentsGrades() \\  
+	/adviser/account & AdviserPageController.accountPage() \\  
+	/adviser/edit & AdviserPageController.editAccount() \\  
+	\midrule 
+	/admin & AdminPageController.projectPage() \\  
+	/admin/projects & AdminPageController.projectPage() \\  
+	/admin/advisers & AdminPageController.adviserPage() \\  
+	/admin/allocation & AdminPageController.allocationPage() \\  
+	/admin/results & AdminPageController.resultsPage() \\  
+	/admin/exportImport & AdminPageController.exportImportPage() \\  
+	/admin/studentEdit & AdminPageController.studentEditPage() \\  
+	/admin/properties & AdminPageController.propertiesPage() \\  
+	/admin/projectEdit/:name & AdminPageController.projectEditPage(name: String) \\  
+	\midrule 
+	/admin/addProject & AdminProjectController.addProject() \\  
+	/admin/removeProject & AdminProjectController.removeProject() \\  
+	/admin/editProject & AdminProjectController.editProject() \\  
+	\midrule 
+	/admin/addAdviser & GeneralAdminController.addAdviser() \\  
+	/admin/removeAdviser & GeneralAdminController.removeAdviser() \\  
+	/admin/addAllocation & GeneralAdminController.addAllocation() \\  
+	/admin/addStudent & GeneralAdminController.addStudent() \\  
+	/admin/removeStudent & GeneralAdminController.removeStudent() \\  
+	\midrule 
+	/admin/addSemester & AdminPropertiesController.addSemester() \\  
+	/admin/removeSemester & AdminPropertiesController.removeSemester() \\  
+	/admin/addSPO & AdminPropertiesController.addSPO() \\  
+	/admin/removeSPO & AdminPropertiesController.removeSPO \\  
+	/admin/editSemester & AdminPropertiesController.editSemester \\  
+	/admin/addAchievement & AdminPropertiesController.addAchievement() \\  
+	/admin/removeAchievement & AdminPropertiesController.removeAchievement() \\  
+	\midrule 
+	/admin/swapStudents & AdminEditAllocationController.swapStudents() \\  
+	/admin/moveStudents & AdminEditAllocationController.moveStudents() \\  
+	/admin/publishAllocation & AdminEditAllocationController.publishAllocation() \\  
+	/admin/duplicateAllocation & AdminEditAllocationController.duplicateAllocation() \\  
+	/admin/removeAllocation & AdminEditAllocationController.removeAllocation() \\  
+	/admin/undoAllocationEdit & AdminEditAllocationController.undoAllocationEdit() \\  
+	\midrule 
+	/admin/importAllocation & AdminImportExportController.importAllocation() \\  
+	/admin/exportAllocation & AdminImportExportController.exportAllocation() \\  
+	/admin/importSPO & AdminImportExportController.importSPO() \\  
+	/admin/exportSPO & AdminImportExportController.exportSPO() \\  
+	/admin/importProjects & AdminImportExportController.importProjects() \\  
+	/admin/exportProjects & AdminImportExportController.exportProjects() \\  
+	/admin/importCMSData & AdminImportExportController.importCMSData() \\  
+	/admin/exportCMSData & AdminImportExportController.exportCMSData() \\  
+	/admin/importStudents & AdminImportExportController.importStudents() \\  
+	/admin/exportStudents & AdminImportExportController.exportStudents() \\  
 \end{longtable}
