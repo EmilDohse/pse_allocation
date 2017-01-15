@@ -11,88 +11,88 @@ package controller;
  */
 public class AdminPropertiesController extends Controller {
 
-	/**
-	 * Diese Methode lässt den Administrator ein neues Semester erstellen und
-	 * anschließend Konfigurieren. Nach dem Erstellen wird der Administrator
-	 * deshalb auf die Einstellungsseite für das Semester.
-	 * 
-	 * @return die Seite, die als Antwort verschickt wird.
-	 */
-	public Result addSemester() {
-		// TODO
-		return null;
-	}
+    /**
+     * Diese Methode lässt den Administrator ein neues Semester erstellen und
+     * anschließend konfigurieren. Nach dem Erstellen wird der Administrator
+     * deshalb auf die Einstellungsseite für das Semester weitergeleitet.
+     * 
+     * @return Die Seite, die als Antwort verschickt wird.
+     */
+    public Result addSemester() {
+        // TODO
+        return null;
+    }
 
-	/**
-	 * Diese Methode lässt den Administrator ein Semester löschen, wenn mit
-	 * diesem keine Studentendaten verbunden sind. Der Administrator wird
-	 * daraufhin zur Einstellungsseite zurückgeleitet.
-	 * 
-	 * @return die Seite, die als Antwort verschickt wird.
-	 */
-	public Result removeSemester() {
-		// TODO
-		return null;
-	}
+    /**
+     * Diese Methode lässt den Administrator ein Semester löschen, wenn mit
+     * diesem keine Studentendaten verbunden sind. Der Administrator wird
+     * daraufhin zur Einstellungsseite zurückgeleitet.
+     * 
+     * @return Die Seite, die als Antwort verschickt wird.
+     */
+    public Result removeSemester() {
+        // TODO
+        return null;
+    }
 
-	/**
-	 * Diese Methode fügt eine neue leere SPO, mit einem vom Administrator
-	 * bestimmten Namen, hinzu. Der Administrator wird daraufhin auf die
-	 * Einstellungsseite zurückgeleitet.
-	 * 
-	 * @return die Seite, die als Antwort verschickt wird.
-	 */
-	public Result addSPO() {
-		// TODO
-		return null;
-	}
+    /**
+     * Diese Methode fügt eine neue leere SPO, mit einem vom Administrator
+     * bestimmten Namen, hinzu. Der Administrator wird daraufhin auf die
+     * Einstellungsseite zurückgeleitet.
+     * 
+     * @return Die Seite, die als Antwort verschickt wird.
+     */
+    public Result addSPO() {
+        // TODO
+        return null;
+    }
 
-	/**
-	 * Diese Methode löscht eine bereits vorhandene SPO. Die SPO kann nur
-	 * gelöscht werden, wenn kein Student diese SPO verwendet. Der Administrator
-	 * wird daraufhin auf die Einstellungsseite zurückgeleitet.
-	 * 
-	 * @return die Seite, die als Antwort verschickt wird.
-	 */
-	public Result removeSPO() {
-		// TODO
-		return null;
-	}
+    /**
+     * Diese Methode löscht eine bereits vorhandene SPO. Die SPO kann nur
+     * gelöscht werden, wenn kein Student diese SPO verwendet. Der Administrator
+     * wird daraufhin auf die Einstellungsseite zurückgeleitet.
+     * 
+     * @return Die Seite, die als Antwort verschickt wird.
+     */
+    public Result removeSPO() {
+        // TODO
+        return null;
+    }
 
-	/**
-	 * Diese Methode übernimmt die Änderungen, welche der Administrator im
-	 * Semester-Ändern-Formular festgelegt hat. Dazu gehören die Deadlines und
-	 * die Allgemeinen Informationen.
-	 * 
-	 * @return die Seite, die als Antwort verschickt wird.
-	 */
-	public Result editSemester() {
-		// TODO
-		return null;
-	}
+    /**
+     * Diese Methode übernimmt die Änderungen, welche der Administrator im
+     * Semester-ändern-Formular festgelegt hat. Dazu gehören die Deadlines und
+     * die allgemeinen Informationen.
+     * 
+     * @return Die Seite, die als Antwort verschickt wird.
+     */
+    public Result editSemester() {
+        // TODO
+        return null;
+    }
 
-	/**
-	 * Diese Methode fügt eine neue Teilleistung zu einer bereits vorhandenen
-	 * SPO hinzu. Der Administrator kann die Teilleistung als notwendig oder als
-	 * nicht notwendig deklarieren und deren Namen ändern. Der Administrator
-	 * wird daraufhin zur Einstellungsseite zurückgeleitet.
-	 * 
-	 * @return die Seite, die als Antwort verschickt wird.
-	 */
-	public Result addAchievement() {
-		// TODO
-		return null;
-	}
+    /**
+     * Diese Methode fügt eine neue Teilleistung zu einer bereits vorhandenen
+     * SPO hinzu. Der Administrator kann die Teilleistung als notwendig oder als
+     * nicht notwendig deklarieren und deren Namen ändern. Der Administrator
+     * wird daraufhin zur Einstellungsseite zurückgeleitet.
+     * 
+     * @return Die Seite, die als Antwort verschickt wird.
+     */
+    public Result addAchievement() {
+        // TODO
+        return null;
+    }
 
-	/**
-	 * Diese Methode löscht eine bereits existierende Teilleistung aus einer
-	 * SPO. Der Administrator wird daraufhin zur Einstellungsseite zurück
-	 * geleitet.
-	 * 
-	 * @return die Seite, die als Antwort verschickt wird.
-	 */
-	public Result removeAchievement() {
-		// TODO
-		return null;
-	}
+    /**
+     * Diese Methode löscht eine bereits existierende Teilleistung aus einer
+     * SPO. Der Administrator wird daraufhin zur Einstellungsseite
+     * zurückgeleitet.
+     * 
+     * @return Die Seite, die als Antwort verschickt wird.
+     */
+    public Result removeAchievement() {
+        // TODO
+        return null;
+    }
 }

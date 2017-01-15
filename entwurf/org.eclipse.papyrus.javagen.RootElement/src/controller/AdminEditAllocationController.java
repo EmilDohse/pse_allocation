@@ -21,7 +21,7 @@ public class AdminEditAllocationController extends Controller {
 	 * nicht unterbunden, hat jedoch keine Auswirkung. Anschließend wird der
 	 * Administrator auf die Seite zur Einteilungs-Bearbeitung zurückgeleitet.
 	 * 
-	 * @return die Seite, die als Antwort verschickt wird.
+	 * @return Die Seite, die als Antwort verschickt wird.
 	 */
 	public Result swapStudents() {
 		// TODO
@@ -29,12 +29,12 @@ public class AdminEditAllocationController extends Controller {
 	}
 
 	/**
-	 * Diese Methode verschiebt ein oder mehrere ausgewählte Studenten in ein
-	 * anderes Team. Das verschieben in das gleiche Team wird nicht unterbunden,
+	 * Diese Methode verschiebt einen oder mehrere ausgewählte Studenten in ein
+	 * anderes Team. Das Verschieben in das gleiche Team wird nicht unterbunden,
 	 * hat jedoch keine Auswirkung. Anschließend wird der Administrator auf die
 	 * Seite zur Einteilungs-Bearbeitung zurückgeleitet.
 	 * 
-	 * @return die Seite, die als Antwort verschickt wird.
+	 * @return Die Seite, die als Antwort verschickt wird.
 	 */
 	public Result moveStudents() {
 		// TODO
@@ -47,7 +47,7 @@ public class AdminEditAllocationController extends Controller {
 	 * Einteilung zu informieren. Der Administrator wird anschließend auf die
 	 * Einteilungs-Bearbeitungs-Seite zurückgeleitet.
 	 * 
-	 * @return die Seite, die als Antwort verschickt wird.
+	 * @return Die Seite, die als Antwort verschickt wird.
 	 */
 	public Result publishAllocation() {
 		// TODO
@@ -57,11 +57,11 @@ public class AdminEditAllocationController extends Controller {
 	/**
 	 * Diese Methode erstellt eine Kopie einer kompletten Einteilung. Diese
 	 * Funktion ist dafür gedacht, dass der Administrator sehen kann, ob durch
-	 * seine manuelle Änderungen ein optimaleres Ergebnis entstand. Der
+	 * seine manuelle Änderungen ein besseres Ergebnis entstand. Der
 	 * Administrator wird anschließend auf die Seite zur Einteilungs-Bearbeitung
 	 * zurückgeleitet.
 	 * 
-	 * @return die Seite, die als Antwort verschickt wird.
+	 * @return Die Seite, die als Antwort verschickt wird.
 	 */
 	public Result duplicateAllocation() {
 		// TODO
@@ -73,7 +73,7 @@ public class AdminEditAllocationController extends Controller {
 	 * Administrator wird anschließend auf die Seite zur Einteilungs-Bearbeitung
 	 * zurückgeleitet.
 	 * 
-	 * @return die Seite, die als Antwort verschickt wird.
+	 * @return Die Seite, die als Antwort verschickt wird.
 	 */
 	public Result removeAllocation() {
 		// TODO
@@ -85,7 +85,7 @@ public class AdminEditAllocationController extends Controller {
 	 * nicht session-übergreifend möglich. Der Administrator wird anschließend
 	 * auf die Seite zur Einteilungs-Bearbeitung zurückgeleitet.
 	 * 
-	 * @return die Seite, die als Antwort verschickt wird.
+	 * @return Die Seite, die als Antwort verschickt wird.
 	 */
 	public Result undoAllocationEdit() {
 		// TODO

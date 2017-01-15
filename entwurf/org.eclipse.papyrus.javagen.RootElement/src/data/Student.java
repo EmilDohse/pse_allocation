@@ -26,7 +26,7 @@ public class Student extends User {
 	/**
 	 * Die Lerngruppe des Studierenden.
 	 */
-	private LearningGroup learningGroups;
+	private LearningGroup learningGroup;
 	/**
 	 * Die bestandenen Teilleistungen.
 	 */
@@ -126,12 +126,12 @@ public class Student extends User {
 	}
 	
 	/**
-     * Getter für die Lerngruppen des Studierenden.
+     * Getter für die Lerngruppe des Studierenden.
      * 
-     * @return Die Lerngruppen des Studierenden.
+     * @return Die Lerngruppe des Studierenden.
      */
-	public List<LearningGroup> getLearningGroups() {
-	    return this.learningGroups;
+	public LearningGroup getLearningGroup() {
+	    return this.learningGroup;
 	}
 	
 	/**
@@ -224,12 +224,12 @@ public class Student extends User {
     }
     
     /**
-     * Setter für die Lerngruppen des Studierenden.
+     * Setter für die Lerngruppe des Studierenden.
      * 
-     * @param learningGroups Die Lerngruppen, in denen der Studierende war.
+     * @param learningGroup Die Lerngruppe, in der der Studierende ist.
      */
-    public void setLearningGroups(List<LearningGroup> learningGroups) {
-        this.learningGroups = learningGroups;
+    public void setLearningGroup(LearningGroup learningGroup) {
+        this.learningGroup = learningGroup;
     }
     
     /**
@@ -283,7 +283,7 @@ public class Student extends User {
      * @param oralTestAchievement Die noch aussteheneden Teilleistungen des Studierenden.
      */
     public void setOralTestAchievement(Achievement[] oralTestAchievement) {
-        this.oralTestAchievment = oralTestAchievement;
+        this.oralTestAchievement = oralTestAchievement;
     }
     
     /**

@@ -5,6 +5,7 @@
 package importExport;
 
 import data.Allocation;
+import data.SPO;
 import data.Semester;
 
 /************************************************************/

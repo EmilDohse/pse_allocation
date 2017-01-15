@@ -76,7 +76,7 @@ public class GurobiAllocator extends AbstractAllocator {
      */
     public GRBVar[] getTeamSizes() {
         // TODO
-        return null
+        return null;
     }
 
     /**
