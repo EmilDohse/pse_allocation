@@ -77,8 +77,8 @@ public class IndexPageController extends Controller {
     }
 
     /**
-     * Diese Methode schickt eine Email anhand der Daten aus dem
-     * Passwort-Rücksetz-Formular an den Studenten oder den Betreurer, welche
+     * Diese Methode schickt eine E-Mail anhand der Daten aus dem
+     * Passwort-Rücksetz-Formular an den Studenten oder den Betreuer, welche
      * ein neues Passwort enthält.
      * 
      * @return Die Seite, die als Antwort verschickt wird.
