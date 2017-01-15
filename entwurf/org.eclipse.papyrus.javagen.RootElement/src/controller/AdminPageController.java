@@ -12,16 +12,12 @@ import qualityCriteria.QualityCriterion;
  * durch das Klicken eines Links und nicht eines Buttons versendet werden.
  */
 public class AdminPageController extends Controller {
-	/**
-	 * 
-	 */
-	public QualityCriterion[] qualityCriteria;
 
 	/**
 	 * Diese Methode gibt die Seite zurück, auf der der Administrator Projekte
-	 * sieht.
+	 * sieht, neue hinzufügen, sowie existierende löschen kann.
 	 * 
-	 * @return die Seite, die als Antwort verschickt wird.
+	 * @return Die Seite, die als Antwort verschickt wird.
 	 */
 	public Result projectPage() {
 		// TODO
@@ -33,7 +29,7 @@ public class AdminPageController extends Controller {
 	 * Projektbetreuer sehen, neue hinzufügen oder bereits existierende
 	 * entfernen kann.
 	 * 
-	 * @return die Seite, die als Antwort verschickt wird.
+	 * @return Die Seite, die als Antwort verschickt wird.
 	 */
 	public Result adviserPage() {
 		// TODO
@@ -42,11 +38,11 @@ public class AdminPageController extends Controller {
 
 	/**
 	 * Diese Methode gibt die Seite zurück, auf der der Administrator
-	 * Einteilungen berechnen kann und voher Parameter einstellen kann. Außerdem
+	 * Einteilungen berechnen und vorher Parameter einstellen kann. Außerdem
 	 * sieht er noch zu berechnende Konfigurationen und kann diese aus der
 	 * Berechnungsliste entfernen.
 	 * 
-	 * @return die Seite, die als Antwort verschickt wird.
+	 * @return Die Seite, die als Antwort verschickt wird.
 	 */
 	public Result allocationPage() {
 		// TODO
@@ -57,7 +53,7 @@ public class AdminPageController extends Controller {
 	 * Diese Methode gibt die Seite zurück, auf der der Administrator die
 	 * Ergebnisse der Berechnungen sehen, vergleichen und editieren kann.
 	 * 
-	 * @return die Seite, die als Antwort verschickt wird.
+	 * @return Die Seite, die als Antwort verschickt wird.
 	 */
 	public Result resultsPage() {
 		// TODO
@@ -69,7 +65,7 @@ public class AdminPageController extends Controller {
 	 * Einteilungen, Studentendaten, SPOs, Projekte und CMS-Daten ex- und
 	 * importieren kann.
 	 * 
-	 * @return die Seite, die als Antwort verschickt wird.
+	 * @return Die Seite, die als Antwort verschickt wird.
 	 */
 	public Result exportImportPage() {
 		// TODO
@@ -80,7 +76,7 @@ public class AdminPageController extends Controller {
 	 * Diese Methode gibt die Seite zurück, auf der der Administrator Studenten
 	 * manuell hinzufügen oder löschen kann.
 	 * 
-	 * @return die Seite, die als Antwort verschickt wird.
+	 * @return Die Seite, die als Antwort verschickt wird.
 	 */
 	public Result studentEditPage() {
 		// TODO
@@ -91,7 +87,7 @@ public class AdminPageController extends Controller {
 	 * Diese Methode gibt die Seite zurück, auf der der Administrator die
 	 * Semester-Einstellungen vornehmen kann.
 	 * 
-	 * @return die Seite, die als Antwort verschickt wird.
+	 * @return Die Seite, die als Antwort verschickt wird.
 	 */
 	public Result propertiesPage() {
 		// TODO
@@ -99,12 +95,11 @@ public class AdminPageController extends Controller {
 	}
 
 	/**
-	 * Diese Methode gibt die Seite zurück, auf der der Administrator Projekte
-	 * sieht, Projekte hinzufügen, editieren oder entfernen kann.
+	 * Diese Methode gibt die Seite zurück, auf der der Administrator ein Projekt editieren kann.
 	 * 
 	 * @param name Der Name des Projektes (da mitgegeben über die URL, ist der String encoded)
 	 * 
-	 * @return die Seite, die als Antwort verschickt wird.
+	 * @return Die Seite, die als Antwort verschickt wird.
 	 */
 	public Result projectEditPage(String name) {
 		// TODO

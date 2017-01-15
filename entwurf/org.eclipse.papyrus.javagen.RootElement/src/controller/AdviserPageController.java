@@ -28,7 +28,7 @@ public class AdviserPageController extends Controller {
 
 	/**
 	 * Diese Methode fügt ein neues Projekt in das System ein und leitet den
-	 * Betreuer zurück auf die Seite zum editieren des Projektes.
+	 * Betreuer zurück auf die Seite zum Editieren des Projektes.
 	 * 
 	 * @return die Seite, die als Antwort verschickt wird.
 	 */
@@ -39,7 +39,7 @@ public class AdviserPageController extends Controller {
 
 	/**
 	 * Diese Methode löscht ein Projekt und alle dazugehörenden Daten aus dem
-	 * System und leitet den Betreuer auf die Seite zum editieren und hinzufügen
+	 * System und leitet den Betreuer auf die Seite zum Editieren und Hinzufügen
 	 * von Projekten. Nur Betreuer welche dem Projekt beigetreten sind können
 	 * dieses editieren.
 	 * 
@@ -53,7 +53,7 @@ public class AdviserPageController extends Controller {
 	/**
 	 * Diese Methode editiert ein bereits vorhandenes Projekt. Die zu
 	 * editierenden Daten übermittelt der Betreuer über ein Formular, welches er
-	 * zum editieren abschickt. Nur Betreuer welche dem Projekt beigetreten sind
+	 * zum Editieren abschickt. Nur Betreuer welche dem Projekt beigetreten sind
 	 * können dieses editieren. Anschließend wird der Betreuer auf die Seite zum
 	 * Hinzufügen und Editieren von Projekten weitergeleitet.
 	 * 
@@ -107,7 +107,7 @@ public class AdviserPageController extends Controller {
 
 	/**
 	 * Diese Methode gibt die Seite zurück, auf der der Betreuer seine
-	 * Studentendaten wie E-Mail-Adresse und Passwort ändern kann.
+	 * Benutzerdaten wie E-Mail-Adresse und Passwort ändern kann.
 	 * 
 	 * @return die Seite, die als Antwort verschickt wird.
 	 */
