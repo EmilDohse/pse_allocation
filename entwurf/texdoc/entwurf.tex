@@ -2,6 +2,7 @@
 %%There is just one section and two subsections.
 \documentclass[parskip=full]{scrartcl}
 \usepackage[table]{xcolor}
+
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{studarbeit}
@@ -26,7 +27,7 @@
 }
 % Environment for packages
 \newenvironment{texdocpackage}[1]{%
-	\newpage{}\gdef\packagename{#1}\subsection{Packet \texttt{#1}}
+	\gdef\packagename{#1}\subsection{Packet \texttt{#1}}
 	\rule{\hsize}{.7mm}
 }{}
 
@@ -191,53 +192,67 @@
 \pagebreak
 
 \section{Einleitung}
-%TODO Einleitung mit anschluss an Pflichtenheft 
-Als Architekturstil wird \enquote{Model-View-Controller} verwendet.
-Die Pakete und verwendete Frameworks:
+Nachdem im Pflichtenheft beschrieben wurde was das Produkt leisten soll, wird in
+diesem Dokument die zur Implementierung verwendete Struktur beschrieben. Aus
+Konsistenzgründen wurden hierbei einige Änderungen zum Pflichtenheft
+durchgeführt:
 \begin{itemize}
-  \item Model
-  \begin{itemize}
-   \item Data 
-  \item ImportExport
-  \item notificationSystem
-  \item qualityCriteria
-  \item security
-  \item allocation (unter verwendung des ILP-Solvers Gurobi)
-   \end{itemize}
-   \item View
-   \begin{itemize}
-    \item Play-Framework
-   \end{itemize}
-   \item Controller
-   \begin{itemize}
-    \item Controller
-   \end{itemize}
+  \item Der Student hat die Möglichkeit im Webinterface sein Passwort und seine
+  E-mail-Adresse zu ändern, sowie die E-mail-Verifikation neu zu starten.
+  Hierfür wird ein \enquote{Account}-Reiter in der Seitenleiste der GUI
+  bereitgestellt.
+  \item Der Betreuer hat die möglichkeit im Webinterface sein Passwort zu
+  ändern. Hierfür wird ein \enquote{Account}-Reiter in der Seitenleiste der GUI
+  bereitgestellt.
+  \item SPOs unterscheiden nun zwischen notwendigen und zusätzlichen bestandenen
+  Teilleistungen. Dies kann der Administrator in der Tabelle der bestandenen
+  Teilleistungen einstellen.
+  \item Der Administrator hat die Möglichkeit berechnete einteilungen zu
+  duplizieren. Dies dient zur Sicherung der ursprünglichen Berechnung bei
+  Bearbeitung.
+  \item Die Anzeige von Konflikten beim Import von CMS-Dateien wurde entfernt,
+  da das CMS nicht genug Daten zur verfügung stellt um Kunflikte zu erkennen.
 \end{itemize}
-%TODO
-\subsection{Änderungen zum Pflichtenheft}
-Beim Entwurf haben wir uns für ein Paar Änderungen entschieden.
+\subsection{Grobentwurf}
+Da es sich um eine WebApplication handelt die Benutzerschnittstelle und ein
+Backend aufweist wir der gängige Architekturstil \enquote{Model-View-Controller}
+verwendet.
+\subsubsection{Model}
+Das Model beinhaltet die Programmlogik des Produkts und ist für die
+Datenspeicherung verantwortlich. Dies ist auf die folgenden Pakete
+verteilt:
+\begin{description}
+\item[data] ist für die komplette Datenhaltung zuständig. Es verwendet ORM zur
+Speicherung in eine Datenbank. \autoref{uml:data}
+\item[importExport] ist für den Im- und Export von Datensätzen aus dem und in
+das \textsf{\textbf{data}}-Package verantwortlich. \autoref{uml:imExport}
+\item[notificationSystem] ist für das Benachrichtigen von Betreuern und
+Studenten per E-mail zuständig, falls eine Einteilung durch den Administrator
+veröffentlicht wurde. %TODO verliken auf notification
+\item[qualityCriteria] ist für die Berechnung von Qualitätskriterien von
+Einteilungen zuständig. Diese werden über einen ServiceLoader geladen, sodass
+nachträglich weiter Kriterien eingefügt werden können.
+\autoref{uml:qualityCriteria}
+\item[security] ist für die Konfiguration der Loginprozedur und für die
+estellung sicherer Verifikationscodes verantwortlich.
+\item[allocation] ist für die verwaltung der Berechnungswarteschlange und die
+Berechnung von Einteilungen zuständig. Zur berechnung wird Gurobi verwendet.
+\end{description}
+
+   \subsubsection{View}
+   Das View Package beinhaltet alle Views. Views sind HTML-Dateien, welche als Antwort auf einen Http-Request von einem Controller (s.Controllers) weiter an den Endbenutzer gesendet werden und von seinem Webbrowser angezeigt wird. Diese Html-Dateien können Inline-Scala-Code enthalten, welcher Daten, welche der Controller als Parameter übergibt, in HTML einfügt und so dynamisch vom Controller aus dem Modell geladene Daten beim Endbenutzer ankommen und angezeigt werden können.
+\subsubsection{Controller}
+Das Controllers Package beinhaltet alle Controller. Controller sind die Schnittstelle zwischen den Views (s.Views) und dem Modell (s.Modell). Die Aufgabe von einem Controller besteht darin, Http-Requests zu bearbeiten und zu beantworten. Das Bearbeiten beinhaltet meist ein oder mehrere Abfragen ans Modell um Daten zu holen. Diese Daten werden dann als Parameter dem passenden View gegeben und dort in HTMl Code eingebettet (s. Views). Welche Controller Methode aufgerufen wird entscheidet die Route-Datei (s.Play Beschreibung).
+   \subsubsection{Externe Bibliotheken}
 \begin{itemize}
-  \item %TODO Student data edit page was genau ist das
-  \item %TODO admin legt betreueraccouts an gui änderung
-  \item %TODO betreuer kann sein passwort ändern
-  \item %rest im änderungsdoc
-\end{itemize}
-
-
-\section{Dokumentation}
-\input{../org.eclipse.papyrus.javagen.RootElement/doc/controller.tex}
-\input{../org.eclipse.papyrus.javagen.RootElement/doc/data.tex}
-\input{../org.eclipse.papyrus.javagen.RootElement/doc/importExport.tex}
-\input{../org.eclipse.papyrus.javagen.RootElement/doc/notificationSystem.tex}
-\input{../org.eclipse.papyrus.javagen.RootElement/doc/qualityCriteria.tex}
-\input{../org.eclipse.papyrus.javagen.RootElement/doc/security.tex}
-\input{../org.eclipse.papyrus.javagen.RootElement/doc/allocation.tex}
-\subsection{Routing}
-\input{viewTable.tex}
-\section{Sequenzdiagramme}
-%TODO Sequenzdiagramm am ende einfügen
-
-\section{ILP}
+    \item Play-Framework (\url{https://www.playframework.com/})
+    \item Gurobi (\url{http://www.gurobi.com/})
+    \item pack4j (\url{https://github.com/pac4j/play-pac4j})
+    \item Ebean (\url{http://ebean-orm.github.io/})
+   \end{itemize}
+   \pagebreak
+   
+   \section{ILP}
 Zur berechnung einer Einteilung wird ein ILP verwendet. Hierbei ist das ILP
 aufgeteilt in ein Basismodell und Einteilungskriterien. 
 
@@ -421,6 +436,21 @@ Weiterhin sei $\delta_j$ eine binäre Hilfsvariable.
 \intertext{Zum Optimierungsterm: }
 p_i \cdot 10 \cdot \sum_{j = 1}^{M-1} \sum_{i = 1}^{O}a_{ji}
 \end{align*}
+\pagebreak
+\section{Dokumentation}
+\input{../org.eclipse.papyrus.javagen.RootElement/doc/controller.tex}
+\input{../org.eclipse.papyrus.javagen.RootElement/doc/data.tex}
+\input{../org.eclipse.papyrus.javagen.RootElement/doc/importExport.tex}
+\input{../org.eclipse.papyrus.javagen.RootElement/doc/notificationSystem.tex}
+\input{../org.eclipse.papyrus.javagen.RootElement/doc/qualityCriteria.tex}
+\input{../org.eclipse.papyrus.javagen.RootElement/doc/security.tex}
+\input{../org.eclipse.papyrus.javagen.RootElement/doc/allocation.tex}
+\subsection{Routing}
+\input{viewTable.tex}
+\section{Sequenzdiagramme}
+%TODO Sequenzdiagramm am ende einfügen
+
+
 
  
 \section{Anhang}

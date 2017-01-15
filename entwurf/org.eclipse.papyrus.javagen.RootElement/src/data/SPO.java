@@ -17,43 +17,43 @@ public class SPO {
 	 * Die nach dieser Prüfungsordnung benötigten Teilleistungen für die
 	 * Teilnahme am PSE.
 	 */
-	private Achievement[] necessaryAchievements;
+	private List<Achievement> necessaryAchievements;
 	/**
 	 * Die zum Einstellen verfügbaren Teilleistungen.
 	 */
-	private Achievement[] availableAchievements;
+	private List<Achievement> availableAchievements;
 
 	/**
-	 * Fügt eine verfügbare Teilleistung hinzu
+	 * Fügt eine verfügbare Teilleistung hinzu.
 	 * 
-	 * @param achievement Teilleistung, die hinzugefügt wird
+	 * @param achievement Teilleistung, die hinzugefügt wird.
 	 */
 	public void addAvailableAchievement(Achievement achievement) {
 		
 	}
 	
 	/**
-	 * Entfernt eine verfügbar Teilleistung hinzu
+	 * Entfernt eine verfügbare Teilleistung.
 	 * 
-	 * @param achievement Teilleistung, die entfernt wird
+	 * @param achievement Teilleistung, die entfernt wird.
 	 */
 	public void removeAvailableAchievement(Achievement achievement) {
 		
 	}
 	
 	/**
-	 * Fügt eine benötigte Teilleistung hinzu
+	 * Fügt eine benötigte Teilleistung hinzu.
 	 * 
-	 * @param achievement Teilleistung, die hinzugefügt wird
+	 * @param achievement Teilleistung, die hinzugefügt wird.
 	 */
 	public void addNecessaryAchievement(Achievement achievement) {
 		
 	}
 	
 	/**
-	 * Entfernt eine benötigte Teilleistung hinzu
+	 * Entfernt eine benötigte Teilleistung.
 	 * 
-	 * @param achievement Teilleistung, die entfernt wird
+	 * @param achievement Teilleistung, die entfernt wird.
 	 */
 	public void removeNecessaryAchievement(Achievement achievement) {
 		
@@ -73,7 +73,7 @@ public class SPO {
 	 * 
 	 * @return Die benötigten Teilleistungen.
 	 */
-	public Achievement[] getNecessaryAchievements() {
+	public List<Achievement> getNecessaryAchievements() {
 		return necessaryAchievements;
 	}
 
@@ -82,7 +82,7 @@ public class SPO {
 	 * 
 	 * @return Die verfügbaren Teilleistungen.
 	 */
-	public Achievement[] getAvailableAchievements() {
+	public List<Achievement> getAvailableAchievements() {
 		return availableAchievements;
 	}
 
@@ -102,7 +102,7 @@ public class SPO {
 	 * @param neccessaryAchievemens
 	 *            Die benötigten Teilleistungen.
 	 */
-	public void setNecessaryAchievements(Achievement[] necessaryAchievements) {
+	public void setNecessaryAchievements(List<Achievement> necessaryAchievements) {
 		this.necessaryAchievements = necessaryAchievements;
 	}
 
@@ -112,7 +112,7 @@ public class SPO {
 	 * @param availableAchievements
 	 *            Die verfügbaren Teilleistungen.
 	 */
-	public void setAvailableAchievements(Achievement[] availableAchievements) {
+	public void setAvailableAchievements(List<Achievement> availableAchievements) {
 		this.availableAchievements = availableAchievements;
 	}
 
@@ -121,7 +121,7 @@ public class SPO {
 	 * 
 	 * @return Alle SPOs.
 	 */
-	public static SPO[] getSPOs() {
+	public static List<SPO> getSPOs() {
 		// TODO
 		return null;
 	}

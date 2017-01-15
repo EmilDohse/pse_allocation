@@ -13,7 +13,7 @@ public class PSEServerConfigStartup implements ServerConfigStartup {
 	/**
 	 * Initialisiert die Datenbank.
 	 * 
-	 * @param serverConfig ein Objekt, welches zur Konfiguration des Servers verwendet wird.
+	 * @param serverConfig Ein Objekt, welches zur Konfiguration des Servers verwendet wird.
 	 */
 	public void onStartup(ServerConfig serverConfig) {
 		

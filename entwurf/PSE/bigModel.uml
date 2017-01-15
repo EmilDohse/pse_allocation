@@ -676,12 +676,12 @@
       <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_XCchotaNEeayPeVBIOoRFQ" key="nature" value="UML_Nature"/>
     </eAnnotations>
     <ownedEnd xmi:type="uml:Property" xmi:id="_XCcho9aNEeayPeVBIOoRFQ" name="students" type="_XCasfNaNEeayPeVBIOoRFQ" association="_XCchoNaNEeayPeVBIOoRFQ">
-      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_XCchpNaNEeayPeVBIOoRFQ" value="1"/>
-      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_XCchpdaNEeayPeVBIOoRFQ" value="1"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_XCchpNaNEeayPeVBIOoRFQ"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_XCchpdaNEeayPeVBIOoRFQ" value="*"/>
     </ownedEnd>
     <ownedEnd xmi:type="uml:Property" xmi:id="_XCchptaNEeayPeVBIOoRFQ" name="lerningGroups" type="_XCgzHNaNEeayPeVBIOoRFQ" association="_XCchoNaNEeayPeVBIOoRFQ">
-      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_XCchp9aNEeayPeVBIOoRFQ" value="1"/>
-      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_XCchqNaNEeayPeVBIOoRFQ" value="1"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_XCchp9aNEeayPeVBIOoRFQ"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_XCchqNaNEeayPeVBIOoRFQ" value="*"/>
     </ownedEnd>
   </packagedElement>
   <packagedElement xmi:type="uml:Association" xmi:id="_XCdIsNaNEeayPeVBIOoRFQ" memberEnd="_XCgzH9aNEeayPeVBIOoRFQ _XCdIs9aNEeayPeVBIOoRFQ" navigableOwnedEnd="_XCdIs9aNEeayPeVBIOoRFQ">

@@ -39,7 +39,7 @@ public class AllocationParameter {
      * 
      * @param name Der Name des Parameters.
      */
-    public void getName(String name) {
+    public void setName(String name) {
         this.name = name;
     }
     /**
@@ -47,7 +47,7 @@ public class AllocationParameter {
      * 
      * @param value Der Wert des Parameters.
      */
-    public void getValue(double value) {
+    public void setValue(double value) {
         this.value = value;
     }
 }

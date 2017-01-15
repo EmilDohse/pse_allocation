@@ -51,7 +51,7 @@ public class User {
 	/**
 	 * Getter für die E-Mail-Addresse.
 	 * 
-	 * @return Die EMail-Addresse.
+	 * @return Die E_Mail-Addresse.
 	 */
 	public String getEmailAddress() {
 	    return emailAddress;
@@ -78,7 +78,7 @@ public class User {
 	/**
      * Setter für den Benutzernamen.
      * 
-     * @param username Der Benutzername
+     * @param username Der Benutzername.
      */
     public void setUserName(String username) {
         this.username = username;
@@ -96,7 +96,7 @@ public class User {
     /**
      * Setter für die E-Mail-Addresse.
      * 
-     * @param email Die E-Mail
+     * @param email Die E-Mail-Adresse
      */
     public void setEmailAddress(String email) {
         this.emailAddress = email;
@@ -105,7 +105,7 @@ public class User {
     /**
      * Setter für den Vornamen.
      * 
-     * @param firstName Der Vorname
+     * @param firstName Der Vorname.
      */
     public void setFirstName(String firstName) {
         this.firstName = firstName;
@@ -114,7 +114,7 @@ public class User {
     /**
      * Setter für den Nachnamen.
      * 
-     * @param lastName Der Nachname
+     * @param lastName Der Nachname.
      */
     public void setLastName(String lastName) {
         this.lastName = lastName;

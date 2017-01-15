@@ -12,14 +12,14 @@ public class Adviser extends User {
 	/**
 	 * Die Projekte, die der Betreuer beaufsichtigt
 	 **/
-	private Project[] projects;
+	private List<Project> projects;
 
 	/**
 	 * Getter für die Projekte, die der Betreuer beaufsichtigt.
 	 * 
 	 * @return Die Projekte, die der Betreuer beaufsichtigt.
 	 */
-	public Project[] getProjects() {
+	public List<Project> getProjects() {
 		return projects;
 	}
 
@@ -34,29 +34,29 @@ public class Adviser extends User {
 	}
 
 	/**
-	 * Fügt dem Betreuer ein Projekt zum Beaufsichtigen hinzu
+	 * Fügt der Menge von Projekten, die der Betreuer beaufsichtigt, ein weiteres hinzu.
 	 * 
-	 * @param project Projekt, das dem Betreuer zum Beaufsichtigen hinzugefügt wird
+	 * @param project Projekt, das hinzugefügt wird.
 	 */
 	public void addProject(Project project) {
 		
 	}
 	
 	/**
-	 * Entfernt dem Betreuer ein Projekt zum Beaufsichtigen
+	 * Entfernt ein Projekt aus der Menge von beaufsichtigten Projekten des Betreuers.
 	 * 
-	 * @param project Projekt, das dem Betreuer zum Beaufsichtigen entfernt wird
+	 * @param project Projekt, das entfernt wird.
 	 */
 	public void removeProject(Project project) {
 		
 	}
 	
 	/**
-	 * Diese Methode gibt alle Betreuer zurück, die es jemals gab.
+	 * Diese Methode gibt alle Betreuer zurück, die es gibt.
 	 * 
-	 * @return Alle Betreuer.
+	 * @return Liste aller Betreuer.
 	 */
-	public static Adviser[] getAdvisers() {
+	public static List<Adviser> getAdvisers() {
 		// TODO
 		return null;
 	}

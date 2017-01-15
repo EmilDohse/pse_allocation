@@ -21,6 +21,7 @@ public class GeneralData {
 	 * Anmeldepasswort des Administrators.
 	 */
 	private static String adminPassword;
+	
 	/**
 	 * Getter für das aktuelle Semester.
 	 * 
@@ -53,20 +54,4 @@ public class GeneralData {
 	public void setCurrentSemester(Semester currentSemester) {
 		
 	}
-	/**
-	 * Setter für den Anmeldenamen des Administrators.
-	 * 
-	 * @param adminName Der Anmeldename des Administrators.
-	 */
-    public static void setAdminName(String adminName) {
-        GeneralData.adminName = adminName;
-    }
-    /**
-     * Setter für das Anmeldepasswort des Administrators.
-     * 
-     * @param adminPassword Das Anmeldepasswort des Administrators.
-     */
-    public static void setAdminPassword(String adminPassword) {
-        GeneralData.adminPassword = adminPassword;
-    }
 }

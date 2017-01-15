@@ -32,7 +32,7 @@ public class Project {
 	/**
 	 * Teams des Projekt
 	 */
-	private Team[] teams;
+	private List<Team> teams;
 	/**
 	 * Das Institut, welches das Projekt anbietet.
 	 */
@@ -44,57 +44,57 @@ public class Project {
 	/**
 	 * Betreuer des Projekts
 	 */
-	private Adviser[] advisers;
+	private List<Adviser> advisers;
 	
 	/**
-	 * Getter für die Betreuer des Projekts
+	 * Getter für die Betreuer des Projekts.
 	 * 
-	 * @return Betreuer des Projekts
+	 * @return Betreuer des Projekts.
 	 */
-	public Adviser[] getAdvisers() {
+	public List<Adviser> getAdvisers() {
 		return advisers;
 	}
 	
 	/**
-	 * Setter für die Betreuer des Projekts
+	 * Setter für die Betreuer des Projekts.
 	 * 
-	 * @param advisers Betreuer des Projekts
+	 * @param advisers Betreuer des Projekts.
 	 */
-	public void setAdvisers(Adviser[] advisers) {
+	public void setAdvisers(List<Adviser> advisers) {
 		this.advisers = advisers;
 	}
 	
 	/**
-	 * Fügt dem Projekts einen Betreuer hinzu
+	 * Fügt dem Projekt einen Betreuer hinzu.
 	 * 
-	 * @param adviser Betreuer der hinzugefügt wird
+	 * @param adviser Betreuer der hinzugefügt wird.
 	 */
 	public void addAdviser(Adviser adviser) {
 		
 	}
 	
 	/**
-	 * Entfernt einen Betreuer vom Projekt
+	 * Entfernt einen Betreuer vom Projekt.
 	 * 
-	 * @param adviser Betreuer der entfernt wird
+	 * @param adviser Betreuer der entfernt wird.
 	 */
 	public void removeAdviser(Adviser adviser) {
 		
 	}
 	
 	/**
-	 * Getter für das Semester des Projekts
+	 * Getter für das Semester des Projekts.
 	 * 
-	 * @return Semester des Projekts
+	 * @return Semester des Projekts.
 	 */
 	public Semester getSemester() {
 		return semester;
 	}
 	
 	/**
-	 * Setter für das Semester des Projekts
+	 * Setter für das Semester des Projekts.
 	 * 
-	 * @param semester Semester des Projekts
+	 * @param semester Semester des Projekts.
 	 */
 	public void setSemester(Semester semester) {
 		this.semester = semester;
@@ -210,7 +210,7 @@ public class Project {
 	 * @param team
 	 *            Die Teams des Projektes.
 	 */
-	public void setTeams(Team[] teams) {
+	public void setTeams(List<Team> teams) {
 		this.teams = teams;
 	}
 
@@ -239,7 +239,7 @@ public class Project {
 	 * 
 	 * @return Alle Projekte.
 	 */
-	public static Project[] getProjects() {
+	public static List<Project> getProjects() {
 		// TODO
 		return null;
 	}
