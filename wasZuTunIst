@@ -9,7 +9,7 @@
 // importer vervollständigen zu controller funktionen
 // gütekriterium berechnen rückgabewert
 // Spezifikation: was wird wie ex und importiert?
-- Tabelle zwischen Controller und View URL
+//- Tabelle zwischen Controller und View URL
 //- package namen anglifiziern
 - Attribute alle private
 - Getter, Setter, Konstruktoren in die Javadocs

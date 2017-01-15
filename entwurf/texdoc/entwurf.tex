@@ -53,7 +53,7 @@
 % Environment around class methods
 \newenvironment{texdocclassmethods}{%
 	\paragraph*{Methoden}
-	\begin{itemize}
+	\begin{itemize}[itemsep=10pt]
 }{%
 	\end{itemize}
 }
@@ -124,7 +124,8 @@
 
 % Environment around \texdocparameter invocations
 \newenvironment{texdocparameters}{%
-	\minisec{Parameter}
+	%\minisec{Parameter}
+	\paraRetText{Parameter}
 	\begin{tabular}{ll}
 }{%
 	\end{tabular}
@@ -138,7 +139,7 @@
         \end{tabular}
 }
 
-\newcommand{\texdocreturn}[1]{\minisec{Rückgabe} #1}
+\newcommand{\texdocreturn}[1]{\paraRetText{Rückgabe} #1}
 
 % Formats a parameter (this gets put inside the input of a \texdocmethod or 
 % \texdocconstructor macro)
@@ -165,6 +166,9 @@
 {$($ in \ref{#1}, page \pageref{#1}$)$}
 \fi}
 
+\newcommand{\paraRetText}[1]{\\\textbf{#1}\\}
+\setlist[itemize]{leftmargin =*, noitemsep}
+\setlength{\parskip}{0.8em}
 % ---------------------------------------------------------------------------
 % TexDoc macros end
 % ---------------------------------------------------------------------------

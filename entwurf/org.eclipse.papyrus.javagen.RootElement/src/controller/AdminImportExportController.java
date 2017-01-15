@@ -30,7 +30,7 @@ public class AdminImportExportController extends Controller {
 	 * 
 	 * @return die Seite, die als Antwort verschickt wird.
 	 */
-	public void exportAllocation() {
+	public Result exportAllocation() {
 	}
 
 	/**
@@ -40,7 +40,7 @@ public class AdminImportExportController extends Controller {
 	 * 
 	 * @return die Seite, die als Antwort verschickt wird.
 	 */
-	public void importSPO() {
+	public Result importSPO() {
 	}
 
 	/**
@@ -50,7 +50,7 @@ public class AdminImportExportController extends Controller {
 	 * 
 	 * @return die Seite, die als Antwort verschickt wird.
 	 */
-	public void exportSPO() {
+	public Result exportSPO() {
 	}
 
 	/**
@@ -60,7 +60,7 @@ public class AdminImportExportController extends Controller {
 	 * 
 	 * @return die Seite, die als Antwort verschickt wird.
 	 */
-	public void importProjects() {
+	public Result importProjects() {
 	}
 
 	/**

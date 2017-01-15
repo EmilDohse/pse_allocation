@@ -14,33 +14,86 @@ import data.Semester;
 public class Importer {
 
 	/**
-	 * 
-	 * @param file 
-	 * @param semester 
+	 * Importiert eine Einteilung.
+	 * @param file Pfad zu einer .csv Datei.
+	 * @param semester Semester, dem die Einteilung hinzugefügt werden soll.
 	 */
 	public void importAllocation(String file, Semester semester) {
 	}
 
 	/**
-	 * 
-	 * @param file 
-	 * @param allocation 
+	 * Exportiert eine Einteilung.
+	 * @param file Der Ausgabepfad.
+	 * @param allocation Die Einteilung, die exportiert werden soll.
 	 */
 	public void exportAllocation(String file, Allocation allocation) {
 	}
 
 	/**
-	 * 
-	 * @param file 
-	 * @return  
+	 * Importiert zu PSE/TSE angemeldete Studenten.
+	 * @param file Pfad zu einer .csv Datei.
+	 * @param semester Das Semester, bei dem die Daten aktualisiert.
 	 */
-	public void importCMSData(String file) {
+	public void importCMSData(String file, Semester semester) {
 	}
 
 	/**
-	 * 
-	 * @param file 
+	 * Exportiert Noten von Studenten für das CMS.
+	 * @param file Der Ausgabepfad.
+	 * @param Das Semester, aus dem die Noten der Studenten exportiert werden sollen.
 	 */
-	public void exportCMSData(String file) {
+	public void exportCMSData(String file, Semester semester) {
 	}
+	
+	/**
+     * Importiert eine SPO.
+     * @param file Pfad zu einer .csv Datei.
+     */
+    public void importSPO(String file) {
+    }
+    
+    /**
+     * Exportiert eine SPO.
+     * @param file Der Ausgabepfad.
+     * @param spo Die SPO, die exportiert werden soll.
+     */
+    public void exportSPO(String file, SPO spo) {
+        
+    }
+    
+    /**
+     * Importiert Liste von Studenten.
+     * @param file Pfad zu einer .csv Datei.
+     * @param semester Das Semester, dem die Studenten hinzugefügt werden sollen.
+     */
+    public void importStudents(String file, Semester semester) {
+        
+    }
+    
+    /**
+     * Exportiert Liste aller registrierten Studenten in einem Semester.
+     * @param file Der Ausgabepfad.
+     * @param semester Das Semester, dessen Studenten exportiert werden sollen.
+     */
+    public void exportStudents(String file, Semester semester) {
+        
+    }
+    
+    /**
+     * Importiert eine Liste von Projekten.
+     * @param file Der Ausgabepfad.
+     * @param Semester Das Semester, dem die Projekte hinzugefügt werden sollen.
+     */
+    public void importProjects(String file, Semester semester) {
+        
+    }
+    
+    /**
+     * Exportiert die Projekte eines Semesters.
+     * @param file Der Ausgabepfad.
+     * @param semester Das Semester, aus dem die Projekte exportiert werden sollen.
+     */
+    public void exportProjects(String file, Semester semester) {
+        
+    }
 }
