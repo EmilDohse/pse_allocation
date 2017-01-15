@@ -1026,11 +1026,18 @@
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="_hlnUsNapEeayPeVBIOoRFQ" name="MoveStudentCommand">
       <generalization xmi:type="uml:Generalization" xmi:id="_tNaeQNapEeayPeVBIOoRFQ" general="_VULYQNapEeayPeVBIOoRFQ"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_N11bMNs6Eea9QdIaL4ci2w" name="allocation" type="_XCaFYNaNEeayPeVBIOoRFQ"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_SKGswNs6Eea9QdIaL4ci2w" name="oldTeam" type="_XCdvydaNEeayPeVBIOoRFQ" isUnique="false"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_UBbawNs6Eea9QdIaL4ci2w" name="newTeam" type="_XCdvydaNEeayPeVBIOoRFQ" isUnique="false"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_-TCmQNs6Eea9QdIaL4ci2w" name="student" type="_XCasfNaNEeayPeVBIOoRFQ" isUnique="false"/>
       <ownedOperation xmi:type="uml:Operation" xmi:id="_pn5wINapEeayPeVBIOoRFQ" name="execute"/>
       <ownedOperation xmi:type="uml:Operation" xmi:id="_7ef-QNapEeayPeVBIOoRFQ" name="undo"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="_lZ7T0NapEeayPeVBIOoRFQ" name="SwapStudentCommand">
       <generalization xmi:type="uml:Generalization" xmi:id="_usZkwNapEeayPeVBIOoRFQ" general="_VULYQNapEeayPeVBIOoRFQ"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_ATrdwNs6Eea9QdIaL4ci2w" name="allocation" type="_XCaFYNaNEeayPeVBIOoRFQ"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_D4oyQNs6Eea9QdIaL4ci2w" name="firstStudent" type="_XCasfNaNEeayPeVBIOoRFQ" isUnique="false"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_Gbiz4Ns6Eea9QdIaL4ci2w" name="secondStudent" type="_XCasfNaNEeayPeVBIOoRFQ" isUnique="false"/>
       <ownedOperation xmi:type="uml:Operation" xmi:id="_q8WakNapEeayPeVBIOoRFQ" name="execute"/>
       <ownedOperation xmi:type="uml:Operation" xmi:id="_6EsSsNapEeayPeVBIOoRFQ" name="undo"/>
     </packagedElement>
