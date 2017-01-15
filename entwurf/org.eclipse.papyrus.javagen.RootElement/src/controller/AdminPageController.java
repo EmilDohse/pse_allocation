@@ -102,9 +102,11 @@ public class AdminPageController extends Controller {
 	 * Diese Methode gibt die Seite zurück, auf der der Administrator Projekte
 	 * sieht, Projekte hinzufügen, editieren oder entfernen kann.
 	 * 
+	 * @param name Der Name des Projektes (da mitgegeben über die URL, ist der String encoded)
+	 * 
 	 * @return die Seite, die als Antwort verschickt wird.
 	 */
-	public Result projectEditPage() {
+	public Result projectEditPage(String name) {
 		// TODO
 		return null;
 	}

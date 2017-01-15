@@ -17,9 +17,11 @@ public class AdviserPageController extends Controller {
 	 * Entfernen eines Projektes ist beschränkt auf Betreuer, welche dem Projekt
 	 * beigetreten sind.
 	 * 
+	 * @param name Der Name des Projektes (da mitgegeben über die URL, ist der String encoded)
+	 * 
 	 * @return die Seite, die als Antwort verschickt wird.
 	 */
-	public Result projectsPage() {
+	public Result projectsPage(String name) {
 		// TODO
 		return null;
 	}

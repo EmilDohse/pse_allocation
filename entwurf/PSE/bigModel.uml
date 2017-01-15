@@ -800,8 +800,11 @@
       <ownedOperation xmi:type="uml:Operation" xmi:id="_z27kOdaOEeayPeVBIOoRFQ" name="propertiesPage">
         <ownedParameter xmi:type="uml:Parameter" xmi:id="_ZX2H0NizEealgIE4utjr-g" name="result" type="_0_XecNioEealgIE4utjr-g" isUnique="false" direction="return"/>
       </ownedOperation>
-      <ownedOperation xmi:type="uml:Operation" xmi:id="_z27kOtaOEeayPeVBIOoRFQ" name="projectEditPage">
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_z27kOtaOEeayPeVBIOoRFQ" name="projectEditPage" concurrency="concurrent">
         <ownedParameter xmi:type="uml:Parameter" xmi:id="_cCDrUNizEealgIE4utjr-g" name="result" type="_0_XecNioEealgIE4utjr-g" isUnique="false" direction="return"/>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_bUH3ANsTEeaWnKVuSfNlww" name="name">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+        </ownedParameter>
       </ownedOperation>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="_z27kO9aOEeayPeVBIOoRFQ" name="IndexPageController">
@@ -833,6 +836,9 @@
       <generalization xmi:type="uml:Generalization" xmi:id="_z28LVNaOEeayPeVBIOoRFQ" general="_z27kMNaOEeayPeVBIOoRFQ"/>
       <ownedOperation xmi:type="uml:Operation" xmi:id="_z28LVdaOEeayPeVBIOoRFQ" name="projectsPage">
         <ownedParameter xmi:type="uml:Parameter" xmi:id="_QlWz8NiyEealgIE4utjr-g" name="result" type="_0_XecNioEealgIE4utjr-g" isUnique="false" direction="return"/>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_Oy9cgNsTEeaWnKVuSfNlww" name="name">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+        </ownedParameter>
       </ownedOperation>
       <ownedOperation xmi:type="uml:Operation" xmi:id="_z28LVtaOEeayPeVBIOoRFQ" name="addProject">
         <ownedParameter xmi:type="uml:Parameter" xmi:id="_TqO6MNiyEealgIE4utjr-g" name="result" type="_0_XecNioEealgIE4utjr-g" isUnique="false" direction="return"/>
