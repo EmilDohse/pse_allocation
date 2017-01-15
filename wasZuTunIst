@@ -12,7 +12,7 @@
 //- Tabelle zwischen Controller und View URL
 //- package namen anglifiziern
 // Attribute alle private
-- Getter, Setter, Konstruktoren in die Javadocs
+//- Getter, Setter, Konstruktoren in die Javadocs
 // Privater Konstruktor in den singleton auch im diagramm
 // Liste von Lerngruppen beim Student zu einfachem Attribut machen (Diag + Code + Docs)
 // Erstellen von Play und Gurobi Package im Diagramm
@@ -21,13 +21,14 @@
 -Dokument: 
 Klassendiagrammausschnitte ins Doc
 - javadoc ins document 
-- javadoc mit modell abgleichen
+//- javadoc mit modell abgleichen
 -Sequenzdiagramme einfügen und Textuell beschreiben
 // änderungen zum pflichtenheft ins doc
--im und exportformate ins doc
+//-im und exportformate ins doc
 - wo haben wir entwurfsmuster verwendet
 // einleitung schreiben
 - tipps unnd tricks dokument zur bewertung lesen und schaun was wir eingehalten haben und was nicht (rückmeldung an mich für vortrag)
 //Javadoc importer
 //javadoc pseServerConfigStartup
--javadoc command im controller package
+//-javadoc command im controller package
+-result, controller javadoc im latex entfernen

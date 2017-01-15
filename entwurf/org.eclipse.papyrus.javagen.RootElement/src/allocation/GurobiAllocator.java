@@ -14,33 +14,33 @@ import gurobi.*;
  */
 public class GurobiAllocator extends AbstractAllocator {
     /**
-     * Die Basismatrix (NxM) welche anzeigt ob ein Student n in einm Team m ist.
+     * Die Basismatrix (NxM) welche anzeigt, ob ein Student n in einm Team m ist.
      * Die Mte Spalte ist das Team der nicht zugeteilten
      */
     private GRBVar[][] basicMatrix;
     /**
-     * Über Constraints dynamisch bestimmte Teamgröße
+     * Über Constraints dynamisch bestimmte Teamgröße. (Hilfsvariablen)
      */
     private GRBVar[] teamSize;
     /**
      * Der Optimierungsterm der von Kriterien erweitert wird und zur Berechnung
-     * der Einteilung verwendet wird
+     * der Einteilung verwendet wird.
      */
     private GRBLinExpr optTerm;
     /**
-     * Das zur Berechnung verwendete Gurobi Model
+     * Das zur Berechnung verwendete Gurobi Model.
      */
     private GRBModel model;
 
     /**
-     * Konstruktor, der das Basismodell initialisiert
+     * Konstruktor, der das Basismodell initialisiert.
      */
     public GurobiAllocator() {
         
     }
     
     /**
-     * Getter für die Basismatrix
+     * Getter für die Basismatrix.
      * 
      * @return Die Basismatrix
      */
@@ -50,7 +50,7 @@ public class GurobiAllocator extends AbstractAllocator {
     }
 
     /**
-     * Getter für das Modell
+     * Getter für das Modell.
      * 
      * @return Das Modell
      */
@@ -60,7 +60,7 @@ public class GurobiAllocator extends AbstractAllocator {
     }
     
     /**
-     * Getter für den Optimierungsterm
+     * Getter für den Optimierungsterm.
      * 
      * @return Der Optimierungsterm
      */
@@ -80,10 +80,10 @@ public class GurobiAllocator extends AbstractAllocator {
     }
 
     /**
-     * Startet die Berechnung einer Einteilung
+     * Startet die Berechnung einer Einteilung.
      * 
      * @param configuration
-     *            Die Konfiguration, nach der die Einteilung berechnet werden soll
+     *            Die Konfiguration, nach der die Einteilung berechnet werden soll.
      */
     public void calculate(Configuration configuration) {
     }

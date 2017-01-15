@@ -8,52 +8,53 @@ import java.util.List;
 
 /************************************************************/
 /**
- * Die Queue dient dazu, die Berechnung von Einteilungen als Stapelverarbeitung zu realisieren.
+ * Die AllocationQueue dient dazu, die Berechnung von Einteilungen als FIFO-Warteschlange zu realisieren. 
+ * Wenn eine berechnung fertig ist wird die nächste Berechnung angestoßen. Die Queue ist als Singelton implementiert.
  */
 public class AllocationQueue {
 	/**
-	 * Die intern verwendete queue
+	 * Die intern verwendete queue.
 	 */
 	private List<Configuration> configurationQueue;
 	/**
-	 * Der Singelton der der Allocation queue
+	 * Der Singelton der Allocation queue.
 	 */
 	private static AllocationQueue instance;
 	/**
-	 * Der Alocator der zur Berechnung verwendet wird
+	 * Der Einteilungsberechner, der zur Berechnung verwendet wird.
 	 */
 	private AbstractAllocator Allocator;
 	/**
-	 * Die Konfiguration die aktuell zur Berechnung verwendet wird
+	 * Die Konfiguration, die aktuell zur Berechnung verwendet wird.
 	 */
 	private Configuration currentlyCalculatedConfiguration;
 	
 	/**
-	 * Privater Konstruktor der zur Instanziierung des Singletons verwendet wird.
+	 * Privater Konstruktor, der zur Instanziierung des Singletons verwendet wird.
 	 */
 	private AllocationQueue() {
 	    
 	}
 	/**
-	 * Gibt die eine existierende Instanz der AllocationQueue (Singleton) zurück	 * 
-	 * @return  Die Instanz der AllocationQueue
+	 * Gibt die eine existierende Instanz der AllocationQueue (Singleton) zurück.	 * 
+	 * @return  Die Instanz der AllocationQueue.
 	 */
 	public static AllocationQueue getInstance() {
 		return instance;
 	}
 
 	/**
-	 * Fügt der Berechnungsqueue eine Konfiguration hinzu, die zur Berechnung verwendet werden soll
+	 * Fügt der Berechnungsqueue eine Konfiguration hinzu, die zur Berechnung verwendet werden soll.
 	 *  
-	 * @param configuration Die Konfiguration, die zur Berechnungsqueue hinzugefügt wird
+	 * @param configuration Die Konfiguration, die zur Berechnungsqueue hinzugefügt wird.
 	 */
 	public void addToQueue(Configuration configuration) {
 	}
 
 	/**
-	 * Nimmt eine Konfiguration aus der Berechnungsqueue heraus. Falls diese Konfiguration bereits berechnet wird, wird die Berechnung abgebrochen
+	 * Nimmt eine Konfiguration aus der Berechnungsqueue heraus. Falls diese Konfiguration bereits berechnet wird, wird die Berechnung abgebrochen.
 	 * 
-	 * @param configuration Die Konfiguration, die entfernt werden soll
+	 * @param configuration Die Konfiguration, die entfernt werden soll.
 	 */
 	public void cancelAllocation(Configuration configuration) {
 	}
@@ -61,7 +62,7 @@ public class AllocationQueue {
 	/**
 	 * Gibt die Queue der Berechnungen zurück, inklusive der Konfiguration die aktuell berechnet wird.
 	 * 
-	 * @return Liste der Konfigurationen als FIFO-Queue angeordnet
+	 * @return Liste der Konfigurationen als FIFO-Queue angeordnet.
 	 */
 	public List<Configuration> getQueue() {
 		return configurationQueue;
