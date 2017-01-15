@@ -24,9 +24,9 @@ public class Student extends User {
      */
 	private SPO spo;
 	/**
-	 * Die Lerngruppen des Studierenden.
+	 * Die Lerngruppe des Studierenden.
 	 */
-	private List<LearningGroup> learningGroups;
+	private LearningGroup learningGroups;
 	/**
 	 * Die bestandenen Teilleistungen.
 	 */
