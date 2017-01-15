@@ -340,16 +340,16 @@ jeweilige Kriterium) als Multiplikatoren für die Boni der Kriterien verwendet.
 Diese Boni sind an der \enquote{++ Wertung} normiert. 
 
 \subsubsection{CriterionAllocated}
-Das Kriterium sorgt dafür das möglichst viele Studierende Teams zugeteilt
-werden. Hierzu wird dem Optimierungsterm für jeden zugeltilten Student ein Bonus
-von 10. Für nicht zugeteilte gibt es einen Bonus von 1. \begin{align*}
+Das Kriterium sorgt dafür, dass möglichst viele Studierende zu Teams zugeteilt
+werden. Hierzu wird dem Optimierungsterm für jeden zugeteilten Student ein Bonus
+von 10 hinzugefügt. Für nicht zugeteilte gibt es einen Bonus von 1. \begin{align*}
 \intertext{Zum Optimierungsterm:}
 p_i \cdot 10 \cdot \sum_{k = 1}^{N} \sum_{j = 1}^{M-1} B(k,j) \text{ für die
 Zugeteilten}
 \end{align*}
 
 \subsubsection{CriterionRating}
-Das Kriterium sorgt dafür das die Bewertungen der Studierenden berücksichtigt
+Das Kriterium sorgt dafür, dass die Bewertungen der Studierenden berücksichtigt
 werden. Für ein \enquote{++} gibt es einen Bonus von 10, für ein \enquote{+} 8,
 für ein \enquote{o} 6, für ein \enquote{-} 4 und für ein \enquote{-{}-} 2. Sei
 hierfür $w_{kj}$ die Wertung des Studierenden $k$ für das Projekt zu dem Team
@@ -360,9 +360,9 @@ p_i \cdot \sum_{k=1}^{N}\sum_{j=1}^{M-1}w_{kj} \cdot B(k,j)
 \end{align*}
 
 \subsubsection{CriterionLearningGroup}
-Das Kriterium sorgt dafür das Lerngruppen eher zusammenbleiben. Hierfür gibt es
+Das Kriterium sorgt dafür, dass Lerngruppen eher zusammenbleiben. Hierfür gibt es
 für jedes Paar Studierender $p:= (a,b)$ mit $a,b \in \{ 1\ldots N\}: a > b$
-einer Lerngruppe die zusammenbleiben einen Bonus $LgBonus_l$ von $\frac{10}{pair_l}$ wobei $pair_l$ die Anzahl der Paare der
+einer Lerngruppe, die zusammenbleiben, einen Bonus $LgBonus_l$ von $\frac{10}{pair_l}$, wobei $pair_l$ die Anzahl der Paare der
 Lerngruppe $l$ ist.
 \begin{align*}
 \intertext{Als Constraints: }
@@ -401,7 +401,7 @@ z_j &=x_j - preferredTeamSize\\
 o_j
 \end{align*}
 \subsubsection{CriterionSameSemester}
-Das Kriterium sorgt dafür das Studierende des, für das PSE vorgesehenen
+Das Kriterium sorgt dafür, dass Studierende des für das PSE vorgesehenen
 Semesters und Studierende höherer Semester eher nicht in das selbe Team kommen. 
 Seien $a_{1t},a_{2t},a_{3t},a_{4t}$ Hilfsvariablen, bis auf $a_{1t}$ alle binär.
 $drittSemester$ die Menge der Studierenden im für das PSE vorgesehenen Semester.
@@ -429,18 +429,18 @@ e_t &= (a_{2t} \vee a_{3t}) \wedge a_{4t}\\ \intertext{Zum Optimierungsterm:}
 &p_i \cdot 10 \cdot \sum_{j=1 }^{M-1} e_j
 \end{align*}
 \subsubsection{CriterionPreferHigherSemester}
-Das Kriterium sorgt dafür das Studierende höheren Semesters bevorzugt werden.
+Das Kriterium sorgt dafür, dass Studierende höheren Semesters bevorzugt werden.
 Hierfür wird dem Optimierungsterm $p_i \cdot 10 \cdot \sum_{j = 1}^{M-1} B(k,j)$ hinzugefügt, wenn der
 Studierende $k$ in einem höheren Semester ist.
 \subsubsection{CriterionAdditionalPerformances}
-Das Kriterium sorgt dafür Studierende die mehr als die die zur Teilname am PSE
-benötigten Teilleistungen bestanden haben bevorzugt werden. Hierfür wird dem Optimierungsterm
+Das Kriterium sorgt dafür, dass Studierende, die mehr als die zur Teilname am PSE
+benötigten Teilleistungen bestanden haben, bevorzugt werden. Hierfür wird dem Optimierungsterm
 $p_i \cdot 10 \cdot \sum_{j = 1}^{M-1} B(k,j)$ hinzugefügt, wenn der Studierende
 $k$ mehr als die zur Teilname am PSE benötigten Teilleistungen bestanden hat.
 \subsubsection{CriterionNoSingularStudent}
-Das Kriterium sorgt dafür das möglichst kein Team aus einer Lerngrupe sowie
+Das Kriterium sorgt dafür, dass möglichst kein Team aus einer Lerngruppe sowie
 einem einzelnen Studierenden besteht.
-Sei $lg_i$ die Lerngruppengröße der $i$-ten Lerngruppe, es gebe $O$ Lerngruppen.
+Sei $lg_i$ die Lerngruppengröße der $i$-ten Lerngruppe, es gebe $Q$ Lerngruppen.
 Weiterhin sei $\delta_j$ eine binäre Hilfsvariable.
 \begin{align*}
 \intertext{Als Constraints:} 
@@ -454,7 +454,7 @@ Weiterhin sei $\delta_j$ eine binäre Hilfsvariable.
 %a_{ji} \le x_j -lg_i -1 \\
 %a_{ji} \ge 0.1 \cdot (x_j -lg_i-1)\\
 \intertext{Zum Optimierungsterm: }
-p_i \cdot 10 \cdot \sum_{j = 1}^{M-1} \sum_{i = 1}^{O}a_{ji}
+p_i \cdot 10 \cdot \sum_{j = 1}^{M-1} \sum_{i = 1}^{Q}a_{ji}
 \end{align*}
 \pagebreak
 \section{Dokumentation}
@@ -472,9 +472,9 @@ p_i \cdot 10 \cdot \sum_{j = 1}^{M-1} \sum_{i = 1}^{O}a_{ji}
 Für den Im- und Export werden CSV-Dateien verwendet. Diese haben das folgende
 Format: 
 \begin{itemize}
-  \item Zum importieren alter Datensätze von Studirenden und deren Bewertungen
+  \item Zum Importieren alter Datensätze von Studirenden und deren Bewertungen:
  \\ \begin{tcolorbox}[enhanced jigsaw, % needed to really the frame off!
- colback=testgrauRGB % black background
+ colback=testgrauRGB, % black background
  coltext=black, % white text
  %halign=center, % center
 % fontupper={\Huge \bfseries}, % change the font here
@@ -486,10 +486,10 @@ Format:
   Fachsemester; hat HM; hat SWT; hat Algo; Bewertung Thema 1; ... ; Bewertung
   Thema N}
   \end{tcolorbox}
-   \item Zum im- und export der Datensätze von Studirenden und deren
-   Bewertungen in das Produkt \\ \begin{tcolorbox}[enhanced jigsaw, % needed
+   \item Zum Im- und Xxport der Datensätze von Studirenden und deren
+   Bewertungen in das Produkt: \\ \begin{tcolorbox}[enhanced jigsaw, % needed
    % to really the frame off!
- colback=testgrauRGB % black background
+ colback=testgrauRGB, % black background
  coltext=black, % white text
  %halign=center, % center
 % fontupper={\Huge \bfseries}, % change the font here
@@ -504,11 +504,11 @@ Format:
   Kommata separiert aufgelistet werden. Auch die Bewertungen (++, +, o, -, --)
   werden durch Kommata separiert, jeweils zum alphabetisch sortiert nächsten
   Projekt aufgelistet.
-  \item Zum im- und export der alten Datensätze von Projekten in das Produkt
+  \item Zum Im- und Export der alten Datensätze von Projekten in das Produkt:
   \\
   \begin{tcolorbox}[enhanced jigsaw, % needed
    % to really the frame off!
- colback=testgrauRGB % black background
+ colback=testgrauRGB, % black background
  coltext=black, % white text
  %halign=center, % center
 % fontupper={\Huge \bfseries}, % change the font here
@@ -518,10 +518,10 @@ Format:
  ]
  \texttt{Name; Institut; Anzahl Teams; Min. Teamgröße; Max. Teamgröße}
   \end{tcolorbox}
-  \item Zum im- und export der Datensätze von Projekten in unserem Produkt \\
+  \item Zum Im- und Export der Datensätze von Projekten in unserem Produkt: \\
   \begin{tcolorbox}[enhanced jigsaw, % needed
    % to really the frame off!
- colback=testgrauRGB % black background
+ colback=testgrauRGB, % black background
  coltext=black, % white text
  %halign=center, % center
 % fontupper={\Huge \bfseries}, % change the font here
@@ -531,11 +531,11 @@ Format:
  ]
  \texttt{Name; Institut; Anzahl Teams; Min. Teamgröße; Max. Teamgröße;projectURL;projectInfo}
   \end{tcolorbox}
-  \item Zum im- und export von Einteilungen \\ \begin{tcolorbox}[enhanced
+  \item Zum Im- und Export von Einteilungen: \\ \begin{tcolorbox}[enhanced
   jigsaw,
   % needed
    % to really the frame off!
- colback=testgrauRGB % black background
+ colback=testgrauRGB, % black background
  coltext=black, % white text
  %halign=center, % center
 % fontupper={\Huge \bfseries}, % change the font here
@@ -543,15 +543,15 @@ Format:
  colframe=black, % not really necessary
  boxrule=0pt % frame off 
  ]
- \texttt{Projektname;Mitglied_1; \ldots ; Mitglied_N}
+ \texttt{Projektname;Mitglied 1; \ldots ; Mitglied N}
   \end{tcolorbox}
-   \item Zum import von Studierenden vom CMS zur
-   PSE-Anmeldungsüberprüfung 
+   \item Zum Import von Studierenden vom CMS zur
+   PSE-Anmeldungsüberprüfung: 
    \\
    \begin{tcolorbox}[enhanced jigsaw,
   % needed
    % to really the frame off!
- colback=testgrauRGB % black background
+ colback=testgrauRGB, % black background
  coltext=black, % white text
  %halign=center, % center
 % fontupper={\Huge \bfseries}, % change the font here
@@ -562,14 +562,14 @@ Format:
  \texttt{Matrnr; angemeldet; prüfung}
 \end{tcolorbox}
  wobei angemeldet $:=$ \enquote{Angemeldet} wenn der Studierende für
- \texttt{prüfung} angemeldet ist sonst \enquote{Nicht angemeldet}.
+ \texttt{prüfung} angemeldet ist, sonst \enquote{Nicht angemeldet}.
  \texttt{prüfung} ist der Name \enquote{Praxis der Software-Entwicklung} oder
  \enquote{Teamarbeit in der Softwareentwicklung} CMS.
-   \item Zum export von Matrikelnummern die vom CMS überprüft werden sollen \\
+   \item Zum Export von Matrikelnummern die vom CMS überprüft werden sollen: \\
    \begin{tcolorbox}[enhanced jigsaw,
   % needed
    % to really the frame off!
- colback=testgrauRGB % black background
+ colback=testgrauRGB, % black background
  coltext=black, % white text
  %halign=center, % center
 % fontupper={\Huge \bfseries}, % change the font here
@@ -579,11 +579,11 @@ Format:
  ]
  \texttt{Matrnr}
   \end{tcolorbox}
-   \item Zum export von Noten an das CMS \\ \begin{tcolorbox}[enhanced
+   \item Zum Export von Noten an das CMS: \\ \begin{tcolorbox}[enhanced
   jigsaw,
   % needed
    % to really the frame off!
- colback=testgrauRGB % black background
+ colback=testgrauRGB, % black background
  coltext=black, % white text
  %halign=center, % center
 % fontupper={\Huge \bfseries}, % change the font here
@@ -593,11 +593,11 @@ Format:
  ]
  \texttt{Matrnr; note; prüfung}
   \end{tcolorbox}
-     \item Zum im- und export von SPOs \\ \begin{tcolorbox}[enhanced
+     \item Zum Im- und Export von SPOs: \\ \begin{tcolorbox}[enhanced
   jigsaw,
   % needed
    % to really the frame off!
- colback=testgrauRGB % black background
+ colback=testgrauRGB, % black background
  coltext=black, % white text
  %halign=center, % center
 % fontupper={\Huge \bfseries}, % change the font here
@@ -608,7 +608,7 @@ Format:
  \texttt{name;voluntaryAchievements;necessaryAchievements}
   \end{tcolorbox}
   wobei \texttt{necessaryAchievements} und \texttt{voluntaryAchievements}
-  Kommaseparierte aufzählungen sind.
+  kommaseparierte Aufzählungen sind.
 \end{itemize}
 
 
