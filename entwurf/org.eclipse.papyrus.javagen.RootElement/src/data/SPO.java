@@ -119,7 +119,7 @@ public class SPO {
 	/**
 	 * Diese Methode gibt alle SPOs zurück.
 	 * 
-	 * @return spos Alle SPOs.
+	 * @return Alle SPOs.
 	 */
 	public static SPO[] getSPOs() {
 		// TODO
@@ -132,7 +132,7 @@ public class SPO {
 	 * 
 	 * @param name
 	 *            Der Name der SPO.
-	 * @return spo Die SPO
+	 * @return Die SPO
 	 */
 	public static SPO getSPO(String name) {
 		// TODO

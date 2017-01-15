@@ -198,7 +198,7 @@ public class LearningGroup {
 	 *            Der Name der Lerngruppe.
 	 * @param semester
 	 *            Das Semster, in dem die Lerngruppe erstellt wurde.
-	 * @return learningGroup Die spezifische Lerngruppe.
+	 * @return Die spezifische Lerngruppe.
 	 */
 	public static LearningGroup getLearningGroup(String name, Semester semester) {
 		// TODO
@@ -208,7 +208,7 @@ public class LearningGroup {
 	/**
 	 * Diese Methode gibt alle jemals erstellten Lerngruppen zurück.
 	 * 
-	 * @return learningGroups Alle LErngruppen.
+	 * @return Alle Lerngruppen.
 	 */
 	public static LearningGroup[] getLearningGroups() {
 		// TODO
