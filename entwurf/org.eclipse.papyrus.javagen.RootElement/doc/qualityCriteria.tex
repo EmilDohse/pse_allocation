@@ -17,12 +17,12 @@ Gütekriterium, das die Anzahl der nicht zugeteilten Studenten berechnet\end{tex
 \begin{texdocclass}{class}{QualityCriteriaLoader}
 \label{texdoclet:qualityCriteria.QualityCriteriaLoader}
 \begin{texdocclassintro}
-Klasse, die alle Gütekriterien lädt\end{texdocclassintro}
+Klasse, die alle Gütekriterien lädt.\end{texdocclassintro}
 \begin{texdocclassconstructors}
 \texdocconstructor{public}{QualityCriteriaLoader}{()}{}{}
 \end{texdocclassconstructors}
 \begin{texdocclassmethods}
-\texdocmethod{public static}{QualityCriterion}{getAllQualityCriteria}{()}{Gibt alle gütekriterien zurück.}{\texdocreturn{Liste aller Gütekriterien}
+\texdocmethod{public static}{QualityCriterion}{getAllQualityCriteria}{()}{Gibt alle Gütekriterien zurück.}{\texdocreturn{Liste aller Gütekriterien}
 }
 \end{texdocclassmethods}
 \end{texdocclass}
@@ -31,10 +31,10 @@ Klasse, die alle Gütekriterien lädt\end{texdocclassintro}
 \begin{texdocclass}{interface}{QualityCriterion}
 \label{texdoclet:qualityCriteria.QualityCriterion}
 \begin{texdocclassintro}
-Interface aller Gütekriterien\end{texdocclassintro}
+Interface aller Gütekriterien.\end{texdocclassintro}
 \begin{texdocclassmethods}
-\texdocmethod{public}{String}{calculate}{(Allocation allocation)}{Berechnet das Gütekriterium einer Berechnung}{\begin{texdocparameters}
-\texdocparameter{allocation}{Berechnung, für die das Gütekriterium berechnet wird}
+\texdocmethod{public}{String}{calculate}{(Allocation allocation)}{Berechnet das Gütekriterium einer Berechnung.}{\begin{texdocparameters}
+\texdocparameter{allocation}{Berechnung, für die das Gütekriterium berechnet wird.}
 \end{texdocparameters}
 }
 \end{texdocclassmethods}
@@ -44,12 +44,12 @@ Interface aller Gütekriterien\end{texdocclassintro}
 \begin{texdocclass}{class}{splitLearningGroups}
 \label{texdoclet:qualityCriteria.splitLearningGroups}
 \begin{texdocclassintro}
-Gütekriterium, das die Anzahl der zerteilten Lerngruppen berechnet\end{texdocclassintro}
+Gütekriterium, das die Anzahl der zerteilten Lerngruppen berechnet.\end{texdocclassintro}
 \begin{texdocclassconstructors}
 \texdocconstructor{public}{splitLearningGroups}{()}{}{}
 \end{texdocclassconstructors}
 \begin{texdocclassmethods}
-\texdocmethod{public}{String}{calculate}{(Allocation allocation)}{\texdocinheritdoc{qualityCriteria.QualityCriterion}{Berechnet das Gütekriterium einer Berechnung}}{}
+\texdocmethod{public}{String}{calculate}{(Allocation allocation)}{\texdocinheritdoc{qualityCriteria.QualityCriterion}{Berechnet das Gütekriterium einer Berechnung.}}{}
 \end{texdocclassmethods}
 \end{texdocclass}
 
@@ -59,18 +59,18 @@ Gütekriterium, das die Anzahl der zerteilten Lerngruppen berechnet\end{texdoccl
 \begin{texdocclassintro}
 Gütekriterium, das die Studentenhappiness berechnet 
  StudierendenHappiness:
-++ = 1.0
-+ = 0.8
-0 = 0.6
-- = 0.4
-— = 0.2
-nicht zugeteilt = 0.0
+++ = 1.0,
++ = 0.8,
+0 = 0.6,
+- = 0.4,
+— = 0.2,
+nicht zugeteilt = 0.0;
 Summe über alle Studenten$/$Anzahl Studenten\end{texdocclassintro}
 \begin{texdocclassconstructors}
 \texdocconstructor{public}{StudentHappiness}{()}{}{}
 \end{texdocclassconstructors}
 \begin{texdocclassmethods}
-\texdocmethod{public}{String}{calculate}{(Allocation allocation)}{\texdocinheritdoc{qualityCriteria.QualityCriterion}{Berechnet das Gütekriterium einer Berechnung}}{}
+\texdocmethod{public}{String}{calculate}{(Allocation allocation)}{\texdocinheritdoc{qualityCriteria.QualityCriterion}{Berechnet das Gütekriterium einer Berechnung.}}{}
 \end{texdocclassmethods}
 \end{texdocclass}
 
