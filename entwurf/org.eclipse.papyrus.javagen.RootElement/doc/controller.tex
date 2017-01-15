@@ -15,32 +15,32 @@ Dieser Controller ist für das Bearbeiten der Http-Requests zuständig, welche
 \begin{texdocclassmethods}
 \texdocmethod{public}{Result}{duplicateAllocation}{()}{Diese Methode erstellt eine Kopie einer kompletten Einteilung. Diese
  Funktion ist dafür gedacht, dass der Administrator sehen kann, ob durch
- seine manuelle Änderungen ein optimaleres Ergebnis entstand. Der
+ seine manuelle Änderungen ein besseres Ergebnis entstand. Der
  Administrator wird anschließend auf die Seite zur Einteilungs-Bearbeitung
- zurückgeleitet.}{\texdocreturn{die Seite, die als Antwort verschickt wird.}
+ zurückgeleitet.}{\texdocreturn{Die Seite, die als Antwort verschickt wird.}
 }
-\texdocmethod{public}{Result}{moveStudents}{()}{Diese Methode verschiebt ein oder mehrere ausgewählte Studenten in ein
- anderes Team. Das verschieben in das gleiche Team wird nicht unterbunden,
+\texdocmethod{public}{Result}{moveStudents}{()}{Diese Methode verschiebt einen oder mehrere ausgewählte Studenten in ein
+ anderes Team. Das Verschieben in das gleiche Team wird nicht unterbunden,
  hat jedoch keine Auswirkung. Anschließend wird der Administrator auf die
- Seite zur Einteilungs-Bearbeitung zurückgeleitet.}{\texdocreturn{die Seite, die als Antwort verschickt wird.}
+ Seite zur Einteilungs-Bearbeitung zurückgeleitet.}{\texdocreturn{Die Seite, die als Antwort verschickt wird.}
 }
 \texdocmethod{public}{Result}{publishAllocation}{()}{Diese Methode veröffentlicht eine Einteilung. Dazu gehört, die Einteilung
  als final zu deklarieren und Betreuer und Studenten per E-Mail über deren
  Einteilung zu informieren. Der Administrator wird anschließend auf die
- Einteilungs-Bearbeitungs-Seite zurückgeleitet.}{\texdocreturn{die Seite, die als Antwort verschickt wird.}
+ Einteilungs-Bearbeitungs-Seite zurückgeleitet.}{\texdocreturn{Die Seite, die als Antwort verschickt wird.}
 }
 \texdocmethod{public}{Result}{removeAllocation}{()}{Diese Methode löscht eine bereits vorhandene Einteilung. Der
  Administrator wird anschließend auf die Seite zur Einteilungs-Bearbeitung
- zurückgeleitet.}{\texdocreturn{die Seite, die als Antwort verschickt wird.}
+ zurückgeleitet.}{\texdocreturn{Die Seite, die als Antwort verschickt wird.}
 }
 \texdocmethod{public}{Result}{swapStudents}{()}{Diese Methode tauscht zwei Studenten, welche der Administrator vorher in
  einem Formular ausgewählt hat. Ein Tausch innerhalb eines Teams wird
  nicht unterbunden, hat jedoch keine Auswirkung. Anschließend wird der
- Administrator auf die Seite zur Einteilungs-Bearbeitung zurückgeleitet.}{\texdocreturn{die Seite, die als Antwort verschickt wird.}
+ Administrator auf die Seite zur Einteilungs-Bearbeitung zurückgeleitet.}{\texdocreturn{Die Seite, die als Antwort verschickt wird.}
 }
 \texdocmethod{public}{Result}{undoAllocationEdit}{()}{Diese Methode macht die letzte Editierung rückgängig. Dies ist jedoch
  nicht session-übergreifend möglich. Der Administrator wird anschließend
- auf die Seite zur Einteilungs-Bearbeitung zurückgeleitet.}{\texdocreturn{die Seite, die als Antwort verschickt wird.}
+ auf die Seite zur Einteilungs-Bearbeitung zurückgeleitet.}{\texdocreturn{Die Seite, die als Antwort verschickt wird.}
 }
 \end{texdocclassmethods}
 \end{texdocclass}
@@ -55,52 +55,47 @@ Dieser Controller ist für das Bearbeiten der Http-Requests zuständig, welche
 \texdocconstructor{public}{AdminImportExportController}{()}{}{}
 \end{texdocclassconstructors}
 \begin{texdocclassmethods}
-\texdocmethod{public}{Result}{exportAllocation}{()}{Diese Methode lässt den Administrator eine Datei downloaden, welche in
- einem Textformat eine Einteilung speichert. Der Administrator wird
- daraufhin auf die Import$/$Export-Seite zurückgeleitet.}{\texdocreturn{die Seite, die als Antwort verschickt wird.}
+\texdocmethod{public}{Result}{exportAllocation}{()}{Diese Methode lässt den Administrator eine csv-Datei downloaden, welche
+ eine Einteilung speichert. Der Administrator wird daraufhin auf die
+ Import$/$Export-Seite zurückgeleitet.}{\texdocreturn{Die Seite, die als Antwort verschickt wird.}
 }
-\texdocmethod{public}{Result}{exportCMSData}{()}{Diese Methode lässt den Administrator eine Datei downloaden, welche eine
- csv-Datei ist und die Studenten des aktuellen Semester mit den
- eingetragenen TSE und PSE Noten enthält. Der Administrator wird daraufhin
- auf die Import$/$Export-Seite zurückgeleitet.}{\texdocreturn{die Seite, die als Antwort verschickt wird.}
+\texdocmethod{public}{Result}{exportCMSData}{()}{Diese Methode lässt den Administrator eine csv-Datei downloaden, welche
+ die Studenten des aktuellen Semester mit den eingetragenen TSE und PSE
+ Noten enthält. Der Administrator wird daraufhin auf die
+ Import$/$Export-Seite zurückgeleitet.}{\texdocreturn{Die Seite, die als Antwort verschickt wird.}
 }
-\texdocmethod{public}{Result}{exportProjects}{()}{Diese Methode lässt den Administrator eine Datei downloaden, welche in
- einem Textformat alle Projekte des aktuellen Semesters abspeichert. Der
- Administrator wird daraufhin auf die Import$/$Export-Seite zurückgeleitet.}{\texdocreturn{die Seite, die als Antwort verschickt wird.}
+\texdocmethod{public}{Result}{exportProjects}{()}{Diese Methode lässt den Administrator eine csv-Datei downloaden, welche
+ alle Projekte des aktuellen Semesters abspeichert. Der Administrator wird
+ daraufhin auf die Import$/$Export-Seite zurückgeleitet.}{\texdocreturn{Die Seite, die als Antwort verschickt wird.}
 }
-\texdocmethod{public}{Result}{exportSPO}{()}{Diese Methode lässt den Administrator eine Datei downloaden, welche in
- einem Textformat eine SPO speichert. Der Administrator wird daraufhin auf
- die Import$/$Export-Seite zurückgeleitet.}{\texdocreturn{die Seite, die als Antwort verschickt wird.}
+\texdocmethod{public}{Result}{exportSPO}{()}{Diese Methode lässt den Administrator eine csv-Datei downloaden, welche
+ eine SPO speichert. Der Administrator wird daraufhin auf die
+ Import$/$Export-Seite zurückgeleitet.}{\texdocreturn{Die Seite, die als Antwort verschickt wird.}
 }
-\texdocmethod{public}{Result}{exportStudents}{()}{Diese Methode lässt den Administrator eine Datei downloaden, welche in
- einem Textformat alle Studenten des aktuellen Semesters abspeichert. Der
- Administrator wird daraufhin auf die Import$/$Export-Seite zurückgeleitet.}{\texdocreturn{die Seite, die als Antwort verschickt wird.}
+\texdocmethod{public}{Result}{exportStudents}{()}{Diese Methode lässt den Administrator eine csv-Datei downloaden, welche
+ alle Studenten des aktuellen Semesters abspeichert. Der Administrator
+ wird daraufhin auf die Import$/$Export-Seite zurückgeleitet.}{\texdocreturn{Die Seite, die als Antwort verschickt wird.}
 }
 \texdocmethod{public}{Result}{importAllocation}{()}{Diese Methode importiert eine Einteilung, sodass sie in der
  Einteilungsübersicht erscheint. Der Administrator wird daraufhin auf die
- Import$/$Export-Seite zurückgeleitet.}{\texdocreturn{die Seite, die als Antwort verschickt wird.}
+ Import$/$Export-Seite zurückgeleitet.}{\texdocreturn{Die Seite, die als Antwort verschickt wird.}
 }
 \texdocmethod{public}{Result}{importCMSData}{()}{Diese Methode importiert eine csv-Datei mit Daten aus dem CMS
- (CampusManagementSystem) und fügt die Daten zu den bereits vorhanden
- hinzu. Falls Konflikt auftreten, werden diese als Liste angezeigt. Der
- Administrator wird daraufhin auf die Import$/$Export-Seite zurückgeleitet.}{\texdocreturn{die Seite, die als Antwort verschickt wird.}
+ (CampusManagementSystem) und fügt die Daten zu den bereits vorhandenen
+ hinzu. Der Administrator wird daraufhin auf die Import$/$Export-Seite
+ zurückgeleitet.}{\texdocreturn{Die Seite, die als Antwort verschickt wird.}
 }
 \texdocmethod{public}{Result}{importProjects}{()}{Diese Methode importiert eine Liste an Projekten, welche daraufhin zum
  aktuellen Semester hinzugefügt werden. Der Administrator wird daraufhin
- auf die Import$/$Export-Seite zurückgeleitet.}{\texdocreturn{die Seite, die als Antwort verschickt wird.}
+ auf die Import$/$Export-Seite zurückgeleitet.}{\texdocreturn{Die Seite, die als Antwort verschickt wird.}
 }
 \texdocmethod{public}{Result}{importSPO}{()}{Diese Methode importiert eine SPO, sodass sie in der SPO-Auswahl eines
- Semesters erscheinen. Der Administrator wird daraufhin auf die
- Import$/$Export-Seite zurückgeleitet.}{\texdocreturn{die Seite, die als Antwort verschickt wird.}
+ Semesters erscheint. Der Administrator wird daraufhin auf die
+ Import$/$Export-Seite zurückgeleitet.}{\texdocreturn{Die Seite, die als Antwort verschickt wird.}
 }
 \texdocmethod{public}{Result}{importStudents}{()}{Diese Methode importiert eine Liste an Studenten, welche daraufhin zum
  aktuelle Semester hinzugefügt werden. Der Administrator wird daraufhin
- auf die Import$/$Export-Seite zurückgeleitet.}{\texdocreturn{die Seite, die als Antwort verschickt wird.}
-}
-\texdocmethod{public}{Result}{solveConflicts}{()}{Diese Methode löst alle Konflikte auf, welche durch einen
- CMS-Daten-Import auftreten. Der Administrator wählt dafür für jeden
- Konflikt aus, welchen Datensatz er behalten will. Der Administrator wird
- anschließend auf die Import$/$Export-Seite zurückgeleitet.}{\texdocreturn{die Seite, die als Antwort verschickt wird.}
+ auf die Import$/$Export-Seite zurückgeleitet.}{\texdocreturn{Die Seite, die als Antwort verschickt wird.}
 }
 \end{texdocclassmethods}
 \end{texdocclass}
@@ -111,43 +106,39 @@ Dieser Controller ist für das Bearbeiten der Http-Requests zuständig, welche
 \begin{texdocclassintro}
 Dieser Controller ist zuständig für das Bearbeiten der Http-Requests, welche
  durch das Klicken eines Links und nicht eines Buttons versendet werden.\end{texdocclassintro}
-\begin{texdocclassfields}
-\texdocfield{public}{QualityCriterion}{qualityCriteria}{}
-\end{texdocclassfields}
 \begin{texdocclassconstructors}
 \texdocconstructor{public}{AdminPageController}{()}{}{}
 \end{texdocclassconstructors}
 \begin{texdocclassmethods}
 \texdocmethod{public}{Result}{adviserPage}{()}{Diese Methode gibt die Seite zurück, auf der der Administrator alle
  Projektbetreuer sehen, neue hinzufügen oder bereits existierende
- entfernen kann.}{\texdocreturn{die Seite, die als Antwort verschickt wird.}
+ entfernen kann.}{\texdocreturn{Die Seite, die als Antwort verschickt wird.}
 }
 \texdocmethod{public}{Result}{allocationPage}{()}{Diese Methode gibt die Seite zurück, auf der der Administrator
- Einteilungen berechnen kann und voher Parameter einstellen kann. Außerdem
+ Einteilungen berechnen und vorher Parameter einstellen kann. Außerdem
  sieht er noch zu berechnende Konfigurationen und kann diese aus der
- Berechnungsliste entfernen.}{\texdocreturn{die Seite, die als Antwort verschickt wird.}
+ Berechnungsliste entfernen.}{\texdocreturn{Die Seite, die als Antwort verschickt wird.}
 }
 \texdocmethod{public}{Result}{exportImportPage}{()}{Diese Methode gibt die Seite zurück, auf der der Administrator
  Einteilungen, Studentendaten, SPOs, Projekte und CMS-Daten ex- und
- importieren kann.}{\texdocreturn{die Seite, die als Antwort verschickt wird.}
+ importieren kann.}{\texdocreturn{Die Seite, die als Antwort verschickt wird.}
 }
-\texdocmethod{public}{Result}{projectEditPage}{(String name)}{Diese Methode gibt die Seite zurück, auf der der Administrator Projekte
- sieht, Projekte hinzufügen, editieren oder entfernen kann.}{\begin{texdocparameters}
+\texdocmethod{public}{Result}{projectEditPage}{(String name)}{Diese Methode gibt die Seite zurück, auf der der Administrator ein Projekt editieren kann.}{\begin{texdocparameters}
 \texdocparameter{name}{Der Name des Projektes (da mitgegeben über die URL, ist der String encoded)}
 \end{texdocparameters}
-\texdocreturn{die Seite, die als Antwort verschickt wird.}
+\texdocreturn{Die Seite, die als Antwort verschickt wird.}
 }
 \texdocmethod{public}{Result}{projectPage}{()}{Diese Methode gibt die Seite zurück, auf der der Administrator Projekte
- sieht.}{\texdocreturn{die Seite, die als Antwort verschickt wird.}
+ sieht, neue hinzufügen, sowie existierende löschen kann.}{\texdocreturn{Die Seite, die als Antwort verschickt wird.}
 }
 \texdocmethod{public}{Result}{propertiesPage}{()}{Diese Methode gibt die Seite zurück, auf der der Administrator die
- Semester-Einstellungen vornehmen kann.}{\texdocreturn{die Seite, die als Antwort verschickt wird.}
+ Semester-Einstellungen vornehmen kann.}{\texdocreturn{Die Seite, die als Antwort verschickt wird.}
 }
 \texdocmethod{public}{Result}{resultsPage}{()}{Diese Methode gibt die Seite zurück, auf der der Administrator die
- Ergebnisse der Berechnungen sehen, vergleichen und editieren kann.}{\texdocreturn{die Seite, die als Antwort verschickt wird.}
+ Ergebnisse der Berechnungen sehen, vergleichen und editieren kann.}{\texdocreturn{Die Seite, die als Antwort verschickt wird.}
 }
 \texdocmethod{public}{Result}{studentEditPage}{()}{Diese Methode gibt die Seite zurück, auf der der Administrator Studenten
- manuell hinzufügen oder löschen kann.}{\texdocreturn{die Seite, die als Antwort verschickt wird.}
+ manuell hinzufügen oder löschen kann.}{\texdocreturn{Die Seite, die als Antwort verschickt wird.}
 }
 \end{texdocclassmethods}
 \end{texdocclass}
@@ -164,16 +155,16 @@ Dieser Controller ist für das Bearbeiten der Http-Requests zuständig, welche
 \end{texdocclassconstructors}
 \begin{texdocclassmethods}
 \texdocmethod{public}{Result}{addProject}{()}{Diese Methode fügt ein neues Projekt in das System ein und leitet den
- Administrator zurück auf die Seite zum editieren des Projektes.}{\texdocreturn{die Seite, die als Antwort verschickt wird.}
+ Administrator zurück auf die Seite zum Editieren des Projektes.}{\texdocreturn{Die Seite, die als Antwort verschickt wird.}
 }
 \texdocmethod{public}{Result}{editProject}{()}{Diese Methode editiert ein bereits vorhandenes Projekt. Die zu
  editierenden Daten übermittelt der Administrator über ein Formular,
- welches er zum editieren abschickt. Anschließend wird der Administrator
- auf die Seite zum Hinzufügen und Editieren von Projekten weitergeleitet.}{\texdocreturn{die Seite, die als Antwort verschickt wird.}
+ welches er zum Editieren abschickt. Anschließend wird der Administrator
+ auf die Seite zum Hinzufügen und Editieren von Projekten weitergeleitet.}{\texdocreturn{Die Seite, die als Antwort verschickt wird.}
 }
 \texdocmethod{public}{Result}{removeProject}{()}{Diese Methode löscht ein Projekt und alle dazugehörenden Daten aus dem
- System und leitet den Administrator weiter auf die Seite zum editieren
- und hinzufügen von Projekten.}{\texdocreturn{die Seite, die als Antwort verschickt wird.}
+ System und leitet den Administrator weiter auf die Seite zum Editieren
+ und Hinzufügen von Projekten.}{\texdocreturn{Die Seite, die als Antwort verschickt wird.}
 }
 \end{texdocclassmethods}
 \end{texdocclass}
@@ -191,31 +182,31 @@ Dieser Controller ist für das Bearbeiten der Http-Requests zuständig, welche
 \texdocmethod{public}{Result}{addAchievement}{()}{Diese Methode fügt eine neue Teilleistung zu einer bereits vorhandenen
  SPO hinzu. Der Administrator kann die Teilleistung als notwendig oder als
  nicht notwendig deklarieren und deren Namen ändern. Der Administrator
- wird daraufhin zur Einstellungsseite zurückgeleitet.}{\texdocreturn{die Seite, die als Antwort verschickt wird.}
+ wird daraufhin zur Einstellungsseite zurückgeleitet.}{\texdocreturn{Die Seite, die als Antwort verschickt wird.}
 }
 \texdocmethod{public}{Result}{addSemester}{()}{Diese Methode lässt den Administrator ein neues Semester erstellen und
- anschließend Konfigurieren. Nach dem Erstellen wird der Administrator
- deshalb auf die Einstellungsseite für das Semester.}{\texdocreturn{die Seite, die als Antwort verschickt wird.}
+ anschließend konfigurieren. Nach dem Erstellen wird der Administrator
+ deshalb auf die Einstellungsseite für das Semester weitergeleitet.}{\texdocreturn{Die Seite, die als Antwort verschickt wird.}
 }
 \texdocmethod{public}{Result}{addSPO}{()}{Diese Methode fügt eine neue leere SPO, mit einem vom Administrator
  bestimmten Namen, hinzu. Der Administrator wird daraufhin auf die
- Einstellungsseite zurückgeleitet.}{\texdocreturn{die Seite, die als Antwort verschickt wird.}
+ Einstellungsseite zurückgeleitet.}{\texdocreturn{Die Seite, die als Antwort verschickt wird.}
 }
 \texdocmethod{public}{Result}{editSemester}{()}{Diese Methode übernimmt die Änderungen, welche der Administrator im
- Semester-Ändern-Formular festgelegt hat. Dazu gehören die Deadlines und
- die Allgemeinen Informationen.}{\texdocreturn{die Seite, die als Antwort verschickt wird.}
+ Semester-ändern-Formular festgelegt hat. Dazu gehören die Deadlines und
+ die allgemeinen Informationen.}{\texdocreturn{Die Seite, die als Antwort verschickt wird.}
 }
 \texdocmethod{public}{Result}{removeAchievement}{()}{Diese Methode löscht eine bereits existierende Teilleistung aus einer
- SPO. Der Administrator wird daraufhin zur Einstellungsseite zurück
- geleitet.}{\texdocreturn{die Seite, die als Antwort verschickt wird.}
+ SPO. Der Administrator wird daraufhin zur Einstellungsseite
+ zurückgeleitet.}{\texdocreturn{Die Seite, die als Antwort verschickt wird.}
 }
 \texdocmethod{public}{Result}{removeSemester}{()}{Diese Methode lässt den Administrator ein Semester löschen, wenn mit
  diesem keine Studentendaten verbunden sind. Der Administrator wird
- daraufhin zur Einstellungsseite zurückgeleitet.}{\texdocreturn{die Seite, die als Antwort verschickt wird.}
+ daraufhin zur Einstellungsseite zurückgeleitet.}{\texdocreturn{Die Seite, die als Antwort verschickt wird.}
 }
 \texdocmethod{public}{Result}{removeSPO}{()}{Diese Methode löscht eine bereits vorhandene SPO. Die SPO kann nur
  gelöscht werden, wenn kein Student diese SPO verwendet. Der Administrator
- wird daraufhin auf die Einstellungsseite zurückgeleitet.}{\texdocreturn{die Seite, die als Antwort verschickt wird.}
+ wird daraufhin auf die Einstellungsseite zurückgeleitet.}{\texdocreturn{Die Seite, die als Antwort verschickt wird.}
 }
 \end{texdocclassmethods}
 \end{texdocclass}
@@ -231,17 +222,17 @@ Dieser Controller ist für das Bearbeiten der Http-Requests zuständig, welche
 \end{texdocclassconstructors}
 \begin{texdocclassmethods}
 \texdocmethod{public}{Result}{accountPage}{()}{Diese Methode gibt die Seite zurück, auf der der Betreuer seine
- Studentendaten wie E-Mail-Adresse und Passwort ändern kann.}{\texdocreturn{die Seite, die als Antwort verschickt wird.}
+ Benutzerdaten wie E-Mail-Adresse und Passwort ändern kann.}{\texdocreturn{die Seite, die als Antwort verschickt wird.}
 }
 \texdocmethod{public}{Result}{addProject}{()}{Diese Methode fügt ein neues Projekt in das System ein und leitet den
- Betreuer zurück auf die Seite zum editieren des Projektes.}{\texdocreturn{die Seite, die als Antwort verschickt wird.}
+ Betreuer zurück auf die Seite zum Editieren des Projektes.}{\texdocreturn{die Seite, die als Antwort verschickt wird.}
 }
 \texdocmethod{public}{Result}{editAccount}{()}{Diese Methode editiert die Daten des Betreuers, welche er auf der
  Account-Seite geändert hat.}{\texdocreturn{die Seite, die als Antwort verschickt wird.}
 }
 \texdocmethod{public}{Result}{editProject}{()}{Diese Methode editiert ein bereits vorhandenes Projekt. Die zu
  editierenden Daten übermittelt der Betreuer über ein Formular, welches er
- zum editieren abschickt. Nur Betreuer welche dem Projekt beigetreten sind
+ zum Editieren abschickt. Nur Betreuer welche dem Projekt beigetreten sind
  können dieses editieren. Anschließend wird der Betreuer auf die Seite zum
  Hinzufügen und Editieren von Projekten weitergeleitet.}{\texdocreturn{die Seite, die als Antwort verschickt wird.}
 }
@@ -266,7 +257,7 @@ Dieser Controller ist für das Bearbeiten der Http-Requests zuständig, welche
 \texdocreturn{die Seite, die als Antwort verschickt wird.}
 }
 \texdocmethod{public}{Result}{removeProject}{()}{Diese Methode löscht ein Projekt und alle dazugehörenden Daten aus dem
- System und leitet den Betreuer auf die Seite zum editieren und hinzufügen
+ System und leitet den Betreuer auf die Seite zum Editieren und Hinzufügen
  von Projekten. Nur Betreuer welche dem Projekt beigetreten sind können
  dieses editieren.}{\texdocreturn{die Seite, die als Antwort verschickt wird.}
 }
@@ -292,13 +283,13 @@ Dieser Controller ist für das Bearbeiten der Http-Requests zuständig, welche
 \begin{texdocclass}{class}{EditAllocationCommand}
 \label{texdoclet:controller.EditAllocationCommand}
 \begin{texdocclassintro}
-\end{texdocclassintro}
+Die abstrakte Oberklasse aller Kommandos, die in eine Veränderung einer Einteilung durch den Administrator dartstellen.\end{texdocclassintro}
 \begin{texdocclassconstructors}
 \texdocconstructor{public}{EditAllocationCommand}{()}{}{}
 \end{texdocclassconstructors}
 \begin{texdocclassmethods}
-\texdocmethod{public abstract}{void}{execute}{()}{}{}
-\texdocmethod{public}{void}{undo}{()}{}{}
+\texdocmethod{public abstract}{void}{execute}{()}{Führt das Kommando aus.}{}
+\texdocmethod{public}{void}{undo}{()}{Macht die Ausführung des Kommandos rückgängig. Kann nur ausgeführt werde, wenn das Kommando zuvor ausgeführt wurde.}{}
 \end{texdocclassmethods}
 \end{texdocclass}
 
@@ -309,32 +300,29 @@ Dieser Controller ist für das Bearbeiten der Http-Requests zuständig, welche
 Dieser Controller ist für das Bearbeiten der Http-Requests zuständig, welche
  abgeschickt werden, wenn Betreuer, Studenten oder Einteilungen hinzugefügt
  oder gelöscht werden sollen.\end{texdocclassintro}
-\begin{texdocclassfields}
-\texdocfield{public}{AllocationQueue}{allocatorQueue}{}
-\end{texdocclassfields}
 \begin{texdocclassconstructors}
 \texdocconstructor{public}{GeneralAdminController}{()}{}{}
 \end{texdocclassconstructors}
 \begin{texdocclassmethods}
 \texdocmethod{public}{Result}{addAdviser}{()}{Diese Methode fügt einen Betreuer mit den Daten aus dem vom Administrator
  auszufüllenden Formular zum System hinzu. Der Administrator wird
- anschließend auf die Betreuerübersicht weitergeleitet.}{\texdocreturn{die Seite, die als Antwort verschickt wird.}
+ anschließend auf die Betreuerübersicht weitergeleitet.}{\texdocreturn{Die Seite, die als Antwort verschickt wird.}
 }
 \texdocmethod{public}{Result}{addAllocation}{()}{Diese Methode fügt eine Einteilungskonfiguration in die
  Berechnungswarteschlange hinzu. Der Administrator wird anschließend auf
- die Berechnungsübersichtsseite weitergeleitet.}{\texdocreturn{die Seite, die als Antwort verschickt wird.}
+ die Berechnungsübersichtsseite weitergeleitet.}{\texdocreturn{Die Seite, die als Antwort verschickt wird.}
 }
 \texdocmethod{public}{Result}{addStudent}{()}{Diese Methode fügt einen Studenten in das System hinzu. Der Administrator
  wird anschließend auf die Seite zum weiteren Hinzufügen und Löschen von
- Studenten weitergeleitet.}{\texdocreturn{die Seite, die als Antwort verschickt wird.}
+ Studenten weitergeleitet.}{\texdocreturn{Die Seite, die als Antwort verschickt wird.}
 }
 \texdocmethod{public}{Result}{removeAdviser}{()}{Diese Methode entfernt einen Betreuer und dessen Daten aus dem System.
  Der Administrator wird anschließend auf die Betreuerübersicht
- weitergeleitet.}{\texdocreturn{die Seite, die als Antwort verschickt wird.}
+ weitergeleitet.}{\texdocreturn{Die Seite, die als Antwort verschickt wird.}
 }
 \texdocmethod{public}{Result}{removeStudent}{()}{Diese Methode löscht einen Studenten aus dem System. Der Administrator
  wird anschließend auf die Seite zum weiteren Hinzufügen und Löschen von
- Studenten weitergeleitet.}{\texdocreturn{die Seite, die als Antwort verschickt wird.}
+ Studenten weitergeleitet.}{\texdocreturn{Die Seite, die als Antwort verschickt wird.}
 }
 \end{texdocclassmethods}
 \end{texdocclass}
@@ -347,38 +335,35 @@ Dieser Controller ist zuständig für alle Http-Requests, die in dem Bereich
  aufkommen, welche ohne Anmeldung zugänglich sind. Dazu zählt neben der
  Index-Seite auch die Passwort vergessen-Seite und die
  E-Mail-Verifikations-Seite.\end{texdocclassintro}
-\begin{texdocclassfields}
-\texdocfield{public}{Notifier}{notifier}{}
-\end{texdocclassfields}
 \begin{texdocclassconstructors}
 \texdocconstructor{public}{IndexPageController}{()}{}{}
 \end{texdocclassconstructors}
 \begin{texdocclassmethods}
-\texdocmethod{public}{Result}{indexPage}{()}{Diese Methode gibt die Seite zurück, welche die Startseite ist. Auf
- dieser Seite kann sich Administrator, Betreuer und Student anmelden oder
- aktuelle Informationen einsehen.}{\texdocreturn{die Seite, die als Antwort verschickt wird.}
+\texdocmethod{public}{Result}{indexPage}{()}{Diese Methode gibt die Startseite zurück. Auf dieser Seite können sich
+ Administrator, Betreuer und Studenten anmelden oder aktuelle Informationen
+ einsehen.}{\texdocreturn{Die Seite, die als Antwort verschickt wird.}
 }
 \texdocmethod{public}{Result}{login}{()}{Diese Methode initiiert die Login-Prozedur und leitet den Anzumeldenden
- je nach Autorisierung auf die passende Seite weiter.}{\texdocreturn{die Seite, die als Antwort verschickt wird.}
+ je nach Autorisierung auf die passende Seite weiter.}{\texdocreturn{Die Seite, die als Antwort verschickt wird.}
 }
-\texdocmethod{public}{Result}{passwordReset}{()}{Diese Methode schickt eine Email anhand der Daten aus dem
- Passwort-Rücksetz-Formular an den Studenten oder den Betreurer, welche
- ein neues Passwort enthält.}{\texdocreturn{die Seite, die als Antwort verschickt wird.}
+\texdocmethod{public}{Result}{passwordReset}{()}{Diese Methode schickt eine E-Mail anhand der Daten aus dem
+ Passwort-Rücksetz-Formular an den Studenten oder den Betreuer, welche
+ ein neues Passwort enthält.}{\texdocreturn{Die Seite, die als Antwort verschickt wird.}
 }
 \texdocmethod{public}{Result}{passwordResetPage}{()}{Diese Methode gibt die Seite zurück, die ein Passwort-Rücksetz-Formular
- für Studenten und Betreuer anzeigt.}{\texdocreturn{die Seite, die als Antwort verschickt wird.}
+ für Studenten und Betreuer anzeigt.}{\texdocreturn{Die Seite, die als Antwort verschickt wird.}
 }
 \texdocmethod{public}{Result}{register}{()}{Diese Methode registriert einen Studenten und fügt diesen in die
  Datenbank ein, sofern alle notwendigen Teillestungen als bestanden
- angegeben wurden.}{\texdocreturn{die Seite, die als Antwort verschickt wird.}
+ angegeben wurden.}{\texdocreturn{Die Seite, die als Antwort verschickt wird.}
 }
 \texdocmethod{public}{Result}{registerPage}{()}{Diese Methode gibt die Seite zurück, auf der sich ein Student
- registrieren kann.}{\texdocreturn{die Seite, die als Antwort verschickt wird.}
+ registrieren kann.}{\texdocreturn{Die Seite, die als Antwort verschickt wird.}
 }
 \texdocmethod{public}{Result}{verificationPage}{()}{Diese Methode gibt die Seite zurück, welche einen Studenten verifiziert.
  Dies funktioniert, indem der Student eine Mail mit einen Link auf diese
  Seite erhält, welche noch einen Code als Parameter übergibt. Anhand
- dieses Parameters wird der Student verifiziert.}{\texdocreturn{die Seite, die als Antwort verschickt wird.}
+ dieses Parameters wird der Student verifiziert.}{\texdocreturn{Die Seite, die als Antwort verschickt wird.}
 }
 \end{texdocclassmethods}
 \end{texdocclass}
@@ -387,13 +372,18 @@ Dieser Controller ist zuständig für alle Http-Requests, die in dem Bereich
 \begin{texdocclass}{class}{MoveStudentCommand}
 \label{texdoclet:controller.MoveStudentCommand}
 \begin{texdocclassintro}
-\end{texdocclassintro}
+Konkretes Kommando zum verschieben eines Studierenden von seinem aktuellen Team in ein neues.\end{texdocclassintro}
 \begin{texdocclassconstructors}
-\texdocconstructor{public}{MoveStudentCommand}{()}{}{}
+\texdocconstructor{public}{MoveStudentCommand}{(Allocation allocation, Student student, Team newTeam)}{Erzeugt ein neues Kommando zum verschieben eines Studierenden.}{\begin{texdocparameters}
+\texdocparameter{allocation}{Einteilung, auf die sich die Änderung bezieht.}
+\texdocparameter{student}{Studierender, der verschoben werden soll.}
+\texdocparameter{newTeam}{Neues Team, in das der Studierende eingeteilt wird.}
+\end{texdocparameters}
+}
 \end{texdocclassconstructors}
 \begin{texdocclassmethods}
-\texdocmethod{public}{void}{execute}{()}{}{}
-\texdocmethod{public}{void}{undo}{()}{}{}
+\texdocmethod{public}{void}{execute}{()}{\texdocinheritdoc{controller.EditAllocationCommand}{Führt das Kommando aus.}}{}
+\texdocmethod{public}{void}{undo}{()}{\texdocinheritdoc{controller.EditAllocationCommand}{Macht die Ausführung des Kommandos rückgängig. Kann nur ausgeführt werde, wenn das Kommando zuvor ausgeführt wurde.}}{}
 \end{texdocclassmethods}
 \end{texdocclass}
 
@@ -414,42 +404,42 @@ Dieser Controller ist zuständig für alle Http-Requests, die in dem Bereich
 Dieser Controller ist zuständig für alle Http-Requests, welche im
  Studentenbereich aufkommen. Dazu zählen das Senden einer neuen HTML-Seite bei
  einem Klick auf einen Link, als auch das Reagieren auf Benutzereingaben, wie
- das abschicken eines Formulars.\end{texdocclassintro}
+ das Abschicken eines Formulars.\end{texdocclassintro}
 \begin{texdocclassconstructors}
 \texdocconstructor{public}{StudentPageController}{()}{}{}
 \end{texdocclassconstructors}
 \begin{texdocclassmethods}
 \texdocmethod{public}{Result}{accountPage}{()}{Diese Methode gibt die Seite zurück, auf der der Student seine
- Studentendaten wie E-Mail-Adresse und Passwort ändern kann.}{\texdocreturn{die Seite, die als Antwort verschickt wird.}
+ Studentendaten wie E-Mail-Adresse und Passwort ändern kann.}{\texdocreturn{Die Seite, die als Antwort verschickt wird.}
 }
-\texdocmethod{public}{Result}{createLearningGroup}{()}{Diese Methode erstellt eine neue Lerngruppe im System hinzu und fügt den
+\texdocmethod{public}{Result}{createLearningGroup}{()}{Diese Methode erstellt eine neue Lerngruppe im System und fügt den
  Ersteller der Lerngruppe als erstes Mitglied in diese ein. Der Student
- wird anschließend auf die Lerngruppen-Seite zurückgeleitet.}{\texdocreturn{die Seite, die als Antwort verschickt wird.}
+ wird anschließend auf die Lerngruppen-Seite zurückgeleitet.}{\texdocreturn{Die Seite, die als Antwort verschickt wird.}
 }
 \texdocmethod{public}{Result}{editAccount}{()}{Diese Methode editiert die Daten des Studenten, welche er auf der
- Account-Seite geändert hat.}{\texdocreturn{die Seite, die als Antwort verschickt wird.}
+ Account-Seite geändert hat.}{\texdocreturn{Die Seite, die als Antwort verschickt wird.}
 }
 \texdocmethod{public}{Result}{joinLearningGroup}{()}{Diese Methode fügt den Studenten zu einer Lerngruppe hinzu, falls eine
  Lerngruppe mit dem Namen und dem zugehörigen Passwort existiert.
- Anschließend wird der Student auf die Lerngruppen-Seite zurückgeleitet.}{\texdocreturn{die Seite, die als Antwort verschickt wird.}
+ Anschließend wird der Student auf die Lerngruppen-Seite zurückgeleitet.}{\texdocreturn{Die Seite, die als Antwort verschickt wird.}
 }
 \texdocmethod{public}{Result}{learningGroupPage}{()}{Diese Methode gibt die Seite zurück, auf der der Student sieht in welcher
  Lerngruppe er ist, oder wenn er in keiner aktuell ist, eine erstellen
- oder einer beitreten kann.}{\texdocreturn{die Seite, die als Antwort verschickt wird.}
+ oder einer beitreten kann.}{\texdocreturn{Die Seite, die als Antwort verschickt wird.}
 }
 \texdocmethod{public}{Result}{leaveLearningGroup}{()}{Diese Methode entfernt den Student aus der aktuellen Lerngruppe.
- Anschließend wird der Student auf die Lerngruppen-Seite zurück geleitet.}{\texdocreturn{die Seite, die als Antwort verschickt wird.}
+ Anschließend wird der Student auf die Lerngruppen-Seite zurück geleitet.}{\texdocreturn{Die Seite, die als Antwort verschickt wird.}
 }
 \texdocmethod{public}{Result}{rate}{()}{Diese Methode fügt die Daten der Bewertungen eines Studenten in das
  System ein und leitet den Studenten wieder zurück auf die
- Bewertungsseite, wo er nun seine eingegebene Bewertungen sehen kann.}{\texdocreturn{die Seite, die als Antwort verschickt wird.}
+ Bewertungsseite, wo er nun seine eingegebene Bewertungen sehen kann.}{\texdocreturn{Die Seite, die als Antwort verschickt wird.}
 }
 \texdocmethod{public}{Result}{ratingPage}{()}{Diese Methode gibt die Seite zurück, auf der der Student seine
- Bewertungen abgeben kann.}{\texdocreturn{die Seite, die als Antwort verschickt wird.}
+ Bewertungen abgeben kann.}{\texdocreturn{Die Seite, die als Antwort verschickt wird.}
 }
 \texdocmethod{public}{Result}{resultsPage}{()}{Diese Methode gibt die Seite zurück, auf der der Student das Ergebnis der
  Einteilungsberechnung einsehen kann. Er sieht also sein Projekt und seine
- Teammitglieder.}{\texdocreturn{die Seite, die als Antwort verschickt wird.}
+ Teammitglieder.}{\texdocreturn{Die Seite, die als Antwort verschickt wird.}
 }
 \end{texdocclassmethods}
 \end{texdocclass}
@@ -458,13 +448,18 @@ Dieser Controller ist zuständig für alle Http-Requests, welche im
 \begin{texdocclass}{class}{SwapStudentCommand}
 \label{texdoclet:controller.SwapStudentCommand}
 \begin{texdocclassintro}
-\end{texdocclassintro}
+Konkretes Kommando zum vertauschen der Teamzugehörigkeit von zwei Studierenden.\end{texdocclassintro}
 \begin{texdocclassconstructors}
-\texdocconstructor{public}{SwapStudentCommand}{()}{}{}
+\texdocconstructor{public}{SwapStudentCommand}{(Allocation allocation, Student firstStudent, Student secondStudent)}{Erzeugt ein neues Kommando um die Teams von zwei Studenten zu vertauschen.}{\begin{texdocparameters}
+\texdocparameter{allocation}{Einteilung, auf die sich die Änderung bezieht.}
+\texdocparameter{firstStudent}{Erster Studierender, der verschoben werden soll.}
+\texdocparameter{secondStudent}{Zweiter Studierender, der verschoben werden soll.}
+\end{texdocparameters}
+}
 \end{texdocclassconstructors}
 \begin{texdocclassmethods}
-\texdocmethod{public}{void}{execute}{()}{}{}
-\texdocmethod{public}{void}{undo}{()}{}{}
+\texdocmethod{public}{void}{execute}{()}{\texdocinheritdoc{controller.EditAllocationCommand}{Führt das Kommando aus.}}{}
+\texdocmethod{public}{void}{undo}{()}{\texdocinheritdoc{controller.EditAllocationCommand}{Macht die Ausführung des Kommandos rückgängig. Kann nur ausgeführt werde, wenn das Kommando zuvor ausgeführt wurde.}}{}
 \end{texdocclassmethods}
 \end{texdocclass}
 

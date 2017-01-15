@@ -35,21 +35,9 @@ Diese Klasse stellt einen Betreuer dar.\end{texdocclassintro}
 \texdocconstructor{public}{Adviser}{()}{}{}
 \end{texdocclassconstructors}
 \begin{texdocclassmethods}
-\texdocmethod{public}{void}{addProject}{(Project project)}{Fügt dem Betreuer ein Projekt zum Beaufsichtigen hinzu}{\begin{texdocparameters}
-\texdocparameter{project}{Projekt, das dem Betreuer zum Beaufsichtigen hinzugefügt wird}
-\end{texdocparameters}
+\texdocmethod{public static}{List}{getAdvisers}{()}{Diese Methode gibt alle Betreuer zurück, die es gibt.}{\texdocreturn{Liste aller Betreuer.}
 }
-\texdocmethod{public static}{Adviser}{getAdvisers}{()}{Diese Methode gibt alle Betreuer zurück, die es jemals gab.}{\texdocreturn{Alle Betreuer.}
-}
-\texdocmethod{public}{Project}{getProjects}{()}{Getter für die Projekte, die der Betreuer beaufsichtigt.}{\texdocreturn{Die Projekte, die der Betreuer beaufsichtigt.}
-}
-\texdocmethod{public}{void}{removeProject}{(Project project)}{Entfernt dem Betreuer ein Projekt zum Beaufsichtigen}{\begin{texdocparameters}
-\texdocparameter{project}{Projekt, das dem Betreuer zum Beaufsichtigen entfernt wird}
-\end{texdocparameters}
-}
-\texdocmethod{public}{void}{setProjects}{(Project projects)}{Setter für die Projekte, die der Betreuer beaufsichtigt.}{\begin{texdocparameters}
-\texdocparameter{projects}{Die Projekte, die der Betreuer beaufsichtigt.}
-\end{texdocparameters}
+\texdocmethod{public}{List\textless{}Project\textgreater{}}{getProjects}{()}{Getter für die Projekte, die der Betreuer beaufsichtigt.}{\texdocreturn{Die Projekte, die der Betreuer beaufsichtigt.}
 }
 \end{texdocclassmethods}
 \end{texdocclass}
@@ -58,7 +46,7 @@ Diese Klasse stellt einen Betreuer dar.\end{texdocclassintro}
 \begin{texdocclass}{class}{Allocation}
 \label{texdoclet:data.Allocation}
 \begin{texdocclassintro}
-Diese Klasse stellt eine Einteilung der Studierenden in einem Semester dar.\end{texdocclassintro}
+Diese Klasse stellt eine Einteilung von Studierenden in einem Semester dar.\end{texdocclassintro}
 \begin{texdocclassconstructors}
 \texdocconstructor{public}{Allocation}{()}{}{}
 \end{texdocclassconstructors}
@@ -69,49 +57,36 @@ Diese Klasse stellt eine Einteilung der Studierenden in einem Semester dar.\end{
 \end{texdocparameters}
 \texdocreturn{Die Einteilung mit dem gegebenen Namen.}
 }
-\texdocmethod{public static}{Allocation}{getAllocations}{()}{Diese Methode gibt alle Einteilungen zurück.}{\texdocreturn{Alle Einteilungen.}
+\texdocmethod{public static}{List}{getAllocations}{()}{Diese Methode gibt alle Einteilungen zurück.}{\texdocreturn{Alle Einteilungen.}
 }
-\texdocmethod{public}{String}{getName}{()}{Getter für den Namen der Einteilung}{\texdocreturn{Name der Einteilung}
+\texdocmethod{public}{String}{getName}{()}{Getter für den Namen der Einteilung.}{\texdocreturn{Name der Einteilung.}
 }
-\texdocmethod{public}{AllocationParameter}{getParameters}{()}{Getter für die Parameter der Einteilung}{\texdocreturn{Parameter der Einteilung}
+\texdocmethod{public}{List}{getParameters}{()}{Getter für die Parameter der Einteilung.}{\texdocreturn{Parameter der Einteilung.}
 }
-\texdocmethod{public}{Semester}{getSemester}{()}{Getter für das Semester der Einteilung}{\texdocreturn{Semester der Einteilung}
-}
-\texdocmethod{public}{Student}{getStudents}{(Team team)}{Gibt die Studenten zurück, die einem bestimmten Team zugeteilt wurden}{\begin{texdocparameters}
-\texdocparameter{team}{Team, für welches die Mitglieder zurückgegeben werden}
+\texdocmethod{public}{Team}{getTeam}{(Student student)}{Gibt das Team zurück, in das ein bestimmter Student eingeteilt wurde.
+ Gibt null zurück, wenn der Student nicht zugeteilt wurde.}{\begin{texdocparameters}
+\texdocparameter{student}{Student, zu welchem das zugeteilte Team zurückgegeben wird.}
 \end{texdocparameters}
-\texdocreturn{Studenten, die diesem Team zugeteilt wurden}
+\texdocreturn{Team, das dem Studenten zugeteilt wurde.}
 }
-\texdocmethod{public}{Map\textless{}StudentTeam\textgreater{}}{getStudentTeamMap}{()}{Getter für die Map der Einteilung}{\texdocreturn{Map der Einteilung}
+\texdocmethod{public}{List\textless{}Team\textgreater{}}{getTeams}{()}{Getter für die Liste der Teams.}{\texdocreturn{Liste der Teams.}
 }
-\texdocmethod{public}{Team}{getTeam}{(Student student)}{Gibt das Team zurück, in das ein bestimmter Student zugeteilt wurde.
- Gibt null zurück, wenn der Student nicht zugeteilt wurde}{\begin{texdocparameters}
-\texdocparameter{student}{Student, zu welchem das zugeteilte Team zurückgegeben wird}
-\end{texdocparameters}
-\texdocreturn{Team, das dem Studenten zugeteilt wurde}
-}
-\texdocmethod{public}{boolean}{isFinal}{()}{Diese Methode gibt zurück, ob die Einteilung final ist oder nicht.}{\texdocreturn{Wahr, wenn Einteilung final, sonst falsch}
-}
-\texdocmethod{public}{void}{setName}{(String name)}{Setter für den Namen der Einteilung}{\begin{texdocparameters}
-\texdocparameter{name}{Name der Einteilung}
+\texdocmethod{public}{void}{setName}{(String name)}{Setter für den Namen der Einteilung.}{\begin{texdocparameters}
+\texdocparameter{name}{Name der Einteilung.}
 \end{texdocparameters}
 }
-\texdocmethod{public}{void}{setSemester}{(AllocationParameter parameters)}{Setter für die Parameter der Einteilung}{\begin{texdocparameters}
-\texdocparameter{parameters}{Parameter der Einteilung}
-\end{texdocparameters}
-}
-\texdocmethod{public}{void}{setSemester}{(Semester semester)}{Setter für das Semester der Einteilung}{\begin{texdocparameters}
-\texdocparameter{semester}{Semester der Einteilung}
+\texdocmethod{public}{void}{setSemester}{(List parameters)}{Setter für die Parameter der Einteilung.}{\begin{texdocparameters}
+\texdocparameter{parameters}{Parameter der Einteilung.}
 \end{texdocparameters}
 }
 \texdocmethod{public}{void}{setStudentsTeam}{(Student student, Team team)}{Ändert für einen Studenten das eingeteilte Team.
- Wenn das Team null ist, wird der Student keinem Team zugeteilt}{\begin{texdocparameters}
-\texdocparameter{student}{Student, dessen team geändert wird}
-\texdocparameter{team}{neues Team, in das der Student eingeteilt ist}
+ Wenn das Team null ist, wird der Student keinem Team zugeteilt.}{\begin{texdocparameters}
+\texdocparameter{student}{Student, dessen Team geändert wird.}
+\texdocparameter{team}{neues Team, in das der Student eingeteilt ist.}
 \end{texdocparameters}
 }
-\texdocmethod{public}{void}{setStudentTeamMap}{(Map\textless{}StudentTeam\textgreater{} studentTeamMap)}{Setter für die Map der Einteilung}{\begin{texdocparameters}
-\texdocparameter{studentTeamMap}{Map der Einteilung}
+\texdocmethod{public}{void}{setTeams}{(List\textless{}Team\textgreater{} teams)}{Setter für die Liste der Teams.}{\begin{texdocparameters}
+\texdocparameter{teams}{Liste der Teams.}
 \end{texdocparameters}
 }
 \end{texdocclassmethods}
@@ -128,13 +103,13 @@ Diese Klasse stellt einen Parameter für die Einteilungsberechnung dar.\end{texd
 \begin{texdocclassmethods}
 \texdocmethod{public}{String}{getName}{()}{Getter für den Namen des Parameters.}{\texdocreturn{Der Name des Parameters.}
 }
-\texdocmethod{public}{void}{getName}{(String name)}{Setter für den Namen des Parameters.}{\begin{texdocparameters}
+\texdocmethod{public}{double}{getValue}{()}{Getter für den Wert des Parameters.}{\texdocreturn{Der Wert des Parameters.}
+}
+\texdocmethod{public}{void}{setName}{(String name)}{Setter für den Namen des Parameters.}{\begin{texdocparameters}
 \texdocparameter{name}{Der Name des Parameters.}
 \end{texdocparameters}
 }
-\texdocmethod{public}{double}{getValue}{()}{Getter für den Wert des Parameters.}{\texdocreturn{Der Wert des Parameters.}
-}
-\texdocmethod{public}{void}{getValue}{(double value)}{Setter für den Wert des Parameters.}{\begin{texdocparameters}
+\texdocmethod{public}{void}{setValue}{(double value)}{Setter für den Wert des Parameters.}{\begin{texdocparameters}
 \texdocparameter{value}{Der Wert des Parameters.}
 \end{texdocparameters}
 }
@@ -156,14 +131,6 @@ Diese Klasse beinhaltet generelle Daten, über den Zustand der Software.\end{tex
 }
 \texdocmethod{public}{Semester}{getCurrentSemester}{()}{Getter für das aktuelle Semester.}{\texdocreturn{Das aktuelle Semester.}
 }
-\texdocmethod{public static}{void}{setAdminName}{(String adminName)}{Setter für den Anmeldenamen des Administrators.}{\begin{texdocparameters}
-\texdocparameter{adminName}{Der Anmeldename des Administrators.}
-\end{texdocparameters}
-}
-\texdocmethod{public static}{void}{setAdminPassword}{(String adminPassword)}{Setter für das Anmeldepasswort des Administrators.}{\begin{texdocparameters}
-\texdocparameter{adminPassword}{Das Anmeldepasswort des Administrators.}
-\end{texdocparameters}
-}
 \texdocmethod{public}{void}{setCurrentSemester}{(Semester currentSemester)}{Setter für das aktuelle Semester.}{\begin{texdocparameters}
 \texdocparameter{currentSemester}{Das aktuelle Semester.}
 \end{texdocparameters}
@@ -181,8 +148,8 @@ Diese Klasse repräsentiert eine Lerngruppe, das heißt eine Gruppe von
 \texdocconstructor{public}{LearningGroup}{()}{}{}
 \end{texdocclassconstructors}
 \begin{texdocclassmethods}
-\texdocmethod{public}{void}{addMember}{(Student student)}{Fügt einen Studenten zu der Lerngruppe hinzu}{\begin{texdocparameters}
-\texdocparameter{student}{Student der hinzugefügt wird}
+\texdocmethod{public}{void}{addMember}{(Student student)}{Fügt einen Studenten zu der Lerngruppe hinzu.}{\begin{texdocparameters}
+\texdocparameter{student}{Student, der hinzugefügt wird.}
 \end{texdocparameters}
 }
 \texdocmethod{public static}{LearningGroup}{getLearningGroup}{(String name, Semester semester)}{Diese Methode gibt eine spezifische Lerngruppe zurück.}{\begin{texdocparameters}
@@ -191,35 +158,33 @@ Diese Klasse repräsentiert eine Lerngruppe, das heißt eine Gruppe von
 \end{texdocparameters}
 \texdocreturn{Die spezifische Lerngruppe.}
 }
-\texdocmethod{public static}{LearningGroup}{getLearningGroups}{()}{Diese Methode gibt alle jemals erstellten Lerngruppen zurück.}{\texdocreturn{Alle Lerngruppen.}
+\texdocmethod{public static}{List\textless{}LearningGroup\textgreater{}}{getLearningGroups}{()}{Diese Methode gibt alle Lerngruppen zurück.}{\texdocreturn{Alle Lerngruppen.}
 }
-\texdocmethod{public}{Student}{getMembers}{()}{Getter für die Mitglieder der Lerngruppe.}{\texdocreturn{Die Mitglieder der Lerngruppe.}
+\texdocmethod{public}{List\textless{}Student\textgreater{}}{getMembers}{()}{Getter für die Mitglieder der Lerngruppe.}{\texdocreturn{Die Mitglieder der Lerngruppe.}
 }
 \texdocmethod{public}{String}{getName}{()}{Getter für den Namen.}{\texdocreturn{Name der Lerngruppe.}
 }
 \texdocmethod{public}{String}{getPassword}{()}{Getter für das Passwort.}{\texdocreturn{Das Passwort, um der Lerngruppe beizutreten.}
 }
-\texdocmethod{public}{int}{getRating}{(Project project)}{Gibt die Bewertung für ein Projekt zurück}{\begin{texdocparameters}
-\texdocparameter{project}{Projekt, für welches die Bewertung zurückgegeben wird}
+\texdocmethod{public}{int}{getRating}{(Project project)}{Gibt die Bewertung für ein Projekt zurück.}{\begin{texdocparameters}
+\texdocparameter{project}{Projekt, für welches die Bewertung zurückgegeben wird.}
 \end{texdocparameters}
-\texdocreturn{Bewertung des Projekts}
+\texdocreturn{Bewertung des Projekts.}
 }
-\texdocmethod{public}{Rating}{getRatings}{()}{Getter für die Projektbewertungen}{\texdocreturn{Projektbewertungen der Lerngruppe}
+\texdocmethod{public}{List\textless{}Rating\textgreater{}}{getRatings}{()}{Getter für die Projektbewertungen.}{\texdocreturn{Projektbewertungen der Lerngruppe.}
 }
-\texdocmethod{public}{Semester}{getSemester}{()}{Getter für das Semester, in dem die Lerngruppe erstellt wurde.}{\texdocreturn{Das Semester,in dem die Lerngruppe erstellt wurde.}
+\texdocmethod{public}{boolean}{isPrivate}{()}{Getter, ob Lerngruppe privat ist.}{\texdocreturn{Wahr, wenn privat, sonst falsch.}
 }
-\texdocmethod{public}{boolean}{isPrivate}{()}{Getter ob Lerngruppe privat ist.}{\texdocreturn{Wahr, wenn privat, sonst falsch.}
-}
-\texdocmethod{public}{void}{rate}{(Project project, int rating)}{Ändert die Bewertung für ein Projekt}{\begin{texdocparameters}
-\texdocparameter{project}{Projekt, für das die bewertung geändert wird}
-\texdocparameter{rating}{Bewertung des Projekts}
+\texdocmethod{public}{void}{rate}{(Project project, int rating)}{Ändert die Bewertung für ein Projekt.}{\begin{texdocparameters}
+\texdocparameter{project}{Projekt, für das die Bewertung geändert wird.}
+\texdocparameter{rating}{Bewertung des Projekts.}
 \end{texdocparameters}
 }
-\texdocmethod{public}{void}{removeMember}{(Student student)}{Entfernt einen Studenten von der Lengruppe}{\begin{texdocparameters}
-\texdocparameter{student}{Student der entfernt wird}
+\texdocmethod{public}{void}{removeMember}{(Student student)}{Entfernt einen Studenten von der Lengruppe.}{\begin{texdocparameters}
+\texdocparameter{student}{Student, der entfernt wird.}
 \end{texdocparameters}
 }
-\texdocmethod{public}{void}{setMembers}{(Student members)}{Setter für die Mitglieder der Lerngruppe.}{\begin{texdocparameters}
+\texdocmethod{public}{void}{setMembers}{(List\textless{}Student\textgreater{} members)}{Setter für die Mitglieder der Lerngruppe.}{\begin{texdocparameters}
 \texdocparameter{members}{Die Mitglieder der Lerngruppe.}
 \end{texdocparameters}
 }
@@ -231,16 +196,12 @@ Diese Klasse repräsentiert eine Lerngruppe, das heißt eine Gruppe von
 \texdocparameter{password}{Das Passwort, um der Lerngruppe beizutreten.}
 \end{texdocparameters}
 }
-\texdocmethod{public}{boolean}{setPrivate}{(boolean isPrivate)}{Setter ob Lerngruppe privat ist.}{\begin{texdocparameters}
+\texdocmethod{public}{boolean}{setPrivate}{(boolean isPrivate)}{Setter, ob Lerngruppe privat ist.}{\begin{texdocparameters}
 \texdocparameter{isPrivate}{Wahr, wenn privat, sonst falsch.}
 \end{texdocparameters}
 }
-\texdocmethod{public}{void}{setRatings}{(Rating ratings)}{Setter für die Projektbewertungen}{\begin{texdocparameters}
-\texdocparameter{ratings}{Projektbewertungen der Lerngruppe}
-\end{texdocparameters}
-}
-\texdocmethod{public}{void}{setSemester}{(Semester semester)}{Setter für das Semester, in dem die Lerngruppe erstellt wurde.}{\begin{texdocparameters}
-\texdocparameter{semester}{Das Semester,in dem die Lerngruppe erstellt wurde.}
+\texdocmethod{public}{void}{setRatings}{(List\textless{}Rating\textgreater{} ratings)}{Setter für die Projektbewertungen.}{\begin{texdocparameters}
+\texdocparameter{ratings}{Projektbewertungen der Lerngruppe.}
 \end{texdocparameters}
 }
 \end{texdocclassmethods}
@@ -255,11 +216,11 @@ Klasse, die ein Project repräsentiert\end{texdocclassintro}
 \texdocconstructor{public}{Project}{()}{}{}
 \end{texdocclassconstructors}
 \begin{texdocclassmethods}
-\texdocmethod{public}{void}{addAdviser}{(Adviser adviser)}{Fügt dem Projekts einen Betreuer hinzu}{\begin{texdocparameters}
-\texdocparameter{adviser}{Betreuer der hinzugefügt wird}
+\texdocmethod{public}{void}{addAdviser}{(Adviser adviser)}{Fügt dem Projekt einen Betreuer hinzu.}{\begin{texdocparameters}
+\texdocparameter{adviser}{Betreuer der hinzugefügt wird.}
 \end{texdocparameters}
 }
-\texdocmethod{public}{Adviser}{getAdvisers}{()}{Getter für die Betreuer des Projekts}{\texdocreturn{Betreuer des Projekts}
+\texdocmethod{public}{List}{getAdvisers}{()}{Getter für die Betreuer des Projekts.}{\texdocreturn{Betreuer des Projekts.}
 }
 \texdocmethod{public}{String}{getInstitute}{()}{Gibt den Institutsnamen des Institutes zurück, welches das Projekt
  anbietet.}{\texdocreturn{den Namen}
@@ -270,6 +231,8 @@ Klasse, die ein Project repräsentiert\end{texdocclassintro}
 }
 \texdocmethod{public}{String}{getName}{()}{Getter für den Namen des Projektes.}{\texdocreturn{Der Name des Projektes.}
 }
+\texdocmethod{public}{int}{getNumberOfTeams}{()}{Getter für die Anzahl der Teams.}{\texdocreturn{Anzahl der Teams.}
+}
 \texdocmethod{public static}{Project}{getProject}{(String name, Semester semester)}{Diese Methode gibt ein spezifisches Projekt zurück, welches über seinen
  Namen und das Semester, in dem es erstellt wurde, identifiziert wird.}{\begin{texdocparameters}
 \texdocparameter{name}{Der Name des Projektes.}
@@ -279,26 +242,22 @@ Klasse, die ein Project repräsentiert\end{texdocclassintro}
 }
 \texdocmethod{public}{String}{getProjectInfo}{()}{Getter für die Information über dieses Projektes.}{\texdocreturn{Die Information des Projektes.}
 }
-\texdocmethod{public static}{Project}{getProjects}{()}{Diese Methode gibt alle Projekte zurück.}{\texdocreturn{Alle Projekte.}
+\texdocmethod{public static}{List\textless{}Project\textgreater{}}{getProjects}{()}{Diese Methode gibt alle Projekte zurück.}{\texdocreturn{Alle Projekte.}
 }
 \texdocmethod{public}{String}{getProjectURL}{()}{Getter für die URL des Projektes.}{\texdocreturn{Die URL des Projektes.}
 }
-\texdocmethod{public}{Rating}{getRating}{(Student student)}{Diese Methode gibt die Bewertung eines spezifischen Studenten für dieses
+\texdocmethod{public}{int}{getRating}{(Student student)}{Diese Methode gibt die Bewertung eines spezifischen Studenten für dieses
  Projekt zurück.}{\begin{texdocparameters}
 \texdocparameter{student}{Der Student, dessen Bewertung zurückgegeben werdedn soll.}
 \end{texdocparameters}
 \texdocreturn{Die Bewertung des Studenten.}
 }
-\texdocmethod{public}{Semester}{getSemester}{()}{Getter für das Semester des Projekts}{\texdocreturn{Semester des Projekts}
-}
-\texdocmethod{public}{Team}{getTeams}{()}{Getter für die Teams des Projektes.}{\texdocreturn{Die Teams des Projektes.}
-}
-\texdocmethod{public}{void}{removeAdviser}{(Adviser adviser)}{Entfernt einen Betreuer vom Projekt}{\begin{texdocparameters}
-\texdocparameter{adviser}{Betreuer der entfernt wird}
+\texdocmethod{public}{void}{removeAdviser}{(Adviser adviser)}{Entfernt einen Betreuer vom Projekt.}{\begin{texdocparameters}
+\texdocparameter{adviser}{Betreuer der entfernt wird.}
 \end{texdocparameters}
 }
-\texdocmethod{public}{void}{setAdvisers}{(Adviser advisers)}{Setter für die Betreuer des Projekts}{\begin{texdocparameters}
-\texdocparameter{advisers}{Betreuer des Projekts}
+\texdocmethod{public}{void}{setAdvisers}{(List advisers)}{Setter für die Betreuer des Projekts.}{\begin{texdocparameters}
+\texdocparameter{advisers}{Betreuer des Projekts.}
 \end{texdocparameters}
 }
 \texdocmethod{public}{void}{setInstitute}{(String institute)}{Setzt den Institutsnamen.}{\begin{texdocparameters}
@@ -317,20 +276,16 @@ Klasse, die ein Project repräsentiert\end{texdocclassintro}
 \texdocparameter{name}{Der Name des Projektes.}
 \end{texdocparameters}
 }
+\texdocmethod{public}{void}{setNumberOfTeams}{(int numberOfTeams)}{Setter für die Anzahl der Teams.}{\begin{texdocparameters}
+\texdocparameter{numberOfTeams}{Anzahl der Teams.}
+\end{texdocparameters}
+}
 \texdocmethod{public}{void}{setProjectInfo}{(String projectInfo)}{Setter für die Information über dieses Projektes.}{\begin{texdocparameters}
 \texdocparameter{projektInfo}{Die Information des Projektes.}
 \end{texdocparameters}
 }
 \texdocmethod{public}{void}{setProjectURL}{(String projectURL)}{Setter für die URL des Projektes.}{\begin{texdocparameters}
 \texdocparameter{projectURL}{Die URL des Projektes.}
-\end{texdocparameters}
-}
-\texdocmethod{public}{void}{setSemester}{(Semester semester)}{Setter für das Semester des Projekts}{\begin{texdocparameters}
-\texdocparameter{semester}{Semester des Projekts}
-\end{texdocparameters}
-}
-\texdocmethod{public}{void}{setTeams}{(Team teams)}{Setter für die Teams des Projektes.}{\begin{texdocparameters}
-\texdocparameter{team}{Die Teams des Projektes.}
 \end{texdocparameters}
 }
 \end{texdocclassmethods}
@@ -346,7 +301,7 @@ Klasse, die die Datenbank initialisiert.\end{texdocclassintro}
 \end{texdocclassconstructors}
 \begin{texdocclassmethods}
 \texdocmethod{public}{void}{onStartup}{(ServerConfig serverConfig)}{Initialisiert die Datenbank.}{\begin{texdocparameters}
-\texdocparameter{serverConfig}{ein Objekt, welches zur Konfiguration des Servers verwendet wird.}
+\texdocparameter{serverConfig}{Ein Objekt, welches zur Konfiguration des Servers verwendet wird.}
 \end{texdocparameters}
 }
 \end{texdocclassmethods}
@@ -361,15 +316,9 @@ Diese Klasse stellt eine Bewertung eines Studierenden oder einerr Lerngruppe fü
 \texdocconstructor{public}{Rating}{()}{}{}
 \end{texdocclassconstructors}
 \begin{texdocclassmethods}
-\texdocmethod{public}{LearningGroup}{getLearningGroup}{()}{Getter für die Lerngruppe.}{\texdocreturn{Die Lerngruppe, die bewertet.}
-}
 \texdocmethod{public}{Project}{getProject}{()}{Getter für das Projekt der Bewertung.}{\texdocreturn{Das Projekt, das bewertet wird.}
 }
 \texdocmethod{public}{int}{getRating}{()}{Getter für den Wert der Bewertung.}{\texdocreturn{Der Wert der Bewertung.}
-}
-\texdocmethod{public}{void}{setLearningGroup}{(LearningGroup learningGroup)}{Setter für die Lerngruppe.}{\begin{texdocparameters}
-\texdocparameter{learningGroup}{Die Lerngruppe, die bewertet.}
-\end{texdocparameters}
 }
 \texdocmethod{public}{void}{setProject}{(Project project)}{Setter für das Projekt der Bewertung.}{\begin{texdocparameters}
 \texdocparameter{project}{Das Projekt, das bewertet wird.}
@@ -391,39 +340,39 @@ Diese Klasse repräsentiert ein Semseter.\end{texdocclassintro}
 \texdocconstructor{public}{Semester}{()}{}{}
 \end{texdocclassconstructors}
 \begin{texdocclassmethods}
-\texdocmethod{public}{void}{addAllocation}{(Allocation allocation)}{Fügt eine Einteilung hinzu}{\begin{texdocparameters}
-\texdocparameter{allocation}{Einteilung, die hinzugefügt wird}
+\texdocmethod{public}{void}{addAllocation}{(Allocation allocation)}{Fügt dem Semester eine Einteilung hinzu.}{\begin{texdocparameters}
+\texdocparameter{allocation}{Einteilung, die hinzugefügt wird.}
 \end{texdocparameters}
 }
-\texdocmethod{public}{void}{addLearningGroup}{(LearningGroup learningGroup)}{Fügt eine Lerngruppe hinzu}{\begin{texdocparameters}
-\texdocparameter{learningGroup}{Lerngruppe, die hinzugefügt wird}
+\texdocmethod{public}{void}{addLearningGroup}{(LearningGroup learningGroup)}{Fügt eine Lerngruppe hinzu.}{\begin{texdocparameters}
+\texdocparameter{learningGroup}{Lerngruppe, die hinzugefügt wird.}
 \end{texdocparameters}
 }
-\texdocmethod{public}{void}{addProject}{(Project project)}{Fügt ein Project hinzu}{\begin{texdocparameters}
-\texdocparameter{project}{Projekt, das hinzugefügt wird}
+\texdocmethod{public}{void}{addProject}{(Project project)}{Fügt ein Projekt hinzu.}{\begin{texdocparameters}
+\texdocparameter{project}{Projekt, das hinzugefügt wird.}
 \end{texdocparameters}
 }
-\texdocmethod{public}{void}{addSPO}{(SPO spo)}{Fügt eine SPO hinzu}{\begin{texdocparameters}
-\texdocparameter{spo}{SPO, die hinzugefügt wird}
+\texdocmethod{public}{void}{addSPO}{(SPO spo)}{Fügt eine SPO hinzu.}{\begin{texdocparameters}
+\texdocparameter{spo}{SPO, die hinzugefügt wird.}
 \end{texdocparameters}
 }
-\texdocmethod{public}{void}{addStudent}{(Student student)}{Fügt einen Studenten hinzu}{\begin{texdocparameters}
-\texdocparameter{student}{Student, der hinzugefügt wird}
+\texdocmethod{public}{void}{addStudent}{(Student student)}{Fügt einen Studenten hinzu.}{\begin{texdocparameters}
+\texdocparameter{student}{Student, der hinzugefügt wird.}
 \end{texdocparameters}
 }
-\texdocmethod{public}{Adviser}{getAdvisers}{()}{Diese Methode gibt alle Betreuer dieses Semesters zurück.}{\texdocreturn{Alle Betreuer des Semesters.}
+\texdocmethod{public}{List}{getAdvisers}{()}{Diese Methode gibt alle Betreuer dieses Semesters zurück.}{\texdocreturn{Alle Betreuer des Semesters.}
 }
-\texdocmethod{public}{Allocation}{getAllocations}{()}{Getter für die Einteilungen}{\texdocreturn{Einteilungen}
+\texdocmethod{public}{List}{getAllocations}{()}{Getter für die Einteilungen.}{\texdocreturn{Alle in diesem Semester berechneten Einteilungen.}
 }
 \texdocmethod{public}{Allocation}{getFinalAllocation}{()}{Getter für die finale Einteilung.}{\texdocreturn{Die finale Einteilung.}
 }
 \texdocmethod{public}{String}{getInfoText}{()}{Getter für den Infotext.}{\texdocreturn{Der Infotext des Semesters.}
 }
-\texdocmethod{public}{LearningGroup}{getLearningGroups}{()}{Getter für die Lerngruppen}{\texdocreturn{Lerngruppen}
+\texdocmethod{public}{List\textless{}LearningGroup\textgreater{}}{getLearningGroups}{()}{Getter für die Lerngruppen.}{\texdocreturn{Alle Lerngruppen dieses Semesters.}
 }
 \texdocmethod{public}{String}{getName}{()}{Getter für den Namen des Semesters.}{\texdocreturn{Der Name des Semesters.}
 }
-\texdocmethod{public}{Project}{getProjects}{()}{Getter für die Projekte}{\texdocreturn{Projekte}
+\texdocmethod{public}{List\textless{}Project\textgreater{}}{getProjects}{()}{Getter für die Projekte.}{\texdocreturn{Die Projekte, die in diesem Semester existieren.}
 }
 \texdocmethod{public}{Date}{getRegistrationEnd}{()}{Getter für den Endzeitpunkt der Registrierung.}{}
 \texdocmethod{public}{Date}{getRegistrtaionStart}{()}{Getter für den Startpunkt der Registrierung.}{}
@@ -432,36 +381,36 @@ Diese Klasse repräsentiert ein Semseter.\end{texdocclassintro}
 \end{texdocparameters}
 \texdocreturn{Das gesuchte Semester.}
 }
-\texdocmethod{public static}{Semester}{getSemesters}{()}{Diese Methode gibt alles Semseter zurück, die erstellt wurden.}{\texdocreturn{Alle Semseter.}
+\texdocmethod{public static}{List\textless{}Semester\textgreater{}}{getSemesters}{()}{Diese Methode gibt alles Semseter zurück, die erstellt wurden.}{\texdocreturn{Alle Semseter.}
 }
-\texdocmethod{public}{SPO}{getSpos}{()}{Getter für die SPOs des Semesters.}{\texdocreturn{Die verfügbaren SPOs des Semesters.}
+\texdocmethod{public}{List\textless{}SPO\textgreater{}}{getSpos}{()}{Getter für die SPOs des Semesters.}{\texdocreturn{Die verfügbaren SPOs des Semesters.}
 }
-\texdocmethod{public}{Student}{getStudents}{()}{Getter für die Studenten}{\texdocreturn{Studenten}
+\texdocmethod{public}{List\textless{}Student\textgreater{}}{getStudents}{()}{Getter für die Studenten.}{\texdocreturn{Alle Studenten, die in diesem Semester angemeldet sind.}
 }
-\texdocmethod{public}{Team}{getTeams}{()}{Diese Methode gibt alle Teams zurück.}{\texdocreturn{Alle existierenden Teams.}
+\texdocmethod{public}{List\textless{}Team\textgreater{}}{getTeams}{()}{Diese Methode gibt alle Teams zurück.}{\texdocreturn{Alle existierenden Teams.}
 }
-\texdocmethod{public}{void}{removeAllocation}{(Allocation allocation)}{Entfernt eine Einteilung}{\begin{texdocparameters}
-\texdocparameter{allocation}{Einteilung, die entfernt wird}
+\texdocmethod{public}{void}{removeAllocation}{(Allocation allocation)}{Entfernt eine Einteilung aus dem Semester.}{\begin{texdocparameters}
+\texdocparameter{allocation}{Einteilung, die entfernt wird.}
 \end{texdocparameters}
 }
-\texdocmethod{public}{void}{removeLearningGroup}{(LearningGroup learningGroup)}{Entfernt eine Lerngruppe}{\begin{texdocparameters}
-\texdocparameter{learningGroup}{Lerngruppe, die entfernt wird}
+\texdocmethod{public}{void}{removeLearningGroup}{(LearningGroup learningGroup)}{Entfernt eine Lerngruppe.}{\begin{texdocparameters}
+\texdocparameter{learningGroup}{Lerngruppe, die entfernt wird.}
 \end{texdocparameters}
 }
-\texdocmethod{public}{void}{removeProject}{(Project project)}{Entfernt ein Projekt}{\begin{texdocparameters}
-\texdocparameter{project}{Projekt, das entfernt wird}
+\texdocmethod{public}{void}{removeProject}{(Project project)}{Entfernt ein Projekt aus dem Semester.}{\begin{texdocparameters}
+\texdocparameter{project}{Projekt, das entfernt wird.}
 \end{texdocparameters}
 }
-\texdocmethod{public}{void}{removeSPO}{(SPO spo)}{Entfernt eine SPO}{\begin{texdocparameters}
-\texdocparameter{spo}{SPO, die entfernt wird}
+\texdocmethod{public}{void}{removeSPO}{(SPO spo)}{Entfernt eine SPO.}{\begin{texdocparameters}
+\texdocparameter{spo}{SPO, die entfernt wird.}
 \end{texdocparameters}
 }
-\texdocmethod{public}{void}{removeStudent}{(Student student)}{Entfernt einen Studenten}{\begin{texdocparameters}
-\texdocparameter{student}{Student, der entfernt wird}
+\texdocmethod{public}{void}{removeStudent}{(Student student)}{Entfernt einen Studenten.}{\begin{texdocparameters}
+\texdocparameter{student}{Student, der entfernt wird.}
 \end{texdocparameters}
 }
-\texdocmethod{public}{void}{setAllocations}{(Allocation allocations)}{Setter für die Einteilungen}{\begin{texdocparameters}
-\texdocparameter{allocations}{Einteilungen}
+\texdocmethod{public}{void}{setAllocations}{(List allocations)}{Setter für die Einteilungen.}{\begin{texdocparameters}
+\texdocparameter{allocations}{Die Einteilungen.}
 \end{texdocparameters}
 }
 \texdocmethod{public}{void}{setFinalAllocation}{(Allocation finalAllocation)}{Setter für die finale Einteilung.}{\begin{texdocparameters}
@@ -472,16 +421,16 @@ Diese Klasse repräsentiert ein Semseter.\end{texdocclassintro}
 \texdocparameter{infoText}{Der Infotext des Semesters.}
 \end{texdocparameters}
 }
-\texdocmethod{public}{void}{setLearningGroups}{(LearningGroup learningGroups)}{Setter für die Lerngruppen}{\begin{texdocparameters}
-\texdocparameter{learningGroups}{Lerngruppen}
+\texdocmethod{public}{void}{setLearningGroups}{(List\textless{}LearningGroup\textgreater{} learningGroups)}{Setter für die Lerngruppen.}{\begin{texdocparameters}
+\texdocparameter{learningGroups}{Die Lerngruppen, die dem Semester übergeben werden.}
 \end{texdocparameters}
 }
 \texdocmethod{public}{void}{setName}{(String name)}{Setter für den Namen des Semesters.}{\begin{texdocparameters}
 \texdocparameter{name}{Der Name des Semesters.}
 \end{texdocparameters}
 }
-\texdocmethod{public}{void}{setProjects}{(Project projects)}{Setter für die Projecte}{\begin{texdocparameters}
-\texdocparameter{projects}{Projekte}
+\texdocmethod{public}{void}{setProjects}{(List\textless{}Project\textgreater{} projects)}{Setter für die Projekte.}{\begin{texdocparameters}
+\texdocparameter{projects}{Die Projekte, die dem Semester übergeben werden.}
 \end{texdocparameters}
 }
 \texdocmethod{public}{void}{setRegistrationEnd}{(Date end)}{Setter für den Endzeitpunkt der Registrierung.}{\begin{texdocparameters}
@@ -492,12 +441,12 @@ Diese Klasse repräsentiert ein Semseter.\end{texdocclassintro}
 \texdocparameter{start}{der Startzeitpunkt.}
 \end{texdocparameters}
 }
-\texdocmethod{public}{void}{setSpos}{(SPO spos)}{Setter für die SPOs des Semesters.}{\begin{texdocparameters}
+\texdocmethod{public}{void}{setSpos}{(List\textless{}SPO\textgreater{} spos)}{Setter für die SPOs des Semesters.}{\begin{texdocparameters}
 \texdocparameter{spos}{Die verfügbaren SPOs des Semesters.}
 \end{texdocparameters}
 }
-\texdocmethod{public}{void}{setStudents}{(Student students)}{Setter für die Studenten}{\begin{texdocparameters}
-\texdocparameter{students}{Studenten}
+\texdocmethod{public}{void}{setStudents}{(List\textless{}Student\textgreater{} students)}{Setter für die Studenten.}{\begin{texdocparameters}
+\texdocparameter{students}{Studenten, die dem Semester übergeben werden.}
 \end{texdocparameters}
 }
 \end{texdocclassmethods}
@@ -529,19 +478,19 @@ Diese Klasse stellt eine Studienprüfungsordnung dar.\end{texdocclassintro}
 \texdocconstructor{public}{SPO}{()}{}{}
 \end{texdocclassconstructors}
 \begin{texdocclassmethods}
-\texdocmethod{public}{void}{addAvailableAchievement}{(Achievement achievement)}{Fügt eine verfügbare Teilleistung hinzu}{\begin{texdocparameters}
-\texdocparameter{achievement}{Teilleistung, die hinzugefügt wird}
+\texdocmethod{public}{void}{addAdditionalAchievement}{(Achievement achievement)}{Fügt eine zusätzliche Teilleistung hinzu.}{\begin{texdocparameters}
+\texdocparameter{achievement}{Teilleistung, die hinzugefügt wird.}
 \end{texdocparameters}
 }
-\texdocmethod{public}{void}{addNecessaryAchievement}{(Achievement achievement)}{Fügt eine benötigte Teilleistung hinzu}{\begin{texdocparameters}
-\texdocparameter{achievement}{Teilleistung, die hinzugefügt wird}
+\texdocmethod{public}{void}{addNecessaryAchievement}{(Achievement achievement)}{Fügt eine benötigte Teilleistung hinzu.}{\begin{texdocparameters}
+\texdocparameter{achievement}{Teilleistung, die hinzugefügt wird.}
 \end{texdocparameters}
 }
-\texdocmethod{public}{Achievement}{getAvailableAchievements}{()}{Getter-Methode für die verfügbaren Teilleistungen.}{\texdocreturn{Die verfügbaren Teilleistungen.}
+\texdocmethod{public}{List}{getAdditionalAchievements}{()}{Getter-Methode für die zusätzlichen Teilleistungen.}{\texdocreturn{Die zusätzlichen Teilleistungen.}
 }
 \texdocmethod{public}{String}{getName}{()}{Getter-Methode für den Namen.}{\texdocreturn{Der Name der SPO.}
 }
-\texdocmethod{public}{Achievement}{getNecessaryAchievements}{()}{Getter-Methode für die benötigten Teilleistungen.}{\texdocreturn{Die benötigten Teilleistungen.}
+\texdocmethod{public}{List}{getNecessaryAchievements}{()}{Getter-Methode für die benötigten Teilleistungen.}{\texdocreturn{Die benötigten Teilleistungen.}
 }
 \texdocmethod{public static}{SPO}{getSPO}{(String name)}{Dies Methode gibt eine bestimmte SPO zurück, die über ihren Namen
  identifiziert wird.}{\begin{texdocparameters}
@@ -549,25 +498,25 @@ Diese Klasse stellt eine Studienprüfungsordnung dar.\end{texdocclassintro}
 \end{texdocparameters}
 \texdocreturn{Die SPO}
 }
-\texdocmethod{public static}{SPO}{getSPOs}{()}{Diese Methode gibt alle SPOs zurück.}{\texdocreturn{Alle SPOs.}
+\texdocmethod{public static}{List\textless{}SPO\textgreater{}}{getSPOs}{()}{Diese Methode gibt alle SPOs zurück.}{\texdocreturn{Alle SPOs.}
 }
-\texdocmethod{public}{void}{removeAvailableAchievement}{(Achievement achievement)}{Entfernt eine verfügbar Teilleistung hinzu}{\begin{texdocparameters}
-\texdocparameter{achievement}{Teilleistung, die entfernt wird}
+\texdocmethod{public}{void}{removeAdditionalAchievement}{(Achievement achievement)}{Entfernt eine zusätzliche Teilleistung.}{\begin{texdocparameters}
+\texdocparameter{achievement}{Teilleistung, die entfernt wird.}
 \end{texdocparameters}
 }
-\texdocmethod{public}{void}{removeNecessaryAchievement}{(Achievement achievement)}{Entfernt eine benötigte Teilleistung hinzu}{\begin{texdocparameters}
-\texdocparameter{achievement}{Teilleistung, die entfernt wird}
+\texdocmethod{public}{void}{removeNecessaryAchievement}{(Achievement achievement)}{Entfernt eine benötigte Teilleistung.}{\begin{texdocparameters}
+\texdocparameter{achievement}{Teilleistung, die entfernt wird.}
 \end{texdocparameters}
 }
-\texdocmethod{public}{void}{setAvailableAchievements}{(Achievement availableAchievements)}{Setter-Methode für die verfügbaren Teilleistungen.}{\begin{texdocparameters}
-\texdocparameter{availableAchievements}{Die verfügbaren Teilleistungen.}
+\texdocmethod{public}{void}{setadditionalAchievements}{(List additionalAchievements)}{Setter-Methode für die zusätzlichen Teilleistungen.}{\begin{texdocparameters}
+\texdocparameter{additionalAchievements}{Die zusätzlichen Teilleistungen.}
 \end{texdocparameters}
 }
 \texdocmethod{public}{void}{setName}{(String name)}{Setter-Methode für den Name.}{\begin{texdocparameters}
 \texdocparameter{name}{Der Name der SPO.}
 \end{texdocparameters}
 }
-\texdocmethod{public}{void}{setNecessaryAchievements}{(Achievement necessaryAchievements)}{Setter-Methode für die benötigten Teilleistungen.}{\begin{texdocparameters}
+\texdocmethod{public}{void}{setNecessaryAchievements}{(List necessaryAchievements)}{Setter-Methode für die benötigten Teilleistungen.}{\begin{texdocparameters}
 \texdocparameter{neccessaryAchievemens}{Die benötigten Teilleistungen.}
 \end{texdocparameters}
 }
@@ -583,26 +532,9 @@ Diese Klasse stellt einen Studierenden dar, der am PSE teilnimmt.\end{texdocclas
 \texdocconstructor{public}{Student}{()}{}{}
 \end{texdocclassconstructors}
 \begin{texdocclassmethods}
-\texdocmethod{public}{void}{addLearningGroup}{(LearningGroup learningGroup)}{Fügt eine Lerngruppe hinzu}{\begin{texdocparameters}
-\texdocparameter{learningGroup}{Lerngruppe, die hinzugefügt wird}
-\end{texdocparameters}
-}
-\texdocmethod{public}{void}{addRegistratetSemester}{(Semester semester)}{Fügt ein Semester als registriertes Semester hinzu}{\begin{texdocparameters}
-\texdocparameter{semester}{Semester, das hinzugefügt wird}
-\end{texdocparameters}
-}
-\texdocmethod{public}{Achievement}{getCompletedAchievements}{()}{Getter für die abgeschlossenen Teilleistungen des Studierenden.}{\texdocreturn{Die abgeschlossenen Teilleistungen des Studierenden.}
-}
-\texdocmethod{public}{LearningGroup}{getCurrentLearningGroup}{()}{Diese Methode gibt die Lerngruppe des Studierenden zurück.}{\texdocreturn{Die Lerngruppe des Studierenden.}
+\texdocmethod{public}{List}{getCompletedAchievements}{()}{Getter für die abgeschlossenen Teilleistungen des Studierenden.}{\texdocreturn{Die abgeschlossenen Teilleistungen des Studierenden.}
 }
 \texdocmethod{public}{Project}{getCurrentProject}{()}{Diese Methode gibt das Projekt zurück, dem der Studierende zugeteilt ist.}{\texdocreturn{Das Projekt des Studierenden.}
-}
-\texdocmethod{public}{Rating}{getCurrentRating}{(Project project)}{Diese Methode gibt die Bewertung des Studiereden zu einem bestimmten Projekt zurück.}{\begin{texdocparameters}
-\texdocparameter{project}{Das Projekt.}
-\end{texdocparameters}
-\texdocreturn{Die Bewertung des Studierenden für das bestimmte Projekt.}
-}
-\texdocmethod{public}{int}{getCurrentSemester}{()}{Diese Methode gibt das aktuelle Semester des Studierenden zurück.}{\texdocreturn{Das Semester, in dem Studierende sich aktuell befindet.}
 }
 \texdocmethod{public}{Team}{getCurrentTeam}{()}{Diese Methode gibt das Team, in dem der Studierende sich befindet, zurück.}{\texdocreturn{Das Team des Studierenden.}
 }
@@ -610,15 +542,16 @@ Diese Klasse stellt einen Studierenden dar, der am PSE teilnimmt.\end{texdocclas
 }
 \texdocmethod{public}{int}{getGradeTSE}{()}{Getter für die TSE-Note des Studierenden.}{\texdocreturn{Die Note des Studierenden für das TSE.}
 }
-\texdocmethod{public}{LearningGroup}{getLearningGroup}{()}{Getter für die Lerngruppe des Studierenden.}{\texdocreturn{Die Lerngruppe des Studierenden.}
-}
 \texdocmethod{public}{int}{getMatriculationNumber}{()}{Getter für die Matrikelnummer.}{\texdocreturn{Die Matrikelnummer.}
 }
-\texdocmethod{public}{Achievement}{getOralTestAchievement}{()}{Getter für die noch ausstehenden Teilleistungen des Studierenden.}{\texdocreturn{Die noch ausstehenden Teilleistungen des Studierenden.}
+\texdocmethod{public}{List}{getOralTestAchievement}{()}{Getter für die noch ausstehenden Teilleistungen des Studierenden.}{\texdocreturn{Die noch ausstehenden Teilleistungen des Studierenden.}
 }
-\texdocmethod{public}{List\textless{}Semester\textgreater{}}{getRegisteredSemesters}{()}{Getter für die Semester, in denen der Studierende registriert ist.}{\texdocreturn{Die Semester, in denen der Studierende registriert ist.}
+\texdocmethod{public}{int}{getRating}{(Project project)}{Diese Methode gibt die Bewertung des Studiereden zu einem bestimmten Projekt zurück.}{\begin{texdocparameters}
+\texdocparameter{project}{Das Projekt.}
+\end{texdocparameters}
+\texdocreturn{Die Bewertung des Studierenden für das bestimmte Projekt.}
 }
-\texdocmethod{public}{int}{getSemester}{()}{Getter für das Semester des Studierenden.}{\texdocreturn{Das aktuelle Semester des Studierenden.}
+\texdocmethod{public}{int}{getSemester}{()}{Getter für das Fachsemester des Studierenden.}{\texdocreturn{Das aktuelle Fachsemester des Studierenden.}
 }
 \texdocmethod{public}{SPO}{getSPO}{()}{Getter für die SPO des Studierenden.}{\texdocreturn{Die SPO des Studierenden.}
 }
@@ -628,7 +561,7 @@ Diese Klasse stellt einen Studierenden dar, der am PSE teilnimmt.\end{texdocclas
 \end{texdocparameters}
 \texdocreturn{Der Studierende.}
 }
-\texdocmethod{public static}{Student}{getStudents}{()}{Diese Methode gibt alle Studierenden zurück.}{\texdocreturn{Alle Studierende.}
+\texdocmethod{public static}{List\textless{}Student\textgreater{}}{getStudents}{()}{Diese Methode gibt alle Studierenden zurück.}{\texdocreturn{Alle Studierende.}
 }
 \texdocmethod{public}{boolean}{isEmailVerified}{()}{Diese Methode gibt zurück, ob die E-Mail-Adresse verifiziert wurde.}{\texdocreturn{wahr, wenn die E-Mail-Adresse verifiziert wurde, falsch sonst.}
 }
@@ -636,25 +569,8 @@ Diese Klasse stellt einen Studierenden dar, der am PSE teilnimmt.\end{texdocclas
 }
 \texdocmethod{public}{boolean}{isRegisteredTSE}{()}{Getter für die Variable, ob der Studierende im Campus Management System für das TSE angemeldet ist.}{\texdocreturn{Wahr, wenn er angemeldet ist, falsch sonst.}
 }
-\texdocmethod{public}{void}{removeLearningGroup}{(LearningGroup learningGroup)}{Entfernt eine Lerngruppe}{\begin{texdocparameters}
-\texdocparameter{learningGroup}{Lerngruppe, die entfernt wird}
-\end{texdocparameters}
-}
-\texdocmethod{public}{void}{removeRegistratetSemester}{(Semester semester)}{Entfernt ein Semester als registriertes Semester}{\begin{texdocparameters}
-\texdocparameter{semester}{Semester, das entfernt wird}
-\end{texdocparameters}
-}
-\texdocmethod{public}{void}{setCompletedAchievements}{(Achievement completedAchievements)}{Setter für die abgeschlossenen Teilleistungen des Studierenden.}{\begin{texdocparameters}
+\texdocmethod{public}{void}{setCompletedAchievements}{(List completedAchievements)}{Setter für die abgeschlossenen Teilleistungen des Studierenden.}{\begin{texdocparameters}
 \texdocparameter{completedAchievements}{Die vom Studierenden abgeschlossenen Teilleistungen.}
-\end{texdocparameters}
-}
-\texdocmethod{public}{void}{setCurrentLearningGroup}{(LearningGroup learningGroup)}{Diese Methode weist dem Studierenden eine neue Lerngruppe zu.}{\begin{texdocparameters}
-\texdocparameter{learningGroup}{Die neue Lerngruppe des Studierenden.}
-\end{texdocparameters}
-}
-\texdocmethod{public}{void}{setCurrentRating}{(Project project, Rating rating)}{Diese Methode setzt eine Bewertung des Studierenden für ein bestimmtes Projekt.}{\begin{texdocparameters}
-\texdocparameter{project}{Das zu bewertende Projekt.}
-\texdocparameter{rating}{Die Bewertung des Studierenden.}
 \end{texdocparameters}
 }
 \texdocmethod{public}{void}{setGradePSE}{(int gradePSE)}{Setter für die PSE-Note des Studierenden.}{\begin{texdocparameters}
@@ -669,32 +585,29 @@ Diese Klasse stellt einen Studierenden dar, der am PSE teilnimmt.\end{texdocclas
 \texdocparameter{isEmailVerified}{wahr, wenn die E-Mail-Adresse verifiziert wurde, falsch sonst.}
 \end{texdocparameters}
 }
-\texdocmethod{public}{void}{setLearningGroup}{(LearningGroup learningGroup)}{Setter für die Lerngruppe des Studierenden.}{\begin{texdocparameters}
-\texdocparameter{learningGroup}{Die Lerngruppe, in der der Studierende ist.}
-\end{texdocparameters}
-}
 \texdocmethod{public}{void}{setMatriculationNumber}{(int matriculationNumber)}{Setter für die Matrikelnummer.}{\begin{texdocparameters}
 \texdocparameter{matriculationNumber}{Die Matrikelnummer des Studierenden.}
 \end{texdocparameters}
 }
-\texdocmethod{public}{void}{setOralTestAchievement}{(Achievement oralTestAchievement)}{Setter für die noch ausstehenden Teilleistungen des Studierenden.}{\begin{texdocparameters}
+\texdocmethod{public}{void}{setOralTestAchievement}{(List oralTestAchievement)}{Setter für die noch ausstehenden Teilleistungen des Studierenden.}{\begin{texdocparameters}
 \texdocparameter{oralTestAchievement}{Die noch aussteheneden Teilleistungen des Studierenden.}
+\end{texdocparameters}
+}
+\texdocmethod{public}{void}{setRating}{(Project project, int rating)}{Diese Methode setzt eine Bewertung des Studierenden für ein bestimmtes Projekt.}{\begin{texdocparameters}
+\texdocparameter{project}{Das zu bewertende Projekt.}
+\texdocparameter{rating}{Die Bewertung des Studierenden.}
 \end{texdocparameters}
 }
 \texdocmethod{public}{void}{setRegisteredPSE}{(boolean registeredPSE)}{Setter für die Variable, ob der Studierende im campus management system für das PSE angemeldet ist.}{\begin{texdocparameters}
 \texdocparameter{registeredPSE}{Wahr, wenn der Studierende im CMS angemeldet ist, sonst false}
 \end{texdocparameters}
 }
-\texdocmethod{public}{void}{setRegisteredSemesters}{(List\textless{}Semester\textgreater{} registeredSemesters)}{Setter für die Semester, in denen der Studierende registriert ist.}{\begin{texdocparameters}
-\texdocparameter{registeredSemesters}{Die Semester, in denen der Studierende registriert ist.}
-\end{texdocparameters}
-}
 \texdocmethod{public}{void}{setRegisteredTSE}{(boolean registeredTSE)}{Setter für die Variable, ob der Studierende im campus management system für das TSE angemeldet ist.}{\begin{texdocparameters}
 \texdocparameter{registeredTSE}{Wahr, wenn der Studierende im CMS angemeldet ist, sonst false}
 \end{texdocparameters}
 }
-\texdocmethod{public}{void}{setSemester}{(int semesterAtRegistration)}{Setter für das Semester des Studierenden.}{\begin{texdocparameters}
-\texdocparameter{semesterAtRegistration}{Das Semester des Studierenden.}
+\texdocmethod{public}{void}{setSemester}{(int semester)}{Setter für das Fachsemester des Studierenden.}{\begin{texdocparameters}
+\texdocparameter{semester}{Das Fachsemester des Studierenden.}
 \end{texdocparameters}
 }
 \texdocmethod{public}{void}{setSPO}{(SPO spo)}{Setter für die SPO des Studierenden.}{\begin{texdocparameters}
@@ -713,16 +626,29 @@ Diese KLasse stellt ein Team eines Projektes dar.\end{texdocclassintro}
 \texdocconstructor{public}{Team}{()}{}{}
 \end{texdocclassconstructors}
 \begin{texdocclassmethods}
+\texdocmethod{public}{void}{addMember}{(Student member)}{Fügt einen Studierenden zum Team hinzu.}{\begin{texdocparameters}
+\texdocparameter{member}{Der Studierende, der dem Team hinzugefügt wird.}
+\end{texdocparameters}
+}
 \texdocmethod{public}{Adviser}{getAdvisers}{()}{Diese Methode gibt die Betreuer des Teams zurück.}{\texdocreturn{Die Betreuer des Teams.}
 }
-\texdocmethod{public}{Student}{getMembers}{()}{Diese Methode gibt die Studierenden (Mitglieder) des Teams zurück.}{\texdocreturn{Die Mitglieder des Teams.}
+\texdocmethod{public}{List\textless{}Student\textgreater{}}{getMembers}{()}{Diese Methode gibt die Studierenden (Mitglieder) des Teams zurück.}{\texdocreturn{Die Mitglieder des Teams.}
 }
 \texdocmethod{public}{Project}{getProject}{()}{Getter für das Projekt.}{\texdocreturn{Das Projekt.}
 }
-\texdocmethod{public}{Rating}{getRating}{(Student student)}{Diese Methode gibt die Bewertung eines Studierenden zum Projekt dieses Teams zurück.}{\begin{texdocparameters}
+\texdocmethod{public}{int}{getRating}{(Student student)}{Diese Methode gibt die Bewertung eines Studierenden zum Projekt dieses
+ Teams zurück.}{\begin{texdocparameters}
 \texdocparameter{student}{Der Studierende, dessen Bewertung zurückgegeben werden soll.}
 \end{texdocparameters}
 \texdocreturn{Die Bewertung des Studierenden.}
+}
+\texdocmethod{public}{void}{removeMember}{(Student member)}{Entfernt einen Studierenden aus dem Team.}{\begin{texdocparameters}
+\texdocparameter{member}{Der Studierende, der aus dem Team entfernt wird.}
+\end{texdocparameters}
+}
+\texdocmethod{public}{void}{setMembers}{(List\textless{}Student\textgreater{} members)}{Setter für die Mitglieder des Teams.}{\begin{texdocparameters}
+\texdocparameter{members}{Die Mitglieder des Teams.}
+\end{texdocparameters}
 }
 \texdocmethod{public}{void}{setProject}{(Project project)}{Setter für das Projekt.}{\begin{texdocparameters}
 \texdocparameter{project}{Das Projekt.}
@@ -740,7 +666,7 @@ Diese Klasse stellt einen Benutzer der Anwendung dar.\end{texdocclassintro}
 \texdocconstructor{public}{User}{()}{}{}
 \end{texdocclassconstructors}
 \begin{texdocclassmethods}
-\texdocmethod{public}{String}{getEmailAddress}{()}{Getter für die E-Mail-Addresse.}{\texdocreturn{Die EMail-Addresse.}
+\texdocmethod{public}{String}{getEmailAddress}{()}{Getter für die E-Mail-Addresse.}{\texdocreturn{Die E\_Mail-Addresse.}
 }
 \texdocmethod{public}{String}{getFirstName}{()}{Getter für den Vornamen.}{\texdocreturn{Der Vorname.}
 }
@@ -751,15 +677,15 @@ Diese Klasse stellt einen Benutzer der Anwendung dar.\end{texdocclassintro}
 \texdocmethod{public}{String}{getUserName}{()}{Getter für den Benutzernamen.}{\texdocreturn{Der Benutzername.}
 }
 \texdocmethod{public}{void}{setEmailAddress}{(String email)}{Setter für die E-Mail-Addresse.}{\begin{texdocparameters}
-\texdocparameter{email}{Die E-Mail}
+\texdocparameter{email}{Die E-Mail-Adresse}
 \end{texdocparameters}
 }
 \texdocmethod{public}{void}{setFirstName}{(String firstName)}{Setter für den Vornamen.}{\begin{texdocparameters}
-\texdocparameter{firstName}{Der Vorname}
+\texdocparameter{firstName}{Der Vorname.}
 \end{texdocparameters}
 }
 \texdocmethod{public}{void}{setLastName}{(String lastName)}{Setter für den Nachnamen.}{\begin{texdocparameters}
-\texdocparameter{lastName}{Der Nachname}
+\texdocparameter{lastName}{Der Nachname.}
 \end{texdocparameters}
 }
 \texdocmethod{public}{void}{setPassword}{(String password)}{Setter für das Benutzerpasswort.}{\begin{texdocparameters}
@@ -767,7 +693,7 @@ Diese Klasse stellt einen Benutzer der Anwendung dar.\end{texdocclassintro}
 \end{texdocparameters}
 }
 \texdocmethod{public}{void}{setUserName}{(String username)}{Setter für den Benutzernamen.}{\begin{texdocparameters}
-\texdocparameter{username}{Der Benutzername}
+\texdocparameter{username}{Der Benutzername.}
 \end{texdocparameters}
 }
 \end{texdocclassmethods}
