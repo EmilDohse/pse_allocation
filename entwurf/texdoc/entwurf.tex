@@ -192,30 +192,30 @@
 \pagebreak
 
 \section{Einleitung}
-Nachdem im Pflichtenheft beschrieben wurde was das Produkt leisten soll, wird in
+Nachdem im Pflichtenheft beschrieben wurde, was das Produkt leisten soll, wird in
 diesem Dokument die zur Implementierung verwendete Struktur beschrieben. Aus
 Konsistenzgründen wurden hierbei einige Änderungen zum Pflichtenheft
 durchgeführt:
 \begin{itemize}
-  \item Der Student hat die Möglichkeit im Webinterface sein Passwort und seine
-  E-mail-Adresse zu ändern, sowie die E-mail-Verifikation neu zu starten.
+  \item Der Student hat die Möglichkeit, im Webinterface sein Passwort und seine
+  E-Mail-Adresse zu ändern, sowie die E-Mail-Verifikation neu zu starten.
   Hierfür wird ein \enquote{Account}-Reiter in der Seitenleiste der GUI
   bereitgestellt.
-  \item Der Betreuer hat die möglichkeit im Webinterface sein Passwort zu
+  \item Der Betreuer hat die Möglichkeit, im Webinterface sein Passwort zu
   ändern. Hierfür wird ein \enquote{Account}-Reiter in der Seitenleiste der GUI
   bereitgestellt.
   \item SPOs unterscheiden nun zwischen notwendigen und zusätzlichen bestandenen
   Teilleistungen. Dies kann der Administrator in der Tabelle der bestandenen
   Teilleistungen einstellen.
-  \item Der Administrator hat die Möglichkeit berechnete einteilungen zu
+  \item Der Administrator hat die Möglichkeit, berechnete Einteilungen zu
   duplizieren. Dies dient zur Sicherung der ursprünglichen Berechnung bei
   Bearbeitung.
   \item Die Anzeige von Konflikten beim Import von CMS-Dateien wurde entfernt,
-  da das CMS nicht genug Daten zur verfügung stellt um Kunflikte zu erkennen.
+  da das CMS nicht genug Daten zur Verfügung stellt, um Konflikte zu erkennen.
 \end{itemize}
 \subsection{Grobentwurf}
-Da es sich um eine WebApplication handelt die Benutzerschnittstelle und ein
-Backend aufweist wir der gängige Architekturstil \enquote{Model-View-Controller}
+Da es sich um eine Web-Application handelt, die Benutzerschnittstelle und ein
+Backend aufweist, wird der gängige Architekturstil \enquote{Model-View-Controller}
 verwendet.
 \subsubsection{Model}
 Das Model beinhaltet die Programmlogik des Produkts und ist für die
@@ -224,25 +224,25 @@ verteilt:
 \begin{description}
 \item[data] ist für die komplette Datenhaltung zuständig. Es verwendet ORM zur
 Speicherung in eine Datenbank. \autoref{uml:data}
-\item[importExport] ist für den Im- und Export von Datensätzen aus dem und in
-das \textsf{\textbf{data}}-Package verantwortlich. \autoref{uml:imExport}
+\item[importExport] ist für den Im- und Export von Datensätzen in das und aus dem
+\textsf{\textbf{data}}-Package verantwortlich. \autoref{uml:imExport}
 \item[notificationSystem] ist für das Benachrichtigen von Betreuern und
-Studenten per E-mail zuständig, falls eine Einteilung durch den Administrator
+Studenten per E-Mail zuständig, falls eine Einteilung durch den Administrator
 veröffentlicht wurde. %TODO verliken auf notification
 \item[qualityCriteria] ist für die Berechnung von Qualitätskriterien von
 Einteilungen zuständig. Diese werden über einen ServiceLoader geladen, sodass
-nachträglich weiter Kriterien eingefügt werden können.
+nachträglich weitere Kriterien eingefügt werden können.
 \autoref{uml:qualityCriteria}
-\item[security] ist für die Konfiguration der Loginprozedur und für die
-estellung sicherer Verifikationscodes verantwortlich.
-\item[allocation] ist für die verwaltung der Berechnungswarteschlange und die
-Berechnung von Einteilungen zuständig. Zur berechnung wird Gurobi verwendet.
+\item[security] ist für die Konfiguration der Login-Prozedur und für die
+Erstellung sicherer Verifikationscodes verantwortlich.
+\item[allocation] ist für die Verwaltung der Berechnungswarteschlange und die
+Berechnung von Einteilungen zuständig. Zur Berechnung wird Gurobi verwendet.
 \end{description}
 
    \subsubsection{View}
-   Das View Package beinhaltet alle Views. Views sind HTML-Dateien, welche als Antwort auf einen Http-Request von einem Controller (s.Controllers) weiter an den Endbenutzer gesendet werden und von seinem Webbrowser angezeigt wird. Diese Html-Dateien können Inline-Scala-Code enthalten, welcher Daten, welche der Controller als Parameter übergibt, in HTML einfügt und so dynamisch vom Controller aus dem Modell geladene Daten beim Endbenutzer ankommen und angezeigt werden können.
+   Das View Package beinhaltet alle Views. Views sind HTML-Dateien, welche als Antwort auf einen Http-Request von einem Controller weiter an den Endbenutzer gesendet werden und von seinem Webbrowser angezeigt werden. Diese HTML-Dateien können Inline-Scala-Code enthalten, welcher Daten, welche der Controller als Parameter übergibt, in HTML einfügt und so, dynamisch vom Controller aus dem Modell geladene Daten, beim Endbenutzer ankommen und angezeigt werden können.
 \subsubsection{Controller}
-Das Controllers Package beinhaltet alle Controller. Controller sind die Schnittstelle zwischen den Views (s.Views) und dem Modell (s.Modell). Die Aufgabe von einem Controller besteht darin, Http-Requests zu bearbeiten und zu beantworten. Das Bearbeiten beinhaltet meist ein oder mehrere Abfragen ans Modell um Daten zu holen. Diese Daten werden dann als Parameter dem passenden View gegeben und dort in HTMl Code eingebettet (s. Views). Welche Controller Methode aufgerufen wird entscheidet die Route-Datei (s.Play Beschreibung).
+Das Controller Package beinhaltet alle Controller. Controller sind die Schnittstelle zwischen den Views und dem Modell (s.Modell). Die Aufgabe von einem Controller besteht darin, HTTP-Requests zu bearbeiten und zu beantworten. Das Bearbeiten beinhaltet meist ein oder mehrere Abfragen ans Modell um Daten zu holen. Diese Daten werden dann als Parameter dem passenden View gegeben und dort in HTMl Code eingebettet. Welche Controller Methode aufgerufen wird, entscheidet die Route-Datei.
    \subsubsection{Externe Bibliotheken}
 \begin{itemize}
     \item Play-Framework (\url{https://www.playframework.com/})
@@ -253,7 +253,7 @@ Das Controllers Package beinhaltet alle Controller. Controller sind die Schnitts
    \pagebreak
    
    \section{ILP}
-Zur berechnung einer Einteilung wird ein ILP verwendet. Hierbei ist das ILP
+Zur Berechnung einer Einteilung wird ein ILP verwendet. Hierbei ist das ILP
 aufgeteilt in ein Basismodell und Einteilungskriterien. 
 
 Für die Constraints werden im Weiteren für $\wedge$ (logisch AND) und
@@ -268,17 +268,17 @@ ny - \sum_{k=1}^{N}x_k & \le n-1\\
 \end{align*}
 \subsection{Basismodell}
 Das Basismodell besteht aus einer $N \times M$ Matrix $B$ binärer Variablen.
-Hierbei ist $N$ die anzahl der Studierenden die die Pflichtvoraussetzungen für das PSE
+Hierbei ist $N$ die Anzahl der Studierenden, die die Pflichtvoraussetzungen für das PSE
 erfüllt haben. $M$ ist die Anzahl der Teams plus einem Team
-der nicht zugeteilten (welches sich in der Zeile $M$ befindet). Der
+der Nicht-Zugeteilten (welches sich in der Zeile $M$ befindet). Der
 Matrixeintrag $B(k,j)$ ist 1 wenn der Student $k$ in Team $j$ ist und sonst 0.
-Weiterhin gibt es Hilvsvariablen für häufig verwendetes: 
+Weiterhin gibt es Hilfsvariablen für häufig Verwendetes: 
 \begin{itemize}
   \item $x_j$ ist eine Hilfsvariable für die Teamgröße des Teams $j$. Sie berechnet
 sich durch
 \begin{equation*}
 \sum_{k = 1}^{N} B(k,j) = x_j  \text{
-als Constraint}
+als Constraint.}
 \end{equation*}
 \end{itemize}
 
@@ -288,13 +288,13 @@ Außerdem werden im Basismodell die folgenden Basisconstraints definiert:
 
 
  \begin{itemize}
-   \item Jeder Student ist in einem Team \begin{equation*}
+   \item Jeder Student ist in einem Team: \begin{equation*}
    \sum_{j = 1}^{M} B(k,j) = 1 \text{ für } k \in \{ 1\ldots N \}
    \end{equation*}
    \item Die Teamgröße ist größergleich der vorgegebenen minimalen Teamgröße
-   oder 0. Die Teamgröße ist kleinergleich der vorgegebenen maximalen Teamgröße
-   Ausgenommen hiervon ist das Team der nicht zugeteilten. Hierzu wird eine
-   Hilvsvariable $y_j$ pro Team $j$ verwendet. Die Constraints lauten:
+   oder 0. Die Teamgröße ist kleinergleich der vorgegebenen maximalen Teamgröße.
+   Ausgenommen hiervon ist das Team der Nicht-Zugeteilten. Hierzu wird eine
+   Hilfsvariable $y_j$ pro Team $j$ verwendet. Die Constraints lauten:
    \begin{align*}
     0 &\le  y_j \le 1\\
      y_j &\le x_j\\ 
@@ -302,12 +302,12 @@ Außerdem werden im Basismodell die folgenden Basisconstraints definiert:
     x_j &\ge minSize_j \cdot y_j 
     \end{align*}
     $\text{Somit ist } y_j = \begin{cases}
-    1 \;\; \text{wenn $minSize_j \le x_j \le maxSize_j \vee x_j = 0$} \\
-    0 \;\; \text{sonst} 
+    1 \;\; \text{wenn $minSize_j \le x_j \le maxSize_j \vee x_j = 0$.} \\
+    0 \;\; \text{sonst.} 
     \end{cases}$
  \end{itemize}
  
- Es gibt weiterhin einen Optimierungsterm der durch, in der für die Berechnung
+ Es gibt weiterhin einen Optimierungsterm, der durch in der für die Berechnung
  relevanten Konfiguration gegebenen Kriterien erweitert wird. Dieser wird leer
  initialisiert.
 
