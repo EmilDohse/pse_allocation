@@ -263,9 +263,10 @@ Berechnung von Einteilungen zuständig. Zur Berechnung wird Gurobi verwendet.
 \end{description}
 
    \subsubsection{View}
-   Das View Package beinhaltet alle Views. Views sind HTML-Dateien, welche als Antwort auf einen Http-Request von einem Controller weiter an den Endbenutzer gesendet werden und von seinem Webbrowser angezeigt werden. Diese HTML-Dateien können Inline-Scala-Code enthalten, welcher Daten, welche der Controller als Parameter übergibt, in HTML einfügt und so, dynamisch vom Controller aus dem Modell geladene Daten, beim Endbenutzer ankommen und angezeigt werden können.
+   Das View Package beinhaltet alle Views. Views sind Html-Dateien, welche als
+   Antwort auf einen Http-Request von einem Controller weiter an den Endbenutzer gesendet werden und von seinem Webbrowser angezeigt werden. Diese Html-Dateien können Inline-Scala-Code enthalten, welcher Daten, welche der Controller als Parameter übergibt, in Html einfügt und so, dynamisch vom Controller aus dem Modell geladene Daten, beim Endbenutzer ankommen und angezeigt werden können.
 \subsubsection{Controller}
-Das Controller Package beinhaltet alle Controller. Controller sind die Schnittstelle zwischen den Views und dem Modell (s.Modell). Die Aufgabe von einem Controller besteht darin, HTTP-Requests zu bearbeiten und zu beantworten. Das Bearbeiten beinhaltet meist ein oder mehrere Abfragen ans Modell um Daten zu holen. Diese Daten werden dann als Parameter dem passenden View gegeben und dort in HTMl Code eingebettet. Welche Controller Methode aufgerufen wird, entscheidet die Route-Datei.
+Das Controller Package beinhaltet alle Controller. Controller sind die Schnittstelle zwischen den Views und dem Modell (s.Modell). Die Aufgabe von einem Controller besteht darin, Http-Requests zu bearbeiten und zu beantworten. Das Bearbeiten beinhaltet meist ein oder mehrere Abfragen ans Modell um Daten zu holen. Diese Daten werden dann als Parameter dem passenden View gegeben und dort in Html Code eingebettet. Welche Controller Methode aufgerufen wird, entscheidet die Route-Datei.
    \subsubsection{Externe Bibliotheken}
 \begin{itemize}
     \item Play-Framework (\url{https://www.playframework.com/})
@@ -277,7 +278,7 @@ Das Controller Package beinhaltet alle Controller. Controller sind die Schnittst
    
    \section{ILP}
 Zur Berechnung einer Einteilung wird ein ILP verwendet. Hierbei ist das ILP
-aufgeteilt in ein Basismodell und Einteilungskriterien. 
+aufgeteilt in ein Basismodell und mehrere Einteilungskriterien. 
 
 Für die Constraints werden im Weiteren für $\wedge$ (logisch AND) und
 $\vee$ (logisch OR) die Folgenden Formeln verwendet:
@@ -619,15 +620,21 @@ Format:
 
 \section{Sequenzdiagramme}
 %TODO Sequenzdiagramm am ende einfügen
-\autoref{seq:addAlloction}
-
-\autoref{seq:addToQueue}
-
-\autoref{seq:registerPage}
-
-\autoref{seq:register}
-
-\autoref{seq:resultPage}
+\subsection{addAllocation}
+Der Controller lädt sich das aktuelle Semester aus der Datenbank. Daraus lädt er sich alle Daten, um eine Konfiguration zu erstellen. Diese wird dann an den Einteiler übergeben, der dann eine Einteilung berechnet.
+(siehe \autoref{seq:addAlloction})
+\subsection{addToQueue}
+Wenn gerade keine Einteilung berechnet wird, wird die neu hinzugefügte Konfiguration direkt berechnet. Dazu werden alle Kriterien geladen und angewendet. Nachdem der Einteiler fertig gerechnet hat, wird die Einteilung in der Datenbank abgespeichert.
+(siehe \autoref{seq:addToQueue})
+\subsection{registerPage}
+Der Controller lädt sich das aktuelle Semester und daraus alle verfügbaren SPO. Zu der ausgewählten SPO werden zusätzlich alle Teilleistungen geladen.
+(siehe \autoref{seq:registerPage})
+\subsection{register}
+Der Controller schaut, ob der Student bereits existiert. Wenn nicht, fügt er den neuen Studenten zur Datenbank hinzu.
+(siehe \autoref{seq:register})
+\subsection{resultPage}
+Der Controller lädt sich das aktuelle Semester und daraus die finale Einteilung. In dieser schaut er dann nach, in welchem Team der Student ist und lädt alle Team- und Projektdaten.
+(siehe \autoref{seq:resultPage})
 
 
 
