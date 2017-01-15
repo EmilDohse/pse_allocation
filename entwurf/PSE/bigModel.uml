@@ -401,6 +401,12 @@
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_XChaK9aNEeayPeVBIOoRFQ" value="*"/>
         </ownedParameter>
       </ownedOperation>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_iqxEsNskEeaUlcGSgWMNWg" name="addProject">
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_iqxEsdskEeaUlcGSgWMNWg" name="project" type="_XCe94NaNEeayPeVBIOoRFQ" isUnique="false"/>
+      </ownedOperation>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_p63OMNskEeaUlcGSgWMNWg" name="removeProject">
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_p63OMdskEeaUlcGSgWMNWg" name="project" type="_XCe94NaNEeayPeVBIOoRFQ" isUnique="false"/>
+      </ownedOperation>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="_XCgzHNaNEeayPeVBIOoRFQ" name="LearningGroup">
       <ownedAttribute xmi:type="uml:Property" xmi:id="_XCgzHdaNEeayPeVBIOoRFQ" name="name" visibility="private" isUnique="false">
