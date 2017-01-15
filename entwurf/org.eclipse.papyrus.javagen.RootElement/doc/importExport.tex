@@ -9,24 +9,54 @@
 \texdocconstructor{public}{Importer}{()}{}{}
 \end{texdocclassconstructors}
 \begin{texdocclassmethods}
-\texdocmethod{public}{void}{exportAllocation}{(String file, Allocation allocation)}{}{\begin{texdocparameters}
-\texdocparameter{file}{}
-\texdocparameter{allocation}{}
+\texdocmethod{public}{void}{exportAllocation}{(String file, Allocation allocation)}{Exportiert eine Einteilung.}{\begin{texdocparameters}
+\texdocparameter{file}{Der Ausgabepfad.}
+\texdocparameter{allocation}{Die Einteilung, die exportiert werden soll.}
 \end{texdocparameters}
 }
-\texdocmethod{public}{void}{exportCMSData}{(String file)}{}{\begin{texdocparameters}
-\texdocparameter{file}{}
+\texdocmethod{public}{void}{exportCMSData}{(String file, Semester semester)}{Exportiert Noten von Studenten für das CMS.}{\begin{texdocparameters}
+\texdocparameter{file}{Der Ausgabepfad.}
+\texdocparameter{Das}{Semester, aus dem die Noten der Studenten exportiert werden sollen.}
 \end{texdocparameters}
 }
-\texdocmethod{public}{void}{importAllocation}{(String file, Semester semester)}{}{\begin{texdocparameters}
-\texdocparameter{file}{}
-\texdocparameter{semester}{}
+\texdocmethod{public}{void}{exportProjects}{(String file, Semester semester)}{Exportiert die Projekte eines Semesters.}{\begin{texdocparameters}
+\texdocparameter{file}{Der Ausgabepfad.}
+\texdocparameter{semester}{Das Semester, aus dem die Projekte exportiert werden sollen.}
 \end{texdocparameters}
 }
-\texdocmethod{public}{void}{importCMSData}{(String file)}{}{\begin{texdocparameters}
-\texdocparameter{file}{}
+\texdocmethod{public}{void}{exportSPO}{(String file, SPO spo)}{Exportiert eine SPO.}{\begin{texdocparameters}
+\texdocparameter{file}{Der Ausgabepfad.}
+\texdocparameter{spo}{Die SPO, die exportiert werden soll.}
 \end{texdocparameters}
-\texdocreturn{}
+}
+\texdocmethod{public}{void}{exportStudents}{(String file, Semester semester)}{Exportiert Liste aller registrierten Studenten in einem Semester.}{\begin{texdocparameters}
+\texdocparameter{file}{Der Ausgabepfad.}
+\texdocparameter{semester}{Das Semester, dessen Studenten exportiert werden sollen.}
+\end{texdocparameters}
+}
+\texdocmethod{public}{void}{importAllocation}{(String file, Semester semester)}{Importiert eine Einteilung.}{\begin{texdocparameters}
+\texdocparameter{file}{Pfad zu einer .csv Datei.}
+\texdocparameter{semester}{Semester, dem die Einteilung hinzugefügt werden soll.}
+\end{texdocparameters}
+}
+\texdocmethod{public}{void}{importCMSData}{(String file, Semester semester)}{Importiert zu PSE$/$TSE angemeldete Studenten.}{\begin{texdocparameters}
+\texdocparameter{file}{Pfad zu einer .csv Datei.}
+\texdocparameter{semester}{Das Semester, bei dem die Daten aktualisiert.}
+\end{texdocparameters}
+}
+\texdocmethod{public}{void}{importProjects}{(String file, Semester semester)}{Importiert eine Liste von Projekten.}{\begin{texdocparameters}
+\texdocparameter{file}{Der Ausgabepfad.}
+\texdocparameter{Semester}{Das Semester, dem die Projekte hinzugefügt werden sollen.}
+\end{texdocparameters}
+}
+\texdocmethod{public}{void}{importSPO}{(String file)}{Importiert eine SPO.}{\begin{texdocparameters}
+\texdocparameter{file}{Pfad zu einer .csv Datei.}
+\end{texdocparameters}
+}
+\texdocmethod{public}{void}{importStudents}{(String file, Semester semester)}{Importiert Liste von Studenten.}{\begin{texdocparameters}
+\texdocparameter{file}{Pfad zu einer .csv Datei.}
+\texdocparameter{semester}{Das Semester, dem die Studenten hinzugefügt werden sollen.}
+\end{texdocparameters}
 }
 \end{texdocclassmethods}
 \end{texdocclass}
