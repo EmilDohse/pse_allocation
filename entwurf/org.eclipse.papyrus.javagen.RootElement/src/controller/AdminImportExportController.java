@@ -31,6 +31,8 @@ public class AdminImportExportController extends Controller {
 	 * @return die Seite, die als Antwort verschickt wird.
 	 */
 	public Result exportAllocation() {
+		// TODO
+		return null;
 	}
 
 	/**
@@ -41,6 +43,8 @@ public class AdminImportExportController extends Controller {
 	 * @return die Seite, die als Antwort verschickt wird.
 	 */
 	public Result importSPO() {
+		// TODO
+		return null;
 	}
 
 	/**
@@ -51,6 +55,8 @@ public class AdminImportExportController extends Controller {
 	 * @return die Seite, die als Antwort verschickt wird.
 	 */
 	public Result exportSPO() {
+		// TODO
+		return null;
 	}
 
 	/**
@@ -61,6 +67,8 @@ public class AdminImportExportController extends Controller {
 	 * @return die Seite, die als Antwort verschickt wird.
 	 */
 	public Result importProjects() {
+		// TODO
+		return null;
 	}
 
 	/**

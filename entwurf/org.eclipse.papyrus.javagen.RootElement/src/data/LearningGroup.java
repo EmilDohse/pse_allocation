@@ -75,7 +75,8 @@ public class LearningGroup {
 	 * @return Bewertung des Projekts
 	 */
 	public int getRating(Project project) {
-		
+		// TODO
+		return 0;
 	}
 	
 	/**
