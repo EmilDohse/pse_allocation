@@ -18,7 +18,7 @@ public class Semester {
 	/**
 	 * Die für dieses Semseter verfügbaren SPOs
 	 */
-	private SPO[] spos;
+	private List<SPO> spos;
 	/**
 	 * Eine Beschreibung/Infotext des Semesters.
 	 */
@@ -38,177 +38,177 @@ public class Semester {
 	/**
 	 * Alle Lerngruppen, die dieses Semester erstellt wurden
 	 */
-	private LearningGroup[] learningGroups;
+	private List<LearningGroup> learningGroups;
 	/**
 	 * Alle Studenten, die sich für dieses Semester angemeldet haben
 	 */
-	private Student[] students;
+	private List<Student> students;
 	/**
 	 * Alle Projekte, die für dieses Semester registriert wurden
 	 */
-	private Project[] projects;
+	private List<Project> projects;
 	/**
 	 * Alle Einteilungen, die für dieses Semester berechnet wurden
 	 */
-	private Allocation[] allocations;
+	private List<Allocation> allocations;
 	
 	/**
-	 * Setter für die Einteilungen
+	 * Setter für die Einteilungen.
 	 * 
-	 * @param allocations Einteilungen
+	 * @param allocations Die Einteilungen.
 	 */
-	public void setAllocations(Allocation[] allocations) {
+	public void setAllocations(List<Allocation> allocations) {
 		this.allocations = allocations;
 	}
 	
 	/**
-	 * Getter für die Einteilungen
+	 * Getter für die Einteilungen.
 	 * 
-	 * @return Einteilungen
+	 * @return Alle in diesem Semester berechneten Einteilungen.
 	 */
-	public Allocation[] getAllocations() {
+	public List<Allocation> getAllocations() {
 		return allocations;
 	}
 	
 	/**
-	 * Fügt eine Einteilung hinzu
+	 * Fügt dem Semester eine Einteilung hinzu.
 	 * 
-	 * @param allocation Einteilung, die hinzugefügt wird
+	 * @param allocation Einteilung, die hinzugefügt wird.
 	 */
 	public void addAllocation(Allocation allocation) {
 		
 	}
 	
 	/**
-	 * Entfernt eine Einteilung
+	 * Entfernt eine Einteilung aus dem Semester.
 	 * 
-	 * @param allocation Einteilung, die entfernt wird
+	 * @param allocation Einteilung, die entfernt wird.
 	 */
 	public void removeAllocation(Allocation allocation) {
 		
 	}
 	
 	/**
-	 * Setter für die Projecte
+	 * Setter für die Projekte.
 	 * 
-	 * @param projects Projekte
+	 * @param projects Die Projekte, die dem Semester übergeben werden.
 	 */
-	public void setProjects(Project[] projects) {
+	public void setProjects(List<Project> projects) {
 		this.projects = projects;
 	}
 	
 	/**
-	 * Getter für die Projekte
+	 * Getter für die Projekte.
 	 * 
-	 * @return Projekte
+	 * @return Die Projekte, die in diesem Semester existieren.
 	 */
-	public Project[] getProjects() {
+	public List<Project> getProjects() {
 		return projects;
 	}
 	
 	/**
-	 * Fügt ein Project hinzu
+	 * Fügt ein Projekt hinzu.
 	 * 
-	 * @param project Projekt, das hinzugefügt wird
+	 * @param project Projekt, das hinzugefügt wird.
 	 */
 	public void addProject(Project project) {
 		
 	}
 	
 	/**
-	 * Entfernt ein Projekt
+	 * Entfernt ein Projekt aus dem Semester.
 	 * 
-	 * @param project Projekt, das entfernt wird
+	 * @param project Projekt, das entfernt wird.
 	 */
 	public void removeProject(Project project) {
 		
 	}
 	
 	/**
-	 * Setter für die Studenten
+	 * Setter für die Studenten.
 	 * 
-	 * @param students Studenten
+	 * @param students Studenten, die dem Semester übergeben werden.
 	 */
-	public void setStudents(Student[] students) {
+	public void setStudents(List<Student> students) {
 		this.students = students;
 	}
 	
 	/**
-	 * Getter für die Studenten
+	 * Getter für die Studenten.
 	 * 
-	 * @return Studenten
+	 * @return Alle Studenten, die in diesem Semester angemeldet sind.
 	 */
-	public Student[] getStudents() {
+	public List<Student> getStudents() {
 		return students;
 	}
 	
 	/**
-	 * Fügt einen Studenten hinzu
+	 * Fügt einen Studenten hinzu.
 	 * 
-	 * @param student Student, der hinzugefügt wird
+	 * @param student Student, der hinzugefügt wird.
 	 */
 	public void addStudent(Student student) {
 		
 	}
 	
 	/**
-	 * Entfernt einen Studenten
+	 * Entfernt einen Studenten.
 	 * 
-	 * @param student Student, der entfernt wird
+	 * @param student Student, der entfernt wird.
 	 */
 	public void removeStudent(Student student) {
 		
 	}
 	
 	/**
-	 * Setter für die Lerngruppen
+	 * Setter für die Lerngruppen.
 	 * 
-	 * @param learningGroups Lerngruppen
+	 * @param learningGroups Die Lerngruppen, die dem Semester übergeben werden.
 	 */
-	public void setLearningGroups(LearningGroup[] learningGroups) {
+	public void setLearningGroups(List<LearningGroup> learningGroups) {
 		this.learningGroups = learningGroups;
 	}
 	
 	/**
-	 * Getter für die Lerngruppen
+	 * Getter für die Lerngruppen.
 	 * 
-	 * @return Lerngruppen
+	 * @return Alle Lerngruppen dieses Semesters.
 	 */
-	public LearningGroup[] getLearningGroups() {
+	public List<LearningGroup> getLearningGroups() {
 		return learningGroups;
 	}
 	
 	/**
-	 * Fügt eine Lerngruppe hinzu
+	 * Fügt eine Lerngruppe hinzu.
 	 * 
-	 * @param learningGroup Lerngruppe, die hinzugefügt wird
+	 * @param learningGroup Lerngruppe, die hinzugefügt wird.
 	 */
 	public void addLearningGroup(LearningGroup learningGroup) {
 		
 	}
 	
 	/**
-	 * Entfernt eine Lerngruppe
+	 * Entfernt eine Lerngruppe.
 	 * 
-	 * @param learningGroup Lerngruppe, die entfernt wird
+	 * @param learningGroup Lerngruppe, die entfernt wird.
 	 */
 	public void removeLearningGroup(LearningGroup learningGroup) {
 		
 	}
 	
 	/**
-	 * Fügt eine SPO hinzu
+	 * Fügt eine SPO hinzu.
 	 * 
-	 * @param spo SPO, die hinzugefügt wird
+	 * @param spo SPO, die hinzugefügt wird.
 	 */
 	public void addSPO(SPO spo) {
 		
 	}
 	
 	/**
-	 * Entfernt eine SPO
+	 * Entfernt eine SPO.
 	 * 
-	 * @param spo SPO, die entfernt wird
+	 * @param spo SPO, die entfernt wird.
 	 */
 	public void removeSPO(SPO spo) {
 		
@@ -227,7 +227,7 @@ public class Semester {
 	 * 
 	 * @return Die verfügbaren SPOs des Semesters.
 	 */
-	public SPO[] getSpos() {
+	public List<SPO> getSpos() {
 	    return spos;
 	}
 	/**
@@ -260,7 +260,7 @@ public class Semester {
      * 
      * @param spos Die verfügbaren SPOs des Semesters.
      */
-    public void setSpos(SPO[] spos) {
+    public void setSpos(List<SPO> spos) {
         this.spos = spos;
     }
     /**
@@ -296,7 +296,7 @@ public class Semester {
 	 * 
 	 * @return Alle Semseter.
 	 */
-	public static Semester[] getSemesters() {
+	public static List<Semester> getSemesters() {
 		//TODO
 				return null;
 	}
@@ -306,7 +306,7 @@ public class Semester {
 	 * 
 	 * @return Alle existierenden Teams.
 	 */
-	public Team[] getTeams() {
+	public List<Team> getTeams() {
 		//TODO
 				return null;
 	}
@@ -316,7 +316,7 @@ public class Semester {
 	 * 
 	 * @return Alle Betreuer des Semesters.
 	 */
-	public Adviser[] getAdvisers() {
+	public List<Adviser> getAdvisers() {
 		//TODO
 				return null;
 	}

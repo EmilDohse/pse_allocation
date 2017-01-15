@@ -9,11 +9,11 @@ import java.util.Map;
 
 /************************************************************/
 /**
- * Diese Klasse stellt eine Einteilung der Studierenden in einem Semester dar.
+ * Diese Klasse stellt eine Einteilung von Studierenden in einem Semester dar.
  */
 public class Allocation {
 	/**
-	 * Map, die jedem Studenten ein Team zuteilt
+	 * Map, die jedem Studenten ein Team zuteilt.
 	 */
 	private Map<Student, Team> studentTeamMap;
 	/**
@@ -25,89 +25,89 @@ public class Allocation {
 	 */
 	private String name;
 	/**
-	 * Parameter, mit der die Einteilung gemacht wurden
+	 * Parameter, mit der die Einteilung gemacht wurden.
 	 */
-	private AllocationParameter[] parameters;
+	private List<AllocationParameter> parameters;
 
 	/**
-	 * Getter für die Parameter der Einteilung
+	 * Getter für die Parameter der Einteilung.
 	 * 
-	 * @return Parameter der Einteilung
+	 * @return Parameter der Einteilung.
 	 */
-	public AllocationParameter[] getParameters() {
+	public List<AllocationParameter> getParameters() {
 		return parameters;
 	}
 	
 	/**
-	 * Setter für die Parameter der Einteilung
+	 * Setter für die Parameter der Einteilung.
 	 * 
-	 * @param parameters Parameter der Einteilung
+	 * @param parameters Parameter der Einteilung.
 	 */
-	public void setSemester(AllocationParameter[] parameters) {
+	public void setSemester(List<AllocationParameter> parameters) {
 		this.parameters = parameters;
 	}
 	
 	/**
-	 * Getter für das Semester der Einteilung
+	 * Getter für das Semester der Einteilung.
 	 * 
-	 * @return Semester der Einteilung
+	 * @return Semester der Einteilung.
 	 */
 	public Semester getSemester() {
 		return semester;
 	}
 	
 	/**
-	 * Setter für das Semester der Einteilung
+	 * Setter für das Semester der Einteilung.
 	 * 
-	 * @param semester Semester der Einteilung
+	 * @param semester Semester der Einteilung.
 	 */
 	public void setSemester(Semester semester) {
 		this.semester = semester;
 	}
 	
 	/**
-	 * Getter für den Namen der Einteilung
+	 * Getter für den Namen der Einteilung.
 	 * 
-	 * @return Name der Einteilung
+	 * @return Name der Einteilung.
 	 */
 	public String getName() {
 		return name;
 	}
 	
 	/**
-	 * Setter für den Namen der Einteilung
+	 * Setter für den Namen der Einteilung.
 	 * 
-	 * @param name Name der Einteilung
+	 * @param name Name der Einteilung.
 	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 	
 	/**
-	 * Getter für die Map der Einteilung
+	 * Getter für die Map der Einteilung.
 	 * 
-	 * @return Map der Einteilung
+	 * @return Map der Einteilung.
 	 */
 	public Map<Student, Team> getStudentTeamMap() {
 		return studentTeamMap;
 	}
 	
 	/**
-	 * Setter für die Map der Einteilung
+	 * Setter für die Map der Einteilung.
 	 * 
-	 * @param studentTeamMap Map der Einteilung
+	 * @param studentTeamMap Map der Einteilung.
 	 */
 	public void setStudentTeamMap(Map<Student, Team> studentTeamMap) {
 		this.studentTeamMap = studentTeamMap;
 	}
 	
 	/**
-	 * Gibt das Team zurück, in das ein bestimmter Student zugeteilt wurde.
-	 * Gibt null zurück, wenn der Student nicht zugeteilt wurde
+	 * Gibt das Team zurück, in das ein bestimmter Student eingeteilt wurde.
+	 * Gibt null zurück, wenn der Student nicht zugeteilt wurde.
 	 * 
-	 * @param student Student, zu welchem das zugeteilte Team zurückgegeben wird
+	 * @param student Student, zu welchem das zugeteilte Team zurückgegeben wird.
 	 * 
-	 * @return Team, das dem Studenten zugeteilt wurde
+	 * @return Team, das dem Studenten zugeteilt wurde.
 	 */
 	public Team getTeam(Student student) {
 		return null;
@@ -120,17 +120,17 @@ public class Allocation {
 	 * 
 	 * @return Studenten, die diesem Team zugeteilt wurden
 	 */
-	public Student[] getStudents(Team team) {
+	public List<Student> getStudents(Team team) {
 		return null;
 	}
 	
 	/**
 	 * Ändert für einen Studenten das eingeteilte Team.
-	 * Wenn das Team null ist, wird der Student keinem Team zugeteilt
+	 * Wenn das Team null ist, wird der Student keinem Team zugeteilt.
 	 * 
-	 * @param student Student, dessen team geändert wird
+	 * @param student Student, dessen Team geändert wird.
 	 * 
-	 * @param team neues Team, in das der Student eingeteilt ist
+	 * @param team neues Team, in das der Student eingeteilt ist.
 	 */
 	public void setStudentsTeam(Student student, Team team) {
 		
@@ -141,7 +141,7 @@ public class Allocation {
 	 * 
 	 * @return Alle Einteilungen.
 	 */
-	public static Allocation[] getAllocations() {
+	public static List<Allocation> getAllocations() {
 		// TODO
 		return null;
 	}
@@ -162,7 +162,7 @@ public class Allocation {
 	/**
 	 * Diese Methode gibt zurück, ob die Einteilung final ist oder nicht.
 	 * 
-	 * @return Wahr, wenn Einteilung final, sonst falsch
+	 * @return Wahr, wenn Einteilung final, sonst falsch.
 	 */
 	public boolean isFinal() {
 		// TODO

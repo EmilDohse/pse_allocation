@@ -11,11 +11,11 @@ package data;
  */
 public class LearningGroup {
 	/**
-	 * Der name der Lerngruppe.
+	 * Der Name der Lerngruppe.
 	 */
 	private String name;
 	/**
-	 * Das nütige Passwort, um der Lerngruppe beizutreten.
+	 * Das nötige Passwort, um der Lerngruppe beizutreten.
 	 */
 	private String password;
 	/**
@@ -25,12 +25,12 @@ public class LearningGroup {
 	/**
 	 * Die Mitglieder der Lerngruppe.
 	 */
-	private Student[] members;
+	private List<Student> members;
 	
 	/**
 	 * Die Projektbewertungen der Lerngruppe
 	 */
-	private Rating[] ratings;
+	private List<Rating> ratings;
 
 	/**
 	 * Studierende, die keiner Lerngruppe angehören, werden als private
@@ -40,39 +40,39 @@ public class LearningGroup {
 	private boolean isPrivate;
 
 	/**
-	 * Getter für die Projektbewertungen
+	 * Getter für die Projektbewertungen.
 	 * 
-	 * @return Projektbewertungen der Lerngruppe
+	 * @return Projektbewertungen der Lerngruppe.
 	 */
-	public Rating[] getRatings() {
+	public List<Rating> getRatings() {
 		return ratings;
 	}
 	
 	/**
-	 * Setter für die Projektbewertungen
+	 * Setter für die Projektbewertungen.
 	 * 
-	 * @param ratings Projektbewertungen der Lerngruppe
+	 * @param ratings Projektbewertungen der Lerngruppe.
 	 */
-	public void setRatings(Rating[] ratings) {
+	public void setRatings(List<Rating> ratings) {
 		this.ratings = ratings;
 	}
 	
 	/**
-	 * Ändert die Bewertung für ein Projekt
+	 * Ändert die Bewertung für ein Projekt.
 	 * 
-	 * @param project Projekt, für das die bewertung geändert wird
-	 * @param rating Bewertung des Projekts
+	 * @param project Projekt, für das die Bewertung geändert wird.
+	 * @param rating Bewertung des Projekts.
 	 */
 	public void rate(Project project, int rating) {
 		
 	}
 	
 	/**
-	 * Gibt die Bewertung für ein Projekt zurück
+	 * Gibt die Bewertung für ein Projekt zurück.
 	 * 
-	 * @param project Projekt, für welches die Bewertung zurückgegeben wird
+	 * @param project Projekt, für welches die Bewertung zurückgegeben wird.
 	 * 
-	 * @return Bewertung des Projekts
+	 * @return Bewertung des Projekts.
 	 */
 	public int getRating(Project project) {
 		// TODO
@@ -100,7 +100,7 @@ public class LearningGroup {
 	/**
 	 * Getter für das Semester, in dem die Lerngruppe erstellt wurde.
 	 * 
-	 * @return Das Semester,in dem die Lerngruppe erstellt wurde.
+	 * @return Das Semester, in dem die Lerngruppe erstellt wurde.
 	 */
 	public Semester getSemester() {
 		return semester;
@@ -111,7 +111,7 @@ public class LearningGroup {
 	 * 
 	 * @return Die Mitglieder der Lerngruppe.
 	 */
-	public Student[] getMembers() {
+	public List<Student> getMembers() {
 		return members;
 	}
 
@@ -151,30 +151,30 @@ public class LearningGroup {
 	 * @param members
 	 *            Die Mitglieder der Lerngruppe.
 	 */
-	public void setMembers(Student[] members) {
+	public void setMembers(List<Student> members) {
 		this.members = members;
 	}
 	
 	/**
-	 * Fügt einen Studenten zu der Lerngruppe hinzu
+	 * Fügt einen Studenten zu der Lerngruppe hinzu.
 	 *
-	 * @param student Student der hinzugefügt wird
+	 * @param student Student, der hinzugefügt wird.
 	 */
 	public void addMember(Student student) {
 		
 	}
 	
 	/**
-	 * Entfernt einen Studenten von der Lengruppe
+	 * Entfernt einen Studenten von der Lengruppe.
 	 * 
-	 * @param student Student der entfernt wird
+	 * @param student Student, der entfernt wird.
 	 */
 	public void removeMember(Student student) {
 		
 	}
 
 	/**
-	 * Getter ob Lerngruppe privat ist.
+	 * Getter, ob Lerngruppe privat ist.
 	 * 
 	 * @return Wahr, wenn privat, sonst falsch.
 	 */
@@ -183,7 +183,7 @@ public class LearningGroup {
 	}
 
 	/**
-	 * Setter ob Lerngruppe privat ist.
+	 * Setter, ob Lerngruppe privat ist.
 	 * 
 	 * @param isPrivate
 	 *            Wahr, wenn privat, sonst falsch.
@@ -207,11 +207,11 @@ public class LearningGroup {
 	}
 
 	/**
-	 * Diese Methode gibt alle jemals erstellten Lerngruppen zurück.
+	 * Diese Methode gibt alle Lerngruppen zurück.
 	 * 
 	 * @return Alle Lerngruppen.
 	 */
-	public static LearningGroup[] getLearningGroups() {
+	public static List<LearningGroup> getLearningGroups() {
 		// TODO
 		return null;
 	}

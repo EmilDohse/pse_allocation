@@ -26,11 +26,11 @@ public class Student extends User {
 	/**
 	 * Die Lerngruppe des Studierenden.
 	 */
-	private LearningGroup learningGroup;
+	private List<LearningGroup> learningGroup;
 	/**
 	 * Die bestandenen Teilleistungen.
 	 */
-	private Achievement[] completedAchievements;
+	private List<Achievement> completedAchievements;
 	/**
 	 * Wahr, wenn sich der Studierende bereits im Campus Management System für das PSE angemeldet hat.
 	 * Falsch, sonst.
@@ -52,7 +52,7 @@ public class Student extends User {
 	/**
 	 * Die noch ausstehenden Teilleistungen des Studierenden.
 	 */
-	private Achievement[] oralTestAchievement;
+	private List<Achievement> oralTestAchievement;
 	/**
 	 * Das Semester, in dem sich der Studierende zum Zeitpunkt der Registrierung befindet.
 	 */
@@ -62,10 +62,11 @@ public class Student extends User {
 	 */
 	private boolean emailVerified;
 	
+	
 	/**
-	 * Fügt eine Lerngruppe hinzu
+	 * Fügt eine Lerngruppe hinzu.
 	 * 
-	 * @param learningGroup Lerngruppe, die hinzugefügt wird
+	 * @param learningGroup Lerngruppe, die hinzugefügt wird.
 	 */
 	public void addLearningGroup(LearningGroup learningGroup) {
 		
