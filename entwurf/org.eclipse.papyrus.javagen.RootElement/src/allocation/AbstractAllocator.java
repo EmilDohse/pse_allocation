@@ -8,23 +8,23 @@ import java.util.List;
 
 /************************************************************/
 /**
- * Abstrakter Löser des Einteilungsproblems
+ * Abstrakter Löser des Einteilungsproblems.
  */
 abstract class AbstractAllocator {
 
     /**
-     * Startet die Berechnung einer Einteilung
+     * Startet die Berechnung einer Einteilung.
      * 
      * @param configuration
      *            Die Konfiguration, nach der die Einteilung berechnet werden
-     *            soll
+     *            soll.
      */
     public abstract void calculate(Configuration configuration);
 
     /**
-     * Gibt alle Kriterien, geladen über einen Serviceloader, zurück
+     * Gibt alle Kriterien, geladen über einen Serviceloader, zurück.
      * 
-     * @return Liste aller verfügbarer Kriterien
+     * @return Die Liste aller verfügbarer Kriterien.
      */
     public static List<Criterion> getAllCriteria() {
         // TODO
