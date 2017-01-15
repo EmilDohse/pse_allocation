@@ -31,3 +31,4 @@ Klassendiagrammausschnitte ins Doc
 //Javadoc importer
 //javadoc pseServerConfigStartup
 -javadoc command im controller package
+-result, controller javadoc im latex entfernen
