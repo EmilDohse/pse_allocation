@@ -4,53 +4,89 @@
 
 package data;
 
+import java.util.List;
+
 /************************************************************/
 /**
  * Diese KLasse stellt ein Team eines Projektes dar.
  */
 public class Team {
-    
+
 	/**
 	 * Das Projekt des Teams
 	 */
 	private Project project;
-	
+
+	/**
+	 * Liste der Studierenden in diesem Teams.
+	 */
+	private List<Student> members;
+
+	/**
+	 * Setter für die Mitglieder des Teams.
+	 * 
+	 * @param members
+	 *            Die Mitglieder des Teams.
+	 */
+	public void setMembers(List<Student> members) {
+		this.members = members;
+	}
+
+	/**
+	 * Fügt einen Studierenden zum Team hinzu.
+	 * @param member Der Studierende, der dem Team hinzugefügt wird.
+	 */
+	public void addMember(Student member) {
+
+	}
+
+	/**
+	 * Entfernt einen Studierenden aus dem Team.
+	 * @param member Der Studierende, der aus dem Team entfernt wird.
+	 */
+	public void removeMember(Student member) {
+
+	}
+
 	/**
 	 * Getter für das Projekt.
 	 * 
 	 * @return Das Projekt.
 	 */
 	public Project getProject() {
-	    return project;
+		return project;
 	}
-	
+
 	/**
-     * Setter für das Projekt.
-     * 
-     * @param project Das Projekt.
-     */
-    public void setProject(Project project) {
-        this.project = project;
-    }
+	 * Setter für das Projekt.
+	 * 
+	 * @param project
+	 *            Das Projekt.
+	 */
+	public void setProject(Project project) {
+		this.project = project;
+	}
+
 	/**
 	 * Diese Methode gibt die Studierenden (Mitglieder) des Teams zurück.
 	 * 
 	 * @return Die Mitglieder des Teams.
 	 */
-	public Student getMembers() {
-		//TODO
-				return null;
+	public List<Student> getMembers() {
+		return members;
 	}
 
 	/**
-	 * Diese Methode gibt die Bewertung eines Studierenden zum Projekt dieses Teams zurück.
+	 * Diese Methode gibt die Bewertung eines Studierenden zum Projekt dieses
+	 * Teams zurück.
 	 * 
-	 * @param student Der Studierende, dessen Bewertung zurückgegeben werden soll.
+	 * @param student
+	 *            Der Studierende, dessen Bewertung zurückgegeben werden soll.
 	 * @return Die Bewertung des Studierenden.
 	 */
-	public Rating getRating(Student student) {
-		//TODO
-				return null;
+	public int getRating(Student student) {
+		// TODO
+		return 0;
 	}
 
 	/**
@@ -59,7 +95,7 @@ public class Team {
 	 * @return Die Betreuer des Teams.
 	 */
 	public Adviser getAdvisers() {
-		//TODO
-				return null;
+		// TODO
+		return null;
 	}
 }

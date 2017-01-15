@@ -4,15 +4,13 @@
 
 package data;
 
+import java.util.List;
+
 /************************************************************/
 /**
  * Diese Klasse stellt einen Betreuer dar.
  */
 public class Adviser extends User {
-	/**
-	 * Die Projekte, die der Betreuer beaufsichtigt
-	 **/
-	private List<Project> projects;
 
 	/**
 	 * Getter für die Projekte, die der Betreuer beaufsichtigt.
@@ -20,35 +18,8 @@ public class Adviser extends User {
 	 * @return Die Projekte, die der Betreuer beaufsichtigt.
 	 */
 	public List<Project> getProjects() {
-		return projects;
-	}
-
-	/**
-	 * Setter für die Projekte, die der Betreuer beaufsichtigt.
-	 * 
-	 * @param projects
-	 *            Die Projekte, die der Betreuer beaufsichtigt.
-	 */
-	public void setProjects(Project[] projects) {
-		this.projects = projects;
-	}
-
-	/**
-	 * Fügt der Menge von Projekten, die der Betreuer beaufsichtigt, ein weiteres hinzu.
-	 * 
-	 * @param project Projekt, das hinzugefügt wird.
-	 */
-	public void addProject(Project project) {
-		
-	}
-	
-	/**
-	 * Entfernt ein Projekt aus der Menge von beaufsichtigten Projekten des Betreuers.
-	 * 
-	 * @param project Projekt, das entfernt wird.
-	 */
-	public void removeProject(Project project) {
-		
+		//TODO
+		return null;
 	}
 	
 	/**

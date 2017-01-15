@@ -4,6 +4,8 @@
 
 package data;
 
+import java.util.List;
+
 /************************************************************/
 /**
  * Diese Klasse stellt eine Studienprüfungsordnung dar.
@@ -19,25 +21,25 @@ public class SPO {
 	 */
 	private List<Achievement> necessaryAchievements;
 	/**
-	 * Die zum Einstellen verfügbaren Teilleistungen.
+	 * Die zusätzlichen Teilleistungen.
 	 */
-	private List<Achievement> availableAchievements;
+	private List<Achievement> additionalAchievements;
 
 	/**
-	 * Fügt eine verfügbare Teilleistung hinzu.
+	 * Fügt eine zusätzliche Teilleistung hinzu.
 	 * 
 	 * @param achievement Teilleistung, die hinzugefügt wird.
 	 */
-	public void addAvailableAchievement(Achievement achievement) {
+	public void addAdditionalAchievement(Achievement achievement) {
 		
 	}
 	
 	/**
-	 * Entfernt eine verfügbare Teilleistung.
+	 * Entfernt eine zusätzliche Teilleistung.
 	 * 
 	 * @param achievement Teilleistung, die entfernt wird.
 	 */
-	public void removeAvailableAchievement(Achievement achievement) {
+	public void removeAdditionalAchievement(Achievement achievement) {
 		
 	}
 	
@@ -78,12 +80,12 @@ public class SPO {
 	}
 
 	/**
-	 * Getter-Methode für die verfügbaren Teilleistungen.
+	 * Getter-Methode für die zusätzlichen Teilleistungen.
 	 * 
-	 * @return Die verfügbaren Teilleistungen.
+	 * @return Die zusätzlichen Teilleistungen.
 	 */
-	public List<Achievement> getAvailableAchievements() {
-		return availableAchievements;
+	public List<Achievement> getAdditionalAchievements() {
+		return additionalAchievements;
 	}
 
 	/**
@@ -107,13 +109,13 @@ public class SPO {
 	}
 
 	/**
-	 * Setter-Methode für die verfügbaren Teilleistungen.
+	 * Setter-Methode für die zusätzlichen Teilleistungen.
 	 * 
-	 * @param availableAchievements
-	 *            Die verfügbaren Teilleistungen.
+	 * @param additionalAchievements
+	 *            Die zusätzlichen Teilleistungen.
 	 */
-	public void setAvailableAchievements(List<Achievement> availableAchievements) {
-		this.availableAchievements = availableAchievements;
+	public void setadditionalAchievements(List<Achievement> additionalAchievements) {
+		this.additionalAchievements = additionalAchievements;
 	}
 
 	/**
