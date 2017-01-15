@@ -4,6 +4,6 @@
 for D in `find . -type d -name "??*"`
 do 
 javadoc -classpath .:/opt/gurobi701/linux64/lib/gurobi.jar -docletpath ~/Downloads/texdoclet.jar -doclet org.wonderly.doclets.TexDoclet "${D:2}"
-mv docs.tex ../doc/"${D:2}"
+mv docs.tex ../doc/"${D:2}".tex
 done
 
