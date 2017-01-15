@@ -45,7 +45,7 @@ public class LearningGroup {
 	 * @return Projektbewertungen der Lerngruppe
 	 */
 	public Rating[] getRatings() {
-		return ratings
+		return ratings;
 	}
 	
 	/**
@@ -54,7 +54,7 @@ public class LearningGroup {
 	 * @param ratings Projektbewertungen der Lerngruppe
 	 */
 	public void setRatings(Rating[] ratings) {
-		this.ratings = ratings
+		this.ratings = ratings;
 	}
 	
 	/**

@@ -32,29 +32,20 @@ public class Adviser extends User {
 	public void setProjects(Project[] projects) {
 		this.projects = projects;
 	}
-	
-	/**
-	 * Getter für die Projekte, die der Betreuer beaufsichtigt
-	 * 
-	 * @return Projekte, die der Betreuer beaufsichtigt
-	 */
-	public Project[] getProjects() {
-		return projects;
-	}
 
 	/**
-	 * Fügt dem Betreuer ein Project zum Beaufsichtigen hinzu
+	 * Fügt dem Betreuer ein Projekt zum Beaufsichtigen hinzu
 	 * 
-	 * @param project Project, das dem Betreuer zum Beaufsichtigen hinzugefügt wird
+	 * @param project Projekt, das dem Betreuer zum Beaufsichtigen hinzugefügt wird
 	 */
 	public void addProject(Project project) {
 		
 	}
 	
 	/**
-	 * Entfernt dem Betreuer ein Project zum Beaufsichtigen
+	 * Entfernt dem Betreuer ein Projekt zum Beaufsichtigen
 	 * 
-	 * @param project Project, das dem Betreuer zum Beaufsichtigen entfernt wird
+	 * @param project Projekt, das dem Betreuer zum Beaufsichtigen entfernt wird
 	 */
 	public void removeProject(Project project) {
 		
