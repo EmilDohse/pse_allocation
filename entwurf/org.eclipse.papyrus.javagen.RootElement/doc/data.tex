@@ -57,6 +57,8 @@ Diese Klasse stellt eine Einteilung von Studierenden in einem Semester dar.\end{
 \end{texdocparameters}
 \texdocreturn{Die Einteilung mit dem gegebenen Namen.}
 }
+\texdocmethod{public}{Allocation}{clone}{()}{Diese Methode
+klont die aktuelle Einteilung..}{\texdocreturn{Die geklonte Einteilung.} }
 \texdocmethod{public static}{List}{getAllocations}{()}{Diese Methode gibt alle Einteilungen zurück.}{\texdocreturn{Alle Einteilungen.}
 }
 \texdocmethod{public}{String}{getName}{()}{Getter für den Namen der Einteilung.}{\texdocreturn{Name der Einteilung.}
@@ -453,23 +455,6 @@ Diese Klasse repräsentiert ein Semseter.\end{texdocclassintro}
 \end{texdocclass}
 
 
-\begin{texdocclass}{class}{ServerConfig}
-\label{texdoclet:data.ServerConfig}
-\begin{texdocclassintro}
-\end{texdocclassintro}
-\begin{texdocclassconstructors}
-\texdocconstructor{public}{ServerConfig}{()}{}{}
-\end{texdocclassconstructors}
-\end{texdocclass}
-
-
-\begin{texdocclass}{interface}{ServerConfigStartup}
-\label{texdoclet:data.ServerConfigStartup}
-\begin{texdocclassintro}
-\end{texdocclassintro}
-\end{texdocclass}
-
-
 \begin{texdocclass}{class}{SPO}
 \label{texdoclet:data.SPO}
 \begin{texdocclassintro}
@@ -666,7 +651,7 @@ Diese Klasse stellt einen Benutzer der Anwendung dar.\end{texdocclassintro}
 \texdocconstructor{public}{User}{()}{}{}
 \end{texdocclassconstructors}
 \begin{texdocclassmethods}
-\texdocmethod{public}{String}{getEmailAddress}{()}{Getter für die E-Mail-Addresse.}{\texdocreturn{Die E\_Mail-Addresse.}
+\texdocmethod{public}{String}{getEmailAddress}{()}{Getter für die E-Mail-Addresse.}{\texdocreturn{Die E-Mail-Addresse.}
 }
 \texdocmethod{public}{String}{getFirstName}{()}{Getter für den Vornamen.}{\texdocreturn{Der Vorname.}
 }
