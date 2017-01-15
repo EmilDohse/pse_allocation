@@ -18,11 +18,13 @@
         <ownedParameter xmi:type="uml:Parameter" xmi:id="_pjyLWdaMEeayPeVBIOoRFQ" name="file">
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
         </ownedParameter>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_XJ_fQNsbEeaITqDA24UI2w" name="semester" type="_XCfk-daNEeayPeVBIOoRFQ"/>
       </ownedOperation>
       <ownedOperation xmi:type="uml:Operation" xmi:id="_pjyLXdaMEeayPeVBIOoRFQ" name="exportCMSData">
         <ownedParameter xmi:type="uml:Parameter" xmi:id="_pjyLXtaMEeayPeVBIOoRFQ" name="file">
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
         </ownedParameter>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_avb78NsbEeaITqDA24UI2w" name="semester" type="_XCfk-daNEeayPeVBIOoRFQ"/>
       </ownedOperation>
       <ownedOperation xmi:type="uml:Operation" xmi:id="_BMfNsNjMEeab3rkMjf7TzQ" name="importSPO" visibility="public">
         <ownedParameter xmi:type="uml:Parameter" xmi:id="_JbIqINjMEeab3rkMjf7TzQ" name="file">
@@ -39,6 +41,7 @@
         <ownedParameter xmi:type="uml:Parameter" xmi:id="_jV90cNjMEeab3rkMjf7TzQ" name="file">
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
         </ownedParameter>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_nlb-ANsbEeaITqDA24UI2w" name="semester" type="_XCfk-daNEeayPeVBIOoRFQ"/>
       </ownedOperation>
       <ownedOperation xmi:type="uml:Operation" xmi:id="_lgkDwNjMEeab3rkMjf7TzQ" name="exportStudents">
         <ownedParameter xmi:type="uml:Parameter" xmi:id="_rIbrMNjMEeab3rkMjf7TzQ" name="file">
@@ -50,6 +53,7 @@
         <ownedParameter xmi:type="uml:Parameter" xmi:id="_8s61oNjMEeab3rkMjf7TzQ" name="file">
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
         </ownedParameter>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_qptAQNsbEeaITqDA24UI2w" name="semester" type="_XCfk-daNEeayPeVBIOoRFQ"/>
       </ownedOperation>
       <ownedOperation xmi:type="uml:Operation" xmi:id="_-UkI4NjMEeab3rkMjf7TzQ" name="exportProjects">
         <ownedParameter xmi:type="uml:Parameter" xmi:id="_HWEloNjNEeab3rkMjf7TzQ" name="file">
