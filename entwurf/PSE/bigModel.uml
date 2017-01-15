@@ -1141,10 +1141,11 @@
     <fragment xmi:type="uml:ExecutionOccurrenceSpecification" xmi:id="_wZhR0NdBEeabnpNmGsIysQ" name="BehaviorExecSpecStart" covered="_YekUkNdBEeabnpNmGsIysQ" execution="_wZh44NdBEeabnpNmGsIysQ"/>
     <fragment xmi:type="uml:BehaviorExecutionSpecification" xmi:id="_wZh44NdBEeabnpNmGsIysQ" name="BehaviorExecSpec" covered="_YekUkNdBEeabnpNmGsIysQ" finish="_wZh44ddBEeabnpNmGsIysQ" start="_wZhR0NdBEeabnpNmGsIysQ"/>
     <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_15L_gNdBEeabnpNmGsIysQ" name="addAllocation_MessageRecv" covered="_YekUkNdBEeabnpNmGsIysQ" message="_15KxYNdBEeabnpNmGsIysQ"/>
-    <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_-ExrcNdCEeabnpNmGsIysQ" name="MessageSend" covered="_YekUkNdBEeabnpNmGsIysQ" message="_-ExEYNdCEeabnpNmGsIysQ"/>
-    <fragment xmi:type="uml:BehaviorExecutionSpecification" xmi:id="_zvhH0NdCEeabnpNmGsIysQ" name="BehaviorExecSpec0" covered="_iYyFgNdCEeabnpNmGsIysQ" finish="_zvhH0ddCEeabnpNmGsIysQ" start="_-EySgNdCEeabnpNmGsIysQ"/>
     <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_-EySgNdCEeabnpNmGsIysQ" name="MessageRecv" covered="_iYyFgNdCEeabnpNmGsIysQ" message="_-ExEYNdCEeabnpNmGsIysQ"/>
     <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_PDHb4NdDEeabnpNmGsIysQ" name="MessageSend1" covered="_iYyFgNdCEeabnpNmGsIysQ" message="_PDG00NdDEeabnpNmGsIysQ"/>
+    <fragment xmi:type="uml:DestructionOccurrenceSpecification" xmi:id="_X28hoNdGEeabnpNmGsIysQ" name="DestructionOccurrenceSpecification0" covered="_PC4LUNdDEeabnpNmGsIysQ"/>
+    <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_-ExrcNdCEeabnpNmGsIysQ" name="MessageSend" covered="_YekUkNdBEeabnpNmGsIysQ" message="_-ExEYNdCEeabnpNmGsIysQ"/>
+    <fragment xmi:type="uml:BehaviorExecutionSpecification" xmi:id="_zvhH0NdCEeabnpNmGsIysQ" name="BehaviorExecSpec0" covered="_iYyFgNdCEeabnpNmGsIysQ" finish="_zvhH0ddCEeabnpNmGsIysQ" start="_-EySgNdCEeabnpNmGsIysQ"/>
     <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_PDHb4ddDEeabnpNmGsIysQ" name="MessageRecv1" covered="_PC4LUNdDEeabnpNmGsIysQ" message="_PDG00NdDEeabnpNmGsIysQ"/>
     <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_IuGakNdDEeabnpNmGsIysQ" name="MessageSend0" covered="_iYyFgNdCEeabnpNmGsIysQ" message="_IuFzgNdDEeabnpNmGsIysQ"/>
     <fragment xmi:type="uml:ExecutionOccurrenceSpecification" xmi:id="_zvhH0ddCEeabnpNmGsIysQ" name="BehaviorExecSpec0Finish" covered="_iYyFgNdCEeabnpNmGsIysQ" execution="_zvhH0NdCEeabnpNmGsIysQ"/>
@@ -1153,8 +1154,8 @@
     <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_3gj7ENdDEeabnpNmGsIysQ" name="MessageRecv2" covered="_PC4LUNdDEeabnpNmGsIysQ" message="_3giF4NdDEeabnpNmGsIysQ"/>
     <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_3gjUANdDEeabnpNmGsIysQ" name="MessageSend2" covered="_YekUkNdBEeabnpNmGsIysQ" message="_3giF4NdDEeabnpNmGsIysQ"/>
     <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_AalPwNdEEeabnpNmGsIysQ" name="MessageSend3" covered="_PC4LUNdDEeabnpNmGsIysQ" message="_AakosNdEEeabnpNmGsIysQ"/>
-    <fragment xmi:type="uml:ExecutionOccurrenceSpecification" xmi:id="_mr5rENdDEeabnpNmGsIysQ" name="BehaviorExecSpec1Start" covered="_PC4LUNdDEeabnpNmGsIysQ" execution="_diSbMNdDEeabnpNmGsIysQ"/>
     <fragment xmi:type="uml:ExecutionOccurrenceSpecification" xmi:id="_diTCQNdDEeabnpNmGsIysQ" name="BehaviorExecSpec1Finish" covered="_PC4LUNdDEeabnpNmGsIysQ" execution="_diSbMNdDEeabnpNmGsIysQ"/>
+    <fragment xmi:type="uml:ExecutionOccurrenceSpecification" xmi:id="_mr5rENdDEeabnpNmGsIysQ" name="BehaviorExecSpec1Start" covered="_PC4LUNdDEeabnpNmGsIysQ" execution="_diSbMNdDEeabnpNmGsIysQ"/>
     <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_Aal20NdEEeabnpNmGsIysQ" name="MessageRecv3" covered="_YekUkNdBEeabnpNmGsIysQ" message="_AakosNdEEeabnpNmGsIysQ"/>
     <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_JATvcNdEEeabnpNmGsIysQ" name="MessageSend4" covered="_YekUkNdBEeabnpNmGsIysQ" message="_JATIYNdEEeabnpNmGsIysQ"/>
     <fragment xmi:type="uml:BehaviorExecutionSpecification" xmi:id="_F9gFwNdEEeabnpNmGsIysQ" name="BehaviorExecSpec2" covered="_PC4LUNdDEeabnpNmGsIysQ" finish="_F9gFwddEEeabnpNmGsIysQ" start="_JAUWgNdEEeabnpNmGsIysQ"/>
@@ -1178,7 +1179,6 @@
     <fragment xmi:type="uml:ExecutionOccurrenceSpecification" xmi:id="_Bb7tIddGEeabnpNmGsIysQ" name="BehaviorExecSpec4Finish" covered="_g-4zANdFEeabnpNmGsIysQ" execution="_Bb7tINdGEeabnpNmGsIysQ"/>
     <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_PvJ7INdGEeabnpNmGsIysQ" name="MessageSend8" covered="_YekUkNdBEeabnpNmGsIysQ" message="_PvItANdGEeabnpNmGsIysQ"/>
     <fragment xmi:type="uml:ExecutionOccurrenceSpecification" xmi:id="_wZh44ddBEeabnpNmGsIysQ" name="BehaviorExecSpecFinish" covered="_YekUkNdBEeabnpNmGsIysQ" execution="_wZh44NdBEeabnpNmGsIysQ"/>
-    <fragment xmi:type="uml:DestructionOccurrenceSpecification" xmi:id="_X28hoNdGEeabnpNmGsIysQ" name="DestructionOccurrenceSpecification0" covered="_PC4LUNdDEeabnpNmGsIysQ"/>
     <message xmi:type="uml:Message" xmi:id="_15KxYNdBEeabnpNmGsIysQ" name="addAllocation" messageSort="asynchSignal" receiveEvent="_15L_gNdBEeabnpNmGsIysQ" signature="_z27kSNaOEeayPeVBIOoRFQ"/>
     <message xmi:type="uml:Message" xmi:id="_-ExEYNdCEeabnpNmGsIysQ" name="getCurrentSemester(): Semester" receiveEvent="_-EySgNdCEeabnpNmGsIysQ" sendEvent="_-ExrcNdCEeabnpNmGsIysQ"/>
     <message xmi:type="uml:Message" xmi:id="_IuFzgNdDEeabnpNmGsIysQ" name="getCurrentSemester(): Semester" messageSort="reply" receiveEvent="_IuHBoNdDEeabnpNmGsIysQ" sendEvent="_IuGakNdDEeabnpNmGsIysQ"/>

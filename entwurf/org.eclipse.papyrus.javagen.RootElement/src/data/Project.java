@@ -112,7 +112,7 @@ public class Project {
 	/**
 	 * Getter der maximalen Größe für Teams dieses Projektes.
 	 * 
-	 * @return Die maximale Teamgrüüe.
+	 * @return Die maximale Teamgröße.
 	 */
 	public int getMaxTeamSize() {
 		return this.maxTeamSize;
