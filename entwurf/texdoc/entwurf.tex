@@ -14,6 +14,27 @@
 \usepackage[binary-units=true]{siunitx}
  \usepackage[autostyle=true,german=quotes]{csquotes}
  \usepackage{longtable, booktabs}
+\usepackage[most]{tcolorbox}
+\definecolor{testgrauRGB}{rgb}{0.9,0.9,0.9}
+\definecolor{testgrauCMYK}{cmyk}{0.0,0.0,0.0,0.30}
+% \newcommand{\grayColBox}{1}{ \begin{tcolorbox}[enhanced jigsaw, %
+% % needed
+%    % to really the frame off!
+%  colback=testgrauRGB % black background
+%  coltext=black, % white text
+%  %halign=center, % center
+% % fontupper={\Huge \bfseries}, % change the font here
+%  sharp corners, % no rounded corners
+%  colframe=black, % not really necessary
+%  boxrule=0pt % frame off 
+%  ]\texttt{#1}
+%  \end{tcolorbox}
+% }
+%% zwei verschiedene Grautoene in zwei Farbsystemen:
+
+
+
+
 
 
 % ---------------------------------------------------------------------------
@@ -404,8 +425,7 @@ a_{4t} &\ge 0.1 \cdot x_t \\
     1 \;\; \text{wenn $x_t > 0$} \\
     0 \;\; \text{sonst} 
 \end{cases}$}
-e_t &= (a_{2t} \vee a_{3t}) \wedge a_{4t}\\
-\intertext{Zum Optimierungsterm:} 
+e_t &= (a_{2t} \vee a_{3t}) \wedge a_{4t}\\ \intertext{Zum Optimierungsterm:} 
 &p_i \cdot 10 \cdot \sum_{j=1 }^{M-1} e_j
 \end{align*}
 \subsubsection{CriterionPreferHigherSemester}
@@ -447,6 +467,153 @@ p_i \cdot 10 \cdot \sum_{j = 1}^{M-1} \sum_{i = 1}^{O}a_{ji}
 \input{../org.eclipse.papyrus.javagen.RootElement/doc/allocation.tex}
 \subsection{Routing}
 \input{viewTable.tex}
+
+\subsection{Import- und Exportformate}
+Für den Im- und Export werden CSV-Dateien verwendet. Diese haben das folgende
+Format: 
+\begin{itemize}
+  \item Zum importieren alter Datensätze von Studirenden und deren Bewertungen
+ \\ \begin{tcolorbox}[enhanced jigsaw, % needed to really the frame off!
+ colback=testgrauRGB % black background
+ coltext=black, % white text
+ %halign=center, % center
+% fontupper={\Huge \bfseries}, % change the font here
+ sharp corners, % no rounded corners
+ colframe=black, % not really necessary
+ boxrule=0pt % frame off 
+ ]
+ \texttt{Mat Num; Name; Lerngruppe; SPO;
+  Fachsemester; hat HM; hat SWT; hat Algo; Bewertung Thema 1; ... ; Bewertung
+  Thema N}
+  \end{tcolorbox}
+   \item Zum im- und export der Datensätze von Studirenden und deren
+   Bewertungen in das Produkt \\ \begin{tcolorbox}[enhanced jigsaw, % needed
+   % to really the frame off!
+ colback=testgrauRGB % black background
+ coltext=black, % white text
+ %halign=center, % center
+% fontupper={\Huge \bfseries}, % change the font here
+ sharp corners, % no rounded corners
+ colframe=black, % not really necessary
+ boxrule=0pt % frame off 
+ ]
+ \texttt{Mat Num; Name; Vorname; Lerngruppe; SPO; Fachsemester; Bestandene
+ Teilleistungen; Noch ausstehende mündliche Prüfungen; Bewertungen}
+  \end{tcolorbox}
+   wobei bestandene Teilleistungen und noch ausstehende mündliche Prüfungen durch
+  Kommata separiert aufgelistet werden. Auch die Bewertungen (++, +, o, -, --)
+  werden durch Kommata separiert, jeweils zum alphabetisch sortiert nächsten
+  Projekt aufgelistet.
+  \item Zum im- und export der alten Datensätze von Projekten in das Produkt
+  \\
+  \begin{tcolorbox}[enhanced jigsaw, % needed
+   % to really the frame off!
+ colback=testgrauRGB % black background
+ coltext=black, % white text
+ %halign=center, % center
+% fontupper={\Huge \bfseries}, % change the font here
+ sharp corners, % no rounded corners
+ colframe=black, % not really necessary
+ boxrule=0pt % frame off 
+ ]
+ \texttt{Name; Institut; Anzahl Teams; Min. Teamgröße; Max. Teamgröße}
+  \end{tcolorbox}
+  \item Zum im- und export der Datensätze von Projekten in unserem Produkt \\
+  \begin{tcolorbox}[enhanced jigsaw, % needed
+   % to really the frame off!
+ colback=testgrauRGB % black background
+ coltext=black, % white text
+ %halign=center, % center
+% fontupper={\Huge \bfseries}, % change the font here
+ sharp corners, % no rounded corners
+ colframe=black, % not really necessary
+ boxrule=0pt % frame off 
+ ]
+ \texttt{Name; Institut; Anzahl Teams; Min. Teamgröße; Max. Teamgröße;projectURL;projectInfo}
+  \end{tcolorbox}
+  \item Zum im- und export von Einteilungen \\ \begin{tcolorbox}[enhanced
+  jigsaw,
+  % needed
+   % to really the frame off!
+ colback=testgrauRGB % black background
+ coltext=black, % white text
+ %halign=center, % center
+% fontupper={\Huge \bfseries}, % change the font here
+ sharp corners, % no rounded corners
+ colframe=black, % not really necessary
+ boxrule=0pt % frame off 
+ ]
+ \texttt{Projektname;Mitglied_1; \ldots ; Mitglied_N}
+  \end{tcolorbox}
+   \item Zum import von Studierenden vom CMS zur
+   PSE-Anmeldungsüberprüfung 
+   \\
+   \begin{tcolorbox}[enhanced jigsaw,
+  % needed
+   % to really the frame off!
+ colback=testgrauRGB % black background
+ coltext=black, % white text
+ %halign=center, % center
+% fontupper={\Huge \bfseries}, % change the font here
+ sharp corners, % no rounded corners
+ colframe=black, % not really necessary
+ boxrule=0pt % frame off 
+ ]
+ \texttt{Matrnr; angemeldet; prüfung}
+\end{tcolorbox}
+ wobei angemeldet $:=$ \enquote{Angemeldet} wenn der Studierende für
+ \texttt{prüfung} angemeldet ist sonst \enquote{Nicht angemeldet}.
+ \texttt{prüfung} ist der Name \enquote{Praxis der Software-Entwicklung} oder
+ \enquote{Teamarbeit in der Softwareentwicklung} CMS.
+   \item Zum export von Matrikelnummern die vom CMS überprüft werden sollen \\
+   \begin{tcolorbox}[enhanced jigsaw,
+  % needed
+   % to really the frame off!
+ colback=testgrauRGB % black background
+ coltext=black, % white text
+ %halign=center, % center
+% fontupper={\Huge \bfseries}, % change the font here
+ sharp corners, % no rounded corners
+ colframe=black, % not really necessary
+ boxrule=0pt % frame off 
+ ]
+ \texttt{Matrnr}
+  \end{tcolorbox}
+   \item Zum export von Noten an das CMS \\ \begin{tcolorbox}[enhanced
+  jigsaw,
+  % needed
+   % to really the frame off!
+ colback=testgrauRGB % black background
+ coltext=black, % white text
+ %halign=center, % center
+% fontupper={\Huge \bfseries}, % change the font here
+ sharp corners, % no rounded corners
+ colframe=black, % not really necessary
+ boxrule=0pt % frame off 
+ ]
+ \texttt{Matrnr; note; prüfung}
+  \end{tcolorbox}
+     \item Zum im- und export von SPOs \\ \begin{tcolorbox}[enhanced
+  jigsaw,
+  % needed
+   % to really the frame off!
+ colback=testgrauRGB % black background
+ coltext=black, % white text
+ %halign=center, % center
+% fontupper={\Huge \bfseries}, % change the font here
+ sharp corners, % no rounded corners
+ colframe=black, % not really necessary
+ boxrule=0pt % frame off 
+ ]
+ \texttt{name;voluntaryAchievements;necessaryAchievements}
+  \end{tcolorbox}
+  wobei \texttt{necessaryAchievements} und \texttt{voluntaryAchievements}
+  Kommaseparierte aufzählungen sind.
+\end{itemize}
+
+
+
+
 \section{Sequenzdiagramme}
 %TODO Sequenzdiagramm am ende einfügen
 
