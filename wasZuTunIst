@@ -23,10 +23,10 @@ Klassendiagrammausschnitte ins Doc
 - javadoc ins document 
 - javadoc mit modell abgleichen
 -Sequenzdiagramme einfügen und Textuell beschreiben
-- änderungen zum pflichtenheft ins doc
+// änderungen zum pflichtenheft ins doc
 -im und exportformate ins doc
 - wo haben wir entwurfsmuster verwendet
-- einleitung schreiben
+// einleitung schreiben
 - tipps unnd tricks dokument zur bewertung lesen und schaun was wir eingehalten haben und was nicht (rückmeldung an mich für vortrag)
 //Javadoc importer
 //javadoc pseServerConfigStartup
