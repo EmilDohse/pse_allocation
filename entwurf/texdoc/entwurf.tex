@@ -244,20 +244,22 @@ Datenspeicherung verantwortlich. Dies ist auf die folgenden Pakete
 verteilt:
 \begin{description}
 \item[data] ist für die komplette Datenhaltung zuständig. Es verwendet ORM zur
-Speicherung in eine Datenbank. \autoref{uml:data}
+Speicherung in eine Datenbank. (siehe \autoref{uml:data})
 \item[importExport] ist für den Im- und Export von Datensätzen in das und aus dem
-\textsf{\textbf{data}}-Package verantwortlich. \autoref{uml:imExport}
+\textsf{\textbf{data}}-Package verantwortlich. (siehe \autoref{uml:imExport})
 \item[notificationSystem] ist für das Benachrichtigen von Betreuern und
 Studenten per E-Mail zuständig, falls eine Einteilung durch den Administrator
-veröffentlicht wurde. %TODO verliken auf notification
+veröffentlicht wurde. (siehe \autoref{uml:qualityNotifySecurity})
 \item[qualityCriteria] ist für die Berechnung von Qualitätskriterien von
 Einteilungen zuständig. Diese werden über einen ServiceLoader geladen, sodass
 nachträglich weitere Kriterien eingefügt werden können.
-\autoref{uml:qualityCriteria}
+(siehe \autoref{uml:qualityNotifySecurity})
 \item[security] ist für die Konfiguration der Login-Prozedur und für die
-Erstellung sicherer Verifikationscodes verantwortlich.
+Erstellung sicherer Verifikationscodes verantwortlich. (siehe
+\autoref{uml:qualityNotifySecurity})
 \item[allocation] ist für die Verwaltung der Berechnungswarteschlange und die
 Berechnung von Einteilungen zuständig. Zur Berechnung wird Gurobi verwendet.
+(siehe \autoref{uml:allocation})
 \end{description}
 
    \subsubsection{View}
@@ -670,7 +672,7 @@ Format:
 \centering
 \includegraphics[width=\linewidth]{bilder/notifyGueteSecurity.png}
 \caption{Gütekriterien, Benachrichtigungen und Sicherheit}
-\label{uml:qualityCriteria}
+\label{uml:qualityNotifySecurity}
 \end{sidewaysfigure}
 
 
