@@ -616,15 +616,21 @@ Format:
 
 \section{Sequenzdiagramme}
 %TODO Sequenzdiagramm am ende einfügen
-\autoref{seq:addAlloction}
-
-\autoref{seq:addToQueue}
-
-\autoref{seq:registerPage}
-
-\autoref{seq:register}
-
-\autoref{seq:resultPage}
+\subsection{addAllocation}
+Der Controller lädt sich das aktuelle Semester aus der Datenbank. Daraus lädt er sich alle Daten, um eine Konfiguration zu erstellen. Diese wird dann an den Einteiler übergeben, der dann eine Einteilung berechnet.
+(siehe \autoref{seq:addAlloction})
+\subsection{addToQueue}
+Wenn gerade keine Einteilung berechnet wird, wird die neu hinzugefügte Konfiguration direkt berechnet. Dazu werden alle Kriterien geladen und angewendet. Nachdem der Einteiler fertig gerechnet hat, wird die Einteilung in der Datenbank abgespeichert.
+(siehe \autoref{seq:addToQueue})
+\subsection{registerPage}
+Der Controller lädt sich das aktuelle Semester und daraus alle verfügbaren SPO. Zu der ausgewählten SPO werden zusätzlich alle Teilleistungen geladen.
+(siehe \autoref{seq:registerPage})
+\subsection{register}
+Der Controller schaut, ob der Student bereits existiert. Wenn nicht, fügt er den neuen Studenten zur Datenbank hinzu.
+(siehe \autoref{seq:register})
+\subsection{resultPage}
+Der Controller lädt sich das aktuelle Semester und daraus die finale Einteilung. In dieser schaut er dann nach, in welchem Team der Student ist und lädt alle Team- und Projektdaten.
+(siehe \autoref{seq:resultPage})
 
 
 
