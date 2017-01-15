@@ -1,0 +1,9 @@
+# Dieses Skript einfach ohne Parameter in dem Verzeichnis, in dem es ist ausführen.
+# Legt tex Dateien nach "doc"
+
+for D in `find . -type d -name "??*"`
+do 
+javadoc -classpath .:/opt/gurobi701/linux64/lib/gurobi.jar -docletpath ~/Downloads/texdoclet.jar -doclet org.wonderly.doclets.TexDoclet "${D:2}"
+mv docs.tex ../doc/"${D:2}"
+done
+
