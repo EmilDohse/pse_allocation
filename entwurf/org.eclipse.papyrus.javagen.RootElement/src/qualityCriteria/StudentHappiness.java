@@ -11,7 +11,11 @@ import data.Allocation;
  * Gütekriterium, das die Studentenhappiness berechnet
  */
 public class StudentHappiness implements QualityCriterion {
-
+    
+	/**
+     * {@inheritDoc}
+     */
+	@Override
 	public String calculate(Allocation allocation) {
 		// TODO
 		return null;

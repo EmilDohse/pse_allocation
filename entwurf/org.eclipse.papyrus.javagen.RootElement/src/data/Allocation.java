@@ -139,7 +139,7 @@ public class Allocation {
 	/**
 	 * Diese Methode gibt alle Einteilungen zurück.
 	 * 
-	 * @return allocations Alle Einteilungen.
+	 * @return Alle Einteilungen.
 	 */
 	public static Allocation[] getAllocations() {
 		// TODO
@@ -152,7 +152,7 @@ public class Allocation {
 	 * 
 	 * @param name
 	 *            Der Name der Einteilung.
-	 * @return allocation Die Einteilung mit dem gegebenen Namen.
+	 * @return Die Einteilung mit dem gegebenen Namen.
 	 */
 	public static Allocation getAllocation(String name) {
 		// TODO
@@ -162,7 +162,7 @@ public class Allocation {
 	/**
 	 * Diese Methode gibt zurück, ob die Einteilung final ist oder nicht.
 	 * 
-	 * @return final Wahr, wenn Einteilung final, sonst falsch
+	 * @return Wahr, wenn Einteilung final, sonst falsch
 	 */
 	public boolean isFinal() {
 		// TODO

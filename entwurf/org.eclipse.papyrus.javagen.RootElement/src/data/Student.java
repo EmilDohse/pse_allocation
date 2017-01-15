@@ -301,7 +301,7 @@ public class Student extends User {
 	 * identifiziert wird.
 	 * 
 	 * @param matriculationNumber Die Matrikelnummer des Studierenden.
-	 * @return student Der Studierende.
+	 * @return Der Studierende.
 	 */
 	public static Student getStudent(int matriculationNumber) {
 		//TODO
@@ -311,7 +311,7 @@ public class Student extends User {
 	/**
 	 * Diese Methode gibt alle Studierenden zurück.
 	 * 
-	 * @return students Alle Studierende.
+	 * @return Alle Studierende.
 	 */
 	public static Student[] getStudents() {
 		//TODO
@@ -321,7 +321,7 @@ public class Student extends User {
 	/**
 	 * Diese Methode gibt die Lerngruppe des Studierenden zurück.
 	 * 
-	 * @return learningGroup Die Lerngruppe des Studierenden.
+	 * @return Die Lerngruppe des Studierenden.
 	 */
 	public LearningGroup getCurrentLearningGroup() {
 		//TODO
@@ -340,7 +340,7 @@ public class Student extends User {
 	 * Diese Methode gibt die Bewertung des Studiereden zu einem bestimmten Projekt zurück.
 	 * 
 	 * @param project Das Projekt.
-	 * @return rating Die Bewertung des Studierenden für das bestimmte Projekt.
+	 * @return Die Bewertung des Studierenden für das bestimmte Projekt.
 	 */
 	public Rating getCurrentRating(Project project) {
 		//TODO
