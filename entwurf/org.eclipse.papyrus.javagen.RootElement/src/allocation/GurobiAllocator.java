@@ -42,7 +42,7 @@ public class GurobiAllocator extends AbstractAllocator {
     /**
      * Getter für die Basismatrix
      * 
-     * @return Ddie Basismatrix
+     * @return Die Basismatrix
      */
     public GRBVar[][] getBasicMatrix() {
         // TODO

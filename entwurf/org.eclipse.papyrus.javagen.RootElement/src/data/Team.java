@@ -35,7 +35,7 @@ public class Team {
 	/**
 	 * Diese Methode gibt die Studierenden (Mitglieder) des Teams zurück.
 	 * 
-	 * @return members Die Mitglieder des Teams.
+	 * @return Die Mitglieder des Teams.
 	 */
 	public Student getMembers() {
 		//TODO
@@ -46,7 +46,7 @@ public class Team {
 	 * Diese Methode gibt die Bewertung eines Studierenden zum Projekt dieses Teams zurück.
 	 * 
 	 * @param student Der Studierende, dessen Bewertung zurückgegeben werden soll.
-	 * @return rating Die Bewertung des Studierenden.
+	 * @return Die Bewertung des Studierenden.
 	 */
 	public Rating getRating(Student student) {
 		//TODO
@@ -56,7 +56,7 @@ public class Team {
 	/**
 	 * Diese Methode gibt die Betreuer des Teams zurück.
 	 * 
-	 * @return advisers Die Betreuer des Teams.
+	 * @return Die Betreuer des Teams.
 	 */
 	public Adviser getAdvisers() {
 		//TODO

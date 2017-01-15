@@ -237,7 +237,7 @@ public class Project {
 	/**
 	 * Diese Methode gibt alle Projekte zurück.
 	 * 
-	 * @return projects Alle Projekte.
+	 * @return Alle Projekte.
 	 */
 	public static Project[] getProjects() {
 		// TODO
@@ -252,7 +252,7 @@ public class Project {
 	 *            Der Name des Projektes.
 	 * @param semester
 	 *            Das Semester, in dem das Projekt erstellt wurde.
-	 * @return project Das spezifiscche Projekt.
+	 * @return Das spezifische Projekt.
 	 */
 	public static Project getProject(String name, Semester semester) {
 		// TODO
@@ -265,7 +265,7 @@ public class Project {
 	 * 
 	 * @param student
 	 *            Der Student, dessen Bewertung zurückgegeben werdedn soll.
-	 * @return rating Die Bewertung des Studenten.
+	 * @return Die Bewertung des Studenten.
 	 */
 	public Rating getRating(Student student) {
 		// TODO

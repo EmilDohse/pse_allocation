@@ -36,7 +36,7 @@ public class Achievement {
 	/**
 	 * Diese Methode gibt alle Teilleistungen zurück.
 	 * 
-	 * @return achievements Alle existierenden Teilleistungen.
+	 * @return Alle existierenden Teilleistungen.
 	 */
 	public static Achievement[] getAchievements() {
 		// TODO
@@ -49,7 +49,7 @@ public class Achievement {
 	 * 
 	 * @param name
 	 *            Der Name der Teilleistung.
-	 * @return achievement Die bestimmte Teilleistung.
+	 * @return Die bestimmte Teilleistung.
 	 */
 	public static Achievement getAchievement(String name) {
 		// TODO
