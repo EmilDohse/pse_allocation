@@ -284,7 +284,7 @@ public class Semester {
 	 * Diese Methode gibt ein spezifisches Semester zurück.
 	 * 
 	 * @param semesterName Der Name des Semseters.
-	 * @return semester Das gesuchte Semester.
+	 * @return Das gesuchte Semester.
 	 */
 	public static Semester getSemester(String semesterName) {
 		//TODO
@@ -294,7 +294,7 @@ public class Semester {
 	/**
 	 * Diese Methode gibt alles Semseter zurück, die erstellt wurden.
 	 * 
-	 * @return semesters Alle Semseter.
+	 * @return Alle Semseter.
 	 */
 	public static Semester[] getSemesters() {
 		//TODO
@@ -304,7 +304,7 @@ public class Semester {
 	/**
 	 * Diese Methode gibt alle Teams zurück.
 	 * 
-	 * @return teams Alle existierenden Teams.
+	 * @return Alle existierenden Teams.
 	 */
 	public Team[] getTeams() {
 		//TODO
@@ -314,7 +314,7 @@ public class Semester {
 	/**
 	 * Diese Methode gibt alle Betreuer dieses Semesters zurück.
 	 * 
-	 * @return advisers Alle Betreuer des Semesters.
+	 * @return Alle Betreuer des Semesters.
 	 */
 	public Adviser[] getAdvisers() {
 		//TODO

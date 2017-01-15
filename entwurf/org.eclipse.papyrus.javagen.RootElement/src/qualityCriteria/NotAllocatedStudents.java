@@ -12,6 +12,10 @@ import data.Allocation;
  */
 public class NotAllocatedStudents implements QualityCriterion {
 
+    /**
+     * {@inheritDoc}
+     */
+	@Override
 	public String calculate(Allocation allocation) {
 		// TODO
 		return null;

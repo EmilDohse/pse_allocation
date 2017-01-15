@@ -63,7 +63,7 @@ public class Adviser extends User {
 	/**
 	 * Diese Methode gibt alle Betreuer zurück, die es jemals gab.
 	 * 
-	 * @return advisers Alle Betreuer.
+	 * @return Alle Betreuer.
 	 */
 	public static Adviser[] getAdvisers() {
 		// TODO
