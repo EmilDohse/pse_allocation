@@ -22,7 +22,7 @@ abstract class AbstractAllocator {
     public abstract void calculate(Configuration configuration);
 
     /**
-     * Gibt alle Kriterien, geladen über einen Servieloader, zurück
+     * Gibt alle Kriterien, geladen über einen Serviceloader, zurück
      * 
      * @return Liste aller verfügbarer Kriterien
      */

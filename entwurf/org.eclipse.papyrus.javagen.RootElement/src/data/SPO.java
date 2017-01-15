@@ -14,7 +14,7 @@ public class SPO {
 	 */
 	private String name;
 	/**
-	 * Die nach dieser Prüfungsordnung benütigten Teilleistungen für die
+	 * Die nach dieser Prüfungsordnung benötigten Teilleistungen für die
 	 * Teilnahme am PSE.
 	 */
 	private Achievement[] necessaryAchievements;

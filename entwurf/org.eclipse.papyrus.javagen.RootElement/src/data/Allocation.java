@@ -147,7 +147,7 @@ public class Allocation {
 	}
 
 	/**
-	 * Diese Methode gibt eine Spezifische Einteilung zurück, die über ihren
+	 * Diese Methode gibt eine spezifische Einteilung zurück, die über ihren
 	 * Namen identifiziert wird.
 	 * 
 	 * @param name
