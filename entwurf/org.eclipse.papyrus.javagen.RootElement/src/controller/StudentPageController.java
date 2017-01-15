@@ -18,7 +18,7 @@ public class StudentPageController extends Controller {
 	 * Lerngruppe er ist, oder wenn er in keiner aktuell ist, eine erstellen
 	 * oder einer beitreten kann.
 	 * 
-	 * @return die Seite, die als Antwort verschickt wird.
+	 * @return Die Seite, die als Antwort verschickt wird.
 	 */
 	public Result learningGroupPage() {
 		// TODO
@@ -29,7 +29,7 @@ public class StudentPageController extends Controller {
 	 * Diese Methode gibt die Seite zurück, auf der der Student seine
 	 * Bewertungen abgeben kann.
 	 * 
-	 * @return die Seite, die als Antwort verschickt wird.
+	 * @return Die Seite, die als Antwort verschickt wird.
 	 */
 	public Result ratingPage() {
 		// TODO
@@ -41,7 +41,7 @@ public class StudentPageController extends Controller {
 	 * Einteilungsberechnung einsehen kann. Er sieht also sein Projekt und seine
 	 * Teammitglieder.
 	 * 
-	 * @return die Seite, die als Antwort verschickt wird.
+	 * @return Die Seite, die als Antwort verschickt wird.
 	 */
 	public Result resultsPage() {
 		// TODO
@@ -53,7 +53,7 @@ public class StudentPageController extends Controller {
 	 * System ein und leitet den Studenten wieder zurück auf die
 	 * Bewertungsseite, wo er nun seine eingegebene Bewertungen sehen kann.
 	 * 
-	 * @return die Seite, die als Antwort verschickt wird.
+	 * @return Die Seite, die als Antwort verschickt wird.
 	 */
 	public Result rate() {
 		// TODO
@@ -65,7 +65,7 @@ public class StudentPageController extends Controller {
 	 * Ersteller der Lerngruppe als erstes Mitglied in diese ein. Der Student
 	 * wird anschließend auf die Lerngruppen-Seite zurückgeleitet.
 	 * 
-	 * @return die Seite, die als Antwort verschickt wird.
+	 * @return Die Seite, die als Antwort verschickt wird.
 	 */
 	public Result createLearningGroup() {
 		// TODO
@@ -76,7 +76,7 @@ public class StudentPageController extends Controller {
 	 * Diese Methode entfernt den Student aus der aktuellen Lerngruppe.
 	 * Anschließend wird der Student auf die Lerngruppen-Seite zurück geleitet.
 	 * 
-	 * @return die Seite, die als Antwort verschickt wird.
+	 * @return Die Seite, die als Antwort verschickt wird.
 	 */
 	public Result leaveLearningGroup() {
 		// TODO
@@ -88,7 +88,7 @@ public class StudentPageController extends Controller {
 	 * Lerngruppe mit dem Namen und dem zugehörigen Passwort existiert.
 	 * Anschließend wird der Student auf die Lerngruppen-Seite zurückgeleitet.
 	 * 
-	 * @return die Seite, die als Antwort verschickt wird.
+	 * @return Die Seite, die als Antwort verschickt wird.
 	 */
 	public Result joinLearningGroup() {
 		// TODO
@@ -99,7 +99,7 @@ public class StudentPageController extends Controller {
 	 * Diese Methode gibt die Seite zurück, auf der der Student seine
 	 * Studentendaten wie E-Mail-Adresse und Passwort ändern kann.
 	 * 
-	 * @return die Seite, die als Antwort verschickt wird.
+	 * @return Die Seite, die als Antwort verschickt wird.
 	 */
 	public Result accountPage() {
 		// TODO
@@ -110,7 +110,7 @@ public class StudentPageController extends Controller {
 	 * Diese Methode editiert die Daten des Studenten, welche er auf der
 	 * Account-Seite geändert hat.
 	 * 
-	 * @return die Seite, die als Antwort verschickt wird.
+	 * @return Die Seite, die als Antwort verschickt wird.
 	 */
 	public Result editAccount() {
 		// TODO
