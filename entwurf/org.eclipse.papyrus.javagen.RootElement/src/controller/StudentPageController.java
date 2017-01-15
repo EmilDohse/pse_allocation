@@ -9,7 +9,7 @@ package controller;
  * Dieser Controller ist zuständig für alle Http-Requests, welche im
  * Studentenbereich aufkommen. Dazu zählen das Senden einer neuen HTML-Seite bei
  * einem Klick auf einen Link, als auch das Reagieren auf Benutzereingaben, wie
- * das abschicken eines Formulars.
+ * das Abschicken eines Formulars.
  */
 public class StudentPageController extends Controller {
 
@@ -61,7 +61,7 @@ public class StudentPageController extends Controller {
 	}
 
 	/**
-	 * Diese Methode erstellt eine neue Lerngruppe im System hinzu und fügt den
+	 * Diese Methode erstellt eine neue Lerngruppe im System und fügt den
 	 * Ersteller der Lerngruppe als erstes Mitglied in diese ein. Der Student
 	 * wird anschließend auf die Lerngruppen-Seite zurückgeleitet.
 	 * 
