@@ -235,8 +235,8 @@ durchgeführt:
   da das CMS nicht genug Daten zur Verfügung stellt, um Konflikte zu erkennen.
 \end{itemize}
 \subsection{Grobentwurf}
-Da es sich um eine Web-Application handelt, die Benutzerschnittstelle und ein
-Backend aufweist, wird der gängige Architekturstil \enquote{Model-View-Controller}
+Da es sich um eine Web-Application handelt, die eine Benutzerschnittstelle und
+ein Backend aufweist, wird der gängige Architekturstil \enquote{Model-View-Controller}
 verwendet.
 \subsubsection{Model}
 Das Model beinhaltet die Programmlogik des Produkts und ist für die
@@ -342,7 +342,7 @@ Diese Boni sind an der \enquote{++ Wertung} normiert.
 \subsubsection{CriterionAllocated}
 Das Kriterium sorgt dafür, dass möglichst viele Studierende zu Teams zugeteilt
 werden. Hierzu wird dem Optimierungsterm für jeden zugeteilten Student ein Bonus
-von 10 hinzugefügt. Für nicht zugeteilte gibt es einen Bonus von 1. \begin{align*}
+von 10 hinzugefügt. \begin{align*}
 \intertext{Zum Optimierungsterm:}
 p_i \cdot 10 \cdot \sum_{k = 1}^{N} \sum_{j = 1}^{M-1} B(k,j) \text{ für die
 Zugeteilten}
@@ -382,12 +382,12 @@ p_i \cdot LgBonus_l \cdot y_{lpt} \text{ für alle Paare, Lerngruppen und Teams}
 \end{align*} 
 
 \subsubsection{CriterionRegisteredAgain}
-Das Kriterium sorgt dafür das Studierenden die sich schon einmal für einen PSE
+Das Kriterium sorgt dafür, dass Studierende die sich schon einmal für einen PSE
 Platz beworben haben bevorzugt werden. Hierfür wird dem Optimierungsterm
 $p_i \cdot 10 \cdot \sum_{j = 1}^{M-1} B(k,j)$ hinzugefügt, wenn der
 Studierende $k$ sich schon einmal um einen Platz beworben hat.
 \subsubsection{CriterionPreferredTeamSize}
-Das Kriterium sorgt dafür das Teams möglichst die gewünschte Teamgröße haben.
+Das Kriterium sorgt dafür, dass Teams möglichst die gewünschte Teamgröße haben.
 Das Team der nicht zugeteilten ist ausgeschlossen. Seien pro Team $j \in \{1\ldots M-1 \} \; c_j,o_j,z_j$ binäre Variablen.
 Dabei sei: 
 \begin{align*}
@@ -404,7 +404,8 @@ o_j
 Das Kriterium sorgt dafür, dass Studierende des für das PSE vorgesehenen
 Semesters und Studierende höherer Semester eher nicht in das selbe Team kommen. 
 Seien $a_{1t},a_{2t},a_{3t},a_{4t}$ Hilfsvariablen, bis auf $a_{1t}$ alle binär.
-$drittSemester$ die Menge der Studierenden im für das PSE vorgesehenen Semester.
+$drittSemester$ sei die Menge der Studierenden im für das PSE vorgesehenen
+Semester.
 \begin{align*}
 \intertext{Als Constraints:} 
 a_{1t} &= \sum_{k \in drittSemester} B(k,t) \\
