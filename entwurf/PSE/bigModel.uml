@@ -549,6 +549,9 @@
         </ownedParameter>
         <ownedParameter xmi:type="uml:Parameter" xmi:id="_XCaFddaNEeayPeVBIOoRFQ" name="allocation" type="_XCaFYNaNEeayPeVBIOoRFQ" isUnique="false" direction="return"/>
       </ownedOperation>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_uK1csNtzEeaH2Nu8WVTkAw" name="clone" visibility="public">
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_1P8eMNtzEeaH2Nu8WVTkAw" type="_XCaFYNaNEeayPeVBIOoRFQ" direction="return"/>
+      </ownedOperation>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="_XCasfNaNEeayPeVBIOoRFQ" name="Student">
       <generalization xmi:type="uml:Generalization" xmi:id="_XCasfdaNEeayPeVBIOoRFQ" general="_XCbThtaNEeayPeVBIOoRFQ"/>
