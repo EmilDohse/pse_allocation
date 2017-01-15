@@ -1,10 +1,4 @@
-%Test environment 
-\documentclass{article} 
-\usepackage[english]{babel}
-
-\begin{document}
-%end Test
-\begin{tabular}{ | l | l |}
+\begin{longtable}{ | l | l |}
 	\hline
 	/ & IndexPageController.indexPage() \\ \hline
 	/index & IndexPageController.indexPage() \\ \hline
@@ -23,8 +17,8 @@
 	/student/account & StudentPageController.accountPage() \\ \hline
 	/student/edit & StudentPageController.editAccount() \\ \hline
 	\hline
-	/adviser & AdviserPageController.projects(null) \\ \hline
-	/adviser/projects/:name & AdviserPageController.projects(name: String) \\ \hline
+	/adviser & AdviserPageController.projectsPage(null) \\ \hline
+	/adviser/projects/:name & AdviserPageController.projectsPage(name: String) \\ \hline
 	/adviser/add & AdviserPageController.addProject() \\ \hline
 	/adviser/remove & AdviserPageController.removeProject() \\ \hline
 	/adviser/edit & AdviserPageController.editProject() \\ \hline
@@ -79,7 +73,4 @@
 	/admin/exportCMSData & AdminImportExportController.exportCMSData() \\ \hline
 	/admin/importStudents & AdminImportExportController.importStudents() \\ \hline
 	/admin/exportStudents & AdminImportExportController.exportStudents() \\ \hline
-\end{tabular}
-%Test environment 
-\end{document}
-%end Test
+\end{longtable}
