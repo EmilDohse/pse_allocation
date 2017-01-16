@@ -5,6 +5,7 @@
 
 \usepackage{amsmath}
 \usepackage{amsfonts}
+\usepackage{mathtools}
 \usepackage{studarbeit}
 \usepackage{graphicx}
 \usepackage{wrapfig}
@@ -208,8 +209,11 @@
 \coverimage{ElipseLogo.png}
 
 \mytitlepage
-
+{
+\setlength{\textheight}{297mm}
 \tableofcontents
+
+\setlength{\textheight}{297mm}}
 \pagebreak
 
 \section{Einleitung}
@@ -267,15 +271,39 @@ Berechnung von Einteilungen zuständig. Zur Berechnung wird Gurobi verwendet.
    Antwort auf einen Http-Request von einem Controller weiter an den Endbenutzer gesendet werden und von seinem Webbrowser angezeigt werden. Diese Html-Dateien können Inline-Scala-Code enthalten, welcher Daten, welche der Controller als Parameter übergibt, in Html einfügt und so, dynamisch vom Controller aus dem Modell geladene Daten, beim Endbenutzer ankommen und angezeigt werden können.
 \subsubsection{Controller}
 Das Controller Package beinhaltet alle Controller. Controller sind die Schnittstelle zwischen den Views und dem Modell (s.Modell). Die Aufgabe von einem Controller besteht darin, Http-Requests zu bearbeiten und zu beantworten. Das Bearbeiten beinhaltet meist ein oder mehrere Abfragen ans Modell um Daten zu holen. Diese Daten werden dann als Parameter dem passenden View gegeben und dort in Html Code eingebettet. Welche Controller Methode aufgerufen wird, entscheidet die Route-Datei.
-   \subsubsection{Externe Bibliotheken}
+    \subsection{Entwurfsentscheidungen}
+  Wie im Pflichtenheft angekündigt, haben wir ein besonderes Augenmerk auf die
+   Benutzbarkeit des Produkts gelegt. So haben wir uns zum Beispiel dafür
+   entschieden, die Daten der Studierenden nicht nur für das aktuelle Semester
+   zu speichern sondern sie über mehrere Jahre hinweg im System zu
+   behalten. Dadurch können Studierende, die sich mehrfach zum PSE anmelden,
+   sowie Betreuer ihre Accounts aus vergangenen Semestern weiterbenutzen.
+   Auch ist das Einsehen alter Einteilungen möglich. Mit Blick auf die
+   Benutzbarkeit fiel weiterhin die Eintscheidung, der Administratoransicht eine
+   \enquote{Zurück}-Funktion hinzuzufügen, was wir mit Hilfe des
+   Command-Patterns realisiert haben. 
+   
+   Ein weiterer wichtiger Aspekt war die Erweiterbarkeit, welche wir durch das
+   dynamische Einbinden von Einteilungs- und Gütekriterien
+   über die Java ServiceLoader API umgesetzt haben. 
+   
+   Selbst die Berechnung der Eintilung ist durch die Verwendung des
+   Strategy-Patterns nur lose gebunden, was den Umstieg auf einen anderen
+   ILP-Solver oder einen gänzlich anderen Lösungsalgorithmus zu einem
+   Kinderspiel macht.
+   
+   Dennoch ist auch das ILP-Modell durchdacht und nachvollziehbar. Dies wird
+   durch eine Normierung der für Kriterien gegebenen Boni erzielt. Das heißt,
+   bei gleicher Einstellung der Parameter sind Kriterien genau gleich
+   gewichtet.
+     \subsubsection{Externe Bibliotheken}
 \begin{itemize}
     \item Play-Framework (\url{https://www.playframework.com/})
     \item Gurobi (\url{http://www.gurobi.com/})
     \item pack4j (\url{https://github.com/pac4j/play-pac4j})
     \item Ebean (\url{http://ebean-orm.github.io/})
    \end{itemize}
-   \pagebreak
-   
+  \pagebreak
    \section{ILP}
 Zur Berechnung einer Einteilung wird ein ILP verwendet. Hierbei ist das ILP
 aufgeteilt in ein Basismodell und mehrere Einteilungskriterien. 
@@ -305,12 +333,7 @@ sich durch
 als Constraint.}
 \end{equation*}
 \end{itemize}
-
-
 Außerdem werden im Basismodell die folgenden Basisconstraints definiert:
-
-
-
  \begin{itemize}
    \item Jeder Student ist in einem Team: \begin{equation*}
    \sum_{j = 1}^{M} B(k,j) = 1 \text{ für } k \in \{ 1\ldots N \}
@@ -334,14 +357,11 @@ Außerdem werden im Basismodell die folgenden Basisconstraints definiert:
  Es gibt weiterhin einen Optimierungsterm, der durch in der für die Berechnung
  relevanten Konfiguration gegebenen Kriterien erweitert wird. Dieser wird leer
  initialisiert.
-
-
 \subsection{Kriterien}
 Die Kriterien dienen dazu, den im Basismodell enthaltenen Optimierungsterm zu
 erweitern. Dabei werden die eingestellten Parameter $p_i$ ($i$ für das
 jeweilige Kriterium) als Multiplikatoren für die Boni der Kriterien verwendet.
 Diese Boni sind an der \enquote{++ Wertung} normiert. 
-
 \subsubsection{CriterionAllocated}
 Das Kriterium sorgt dafür, dass möglichst viele Studierende zu Teams zugeteilt
 werden. Hierzu wird dem Optimierungsterm für jeden zugeteilten Student ein Bonus
@@ -350,7 +370,6 @@ von 10 hinzugefügt. \begin{align*}
 p_i \cdot 10 \cdot \sum_{k = 1}^{N} \sum_{j = 1}^{M-1} B(k,j) \text{ für die
 Zugeteilten}
 \end{align*}
-
 \subsubsection{CriterionRating}
 Das Kriterium sorgt dafür, dass die Bewertungen der Studierenden berücksichtigt
 werden. Für ein \enquote{++} gibt es einen Bonus von 10, für ein \enquote{+} 8,
@@ -361,7 +380,6 @@ $j$ gehört (für $j = M$ ist $w_{kj} := 0$).
 \intertext{Zum Optimierungsterm:}
 p_i \cdot \sum_{k=1}^{N}\sum_{j=1}^{M-1}w_{kj} \cdot B(k,j)
 \end{align*}
-
 \subsubsection{CriterionLearningGroup}
 Das Kriterium sorgt dafür, dass Lerngruppen eher zusammenbleiben. Hierfür gibt es
 für jedes Paar Studierender $p:= (a,b)$ mit $a,b \in \{ 1\ldots N\}: a > b$
@@ -383,7 +401,6 @@ Lerngruppe $l$ im  gleichen Team $t$ ist} \\
 \intertext{Zum Optimierungsterm: } 
 p_i \cdot LgBonus_l \cdot y_{lpt} \text{ für alle Paare, Lerngruppen und Teams}
 \end{align*} 
-
 \subsubsection{CriterionRegisteredAgain}
 Das Kriterium sorgt dafür, dass Studierende die sich schon einmal für einen PSE
 Platz beworben haben bevorzugt werden. Hierfür wird dem Optimierungsterm
@@ -411,7 +428,7 @@ $drittSemester$ sei die Menge der Studierenden im für das PSE vorgesehenen
 Semester.
 \begin{align*}
 \intertext{Als Constraints:} 
-a_{1t} &= \sum_{k \in drittSemester} B(k,t) \\
+a_{1t} &=  \sum_{\mathclap{k \in drittSemester}} B(k,t) \\
 (1 - a_{2t}) &\le x_t - a_{1t} \\ (1 - a_{2t}) &\ge 0.1 \cdot x_t - a_{1t} \\
 \intertext{$\text{Somit ist } a_{2t} = \begin{cases}
     1 \;\; \text{wenn $a_{1t} = x_t$} \\
@@ -458,7 +475,7 @@ Weiterhin sei $\delta_j$ eine binäre Hilfsvariable.
 %a_{ji} \le x_j -lg_i -1 \\
 %a_{ji} \ge 0.1 \cdot (x_j -lg_i-1)\\
 \intertext{Zum Optimierungsterm: }
-p_i \cdot 10 \cdot \sum_{j = 1}^{M-1} \sum_{i = 1}^{Q}a_{ji}
+&p_i \cdot 10 \cdot \sum_{j = 1}^{M-1} \sum_{i = 1}^{Q}a_{ji}
 \end{align*}
 \pagebreak
 \section{Dokumentation}
@@ -471,7 +488,6 @@ p_i \cdot 10 \cdot \sum_{j = 1}^{M-1} \sum_{i = 1}^{Q}a_{ji}
 \input{../org.eclipse.papyrus.javagen.RootElement/doc/allocation.tex}
 \subsection{Routing}
 \input{viewTable.tex}
-
 \subsection{Import- und Exportformate}
 Für den Im- und Export werden CSV-Dateien verwendet. Diese haben das folgende
 Format: 
@@ -614,12 +630,7 @@ Format:
   wobei \texttt{necessaryAchievements} und \texttt{voluntaryAchievements}
   kommaseparierte Aufzählungen sind.
 \end{itemize}
-
-
-
-
 \section{Sequenzdiagramme}
-%TODO Sequenzdiagramm am ende einfügen
 \subsection{addAllocation}
 Der Controller lädt sich das aktuelle Semester aus der Datenbank. Daraus lädt er sich alle Daten, um eine Konfiguration zu erstellen. Diese wird dann an den Einteiler übergeben, der dann eine Einteilung berechnet.
 (siehe \autoref{seq:addAlloction})
@@ -635,10 +646,6 @@ Der Controller schaut, ob der Student bereits existiert. Wenn nicht, fügt er de
 \subsection{resultPage}
 Der Controller lädt sich das aktuelle Semester und daraus die finale Einteilung. In dieser schaut er dann nach, in welchem Team der Student ist und lädt alle Team- und Projektdaten.
 (siehe \autoref{seq:resultPage})
-
-
-
-
 \pagebreak 
 \section{Anhang}
 \begin{figure}[!htb]
@@ -653,70 +660,59 @@ Der Controller lädt sich das aktuelle Semester und daraus die finale Einteilung
 \caption{Vollständiges Klassendiagramm}
 \label{uml:classDiagram}
 \end{sidewaysfigure}
-
 \begin{sidewaysfigure}[!htb]
 \centering
 \includegraphics[width=\linewidth]{bilder/controller.png}
 \caption{Controller}
 \label{uml:controller}
 \end{sidewaysfigure}
-
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=\linewidth]{bilder/daten.png}
 \caption{Datenmodell}
 \label{uml:data}
 \end{figure}
-
 \begin{sidewaysfigure}[!htb]
 \centering
 \includegraphics[width=\linewidth]{bilder/einteilung.png}
 \caption{Einteilung}
 \label{uml:allocation}
 \end{sidewaysfigure}
-
 \begin{sidewaysfigure}[!htb]
 \centering
 \includegraphics[width=\linewidth]{bilder/notifyGueteSecurity.png}
 \caption{Gütekriterien, Benachrichtigungen und Sicherheit}
 \label{uml:qualityNotifySecurity}
 \end{sidewaysfigure}
-
-
 \begin{sidewaysfigure}[!htb]
 \centering
 \includegraphics[width=\linewidth]{bilder/seqAddAllocation.png}
 \caption{Add Allocation}
 \label{seq:addAlloction}
 \end{sidewaysfigure}
-
 \begin{sidewaysfigure}[!htb]
 \centering
 \includegraphics[width=\linewidth]{bilder/seqaddToQueue.png}
 \caption{Add to Queue}
 \label{seq:addToQueue}
 \end{sidewaysfigure}
-
 \begin{sidewaysfigure}[!htb]
 \centering
 \includegraphics[width=\linewidth]{bilder/seqregister.png}
 \caption{register}
 \label{seq:register}
 \end{sidewaysfigure}
-
 \begin{sidewaysfigure}[!htb]
 \centering
 \includegraphics[width=\linewidth]{bilder/seqregisterPage.png}
 \caption{registerPage}
 \label{seq:registerPage}
 \end{sidewaysfigure}
-
 \begin{sidewaysfigure}[!htb]
 \centering
 \includegraphics[width=\linewidth]{bilder/seqResultPage.png}
 \caption{resultPage}
 \label{seq:resultPage}
 \end{sidewaysfigure}
-
 \end{document}\grid
 \grid
