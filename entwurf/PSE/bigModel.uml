@@ -77,20 +77,23 @@
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_XFsGsNseEeaITqDA24UI2w" value="1"/>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_XFvKANseEeaITqDA24UI2w" value="*"/>
       </ownedAttribute>
-      <ownedOperation xmi:type="uml:Operation" xmi:id="_pjyyZ9aMEeayPeVBIOoRFQ" name="calculate">
-        <ownedParameter xmi:type="uml:Parameter" xmi:id="_pjyyaNaMEeayPeVBIOoRFQ" name="configuration" type="_pjyyfNaMEeayPeVBIOoRFQ"/>
-      </ownedOperation>
-    </packagedElement>
-    <packagedElement xmi:type="uml:Class" xmi:id="_pjyya9aMEeayPeVBIOoRFQ" name="AbstractAllocator" visibility="private" isAbstract="true">
       <ownedAttribute xmi:type="uml:Property" xmi:id="_lCJbE9arEeayPeVBIOoRFQ" name="criteria" type="_pjyyk9aMEeayPeVBIOoRFQ" association="_lCJbENarEeayPeVBIOoRFQ">
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_n-PYwNarEeayPeVBIOoRFQ"/>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_n-RN8NarEeayPeVBIOoRFQ" value="*"/>
       </ownedAttribute>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_pjyyZ9aMEeayPeVBIOoRFQ" name="calculate">
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_pjyyaNaMEeayPeVBIOoRFQ" name="configuration" type="_pjyyfNaMEeayPeVBIOoRFQ"/>
+      </ownedOperation>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_qvnW8NwLEeayxoFB0DP6tQ" name="getAllCriteria" visibility="public">
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_95EUENwLEeayxoFB0DP6tQ" type="_pjyyk9aMEeayPeVBIOoRFQ" direction="return"/>
+      </ownedOperation>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_pjyya9aMEeayPeVBIOoRFQ" name="AbstractAllocator" visibility="private" isAbstract="true">
       <ownedOperation xmi:type="uml:Operation" xmi:id="_pjyyddaMEeayPeVBIOoRFQ" name="calculate" isAbstract="true">
         <ownedParameter xmi:type="uml:Parameter" xmi:id="_pjyydtaMEeayPeVBIOoRFQ" name="configuration" type="_pjyyfNaMEeayPeVBIOoRFQ"/>
       </ownedOperation>
       <ownedOperation xmi:type="uml:Operation" xmi:id="_pjyyeNaMEeayPeVBIOoRFQ" name="getAllCriteria" isStatic="true">
-        <ownedParameter xmi:type="uml:Parameter" xmi:id="_pjyyedaMEeayPeVBIOoRFQ" type="_pjyyk9aMEeayPeVBIOoRFQ" direction="return">
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_pjyyedaMEeayPeVBIOoRFQ" type="_jxTWcNwKEeayxoFB0DP6tQ" direction="return">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_pjyyetaMEeayPeVBIOoRFQ"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_pjyye9aMEeayPeVBIOoRFQ" value="*"/>
         </ownedParameter>
@@ -162,17 +165,13 @@
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
       </ownedAttribute>
     </packagedElement>
-    <packagedElement xmi:type="uml:Interface" xmi:id="_pjyyk9aMEeayPeVBIOoRFQ" name="Criterion">
+    <packagedElement xmi:type="uml:Interface" xmi:id="_pjyyk9aMEeayPeVBIOoRFQ" name="GurobiCriterion">
+      <generalization xmi:type="uml:Generalization" xmi:id="_mDCIgNwKEeayxoFB0DP6tQ" general="_jxTWcNwKEeayxoFB0DP6tQ"/>
       <ownedOperation xmi:type="uml:Operation" xmi:id="_pjyylNaMEeayPeVBIOoRFQ" name="useCriteria">
         <ownedParameter xmi:type="uml:Parameter" xmi:id="_pjyyldaMEeayPeVBIOoRFQ" name="weight">
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
         </ownedParameter>
         <ownedParameter xmi:type="uml:Parameter" xmi:id="_pjyyltaMEeayPeVBIOoRFQ" name="allocator" type="_pjyyYdaMEeayPeVBIOoRFQ"/>
-      </ownedOperation>
-      <ownedOperation xmi:type="uml:Operation" xmi:id="_pjyyl9aMEeayPeVBIOoRFQ" name="getName">
-        <ownedParameter xmi:type="uml:Parameter" xmi:id="_pjyymNaMEeayPeVBIOoRFQ" direction="return">
-          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-        </ownedParameter>
       </ownedOperation>
     </packagedElement>
     <packagedElement xmi:type="uml:Realization" xmi:id="_pjyymdaMEeayPeVBIOoRFQ" client="_pjyyjNaMEeayPeVBIOoRFQ" supplier="_pjyyk9aMEeayPeVBIOoRFQ"/>
@@ -204,6 +203,13 @@
         <ownedParameter xmi:type="uml:Parameter" xmi:id="_pjyydNaMEeayPeVBIOoRFQ" name="queue" visibility="public" type="_pjyyfNaMEeayPeVBIOoRFQ" direction="return"/>
       </ownedOperation>
       <ownedOperation xmi:type="uml:Operation" xmi:id="_1C5U8NjnEeap7oWGANXduQ" name="AllocationQueue" visibility="private" isStatic="true"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Interface" xmi:id="_jxTWcNwKEeayxoFB0DP6tQ" name="Criterion">
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_pjyyl9aMEeayPeVBIOoRFQ" name="getName">
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_pjyymNaMEeayPeVBIOoRFQ" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </ownedParameter>
+      </ownedOperation>
     </packagedElement>
   </packagedElement>
   <packagedElement xmi:type="uml:Package" xmi:id="_pjzZcNaMEeayPeVBIOoRFQ" name="security">
@@ -1068,7 +1074,7 @@
     <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_lCJbEdarEeayPeVBIOoRFQ" source="org.eclipse.papyrus">
       <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_lCJbEtarEeayPeVBIOoRFQ" key="nature" value="UML_Nature"/>
     </eAnnotations>
-    <ownedEnd xmi:type="uml:Property" xmi:id="_lCKCINarEeayPeVBIOoRFQ" type="_pjyya9aMEeayPeVBIOoRFQ" association="_lCJbENarEeayPeVBIOoRFQ"/>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_lCKCINarEeayPeVBIOoRFQ" type="_pjyyYdaMEeayPeVBIOoRFQ" association="_lCJbENarEeayPeVBIOoRFQ"/>
   </packagedElement>
   <packagedElement xmi:type="uml:Association" xmi:id="_uPc4INarEeayPeVBIOoRFQ" memberEnd="_uPdfMtarEeayPeVBIOoRFQ _uPfUYNarEeayPeVBIOoRFQ">
     <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_uPdfMNarEeayPeVBIOoRFQ" source="org.eclipse.papyrus">
