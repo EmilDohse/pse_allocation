@@ -11,133 +11,155 @@ import java.util.List;
  * Diese Klasse stellt eine Studienprüfungsordnung dar.
  */
 public class SPO {
-	/**
-	 * Der Name der Prüfungsordnung.
-	 */
-	private String name;
-	/**
-	 * Die nach dieser Prüfungsordnung benötigten Teilleistungen für die
-	 * Teilnahme am PSE.
-	 */
-	private List<Achievement> necessaryAchievements;
-	/**
-	 * Die zusätzlichen Teilleistungen.
-	 */
-	private List<Achievement> additionalAchievements;
 
-	/**
-	 * Fügt eine zusätzliche Teilleistung hinzu.
-	 * 
-	 * @param achievement Teilleistung, die hinzugefügt wird.
-	 */
-	public void addAdditionalAchievement(Achievement achievement) {
-		
-	}
-	
-	/**
-	 * Entfernt eine zusätzliche Teilleistung.
-	 * 
-	 * @param achievement Teilleistung, die entfernt wird.
-	 */
-	public void removeAdditionalAchievement(Achievement achievement) {
-		
-	}
-	
-	/**
-	 * Fügt eine benötigte Teilleistung hinzu.
-	 * 
-	 * @param achievement Teilleistung, die hinzugefügt wird.
-	 */
-	public void addNecessaryAchievement(Achievement achievement) {
-		
-	}
-	
-	/**
-	 * Entfernt eine benötigte Teilleistung.
-	 * 
-	 * @param achievement Teilleistung, die entfernt wird.
-	 */
-	public void removeNecessaryAchievement(Achievement achievement) {
-		
-	}
-	
-	/**
-	 * Getter-Methode für den Namen.
-	 * 
-	 * @return Der Name der SPO.
-	 */
-	public String getName() {
-		return name;
-	}
+    /**
+     * Der Name der Prüfungsordnung.
+     */
+    private String            name;
+    /**
+     * Die nach dieser Prüfungsordnung benötigten Teilleistungen für die
+     * Teilnahme am PSE.
+     */
+    private List<Achievement> necessaryAchievements;
+    /**
+     * Die zusätzlichen Teilleistungen.
+     */
+    private List<Achievement> additionalAchievements;
 
-	/**
-	 * Getter-Methode für die benötigten Teilleistungen.
-	 * 
-	 * @return Die benötigten Teilleistungen.
-	 */
-	public List<Achievement> getNecessaryAchievements() {
-		return necessaryAchievements;
-	}
+    /**
+     * Fügt eine zusätzliche Teilleistung hinzu.
+     * 
+     * @param achievement
+     *            Teilleistung, die hinzugefügt wird.
+     */
+    public void addAdditionalAchievement(Achievement achievement) {
+        if (!additionalAchievements.contains(achievement)) {
+            additionalAchievements.add(achievement);
+        } else {
+            // TODO throws
+        }
+    }
 
-	/**
-	 * Getter-Methode für die zusätzlichen Teilleistungen.
-	 * 
-	 * @return Die zusätzlichen Teilleistungen.
-	 */
-	public List<Achievement> getAdditionalAchievements() {
-		return additionalAchievements;
-	}
+    /**
+     * Entfernt eine zusätzliche Teilleistung.
+     * 
+     * @param achievement
+     *            Teilleistung, die entfernt wird.
+     */
+    public void removeAdditionalAchievement(Achievement achievement) {
+        if (additionalAchievements.contains(achievement)) {
+            additionalAchievements.remove(additionalAchievements);
+        } else {
+            // TODO throws
+        }
+    }
 
-	/**
-	 * Setter-Methode für den Name.
-	 * 
-	 * @param name
-	 *            Der Name der SPO.
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
+    /**
+     * Fügt eine benötigte Teilleistung hinzu.
+     * 
+     * @param achievement
+     *            Teilleistung, die hinzugefügt wird.
+     */
+    public void addNecessaryAchievement(Achievement achievement) {
+        if (!necessaryAchievements.contains(achievement)) {
+            necessaryAchievements.add(achievement);
+        } else {
+            // TODO throws
+        }
+    }
 
-	/**
-	 * Setter-Methode für die benötigten Teilleistungen.
-	 * 
-	 * @param neccessaryAchievemens
-	 *            Die benötigten Teilleistungen.
-	 */
-	public void setNecessaryAchievements(List<Achievement> necessaryAchievements) {
-		this.necessaryAchievements = necessaryAchievements;
-	}
+    /**
+     * Entfernt eine benötigte Teilleistung.
+     * 
+     * @param achievement
+     *            Teilleistung, die entfernt wird.
+     */
+    public void removeNecessaryAchievement(Achievement achievement) {
+        if (necessaryAchievements.contains(achievement)) {
+            necessaryAchievements.remove(achievement);
+        }
+        else {
+            //TODO throws
+        }
+    }
 
-	/**
-	 * Setter-Methode für die zusätzlichen Teilleistungen.
-	 * 
-	 * @param additionalAchievements
-	 *            Die zusätzlichen Teilleistungen.
-	 */
-	public void setadditionalAchievements(List<Achievement> additionalAchievements) {
-		this.additionalAchievements = additionalAchievements;
-	}
+    /**
+     * Getter-Methode für den Namen.
+     * 
+     * @return Der Name der SPO.
+     */
+    public String getName() {
+        return name;
+    }
 
-	/**
-	 * Diese Methode gibt alle SPOs zurück.
-	 * 
-	 * @return Alle SPOs.
-	 */
-	public static List<SPO> getSPOs() {
-		// TODO
-		return null;
-	}
+    /**
+     * Getter-Methode für die benötigten Teilleistungen.
+     * 
+     * @return Die benötigten Teilleistungen.
+     */
+    public List<Achievement> getNecessaryAchievements() {
+        return necessaryAchievements;
+    }
 
-	/**
-	 * Dies Methode gibt eine bestimmte SPO zurück, die über ihren Namen
-	 * identifiziert wird.
-	 * 
-	 * @param name
-	 *            Der Name der SPO.
-	 * @return Die SPO
-	 */
-	public static SPO getSPO(String name) {
-		// TODO
-		return null;
-	}
+    /**
+     * Getter-Methode für die zusätzlichen Teilleistungen.
+     * 
+     * @return Die zusätzlichen Teilleistungen.
+     */
+    public List<Achievement> getAdditionalAchievements() {
+        return additionalAchievements;
+    }
+
+    /**
+     * Setter-Methode für den Name.
+     * 
+     * @param name
+     *            Der Name der SPO.
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     * Setter-Methode für die benötigten Teilleistungen.
+     * 
+     * @param neccessaryAchievemens
+     *            Die benötigten Teilleistungen.
+     */
+    public void setNecessaryAchievements(List<Achievement> necessaryAchievements) {
+        this.necessaryAchievements = necessaryAchievements;
+    }
+
+    /**
+     * Setter-Methode für die zusätzlichen Teilleistungen.
+     * 
+     * @param additionalAchievements
+     *            Die zusätzlichen Teilleistungen.
+     */
+    public void setAdditionalAchievements(List<Achievement> additionalAchievements) {
+        this.additionalAchievements = additionalAchievements;
+    }
+
+    /**
+     * Diese Methode gibt alle SPOs zurück.
+     * 
+     * @return Alle SPOs.
+     */
+    public static List<SPO> getSPOs() {
+        // TODO
+        return null;
+    }
+
+    /**
+     * Dies Methode gibt eine bestimmte SPO zurück, die über ihren Namen
+     * identifiziert wird.
+     * 
+     * @param name
+     *            Der Name der SPO.
+     * @return Die SPO
+     */
+    public static SPO getSPO(String name) {
+        // TODO
+        return null;
+    }
 }

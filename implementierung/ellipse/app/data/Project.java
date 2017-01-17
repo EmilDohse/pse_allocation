@@ -11,241 +11,282 @@ import java.util.List;
  * Klasse, die ein Project repräsentiert
  */
 public class Project {
-	/**
-	 * Der Name des Projektes.
-	 */
-	private String name;
-	/**
-	 * Die minimale Anzahl der Teilnehmer einer Gruppe für dieses Projekt.
-	 */
-	private int minTeamSize;
-	/**
-	 * Die maximale Anzahl der Teilnehmer einer Gruppe für dieses Projekt.
-	 */
-	private int maxTeamSize;
-	/**
-	 * Anzahl der Teams die zu diesem Projekt zugeteilt werden.
-	 */
-	private int numberOfTeams;
-	/**
-	 * Die Projektbeschreibung.
-	 */
-	private String projectInfo;
-	/**
-	 * URL zu der Website des Projektes.
-	 */
-	private String projectURL;
-	/**
-	 * Das Institut, welches das Projekt anbietet.
-	 */
-	private String institute;
-	/**
-	 * Betreuer des Projekts
-	 */
-	private List<Adviser> advisers;
-	
-	/**
-	 * Getter für die Anzahl der Teams.
-	 * @return Anzahl der Teams.
-	 */
-	public int getNumberOfTeams() {
-		return numberOfTeams;
-	}
 
-	/**
-	 * Setter für die Anzahl der Teams.
-	 * @param numberOfTeams Anzahl der Teams.
-	 */
-	public void setNumberOfTeams(int numberOfTeams) {
-		this.numberOfTeams = numberOfTeams;
-	}
+    /**
+     * Der Name des Projektes.
+     */
+    private String        name;
+    /**
+     * Die minimale Anzahl der Teilnehmer einer Gruppe für dieses Projekt.
+     */
+    private int           minTeamSize;
+    /**
+     * Die maximale Anzahl der Teilnehmer einer Gruppe für dieses Projekt.
+     */
+    private int           maxTeamSize;
+    /**
+     * Anzahl der Teams die zu diesem Projekt zugeteilt werden.
+     */
+    private int           numberOfTeams;
+    /**
+     * Die Projektbeschreibung.
+     */
+    private String        projectInfo;
+    /**
+     * URL zu der Website des Projektes.
+     */
+    private String        projectURL;
+    /**
+     * Das Institut, welches das Projekt anbietet.
+     */
+    private String        institute;
+    /**
+     * Betreuer des Projekts
+     */
+    private List<Adviser> advisers;
 
-	/**
-	 * Getter für die Betreuer des Projekts.
-	 * 
-	 * @return Betreuer des Projekts.
-	 */
-	public List<Adviser> getAdvisers() {
-		return advisers;
-	}
-	
-	/**
-	 * Setter für die Betreuer des Projekts.
-	 * 
-	 * @param advisers Betreuer des Projekts.
-	 */
-	public void setAdvisers(List<Adviser> advisers) {
-		this.advisers = advisers;
-	}
-	
-	/**
-	 * Fügt dem Projekt einen Betreuer hinzu.
-	 * 
-	 * @param adviser Betreuer der hinzugefügt wird.
-	 */
-	public void addAdviser(Adviser adviser) {
-		
-	}
-	
-	/**
-	 * Entfernt einen Betreuer vom Projekt.
-	 * 
-	 * @param adviser Betreuer der entfernt wird.
-	 */
-	public void removeAdviser(Adviser adviser) {
-		
-	}
-	
-	/**
-	 * Getter für den Namen des Projektes.
-	 * 
-	 * @return Der Name des Projektes.
-	 */
-	public String getName() {
-		return name;
-	}
+    /**
+     * Getter für die Anzahl der Teams.
+     * 
+     * @return Anzahl der Teams.
+     */
+    public int getNumberOfTeams() {
+        return numberOfTeams;
+    }
 
-	/**
-	 * Getter der maximalen Größe für Teams dieses Projektes.
-	 * 
-	 * @return Die maximale Teamgröße.
-	 */
-	public int getMaxTeamSize() {
-		return this.maxTeamSize;
-	}
+    /**
+     * Setter für die Anzahl der Teams.
+     * 
+     * @param numberOfTeams
+     *            Anzahl der Teams.
+     */
+    public void setNumberOfTeams(int numberOfTeams) {
+        if (numberOfTeams >= 0) {
+            this.numberOfTeams = numberOfTeams;
+        } else {
+            // TODO throws
+        }
+    }
 
-	/**
-	 * Getter der minimalen Größe für Teams dieses Projektes.
-	 * 
-	 * @return Die minimale Teamgröße.
-	 */
-	public int getMinTeamSize() {
-		return this.minTeamSize;
-	}
+    /**
+     * Getter für die Betreuer des Projekts.
+     * 
+     * @return Betreuer des Projekts.
+     */
+    public List<Adviser> getAdvisers() {
+        return advisers;
+    }
 
-	/**
-	 * Getter für die Information über dieses Projektes.
-	 * 
-	 * @return Die Information des Projektes.
-	 */
-	public String getProjectInfo() {
-		return this.projectInfo;
-	}
+    /**
+     * Setter für die Betreuer des Projekts.
+     * 
+     * @param advisers
+     *            Betreuer des Projekts.
+     */
+    public void setAdvisers(List<Adviser> advisers) {
+        this.advisers = advisers;
+    }
 
-	/**
-	 * Getter für die URL des Projektes.
-	 * 
-	 * @return Die URL des Projektes.
-	 */
-	public String getProjectURL() {
-		return this.projectURL;
-	}
+    /**
+     * Fügt dem Projekt einen Betreuer hinzu.
+     * 
+     * @param adviser
+     *            Betreuer der hinzugefügt wird.
+     */
+    public void addAdviser(Adviser adviser) {
+        if (!advisers.contains(adviser)) {
+            advisers.add(adviser);
+        } else {
+            // TODO throws
+        }
+    }
 
-	/**
-	 * Setter für den Namen des Projektes.
-	 * 
-	 * @param name
-	 *            Der Name des Projektes.
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
+    /**
+     * Entfernt einen Betreuer vom Projekt.
+     * 
+     * @param adviser
+     *            Betreuer der entfernt wird.
+     */
+    public void removeAdviser(Adviser adviser) {
+        if (advisers.contains(adviser)) {
+            advisers.remove(adviser);
+        } else {
+            // TODO throws
+        }
+    }
 
-	/**
-	 * Setter der maximalen Größe für Teams dieses Projektes.
-	 * 
-	 * @param maxTeamSize
-	 *            Die maximale Größe für Teams dieses Projektes.
-	 */
-	public void setMaxTeamSize(int maxTeamSize) {
-		this.maxTeamSize = maxTeamSize;
-	}
+    /**
+     * Getter für den Namen des Projektes.
+     * 
+     * @return Der Name des Projektes.
+     */
+    public String getName() {
+        return name;
+    }
 
-	/**
-	 * Setter der minimalen Größe für Teams dieses Projektes.
-	 * 
-	 * @param minTeamSize
-	 *            Die minimale Größe für Teams dieses Projektes.
-	 */
-	public void setMinTeamSize(int minTeamSize) {
-		this.minTeamSize = minTeamSize;
-	}
+    /**
+     * Getter der maximalen Größe für Teams dieses Projektes.
+     * 
+     * @return Die maximale Teamgröße.
+     */
+    public int getMaxTeamSize() {
+        return maxTeamSize;
+    }
 
-	/**
-	 * Setter für die Information über dieses Projektes.
-	 * 
-	 * @param projektInfo
-	 *            Die Information des Projektes.
-	 */
-	public void setProjectInfo(String projectInfo) {
-		this.projectInfo = projectInfo;
-	}
+    /**
+     * Getter der minimalen Größe für Teams dieses Projektes.
+     * 
+     * @return Die minimale Teamgröße.
+     */
+    public int getMinTeamSize() {
+        return minTeamSize;
+    }
 
-	/**
-	 * Setter für die URL des Projektes.
-	 * 
-	 * @param projectURL
-	 *            Die URL des Projektes.
-	 */
-	public void setProjectURL(String projectURL) {
-		this.projectURL = projectURL;
-	}
+    /**
+     * Getter für die Information über dieses Projektes.
+     * 
+     * @return Die Information des Projektes.
+     */
+    public String getProjectInfo() {
+        return projectInfo;
+    }
 
-	/**
-	 * Gibt den Institutsnamen des Institutes zurück, welches das Projekt
-	 * anbietet.
-	 * 
-	 * @return den Namen
-	 */
-	public String getInstitute() {
-		return institute;
-	}
+    /**
+     * Getter für die URL des Projektes.
+     * 
+     * @return Die URL des Projektes.
+     */
+    public String getProjectURL() {
+        return projectURL;
+    }
 
-	/**
-	 * Setzt den Institutsnamen.
-	 * 
-	 * @param institute
-	 *            der Name des Instituts.
-	 */
-	public void setInstitute(String institute) {
-		this.institute = institute;
-	}
+    /**
+     * Setter für den Namen des Projektes.
+     * 
+     * @param name
+     *            Der Name des Projektes.
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	/**
-	 * Diese Methode gibt alle Projekte zurück.
-	 * 
-	 * @return Alle Projekte.
-	 */
-	public static List<Project> getProjects() {
-		// TODO
-		return null;
-	}
+    /**
+     * Setter der maximalen Größe für Teams dieses Projektes.
+     * 
+     * @param maxTeamSize
+     *            Die maximale Größe für Teams dieses Projektes.
+     */
+    public void setMaxTeamSize(int maxTeamSize) {
+        if (maxTeamSize >= 0) {
+            this.maxTeamSize = maxTeamSize;
+        } else {
+            // TODO throws
+        }
+    }
 
-	/**
-	 * Diese Methode gibt ein spezifisches Projekt zurück, welches über seinen
-	 * Namen und das Semester, in dem es erstellt wurde, identifiziert wird.
-	 * 
-	 * @param name
-	 *            Der Name des Projektes.
-	 * @param semester
-	 *            Das Semester, in dem das Projekt erstellt wurde.
-	 * @return Das spezifische Projekt.
-	 */
-	public static Project getProject(String name, Semester semester) {
-		// TODO
-		return null;
-	}
+    /**
+     * Setter der minimalen Größe für Teams dieses Projektes.
+     * 
+     * @param minTeamSize
+     *            Die minimale Größe für Teams dieses Projektes.
+     */
+    public void setMinTeamSize(int minTeamSize) {
+        if (minTeamSize >= 0) {
+            this.minTeamSize = minTeamSize;
+        } else {
+            // TODO throws
+        }
+    }
 
-	/**
-	 * Diese Methode gibt die Bewertung eines spezifischen Studenten für dieses
-	 * Projekt zurück.
-	 * 
-	 * @param student
-	 *            Der Student, dessen Bewertung zurückgegeben werdedn soll.
-	 * @return Die Bewertung des Studenten.
-	 */
-	public int getRating(Student student) {
-		// TODO
-		return 0;
-	}
+    /**
+     * Setter für die Information über dieses Projektes.
+     * 
+     * @param projektInfo
+     *            Die Information des Projektes.
+     */
+    public void setProjectInfo(String projectInfo) {
+        this.projectInfo = projectInfo;
+    }
+
+    /**
+     * Setter für die URL des Projektes.
+     * 
+     * @param projectURL
+     *            Die URL des Projektes.
+     */
+    public void setProjectURL(String projectURL) {
+        this.projectURL = projectURL;
+    }
+
+    /**
+     * Gibt den Institutsnamen des Institutes zurück, welches das Projekt
+     * anbietet.
+     * 
+     * @return den Namen
+     */
+    public String getInstitute() {
+        return institute;
+    }
+
+    /**
+     * Setzt den Institutsnamen.
+     * 
+     * @param institute
+     *            der Name des Instituts.
+     */
+    public void setInstitute(String institute) {
+        this.institute = institute;
+    }
+
+    /**
+     * Diese Methode gibt alle Projekte zurück.
+     * 
+     * @return Alle Projekte.
+     */
+    public static List<Project> getProjects() {
+        // TODO
+        return null;
+    }
+
+    /**
+     * Diese Methode gibt ein spezifisches Projekt zurück, welches über seinen
+     * Namen und das Semester, in dem es erstellt wurde, identifiziert wird.
+     * 
+     * @param name
+     *            Der Name des Projektes.
+     * @param semester
+     *            Das Semester, in dem das Projekt erstellt wurde.
+     * @return Das spezifische Projekt.
+     */
+    public static Project getProject(String name, Semester semester) {
+        // TODO
+        return null;
+    }
+
+    /**
+     * Diese Methode gibt die Bewertung eines spezifischen Studenten für dieses
+     * Projekt zurück.
+     * 
+     * @param student
+     *            Der Student, dessen Bewertung zurückgegeben werdedn soll.
+     * @return Die Bewertung des Studenten.
+     */
+    public int getRating(Student student) {
+        return student.getLearningGroup(getSemester()).getRating(this);
+    }
+    
+    /**
+     * Gibt das Semester zurück, in dem das Projekt angeboten wurde.
+     * 
+     * @return Semester, in dem das Projekt angeboten wurde.
+     */
+    public Semester getSemester() {
+        for (Semester s : Semester.getSemesters()) {
+            if (s.getProjects().contains(this)) {
+                return s;
+            }
+        }
+        //TODO throws
+        return null;
+    }
 }
