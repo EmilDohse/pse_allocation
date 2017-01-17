@@ -1,2 +1,3 @@
 - Kontextklasse für Allocator Strategie eingefügt
 - Die änderung des Allocators wie schon in der Präsentation
+- Enum ThreadState hinzugeügt

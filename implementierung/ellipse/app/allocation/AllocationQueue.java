@@ -8,6 +8,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import javax.security.auth.login.Configuration;
 
@@ -23,17 +24,12 @@ public class AllocationQueue {
 	 */
 	private Thread calculator;
 	private Runnable runnable;
-	/**
-	 * das Enum ist die indikatorvariable für den Thread calculator
-	 */
-	private enum ThreadState{
-		RUNNING, IDLE
-	};
+	
 	private ThreadState threadState;
 	/**
 	 * Die intern verwendete queue.
 	 */
-	private Queue<Configuration> configurationQueue;
+	private List<Configuration> configurationQueue;
 	/**
 	 * Der Singelton der Allocation queue.
 	 */
@@ -51,18 +47,18 @@ public class AllocationQueue {
 	 * Privater Konstruktor, der zur Instanziierung des Singletons verwendet wird.
 	 */
 	private AllocationQueue() {
-	    this.configurationQueue = new ArrayBlockingQueue(10);
+	    this.configurationQueue = new CopyOnWriteArrayList<>();
 	    allocator = new AllocationContext();
 	    allocator.setAllocator(new GurobiAllocator());
 	    
 	    runnable = new Runnable() {
 			public void run() {
-			allocator.calculate(currentlyCalculatedConfiguration);
+			allocator.calculate(currentlyCalculatedConfiguration); //TODO allocation verwenden
 			currentlyCalculatedConfiguration = null;
 			threadState = ThreadState.IDLE;
 			calculate();
 			}
-		}
+		};
 	    threadState  = ThreadState.IDLE;
 	}
 	/**
@@ -109,7 +105,8 @@ public class AllocationQueue {
 			if(!configurationQueue.isEmpty()){
 				if(threadState == ThreadState.IDLE){
 					calculator = new Thread(runnable);
-					currentlyCalculatedConfiguration = configurationQueue.poll();
+					currentlyCalculatedConfiguration = configurationQueue.get(configurationQueue.size() -1);
+					configurationQueue.remove(configurationQueue.size()-1);
 					threadState = ThreadState.RUNNING;
 					calculator.start();
 				}
