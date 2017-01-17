@@ -200,12 +200,21 @@ Das Basismodell besteht aus:
 %TODO bild der Kriterien
 \end{frame}
 
-\begin{frame}{Beispielkriterium} %TODO welches? und bearbeiten
-Aufteilung des ILP-Modells:
-\begin{itemize}
-  \item Basismodell
-  \item Kriterien
-\end{itemize}
+\begin{frame}{Beispielkriterium - Lerngruppen} %TODO welches? und bearbeiten
+Jedes Paar Studierender $p:= (a,b)$ mit $a,b \in \{ 1\ldots N\}: a > b$
+einer Lerngruppe das zusammenbleibt bekommt einen Bonus $LgBonus_l$ von
+$\frac{10}{pair_l}$
+\begin{align*}
+\intertext{Als Constraints: }
+0 &\le y_{lpt} \le 1  \\
+y_{lpt} &= B(a,t) \wedge B(b,t)
+%y_{lpt} \le B(k_1,t) + B(k_2,t) -1, \; y_{lpt} \le B(k_2,t), \; y_{lpt} \le
+%B(k_2,t) 
+\end{align*}
+\begin{align*}
+\intertext{Zum Optimierungsterm: } 
+p_i \cdot LgBonus_l \cdot y_{lpt} \text{ für alle Paare, Lerngruppen und Teams}
+\end{align*} 
 
 \end{frame}
 
