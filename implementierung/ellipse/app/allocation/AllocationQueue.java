@@ -4,7 +4,13 @@
 
 package allocation;
 
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
+import java.util.concurrent.ArrayBlockingQueue;
+
+import javax.security.auth.login.Configuration;
+
 
 /************************************************************/
 /**
@@ -13,9 +19,21 @@ import java.util.List;
  */
 public class AllocationQueue {
 	/**
+	 * Calculator ist der Thread der die berechnung anstößt er verwendet das Runnable runnable
+	 */
+	private Thread calculator;
+	private Runnable runnable;
+	/**
+	 * das Enum ist die indikatorvariable für den Thread calculator
+	 */
+	private enum ThreadState{
+		RUNNING, IDLE
+	};
+	private ThreadState threadState;
+	/**
 	 * Die intern verwendete queue.
 	 */
-	private List<Configuration> configurationQueue;
+	private Queue<Configuration> configurationQueue;
 	/**
 	 * Der Singelton der Allocation queue.
 	 */
@@ -23,7 +41,7 @@ public class AllocationQueue {
 	/**
 	 * Der Einteilungsberechner, der zur Berechnung verwendet wird.
 	 */
-	private AbstractAllocator Allocator;
+	private AllocationContext allocator;
 	/**
 	 * Die Konfiguration, die aktuell zur Berechnung verwendet wird.
 	 */
@@ -33,22 +51,40 @@ public class AllocationQueue {
 	 * Privater Konstruktor, der zur Instanziierung des Singletons verwendet wird.
 	 */
 	private AllocationQueue() {
+	    this.configurationQueue = new ArrayBlockingQueue(10);
+	    allocator = new AllocationContext();
+	    allocator.setAllocator(new GurobiAllocator());
 	    
+	    runnable = new Runnable() {
+			public void run() {
+			allocator.calculate(currentlyCalculatedConfiguration);
+			currentlyCalculatedConfiguration = null;
+			threadState = ThreadState.IDLE;
+			calculate();
+			}
+		}
+	    threadState  = ThreadState.IDLE;
 	}
 	/**
 	 * Gibt die eine existierende Instanz der AllocationQueue (Singleton) zurück.	 * 
 	 * @return  Die Instanz der AllocationQueue.
 	 */
 	public static AllocationQueue getInstance() {
+		if(instance == null) {
+			instance = new AllocationQueue();
+		}
 		return instance;
 	}
 
 	/**
 	 * Fügt der Berechnungsqueue eine Konfiguration hinzu, die zur Berechnung verwendet werden soll.
-	 *  
+	 *  Es können maximal 10 Berechnungen in die Queue aufgenommen werden.
 	 * @param configuration Die Konfiguration, die zur Berechnungsqueue hinzugefügt wird.
 	 */
 	public void addToQueue(Configuration configuration) {
+			configurationQueue.add(configuration);
+			calculate();
+			
 	}
 
 	/**
@@ -57,6 +93,7 @@ public class AllocationQueue {
 	 * @param configuration Die Konfiguration, die entfernt werden soll.
 	 */
 	public void cancelAllocation(Configuration configuration) {
+//TODO implemment)
 	}
 
 	/**
@@ -66,5 +103,18 @@ public class AllocationQueue {
 	 */
 	public List<Configuration> getQueue() {
 		return configurationQueue;
+	}
+	private void calculate(){
+		synchronized (this) {
+			if(!configurationQueue.isEmpty()){
+				if(threadState == ThreadState.IDLE){
+					calculator = new Thread(runnable);
+					currentlyCalculatedConfiguration = configurationQueue.poll();
+					threadState = ThreadState.RUNNING;
+					calculator.start();
+				}
+			}
+		}
+		
 	}
 }
