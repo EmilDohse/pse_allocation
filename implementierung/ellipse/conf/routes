@@ -2,12 +2,76 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
-# An example controller showing a sample home page
-GET     /                           controllers.HomeController.index
-# An example controller showing how to use dependency injection
-GET     /count                      controllers.CountController.count
-# An example controller showing how to write asynchronous code
-GET     /message                    controllers.AsyncController.message
+GET		/							IndexPageController.indexPage()
+GET		/index						IndexPageController.indexPage()
+GET 	/login						IndexPageController.login()
+GET 	/register					IndexPageController.registerPage()
+GET 	/reset						IndexPageController.passwordResetPage()
+GET 	/resetPassword				IndexPageController.passwordReset()
+GET 	/verify						IndexPageController.verificationPage()
+GET 	/create						IndexPageController.register()
+	
+GET 	/student					StudentPageController.learningGroupPage()
+GET 	/student/group				StudentPageController.learningGroupPage()
+GET 	/student/rating				StudentPageController.ratingPage()
+GET 	/student/rate				StudentPageController.rate()
+GET 	/student/results			StudentPageController.resultsPage()
+GET 	/student/account			StudentPageController.accountPage()
+GET 	/student/edit				StudentPageController.editAccount()
 
-# Map static resources from the /public folder to the /assets URL path
-GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
+GET 	/adviser					AdviserPageController.projectsPage(null)
+GET 	/adviser/projects/:name		AdviserPageController.projectsPage(name: String)
+GET 	/adviser/add				AdviserPageController.addProject()
+GET 	/adviser/remove				AdviserPageController.removeProject()
+GET 	/adviser/edit				AdviserPageController.editProject()
+GET 	/adviser/join				AdviserPageController.joinProject()
+GET 	/adviser/leave				AdviserPageController.leaveProject()
+GET 	/adviser/saveGrades			AdviserPageController.saveStudentsGrades()
+GET 	/adviser/account			AdviserPageController.accountPage()
+GET 	/adviser/edit				AdviserPageController.editAccount()
+
+GET 	/admin						AdminPageController.projectPage()
+GET 	/admin/projects				AdminPageController.projectPage()
+GET 	/admin/advisers				AdminPageController.adviserPage()
+GET 	/admin/allocation			AdminPageController.allocationPage()
+GET 	/admin/results				AdminPageController.resultsPage()
+GET 	/admin/exportImport			AdminPageController.exportImportPage()
+GET 	/admin/studentEdit			AdminPageController.studentEditPage()
+GET 	/admin/properties			AdminPageController.propertiesPage()
+GET 	/admin/projectEdit/:name	AdminPageController.projectEditPage(name: String)
+
+GET 	/admin/addProject			AdminProjectController.addProject()
+GET 	/admin/removeProject		AdminProjectController.removeProject()
+GET 	/admin/editProject			AdminProjectController.editProject()
+
+GET 	/admin/addAdviser			GeneralAdminController.addAdviser()
+GET 	/admin/removeAdviser		GeneralAdminController.removeAdviser()
+GET 	/admin/addAllocation		GeneralAdminController.addAllocation()
+GET 	/admin/addStudent			GeneralAdminController.addStudent()
+GET 	/admin/removeStudent		GeneralAdminController.removeStudent()
+
+GET 	/admin/addSemester			AdminPropertiesController.addSemester()
+GET 	/admin/removeSemester		AdminPropertiesController.removeSemester()
+GET 	/admin/addSPO				AdminPropertiesController.addSPO()
+GET 	/admin/removeSPO			AdminPropertiesController.removeSPO()
+GET 	/admin/editSemester			AdminPropertiesController.editSemester()
+GET 	/admin/addAchievement		AdminPropertiesController.addAchievement()
+GET 	/admin/removeAchievement	AdminPropertiesController.removeAchievement()
+
+GET 	/admin/swapStudents			AdminEditAllocationController.swapStudents()
+GET 	/admin/moveStudents			AdminEditAllocationController.moveStudents()
+GET 	/admin/publishAllocation	AdminEditAllocationController.publishAllocation()
+GET 	/admin/duplicateAllocation	AdminEditAllocationController.duplicateAllocation()
+GET 	/admin/removeAllocation		AdminEditAllocationController.removeAllocation()
+GET 	/admin/undoAllocationEdit	AdminEditAllocationController.undoAllocationEdit()
+
+GET 	/admin/importAllocation		AdminImportExportController.importAllocation()
+GET 	/admin/exportAllocation		AdminImportExportController.exportAllocation()
+GET 	/admin/importSPO			AdminImportExportController.importSPO()
+GET 	/admin/exportSPO			AdminImportExportController.exportSPO()
+GET 	/admin/importProjects		AdminImportExportController.importProjects()
+GET 	/admin/exportProjects		AdminImportExportController.exportProjects()
+GET 	/admin/importCMSData		AdminImportExportController.importCMSData()
+GET 	/admin/exportCMSData		AdminImportExportController.exportCMSData()
+GET 	/admin/importStudents		AdminImportExportController.importStudents()  
+GET 	/admin/exportStudents		AdminImportExportController.exportStudents()
