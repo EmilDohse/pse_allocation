@@ -1,0 +1,5 @@
++ Student.getCurrentLearningGroup
++ Student.getLearningGroup
+- Student.setRating
+- Semester.getTeams
++ Project.getSemester

@@ -27,7 +27,7 @@ public class GeneralData {
 	 * 
 	 * @return Das aktuelle Semester.
 	 */
-	public Semester getCurrentSemester() {
+	public static Semester getCurrentSemester() {
 	    return null;
 	}
 	/**
@@ -51,7 +51,7 @@ public class GeneralData {
 	 * 
 	 * @param currentSemester Das aktuelle Semester.
 	 */
-	public void setCurrentSemester(Semester currentSemester) {
+	public static void setCurrentSemester(Semester currentSemester) {
 		
 	}
 }

@@ -12,90 +12,100 @@ import java.util.List;
  */
 public class Team {
 
-	/**
-	 * Das Projekt des Teams
-	 */
-	private Project project;
+    /**
+     * Das Projekt des Teams
+     */
+    private Project       project;
 
-	/**
-	 * Liste der Studierenden in diesem Teams.
-	 */
-	private List<Student> members;
+    /**
+     * Liste der Studierenden in diesem Teams.
+     */
+    private List<Student> members;
 
-	/**
-	 * Setter für die Mitglieder des Teams.
-	 * 
-	 * @param members
-	 *            Die Mitglieder des Teams.
-	 */
-	public void setMembers(List<Student> members) {
-		this.members = members;
-	}
+    /**
+     * Setter für die Mitglieder des Teams.
+     * 
+     * @param members
+     *            Die Mitglieder des Teams.
+     */
+    public void setMembers(List<Student> members) {
+        this.members = members;
+    }
 
-	/**
-	 * Fügt einen Studierenden zum Team hinzu.
-	 * @param member Der Studierende, der dem Team hinzugefügt wird.
-	 */
-	public void addMember(Student member) {
+    /**
+     * Fügt einen Studierenden zum Team hinzu.
+     * 
+     * @param member
+     *            Der Studierende, der dem Team hinzugefügt wird.
+     */
+    public void addMember(Student member) {
+        if (!members.contains(member)) {
+            members.add(member);
+        } else {
+            // TODO throws
+        }
+    }
 
-	}
+    /**
+     * Entfernt einen Studierenden aus dem Team.
+     * 
+     * @param member
+     *            Der Studierende, der aus dem Team entfernt wird.
+     */
+    public void removeMember(Student member) {
+        if (members.contains(member)) {
+            members.remove(member);
+        } else {
+            // TODO throws
+        }
+    }
 
-	/**
-	 * Entfernt einen Studierenden aus dem Team.
-	 * @param member Der Studierende, der aus dem Team entfernt wird.
-	 */
-	public void removeMember(Student member) {
+    /**
+     * Getter für das Projekt.
+     * 
+     * @return Das Projekt.
+     */
+    public Project getProject() {
+        return project;
+    }
 
-	}
+    /**
+     * Setter für das Projekt.
+     * 
+     * @param project
+     *            Das Projekt.
+     */
+    public void setProject(Project project) {
+        this.project = project;
+    }
 
-	/**
-	 * Getter für das Projekt.
-	 * 
-	 * @return Das Projekt.
-	 */
-	public Project getProject() {
-		return project;
-	}
+    /**
+     * Diese Methode gibt die Studierenden (Mitglieder) des Teams zurück.
+     * 
+     * @return Die Mitglieder des Teams.
+     */
+    public List<Student> getMembers() {
+        return members;
+    }
 
-	/**
-	 * Setter für das Projekt.
-	 * 
-	 * @param project
-	 *            Das Projekt.
-	 */
-	public void setProject(Project project) {
-		this.project = project;
-	}
+    /**
+     * Diese Methode gibt die Bewertung eines Studierenden zum Projekt dieses
+     * Teams zurück.
+     * 
+     * @param student
+     *            Der Studierende, dessen Bewertung zurückgegeben werden soll.
+     * @return Die Bewertung des Studierenden.
+     */
+    public int getRating(Student student) {
+        return student.getRating(project);
+    }
 
-	/**
-	 * Diese Methode gibt die Studierenden (Mitglieder) des Teams zurück.
-	 * 
-	 * @return Die Mitglieder des Teams.
-	 */
-	public List<Student> getMembers() {
-		return members;
-	}
-
-	/**
-	 * Diese Methode gibt die Bewertung eines Studierenden zum Projekt dieses
-	 * Teams zurück.
-	 * 
-	 * @param student
-	 *            Der Studierende, dessen Bewertung zurückgegeben werden soll.
-	 * @return Die Bewertung des Studierenden.
-	 */
-	public int getRating(Student student) {
-		// TODO
-		return 0;
-	}
-
-	/**
-	 * Diese Methode gibt die Betreuer des Teams zurück.
-	 * 
-	 * @return Die Betreuer des Teams.
-	 */
-	public Adviser getAdvisers() {
-		// TODO
-		return null;
-	}
+    /**
+     * Diese Methode gibt die Betreuer des Teams zurück.
+     * 
+     * @return Die Betreuer des Teams.
+     */
+    public List<Adviser> getAdvisers() {
+        return project.getAdvisers();
+    }
 }
