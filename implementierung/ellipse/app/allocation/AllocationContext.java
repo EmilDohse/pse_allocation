@@ -1,4 +1,4 @@
-package ellipse;
+package allocation;
 /**
  * Allocation context der festlegt welcher Allocator verwendet wird
  * @author emil
