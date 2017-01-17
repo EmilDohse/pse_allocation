@@ -1,0 +1,12 @@
+sam daniel: view diese woche
+philipp+emil: allocator diese woche
+lars+philipp: daten diese woche
+
+2.woche:
+lars:daten
+daniel+sam: view
+philipp+philipp: controller
+emil: allocator
+
+3.woche:
+kleinkram+controller
