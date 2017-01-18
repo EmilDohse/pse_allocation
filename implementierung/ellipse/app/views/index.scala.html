@@ -9,7 +9,15 @@
  * argument is a `String` with the title of the page, the second
  * argument is an `Html` object containing the body of the page.
  *@
-@main("Welcome to Play") {
+
+@main("Welcome to Play", {val map = new HashMap[String, String];
+map.put("Allgemeine Informationen", controllers.routes.IndexPageController.indexPage().path());
+map.put("Registrierung", controllers.routes.IndexPageController.registerPage().path());
+map}) {
+    <from>
+        <input type="text" />
+    </from>
+}{
 
     <h1>Hallo Welt</h1>
 

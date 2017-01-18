@@ -4,9 +4,9 @@
  * two arguments, a `String` for the title of the page and an `Html`
  * object to insert into the body of the page.
  *@
-@(title: String)(sidebarContent: Html)(sidebar:List<String>)(content: Html)
-
+@(title: String, sidebar: HashMap[String, String])(sidebarContent: Html)(content: Html)
 <!DOCTYPE html>
+<html>
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -36,24 +36,18 @@
   	<div class="container-fluid">
   		<div class="row">
 	        <div class="col-sm-3 col-md-2 sidebar">
-	          <ul class="nav nav-sidebar">
-	            <li class="active"><a href="#">Overview <span class="sr-only">(current)</span></a></li>
-	            <li><a href="#">Reports</a></li>
-	            <li><a href="#">Analytics</a></li>
-	            <li><a href="#">Export</a></li>
-	          </ul>
-	          <ul class="nav nav-sidebar">
-	            <li><a href="">Nav item</a></li>
-	            <li><a href="">Nav item again</a></li>
-	            <li><a href="">One more nav</a></li>
-	            <li><a href="">Another nav item</a></li>
-	            <li><a href="">More navigation</a></li>
-	          </ul>
-	          <ul class="nav nav-sidebar">
-	            <li><a href="">Nav item again</a></li>
-	            <li><a href="">One more nav</a></li>
-	            <li><a href="">Another nav item</a></li>
-	          </ul>
+	        	<div class="nav nav-sidebar">
+	            	@sidebarContent
+	          	</div>
+	          	<ul class="nav nav-sidebar">
+	          		@displaySidebarItem(entry: java.util.Map.Entry[String, String]) = {
+  						<li><a href='@entry.getValue()'>@entry.getKey()</a></li>
+					}
+					
+	          		@for(item <- sidebar.entrySet()) {
+  						@displaySidebarItem(item)
+					}
+	       		</ul>
 	        </div>
 	        
 	        <div class="col-sm-9 col-md-10 main">
