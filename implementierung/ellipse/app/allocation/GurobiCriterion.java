@@ -4,6 +4,7 @@
 
 package allocation;
 
+
 /************************************************************/
 /**
  * Ein Kriterium ist dazu da den Optimierungsterm des ILP-Modells zu erweitern
@@ -14,12 +15,12 @@ public interface GurobiCriterion extends allocation.Criterion {
     /**
      * Bildet den Optimierungsterm und fügt ihn dem GurobiAllocator hinzu.
      * 
-     * @param weight
-     *            Der vom Admin eingestellte Parameter dieses Kriteriums.
+     * @param configuration
+     *            Die Konfiguration, die zur Berechnung verwendet wird.
      * @param allocator
      *            Die Allocator-Instanz welche dieses Kriterium verwenden soll.
      */
-    public void useCriteria(int weight, GurobiAllocator allocator);
+    public void useCriteria(Configuration configuration, GurobiAllocator allocator);
 
     /**
      * Getter für den Namen des Kriteriums.
