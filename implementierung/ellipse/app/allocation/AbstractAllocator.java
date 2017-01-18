@@ -4,6 +4,11 @@
 
 package allocation;
 
+import java.util.ServiceLoader;
+
+import exception.AllocationException;
+
+import java.util.Iterator;
 import java.util.List;
 
 /************************************************************/
@@ -19,18 +24,22 @@ abstract class AbstractAllocator {
      *            Die Konfiguration, nach der die Einteilung berechnet werden
      *            soll.
      */
-    public abstract void calculate(Configuration configuration);
-/**
- * methode zum abbruch einer Einteilung
- */
+    public abstract void calculate(Configuration configuration) throws AllocationException;
+
+    /**
+     * methode zum abbruch einer Einteilung
+     */
     public abstract void cancel();
+
     /**
      * Gibt alle Kriterien, geladen über einen Serviceloader, zurück.
      * 
      * @return Die Liste aller verfügbarer Kriterien.
      */
-    public static List<Criterion> getAllCriteria() {
+    public List<? extends Criterion> getAllCriteria() {
         // TODO serviceloader
+        Iterator iter = ServiceLoader.load(Criterion.class).iterator();
+
         return null;
     }
 }

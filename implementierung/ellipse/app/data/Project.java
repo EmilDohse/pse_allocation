@@ -12,6 +12,7 @@ import java.util.List;
  */
 public class Project {
 
+    private int           id;
     /**
      * Der Name des Projektes.
      */
@@ -44,6 +45,25 @@ public class Project {
      * Betreuer des Projekts
      */
     private List<Adviser> advisers;
+
+    /**
+     * Getter für die Id
+     * 
+     * @return id
+     */
+    public int getId() {
+        return id;
+    }
+
+    /**
+     * Setter für die Id
+     * 
+     * @param id
+     *            id
+     */
+    public void setId(int id) {
+        this.id = id;
+    }
 
     /**
      * Getter für die Anzahl der Teams.
@@ -125,7 +145,8 @@ public class Project {
     }
 
     /**
-     * Getter der maximalen Größe für Teams dieses Projektes.
+     * Getter der maximalen Größe für Teams dieses Projektes. -1 entspricht
+     * keiner gesetzten Teamgröße.
      * 
      * @return Die maximale Teamgröße.
      */
@@ -134,7 +155,8 @@ public class Project {
     }
 
     /**
-     * Getter der minimalen Größe für Teams dieses Projektes.
+     * Getter der minimalen Größe für Teams dieses Projektes. -1 entspricht
+     * keiner gesetzten Teamgröße.
      * 
      * @return Die minimale Teamgröße.
      */
@@ -171,13 +193,14 @@ public class Project {
     }
 
     /**
-     * Setter der maximalen Größe für Teams dieses Projektes.
+     * Setter der maximalen Größe für Teams dieses Projektes. -1 entspricht
+     * keiner gesetzten Teamgröße.
      * 
      * @param maxTeamSize
      *            Die maximale Größe für Teams dieses Projektes.
      */
     public void setMaxTeamSize(int maxTeamSize) {
-        if (maxTeamSize >= 0) {
+        if (maxTeamSize >= -1) {
             this.maxTeamSize = maxTeamSize;
         } else {
             // TODO throws
@@ -185,13 +208,14 @@ public class Project {
     }
 
     /**
-     * Setter der minimalen Größe für Teams dieses Projektes.
+     * Setter der minimalen Größe für Teams dieses Projektes. -1 entspricht
+     * keiner gesetzten Teamgröße.
      * 
      * @param minTeamSize
      *            Die minimale Größe für Teams dieses Projektes.
      */
     public void setMinTeamSize(int minTeamSize) {
-        if (minTeamSize >= 0) {
+        if (minTeamSize >= -1) {
             this.minTeamSize = minTeamSize;
         } else {
             // TODO throws
@@ -274,7 +298,7 @@ public class Project {
     public int getRating(Student student) {
         return student.getLearningGroup(getSemester()).getRating(this);
     }
-    
+
     /**
      * Gibt das Semester zurück, in dem das Projekt angeboten wurde.
      * 
@@ -286,7 +310,17 @@ public class Project {
                 return s;
             }
         }
-        //TODO throws
+        // TODO throws
         return null;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Project) {
+            if (((Project) obj).getId() == id) {
+                return true;
+            }
+        }
+        return false;
     }
 }

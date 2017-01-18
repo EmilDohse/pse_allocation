@@ -7,8 +7,11 @@ package allocation;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.ServiceLoader;
 
+import data.AllocationParameter;
+import data.Team;
 import exception.AllocationException;
 
 import gurobi.*;
@@ -20,6 +23,12 @@ import gurobi.*;
  * Verfügung, welche von den Kriterien verwendet werden.
  */
 public class GurobiAllocator extends AbstractAllocator {
+
+	/**
+	 * String-Konstante für Gurobi
+	 */
+	public static final String NULL = new String();
+
 	/**
 	 * Die Basismatrix (NxM) welche anzeigt, ob ein Student n in einm Team m
 	 * ist. Die Mte Spalte ist das Team der nicht zugeteilten
@@ -91,16 +100,17 @@ public class GurobiAllocator extends AbstractAllocator {
 	 */
 	public void calculate(Configuration configuration) throws AllocationException {
 		try {
-            this.model = this.makeModel(configuration);
-        } catch (GRBException e) {
-            throw new AllocationException();
-        }
+			this.model = this.makeModel(configuration);
+		} catch (GRBException e) {
+			throw new AllocationException();
+		}
 
 	}
+
 	/**
 	 * bricht die berechnung ab
 	 */
-	public void cancel(){
+	public void cancel() {
 		this.model.terminate();
 	}
 
@@ -110,7 +120,7 @@ public class GurobiAllocator extends AbstractAllocator {
 	 * 
 	 * @return Die Liste aller Gurobi Kriterien.
 	 */
-	public static ArrayList<GurobiCriterion> getAllCriteria() {
+	public List<GurobiCriterion> getAllCriteria() {
 		Iterator<GurobiCriterion> iter = ServiceLoader.load(GurobiCriterion.class).iterator();
 		ArrayList<GurobiCriterion> criteria = new ArrayList<GurobiCriterion>();
 		while (iter.hasNext()) {
@@ -119,16 +129,57 @@ public class GurobiAllocator extends AbstractAllocator {
 		return criteria;
 	}
 
-	private GRBModel makeModel(Configuration configuration) throws GRBException {
-			GRBEnv env = new GRBEnv();
-			GRBModel model = new GRBModel(env);
-		
+	private GRBModel makeModel(Configuration configuration) throws GRBException, AllocationException {
+		GRBEnv env = new GRBEnv();
+		GRBModel model = new GRBModel(env);
 
 		// Erstelle Basismatrix B
 
-		// Nachfragen wegen Teams in Configuration
+		this.basicMatrix = new GRBVar[configuration.getStudents().length][configuration.getTeams().length + 1];
+		for (int i = 0; i < configuration.getStudents().length; i++) {
+			for (int j = 0; i <= configuration.getTeams().length; j++) {
+				this.basicMatrix[i][j] = this.model.addVar(0, 1, 0, GRB.BINARY, NULL);
+			}
+		}
+
+		// Erzeuge Basisconstraint
+		// Genau 1 Team pro Student
+		
+		for (int i = 0; i < configuration.getStudents().length; i++) {
+			GRBLinExpr teamsPerStudent = new GRBLinExpr();
+			for (int j = 0; j <= configuration.getTeams().length; j++) {
+				teamsPerStudent.addTerm(1, this.basicMatrix[i][j]);
+			}
+			this.model.addConstr(teamsPerStudent, GRB.EQUAL, 1, NULL);
+		}
+		
+		// Erzeuge Teamgröße-Variablen
+		
+		this.teamSizes = new GRBVar[configuration.getTeams().length];
+		
+		for (int i = 0; i < configuration.getTeams().length; i++) {
+			// TODO this.model.addVar(0, arg1, arg2, arg3, arg4)
+		}
+
+		// Teamgröße zwischen min und max, oder 0
+		List<AllocationParameter> parameters = configuration.getParameters();
+		try {
+			double minAdminSize = parameters.stream().filter(parameter -> parameter.getName().equals("minSize")).findFirst()
+					.get().getValue();
+			double maxAdminSize = parameters.stream().filter(parameter -> parameter.getName().equals("maxSize")).findFirst()
+					.get().getValue();
+		} catch (NoSuchElementException e) {
+			throw new AllocationException();
+		}
 
 		return model;
+	}
+
+	private int getMinSize(Team team) {
+		if (team.getProject().getMinTeamSize() == -1) {
+			// TODO
+		}
+		return 0;
 	}
 
 }

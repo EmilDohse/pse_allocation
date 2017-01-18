@@ -10,6 +10,7 @@ package data;
  */
 public class User {
 
+    private int    id;
     /**
      * Der Anmeldename des Benutzers.
      */
@@ -30,6 +31,25 @@ public class User {
      * Nachname des Benutzers.
      */
     private String lastName;
+
+    /**
+     * Getter für die Id
+     * 
+     * @return id
+     */
+    public int getId() {
+        return id;
+    }
+
+    /**
+     * Setter für die Id
+     * 
+     * @param id
+     *            id
+     */
+    public void setId(int id) {
+        this.id = id;
+    }
 
     /**
      * Getter für den Benutzernamen.
@@ -129,7 +149,7 @@ public class User {
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof User) {
-            if (((User) obj).getUserName().equals(username)) {
+            if (((User) obj).getId() == id) {
                 return true;
             }
         }
