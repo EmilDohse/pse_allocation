@@ -6,15 +6,12 @@ package data;
 
 import java.util.List;
 
-import com.avaje.ebean.Model;
-
 /************************************************************/
 /**
  * Diese KLasse stellt ein Team eines Projektes dar.
  */
-public class Team extends Model {
+public class Team extends ElipseModel {
 
-    private int           id;
     /**
      * Das Projekt des Teams
      */
@@ -24,25 +21,6 @@ public class Team extends Model {
      * Liste der Studierenden in diesem Teams.
      */
     private List<Student> members;
-
-    /**
-     * Getter für die Id
-     * 
-     * @return id
-     */
-    public int getId() {
-        return id;
-    }
-
-    /**
-     * Setter für die Id
-     * 
-     * @param id
-     *            id
-     */
-    public void setId(int id) {
-        this.id = id;
-    }
 
     /**
      * Setter für die Mitglieder des Teams.
@@ -131,13 +109,4 @@ public class Team extends Model {
         return project.getAdvisers();
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (obj instanceof Team) {
-            if (((Team) obj).getId() == id) {
-                return true;
-            }
-        }
-        return false;
-    }
 }

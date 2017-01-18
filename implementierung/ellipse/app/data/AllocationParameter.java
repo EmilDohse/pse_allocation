@@ -8,28 +8,7 @@ package data;
 /**
  * Diese Klasse stellt einen Parameter für die Einteilungsberechnung dar.
  */
-public class AllocationParameter {
-
-    private int id;
-
-    /**
-     * Getter für die eindeutige ID des Objektes.
-     * 
-     * @return Die eindeutige ID des Objektes.
-     */
-    public int getId() {
-        return id;
-    }
-
-    /**
-     * Setter für die eindeutige ID des Objektes.
-     * 
-     * @param id
-     *            Die neue eindeutige ID des Objektes.
-     */
-    public void setId(int id) {
-        this.id = id;
-    }
+public class AllocationParameter extends ElipseModel {
 
     /**
      * Der Name des Parameters.
@@ -78,15 +57,4 @@ public class AllocationParameter {
         this.value = value;
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean equals(Object obj) {
-        if (obj instanceof AllocationParameter) {
-            return this.id == ((AllocationParameter) obj).id;
-        } else {
-            return false;
-        }
-    }
 }

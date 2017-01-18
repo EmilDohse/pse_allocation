@@ -12,7 +12,6 @@ import java.util.List;
  **/
 public class Student extends User {
 
-    private int               id;
     /**
      * Die Matrikelnummer des Studierenden.
      */
@@ -56,25 +55,6 @@ public class Student extends User {
      * Wahrheitswert, ob die E-Mail-Adresse verifiziert wurde.
      */
     private boolean           emailVerified;
-
-    /**
-     * Getter für die Id
-     * 
-     * @return id
-     */
-    public int getId() {
-        return id;
-    }
-
-    /**
-     * Setter für die Id
-     * 
-     * @param id
-     *            id
-     */
-    public void setId(int id) {
-        this.id = id;
-    }
 
     /**
      * Getter für die Matrikelnummer.
@@ -379,19 +359,9 @@ public class Student extends User {
         // TODO throws
         return null;
     }
-    
-    public boolean registeredMoreThanOnce() {
-    	// TODO wäre ganz angenehm für die Berechnung ~Philipp
-    	return false;
-    }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (obj instanceof Student) {
-            if (((Student) obj).getId() == id) {
-                return true;
-            }
-        }
+    public boolean registeredMoreThanOnce() {
+        // TODO wäre ganz angenehm für die Berechnung ~Philipp
         return false;
     }
 }

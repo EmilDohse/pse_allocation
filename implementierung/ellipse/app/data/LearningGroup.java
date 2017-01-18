@@ -11,28 +11,7 @@ import java.util.List;
  * Diese Klasse repräsentiert eine Lerngruppe, das heißt eine Gruppe von
  * Studierenden, die sich gemeinsam zum PSE anmelden wollen.
  */
-public class LearningGroup {
-
-    private int id;
-
-    /**
-     * Getter für die eindeutige ID des Objektes.
-     * 
-     * @return Die eindeutige ID des Objektes.
-     */
-    public int getId() {
-        return id;
-    }
-
-    /**
-     * Setter für die eindeutige ID des Objektes.
-     * 
-     * @param id
-     *            Die neue eindeutige ID des Objektes.
-     */
-    public void setId(int id) {
-        this.id = id;
-    }
+public class LearningGroup extends ElipseModel {
 
     /**
      * Der Name der Lerngruppe.
@@ -247,15 +226,4 @@ public class LearningGroup {
         return null;
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean equals(Object obj) {
-        if (obj instanceof LearningGroup) {
-            return this.id == ((LearningGroup) obj).id;
-        } else {
-            return false;
-        }
-    }
 }

@@ -6,15 +6,12 @@ package data;
 
 import java.util.List;
 
-import com.avaje.ebean.Model;
-
 /************************************************************/
 /**
  * Diese Klasse stellt eine Studienprüfungsordnung dar.
  */
-public class SPO extends Model {
+public class SPO extends ElipseModel {
 
-    private int               id;
     /**
      * Der Name der Prüfungsordnung.
      */
@@ -28,25 +25,6 @@ public class SPO extends Model {
      * Die zusätzlichen Teilleistungen.
      */
     private List<Achievement> additionalAchievements;
-
-    /**
-     * Getter für die Id
-     * 
-     * @return id
-     */
-    public int getId() {
-        return id;
-    }
-
-    /**
-     * Setter für die Id
-     * 
-     * @param id
-     *            id
-     */
-    public void setId(int id) {
-        this.id = id;
-    }
 
     /**
      * Fügt eine zusätzliche Teilleistung hinzu.
@@ -184,13 +162,4 @@ public class SPO extends Model {
         return null;
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (obj instanceof SPO) {
-            if (((SPO) obj).getId() == id) {
-                return true;
-            }
-        }
-        return false;
-    }
 }
