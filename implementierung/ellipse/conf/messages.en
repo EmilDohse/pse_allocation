@@ -1,0 +1,18 @@
+index.title = Elipse - Index
+index.sidebar.information = General Information
+index.sidebar.registration = Registration
+
+student.title = Elipse - Student Portal
+student.sidebar.learningGroup = Learning Group
+student.sidebar.rating = Project Rating
+student.sidebar.results = Results
+student.sidebar.account = Account
+
+admin.title = Elipse - Adminstration
+admin.sidebar.adivser = Adviser
+admin.sidebar.projects = Projects
+admin.sidebar.allocation = Allocation
+admin.sidebar.results = Allocation Results
+admin.sidebar.exportImport = Export/Import
+admin.sidebar.studentEdit = Add/Delete Student
+admin.sidebar.properties = Properties

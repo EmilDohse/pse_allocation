@@ -10,9 +10,9 @@
  * argument is an `Html` object containing the body of the page.
  *@
 
-@main("Elipse - Index", {val map = new HashMap[String, String];
-map.put("Allgemeine Informationen", controllers.routes.IndexPageController.indexPage().path());
-map.put("Registrierung", controllers.routes.IndexPageController.registerPage().path());
+@main(Messages("index.title"), {val map = new HashMap[String, String];
+map.put(Messages("index.sidebar.information"), controllers.routes.IndexPageController.indexPage().path());
+map.put(Messages("index.sidebar.registration"), controllers.routes.IndexPageController.registerPage().path());
 map}) {
     <from>
         <input type="text" />

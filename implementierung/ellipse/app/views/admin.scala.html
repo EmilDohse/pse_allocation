@@ -10,12 +10,12 @@
  * argument is an `Html` object containing the body of the page.
  *@
 
-@main("Elipse - Studentenportal", {val map = new HashMap[String, String];
-map.put("Projektleiter", controllers.routes.AdminPageController.adviserPage().path());
-map.put("Projekte", controllers.routes.AdminPageController.projectPage().path());
-map.put("Einteilung", controllers.routes.AdminPageController.allocationPage().path());
-map.put("Einteilungsergebnisse", controllers.routes.AdminPageController.resultsPage().path());
-map.put("Export/Import", controllers.routes.AdminPageController.exportImportPage().path());
-map.put("Studenten hinzufügen/löschen", controllers.routes.AdminPageController.studentEditPage().path());
-map.put("Einstellungen", controllers.routes.AdminPageController.propertiesPage().path());
+@main(Messages("admin.title"), {val map = new HashMap[String, String];
+map.put(Messages("admin.sidebar.adviser"), controllers.routes.AdminPageController.adviserPage().path());
+map.put(Messages("admin.sidebar.projects"), controllers.routes.AdminPageController.projectPage().path());
+map.put(Messages("admin.sidebar.allocation"), controllers.routes.AdminPageController.allocationPage().path());
+map.put(Messages("admin.sidebar.results"), controllers.routes.AdminPageController.resultsPage().path());
+map.put(Messages("admin.sidebar.exportImport"), controllers.routes.AdminPageController.exportImportPage().path());
+map.put(Messages("admin.sidebar.studentEdit"), controllers.routes.AdminPageController.studentEditPage().path());
+map.put(Messages("admin.sidebar.properties"), controllers.routes.AdminPageController.propertiesPage().path());
 map}) {null} {@content}
