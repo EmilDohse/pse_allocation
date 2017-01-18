@@ -8,15 +8,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.avaje.ebean.Model;
-
 /************************************************************/
 /**
  * Diese Klasse repräsentiert ein Semseter.
  */
-public class Semester extends Model {
+public class Semester extends ElipseModel {
 
-    private int                 id;
     /**
      * Der Name des Semesters im Format: WSxx/xx oder SSxx
      */
@@ -57,25 +54,6 @@ public class Semester extends Model {
      * Alle Einteilungen, die für dieses Semester berechnet wurden
      */
     private List<Allocation>    allocations;
-
-    /**
-     * Getter für die Id
-     * 
-     * @return id
-     */
-    public int getId() {
-        return id;
-    }
-
-    /**
-     * Setter für die Id
-     * 
-     * @param id
-     *            id
-     */
-    public void setId(int id) {
-        this.id = id;
-    }
 
     /**
      * Setter für die Einteilungen.
@@ -452,13 +430,4 @@ public class Semester extends Model {
         return registrationEnd;
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (obj instanceof Semester) {
-            if (((Semester) obj).getId() == id) {
-                return true;
-            }
-        }
-        return false;
-    }
 }

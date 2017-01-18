@@ -5,34 +5,12 @@
 package data;
 
 import java.util.List;
-import com.avaje.ebean.Model;
 
 /************************************************************/
 /**
  * Diese Klasse stellt eine Einteilung von Studierenden in einem Semester dar.
  */
-public class Allocation {
-
-    private int id;
-
-    /**
-     * Getter für die eindeutige ID des Objektes.
-     * 
-     * @return Die eindeutige ID des Objektes.
-     */
-    public int getId() {
-        return id;
-    }
-
-    /**
-     * Setter für die eindeutige ID des Objektes.
-     * 
-     * @param id
-     *            Die neue eindeutige ID des Objektes.
-     */
-    public void setId(int id) {
-        this.id = id;
-    }
+public class Allocation extends ElipseModel {
 
     /**
      * Liste, die alle Teams enthält.
@@ -46,6 +24,27 @@ public class Allocation {
      * Parameter, mit der die Einteilung gemacht wurde.
      */
     private List<AllocationParameter> parameters;
+
+    /**
+     * Konstruktor, der alles außer ID setzt
+     * 
+     * @param teams
+     *            Die eingeteilten Teams
+     * @param name
+     *            Der Name der Einteilung
+     * @param parameters
+     *            Die eingestellten Parameter
+     */
+    public Allocation(List<Team> teams, String name, List<AllocationParameter> parameters) {
+        // TODO @Datenleute nochmal drüberschauen ob das passt ~Philipp
+        this.teams = teams;
+        this.name = name;
+        this.parameters = parameters;
+    }
+
+    public Allocation() {
+        // TODO braucht nicht Ebean den default Konstruktor? ~ anderer Philipp
+    }
 
     /**
      * Getter für die Parameter der Einteilung.
@@ -62,7 +61,7 @@ public class Allocation {
      * @param parameters
      *            Parameter der Einteilung.
      */
-    public void setSemester(List<AllocationParameter> parameters) {
+    public void setParameters(List<AllocationParameter> parameters) {
         this.parameters = parameters;
     }
 
@@ -162,18 +161,6 @@ public class Allocation {
     public static Allocation getAllocation(String name) {
         // TODO
         return null;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean equals(Object obj) {
-        if (obj instanceof Allocation) {
-            return this.id == ((Allocation) obj).id;
-        } else {
-            return false;
-        }
     }
 
 }

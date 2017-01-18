@@ -4,15 +4,12 @@
 
 package data;
 
-import com.avaje.ebean.Model;
-
 /************************************************************/
 /**
  * Diese Klasse stellt einen Benutzer der Anwendung dar.
  */
-public class User extends Model {
+public class User extends ElipseModel {
 
-    private int    id;
     /**
      * Der Anmeldename des Benutzers.
      */
@@ -33,25 +30,6 @@ public class User extends Model {
      * Nachname des Benutzers.
      */
     private String lastName;
-
-    /**
-     * Getter für die Id
-     * 
-     * @return id
-     */
-    public int getId() {
-        return id;
-    }
-
-    /**
-     * Setter für die Id
-     * 
-     * @param id
-     *            id
-     */
-    public void setId(int id) {
-        this.id = id;
-    }
 
     /**
      * Getter für den Benutzernamen.
@@ -148,13 +126,4 @@ public class User extends Model {
         this.lastName = lastName;
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (obj instanceof User) {
-            if (((User) obj).getId() == id) {
-                return true;
-            }
-        }
-        return false;
-    }
 }

@@ -4,36 +4,60 @@
 
 package allocation;
 
+import java.util.NoSuchElementException;
+
+import exception.AllocationException;
+import gurobi.GRBException;
+import gurobi.GRBLinExpr;
+
 /************************************************************/
 /**
  * Das Kriterium sorgt dafür, dass Studierende die mehr, als die zur Teilname am
  * PSE benötigten, Teilleistungen bestanden haben bevorzugt werden.
  */
 public class CriterionAdditionalPerfomances implements GurobiCriterion {
-    private String name;
+	private String name;
 
-    /**
-     * Standard-Konstruktor, der den Namen eindeutig setzt
-     */
-    public CriterionAdditionalPerfomances() {
+	/**
+	 * Standard-Konstruktor, der den Namen eindeutig setzt
+	 */
+	public CriterionAdditionalPerfomances() {
+		this.name = "AdditionalPerfomances";
+	}
 
-    }
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public String getName() {
+		return this.name;
+	}
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void useCriteria(int weight, GurobiAllocator allocator) {
-        // TODO Auto-generated method stub
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void useCriteria(Configuration configuration, GurobiAllocator allocator, double weight)
+			throws AllocationException {
 
-    }
+		// Erzeuge den Zusatz zum Optimierungsterm
+		GRBLinExpr bonus = new GRBLinExpr();
+		for (int i = 0; i < configuration.getStudents().size(); i++) {
+			int amountOfAchievements = configuration.getStudents().get(i).getCompletedAchievements().size();
+			int necessaryAmount = configuration.getStudents().get(i).getSPO().getNecessaryAchievements().size();
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public String getName() {
-        // TODO Auto-generated method stub
-        return null;
-    }
+			// Prüfe, ob der Student mehr als die benötigten Teilleistungen
+			// abgeschlossen hat
+			if (amountOfAchievements > necessaryAmount) {
+				for (int j = 0; j < configuration.getTeams().size(); j++) {
+					bonus.addTerm(weight * 10, allocator.getBasicMatrix()[i][j]);
+				}
+			}
+		}
+		try {
+			allocator.getOptimizationTerm().add(bonus);
+		} catch (GRBException e) {
+			throw new AllocationException();
+		}
+	}
 }

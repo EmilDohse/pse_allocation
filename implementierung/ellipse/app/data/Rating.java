@@ -4,16 +4,13 @@
 
 package data;
 
-import com.avaje.ebean.Model;
-
 /************************************************************/
 /**
  * Diese Klasse stellt eine Bewertung eines Studierenden oder einerr Lerngruppe
  * für ein Projekt dar.
  */
-public class Rating extends Model {
+public class Rating extends ElipseModel {
 
-    private int     id;
     /**
      * Der Wert der Bewertung.
      */
@@ -22,25 +19,6 @@ public class Rating extends Model {
      * Das Projekt, dem die Bewertung gilt.
      */
     private Project project;
-
-    /**
-     * Getter für die Id
-     * 
-     * @return id
-     */
-    public int getId() {
-        return id;
-    }
-
-    /**
-     * Setter für die Id
-     * 
-     * @param id
-     *            id
-     */
-    public void setId(int id) {
-        this.id = id;
-    }
 
     /**
      * Getter für den Wert der Bewertung.
@@ -80,13 +58,4 @@ public class Rating extends Model {
         this.project = project;
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (obj instanceof Rating) {
-            if (((Rating) obj).getId() == id) {
-                return true;
-            }
-        }
-        return false;
-    }
 }

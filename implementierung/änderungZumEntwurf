@@ -2,4 +2,5 @@
 - Die änderung des Allocators wie schon in der Präsentation
 - Enum ThreadState hinzugeügt
 - Configuration: Project zu Team geändert
-- GurobiKriterion: configuration statt weight
+- GurobiKriterion: configuration zusätzlich weight
+- AllocationException erstellt und throw-Deklarationen in allen Gurobi-Klassen hinzugefügt

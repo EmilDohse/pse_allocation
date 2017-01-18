@@ -4,6 +4,9 @@
 
 package allocation;
 
+import exception.AllocationException;
+import gurobi.GRBLinExpr;
+
 /************************************************************/
 /**
  * Das Kriterium sorgt dafür, dass Studierende, die sich schon einmal für einen
@@ -16,16 +19,7 @@ public class CriterionRegisteredAgain implements GurobiCriterion {
      * Standard-Konstruktor, der den Namen eindeutig setzt
      */
     public CriterionRegisteredAgain() {
-        
-    }
-    
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void useCriteria(int weight, GurobiAllocator allocator) {
-        // TODO Auto-generated method stub
-
+        this.name = "RegisteredAgain";
     }
 
     /**
@@ -33,7 +27,19 @@ public class CriterionRegisteredAgain implements GurobiCriterion {
      */
     @Override
     public String getName() {
-        // TODO Auto-generated method stub
-        return null;
+        return this.name;
     }
+
+    /**
+     * {@inheritDoc}
+     */
+	@Override
+	public void useCriteria(Configuration configuration, GurobiAllocator allocator, double weight)
+			throws AllocationException {
+		GRBLinExpr bonus = new GRBLinExpr();
+		for (int i = 0; i < configuration.getStudents().size(); i++) {
+			// TODO if (configuration.getStudents().get(i).)
+		}
+		
+	}
 }
