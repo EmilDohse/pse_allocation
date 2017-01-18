@@ -13,6 +13,27 @@ import java.util.List;
  */
 public class Adviser extends User {
 
+    private int id;
+
+    /**
+     * Getter für die eindeutige ID des Objektes.
+     * 
+     * @return Die eindeutige ID des Objektes.
+     */
+    public int getId() {
+        return id;
+    }
+
+    /**
+     * Setter für die eindeutige ID des Objektes.
+     * 
+     * @param id
+     *            Die neue eindeutige ID des Objektes.
+     */
+    public void setId(int id) {
+        this.id = id;
+    }
+
     /**
      * Getter für die Projekte, die der Betreuer beaufsichtigt.
      * 
@@ -36,5 +57,17 @@ public class Adviser extends User {
     public static List<Adviser> getAdvisers() {
         // TODO
         return null;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Adviser) {
+            return this.id == ((Adviser) obj).id;
+        } else {
+            return false;
+        }
     }
 }

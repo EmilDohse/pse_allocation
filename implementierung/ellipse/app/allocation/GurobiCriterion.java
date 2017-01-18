@@ -4,13 +4,12 @@
 
 package allocation;
 
-import java.security.cert.CRLSelector;
-
 /************************************************************/
 /**
- * Ein Kriterium ist dazu da den Optimierungsterm des ILP-Modells zu erweitern und gegebenenfalls zusätzliche Constraints hinzuzufügen.
+ * Ein Kriterium ist dazu da den Optimierungsterm des ILP-Modells zu erweitern
+ * und gegebenenfalls zusätzliche Constraints hinzuzufügen.
  */
-public interface GurobiCriterion extends Criterion{
+public interface GurobiCriterion extends allocation.Criterion {
 
     /**
      * Bildet den Optimierungsterm und fügt ihn dem GurobiAllocator hinzu.

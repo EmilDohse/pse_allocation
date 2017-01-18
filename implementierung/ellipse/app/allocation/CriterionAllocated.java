@@ -9,7 +9,7 @@ package allocation;
  * Das Kriterium sorgt dafür, dass möglichst viele Studierende in Teams
  * eingeteilt werden.
  */
-public class CriterionAllocated implements Criterion {
+public class CriterionAllocated implements GurobiCriterion {
     private String name;
     
     /**

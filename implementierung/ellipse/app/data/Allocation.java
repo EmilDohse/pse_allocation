@@ -5,13 +5,33 @@
 package data;
 
 import java.util.List;
-import java.util.Map;
 
 /************************************************************/
 /**
  * Diese Klasse stellt eine Einteilung von Studierenden in einem Semester dar.
  */
 public class Allocation {
+
+    private int id;
+
+    /**
+     * Getter für die eindeutige ID des Objektes.
+     * 
+     * @return Die eindeutige ID des Objektes.
+     */
+    public int getId() {
+        return id;
+    }
+
+    /**
+     * Setter für die eindeutige ID des Objektes.
+     * 
+     * @param id
+     *            Die neue eindeutige ID des Objektes.
+     */
+    public void setId(int id) {
+        this.id = id;
+    }
 
     /**
      * Liste, die alle Teams enthält.
@@ -141,6 +161,18 @@ public class Allocation {
     public static Allocation getAllocation(String name) {
         // TODO
         return null;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Allocation) {
+            return this.id == ((Allocation) obj).id;
+        } else {
+            return false;
+        }
     }
 
 }

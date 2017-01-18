@@ -4,10 +4,11 @@
 package allocation;
 
 public interface Criterion {
-	/**
+
+    /**
      * Getter für den Namen des Kriteriums.
      * 
      * @return Der Name des Kriteriums.
      */
-public String getName();
+    public String getName();
 }
