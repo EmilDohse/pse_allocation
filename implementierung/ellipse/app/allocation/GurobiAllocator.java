@@ -101,9 +101,12 @@ public class GurobiAllocator extends AbstractAllocator {
 	public void calculate(Configuration configuration) throws AllocationException {
 		try {
 			this.model = this.makeModel(configuration);
+			this.model.optimize();
 		} catch (GRBException e) {
 			throw new AllocationException();
 		}
+		
+		//TODO erzeuge Einteilungsobjekt
 
 	}
 
@@ -144,7 +147,7 @@ public class GurobiAllocator extends AbstractAllocator {
 
 		// Erzeuge Basisconstraint
 		// Genau 1 Team pro Student
-		
+
 		for (int i = 0; i < configuration.getStudents().length; i++) {
 			GRBLinExpr teamsPerStudent = new GRBLinExpr();
 			for (int j = 0; j <= configuration.getTeams().length; j++) {
@@ -152,34 +155,96 @@ public class GurobiAllocator extends AbstractAllocator {
 			}
 			this.model.addConstr(teamsPerStudent, GRB.EQUAL, 1, NULL);
 		}
-		
+
 		// Erzeuge Teamgröße-Variablen
-		
+
 		this.teamSizes = new GRBVar[configuration.getTeams().length];
-		
+
 		for (int i = 0; i < configuration.getTeams().length; i++) {
-			// TODO this.model.addVar(0, arg1, arg2, arg3, arg4)
+			teamSizes[i] = this.model.addVar(0, Double.MAX_VALUE, 0, GRB.INTEGER, NULL);
+			GRBLinExpr teamSum = new GRBLinExpr();
+			for (int j = 0; j < configuration.getStudents().length; j++) {
+				teamSum.addTerm(1, this.basicMatrix[j][i]);
+			}
+			this.model.addConstr(teamSizes[i], GRB.EQUAL, teamSum, NULL);
 		}
 
-		// Teamgröße zwischen min und max, oder 0
+		// Bestimme die vom Admin eingestellte min- und max-Größe
 		List<AllocationParameter> parameters = configuration.getParameters();
+		double minAdminSize;
+		double maxAdminSize;
 		try {
-			double minAdminSize = parameters.stream().filter(parameter -> parameter.getName().equals("minSize")).findFirst()
+			minAdminSize = parameters.stream().filter(parameter -> parameter.getName().equals("minSize")).findFirst()
 					.get().getValue();
-			double maxAdminSize = parameters.stream().filter(parameter -> parameter.getName().equals("maxSize")).findFirst()
+			maxAdminSize = parameters.stream().filter(parameter -> parameter.getName().equals("maxSize")).findFirst()
 					.get().getValue();
 		} catch (NoSuchElementException e) {
 			throw new AllocationException();
 		}
 
+		// Teamgröße zwischen min und max, oder 0
+		for (int i = 0; i < configuration.getTeams().length; i++) {
+			GRBVar correctTeamSize = this.model.addVar(0, 1, 0, GRB.BINARY, NULL);
+
+			GRBLinExpr secondConstraintRightSide = new GRBLinExpr();
+			GRBLinExpr thirdConstraintRightSide = new GRBLinExpr();
+
+			secondConstraintRightSide.addTerm(getMaxSize(configuration.getTeams()[i], maxAdminSize), correctTeamSize);
+
+			thirdConstraintRightSide.addTerm(getMinSize(configuration.getTeams()[i], minAdminSize), correctTeamSize);
+
+			this.model.addConstr(correctTeamSize, GRB.LESS_EQUAL, this.teamSizes[i], NULL);
+			this.model.addConstr(this.teamSizes[i], GRB.LESS_EQUAL, secondConstraintRightSide, NULL);
+			this.model.addConstr(this.teamSizes[i], GRB.GREATER_EQUAL, thirdConstraintRightSide, NULL);
+		}
+
+		// Initialisiere Optimierungsterm
+		this.optTerm = new GRBLinExpr();
+
+		// füge Kriterien hinzu
+		List<GurobiCriterion> criteria = getAllCriteria();
+		for (GurobiCriterion criterion : criteria) {
+			criterion.useCriteria(configuration, this);
+		}
+
+		// Stelle Modell zur Maximierung ein
+		model.setObjective(this.optTerm, GRB.MAXIMIZE);
+
 		return model;
 	}
 
-	private int getMinSize(Team team) {
+	/**
+	 * Berechne minimale Teamgröße
+	 * 
+	 * @param team
+	 *            Das Team
+	 * @param minAdminSize
+	 *            Die vom Admin eingestellte Größe
+	 * @return Die Teamgröße
+	 */
+	private int getMinSize(Team team, double minAdminSize) {
 		if (team.getProject().getMinTeamSize() == -1) {
-			// TODO
+			return (int) minAdminSize;
+		} else {
+			return team.getProject().getMinTeamSize();
 		}
-		return 0;
+	}
+
+	/**
+	 * Berechne maximale Teamgröße
+	 * 
+	 * @param team
+	 *            Das Team
+	 * @param minAdminSize
+	 *            Die vom Admin eingestellte Größe
+	 * @return Die Teamgröße
+	 */
+	private int getMaxSize(Team team, double maxAdminSize) {
+		if (team.getProject().getMaxTeamSize() == -1) {
+			return (int) maxAdminSize;
+		} else {
+			return team.getProject().getMaxTeamSize();
+		}
 	}
 
 }
