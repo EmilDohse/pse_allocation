@@ -425,4 +425,14 @@ public class Semester {
     public Date getRegistrationEnd() {
         return registrationEnd;
     }
+    
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Semester) {
+            if (((Semester) obj).getName().equals(name)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
