@@ -125,4 +125,14 @@ public class User {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof User) {
+            if (((User) obj).getUserName().equals(username)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

@@ -162,4 +162,14 @@ public class SPO {
         // TODO
         return null;
     }
+    
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof SPO) {
+            if (((SPO) obj).getName().equals(name)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
