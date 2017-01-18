@@ -4,6 +4,9 @@
 
 package allocation;
 
+import exception.AllocationException;
+import gurobi.GRBLinExpr;
+
 /************************************************************/
 /**
  * Das Kriterium sorgt dafür, dass die Bewertungen der Studierenden
@@ -16,16 +19,7 @@ public class CriterionRating implements GurobiCriterion {
      * Standard-Konstruktor, der den Namen eindeutig setzt
      */
     public CriterionRating() {
-        
-    }
-    
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void useCriteria(int weight, GurobiAllocator allocator) {
-        // TODO Auto-generated method stub
-
+        this.name = "Rating";
     }
 
     /**
@@ -33,7 +27,20 @@ public class CriterionRating implements GurobiCriterion {
      */
     @Override
     public String getName() {
-        // TODO Auto-generated method stub
-        return null;
+       return this.name;
     }
+    
+    /**
+     * {@inheritDoc}
+     */
+	@Override
+	public void useCriteria(Configuration configuration, GurobiAllocator allocator, double weight)
+			throws AllocationException {
+		GRBLinExpr bonus = new GRBLinExpr();
+		for (int i = 0; i < configuration.getStudents().size(); i++) {
+			for (int j = 0; j < configuration.getTeams().size(); j++) {
+				//TODO Wie ist Ratin intern abgebildet?
+			}
+		}
+	}
 }

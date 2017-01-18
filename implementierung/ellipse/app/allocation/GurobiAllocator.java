@@ -109,7 +109,7 @@ public class GurobiAllocator extends AbstractAllocator {
 		} catch (GRBException e) {
 			throw new AllocationException();
 		}
-		
+
 		// erstelle Teams
 		for (int i = 0; i < configuration.getTeams().size(); i++) {
 			for (int j = 0; j < configuration.getStudents().size(); j++) {
@@ -124,7 +124,10 @@ public class GurobiAllocator extends AbstractAllocator {
 				}
 			}
 		}
-		Allocation allocation = new Allocation(configuration.getTeams(), configuration.getName(), configuration.getParameters());
+
+		// Erstelle Einteilung
+		Allocation allocation = new Allocation(configuration.getTeams(), configuration.getName(),
+				configuration.getParameters());
 		Ebean.save(allocation);
 
 	}
@@ -208,9 +211,11 @@ public class GurobiAllocator extends AbstractAllocator {
 			GRBLinExpr secondConstraintRightSide = new GRBLinExpr();
 			GRBLinExpr thirdConstraintRightSide = new GRBLinExpr();
 
-			secondConstraintRightSide.addTerm(getMaxSize(configuration.getTeams().get(i), maxAdminSize), correctTeamSize);
+			secondConstraintRightSide.addTerm(getMaxSize(configuration.getTeams().get(i), maxAdminSize),
+					correctTeamSize);
 
-			thirdConstraintRightSide.addTerm(getMinSize(configuration.getTeams().get(i), minAdminSize), correctTeamSize);
+			thirdConstraintRightSide.addTerm(getMinSize(configuration.getTeams().get(i), minAdminSize),
+					correctTeamSize);
 
 			this.model.addConstr(correctTeamSize, GRB.LESS_EQUAL, this.teamSizes[i], NULL);
 			this.model.addConstr(this.teamSizes[i], GRB.LESS_EQUAL, secondConstraintRightSide, NULL);
@@ -223,7 +228,17 @@ public class GurobiAllocator extends AbstractAllocator {
 		// füge Kriterien hinzu
 		List<GurobiCriterion> criteria = getAllCriteria();
 		for (GurobiCriterion criterion : criteria) {
-			criterion.useCriteria(configuration, this);
+
+			// Finde den vom Admin eingegebenen Parameter
+			double weight;
+			try {
+				weight = configuration.getParameters().stream()
+						.filter(parameter -> parameter.getName().equals(criterion.getName())).findFirst().get()
+						.getValue();
+			} catch (NoSuchElementException e) {
+				throw new AllocationException();
+			}
+			criterion.useCriteria(configuration, this, weight);
 		}
 
 		// Stelle Modell zur Maximierung ein

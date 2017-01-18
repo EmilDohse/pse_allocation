@@ -4,36 +4,52 @@
 
 package allocation;
 
+import exception.AllocationException;
+import gurobi.GRBException;
+import gurobi.GRBLinExpr;
+
 /************************************************************/
 /**
  * Das Kriterium sorgt dafür, dass möglichst viele Studierende in Teams
  * eingeteilt werden.
  */
 public class CriterionAllocated implements GurobiCriterion {
-    private String name;
-    
-    /**
-     * Standard-Konstruktor, der den Namen eindeutig setzt
-     */
-    public CriterionAllocated() {
-        
-    }
-    
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void useCriteria(int weight, GurobiAllocator allocator) {
-        // TODO Auto-generated method stub
+	private String name;
 
-    }
+	/**
+	 * Standard-Konstruktor, der den Namen eindeutig setzt
+	 */
+	public CriterionAllocated() {
+		this.name = "Allocated";
+	}
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public String getName() {
-        // TODO Auto-generated method stub
-        return null;
-    }
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public String getName() {
+		return this.name;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void useCriteria(Configuration configuration, GurobiAllocator allocator, double weight)
+			throws AllocationException {
+
+		// Erzeuge Ergänzung zum Optimierungsterm
+		GRBLinExpr bonus = new GRBLinExpr();
+		for (int i = 0; i < configuration.getStudents().size(); i++) {
+			for (int j = 0; j < configuration.getTeams().size(); j++) {
+				bonus.addTerm(weight * 10, allocator.getBasicMatrix()[i][j]);
+			}
+		}
+		try {
+			allocator.getOptimizationTerm().add(bonus);
+		} catch (GRBException e) {
+			throw new AllocationException();
+		}
+
+	}
 }
