@@ -13,6 +13,27 @@ import java.util.List;
  */
 public class LearningGroup {
 
+    private int id;
+
+    /**
+     * Getter für die eindeutige ID des Objektes.
+     * 
+     * @return Die eindeutige ID des Objektes.
+     */
+    public int getId() {
+        return id;
+    }
+
+    /**
+     * Setter für die eindeutige ID des Objektes.
+     * 
+     * @param id
+     *            Die neue eindeutige ID des Objektes.
+     */
+    public void setId(int id) {
+        this.id = id;
+    }
+
     /**
      * Der Name der Lerngruppe.
      */
@@ -224,5 +245,17 @@ public class LearningGroup {
     public static List<LearningGroup> getLearningGroups() {
         // TODO
         return null;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof LearningGroup) {
+            return this.id == ((LearningGroup) obj).id;
+        } else {
+            return false;
+        }
     }
 }
