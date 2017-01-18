@@ -5,8 +5,14 @@ lars+philipp: daten diese woche
 2.woche:
 lars:daten
 daniel+sam: view
-philipp+philipp: controller
+philipp+philipp: controller (einer auch pac4j+shibolleth)
 emil: allocator
 
 3.woche:
-kleinkram+controller
+sam: qualityCriteria + notificationSystem
+daniel: views
+philpp+lars+philipp+emil: controller
+
+4.Woche:
+daniel: views
+rest: bugfixes + kleinigkeiten

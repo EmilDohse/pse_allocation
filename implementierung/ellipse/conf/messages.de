@@ -1,0 +1,18 @@
+index.title = Elipse - Index
+index.sidebar.information = Allgemeine Informationen
+index.sidebar.registration = Registrierung
+
+student.title = Elipse - Studentenportal
+student.sidebar.learningGroup = Lerngruppe
+student.sidebar.rating = Projektbewertung
+student.sidebar.results = Einteilungsergebnisse
+student.sidebar.account = Account
+
+admin.title = Elipse - Adminstration
+admin.sidebar.adivser = Projektleiter
+admin.sidebar.projects = Projekte
+admin.sidebar.allocation = Einteilung
+admin.sidebar.results = Einteilungsergebnisse
+admin.sidebar.exportImport = Export/Import
+admin.sidebar.studentEdit = Studenten hinzufügen/löschen
+admin.sidebar.properties = Einstellungen

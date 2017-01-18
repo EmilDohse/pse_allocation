@@ -10,36 +10,12 @@ import java.util.List;
 /**
  * Diese Klasse stellt eine Teilleistung im Studium dar.
  */
-public class Achievement {
-
-    /**
-     * Eindeutige ID des Objektes.
-     */
-    private int    id;
+public class Achievement extends ElipseModel {
 
     /**
      * Der Name der Teilleistung.
      */
     private String name;
-
-    /**
-     * Getter für die eindeutige ID des Objektes.
-     * 
-     * @return Die eindeutige ID des Objektes.
-     */
-    public int getId() {
-        return id;
-    }
-
-    /**
-     * Setter für die eindeutige ID des Objektes.
-     * 
-     * @param id
-     *            Die neue eindeutige ID des Objektes.
-     */
-    public void setId(int id) {
-        this.id = id;
-    }
 
     /**
      * Getter für den Namen der Teilleistung.
@@ -83,15 +59,4 @@ public class Achievement {
         return null;
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean equals(Object obj) {
-        if (obj instanceof Achievement) {
-            return this.id == ((Achievement) obj).id;
-        } else {
-            return false;
-        }
-    }
 }
