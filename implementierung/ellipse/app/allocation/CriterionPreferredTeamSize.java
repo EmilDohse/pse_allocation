@@ -9,7 +9,7 @@ package allocation;
  * Das Kriterium sorgt dafür, dass Teams möglichst die vom Admin gewünschte
  * Teamgröße haben.
  */
-public class CriterionPreferredTeamSize implements Criterion {
+public class CriterionPreferredTeamSize implements GurobiCriterion {
     private String name;
 
     /**

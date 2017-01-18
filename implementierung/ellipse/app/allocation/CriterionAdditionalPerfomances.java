@@ -9,7 +9,7 @@ package allocation;
  * Das Kriterium sorgt dafür, dass Studierende die mehr, als die zur Teilname am
  * PSE benötigten, Teilleistungen bestanden haben bevorzugt werden.
  */
-public class CriterionAdditionalPerfomances implements Criterion {
+public class CriterionAdditionalPerfomances implements GurobiCriterion {
     private String name;
 
     /**

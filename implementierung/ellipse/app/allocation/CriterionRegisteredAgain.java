@@ -9,7 +9,7 @@ package allocation;
  * Das Kriterium sorgt dafür, dass Studierende, die sich schon einmal für einen
  * PSE Platz beworben haben, bevorzugt werden.
  */
-public class CriterionRegisteredAgain implements Criterion {
+public class CriterionRegisteredAgain implements GurobiCriterion {
     private String name;
 
     /**

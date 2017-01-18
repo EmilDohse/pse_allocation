@@ -9,7 +9,7 @@ package allocation;
  * Das Kriterium sorgt dafür, dass möglichst kein Team aus einer Lerngrupe sowie
  * einem einzelnen Studierenden besteht.
  */
-public class CriterionNoSingularStudent implements Criterion {
+public class CriterionNoSingularStudent implements GurobiCriterion {
     private String name;
 
     /**

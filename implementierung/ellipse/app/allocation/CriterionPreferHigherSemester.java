@@ -9,7 +9,7 @@ package allocation;
  * Das Kriterium sorgt dafür, dass Studierende höheren Semesters bevorzugt
  * werden.
  */
-public class CriterionPreferHigherSemester implements Criterion {
+public class CriterionPreferHigherSemester implements GurobiCriterion {
     private String name;
 
     /**

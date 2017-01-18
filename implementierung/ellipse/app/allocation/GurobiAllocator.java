@@ -9,6 +9,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ServiceLoader;
 
+import exception.AllocationException;
+
 import gurobi.*;
 
 /************************************************************/
@@ -87,15 +89,19 @@ public class GurobiAllocator extends AbstractAllocator {
 	 *            Die Konfiguration, nach der die Einteilung berechnet werden
 	 *            soll.
 	 */
-	public void calculate(Configuration configuration) {
-		this.model = this.makeModel(configuration);
+	public void calculate(Configuration configuration) throws AllocationException {
+		try {
+            this.model = this.makeModel(configuration);
+        } catch (GRBException e) {
+            throw new AllocationException();
+        }
 
 	}
 	/**
 	 * bricht die berechnung ab
 	 */
 	public void cancel(){
-		//TODO implementierung des berechnungsabbruchs
+		this.model.terminate();
 	}
 
 	/**
@@ -113,14 +119,10 @@ public class GurobiAllocator extends AbstractAllocator {
 		return criteria;
 	}
 
-	private GRBModel makeModel(Configuration configuration) {
-		try {
+	private GRBModel makeModel(Configuration configuration) throws GRBException {
 			GRBEnv env = new GRBEnv();
 			GRBModel model = new GRBModel(env);
-		} catch (GRBException e) {
-			// TODO Fehlerbehandlung?
-			e.printStackTrace();
-		}
+		
 
 		// Erstelle Basismatrix B
 

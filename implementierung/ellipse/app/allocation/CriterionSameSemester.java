@@ -9,7 +9,7 @@ package allocation;
  * Das Kriterium sorgt dafür, dass Studierende, des für das PSE vorgesehenen
  * Semesters, und Studierende höherer Semester nicht in das selbe Team kommen.
  */
-public class CriterionSameSemester implements Criterion {
+public class CriterionSameSemester implements GurobiCriterion {
     private String name;
 
     /**
