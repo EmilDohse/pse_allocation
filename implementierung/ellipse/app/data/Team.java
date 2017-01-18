@@ -12,6 +12,7 @@ import java.util.List;
  */
 public class Team {
 
+    private int           id;
     /**
      * Das Projekt des Teams
      */
@@ -21,6 +22,25 @@ public class Team {
      * Liste der Studierenden in diesem Teams.
      */
     private List<Student> members;
+
+    /**
+     * Getter für die Id
+     * 
+     * @return id
+     */
+    public int getId() {
+        return id;
+    }
+
+    /**
+     * Setter für die Id
+     * 
+     * @param id
+     *            id
+     */
+    public void setId(int id) {
+        this.id = id;
+    }
 
     /**
      * Setter für die Mitglieder des Teams.
@@ -107,5 +127,15 @@ public class Team {
      */
     public List<Adviser> getAdvisers() {
         return project.getAdvisers();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Team) {
+            if (((Team) obj).getId() == id) {
+                return true;
+            }
+        }
+        return false;
     }
 }

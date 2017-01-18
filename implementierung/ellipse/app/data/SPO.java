@@ -12,6 +12,7 @@ import java.util.List;
  */
 public class SPO {
 
+    private int               id;
     /**
      * Der Name der Prüfungsordnung.
      */
@@ -25,6 +26,25 @@ public class SPO {
      * Die zusätzlichen Teilleistungen.
      */
     private List<Achievement> additionalAchievements;
+
+    /**
+     * Getter für die Id
+     * 
+     * @return id
+     */
+    public int getId() {
+        return id;
+    }
+
+    /**
+     * Setter für die Id
+     * 
+     * @param id
+     *            id
+     */
+    public void setId(int id) {
+        this.id = id;
+    }
 
     /**
      * Fügt eine zusätzliche Teilleistung hinzu.
@@ -77,9 +97,8 @@ public class SPO {
     public void removeNecessaryAchievement(Achievement achievement) {
         if (necessaryAchievements.contains(achievement)) {
             necessaryAchievements.remove(achievement);
-        }
-        else {
-            //TODO throws
+        } else {
+            // TODO throws
         }
     }
 
@@ -162,11 +181,11 @@ public class SPO {
         // TODO
         return null;
     }
-    
+
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof SPO) {
-            if (((SPO) obj).getName().equals(name)) {
+            if (((SPO) obj).getId() == id) {
                 return true;
             }
         }
