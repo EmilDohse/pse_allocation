@@ -12,6 +12,7 @@ import java.util.List;
  **/
 public class Student extends User {
 
+    private int               id;
     /**
      * Die Matrikelnummer des Studierenden.
      */
@@ -37,11 +38,11 @@ public class Student extends User {
     /**
      * Die PSE-Note des Studierenden.
      */
-    private int               gradePSE;
+    private Grade             gradePSE;
     /**
      * Die TSE-Note des Studierenden.
      */
-    private int               gradeTSE;
+    private Grade             gradeTSE;
     /**
      * Die noch ausstehenden Teilleistungen des Studierenden.
      */
@@ -55,6 +56,25 @@ public class Student extends User {
      * Wahrheitswert, ob die E-Mail-Adresse verifiziert wurde.
      */
     private boolean           emailVerified;
+
+    /**
+     * Getter für die Id
+     * 
+     * @return id
+     */
+    public int getId() {
+        return id;
+    }
+
+    /**
+     * Setter für die Id
+     * 
+     * @param id
+     *            id
+     */
+    public void setId(int id) {
+        this.id = id;
+    }
 
     /**
      * Getter für die Matrikelnummer.
@@ -108,7 +128,7 @@ public class Student extends User {
      * 
      * @return Die Note des Studierenden für das PSE.
      */
-    public int getGradePSE() {
+    public Grade getGradePSE() {
         return gradePSE;
     }
 
@@ -117,7 +137,7 @@ public class Student extends User {
      * 
      * @return Die Note des Studierenden für das TSE.
      */
-    public int getGradeTSE() {
+    public Grade getGradeTSE() {
         return gradeTSE;
     }
 
@@ -136,8 +156,7 @@ public class Student extends User {
      * @return Das aktuelle Fachsemester des Studierenden.
      */
     public int getSemester() {
-        // TODO
-        return 0;
+        return semester;
     }
 
     /**
@@ -202,7 +221,7 @@ public class Student extends User {
      * @param Die
      *            Note des Studierenden fürs PSE.
      */
-    public void setGradePSE(int gradePSE) {
+    public void setGradePSE(Grade gradePSE) {
         this.gradePSE = gradePSE;
         // TODO Enum
     }
@@ -213,7 +232,7 @@ public class Student extends User {
      * @param gradeTSE
      *            Die Note des Studierenden fürs TSE.
      */
-    public void setGradeTSE(int gradeTSE) {
+    public void setGradeTSE(Grade gradeTSE) {
         this.gradeTSE = gradeTSE;
         // TODO Enum
     }
@@ -360,11 +379,11 @@ public class Student extends User {
         // TODO throws
         return null;
     }
-    
+
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof Student) {
-            if (((Student) obj).getMatriculationNumber() == matriculationNumber) {
+            if (((Student) obj).getId() == id) {
                 return true;
             }
         }

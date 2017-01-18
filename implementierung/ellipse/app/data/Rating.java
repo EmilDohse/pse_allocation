@@ -11,6 +11,7 @@ package data;
  */
 public class Rating {
 
+    private int     id;
     /**
      * Der Wert der Bewertung.
      */
@@ -19,6 +20,25 @@ public class Rating {
      * Das Projekt, dem die Bewertung gilt.
      */
     private Project project;
+
+    /**
+     * Getter für die Id
+     * 
+     * @return id
+     */
+    public int getId() {
+        return id;
+    }
+
+    /**
+     * Setter für die Id
+     * 
+     * @param id
+     *            id
+     */
+    public void setId(int id) {
+        this.id = id;
+    }
 
     /**
      * Getter für den Wert der Bewertung.
@@ -56,5 +76,15 @@ public class Rating {
      */
     public void setProject(Project project) {
         this.project = project;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Rating) {
+            if (((Rating) obj).getId() == id) {
+                return true;
+            }
+        }
+        return false;
     }
 }

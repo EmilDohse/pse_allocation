@@ -14,8 +14,9 @@ import java.util.List;
  */
 public class Semester {
 
+    private int                 id;
     /**
-     * Der Name des Semesters im Format: *******
+     * Der Name des Semesters im Format: WSxx/xx oder SSxx
      */
     private String              name;
     /**
@@ -54,6 +55,25 @@ public class Semester {
      * Alle Einteilungen, die für dieses Semester berechnet wurden
      */
     private List<Allocation>    allocations;
+
+    /**
+     * Getter für die Id
+     * 
+     * @return id
+     */
+    public int getId() {
+        return id;
+    }
+
+    /**
+     * Setter für die Id
+     * 
+     * @param id
+     *            id
+     */
+    public void setId(int id) {
+        this.id = id;
+    }
 
     /**
      * Setter für die Einteilungen.
@@ -314,7 +334,11 @@ public class Semester {
      *            Der Name des Semesters.
      */
     public void setName(String name) {
-        this.name = name;
+        if (name.matches("WS\\d\\d/\\d\\d") || name.matches("SS\\d\\d")) {
+            this.name = name;
+        } else {
+            // TODO throws
+        }
     }
 
     /**
@@ -368,7 +392,7 @@ public class Semester {
         // TODO
         return null;
     }
-    
+
     /**
      * Diese Methode gibt alle Betreuer dieses Semesters zurück.
      * 
@@ -376,7 +400,7 @@ public class Semester {
      */
     public List<Adviser> getAdvisers() {
         List<Adviser> advisers = new ArrayList<Adviser>();
-        
+
         for (Project p : projects) {
             for (Adviser a : p.getAdvisers()) {
                 if (!advisers.contains(a)) {
@@ -384,7 +408,7 @@ public class Semester {
                 }
             }
         }
-        
+
         return advisers;
     }
 
@@ -425,11 +449,11 @@ public class Semester {
     public Date getRegistrationEnd() {
         return registrationEnd;
     }
-    
+
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof Semester) {
-            if (((Semester) obj).getName().equals(name)) {
+            if (((Semester) obj).getId() == id) {
                 return true;
             }
         }
