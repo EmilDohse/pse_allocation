@@ -4,11 +4,13 @@
 
 package data;
 
+import com.avaje.ebean.Model;
+
 /************************************************************/
 /**
  * Diese Klasse stellt einen Benutzer der Anwendung dar.
  */
-public class User {
+public class User extends Model {
 
     private int    id;
     /**

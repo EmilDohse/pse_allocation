@@ -6,11 +6,13 @@ package data;
 
 import java.util.List;
 
+import com.avaje.ebean.Model;
+
 /************************************************************/
 /**
  * Klasse, die ein Project repräsentiert
  */
-public class Project {
+public class Project extends Model {
 
     private int           id;
     /**

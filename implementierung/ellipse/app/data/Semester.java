@@ -8,11 +8,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.avaje.ebean.Model;
+
 /************************************************************/
 /**
  * Diese Klasse repräsentiert ein Semseter.
  */
-public class Semester {
+public class Semester extends Model {
 
     private int                 id;
     /**

@@ -4,18 +4,24 @@
 
 package data;
 
+import com.avaje.ebean.config.ServerConfig;
+import com.avaje.ebean.event.ServerConfigStartup;
+
 /************************************************************/
 /**
  * Klasse, die die Datenbank initialisiert.
  */
 public class PSEServerConfigStartup implements ServerConfigStartup {
-	
-	/**
-	 * Initialisiert die Datenbank.
-	 * 
-	 * @param serverConfig Ein Objekt, welches zur Konfiguration des Servers verwendet wird.
-	 */
-	public void onStartup(ServerConfig serverConfig) {
-		
-	}
+
+    /**
+     * Initialisiert die Datenbank.
+     * 
+     * @param serverConfig
+     *            Ein Objekt, welches zur Konfiguration des Servers verwendet
+     *            wird.
+     */
+    @Override
+    public void onStart(ServerConfig serverConfig) {
+
+    }
 }
