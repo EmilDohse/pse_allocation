@@ -360,4 +360,14 @@ public class Student extends User {
         // TODO throws
         return null;
     }
+    
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Student) {
+            if (((Student) obj).getMatriculationNumber() == matriculationNumber) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

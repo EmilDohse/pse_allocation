@@ -4,6 +4,7 @@
 
 package data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /************************************************************/
@@ -12,23 +13,28 @@ import java.util.List;
  */
 public class Adviser extends User {
 
-	/**
-	 * Getter für die Projekte, die der Betreuer beaufsichtigt.
-	 * 
-	 * @return Die Projekte, die der Betreuer beaufsichtigt.
-	 */
-	public List<Project> getProjects() {
-		//TODO
-		return null;
-	}
-	
-	/**
-	 * Diese Methode gibt alle Betreuer zurück, die es gibt.
-	 * 
-	 * @return Liste aller Betreuer.
-	 */
-	public static List<Adviser> getAdvisers() {
-		// TODO
-		return null;
-	}
+    /**
+     * Getter für die Projekte, die der Betreuer beaufsichtigt.
+     * 
+     * @return Die Projekte, die der Betreuer beaufsichtigt.
+     */
+    public List<Project> getProjects() {
+        List<Project> projects = new ArrayList<Project>();
+        for (Project p : Project.getProjects()) {
+            if (p.getAdvisers().contains(this)) {
+                projects.add(p);
+            }
+        }
+        return projects;
+    }
+
+    /**
+     * Diese Methode gibt alle Betreuer zurück, die es gibt.
+     * 
+     * @return Liste aller Betreuer.
+     */
+    public static List<Adviser> getAdvisers() {
+        // TODO
+        return null;
+    }
 }
