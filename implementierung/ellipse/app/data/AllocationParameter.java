@@ -9,45 +9,84 @@ package data;
  * Diese Klasse stellt einen Parameter für die Einteilungsberechnung dar.
  */
 public class AllocationParameter {
-	/**
-	 * Der Name des Parameters.
-	 */
-	private String name;
-	/**
-	 * Die Gewichtung des Parameters.
-	 */
-	private double value;
-	/**
-	 * Getter für den Namen des Parameters.
-	 * 
-	 * @return Der Name des Parameters.
-	 */
-	public String getName() {
-	    return name;
-	}
-	/**
-	 * Getter für den Wert des Parameters.
-	 * 
-	 * @return Der Wert des Parameters.
-	 */
-	public double getValue() {
-	    return value;
-	}
-	
-	/**
+
+    private int id;
+
+    /**
+     * Getter für die eindeutige ID des Objektes.
+     * 
+     * @return Die eindeutige ID des Objektes.
+     */
+    public int getId() {
+        return id;
+    }
+
+    /**
+     * Setter für die eindeutige ID des Objektes.
+     * 
+     * @param id
+     *            Die neue eindeutige ID des Objektes.
+     */
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    /**
+     * Der Name des Parameters.
+     */
+    private String name;
+    /**
+     * Die Gewichtung des Parameters.
+     */
+    private double value;
+
+    /**
+     * Getter für den Namen des Parameters.
+     * 
+     * @return Der Name des Parameters.
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * Getter für den Wert des Parameters.
+     * 
+     * @return Der Wert des Parameters.
+     */
+    public double getValue() {
+        return value;
+    }
+
+    /**
      * Setter für den Namen des Parameters.
      * 
-     * @param name Der Name des Parameters.
+     * @param name
+     *            Der Name des Parameters.
      */
     public void setName(String name) {
         this.name = name;
     }
+
     /**
      * Setter für den Wert des Parameters.
      * 
-     * @param value Der Wert des Parameters.
+     * @param value
+     *            Der Wert des Parameters.
      */
     public void setValue(double value) {
         this.value = value;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof AllocationParameter) {
+            return this.id == ((AllocationParameter) obj).id;
+        } else {
+            return false;
+        }
     }
 }
