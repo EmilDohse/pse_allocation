@@ -20,14 +20,17 @@ abstract class AbstractAllocator {
      *            soll.
      */
     public abstract void calculate(Configuration configuration);
-
+/**
+ * methode zum abbruch einer Einteilung
+ */
+    public abstract void cancel();
     /**
      * Gibt alle Kriterien, geladen über einen Serviceloader, zurück.
      * 
      * @return Die Liste aller verfügbarer Kriterien.
      */
     public static List<Criterion> getAllCriteria() {
-        // TODO
+        // TODO serviceloader
         return null;
     }
 }

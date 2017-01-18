@@ -10,9 +10,17 @@ public class AllocationContext {
 	public void setAllocator(AbstractAllocator allocator){
 		this.allocator = allocator;
 	}
-	public Allocation calculate(Configuration config){
+	public void calculate(Configuration config){
 		if(allocator != null) {
-			return allocator.calulate(config);
+			allocator.calculate(config);
+		}
+	}
+	/**
+	 * bricht die berechnung ab
+	 */
+	public void cancelAllocation(){
+		if(allocator != null){
+			allocator.cancel();
 		}
 	}
 

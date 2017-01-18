@@ -53,7 +53,12 @@ public class AllocationQueue {
 	    
 	    runnable = new Runnable() {
 			public void run() {
+			try{
 			allocator.calculate(currentlyCalculatedConfiguration); //TODO allocation verwenden
+			}catch (InterruptedException e) {
+				allocator.cancelAllocation();
+				// Just returns from this thread
+			}
 			currentlyCalculatedConfiguration = null;
 			threadState = ThreadState.IDLE;
 			calculate();
@@ -89,7 +94,14 @@ public class AllocationQueue {
 	 * @param configuration Die Konfiguration, die entfernt werden soll.
 	 */
 	public void cancelAllocation(Configuration configuration) {
-//TODO implemment)
+		synchronized (this) {
+			if(configuration == currentlyCalculatedConfiguration) {
+				calculator.interrupt();
+			}else{
+				configurationQueue.remove(configuration);
+			}
+		}
+		
 	}
 
 	/**

@@ -91,6 +91,12 @@ public class GurobiAllocator extends AbstractAllocator {
 		this.model = this.makeModel(configuration);
 
 	}
+	/**
+	 * bricht die berechnung ab
+	 */
+	public void cancel(){
+		//TODO implementierung des berechnungsabbruchs
+	}
 
 	/**
 	 * Lädt alle Implementierungen des GurobiCriteria Interfaces über einen
