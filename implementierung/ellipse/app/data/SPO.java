@@ -6,11 +6,13 @@ package data;
 
 import java.util.List;
 
+import com.avaje.ebean.Model;
+
 /************************************************************/
 /**
  * Diese Klasse stellt eine Studienprüfungsordnung dar.
  */
-public class SPO {
+public class SPO extends Model {
 
     private int               id;
     /**

@@ -6,11 +6,13 @@ package data;
 
 import java.util.List;
 
+import com.avaje.ebean.Model;
+
 /************************************************************/
 /**
  * Klasse, die ein Project repräsentiert
  */
-public class Project {
+public class Project extends Model {
 
     private int           id;
     /**
@@ -145,7 +147,8 @@ public class Project {
     }
 
     /**
-     * Getter der maximalen Größe für Teams dieses Projektes.
+     * Getter der maximalen Größe für Teams dieses Projektes. -1 entspricht
+     * keiner gesetzten Teamgröße.
      * 
      * @return Die maximale Teamgröße.
      */
@@ -154,7 +157,8 @@ public class Project {
     }
 
     /**
-     * Getter der minimalen Größe für Teams dieses Projektes.
+     * Getter der minimalen Größe für Teams dieses Projektes. -1 entspricht
+     * keiner gesetzten Teamgröße.
      * 
      * @return Die minimale Teamgröße.
      */
@@ -191,13 +195,14 @@ public class Project {
     }
 
     /**
-     * Setter der maximalen Größe für Teams dieses Projektes.
+     * Setter der maximalen Größe für Teams dieses Projektes. -1 entspricht
+     * keiner gesetzten Teamgröße.
      * 
      * @param maxTeamSize
      *            Die maximale Größe für Teams dieses Projektes.
      */
     public void setMaxTeamSize(int maxTeamSize) {
-        if (maxTeamSize >= 0) {
+        if (maxTeamSize >= -1) {
             this.maxTeamSize = maxTeamSize;
         } else {
             // TODO throws
@@ -205,13 +210,14 @@ public class Project {
     }
 
     /**
-     * Setter der minimalen Größe für Teams dieses Projektes.
+     * Setter der minimalen Größe für Teams dieses Projektes. -1 entspricht
+     * keiner gesetzten Teamgröße.
      * 
      * @param minTeamSize
      *            Die minimale Größe für Teams dieses Projektes.
      */
     public void setMinTeamSize(int minTeamSize) {
-        if (minTeamSize >= 0) {
+        if (minTeamSize >= -1) {
             this.minTeamSize = minTeamSize;
         } else {
             // TODO throws

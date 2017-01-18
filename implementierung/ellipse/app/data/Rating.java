@@ -4,12 +4,14 @@
 
 package data;
 
+import com.avaje.ebean.Model;
+
 /************************************************************/
 /**
  * Diese Klasse stellt eine Bewertung eines Studierenden oder einerr Lerngruppe
  * für ein Projekt dar.
  */
-public class Rating {
+public class Rating extends Model {
 
     private int     id;
     /**
