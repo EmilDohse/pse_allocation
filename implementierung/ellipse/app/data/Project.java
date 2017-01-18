@@ -12,6 +12,7 @@ import java.util.List;
  */
 public class Project {
 
+    private int           id;
     /**
      * Der Name des Projektes.
      */
@@ -44,6 +45,25 @@ public class Project {
      * Betreuer des Projekts
      */
     private List<Adviser> advisers;
+
+    /**
+     * Getter für die Id
+     * 
+     * @return id
+     */
+    public int getId() {
+        return id;
+    }
+
+    /**
+     * Setter für die Id
+     * 
+     * @param id
+     *            id
+     */
+    public void setId(int id) {
+        this.id = id;
+    }
 
     /**
      * Getter für die Anzahl der Teams.
@@ -274,7 +294,7 @@ public class Project {
     public int getRating(Student student) {
         return student.getLearningGroup(getSemester()).getRating(this);
     }
-    
+
     /**
      * Gibt das Semester zurück, in dem das Projekt angeboten wurde.
      * 
@@ -286,7 +306,17 @@ public class Project {
                 return s;
             }
         }
-        //TODO throws
+        // TODO throws
         return null;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Project) {
+            if (((Project) obj).getId() == id) {
+                return true;
+            }
+        }
+        return false;
     }
 }
