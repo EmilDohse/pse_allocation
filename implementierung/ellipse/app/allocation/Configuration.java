@@ -10,6 +10,7 @@ import data.AllocationParameter;
 import data.Project;
 import data.Student;
 import data.LearningGroup;
+import data.Team;
 
 /************************************************************/
 /**
@@ -30,9 +31,9 @@ public class Configuration {
 	 */
 	private LearningGroup[] learningGroups;
 	/**
-	 * Die Projekte, die bei der Einteilung berücksichtigt werden.
+	 * Die Teams, die bei der Einteilung berücksichtigt werden.
 	 */
-	private Project[] projects;
+	private Team[] teams;
 	/**
 	 * Die Parameter für Kriterien, die bei der Einteilung berücksichtigt werden.
 	 */
@@ -88,8 +89,8 @@ public class Configuration {
 	 * 
 	 * @return Liste von Projekten, denen Studenten zugeteilt werden sollen.
 	 */
-	public Project[] getProjects() {
-		return projects;
+	public Team[] getTeams() {
+		return teams;
 	}
 
 	/**
