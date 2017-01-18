@@ -24,15 +24,15 @@ public class Configuration {
 	/**
 	 * Alle Studenten, die bei der Einteilung berücksichtigt werden.
 	 */
-	private Student[] students;
+	private List<Student> students;
 	/**
 	 * Alle Lerngruppen, die bei der Einteilung berücksichtigt werden.
 	 */
-	private LearningGroup[] learningGroups;
+	private List<LearningGroup> learningGroups;
 	/**
 	 * Die Teams, die bei der Einteilung berücksichtigt werden.
 	 */
-	private Team[] teams;
+	private List<Team> teams;
 	/**
 	 * Die Parameter für Kriterien, die bei der Einteilung berücksichtigt werden.
 	 */
@@ -44,7 +44,7 @@ public class Configuration {
      * @param allocationName
      *            Der Name der Einteilung, die berechnet werden soll.
      * @param students
-     *            Array von Studenten, die eingeteilt werden sollen.
+     *            Liste von Studenten, die eingeteilt werden sollen.
      * @param learningGroups
      *            Liste von Lerngruppen, die zugeteilt werden sollen.
      * @param teams
@@ -52,7 +52,7 @@ public class Configuration {
      * @param parameters
      *            Liste von Parametern, die der Admin eingestellt hat.
      */
-    public Configuration(String allocationName, Student[] students, LearningGroup[] learningGroups, Team[] teams,
+    public Configuration(String allocationName, List<Student> students, List<LearningGroup> learningGroups, List<Team> teams,
             List<AllocationParameter> parameters) {
     }
 
@@ -68,9 +68,9 @@ public class Configuration {
     /**
      * Getter für Studenten.
      * 
-     * @return Array von Studenten, die eingeteilt werden sollen.
+     * @return Liste von Studenten, die eingeteilt werden sollen.
      */
-    public Student[] getStudents() {
+    public List<Student> getStudents() {
         return students;
     }
 
@@ -79,7 +79,7 @@ public class Configuration {
 	 * 
 	 * @return Liste von Teams, denen Studenten zugeteilt werden sollen.
 	 */
-	public Team[] getTeams() {
+	public List<Team> getTeams() {
 		return teams;
 	}
     /**
@@ -87,7 +87,7 @@ public class Configuration {
      * 
      * @return Array von Lerngruppen, die zugeteilt werden sollen.
      */
-    public LearningGroup[] getLearningGroups() {
+    public List<LearningGroup> getLearningGroups() {
         return learningGroups;
     }
 

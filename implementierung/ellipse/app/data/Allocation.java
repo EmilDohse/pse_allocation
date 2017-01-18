@@ -14,8 +14,34 @@ import com.avaje.ebean.Model;
 public class Allocation {
 
     private int id;
-
+    
     /**
+     * Liste, die alle Teams enthält.
+     */
+    private List<Team>                teams;
+    /**
+     * Der Name der Einteilung.
+     */
+    private String                    name;
+    /**
+     * Parameter, mit der die Einteilung gemacht wurde.
+     */
+    private List<AllocationParameter> parameters;
+    
+    /**
+     * Konstruktor, der alles außer ID setzt
+     * @param teams Die eingeteilten Teams
+     * @param name Der Name der Einteilung
+     * @param parameters Die eingestellten Parameter
+     */
+	public Allocation(List<Team> teams, String name, List<AllocationParameter> parameters) {
+		// TODO @Datenleute nochmal drüberschauen ob das passt ~Philipp
+		this.teams = teams;
+		this.name = name;
+		this.parameters = parameters;
+	}
+
+	/**
      * Getter für die eindeutige ID des Objektes.
      * 
      * @return Die eindeutige ID des Objektes.
@@ -33,20 +59,7 @@ public class Allocation {
     public void setId(int id) {
         this.id = id;
     }
-
-    /**
-     * Liste, die alle Teams enthält.
-     */
-    private List<Team>                teams;
-    /**
-     * Der Name der Einteilung.
-     */
-    private String                    name;
-    /**
-     * Parameter, mit der die Einteilung gemacht wurde.
-     */
-    private List<AllocationParameter> parameters;
-
+    
     /**
      * Getter für die Parameter der Einteilung.
      * 
