@@ -379,6 +379,11 @@ public class Student extends User {
         // TODO throws
         return null;
     }
+    
+    public boolean registeredMoreThanOnce() {
+    	// TODO wäre ganz angenehm für die Berechnung ~Philipp
+    	return false;
+    }
 
     @Override
     public boolean equals(Object obj) {
