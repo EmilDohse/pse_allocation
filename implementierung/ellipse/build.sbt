@@ -2,7 +2,7 @@ name := """ellipse"""
 
 version := "1.0-SNAPSHOT"
 
-lazy val root = (project in file(".")).enablePlugins(PlayJava)
+lazy val root = (project in file(".")).enablePlugins(PlayJava, PlayEbean)
 
 scalaVersion := "2.11.7"
 
@@ -17,7 +17,5 @@ libraryDependencies ++= Seq(
 resolvers += "SQLite-JDBC Repository" at "https://oss.sonatype.org/content/repositories/snapshots"
 
 playEnhancerEnabled := false
-
-enablePlugins(PlayEbean)
 
 fork in run := true
