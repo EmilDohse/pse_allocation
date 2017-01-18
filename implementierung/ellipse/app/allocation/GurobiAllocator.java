@@ -90,6 +90,7 @@ public class GurobiAllocator extends AbstractAllocator {
      *            Die Konfiguration, nach der die Einteilung berechnet werden
      *            soll.
      */
+    @Override
     public void calculate(Configuration configuration) throws AllocationException {
         try {
             this.model = this.makeModel(configuration);
@@ -112,7 +113,8 @@ public class GurobiAllocator extends AbstractAllocator {
      * 
      * @return Die Liste aller Gurobi Kriterien.
      */
-    public static ArrayList<GurobiCriterion> getAllCriteria() {
+    @Override
+    public ArrayList<GurobiCriterion> getAllCriteria() {
         Iterator<GurobiCriterion> iter = ServiceLoader.load(GurobiCriterion.class).iterator();
         ArrayList<GurobiCriterion> criteria = new ArrayList<GurobiCriterion>();
         while (iter.hasNext()) {

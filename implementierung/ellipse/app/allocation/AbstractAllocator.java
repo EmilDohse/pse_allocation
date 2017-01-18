@@ -36,7 +36,7 @@ abstract class AbstractAllocator {
      * 
      * @return Die Liste aller verfügbarer Kriterien.
      */
-    public static List<Criterion> getAllCriteria() {
+    public List<? extends Criterion> getAllCriteria() {
         // TODO serviceloader
         Iterator iter = ServiceLoader.load(Criterion.class).iterator();
 
