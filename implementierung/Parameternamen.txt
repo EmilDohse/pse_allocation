@@ -1,0 +1,10 @@
+CriterionAllocated 						--> "Allocated"
+CriterionLearningGroup 					--> "LearningGroups"
+CriterionRegisteredAgain				--> "RegisteredAgain"
+CriterionRating							--> "Rating"
+CriterionAdditionalPerfomances			--> "AdditionalPerfomances"
+CriterionPreferredTeamSize				--> "PreferredTeamSize"
+
+Minimale Teamgröße						--> "minSize"
+Maximale Teamgröße						--> "maxSize"
+Gewünschte Teamgröße					--> "prefSize"

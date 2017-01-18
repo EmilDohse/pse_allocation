@@ -5,6 +5,7 @@
 package allocation;
 
 import exception.AllocationException;
+import gurobi.GRBException;
 import gurobi.GRBLinExpr;
 
 /************************************************************/
@@ -38,8 +39,18 @@ public class CriterionRegisteredAgain implements GurobiCriterion {
 			throws AllocationException {
 		GRBLinExpr bonus = new GRBLinExpr();
 		for (int i = 0; i < configuration.getStudents().size(); i++) {
-			// TODO if (configuration.getStudents().get(i).)
+			
+			//Betrachte nur Studenten, die sich erneut registriert haben
+			if (configuration.getStudents().get(i).registeredMoreThanOnce()) {
+				for (int j = 0; j < configuration.getTeams().size(); j++) {
+					bonus.addTerm(weight * 10, allocator.getBasicMatrix()[i][j]);
+				}
+			}
 		}
-		
+		try {
+			allocator.getOptimizationTerm().add(bonus);
+		} catch (GRBException e) {
+			throw new AllocationException(); 
+		}		
 	}
 }

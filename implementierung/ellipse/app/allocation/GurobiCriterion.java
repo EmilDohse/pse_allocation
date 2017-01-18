@@ -20,6 +20,8 @@ public interface GurobiCriterion extends allocation.Criterion {
 	 *            Die Konfiguration, die zur Berechnung verwendet wird.
 	 * @param allocator
 	 *            Die Allocator-Instanz welche dieses Kriterium verwenden soll.
+	 * @param weight
+	 *            Der vom Admin eingestellte Parameter.
 	 */
 	public void useCriteria(Configuration configuration, GurobiAllocator allocator, double weight)
 			throws AllocationException;

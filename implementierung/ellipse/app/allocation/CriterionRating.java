@@ -5,6 +5,7 @@
 package allocation;
 
 import exception.AllocationException;
+import gurobi.GRBException;
 import gurobi.GRBLinExpr;
 
 /************************************************************/
@@ -13,34 +14,41 @@ import gurobi.GRBLinExpr;
  * berücksichtigt werden.
  */
 public class CriterionRating implements GurobiCriterion {
-    private String name;
+	private String name;
 
-    /**
-     * Standard-Konstruktor, der den Namen eindeutig setzt
-     */
-    public CriterionRating() {
-        this.name = "Rating";
-    }
+	/**
+	 * Standard-Konstruktor, der den Namen eindeutig setzt
+	 */
+	public CriterionRating() {
+		this.name = "Rating";
+	}
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public String getName() {
-       return this.name;
-    }
-    
-    /**
-     * {@inheritDoc}
-     */
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public String getName() {
+		return this.name;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void useCriteria(Configuration configuration, GurobiAllocator allocator, double weight)
 			throws AllocationException {
 		GRBLinExpr bonus = new GRBLinExpr();
 		for (int i = 0; i < configuration.getStudents().size(); i++) {
 			for (int j = 0; j < configuration.getTeams().size(); j++) {
-				//TODO Wie ist Ratin intern abgebildet?
+				bonus.addTerm(weight
+						* (configuration.getStudents().get(i).getRating(configuration.getTeams().get(j).getProject())),
+						allocator.getBasicMatrix()[i][j]);
 			}
+		}
+		try {
+			allocator.getOptimizationTerm().add(bonus);
+		} catch (GRBException e) {
+			throw new AllocationException();
 		}
 	}
 }
