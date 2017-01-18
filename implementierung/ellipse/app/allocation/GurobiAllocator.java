@@ -9,6 +9,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ServiceLoader;
 
+import data.AllocationParameter;
+
 import exception.AllocationException;
 
 import gurobi.*;
@@ -22,23 +24,28 @@ import gurobi.*;
 public class GurobiAllocator extends AbstractAllocator {
 
     /**
+     * String-Konstante für Gurobi
+     */
+    public static final String NULL = new String();
+
+    /**
      * Die Basismatrix (NxM) welche anzeigt, ob ein Student n in einm Team m
      * ist. Die Mte Spalte ist das Team der nicht zugeteilten
      */
-    private GRBVar[][] basicMatrix;
+    private GRBVar[][]         basicMatrix;
     /**
      * Über Constraints dynamisch bestimmte Teamgröße. (Hilfsvariablen)
      */
-    private GRBVar[]   teamSizes;
+    private GRBVar[]           teamSizes;
     /**
      * Der Optimierungsterm der von Kriterien erweitert wird und zur Berechnung
      * der Einteilung verwendet wird.
      */
-    private GRBLinExpr optTerm;
+    private GRBLinExpr         optTerm;
     /**
      * Das zur Berechnung verwendete Gurobi Model.
      */
-    private GRBModel   model;
+    private GRBModel           model;
 
     /**
      * Konstruktor, der das Basismodell initialisiert.
@@ -90,7 +97,6 @@ public class GurobiAllocator extends AbstractAllocator {
      *            Die Konfiguration, nach der die Einteilung berechnet werden
      *            soll.
      */
-    @Override
     public void calculate(Configuration configuration) throws AllocationException {
         try {
             this.model = this.makeModel(configuration);
@@ -113,8 +119,7 @@ public class GurobiAllocator extends AbstractAllocator {
      * 
      * @return Die Liste aller Gurobi Kriterien.
      */
-    @Override
-    public ArrayList<GurobiCriterion> getAllCriteria() {
+    public List<GurobiCriterion> getAllCriteria() {
         Iterator<GurobiCriterion> iter = ServiceLoader.load(GurobiCriterion.class).iterator();
         ArrayList<GurobiCriterion> criteria = new ArrayList<GurobiCriterion>();
         while (iter.hasNext()) {
@@ -128,10 +133,28 @@ public class GurobiAllocator extends AbstractAllocator {
         GRBModel model = new GRBModel(env);
 
         // Erstelle Basismatrix B
+
+        this.basicMatrix = new GRBVar[configuration.getStudents().length][configuration.getTeams().length + 1];
+        for (int i = 0; i < configuration.getStudents().length; i++) {
+            for (int j = 0; i <= configuration.getTeams().length; j++) {
+                this.basicMatrix[i][j] = this.model.addVar(0, 1, 0, GRB.BINARY, NULL);
+            }
+        }
+
+        // Erzeuge Basisconstraint
+        // Genau 1 Team pro Student
+        for (int i = 0; i < configuration.getStudents().length; i++) {
+            GRBLinExpr teamsPerStudent = new GRBLinExpr();
+            for (int j = 0; j <= configuration.getTeams().length; j++) {
+                teamsPerStudent.addTerm(1, this.basicMatrix[i][j]);
+            }
+            this.model.addConstr(teamsPerStudent, GRB.EQUAL, 1, NULL);
+        }
         
-        this.basicMatrix = new GRBVar[configuration.getStudents().length][configuration.getTeams().length];
+        // Teamgröße zwischen min und max, oder 0
+        List<AllocationParameter> parameters = configuration.getParameters();
+        // int minAdminSize = parameters.stream().filter(parameter -> parameter.getName());
         
-        // Nachfragen wegen Teams in Configuration
 
         return model;
     }
