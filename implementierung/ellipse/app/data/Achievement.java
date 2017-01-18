@@ -4,55 +4,94 @@
 
 package data;
 
+import java.util.List;
+
 /************************************************************/
 /**
  * Diese Klasse stellt eine Teilleistung im Studium dar.
  */
 public class Achievement {
-	/**
-	 * Der Name der Teilleistung.
-	 */
-	private String name;
 
-	/**
-	 * Getter für den Namen der Teilleistung.
-	 * 
-	 * @return Der Name der Teilleistung.
-	 */
-	public String getName() {
-		return name;
-	}
+    /**
+     * Eindeutige ID des Objektes.
+     */
+    private int    id;
 
-	/**
-	 * Setter für den Namen der Teilleistung.
-	 * 
-	 * @param name
-	 *            Der Name der Teilleistung.
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
+    /**
+     * Der Name der Teilleistung.
+     */
+    private String name;
 
-	/**
-	 * Diese Methode gibt alle Teilleistungen zurück.
-	 * 
-	 * @return Alle existierenden Teilleistungen.
-	 */
-	public static Achievement[] getAchievements() {
-		// TODO
-		return null;
-	}
+    /**
+     * Getter für die eindeutige ID des Objektes.
+     * 
+     * @return Die eindeutige ID des Objektes.
+     */
+    public int getId() {
+        return id;
+    }
 
-	/**
-	 * Diese Methode gibt eine bestimmte Teilleistung zurück, die durch ihren
-	 * Namen identifiziert wird.
-	 * 
-	 * @param name
-	 *            Der Name der Teilleistung.
-	 * @return Die bestimmte Teilleistung.
-	 */
-	public static Achievement getAchievement(String name) {
-		// TODO
-		return null;
-	}
+    /**
+     * Setter für die eindeutige ID des Objektes.
+     * 
+     * @param id
+     *            Die neue eindeutige ID des Objektes.
+     */
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    /**
+     * Getter für den Namen der Teilleistung.
+     * 
+     * @return Der Name der Teilleistung.
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * Setter für den Namen der Teilleistung.
+     * 
+     * @param name
+     *            Der Name der Teilleistung.
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     * Diese Methode gibt alle Teilleistungen zurück.
+     * 
+     * @return Alle existierenden Teilleistungen.
+     */
+    public static List<Achievement> getAchievements() {
+        // TODO
+        return null;
+    }
+
+    /**
+     * Diese Methode gibt eine bestimmte Teilleistung zurück, die durch ihren
+     * Namen identifiziert wird.
+     * 
+     * @param name
+     *            Der Name der Teilleistung.
+     * @return Die bestimmte Teilleistung.
+     */
+    public static Achievement getAchievement(String name) {
+        // TODO
+        return null;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Achievement) {
+            return this.id == ((Achievement) obj).id;
+        } else {
+            return false;
+        }
+    }
 }
