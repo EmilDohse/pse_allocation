@@ -9,7 +9,7 @@ package allocation;
  * Das Kriterium sorgt dafür, dass die Bewertungen der Studierenden
  * berücksichtigt werden.
  */
-public class CriterionRating implements Criterion {
+public class CriterionRating implements GurobiCriterion {
     private String name;
 
     /**

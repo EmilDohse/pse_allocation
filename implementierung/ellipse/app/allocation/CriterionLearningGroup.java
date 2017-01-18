@@ -8,7 +8,7 @@ package allocation;
 /**
  * Das Kriterium sorgt dafür, dass Lerngruppen eher zusammenbleiben.
  */
-public class CriterionLearningGroup implements Criterion {
+public class CriterionLearningGroup implements GurobiCriterion {
     private String name;
     
     /**
