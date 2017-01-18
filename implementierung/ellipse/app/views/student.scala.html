@@ -1,0 +1,18 @@
+@*
+ * This template takes a single argument, a String containing a
+ * message to display.
+ *@
+@(content: Html)
+
+@*
+ * Call the `main` template with two arguments. The first
+ * argument is a `String` with the title of the page, the second
+ * argument is an `Html` object containing the body of the page.
+ *@
+
+@main("Elipse - Studentenportal", {val map = new HashMap[String, String];
+map.put("Lerngruppe", controllers.routes.StudentPageController.learningGroupPage().path());
+map.put("Projektbewertung", controllers.routes.StudentPageController.ratingPage().path());
+map.put("Einteilungsergebnisse", controllers.routes.StudentPageController.resultsPage().path());
+map.put("Account", controllers.routes.StudentPageController.accountPage().path());
+map}) {null} {@content}

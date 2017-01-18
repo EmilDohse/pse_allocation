@@ -2,7 +2,7 @@
  * This template takes a single argument, a String containing a
  * message to display.
  *@
-@(message: String)
+@(content: Html)
 
 @*
  * Call the `main` template with two arguments. The first
@@ -10,7 +10,7 @@
  * argument is an `Html` object containing the body of the page.
  *@
 
-@main("Welcome to Play", {val map = new HashMap[String, String];
+@main("Elipse - Index", {val map = new HashMap[String, String];
 map.put("Allgemeine Informationen", controllers.routes.IndexPageController.indexPage().path());
 map.put("Registrierung", controllers.routes.IndexPageController.registerPage().path());
 map}) {
@@ -19,6 +19,6 @@ map}) {
     </from>
 }{
 
-    <h1>Hallo Welt</h1>
+    @content
 
 }
