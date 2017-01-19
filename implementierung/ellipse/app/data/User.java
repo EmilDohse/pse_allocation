@@ -77,6 +77,15 @@ public class User extends ElipseModel {
     }
 
     /**
+     * Getter für den kompletten Namen, bestehend aus Vor- und Nachnamen.
+     * 
+     * @return Der Name.
+     */
+    public String getName() {
+        return firstName + " " + lastName;
+    }
+
+    /**
      * Setter für den Benutzernamen.
      * 
      * @param username

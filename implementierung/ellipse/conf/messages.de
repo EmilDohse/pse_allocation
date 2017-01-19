@@ -33,3 +33,7 @@ admin.sidebar.results = Einteilungsergebnisse
 admin.sidebar.exportImport = Export/Import
 admin.sidebar.studentEdit = Studenten hinzufügen/löschen
 admin.sidebar.properties = Einstellungen
+admin.advisers.name = Name
+admin.advisers.email = E-Mail-Adresse
+admin.advisers.projectCount = Projektanzahl
+admin.advisers.form.addAdviser = Betreuer erstellen
