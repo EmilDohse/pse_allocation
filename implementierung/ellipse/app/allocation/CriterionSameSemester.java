@@ -4,36 +4,45 @@
 
 package allocation;
 
+import exception.AllocationException;
+import gurobi.GRBLinExpr;
+
 /************************************************************/
 /**
  * Das Kriterium sorgt dafür, dass Studierende, des für das PSE vorgesehenen
  * Semesters, und Studierende höherer Semester nicht in das selbe Team kommen.
  */
 public class CriterionSameSemester implements GurobiCriterion {
-    private String name;
+	private String name;
 
-    /**
-     * Standard-Konstruktor, der den Namen eindeutig setzt
-     */
-    public CriterionSameSemester() {
-        
-    }
-    
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void useCriteria(int weight, GurobiAllocator allocator) {
-        // TODO Auto-generated method stub
+	/**
+	 * Standard-Konstruktor, der den Namen eindeutig setzt
+	 */
+	public CriterionSameSemester() {
+		this.name = "SameSemester";
+	}
 
-    }
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public String getName() {
+		return this.name;
+	}
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public String getName() {
-        // TODO Auto-generated method stub
-        return null;
-    }
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void useCriteria(Configuration configuration, GurobiAllocator allocator, double weight)
+			throws AllocationException {
+		GRBLinExpr bonus = new GRBLinExpr();
+		
+		int normalSemester;
+		// TODO
+		for (int i = 0; i < configuration.getStudents().size(); i++) {
+			
+		}
+
+	}
 }

@@ -36,66 +36,96 @@ public class CriterionPreferredTeamSize implements GurobiCriterion {
 	}
 
 	/**
-     * {@inheritDoc}
-     */
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void useCriteria(Configuration configuration, GurobiAllocator allocator, double weight)
 			throws AllocationException {
 		GRBLinExpr bonus = new GRBLinExpr();
 		double prefSize;
-		
-		//Finde die gewünschte Teamgröße
+
+		// Finde die gewünschte Teamgröße
 		try {
-			prefSize = configuration.getParameters().stream().filter(parameter -> parameter.getName().equals("prefSize")).findFirst().get().getValue();
+			prefSize = configuration.getParameters().stream()
+					.filter(parameter -> parameter.getName().equals("prefSize")).findFirst().get().getValue();
 		} catch (NoSuchElementException e) {
 			throw new AllocationException();
 		}
-		
-		for (int i = 0; i < configuration.getStudents().size(); i++) {
-			for (int j = 0; j < configuration.getTeams().size(); j++) {
-				
-				// Bestimme maximale Teamgröße
-				double maxSize;
-				if (configuration.getTeams().get(j).getProject().getMaxTeamSize() == -1) {
-					try {
-					maxSize = configuration.getParameters().stream().filter(parameter -> parameter.getName().equals("maxSize")).findFirst()
-							.get().getValue();
-					} catch (NoSuchElementException e) {
-						throw new AllocationException();
-					}
-				} else {
-					maxSize = configuration.getTeams().get(j).getProject().getMaxTeamSize();
+
+		for (int j = 0; j < configuration.getTeams().size(); j++) {
+
+			// Bestimme maximale Teamgröße
+			double maxSize;
+			if (configuration.getTeams().get(j).getProject().getMaxTeamSize() == -1) {
+				try {
+					maxSize = configuration.getParameters().stream()
+							.filter(parameter -> parameter.getName().equals("maxSize")).findFirst().get().getValue();
+				} catch (NoSuchElementException e) {
+					throw new AllocationException();
 				}
-				/*
-				GRBLinExpr varianceToPrefSize = new GRBLinExpr();
-				GRBVar isPrefSize = allocator.getModel().addVar(0, 1, 0, GRB.BINARY, GurobiAllocator.NULL);
-				GRBVar negatedIsPrefSize = allocator.getModel().addVar(0, 1, 0, GRB.BINARY, GurobiAllocator.NULL);
-				GRBVar helpingVariable = allocator.getModel().addVar(0, 1, 0, GRB.BINARY, GurobiAllocator.NULL);
-				GRBVar negateHelpingVariable = allocator.getModel().addVar(0, 1, 0, GRB.BINARY, GurobiAllocator.NULL);
-				
-				GRBLinExpr negationHelpingVariable = new GRBLinExpr();
-				GRBLinExpr leftSideFirstConstraint = new GRBLinExpr();
-				GRBLinExpr rightSideFirstConstraint = new GRBLinExpr();
-				GRBLinExpr leftSideSecondConstraint = new GRBLinExpr();
-				GRBLinExpr rightSideSecondConstraint = new GRBLinExpr();
-				
-				negationHelpingVariable.addConstant(1);
-				negationHelpingVariable.addTerm(-1, helpingVariable);
-				
-				
-				varianceToPrefSize.addTerm(1, allocator.getTeamSizes()[j]);
-				varianceToPrefSize.addConstant(-prefSize);
-				
-				leftSideFirstConstraint.addTerm(-maxSize, negateHelpingVariable);
-				rightSideFirstConstraint.addTerm(maxSize, negateHelpingVariable);
-				leftSideSecondConstraint.addTerm(0.1, negateHelpingVariable);
-				leftSideSecondConstraint.addTerm(-(maxSize + 0.1), helpingVariable);
-				rightSideSecondConstraint.addTerm(-0.1, negateHelpingVariable);
-				rightSideSecondConstraint.addTerm(maxSize + 0.1, negateHelpingVariable);
-				*/
-				
+			} else {
+				maxSize = configuration.getTeams().get(j).getProject().getMaxTeamSize();
 			}
+
+			// benötigte Variablen
+			GRBLinExpr varianceToPrefSize = new GRBLinExpr();
+			GRBVar isPrefSize;
+			GRBVar helpingVariable;
+			try {
+				isPrefSize = allocator.getModel().addVar(0, 1, 0, GRB.BINARY, GurobiAllocator.NULL);
+				helpingVariable = allocator.getModel().addVar(0, 1, 0, GRB.BINARY, GurobiAllocator.NULL);
+			} catch (GRBException e1) {
+				throw new AllocationException();
+			}
+
+			// initialisiere alle benötigten Teilterme
+			GRBLinExpr negationHelpingVariable = new GRBLinExpr();
+			GRBLinExpr negationIsPrefSize = new GRBLinExpr();
+			GRBLinExpr leftSideFirstConstraint = new GRBLinExpr();
+			GRBLinExpr rightSideFirstConstraint = new GRBLinExpr();
+			GRBLinExpr leftSideSecondConstraint = new GRBLinExpr();
+			GRBLinExpr rightSideSecondConstraint = new GRBLinExpr();
+
+			negationHelpingVariable.addConstant(1);
+			negationHelpingVariable.addTerm(-1, helpingVariable);
+
+			negationIsPrefSize.addConstant(1);
+			negationIsPrefSize.addTerm(-1, isPrefSize);
+
+			varianceToPrefSize.addTerm(1, allocator.getTeamSizes()[j]);
+			varianceToPrefSize.addConstant(-prefSize);
+
+			try {
+				leftSideFirstConstraint.multAdd(-maxSize, negationIsPrefSize);
+
+				rightSideFirstConstraint.multAdd(maxSize, negationIsPrefSize);
+
+				leftSideSecondConstraint.multAdd(0.1, negationIsPrefSize);
+				leftSideSecondConstraint.multAdd(-(maxSize + 0.1), negationHelpingVariable);
+
+				rightSideSecondConstraint.multAdd(-0.1, negationIsPrefSize);
+				rightSideSecondConstraint.multAdd((maxSize + 0.1), negationHelpingVariable);
+
+				allocator.getModel().addConstr(leftSideFirstConstraint, GRB.LESS_EQUAL, varianceToPrefSize,
+						GurobiAllocator.NULL);
+				allocator.getModel().addConstr(varianceToPrefSize, GRB.LESS_EQUAL, rightSideFirstConstraint,
+						GurobiAllocator.NULL);
+
+				allocator.getModel().addConstr(leftSideSecondConstraint, GRB.LESS_EQUAL, varianceToPrefSize,
+						GurobiAllocator.NULL);
+				allocator.getModel().addConstr(varianceToPrefSize, GRB.LESS_EQUAL, rightSideSecondConstraint,
+						GurobiAllocator.NULL);
+			} catch (GRBException e) {
+				throw new AllocationException();
+			}
+
+			bonus.addTerm(weight * 10, isPrefSize);
 		}
-		
+		try {
+			allocator.getOptimizationTerm().add(bonus);
+		} catch (GRBException e) {
+			throw new AllocationException();
+		}
+
 	}
 }
