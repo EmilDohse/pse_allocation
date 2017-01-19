@@ -4,6 +4,9 @@
 
 package allocation;
 
+import exception.AllocationException;
+import gurobi.GRBLinExpr;
+
 /************************************************************/
 /**
  * Das Kriterium sorgt dafür, dass Studierende höheren Semesters bevorzugt
@@ -16,24 +19,25 @@ public class CriterionPreferHigherSemester implements GurobiCriterion {
      * Standard-Konstruktor, der den Namen eindeutig setzt
      */
     public CriterionPreferHigherSemester() {
-        
+        this.name = "PreferHigherSemester";
     }
     
     /**
      * {@inheritDoc}
      */
     @Override
-    public void useCriteria(int weight, GurobiAllocator allocator) {
-        // TODO Auto-generated method stub
-
+    public String getName() {
+        return this.name;
     }
 
     /**
      * {@inheritDoc}
      */
-    @Override
-    public String getName() {
-        // TODO Auto-generated method stub
-        return null;
-    }
+	@Override
+	public void useCriteria(Configuration configuration, GurobiAllocator allocator, double weight)
+			throws AllocationException {
+		GRBLinExpr bonus = new GRBLinExpr();
+		// TODO hier weiter machen
+		
+	}
 }
