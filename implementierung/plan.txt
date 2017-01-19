@@ -4,14 +4,14 @@ lars+philipp: daten diese woche
 
 2.woche:
 lars:daten
-daniel+sam: view
+daniel+sam: view + controller methoden für views
 philipp+philipp: controller
 emil: allocator
 daniel: pac4j+shibolleth
 
 3.woche:
 sam: qualityCriteria + notificationSystem
-daniel: layout der views
+daniel: verfifcator + layout der views
 philpp+lars+philipp+emil: controller
 daniel: pac4j+shibolleth
 

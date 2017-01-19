@@ -1,4 +1,4 @@
-@()
+(spos: List[SPO])
 
 <h1>@Messages("index.sidebar.registration")</h1>
 <form action="@controllers.routes.IndexPageController.register().path()" method="POST">
@@ -23,9 +23,26 @@
 	<fieldset>
 		<legend>@Messages("index.registration.form.studyData")</legend>
 		
+		<p>@Messages("index.registration.form.semester")
+			<select name="semester">
+				<option value="3">@Messages("index.registration.form.3semester")</option>
+				<option value="4">@Messages("index.registration.form.4semester")</option>
+				<option value="5">@Messages("index.registration.form.5semester")</option>
+			</select>
+		</p>
+		<p>@Messages("index.registration.form.spo")
+			<select name="spo">
+				@for(spo <- spos) {
+					<option value="@spo.getName()">@spo.getName()</option> 
+				}
+			</select>
+		</p>
+		
 		<p><label for="matrnr">@Messages("index.registration.form.matrnr")</label>
 		<input type="text" name="matrnr" id="matrnr"></p>
 		
-		
+		<-- TODO: Teilleistungsauswahl !!!-->
 	</fieldset>
+	<p><input type="checkbox" name="trueData" value="trueData">@Messages("index.registration.form.trueData")</p>
+	<p><input type="submit" value='@Messages("index.registration.form.register")'></p>
 </form>
