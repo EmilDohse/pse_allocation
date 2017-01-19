@@ -1,21 +1,25 @@
 @(advisers: List[Adviser])
 
 <h1>@Messages("admin.sidebar.adviser")</h1>
-<table>
-	<tr>
-		<th>@Messages("admin.advisers.name")</th>
-		<th>@Messages("admin.advisers.email")</th>
-		<th>@Messages("admin.advisers.projectCount")</th>
-	</tr>
-	@for(adviser <- advisers) {
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th>@Messages("admin.advisers.name")</th>
+			<th>@Messages("admin.advisers.email")</th>
+			<th>@Messages("admin.advisers.projectCount")</th>
+		</tr>
+	</thead>
+	<tbody>
+		@for(adviser <- advisers) {
 		<tr>
 			<td>@adviser.getName()</td>
 			<td>@adviser.getEmailAddress()</td>
 			<td>@adviser.getProjects.size()</td>
 		</tr>
-	}
+		}
+	</tbody>
 </table>
-<form action="@controllers.routes.GeneralAdminController.addAdviser().path()" method="post">
+<!-- Not needed with Shibboleth???<form action="@controllers.routes.GeneralAdminController.addAdviser().path()" method="post">
 		<p><label for="firstName">@Messages("index.registration.form.firstName")</label>
 		<input type="text" name="firstName" id="firstName"></p>
 		
@@ -26,4 +30,4 @@
 		<input type="email" name="email" id="email"></p>
 		
 		<p><input type="submit" value='@Messages("admin.advisers.form.addAdviser")'></p>
-</form>
+</form>-->

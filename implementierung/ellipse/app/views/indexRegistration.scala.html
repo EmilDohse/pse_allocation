@@ -1,48 +1,83 @@
 @(spos: List[SPO])
 
 <h1>@Messages("index.sidebar.registration")</h1>
-<form action="@controllers.routes.IndexPageController.register().path()" method="POST">
-	<fieldset>
-		<legend>@Messages("index.registration.form.personalData")</legend>
-		
-		<p><label for="firstName">@Messages("index.registration.form.firstName")</label>
-		<input type="text" name="firstName" id="firstName"></p>
-		
-		<p><label for="lastName">@Messages("index.registration.form.lastName")</label>
-		<input type="text" name="lastName" id="lastName"></p>
-		
-		<p><label for="email">@Messages("index.registration.form.email")</label>
-		<input type="email" name="email" id="email"></p>
-		
-		<p><label for="pw">@Messages("index.registration.form.password")</label>
-		<input type="password" name="pw" id="pw"></p>
-		
-		<p><label for="rpw">@Messages("index.registration.form.pwRepeat")</label>
-		<input type="password" name="rpw" id="rpw"></p>
-	</fieldset>
-	<fieldset>
-		<legend>@Messages("index.registration.form.studyData")</legend>
-		
-		<p>@Messages("index.registration.form.semester")
-			<select name="semester">
-				<option value="3">@Messages("index.registration.form.3semester")</option>
-				<option value="4">@Messages("index.registration.form.4semester")</option>
-				<option value="5">@Messages("index.registration.form.5semester")</option>
+<form action="@controllers.routes.IndexPageController.register().path()"
+	method="POST" class="form-horizontal">
+	<h3>
+		<small>@Messages("index.registration.form.personalData")</small>
+	</h3>
+
+	<div class="form-group">
+		<label class="control-label col-sm-2" for="firstName">@Messages("index.registration.form.firstName")</label>
+		<div class="col-sm-3">
+			<input type="text" class="form-control" name="firstName"
+				id="firstName">
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label class="control-label col-sm-2 for="lastName">@Messages("index.registration.form.lastName")</label>
+		<div class="col-sm-3">
+			<input type="text" class="form-control" name="lastName" id="lastName">
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label class="control-label col-sm-2 for="email">@Messages("index.registration.form.email")</label>
+		<div class="col-sm-3">
+			<input type="email" class="form-control" name="email" id="email">
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label class="control-label col-sm-2 for="pw">@Messages("index.registration.form.password")</label>
+		<div class="col-sm-3">
+			<input type="password" class="form-control" name="pw" id="pw">
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label class="control-label col-sm-2 for="rpw">@Messages("index.registration.form.pwRepeat")</label>
+		<div class="col-sm-3">
+			<input type="password" class="form-control" name="rpw" id="rpw">
+		</div>
+	</div>
+
+	<h3>
+		<small>@Messages("index.registration.form.studyData")</small>
+	</h3>
+
+	<div class="form-group">
+		<label class="control-label col-sm-2 for="semester">@Messages("index.registration.form.semester")</label>
+		<div class="col-sm-3">
+			<input type="number" class="form-control" id="semester"
+				name="semester">
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="control-label col-sm-2" for="spo">@Messages("index.registration.form.spo")</label>
+		<div class="col-sm-3">
+			<select class="form-control" name="spo" id="spo"> @for(spo
+				<- spos) {
+				<option value="@spo.getName()">@spo.getName()</option> }
 			</select>
-		</p>
-		<p>@Messages("index.registration.form.spo")
-			<select name="spo">
-				@for(spo <- spos) {
-					<option value="@spo.getName()">@spo.getName()</option> 
-				}
-			</select>
-		</p>
-		
-		<p><label for="matrnr">@Messages("index.registration.form.matrnr")</label>
-		<input type="text" name="matrnr" id="matrnr"></p>
-		
-		<-- TODO: Teilleistungsauswahl !!!-->
-	</fieldset>
-	<p><input type="checkbox" name="trueData" value="trueData">@Messages("index.registration.form.trueData")</p>
-	<p><input type="submit" value='@Messages("index.registration.form.register")'></p>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label class="control-label col-sm-2 for="matrnr">@Messages("index.registration.form.matrnr")</label>
+		<div class="col-sm-3">
+			<input type="text" class="form-control" name="matrnr" id="matrnr">
+		</div>
+	</div>
+
+	<!-- TODO: Teilleistungsauswahl !!!-->
+	<div class="checkbox">
+		<label><input type="checkbox" name="trueData" value="trueData">@Messages("index.registration.form.trueData")</label>
+	</div>
+	<div class="form-group">        
+      <div class="col-sm-offset-2 col-sm-10">
+        <button type="submit" class="btn btn-default">@Messages("index.registration.form.register")</button>
+      </div>
+    </div>
 </form>
