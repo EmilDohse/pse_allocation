@@ -1,0 +1,31 @@
+@()
+
+<h1>@Messages("index.sidebar.registration")</h1>
+<form action="@controllers.routes.IndexPageController.register().path()" method="POST">
+	<fieldset>
+		<legend>@Messages("index.registration.form.personalData")</legend>
+		
+		<p><label for="firstName">@Messages("index.registration.form.firstName")</label>
+		<input type="text" name="firstName" id="firstName"></p>
+		
+		<p><label for="lastName">@Messages("index.registration.form.lastName")</label>
+		<input type="text" name="lastName" id="lastName"></p>
+		
+		<p><label for="email">@Messages("index.registration.form.email")</label>
+		<input type="email" name="email" id="email"></p>
+		
+		<p><label for="pw">@Messages("index.registration.form.password")</label>
+		<input type="password" name="pw" id="pw"></p>
+		
+		<p><label for="rpw">@Messages("index.registration.form.pwRepeat")</label>
+		<input type="password" name="rpw" id="rpw"></p>
+	</fieldset>
+	<fieldset>
+		<legend>@Messages("index.registration.form.studyData")</legend>
+		
+		<p><label for="matrnr">@Messages("index.registration.form.matrnr")</label>
+		<input type="text" name="matrnr" id="matrnr"></p>
+		
+		
+	</fieldset>
+</form>
