@@ -4,8 +4,6 @@
 
 package allocation;
 
-import java.util.NoSuchElementException;
-
 import exception.AllocationException;
 import gurobi.GRBException;
 import gurobi.GRBLinExpr;
@@ -43,11 +41,11 @@ public class CriterionAdditionalPerfomances implements GurobiCriterion {
 		// Erzeuge den Zusatz zum Optimierungsterm
 		GRBLinExpr bonus = new GRBLinExpr();
 		for (int i = 0; i < configuration.getStudents().size(); i++) {
-			int amountOfAchievements = configuration.getStudents().get(i).getCompletedAchievements().size();
-			int necessaryAmount = configuration.getStudents().get(i).getSPO().getNecessaryAchievements().size();
 
 			// Prüfe, ob der Student mehr als die benötigten Teilleistungen
 			// abgeschlossen hat
+			int amountOfAchievements = configuration.getStudents().get(i).getCompletedAchievements().size();
+			int necessaryAmount = configuration.getStudents().get(i).getSPO().getNecessaryAchievements().size();
 			if (amountOfAchievements > necessaryAmount) {
 				for (int j = 0; j < configuration.getTeams().size(); j++) {
 					bonus.addTerm(weight * 10, allocator.getBasicMatrix()[i][j]);

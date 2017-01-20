@@ -54,9 +54,11 @@ public class CriterionLearningGroup implements GurobiCriterion {
 			for (int i = 0; i < lg.getMembers().size() - 1; i++) {
 				for (int j = i + 1; j < lg.getMembers().size(); j++) {
 
-					// finde Indizes der Mitglied in Studentenliste
+					// finde Indizes der Mitglieder in Studentenliste
 					int firstStudentIndex = configuration.getStudents().indexOf(lg.getMembers().get(i));
 					int secondStudentIndex = configuration.getStudents().indexOf(lg.getMembers().get(j));
+
+					// Durchlaufe für jedes Paar, jedes Team
 					for (int t = 0; t < configuration.getTeams().size(); t++) {
 						GRBVar pairInSameTeam;
 						try {
@@ -65,6 +67,7 @@ public class CriterionLearningGroup implements GurobiCriterion {
 							throw new AllocationException();
 						}
 
+						// Benötigte Teilterme für AND-Verknüpfung
 						GRBLinExpr leftSideFirstConstraint = new GRBLinExpr();
 						GRBLinExpr leftSideSecondConstraint = new GRBLinExpr();
 
