@@ -31,7 +31,8 @@ public class IndexPageController extends Controller {
      */
     public Result indexPage() {
         // TODO
-        play.twirl.api.Html content = views.html.testing.render("Daniel");
+        play.twirl.api.Html content = views.html.indexInformation
+                .render("Hier könnte ihre Werbung stehen!");
         return ok(views.html.index.render(content));
     }
 
