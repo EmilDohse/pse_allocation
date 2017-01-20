@@ -6,6 +6,7 @@ CriterionAdditionalPerfomances			--> "AdditionalPerfomances"
 CriterionPreferredTeamSize				--> "PreferredTeamSize"
 CriterionSameSemester					--> "SameSemester"
 CriterionPreferHigherSemester			--> "PreferHigherSemester"
+CriterionNoSingularStudent				--> "NoSingularStudent"
 
 Minimale Teamgröße						--> "minSize"
 Maximale Teamgröße						--> "maxSize"

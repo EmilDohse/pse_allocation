@@ -15,13 +15,6 @@ public class UserTest extends DataTest {
     }
 
     @Test
-    public void testId() {
-        int id = 11;
-        user.setId(id);
-        assertEquals(id, user.getId());
-    }
-
-    @Test
     public void testUsername() {
         String username = "testname";
         user.setUserName(username);

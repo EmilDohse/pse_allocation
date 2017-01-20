@@ -70,24 +70,24 @@ public class CriterionPreferredTeamSize implements GurobiCriterion {
 			// benötigte Variablen
 			GRBLinExpr varianceToPrefSize = new GRBLinExpr();
 			GRBVar isPrefSize;
-			GRBVar helpingVariable;
+			GRBVar auxiliaryVariable;
 			try {
 				isPrefSize = allocator.getModel().addVar(0, 1, 0, GRB.BINARY, GurobiAllocator.NULL);
-				helpingVariable = allocator.getModel().addVar(0, 1, 0, GRB.BINARY, GurobiAllocator.NULL);
+				auxiliaryVariable = allocator.getModel().addVar(0, 1, 0, GRB.BINARY, GurobiAllocator.NULL);
 			} catch (GRBException e1) {
 				throw new AllocationException();
 			}
 
-			// initialisiere alle benötigten Teilterme
-			GRBLinExpr negationHelpingVariable = new GRBLinExpr();
+			// Initialisiere alle benötigten Teilterme
+			GRBLinExpr negationAuxiliaryVariable = new GRBLinExpr();
 			GRBLinExpr negationIsPrefSize = new GRBLinExpr();
 			GRBLinExpr leftSideFirstConstraint = new GRBLinExpr();
 			GRBLinExpr rightSideFirstConstraint = new GRBLinExpr();
 			GRBLinExpr leftSideSecondConstraint = new GRBLinExpr();
 			GRBLinExpr rightSideSecondConstraint = new GRBLinExpr();
 
-			negationHelpingVariable.addConstant(1);
-			negationHelpingVariable.addTerm(-1, helpingVariable);
+			negationAuxiliaryVariable.addConstant(1);
+			negationAuxiliaryVariable.addTerm(-1, auxiliaryVariable);
 
 			negationIsPrefSize.addConstant(1);
 			negationIsPrefSize.addTerm(-1, isPrefSize);
@@ -101,10 +101,10 @@ public class CriterionPreferredTeamSize implements GurobiCriterion {
 				rightSideFirstConstraint.multAdd(maxSize, negationIsPrefSize);
 
 				leftSideSecondConstraint.multAdd(0.1, negationIsPrefSize);
-				leftSideSecondConstraint.multAdd(-(maxSize + 0.1), negationHelpingVariable);
+				leftSideSecondConstraint.multAdd(-(maxSize + 0.1), negationAuxiliaryVariable);
 
 				rightSideSecondConstraint.multAdd(-0.1, negationIsPrefSize);
-				rightSideSecondConstraint.multAdd((maxSize + 0.1), negationHelpingVariable);
+				rightSideSecondConstraint.multAdd((maxSize + 0.1), negationAuxiliaryVariable);
 
 				allocator.getModel().addConstr(leftSideFirstConstraint, GRB.LESS_EQUAL, varianceToPrefSize,
 						GurobiAllocator.NULL);

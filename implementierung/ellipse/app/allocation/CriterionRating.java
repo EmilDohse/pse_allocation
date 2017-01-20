@@ -40,9 +40,11 @@ public class CriterionRating implements GurobiCriterion {
 		GRBLinExpr bonus = new GRBLinExpr();
 		for (int i = 0; i < configuration.getStudents().size(); i++) {
 			for (int j = 0; j < configuration.getTeams().size(); j++) {
-				bonus.addTerm(weight
-						* (configuration.getStudents().get(i).getRating(configuration.getTeams().get(j).getProject())),
-						allocator.getBasicMatrix()[i][j]);
+				// Bestimme Bewertung des Studenten für das Projekt, zu dem das
+				// Team gehört
+				double rating = configuration.getStudents().get(i)
+						.getRating(configuration.getTeams().get(j).getProject());
+				bonus.addTerm(weight * 2 * rating, allocator.getBasicMatrix()[i][j]);
 			}
 		}
 		try {
