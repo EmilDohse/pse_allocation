@@ -1,6 +1,6 @@
-- Kontextklasse für Allocator Strategie eingefügt
 - Die änderung des Allocators wie schon in der Präsentation
-- Enum ThreadState hinzugeügt
 - Configuration: Project zu Team geändert
 - GurobiKriterion: configuration zusätzlich weight
 - AllocationException erstellt und throw-Deklarationen in allen Gurobi-Klassen hinzugefügt
+- exceptionNotifier hinzugefügt der exceptions aus Threads weiterleitet (hier noch nach besserer lösung suchen)
+

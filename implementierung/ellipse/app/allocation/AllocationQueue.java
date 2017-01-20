@@ -4,11 +4,16 @@
 
 package allocation;
 
+import java.util.ArrayList;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ExecutorService;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.ThreadPoolExecutor;
 
 import javax.security.auth.login.Configuration;
 
@@ -22,54 +27,72 @@ import exception.AllocationException;
  */
 public class AllocationQueue {
 
+    private static final int                QUEUE_SIZE = 10;
+    ExceptionListener                       exceptionListener;
+    private ExecutorService                 executer;
     /**
      * Calculator ist der Thread der die berechnung anstößt er verwendet das
      * Runnable runnable
      */
-    private Thread                         calculator;
-    private Runnable                       runnable;
-
-    private ThreadState                    threadState;
+    private Thread                          calculator;
+    private Runnable                        runnable;
     /**
      * Die intern verwendete queue.
      */
-    private List<allocation.Configuration> configurationQueue;
+    private Queue<allocation.Configuration> configurationQueue;
     /**
      * Der Singelton der Allocation queue.
      */
-    private static AllocationQueue         instance;
+    private static AllocationQueue          instance;
     /**
      * Der Einteilungsberechner, der zur Berechnung verwendet wird.
      */
-    private AbstractAllocator              allocator;
+    private AbstractAllocator               allocator;
     /**
      * Die Konfiguration, die aktuell zur Berechnung verwendet wird.
      */
-    private allocation.Configuration       currentlyCalculatedConfiguration;
+    private allocation.Configuration        currentlyCalculatedConfiguration;
 
     /**
      * Privater Konstruktor, der zur Instanziierung des Singletons verwendet
      * wird.
      */
     private AllocationQueue() {
-        this.configurationQueue = new CopyOnWriteArrayList<>();
+        this.configurationQueue = new ArrayBlockingQueue<>(QUEUE_SIZE);
         setAllocator(new GurobiAllocator());
+        exceptionListener = new ExceptionListener();
 
         runnable = new Runnable() {
 
             public void run() {
-                try{
-                    allocator.calculate(currentlyCalculatedConfiguration);
-              
-                currentlyCalculatedConfiguration = null;
-                threadState = ThreadState.IDLE;
-                calculate();
-                }catch(AllocationException e) {
-                                        
+                while (true) {
+                    synchronized (this) { // syncronized da ansonsten probleme
+                                          // mit dem cancel() kommen könnten
+                        while (configurationQueue.isEmpty()) {
+                            try {
+                                wait();
+                            } catch (InterruptedException e) {
+                                // TODO Auto-generated catch block
+                                e.printStackTrace();
+                            }
+                        }
+                        currentlyCalculatedConfiguration = configurationQueue.poll();
+                    }
+                    try {
+                        allocator.calculate(currentlyCalculatedConfiguration);
+                    } catch (AllocationException e) {
+                        // hier wird nun der exceptionNotigfier aufgerufen der
+                        // den Kontroller informiert das eine Exception
+                        // aufgetreten ist
+                        exceptionListener.notifyAllocationException(e);
+                    }
+                    currentlyCalculatedConfiguration = null;
                 }
             }
+
         };
-        threadState = ThreadState.IDLE;
+        calculate(); // hier wird der thread gestartet der überpüft ob die liste
+                     // leer ist und sie gegebenenfalls abarbeitet
     }
 
     /**
@@ -79,7 +102,7 @@ public class AllocationQueue {
      * @return Die Instanz der AllocationQueue.
      */
     public static AllocationQueue getInstance() {
-        if (instance == null) {
+        if (instance == null) { // ganz normaler Singelton
             instance = new AllocationQueue();
         }
         return instance;
@@ -95,8 +118,7 @@ public class AllocationQueue {
      */
     public void addToQueue(allocation.Configuration configuration) throws AllocationException {
         configurationQueue.add(configuration);
-        calculate();
-
+        notifyAll(); // der calculator thread wird geweckt
     }
 
     /**
@@ -109,7 +131,7 @@ public class AllocationQueue {
     public void cancelAllocation(allocation.Configuration configuration) {
         synchronized (this) {
             if (configuration == currentlyCalculatedConfiguration) {
-                calculator.interrupt();
+                allocator.cancel();
             } else {
                 configurationQueue.remove(configuration);
             }
@@ -124,25 +146,29 @@ public class AllocationQueue {
      * @return Liste der Konfigurationen als FIFO-Queue angeordnet.
      */
     public List<allocation.Configuration> getQueue() {
-        return configurationQueue;
+        ArrayList<allocation.Configuration> list = new ArrayList<>(4);
+        // hier könnte QUEUE_SIZE verwendet werden da die queue jedoch meist
+        // nicht voll sein wird hier nur 4
+        // hier könnte QUEUE_SIZE verwendet werden da die queue jedoch meist
+        // nicht voll sein wird hier nur 4
+        for (allocation.Configuration i : configurationQueue) {
+            list.add(i);
+        }
+        return list;
     }
 
     private void setAllocator(AbstractAllocator allocator) {
         this.allocator = allocator;
     }
 
-    private void calculate() throws AllocationException {
-        synchronized (this) {
-            if (!configurationQueue.isEmpty()) {
-                if (threadState == ThreadState.IDLE) {
-                    calculator = new Thread(runnable);
-                    currentlyCalculatedConfiguration = configurationQueue.get(configurationQueue.size() - 1);
-                    configurationQueue.remove(configurationQueue.size() - 1);
-                    threadState = ThreadState.RUNNING;
-                    calculator.start();
-                }
-            }
-        }
-
+    /**
+     * hier wird der thread gestartet der überpüft ob die liste leer ist und sie
+     * gegebenenfalls abarbeitet
+     */
+    private void calculate() {
+        executer = Executors.newFixedThreadPool(1);
+        calculator = new Thread(runnable);
+        executer.execute(calculator);
     }
+
 }

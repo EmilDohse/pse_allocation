@@ -8,6 +8,7 @@ import java.util.ServiceLoader;
 
 import exception.AllocationException;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -37,9 +38,11 @@ abstract class AbstractAllocator {
      * @return Die Liste aller verfügbarer Kriterien.
      */
     public List<? extends Criterion> getAllCriteria() {
-        // TODO serviceloader
-        Iterator iter = ServiceLoader.load(Criterion.class).iterator();
-
-        return null;
+        Iterator<Criterion> iter = ServiceLoader.load(Criterion.class).iterator();
+        ArrayList<Criterion> criteria = new ArrayList<Criterion>();
+        while (iter.hasNext()) {
+            criteria.add(iter.next());
+        }
+        return criteria;
     }
 }

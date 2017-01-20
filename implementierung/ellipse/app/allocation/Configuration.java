@@ -17,26 +17,28 @@ import data.Team;
  * Einteilungsberechnung benötigt werden.
  */
 public class Configuration {
-	/**
-	 * Der Name der Einteilung der angezeigt wird.
-	 */
-	private String allocationName;
-	/**
-	 * Alle Studenten, die bei der Einteilung berücksichtigt werden.
-	 */
-	private List<Student> students;
-	/**
-	 * Alle Lerngruppen, die bei der Einteilung berücksichtigt werden.
-	 */
-	private List<LearningGroup> learningGroups;
-	/**
-	 * Die Teams, die bei der Einteilung berücksichtigt werden.
-	 */
-	private List<Team> teams;
-	/**
-	 * Die Parameter für Kriterien, die bei der Einteilung berücksichtigt werden.
-	 */
-	private List<AllocationParameter> parameters;
+
+    /**
+     * Der Name der Einteilung der angezeigt wird.
+     */
+    private String                    allocationName;
+    /**
+     * Alle Studenten, die bei der Einteilung berücksichtigt werden.
+     */
+    private List<Student>             students;
+    /**
+     * Alle Lerngruppen, die bei der Einteilung berücksichtigt werden.
+     */
+    private List<LearningGroup>       learningGroups;
+    /**
+     * Die Teams, die bei der Einteilung berücksichtigt werden.
+     */
+    private List<Team>                teams;
+    /**
+     * Die Parameter für Kriterien, die bei der Einteilung berücksichtigt
+     * werden.
+     */
+    private List<AllocationParameter> parameters;
 
     /**
      * Konstruktor, der alle Arrays als Parameter entgegen nimmt.
@@ -52,8 +54,13 @@ public class Configuration {
      * @param parameters
      *            Liste von Parametern, die der Admin eingestellt hat.
      */
-    public Configuration(String allocationName, List<Student> students, List<LearningGroup> learningGroups, List<Team> teams,
-            List<AllocationParameter> parameters) {
+    public Configuration(String allocationName, List<Student> students, List<LearningGroup> learningGroups,
+            List<Team> teams, List<AllocationParameter> parameters) {
+        this.allocationName = allocationName;
+        this.students = students;
+        this.parameters = parameters;
+        this.teams = teams;
+        this.learningGroups = learningGroups;
     }
 
     /**
@@ -74,14 +81,15 @@ public class Configuration {
         return students;
     }
 
-	/**
-	 * Getter für Teams.
-	 * 
-	 * @return Liste von Teams, denen Studenten zugeteilt werden sollen.
-	 */
-	public List<Team> getTeams() {
-		return teams;
-	}
+    /**
+     * Getter für Teams.
+     * 
+     * @return Liste von Teams, denen Studenten zugeteilt werden sollen.
+     */
+    public List<Team> getTeams() {
+        return teams;
+    }
+
     /**
      * Getter für Lerngruppen.
      * 
@@ -90,7 +98,6 @@ public class Configuration {
     public List<LearningGroup> getLearningGroups() {
         return learningGroups;
     }
-
 
     /**
      * Getter für Kriterien-Parameter.
