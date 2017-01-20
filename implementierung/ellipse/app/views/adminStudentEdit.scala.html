@@ -1,0 +1,50 @@
+<h1>@Messages("admin.sidebar.studentEdit")</h1>
+<form action="@controllers.routes.GeneralAdminController.addStudent().path()"
+	method="POST" class="form-horizontal">
+	<h3>@Messages("admin.studentEdit.addStudent")</h3>
+
+	<div class="form-group">
+		<label class="control-label col-sm-2" for="firstName">@Messages("index.registration.form.firstName")</label>
+		<div class="col-sm-3">
+			<input type="text" class="form-control" name="firstName"
+				id="firstName">
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label class="control-label col-sm-2 for="lastName">@Messages("index.registration.form.lastName")</label>
+		<div class="col-sm-3">
+			<input type="text" class="form-control" name="lastName" id="lastName">
+		</div>
+	</div>
+	
+	<div class="form-group">
+		<label class="control-label col-sm-2 for="matrnr">@Messages("index.registration.form.matrnr")</label>
+		<div class="col-sm-3">
+			<input type="text" class="form-control" name="matrnr" id="matrnr">
+		</div>
+	</div>
+
+	<div class="form-group">        
+      <div class="col-sm-offset-2 col-sm-10">
+        <button type="submit" class="btn btn-default">@Messages("admin.studentEdit.add")</button>
+      </div>
+    </div>
+</form>
+<form action="@controllers.routes.GeneralAdminController.removeStudent().path()"
+	method="POST" class="form-horizontal">
+	<h3>@Messages("admin.studentEdit.removeStudent")</h3>
+	
+	<div class="form-group">
+		<label class="control-label col-sm-2 for="matrnr">@Messages("index.registration.form.matrnr")</label>
+		<div class="col-sm-3">
+			<input type="text" class="form-control" name="matrnr" id="matrnr">
+		</div>
+	</div>
+
+	<div class="form-group">        
+      <div class="col-sm-offset-2 col-sm-10">
+        <button type="submit" class="btn btn-default">@Messages("admin.studentEdit.remove")</button>
+      </div>
+    </div>
+</form>

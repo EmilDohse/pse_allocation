@@ -1,0 +1,29 @@
+@(projects: List[Project])
+
+<h1>@Messages("admin.sidebar.projects")</h1>
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th>@Messages("admin.projects.name")</th>
+			<th>@Messages("admin.projects.institute")</th>
+			<th>@Messages("admin.projects.url")</th>
+			<th>@Messages("admin.projects.advisers")</th>
+			<th>@Messages("admin.projects.teamSize")</th>
+			<th>@Messages("admin.projects.numberOfTeams")</th>
+		</tr>
+	</thead>
+	<tbody>
+		@for(project <- projetcs) {
+		<tr>
+			<td>@project.getName()</td>
+			<td>@project.getInstitute()</td>
+			<td>@project.getProjectURL()</td>
+			<td>@for(adviser <- project.getAdvisers()) { adviser.getName() </br>}
+			</td>
+			<td>@project.getMinTeamSize() - @project.getMaxTeamSize()</td>
+			<td>@project.getNumberOfTeams()</td>
+		</tr>
+		}
+	</tbody>
+</table>
+<!-- TODO: Insert Button for adding a project -->
