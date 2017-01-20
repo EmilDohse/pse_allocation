@@ -14,33 +14,33 @@ import gurobi.GRBLinExpr;
  * PSE Platz beworben haben, bevorzugt werden.
  */
 public class CriterionRegisteredAgain implements GurobiCriterion {
-    private String name;
+	private String name;
 
-    /**
-     * Standard-Konstruktor, der den Namen eindeutig setzt
-     */
-    public CriterionRegisteredAgain() {
-        this.name = "RegisteredAgain";
-    }
+	/**
+	 * Standard-Konstruktor, der den Namen eindeutig setzt
+	 */
+	public CriterionRegisteredAgain() {
+		this.name = "RegisteredAgain";
+	}
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public String getName() {
-        return this.name;
-    }
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public String getName() {
+		return this.name;
+	}
 
-    /**
-     * {@inheritDoc}
-     */
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void useCriteria(Configuration configuration, GurobiAllocator allocator, double weight)
 			throws AllocationException {
 		GRBLinExpr bonus = new GRBLinExpr();
 		for (int i = 0; i < configuration.getStudents().size(); i++) {
-			
-			//Betrachte nur Studenten, die sich erneut registriert haben
+
+			// Betrachte nur Studenten, die sich erneut registriert haben
 			if (configuration.getStudents().get(i).registeredMoreThanOnce()) {
 				for (int j = 0; j < configuration.getTeams().size(); j++) {
 					bonus.addTerm(weight * 10, allocator.getBasicMatrix()[i][j]);
@@ -50,7 +50,7 @@ public class CriterionRegisteredAgain implements GurobiCriterion {
 		try {
 			allocator.getOptimizationTerm().add(bonus);
 		} catch (GRBException e) {
-			throw new AllocationException(); 
-		}		
+			throw new AllocationException();
+		}
 	}
 }

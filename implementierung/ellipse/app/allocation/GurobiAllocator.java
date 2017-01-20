@@ -34,7 +34,7 @@ public class GurobiAllocator extends AbstractAllocator {
 	public static final String NULL = new String();
 
 	/**
-	 * Die Basismatrix (NxM) welche anzeigt, ob ein Student n in einm Team m
+	 * Die Basismatrix (NxM) welche anzeigt, ob ein Student n in einem Team m
 	 * ist. Die Mte Spalte ist das Team der nicht zugeteilten
 	 */
 	private GRBVar[][] basicMatrix;
@@ -103,8 +103,10 @@ public class GurobiAllocator extends AbstractAllocator {
 	 *            soll.
 	 */
 	public void calculate(Configuration configuration) throws AllocationException {
+		GRBEnv env;
 		try {
-			this.model = this.makeModel(configuration);
+			env = new GRBEnv();
+			this.model = this.makeModel(configuration, env);
 			this.model.optimize();
 		} catch (GRBException e) {
 			throw new AllocationException();
@@ -130,6 +132,14 @@ public class GurobiAllocator extends AbstractAllocator {
 				configuration.getParameters());
 		Ebean.save(allocation);
 
+		// Mache Environment und Model ungültig
+		try {
+			this.model.dispose();
+			env.dispose();
+		} catch (GRBException e) {
+			throw new AllocationException();
+		}
+
 	}
 
 	/**
@@ -154,8 +164,7 @@ public class GurobiAllocator extends AbstractAllocator {
 		return criteria;
 	}
 
-	private GRBModel makeModel(Configuration configuration) throws GRBException, AllocationException {
-		GRBEnv env = new GRBEnv();
+	private GRBModel makeModel(Configuration configuration, GRBEnv env) throws GRBException, AllocationException {
 		GRBModel model = new GRBModel(env);
 
 		// Erstelle Basismatrix B
