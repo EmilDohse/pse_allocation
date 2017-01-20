@@ -126,7 +126,7 @@ public class Student extends User {
      * 
      * @return Die noch ausstehenden Teilleistungen des Studierenden.
      */
-    public List<Achievement> getOralTestAchievement() {
+    public List<Achievement> getOralTestAchievements() {
         return oralTestAchievement;
     }
 
@@ -169,7 +169,8 @@ public class Student extends User {
      * @param completedAchievements
      *            Die vom Studierenden abgeschlossenen Teilleistungen.
      */
-    public void setCompletedAchievements(List<Achievement> completedAchievements) {
+    public void setCompletedAchievements(
+            List<Achievement> completedAchievements) {
         this.completedAchievements = completedAchievements;
     }
 
@@ -223,7 +224,7 @@ public class Student extends User {
      * @param oralTestAchievement
      *            Die noch aussteheneden Teilleistungen des Studierenden.
      */
-    public void setOralTestAchievement(List<Achievement> oralTestAchievement) {
+    public void setOralTestAchievements(List<Achievement> oralTestAchievement) {
         this.oralTestAchievement = oralTestAchievement;
     }
 
@@ -360,8 +361,24 @@ public class Student extends User {
         return null;
     }
 
+    /**
+     * Returns true if a student is registered in more than one semester
+     * 
+     * @return registered in more than one semester
+     */
     public boolean registeredMoreThanOnce() {
-        // TODO wäre ganz angenehm für die Berechnung ~Philipp
-        return false;
+        int timesRegistered = 0;
+
+        for (Semester s : Semester.getSemesters()) {
+            if (s.getStudents().contains(this)) {
+                timesRegistered++;
+            }
+        }
+
+        if (timesRegistered >= 2) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

@@ -19,13 +19,6 @@ public class TeamTest extends DataTest {
     }
 
     @Test
-    public void testId() {
-        int id = 11;
-        team.setId(11);
-        assertEquals(id, team.getId());
-    }
-
-    @Test
     public void testProject() {
         Project project = new Project();
         team.setProject(project);
