@@ -151,8 +151,13 @@ public class AllocationQueue {
         // nicht voll sein wird hier nur 4
         // hier könnte QUEUE_SIZE verwendet werden da die queue jedoch meist
         // nicht voll sein wird hier nur 4
-        for (allocation.Configuration i : configurationQueue) {
-            list.add(i);
+        synchronized (this) {
+            if (currentlyCalculatedConfiguration != null) {
+                list.add(currentlyCalculatedConfiguration);
+            }
+            for (allocation.Configuration i : configurationQueue) {
+                list.add(i);
+            }
         }
         return list;
     }
