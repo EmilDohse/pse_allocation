@@ -1,0 +1,26 @@
+@(learningGroupMembers: List[data.Student])
+
+<h1>@Messages("admin.sidebar.learningGroup")</h1>
+
+@if(learningGroupMembers.length() > 1) {
+	<table class="table table-striped">
+	<thead>
+		<tr>
+			<th>Lerngruppenmitglieder</th>
+		</tr>
+	</thead>
+	<tbody>
+		@for(member <- learningGroupMembers) {
+		<tr>
+			<td>@member.getFirstname + " " + @member.getLastName()</td>
+		</tr>
+		}
+	</tbody>
+</table>
+	<input type=submit" value="leave">
+} else {
+	<input name="learningGroupname" value="">
+	<input name="learningGroupPassword" value="">
+	<input type=submit	"value="Lerngruppe erstellen">
+	<input type=submit "value="Lerngruppe beitreten">
+}	

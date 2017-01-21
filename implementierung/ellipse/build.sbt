@@ -19,3 +19,5 @@ resolvers += "SQLite-JDBC Repository" at "https://oss.sonatype.org/content/repos
 playEnhancerEnabled := false
 
 fork in run := true
+
+fork in run := true
