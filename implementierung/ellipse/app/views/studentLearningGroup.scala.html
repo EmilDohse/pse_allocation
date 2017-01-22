@@ -2,7 +2,7 @@
 
 <h1>@Messages("admin.sidebar.learningGroup")</h1>
 
-@if(learningGroup.isPrivate()) {
+@if(!learningGroup.isPrivate()) {
 	<table class="table table-striped">
 	<thead>
 		<tr>
