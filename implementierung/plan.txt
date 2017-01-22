@@ -11,7 +11,7 @@ daniel: pac4j+shibolleth
 
 3.woche:
 sam: qualityCriteria + notificationSystem
-daniel: verfifcator + layout der views
+daniel: verfifcator + layout der views + simple logik (javascript)
 philpp+lars+philipp+emil: controller
 daniel: pac4j+shibolleth
 
