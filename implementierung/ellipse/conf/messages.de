@@ -22,6 +22,8 @@ student.sidebar.rating = Projektbewertung
 student.sidebar.results = Einteilungsergebnisse
 student.sidebar.account = Account
 
+adviser.leaveProject = Projekt verlassen
+
 admin.title = Elipse - Adminstration
 admin.sidebar.adivser = Projektleiter
 admin.sidebar.projects = Projekte
@@ -38,8 +40,14 @@ admin.projects.name = Name
 admin.projects.teamSize = Teamgöße
 admin.projects.numberOfTeams = Anzahl der Teams
 admin.projects.institute = Institut
+admin.projects.description = Beschreibung
+admin.projects.minSize = Min. Teamgröße
+admin.projects.maxSize = Max. Teamgröße
 admin.projects.url = Webseite
 admin.projects.advisers = Betreuer
+admin.projects.addProject = Projekt erstellen
+admin.projects.editProject = Projekt editieren
+admin.projects.removeProject = Projekt löschen
 admin.studentEdit.addStudent = Student hinzufügen
 admin.studentEdit.removeStudent = Student löschen
 admin.studentEdit.add = hinzufügen

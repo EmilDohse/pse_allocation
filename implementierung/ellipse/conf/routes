@@ -28,7 +28,7 @@ GET 	/adviser/join				controllers.AdviserPageController.joinProject()
 GET 	/adviser/leave				controllers.AdviserPageController.leaveProject()
 GET 	/adviser/saveGrades			controllers.AdviserPageController.saveStudentsGrades()
 GET 	/adviser/account			controllers.AdviserPageController.accountPage()
-GET 	/adviser/edit				controllers.AdviserPageController.editAccount()
+GET 	/adviser/editAccount				controllers.AdviserPageController.editAccount()
 
 GET 	/admin						controllers.AdminPageController.projectPage()
 GET 	/admin/projects				controllers.AdminPageController.projectPage()

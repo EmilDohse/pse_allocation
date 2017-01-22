@@ -26,4 +26,16 @@
 		}
 	</tbody>
 </table>
-<!-- TODO: Insert Button for adding a project -->
+<form
+	action="@controllers.routes.AdminProjectController.addProject.path()"
+	method="POST" class="form-inline">
+
+	<div class="form-group">
+		<label for="name">@Messages("admin.projects.name")</label> <input
+			type="text" class="form-control" name="name" id="name">
+	</div>
+
+	<div class="form-group">
+		<button type="submit" class="btn btn-default">@Messages("admin.projects.addProject")</button>
+	</div>
+</form>

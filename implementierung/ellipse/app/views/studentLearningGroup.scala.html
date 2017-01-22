@@ -3,7 +3,7 @@
 <h1>@Messages("admin.sidebar.learningGroup")</h1>
 
 @if(!learningGroup.isPrivate()) {
-	<table class="table table-striped">
+<table class="table table-striped">
 	<thead>
 		<tr>
 			<th>Lerngruppenmitglieder</th>
@@ -17,18 +17,13 @@
 		}
 	</tbody>
 </table>
-	<input type=submit" value="leave">
+<input type=submit " value="leave">
 } else {
-	<form>
-		Name der Lerngruppe:
-		<br>
-		<input type=text name="learningGroupname" value="">
-		<br>
-		Passwort:
-		<br>
-		<input name="learningGroupPassword" value="">
-		<br>
-	</form>
-	<input type=submit	"value="Lerngruppe erstellen">
-	<input type=submit "value="Lerngruppe beitreten">
-}	
+<form>
+	Name der Lerngruppe: <br> <input type=text
+		name="learningGroupname" value=""> <br> Passwort: <br>
+	<input name="learningGroupPassword" value=""> <br>
+</form>
+<input type=submit "value="Lerngruppe erstellen">
+<input type=submit "value="Lerngruppe beitreten">
+}
