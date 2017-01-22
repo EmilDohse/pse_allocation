@@ -1,8 +1,8 @@
-@(learningGroupMembers: List[data.Student])
+@(learningGroup:data.LearningGroup)
 
 <h1>@Messages("admin.sidebar.learningGroup")</h1>
 
-@if(learningGroupMembers.length() > 1) {
+@if(learningGroup.isPrivate()) {
 	<table class="table table-striped">
 	<thead>
 		<tr>
@@ -10,9 +10,9 @@
 		</tr>
 	</thead>
 	<tbody>
-		@for(member <- learningGroupMembers) {
+		@for(member <- learningGroup.getMembers()) {
 		<tr>
-			<td>@member.getFirstname + " " + @member.getLastName()</td>
+			<td>@member.getFirstName() + " " + @member.getLastName()</td>
 		</tr>
 		}
 	</tbody>
