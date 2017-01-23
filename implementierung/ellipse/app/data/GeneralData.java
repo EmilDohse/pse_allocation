@@ -4,14 +4,18 @@
 
 package data;
 
+import java.io.File;
+
 /************************************************************/
 /**
  * Diese Klasse beinhaltet generelle Daten, über den Zustand der Software.
  */
 public class GeneralData {
 
-    // TODO save/load
-
+    /**
+     * File where the Data is saved
+     */
+    private static File   file;
     /**
      * Name des momentanen Semesters.
      */
@@ -60,5 +64,24 @@ public class GeneralData {
      */
     public static void setCurrentSemester(Semester currentSemester) {
         GeneralData.currentSemester = currentSemester.getName();
+    }
+
+    /**
+     * Lädt die Daten aus einer Datei
+     * 
+     * @param file
+     *            Datei, woraus die Daten geladen werden
+     */
+    public static void load(File file) {
+        GeneralData.file = file;
+
+        // TODO
+    }
+
+    /**
+     * Speichert die Daten in einer Datei
+     */
+    public static void save() {
+        // TODO
     }
 }

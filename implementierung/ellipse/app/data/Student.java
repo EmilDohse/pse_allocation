@@ -6,10 +6,15 @@ package data;
 
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+
 /************************************************************/
 /**
  * Diese Klasse stellt einen Studierenden dar, der am PSE teilnimmt.
  **/
+@Entity
 public class Student extends User {
 
     /**
@@ -19,10 +24,12 @@ public class Student extends User {
     /**
      * Die SPO des Studierenden
      */
+    @OneToOne
     private SPO               spo;
     /**
      * Die bestandenen Teilleistungen.
      */
+    @OneToMany
     private List<Achievement> completedAchievements;
     /**
      * Wahr, wenn sich der Studierende bereits im Campus Management System für
@@ -37,14 +44,17 @@ public class Student extends User {
     /**
      * Die PSE-Note des Studierenden.
      */
+    @OneToOne
     private Grade             gradePSE;
     /**
      * Die TSE-Note des Studierenden.
      */
+    @OneToOne
     private Grade             gradeTSE;
     /**
      * Die noch ausstehenden Teilleistungen des Studierenden.
      */
+    @OneToMany
     private List<Achievement> oralTestAchievement;
     /**
      * Das Fachsemester, in dem sich der Studierende zum Zeitpunkt des letzten
@@ -169,8 +179,7 @@ public class Student extends User {
      * @param completedAchievements
      *            Die vom Studierenden abgeschlossenen Teilleistungen.
      */
-    public void setCompletedAchievements(
-            List<Achievement> completedAchievements) {
+    public void setCompletedAchievements(List<Achievement> completedAchievements) {
         this.completedAchievements = completedAchievements;
     }
 

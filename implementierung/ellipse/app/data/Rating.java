@@ -4,11 +4,15 @@
 
 package data;
 
+import javax.persistence.Entity;
+import javax.persistence.OneToOne;
+
 /************************************************************/
 /**
  * Diese Klasse stellt eine Bewertung eines Studierenden oder einerr Lerngruppe
  * für ein Projekt dar.
  */
+@Entity
 public class Rating extends ElipseModel {
 
     /**
@@ -18,6 +22,7 @@ public class Rating extends ElipseModel {
     /**
      * Das Projekt, dem die Bewertung gilt.
      */
+    @OneToOne
     private Project project;
 
     /**

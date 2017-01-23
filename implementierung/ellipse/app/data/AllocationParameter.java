@@ -4,20 +4,25 @@
 
 package data;
 
+import javax.persistence.Entity;
+import javax.validation.constraints.NotNull;
+
 /************************************************************/
 /**
  * Diese Klasse stellt einen Parameter für die Einteilungsberechnung dar.
  */
+@Entity
 public class AllocationParameter extends ElipseModel {
 
     /**
      * Der Name des Parameters.
      */
+    @NotNull
     private String name;
     /**
      * Die Gewichtung des Parameters.
      */
-    private double value;
+    private int    value;
 
     /**
      * Getter für den Namen des Parameters.
@@ -33,7 +38,7 @@ public class AllocationParameter extends ElipseModel {
      * 
      * @return Der Wert des Parameters.
      */
-    public double getValue() {
+    public int getValue() {
         return value;
     }
 
@@ -53,7 +58,7 @@ public class AllocationParameter extends ElipseModel {
      * @param value
      *            Der Wert des Parameters.
      */
-    public void setValue(double value) {
+    public void setValue(int value) {
         this.value = value;
     }
 
