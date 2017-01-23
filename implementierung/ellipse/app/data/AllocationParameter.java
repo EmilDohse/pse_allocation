@@ -17,7 +17,7 @@ public class AllocationParameter extends ElipseModel {
     /**
      * Die Gewichtung des Parameters.
      */
-    private double value;
+    private int    value;
 
     /**
      * Getter für den Namen des Parameters.
@@ -33,7 +33,7 @@ public class AllocationParameter extends ElipseModel {
      * 
      * @return Der Wert des Parameters.
      */
-    public double getValue() {
+    public int getValue() {
         return value;
     }
 
@@ -53,7 +53,7 @@ public class AllocationParameter extends ElipseModel {
      * @param value
      *            Der Wert des Parameters.
      */
-    public void setValue(double value) {
+    public void setValue(int value) {
         this.value = value;
     }
 
