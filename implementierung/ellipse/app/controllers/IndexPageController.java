@@ -4,6 +4,7 @@
 
 package controllers;
 
+import data.GeneralData;
 import notificationSystem.Notifier;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -44,7 +45,8 @@ public class IndexPageController extends Controller {
      */
     public Result registerPage() {
         // TODO
-        return null;
+        play.twirl.api.Html content = views.html.indexRegistration.render(GeneralData.getCurrentSemester().getSpos());
+        return ok(views.html.index.render(content));
     }
 
     /**
@@ -102,7 +104,7 @@ public class IndexPageController extends Controller {
      * @return Die Seite, die als Antwort verschickt wird.
      */
     public Result verificationPage() {
-        // TODO
+        //TODO
         return null;
     }
 }

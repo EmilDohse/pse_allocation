@@ -5,6 +5,8 @@
 package controllers;
 
 import play.mvc.Result;
+import data.GeneralData;
+import data.Project;
 import play.mvc.Controller;
 
 /************************************************************/
@@ -24,9 +26,9 @@ public class AdviserPageController extends Controller {
 	 * 
 	 * @return die Seite, die als Antwort verschickt wird.
 	 */
-	public Result projectsPage(String name) {
-		// TODO
-		return null;
+	public Result projectsPage(String name) {//TODO null entfernen hier muss ein leeres projekt übergenenwerden
+	    play.twirl.api.Html content = views.html.projectEdit.render(null,false);
+        return ok(views.html.adviser.render(content));
 	}
 
 	/**

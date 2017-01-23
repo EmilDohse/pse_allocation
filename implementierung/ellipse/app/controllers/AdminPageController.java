@@ -6,6 +6,11 @@ package controllers;
 
 import qualityCriteria.QualityCriterion;
 import play.mvc.Result;
+import allocation.AllocationQueue;
+import data.Allocation;
+import data.GeneralData;
+import data.Project;
+import data.Semester;
 import play.mvc.Controller;
 
 /************************************************************/
@@ -22,8 +27,8 @@ public class AdminPageController extends Controller {
 	 * @return Die Seite, die als Antwort verschickt wird.
 	 */
 	public Result projectPage() {
-		// TODO
-		return null;
+	    play.twirl.api.Html content = views.html.adminProjects.render(GeneralData.getCurrentSemester().getProjects());
+        return ok(views.html.admin.render(content));
 	}
 
 	/**
@@ -34,8 +39,8 @@ public class AdminPageController extends Controller {
 	 * @return Die Seite, die als Antwort verschickt wird.
 	 */
 	public Result adviserPage() {
-		// TODO
-		return null;
+	    play.twirl.api.Html content = views.html.adminAdvisers.render(GeneralData.getCurrentSemester().getAdvisers());
+        return ok(views.html.admin.render(content));
 	}
 
 	/**
@@ -47,8 +52,8 @@ public class AdminPageController extends Controller {
 	 * @return Die Seite, die als Antwort verschickt wird.
 	 */
 	public Result allocationPage() {
-		// TODO
-		return null;
+	    play.twirl.api.Html content = views.html.adminAllocation.render(AllocationQueue.getInstance());
+        return ok(views.html.admin.render(content));
 	}
 
 	/**
@@ -58,8 +63,8 @@ public class AdminPageController extends Controller {
 	 * @return Die Seite, die als Antwort verschickt wird.
 	 */
 	public Result resultsPage() {
-		// TODO
-		return null;
+	    play.twirl.api.Html content = views.html.adminResults.render(GeneralData.getCurrentSemester().getAllocations());
+        return ok(views.html.admin.render(content));
 	}
 
 	/**
@@ -70,8 +75,8 @@ public class AdminPageController extends Controller {
 	 * @return Die Seite, die als Antwort verschickt wird.
 	 */
 	public Result exportImportPage() {
-		// TODO
-		return null;
+	    play.twirl.api.Html content = views.html.ExportImport.render();
+        return ok(views.html.admin.render(content));
 	}
 
 	/**
@@ -81,8 +86,8 @@ public class AdminPageController extends Controller {
 	 * @return Die Seite, die als Antwort verschickt wird.
 	 */
 	public Result studentEditPage() {
-		// TODO
-		return null;
+	    play.twirl.api.Html content = views.html.adminStudentEdit.render();
+        return ok(views.html.admin.render(content));
 	}
 
 	/**
@@ -92,8 +97,8 @@ public class AdminPageController extends Controller {
 	 * @return Die Seite, die als Antwort verschickt wird.
 	 */
 	public Result propertiesPage() {
-		// TODO
-		return null;
+	    play.twirl.api.Html content = views.html.adminProperties.render(Semester.getSemesters());
+        return ok(views.html.admin.render(content));
 	}
 
 	/**
@@ -104,7 +109,8 @@ public class AdminPageController extends Controller {
 	 * @return Die Seite, die als Antwort verschickt wird.
 	 */
 	public Result projectEditPage(String name) {
-		// TODO
-		return null;
+		Project project = Project.getProject(name, GeneralData.getCurrentSemester());
+	    play.twirl.api.Html content = views.html.ProjectEdit.render(project, false);
+        return ok(views.html.admin.render(content));
 	}
 }
