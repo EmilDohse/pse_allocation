@@ -49,7 +49,7 @@ public class CriterionPreferredTeamSize implements GurobiCriterion {
 			prefSize = configuration.getParameters().stream()
 					.filter(parameter -> parameter.getName().equals("prefSize")).findFirst().get().getValue();
 		} catch (NoSuchElementException e) {
-			throw new AllocationException();
+			throw new AllocationException("allocation.parameterNotFound");
 		}
 
 		for (int j = 0; j < configuration.getTeams().size(); j++) {
@@ -61,7 +61,7 @@ public class CriterionPreferredTeamSize implements GurobiCriterion {
 					maxSize = configuration.getParameters().stream()
 							.filter(parameter -> parameter.getName().equals("maxSize")).findFirst().get().getValue();
 				} catch (NoSuchElementException e) {
-					throw new AllocationException();
+					throw new AllocationException("allocation.parameterNotFound");
 				}
 			} else {
 				maxSize = configuration.getTeams().get(j).getProject().getMaxTeamSize();
@@ -75,7 +75,7 @@ public class CriterionPreferredTeamSize implements GurobiCriterion {
 				isPrefSize = allocator.getModel().addVar(0, 1, 0, GRB.BINARY, GurobiAllocator.NULL);
 				auxiliaryVariable = allocator.getModel().addVar(0, 1, 0, GRB.BINARY, GurobiAllocator.NULL);
 			} catch (GRBException e1) {
-				throw new AllocationException();
+				throw new AllocationException("allocation.gurobiException");
 			}
 
 			// Initialisiere alle benötigten Teilterme
@@ -116,7 +116,7 @@ public class CriterionPreferredTeamSize implements GurobiCriterion {
 				allocator.getModel().addConstr(varianceToPrefSize, GRB.LESS_EQUAL, rightSideSecondConstraint,
 						GurobiAllocator.NULL);
 			} catch (GRBException e) {
-				throw new AllocationException();
+				throw new AllocationException("allocation.gurobiException");
 			}
 
 			bonus.addTerm(weight * 10, isPrefSize);
@@ -124,7 +124,7 @@ public class CriterionPreferredTeamSize implements GurobiCriterion {
 		try {
 			allocator.getOptimizationTerm().add(bonus);
 		} catch (GRBException e) {
-			throw new AllocationException();
+			throw new AllocationException("allocation.gurobiException");
 		}
 
 	}

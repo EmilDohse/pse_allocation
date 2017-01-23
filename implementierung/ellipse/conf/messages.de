@@ -55,3 +55,6 @@ admin.studentEdit.remove = löschen
 
 importer.FileNotFound = Datei konnte nicht gefunden werden
 importer.IOException = Fehler beim Lesen der Datei
+
+allocation.gurobiException = Fehler beim Erstellen des Gurobi-Modells
+allocation.parameterNotFound = Es konnten nicht alle Parameter gefunden werden

@@ -53,7 +53,7 @@ public class CriterionPreferHigherSemester implements GurobiCriterion {
 		try {
 			allocator.getOptimizationTerm().add(bonus);
 		} catch (GRBException e) {
-			throw new AllocationException();
+			throw new AllocationException("allocation.gurobiException");
 		}
 	}
 
@@ -65,7 +65,10 @@ public class CriterionPreferHigherSemester implements GurobiCriterion {
 	 * @return 3 im WS, 4 im SS.
 	 */
 	private int getNormalSemester(Semester semester) {
-		// TODO an Datenimplementierung anpassen
-		return 0;
+		if (GeneralData.getCurrentSemester().getWintersemester()) {
+			return 3;
+		} else {
+			return 4;
+		}
 	}
 }

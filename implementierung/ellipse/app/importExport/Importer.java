@@ -129,7 +129,7 @@ public class Importer {
 			//write line
 			writer.write(output);
 		} catch (IOException e) {
-			throw new ImporterException();
+			throw new ImporterException("importer.IOException");
 		}
 
 	}
