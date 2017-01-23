@@ -6,15 +6,21 @@ package data;
 
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.validation.constraints.NotNull;
+
 /************************************************************/
 /**
  * Klasse, die ein Project repräsentiert
  */
+@Entity
 public class Project extends ElipseModel {
 
     /**
      * Der Name des Projektes.
      */
+    @NotNull
     private String        name;
     /**
      * Die minimale Anzahl der Teilnehmer einer Gruppe für dieses Projekt.
@@ -31,18 +37,22 @@ public class Project extends ElipseModel {
     /**
      * Die Projektbeschreibung.
      */
+    @NotNull
     private String        projectInfo;
     /**
      * URL zu der Website des Projektes.
      */
+    @NotNull
     private String        projectURL;
     /**
      * Das Institut, welches das Projekt anbietet.
      */
+    @NotNull
     private String        institute;
     /**
      * Betreuer des Projekts
      */
+    @OneToMany
     private List<Adviser> advisers;
 
     /**

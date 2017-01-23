@@ -6,15 +6,20 @@ package data;
 
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.validation.constraints.NotNull;
+
 /************************************************************/
 /**
  * Diese Klasse stellt eine Teilleistung im Studium dar.
  */
+@Entity
 public class Achievement extends ElipseModel {
 
     /**
      * Der Name der Teilleistung.
      */
+    @NotNull
     private String name;
 
     /**
