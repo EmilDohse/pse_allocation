@@ -6,29 +6,38 @@ package data;
 
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.validation.constraints.NotNull;
+
 /************************************************************/
 /**
  * Diese Klasse repräsentiert eine Lerngruppe, das heißt eine Gruppe von
  * Studierenden, die sich gemeinsam zum PSE anmelden wollen.
  */
+@Entity
 public class LearningGroup extends ElipseModel {
 
     /**
      * Der Name der Lerngruppe.
      */
+    @NotNull
     private String        name;
     /**
      * Das nötige Passwort, um der Lerngruppe beizutreten.
      */
+    @NotNull
     private String        password;
     /**
      * Die Mitglieder der Lerngruppe.
      */
+    @OneToMany
     private List<Student> members;
 
     /**
      * Die Projektbewertungen der Lerngruppe
      */
+    @OneToMany
     private List<Rating>  ratings;
 
     /**

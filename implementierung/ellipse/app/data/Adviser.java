@@ -7,10 +7,13 @@ package data;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Entity;
+
 /************************************************************/
 /**
  * Diese Klasse stellt einen Betreuer dar.
  */
+@Entity
 public class Adviser extends User {
 
     /**

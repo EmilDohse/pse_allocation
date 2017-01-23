@@ -4,31 +4,40 @@
 
 package data;
 
+import javax.persistence.MappedSuperclass;
+import javax.validation.constraints.NotNull;
+
 /************************************************************/
 /**
  * Diese Klasse stellt einen Benutzer der Anwendung dar.
  */
+@MappedSuperclass
 public class User extends ElipseModel {
 
     /**
      * Der Anmeldename des Benutzers.
      */
+    @NotNull
     private String username;
     /**
      * Das Anmeldepasswort des Benutzers.
      */
+    @NotNull
     private String password;
     /**
      * Die E-Mail-Adresse des Benutzers.
      */
+    @NotNull
     private String emailAddress;
     /**
      * Vorname des Benutzers.
      */
+    @NotNull
     private String firstName;
     /**
      * Nachname des Benutzers.
      */
+    @NotNull
     private String lastName;
 
     /**

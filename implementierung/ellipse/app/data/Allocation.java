@@ -6,23 +6,31 @@ package data;
 
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.validation.constraints.NotNull;
+
 /************************************************************/
 /**
  * Diese Klasse stellt eine Einteilung von Studierenden in einem Semester dar.
  */
+@Entity
 public class Allocation extends ElipseModel {
 
     /**
      * Liste, die alle Teams enthält.
      */
+    @OneToMany
     private List<Team>                teams;
     /**
      * Der Name der Einteilung.
      */
+    @NotNull
     private String                    name;
     /**
      * Parameter, mit der die Einteilung gemacht wurde.
      */
+    @OneToMany
     private List<AllocationParameter> parameters;
 
     /**
