@@ -4,7 +4,6 @@
 
 package controllers;
 
-
 import data.GeneralData;
 import notificationSystem.Notifier;
 import play.mvc.Controller;
@@ -33,6 +32,41 @@ public class IndexPageController extends Controller {
      */
     public Result indexPage() {
         // TODO
+        java.util.ArrayList<data.SPO> spos = new java.util.ArrayList<>();
+        data.SPO spo1 = new data.SPO();
+        spo1.setName("SPO 2008");
+        spo1.setAdditionalAchievements(new java.util.ArrayList<>());
+        spo1.setNecessaryAchievements(new java.util.ArrayList<>());
+        data.Achievement a1 = new data.Achievement("LA 1");
+        a1.setId(1);
+        spo1.addAdditionalAchievement(a1);
+        data.Achievement a2 = new data.Achievement("LA 2");
+        a2.setId(2);
+        spo1.addAdditionalAchievement(a2);
+        data.Achievement a3 = new data.Achievement("HM 1");
+        a3.setId(3);
+        spo1.addNecessaryAchievement(a3);
+        data.Achievement a4 = new data.Achievement("HM 3");
+        a4.setId(4);
+        spo1.addNecessaryAchievement(a4);
+        data.SPO spo2 = new data.SPO();
+        spo2.setName("SPO 2015");
+        spo2.setAdditionalAchievements(new java.util.ArrayList<>());
+        spo2.setNecessaryAchievements(new java.util.ArrayList<>());
+        data.Achievement a5 = new data.Achievement("Algo 3");
+        a5.setId(5);
+        spo2.addAdditionalAchievement(a5);
+        data.Achievement a6 = new data.Achievement("Algo 1");
+        a6.setId(6);
+        spo2.addAdditionalAchievement(a6);
+        data.Achievement a7 = new data.Achievement("SWT1");
+        a7.setId(7);
+        spo2.addNecessaryAchievement(a7);
+        data.Achievement a8 = new data.Achievement("SWT 3");
+        a8.setId(8);
+        spo2.addNecessaryAchievement(a8);
+        spos.add(spo1);
+        spos.add(spo2);
         play.twirl.api.Html content = views.html.indexInformation
                 .render("Hier könnte ihre Werbung stehen!");
         return ok(views.html.index.render(content));
@@ -47,7 +81,8 @@ public class IndexPageController extends Controller {
     public Result registerPage() {
         // TODO
 
-        play.twirl.api.Html content = views.html.indexRegistration.render(GeneralData.getCurrentSemester().getSpos());
+        play.twirl.api.Html content = views.html.indexRegistration
+                .render(GeneralData.getCurrentSemester().getSpos());
 
         return ok(views.html.index.render(content));
     }
@@ -107,7 +142,7 @@ public class IndexPageController extends Controller {
      * @return Die Seite, die als Antwort verschickt wird.
      */
     public Result verificationPage() {
-        //TODO
+        // TODO
         return null;
     }
 }

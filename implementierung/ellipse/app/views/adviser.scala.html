@@ -1,0 +1,20 @@
+@*
+ * TODO: Temporary content
+ *@
+@(content: Html)
+
+@*
+ * Call the `main` template with two arguments. The first
+ * argument is a `String` with the title of the page, the second
+ * argument is an `Html` object containing the body of the page.
+ *@
+
+@main(Messages("admin.title"), {val map = new HashMap[String, String];
+map.put(Messages("admin.sidebar.adviser"), controllers.routes.AdminPageController.adviserPage().path());
+map.put(Messages("admin.sidebar.projects"), controllers.routes.AdminPageController.projectPage().path());
+map.put(Messages("admin.sidebar.allocation"), controllers.routes.AdminPageController.allocationPage().path());
+map.put(Messages("admin.sidebar.results"), controllers.routes.AdminPageController.resultsPage().path());
+map.put(Messages("admin.sidebar.exportImport"), controllers.routes.AdminPageController.exportImportPage().path());
+map.put(Messages("admin.sidebar.studentEdit"), controllers.routes.AdminPageController.studentEditPage().path());
+map.put(Messages("admin.sidebar.properties"), controllers.routes.AdminPageController.propertiesPage().path());
+map}) {null} {@content}

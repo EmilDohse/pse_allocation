@@ -22,6 +22,10 @@ public class Achievement extends ElipseModel {
     @NotNull
     private String name;
 
+    public Achievement() {
+
+    }
+
     public Achievement(String name) {
         this.name = name;
     }
@@ -64,8 +68,9 @@ public class Achievement extends ElipseModel {
      *         übergebenen Namen hat.
      */
     public static Achievement getAchievement(String name) {
-        return getAchievements().stream().filter(achievement -> achievement.getName().equals(name)).findFirst()
-                .orElse(null);
+        return getAchievements().stream()
+                .filter(achievement -> achievement.getName().equals(name))
+                .findFirst().orElse(null);
     }
 
 }

@@ -1,12 +1,9 @@
 @(project:data.Project)
 
-<h1>@Messages("admin.sidebar.results")</h1>
-<h2>Ergebnis</h2>
+<h1>@Messages("student.sidebar.results")</h1>
 <h3>@project.getName()</h3>
 <div>
-	<p>@Messages(student.result.information)</p>
-	<br>
+	<p>@Messages("student.result.information")</p>
 	<p>@project.getProjectInfo()
-	<p>
-		<br> <a href=@project.getProjectURL()>@Messages(student.result.link)</a>
+	<p><a href="@project.getProjectURL()">@Messages("student.result.link")</a></p>
 </div>

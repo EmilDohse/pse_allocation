@@ -4,14 +4,12 @@
 
 package controllers;
 
-import qualityCriteria.QualityCriterion;
-import play.mvc.Result;
 import allocation.AllocationQueue;
-import data.Allocation;
 import data.GeneralData;
 import data.Project;
 import data.Semester;
 import play.mvc.Controller;
+import play.mvc.Result;
 
 /************************************************************/
 /**
@@ -20,97 +18,107 @@ import play.mvc.Controller;
  */
 public class AdminPageController extends Controller {
 
-	/**
-	 * Diese Methode gibt die Seite zurück, auf der der Administrator Projekte
-	 * sieht, neue hinzufügen, sowie existierende löschen kann.
-	 * 
-	 * @return Die Seite, die als Antwort verschickt wird.
-	 */
-	public Result projectPage() {
-	    play.twirl.api.Html content = views.html.adminProjects.render(GeneralData.getCurrentSemester().getProjects());
+    /**
+     * Diese Methode gibt die Seite zurück, auf der der Administrator Projekte
+     * sieht, neue hinzufügen, sowie existierende löschen kann.
+     * 
+     * @return Die Seite, die als Antwort verschickt wird.
+     */
+    public Result projectPage() {
+        play.twirl.api.Html content = views.html.adminProjects
+                .render(GeneralData.getCurrentSemester().getProjects());
         return ok(views.html.admin.render(content));
-	}
+    }
 
-	/**
-	 * Diese Methode gibt die Seite zurück, auf der der Administrator alle
-	 * Projektbetreuer sehen, neue hinzufügen oder bereits existierende
-	 * entfernen kann.
-	 * 
-	 * @return Die Seite, die als Antwort verschickt wird.
-	 */
-	public Result adviserPage() {
-	    play.twirl.api.Html content = views.html.adminAdvisers.render(GeneralData.getCurrentSemester().getAdvisers());
+    /**
+     * Diese Methode gibt die Seite zurück, auf der der Administrator alle
+     * Projektbetreuer sehen, neue hinzufügen oder bereits existierende
+     * entfernen kann.
+     * 
+     * @return Die Seite, die als Antwort verschickt wird.
+     */
+    public Result adviserPage() {
+        play.twirl.api.Html content = views.html.adminAdvisers
+                .render(GeneralData.getCurrentSemester().getAdvisers());
         return ok(views.html.admin.render(content));
-	}
+    }
 
-	/**
-	 * Diese Methode gibt die Seite zurück, auf der der Administrator
-	 * Einteilungen berechnen und vorher Parameter einstellen kann. Außerdem
-	 * sieht er noch zu berechnende Konfigurationen und kann diese aus der
-	 * Berechnungsliste entfernen.
-	 * 
-	 * @return Die Seite, die als Antwort verschickt wird.
-	 */
-	public Result allocationPage() {
-	    play.twirl.api.Html content = views.html.adminAllocation.render(AllocationQueue.getInstance());
+    /**
+     * Diese Methode gibt die Seite zurück, auf der der Administrator
+     * Einteilungen berechnen und vorher Parameter einstellen kann. Außerdem
+     * sieht er noch zu berechnende Konfigurationen und kann diese aus der
+     * Berechnungsliste entfernen.
+     * 
+     * @return Die Seite, die als Antwort verschickt wird.
+     */
+    public Result allocationPage() {
+        play.twirl.api.Html content = views.html.adminAllocation
+                .render(AllocationQueue.getInstance());
         return ok(views.html.admin.render(content));
-	}
+    }
 
-	/**
-	 * Diese Methode gibt die Seite zurück, auf der der Administrator die
-	 * Ergebnisse der Berechnungen sehen, vergleichen und editieren kann.
-	 * 
-	 * @return Die Seite, die als Antwort verschickt wird.
-	 */
-	public Result resultsPage() {
-	    play.twirl.api.Html content = views.html.adminResults.render(GeneralData.getCurrentSemester().getAllocations());
+    /**
+     * Diese Methode gibt die Seite zurück, auf der der Administrator die
+     * Ergebnisse der Berechnungen sehen, vergleichen und editieren kann.
+     * 
+     * @return Die Seite, die als Antwort verschickt wird.
+     */
+    public Result resultsPage() {
+        play.twirl.api.Html content = views.html.adminResults
+                .render(GeneralData.getCurrentSemester().getAllocations());
         return ok(views.html.admin.render(content));
-	}
+    }
 
-	/**
-	 * Diese Methode gibt die Seite zurück, auf der der Administrator
-	 * Einteilungen, Studentendaten, SPOs, Projekte und CMS-Daten ex- und
-	 * importieren kann.
-	 * 
-	 * @return Die Seite, die als Antwort verschickt wird.
-	 */
-	public Result exportImportPage() {
-	    play.twirl.api.Html content = views.html.ExportImport.render();
+    /**
+     * Diese Methode gibt die Seite zurück, auf der der Administrator
+     * Einteilungen, Studentendaten, SPOs, Projekte und CMS-Daten ex- und
+     * importieren kann.
+     * 
+     * @return Die Seite, die als Antwort verschickt wird.
+     */
+    public Result exportImportPage() {
+        play.twirl.api.Html content = views.html.ExportImport.render();
         return ok(views.html.admin.render(content));
-	}
+    }
 
-	/**
-	 * Diese Methode gibt die Seite zurück, auf der der Administrator Studenten
-	 * manuell hinzufügen oder löschen kann.
-	 * 
-	 * @return Die Seite, die als Antwort verschickt wird.
-	 */
-	public Result studentEditPage() {
-	    play.twirl.api.Html content = views.html.adminStudentEdit.render();
+    /**
+     * Diese Methode gibt die Seite zurück, auf der der Administrator Studenten
+     * manuell hinzufügen oder löschen kann.
+     * 
+     * @return Die Seite, die als Antwort verschickt wird.
+     */
+    public Result studentEditPage() {
+        play.twirl.api.Html content = views.html.adminStudentEdit.render();
         return ok(views.html.admin.render(content));
-	}
+    }
 
-	/**
-	 * Diese Methode gibt die Seite zurück, auf der der Administrator die
-	 * Semester-Einstellungen vornehmen kann.
-	 * 
-	 * @return Die Seite, die als Antwort verschickt wird.
-	 */
-	public Result propertiesPage() {
-	    play.twirl.api.Html content = views.html.adminProperties.render(Semester.getSemesters());
+    /**
+     * Diese Methode gibt die Seite zurück, auf der der Administrator die
+     * Semester-Einstellungen vornehmen kann.
+     * 
+     * @return Die Seite, die als Antwort verschickt wird.
+     */
+    public Result propertiesPage() {
+        play.twirl.api.Html content = views.html.adminProperties
+                .render(Semester.getSemesters());
         return ok(views.html.admin.render(content));
-	}
+    }
 
-	/**
-	 * Diese Methode gibt die Seite zurück, auf der der Administrator ein Projekt editieren kann.
-	 * 
-	 * @param name Der Name des Projektes (da mitgegeben über die URL, ist der String encoded)
-	 * 
-	 * @return Die Seite, die als Antwort verschickt wird.
-	 */
-	public Result projectEditPage(String name) {
-		Project project = Project.getProject(name, GeneralData.getCurrentSemester());
-	    play.twirl.api.Html content = views.html.ProjectEdit.render(project, false);
+    /**
+     * Diese Methode gibt die Seite zurück, auf der der Administrator ein
+     * Projekt editieren kann.
+     * 
+     * @param name
+     *            Der Name des Projektes (da mitgegeben über die URL, ist der
+     *            String encoded)
+     * 
+     * @return Die Seite, die als Antwort verschickt wird.
+     */
+    public Result projectEditPage(String name) {
+        Project project = Project.getProject(name,
+                GeneralData.getCurrentSemester());
+        play.twirl.api.Html content = views.html.projectEdit.render(project,
+                false);
         return ok(views.html.admin.render(content));
-	}
+    }
 }
