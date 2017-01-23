@@ -20,6 +20,20 @@ public class SemesterTest extends DataTest {
     }
 
     @Test
+    public void testWintersemester() {
+        boolean w = true;
+        semester.setWintersemester(w);
+        assertEquals(w, semester.getWintersemester());
+    }
+
+    @Test
+    public void testYear() {
+        int y = 2016;
+        semester.setYear(y);
+        assertEquals(y, semester.getYear());
+    }
+
+    @Test
     public void testName() {
         String n = "testname";
         semester.setName(n);

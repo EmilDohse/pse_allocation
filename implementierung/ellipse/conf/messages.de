@@ -21,6 +21,13 @@ student.sidebar.learningGroup = Lerngruppe
 student.sidebar.rating = Projektbewertung
 student.sidebar.results = Einteilungsergebnisse
 student.sidebar.account = Account
+student.rating.projectname =  Projektname
+student.learningGroup.members = Lerngruppenmitglieder
+student.learningGroup.name = Name der Lerngruppe:
+student.learningGroup.password = Password:
+student.result.information = Projektinformation:
+student.result.link = Link zur Projektseite
+
 
 adviser.leaveProject = Projekt verlassen
 
@@ -55,3 +62,8 @@ admin.studentEdit.remove = löschen
 
 importer.FileNotFound = Datei konnte nicht gefunden werden
 importer.IOException = Fehler beim Lesen der Datei
+importer.wrongFileFormat = Die angegebene Datei hat nicht das erwartete Format
+importer.alreadyExisting = Die importierte Datei existiert schon
+
+allocation.gurobiException = Fehler beim Erstellen des Gurobi-Modells
+allocation.parameterNotFound = Es konnten nicht alle Parameter gefunden werden

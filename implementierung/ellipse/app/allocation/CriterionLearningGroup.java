@@ -64,7 +64,7 @@ public class CriterionLearningGroup implements GurobiCriterion {
 						try {
 							pairInSameTeam = allocator.getModel().addVar(0, 1, 0, GRB.BINARY, GurobiAllocator.NULL);
 						} catch (GRBException e) {
-							throw new AllocationException();
+							throw new AllocationException("allocation.gurobiException");
 						}
 
 						// Benötigte Teilterme für AND-Verknüpfung
@@ -85,7 +85,7 @@ public class CriterionLearningGroup implements GurobiCriterion {
 							allocator.getModel().addConstr(leftSideSecondConstraint, GRB.LESS_EQUAL, 0,
 									GurobiAllocator.NULL);
 						} catch (GRBException e) {
-							throw new AllocationException();
+							throw new AllocationException("allocation.gurobiException");
 						}
 
 						bonus.addTerm(weight * (10 / pairs), pairInSameTeam);
@@ -96,7 +96,7 @@ public class CriterionLearningGroup implements GurobiCriterion {
 		try {
 			allocator.getOptimizationTerm().add(bonus);
 		} catch (GRBException e) {
-			throw new AllocationException();
+			throw new AllocationException("allocation.gurobiException");
 		}
 	}
 }

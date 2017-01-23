@@ -6,23 +6,33 @@ package data;
 
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.validation.constraints.NotNull;
+
+import com.avaje.ebean.Ebean;
+
 /************************************************************/
 /**
  * Diese Klasse stellt eine Einteilung von Studierenden in einem Semester dar.
  */
+@Entity
 public class Allocation extends ElipseModel {
 
     /**
      * Liste, die alle Teams enthält.
      */
+    @OneToMany
     private List<Team>                teams;
     /**
      * Der Name der Einteilung.
      */
+    @NotNull
     private String                    name;
     /**
      * Parameter, mit der die Einteilung gemacht wurde.
      */
+    @OneToMany
     private List<AllocationParameter> parameters;
 
     /**
@@ -146,8 +156,7 @@ public class Allocation extends ElipseModel {
      * @return Alle Einteilungen.
      */
     public static List<Allocation> getAllocations() {
-        // TODO
-        return null;
+        return Ebean.find(Allocation.class).findList();
     }
 
     /**
@@ -156,11 +165,12 @@ public class Allocation extends ElipseModel {
      * 
      * @param name
      *            Der Name der Einteilung.
-     * @return Die Einteilung mit dem gegebenen Namen.
+     * @return Die Einteilung mit dem gegebenen Namen. Null falls keine
+     *         Einteilung diesen Namen hat.
      */
     public static Allocation getAllocation(String name) {
-        // TODO
-        return null;
+        return Ebean.find(Allocation.class).findList().stream().filter(allocation -> allocation.getName().equals(name))
+                .findFirst().orElse(null);
     }
 
 }
