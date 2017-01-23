@@ -6,20 +6,27 @@ package data;
 
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+
 /************************************************************/
 /**
  * Diese KLasse stellt ein Team eines Projektes dar.
  */
+@Entity
 public class Team extends ElipseModel {
 
     /**
      * Das Projekt des Teams
      */
+    @OneToOne
     private Project       project;
 
     /**
      * Liste der Studierenden in diesem Teams.
      */
+    @OneToMany
     private List<Student> members;
 
     /**

@@ -8,52 +8,116 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+
 /************************************************************/
 /**
  * Diese Klasse repräsentiert ein Semseter.
  */
+@Entity
 public class Semester extends ElipseModel {
 
     /**
-     * Der Name des Semesters im Format: WSxx/xx oder SSxx
+     * true: Wintersemester, false: Sommersemester
      */
+    private boolean             isWintersemester;
+    /**
+     * Jahr, in dem das Semester stattfindet
+     */
+    private int                 year;
+    /**
+     * Der Name des Semesters
+     */
+    @NotNull
     private String              name;
     /**
      * Die für dieses Semseter verfügbaren SPOs
      */
+    @OneToMany
     private List<SPO>           spos;
     /**
      * Eine Beschreibung/Infotext des Semesters.
      */
+    @NotNull
     private String              infoText;
     /**
      * Die finale Einteilung der Studierenden auf die Projekte/Teams.
      */
+    @OneToOne
     private Allocation          finalAllocation;
     /**
      * Der Zeitpunkt ab dem sich Studenten registrieren können.
      */
+    @Temporal(TemporalType.TIME)
     private Date                registrationStart;
     /**
      * Der Zeitpunkt ab dem sich Studenten nicht mehr registrieren können.
      */
+    @Temporal(TemporalType.TIME)
     private Date                registrationEnd;
     /**
      * Alle Lerngruppen, die dieses Semester erstellt wurden
      */
+    @OneToMany
     private List<LearningGroup> learningGroups;
     /**
      * Alle Studenten, die sich für dieses Semester angemeldet haben
      */
+    @OneToMany
     private List<Student>       students;
     /**
      * Alle Projekte, die für dieses Semester registriert wurden
      */
+    @OneToMany
     private List<Project>       projects;
     /**
      * Alle Einteilungen, die für dieses Semester berechnet wurden
      */
+    @OneToMany
     private List<Allocation>    allocations;
+
+    /**
+     * Gibt zurück, ob es sich um ein Sommer- oder Wintersemester handelt
+     * 
+     * @return true: Wintersemester, false: Sommersemester
+     */
+    public boolean isWintersemester() {
+        return isWintersemester;
+    }
+
+    /**
+     * Setz, ob es sich um ein Sommer oder Wintersemester handelt
+     * 
+     * @param wintersemester
+     *            true: Wintersemester, false: Sommersemester
+     */
+    public void setWintersemester(boolean wintersemester) {
+        this.isWintersemester = wintersemester;
+    }
+
+    /**
+     * Getter für das Jahr
+     * 
+     * @return Jahr
+     */
+    public int getYear() {
+        return year;
+    }
+
+    /**
+     * Setter für das Jahr
+     * 
+     * @param year
+     *            Jahr
+     */
+    public void setYear(int year) {
+        this.year = year;
+    }
 
     /**
      * Setter für die Einteilungen.
@@ -314,11 +378,7 @@ public class Semester extends ElipseModel {
      *            Der Name des Semesters.
      */
     public void setName(String name) {
-        if (name.matches("WS\\d\\d/\\d\\d") || name.matches("SS\\d\\d")) {
-            this.name = name;
-        } else {
-            // TODO throws
-        }
+        this.name = name;
     }
 
     /**

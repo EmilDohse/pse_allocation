@@ -4,6 +4,10 @@
 
 package allocation;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
+import data.LearningGroup;
 import exception.AllocationException;
 import gurobi.GRB;
 import gurobi.GRBException;
@@ -41,17 +45,19 @@ public class CriterionNoSingularStudent implements GurobiCriterion {
 			throws AllocationException {
 		GRBLinExpr bonus = new GRBLinExpr();
 
-		for (int i = 0; i < configuration.getLearningGroups().size(); i++) {
+		// Betrachte nur Gruppen mit mehr als einem Mitglied
+		List<LearningGroup> bigGroups = configuration.getLearningGroups().stream()
+				.filter(lg -> lg.getMembers().size() > 1).collect(Collectors.toList());
+		for (int i = 0; i < bigGroups.size(); i++) {
 
-			// TODO evtl nur Lerngruppen > 2 betrachten?
 			// Erstelle Variable, die genau der Lerngruppengröße entspricht
-			double concreteSize = configuration.getLearningGroups().get(i).getMembers().size();
+			double concreteSize = bigGroups.get(i).getMembers().size();
 			GRBVar sizeOfLG;
 			try {
 				sizeOfLG = allocator.getModel().addVar(0, Double.MAX_VALUE, 0, GRB.INTEGER, GurobiAllocator.NULL);
 				allocator.getModel().addConstr(sizeOfLG, GRB.EQUAL, concreteSize, GurobiAllocator.NULL);
 			} catch (GRBException e) {
-				throw new AllocationException();
+				throw new AllocationException("allocation.gurobiException");
 			}
 
 			for (int j = 0; j < configuration.getTeams().size(); j++) {
@@ -63,7 +69,7 @@ public class CriterionNoSingularStudent implements GurobiCriterion {
 					auxiliaryVariable = allocator.getModel().addVar(0, 1, 0, GRB.BINARY, GurobiAllocator.NULL);
 					resultVariable = allocator.getModel().addVar(0, 1, 0, GRB.BINARY, GurobiAllocator.NULL);
 				} catch (GRBException e) {
-					throw new AllocationException();
+					throw new AllocationException("allocation.gurobiException");
 				}
 
 				// Erstelle benötigte Teilterme
@@ -93,7 +99,7 @@ public class CriterionNoSingularStudent implements GurobiCriterion {
 				try {
 					rightSideSecondConstraint.multAdd(9.1, negationAuxiliaryVariable);
 				} catch (GRBException e) {
-					throw new AllocationException();
+					throw new AllocationException("allocation.gurobiException");
 				}
 
 				try {
@@ -106,7 +112,7 @@ public class CriterionNoSingularStudent implements GurobiCriterion {
 					allocator.getModel().addConstr(varianceTeamAndLG, GRB.LESS_EQUAL, rightSideSecondConstraint,
 							GurobiAllocator.NULL);
 				} catch (GRBException e) {
-					throw new AllocationException();
+					throw new AllocationException("allocation.gurobiException");
 				}
 				// Erweitere Bonusterm
 				bonus.addTerm(weight * 10, resultVariable);
@@ -117,7 +123,7 @@ public class CriterionNoSingularStudent implements GurobiCriterion {
 		try {
 			allocator.getOptimizationTerm().add(bonus);
 		} catch (GRBException e) {
-			throw new AllocationException();
+			throw new AllocationException("allocation.gurobiException");
 		}
 	}
 }

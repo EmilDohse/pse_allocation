@@ -6,24 +6,32 @@ package data;
 
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.validation.constraints.NotNull;
+
 /************************************************************/
 /**
  * Diese Klasse stellt eine Studienprüfungsordnung dar.
  */
+@Entity
 public class SPO extends ElipseModel {
 
     /**
      * Der Name der Prüfungsordnung.
      */
+    @NotNull
     private String            name;
     /**
      * Die nach dieser Prüfungsordnung benötigten Teilleistungen für die
      * Teilnahme am PSE.
      */
+    @OneToMany
     private List<Achievement> necessaryAchievements;
     /**
      * Die zusätzlichen Teilleistungen.
      */
+    @OneToMany
     private List<Achievement> additionalAchievements;
 
     /**

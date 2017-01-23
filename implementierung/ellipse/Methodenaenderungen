@@ -4,3 +4,5 @@
 - Semester.getTeams
 + Project.getSemester
 + User.getName
++ Semester.year (setter getter)
++ Semester.wintersemester (setter getter)

@@ -103,13 +103,15 @@ public class GurobiAllocator extends AbstractAllocator {
 	 *            soll.
 	 */
 	public void calculate(Configuration configuration) throws AllocationException {
+
+		// Hier wird die eigentliche Berechnung durchgeführt
 		GRBEnv env;
 		try {
 			env = new GRBEnv();
 			this.model = this.makeModel(configuration, env);
 			this.model.optimize();
 		} catch (GRBException e) {
-			throw new AllocationException();
+			throw new AllocationException("allocation.gurobiException");
 		}
 
 		// erstelle Teams
@@ -119,7 +121,7 @@ public class GurobiAllocator extends AbstractAllocator {
 				try {
 					result = this.basicMatrix[j][i].get(DoubleAttr.X);
 				} catch (GRBException e) {
-					throw new AllocationException();
+					throw new AllocationException("allocation.gurobiException");
 				}
 				if (result == 1) {
 					configuration.getTeams().get(i).addMember(configuration.getStudents().get(j));
@@ -137,7 +139,7 @@ public class GurobiAllocator extends AbstractAllocator {
 			this.model.dispose();
 			env.dispose();
 		} catch (GRBException e) {
-			throw new AllocationException();
+			throw new AllocationException("allocation.gurobiException");
 		}
 
 	}
@@ -210,7 +212,7 @@ public class GurobiAllocator extends AbstractAllocator {
 			maxAdminSize = parameters.stream().filter(parameter -> parameter.getName().equals("maxSize")).findFirst()
 					.get().getValue();
 		} catch (NoSuchElementException e) {
-			throw new AllocationException();
+			throw new AllocationException("allocation.parameterNotFound");
 		}
 
 		// Teamgröße zwischen min und max, oder 0
@@ -245,12 +247,14 @@ public class GurobiAllocator extends AbstractAllocator {
 						.filter(parameter -> parameter.getName().equals(criterion.getName())).findFirst().get()
 						.getValue();
 			} catch (NoSuchElementException e) {
-				throw new AllocationException();
+				throw new AllocationException("allocation.parameterNotFound");
 			}
-			criterion.useCriteria(configuration, this, weight);
+			if (weight != 0) {
+				criterion.useCriteria(configuration, this, weight);
+			}
 		}
 
-		// Stelle Modell zur Maximierung ein
+		// Stelle Modell auf Maximierung ein
 		model.setObjective(this.optTerm, GRB.MAXIMIZE);
 
 		return model;

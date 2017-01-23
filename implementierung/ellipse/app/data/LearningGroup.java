@@ -6,29 +6,40 @@ package data;
 
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.validation.constraints.NotNull;
+
+import com.avaje.ebean.Ebean;
+
 /************************************************************/
 /**
  * Diese Klasse repräsentiert eine Lerngruppe, das heißt eine Gruppe von
  * Studierenden, die sich gemeinsam zum PSE anmelden wollen.
  */
+@Entity
 public class LearningGroup extends ElipseModel {
 
     /**
      * Der Name der Lerngruppe.
      */
+    @NotNull
     private String        name;
     /**
      * Das nötige Passwort, um der Lerngruppe beizutreten.
      */
+    @NotNull
     private String        password;
     /**
      * Die Mitglieder der Lerngruppe.
      */
+    @OneToMany
     private List<Student> members;
 
     /**
      * Die Projektbewertungen der Lerngruppe
      */
+    @OneToMany
     private List<Rating>  ratings;
 
     /**
@@ -209,11 +220,12 @@ public class LearningGroup extends ElipseModel {
      *            Der Name der Lerngruppe.
      * @param semester
      *            Das Semster, in dem die Lerngruppe erstellt wurde.
-     * @return Die spezifische Lerngruppe.
+     * @return Die spezifische Lerngruppe. Null falls keine passende gefunden
+     *         wird.
      */
     public static LearningGroup getLearningGroup(String name, Semester semester) {
-        // TODO
-        return null;
+        return semester.getLearningGroups().stream().filter(group -> group.getName().equals(name)).findFirst()
+                .orElse(null);
     }
 
     /**
@@ -222,8 +234,7 @@ public class LearningGroup extends ElipseModel {
      * @return Alle Lerngruppen.
      */
     public static List<LearningGroup> getLearningGroups() {
-        // TODO
-        return null;
+        return Ebean.find(LearningGroup.class).findList();
     }
 
 }
