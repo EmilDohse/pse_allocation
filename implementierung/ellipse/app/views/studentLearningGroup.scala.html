@@ -6,7 +6,7 @@
 <table class="table table-striped">
 	<thead>
 		<tr>
-			<th>Lerngruppenmitglieder</th>
+			<th>@Messages("student.learningGroup.members")</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -20,8 +20,8 @@
 <input type=submit " value="leave">
 } else {
 <form>
-	Name der Lerngruppe: <br> <input type=text
-		name="learningGroupname" value=""> <br> Passwort: <br>
+	<p>@Messages("student.learningGroup.name") <br> <input type=text
+		name="learningGroupname" value=""> <br><p>@Messages("student.learningGroup.password")<br>
 	<input name="learningGroupPassword" value=""> <br>
 </form>
 <input type=submit "value="Lerngruppe erstellen">

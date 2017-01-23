@@ -21,6 +21,8 @@ student.sidebar.learningGroup = Lerngruppe
 student.sidebar.rating = Projektbewertung
 student.sidebar.results = Einteilungsergebnisse
 student.sidebar.account = Account
+student.rating.projectname =  Projektname
+student.learningGroup.members = Lerngruppenmitglieder
 
 adviser.leaveProject = Projekt verlassen
 
