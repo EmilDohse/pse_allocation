@@ -6,13 +6,17 @@ package importExport;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.util.ArrayList;
+import java.util.List;
 
+import com.avaje.ebean.Ebean;
 import com.sun.org.apache.xml.internal.serializer.utils.Messages;
 
 import data.Achievement;
@@ -81,12 +85,89 @@ public class Importer {
 	 *            Pfad zu einer .csv Datei.
 	 */
 	public void importSPO(String file) throws ImporterException {
-		try(BufferedReader br = new BufferedReader(new FileReader("file.txt"))) {
+		try (BufferedReader br = new BufferedReader(new FileReader("file.txt"))) {
+
+			// Lese Kopfzeile
 			String header = br.readLine();
-			
+			String[] headerSplit = header.split(";");
+
+			// Prüfe, ob Kopzeile die richtige Länge, sowie richtige Namen hat
+			boolean headerLength = (headerSplit.length == 3);
+			boolean firstColumn = headerSplit[0].equals("Name");
+			boolean secondColumn = headerSplit[1].equals("Additional Achievements");
+			boolean thirdColumn = headerSplit[2].equals("Necessary Achievements");
+
+			if (headerLength && firstColumn && secondColumn && thirdColumn) {
+
+				// Lese die Zeile, in der die SPO steht
+				String line = br.readLine();
+
+				// Teile die Zeile in Attribute auf
+				String[] lineSplit = line.split(";");
+
+				// Prüfe, ob die Zeile die korrekte Form hat und ob die SPO noch
+				// nicht existiert
+				if (lineSplit.length == 3) {
+					SPO spo = SPO.getSPO(lineSplit[0]);
+					if (spo == null) {
+						boolean additionalIsNotEmpty = (lineSplit[1].length() != 0);
+						boolean necessaryIsNotEmpty = (lineSplit[2].length() != 0);
+						if (additionalIsNotEmpty && necessaryIsNotEmpty) {
+
+							// Teile die zusätzlichen Teilleistungen weiter auf
+							String[] additionalSplit = lineSplit[1].split(",");
+							List<Achievement> additionalAchievements = new ArrayList<Achievement>();
+							for (int i = 0; i < additionalSplit.length; i++) {
+
+								// Prüfe, ob die aktuelle Teilleistung schon
+								// existiert, wenn nicht lege sie an
+								Achievement currentAchievement = Achievement.getAchievement(additionalSplit[i]);
+								if (currentAchievement != null) {
+									additionalAchievements.add(currentAchievement);
+								} else {
+									currentAchievement = new Achievement();
+									currentAchievement.setName(additionalSplit[i]);
+									Ebean.save(currentAchievement);
+									additionalAchievements.add(currentAchievement);
+								}
+							}
+
+							// Selbes Vorgehen für notwendige Teilleistungen
+							String[] necessarySplit = lineSplit[2].split(",");
+							List<Achievement> necessaryAchievements = new ArrayList<Achievement>();
+
+							for (int i = 0; i < necessaryAchievements.size(); i++) {
+								Achievement currentAchievement = Achievement.getAchievement(necessarySplit[i]);
+								if (currentAchievement != null) {
+									necessaryAchievements.add(currentAchievement);
+								} else {
+									currentAchievement = new Achievement();
+									currentAchievement.setName(necessarySplit[i]);
+									Ebean.save(currentAchievement);
+									necessaryAchievements.add(currentAchievement);
+								}
+							}
+							SPO importedSpo = new SPO();
+							importedSpo.setName(lineSplit[0]);
+							importedSpo.setAdditionalAchievements(additionalAchievements);
+							importedSpo.setNecessaryAchievements(necessaryAchievements);
+							Ebean.save(importedSpo);
+						} else {
+							throw new ImporterException("importer.wrongFileFormat");
+						}
+					} else {
+						throw new ImporterException("importer.alreadyExisting");
+					}
+				} else {
+					throw new ImporterException("importer.wrongFileFormat");
+				}
+			} else {
+				throw new ImporterException("importer.wrongFileFormat");
+			}
+
 		} catch (FileNotFoundException e) {
 			throw new ImporterException("importer.FileNotFound");
-			
+
 		} catch (IOException e) {
 			throw new ImporterException("importer.IOException");
 		}
@@ -102,31 +183,31 @@ public class Importer {
 	 */
 	public void exportSPO(String file, SPO spo) throws ImporterException {
 		try (Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("file"), "utf-8"))) {
-			
+
 			// Write Header
-			writer.write("name;additionalAchievements;necessaryAchievements");
-			
-			//Create output String
+			writer.write("Name;Additional Achievements;Necessary Achievements");
+
+			// Create output String
 			String output = spo.getName();
 			output += ";";
-			
+
 			// Add all additional Achievements
 			for (Achievement achievement : spo.getAdditionalAchievements()) {
 				output += achievement.getName() + ",";
 			}
-			
-			//Remove trailing comma
+
+			// Remove trailing comma
 			output = output.substring(0, output.length() - 2);
-			
-			//Add all necessary Achievements
+
+			// Add all necessary Achievements
 			for (Achievement achievement : spo.getNecessaryAchievements()) {
 				output += achievement.getName() + ",";
 			}
-			
-			//remove trailing comma
+
+			// remove trailing comma
 			output = output.substring(0, output.length() - 2);
-			
-			//write line
+
+			// write line
 			writer.write(output);
 		} catch (IOException e) {
 			throw new ImporterException("importer.IOException");
