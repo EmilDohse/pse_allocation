@@ -4,6 +4,10 @@
 
 package controllers;
 
+import java.util.ArrayList;
+
+import data.Achievement;
+import data.SPO;
 import notificationSystem.Notifier;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -44,7 +48,43 @@ public class IndexPageController extends Controller {
      */
     public Result registerPage() {
         // TODO
-        return null;
+        ArrayList<SPO> spos = new ArrayList<>();
+        SPO spo1 = new SPO();
+        spo1.setName("SPO 2008");
+        spo1.setAdditionalAchievements(new ArrayList<>());
+        spo1.setNecessaryAchievements(new ArrayList<>());
+        Achievement a1 = new Achievement("LA 1");
+        a1.setId(1);
+        spo1.addAdditionalAchievement(a1);
+        Achievement a2 = new Achievement("LA 2");
+        a2.setId(2);
+        spo1.addAdditionalAchievement(a2);
+        Achievement a3 = new Achievement("HM 1");
+        a3.setId(3);
+        spo1.addNecessaryAchievement(a3);
+        Achievement a4 = new Achievement("HM 3");
+        a4.setId(4);
+        spo1.addNecessaryAchievement(a4);
+        SPO spo2 = new SPO();
+        spo2.setName("SPO 2015");
+        spo2.setAdditionalAchievements(new ArrayList<>());
+        spo2.setNecessaryAchievements(new ArrayList<>());
+        Achievement a5 = new Achievement("Algo 3");
+        a5.setId(5);
+        spo2.addAdditionalAchievement(a5);
+        Achievement a6 = new Achievement("Algo 1");
+        a6.setId(6);
+        spo2.addAdditionalAchievement(a6);
+        Achievement a7 = new Achievement("SWT1");
+        a7.setId(7);
+        spo2.addNecessaryAchievement(a7);
+        Achievement a8 = new Achievement("SWT 3");
+        a8.setId(8);
+        spo2.addNecessaryAchievement(a8);
+        spos.add(spo1);
+        spos.add(spo2);
+        play.twirl.api.Html content = views.html.indexRegistration.render(spos);
+        return ok(views.html.index.render(content));
     }
 
     /**
