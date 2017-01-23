@@ -5,7 +5,7 @@ index.registration.form.personalData = Persönliche Daten
 index.registration.form.firstName = Vorname
 index.registration.form.lastName = Nachname
 index.registration.form.matrnr = Matrikelnummer
-index.registrtaion.form.email = E-Mail-Adresse
+index.registration.form.email = E-Mail-Adresse
 index.registration.form.password = Passwort
 index.registration.form.pwRepeat = Passwortwiederholung
 index.registration.form.studyData = Studiendaten
@@ -13,6 +13,8 @@ index.registration.form.semester = Semester
 index.registration.form.spo = SPO
 index.registration.form.passedAchievements = Bestandene Teilleistungen
 index.registration.form.dueAchievements = Ausstehende Teilleistungen
+index.registration.form.necessaryAchievements = Benötigte Teilleistungen
+index.registration.form.additionalAchievements = Zusätzliche Teilleistungen
 index.registration.form.trueData = Alle Angaben wurden wahrheitsgemäß ausgefüllt.
 index.registration.form.register = Registrieren
 

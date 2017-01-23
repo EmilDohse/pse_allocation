@@ -24,6 +24,10 @@ public class Achievement extends ElipseModel {
     @NotNull
     private String name;
 
+    public Achievement(String name) {
+        this.name = name;
+    }
+
     /**
      * Getter für den Namen der Teilleistung.
      * 
