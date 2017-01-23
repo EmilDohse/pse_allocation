@@ -10,8 +10,6 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
-import com.avaje.ebean.Ebean;
-
 /************************************************************/
 /**
  * Klasse, die ein Project repräsentiert
@@ -260,7 +258,7 @@ public class Project extends ElipseModel {
      * @return Alle Projekte.
      */
     public static List<Project> getProjects() {
-        return Ebean.find(Project.class).findList();
+        return ElipseModel.getAll(Project.class);
     }
 
     /**
@@ -275,8 +273,7 @@ public class Project extends ElipseModel {
      *         gefunden wurde.
      */
     public static Project getProject(String name, Semester semester) {
-        return semester.getProjects().stream().filter(project -> project.getName().equals(name)).findFirst()
-                .orElse(null);
+        return getProjects().stream().filter(project -> project.getName().equals(name)).findFirst().orElse(null);
     }
 
     /**

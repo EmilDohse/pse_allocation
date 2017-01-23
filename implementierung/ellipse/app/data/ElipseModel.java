@@ -1,12 +1,15 @@
 package data;
 
+import java.util.List;
+
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
+import com.avaje.ebean.Ebean;
 import com.avaje.ebean.Model;
 
 @MappedSuperclass
-public class ElipseModel extends Model {
+public abstract class ElipseModel extends Model {
 
     /**
      * Eindeutige ID des Objektes.
@@ -43,6 +46,18 @@ public class ElipseModel extends Model {
         } else {
             return false;
         }
+    }
+
+    /**
+     * Gibt Liste aller Instanzen einer Unterklasse von ElipseModel zurück, die
+     * in der Datenbank sind.
+     * 
+     * @param type
+     *            Die konkrete Klasse der Instanzen, die geladen werden sollen.
+     * @return Liste aller Instanzen der Klasse "type" in der Datenbank.
+     */
+    protected static <T extends ElipseModel> List<T> getAll(Class<T> type) {
+        return Ebean.find(type).findList();
     }
 
 }

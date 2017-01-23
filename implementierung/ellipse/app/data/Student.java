@@ -258,11 +258,12 @@ public class Student extends User {
      * 
      * @param matriculationNumber
      *            Die Matrikelnummer des Studierenden.
-     * @return Der Studierende.
+     * @return Der Studierende. Null, falls kein Student diese Matrikelnummer
+     *         hat.
      */
     public static Student getStudent(int matriculationNumber) {
-        // TODO
-        return null;
+        return getStudents().stream().filter(student -> student.getMatriculationNumber() == matriculationNumber)
+                .findFirst().orElse(null);
     }
 
     /**
@@ -271,8 +272,7 @@ public class Student extends User {
      * @return Alle Studierende.
      */
     public static List<Student> getStudents() {
-        // TODO
-        return null;
+        return ElipseModel.getAll(Student.class);
     }
 
     /**

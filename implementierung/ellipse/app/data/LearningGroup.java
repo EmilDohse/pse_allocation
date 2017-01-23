@@ -10,8 +10,6 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
-import com.avaje.ebean.Ebean;
-
 /************************************************************/
 /**
  * Diese Klasse repräsentiert eine Lerngruppe, das heißt eine Gruppe von
@@ -234,7 +232,7 @@ public class LearningGroup extends ElipseModel {
      * @return Alle Lerngruppen.
      */
     public static List<LearningGroup> getLearningGroups() {
-        return Ebean.find(LearningGroup.class).findList();
+        return ElipseModel.getAll(LearningGroup.class);
     }
 
 }

@@ -153,8 +153,7 @@ public class SPO extends ElipseModel {
      * @return Alle SPOs.
      */
     public static List<SPO> getSPOs() {
-        // TODO
-        return null;
+        return ElipseModel.getAll(SPO.class);
     }
 
     /**
@@ -163,11 +162,10 @@ public class SPO extends ElipseModel {
      * 
      * @param name
      *            Der Name der SPO.
-     * @return Die SPO
+     * @return Die SPO. Null falls keine SPO den übergebenen Namen hat.
      */
     public static SPO getSPO(String name) {
-        // TODO
-        return null;
+        return getSPOs().stream().filter(spo -> spo.getName().equals(name)).findFirst().orElse(null);
     }
 
 }

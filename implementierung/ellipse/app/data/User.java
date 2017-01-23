@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
  * Diese Klasse stellt einen Benutzer der Anwendung dar.
  */
 @MappedSuperclass
-public class User extends ElipseModel {
+public abstract class User extends ElipseModel {
 
     /**
      * Der Anmeldename des Benutzers.

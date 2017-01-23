@@ -416,11 +416,12 @@ public class Semester extends ElipseModel {
      * 
      * @param semesterName
      *            Der Name des Semseters.
-     * @return Das gesuchte Semester.
+     * @return Das gesuchte Semester. Null falls kein Semester den übergebenen
+     *         Namen hat.
      */
     public static Semester getSemester(String semesterName) {
-        // TODO
-        return null;
+        return getSemesters().stream().filter(semester -> semester.getName().equals(semesterName)).findFirst()
+                .orElse(null);
     }
 
     /**
@@ -429,8 +430,7 @@ public class Semester extends ElipseModel {
      * @return Alle Semseter.
      */
     public static List<Semester> getSemesters() {
-        // TODO
-        return null;
+        return ElipseModel.getAll(Semester.class);
     }
 
     /**

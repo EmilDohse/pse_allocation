@@ -9,8 +9,6 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.validation.constraints.NotNull;
 
-import com.avaje.ebean.Ebean;
-
 /************************************************************/
 /**
  * Diese Klasse stellt eine Teilleistung im Studium dar.
@@ -53,7 +51,7 @@ public class Achievement extends ElipseModel {
      * @return Alle existierenden Teilleistungen.
      */
     public static List<Achievement> getAchievements() {
-        return Ebean.find(Achievement.class).findList();
+        return ElipseModel.getAll(Achievement.class);
     }
 
     /**
@@ -66,8 +64,8 @@ public class Achievement extends ElipseModel {
      *         übergebenen Namen hat.
      */
     public static Achievement getAchievement(String name) {
-        return Ebean.find(Achievement.class).findList().stream()
-                .filter(achievement -> achievement.getName().equals(name)).findFirst().orElse(null);
+        return getAchievements().stream().filter(achievement -> achievement.getName().equals(name)).findFirst()
+                .orElse(null);
     }
 
 }

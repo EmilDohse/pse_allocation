@@ -10,8 +10,6 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
-import com.avaje.ebean.Ebean;
-
 /************************************************************/
 /**
  * Diese Klasse stellt eine Einteilung von Studierenden in einem Semester dar.
@@ -156,7 +154,7 @@ public class Allocation extends ElipseModel {
      * @return Alle Einteilungen.
      */
     public static List<Allocation> getAllocations() {
-        return Ebean.find(Allocation.class).findList();
+        return ElipseModel.getAll(Allocation.class);
     }
 
     /**
@@ -169,8 +167,8 @@ public class Allocation extends ElipseModel {
      *         Einteilung diesen Namen hat.
      */
     public static Allocation getAllocation(String name) {
-        return Ebean.find(Allocation.class).findList().stream().filter(allocation -> allocation.getName().equals(name))
-                .findFirst().orElse(null);
+        return getAllocations().stream().filter(allocation -> allocation.getName().equals(name)).findFirst()
+                .orElse(null);
     }
 
 }

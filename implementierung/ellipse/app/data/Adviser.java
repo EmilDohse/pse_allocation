@@ -9,8 +9,6 @@ import java.util.List;
 
 import javax.persistence.Entity;
 
-import com.avaje.ebean.Ebean;
-
 /************************************************************/
 /**
  * Diese Klasse stellt einen Betreuer dar.
@@ -39,7 +37,7 @@ public class Adviser extends User {
      * @return Liste aller Betreuer.
      */
     public static List<Adviser> getAdvisers() {
-        return Ebean.find(Adviser.class).findList();
+        return ElipseModel.getAll(Adviser.class);
     }
 
 }
