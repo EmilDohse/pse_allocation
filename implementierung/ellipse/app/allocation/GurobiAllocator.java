@@ -103,6 +103,8 @@ public class GurobiAllocator extends AbstractAllocator {
 	 *            soll.
 	 */
 	public void calculate(Configuration configuration) throws AllocationException {
+
+		// Hier wird die eigentliche Berechnung durchgeführt
 		GRBEnv env;
 		try {
 			env = new GRBEnv();
@@ -247,10 +249,12 @@ public class GurobiAllocator extends AbstractAllocator {
 			} catch (NoSuchElementException e) {
 				throw new AllocationException();
 			}
-			criterion.useCriteria(configuration, this, weight);
+			if (weight != 0) {
+				criterion.useCriteria(configuration, this, weight);
+			}
 		}
 
-		// Stelle Modell zur Maximierung ein
+		// Stelle Modell auf Maximierung ein
 		model.setObjective(this.optTerm, GRB.MAXIMIZE);
 
 		return model;

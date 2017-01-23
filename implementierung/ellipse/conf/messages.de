@@ -52,3 +52,6 @@ admin.studentEdit.addStudent = Student hinzufügen
 admin.studentEdit.removeStudent = Student löschen
 admin.studentEdit.add = hinzufügen
 admin.studentEdit.remove = löschen
+
+importer.FileNotFound = Datei konnte nicht gefunden werden
+importer.IOException = Fehler beim Lesen der Datei

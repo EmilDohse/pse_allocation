@@ -4,6 +4,10 @@
 
 package allocation;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
+import data.LearningGroup;
 import exception.AllocationException;
 import gurobi.GRB;
 import gurobi.GRBException;
@@ -41,11 +45,13 @@ public class CriterionNoSingularStudent implements GurobiCriterion {
 			throws AllocationException {
 		GRBLinExpr bonus = new GRBLinExpr();
 
-		for (int i = 0; i < configuration.getLearningGroups().size(); i++) {
+		// Betrachte nur Gruppen mit mehr als einem Mitglied
+		List<LearningGroup> bigGroups = configuration.getLearningGroups().stream()
+				.filter(lg -> lg.getMembers().size() > 1).collect(Collectors.toList());
+		for (int i = 0; i < bigGroups.size(); i++) {
 
-			// TODO evtl nur Lerngruppen > 2 betrachten?
 			// Erstelle Variable, die genau der Lerngruppengröße entspricht
-			double concreteSize = configuration.getLearningGroups().get(i).getMembers().size();
+			double concreteSize = bigGroups.get(i).getMembers().size();
 			GRBVar sizeOfLG;
 			try {
 				sizeOfLG = allocator.getModel().addVar(0, Double.MAX_VALUE, 0, GRB.INTEGER, GurobiAllocator.NULL);
