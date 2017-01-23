@@ -64,7 +64,7 @@ public class CriterionSameSemester implements GurobiCriterion {
 				orResult = allocator.getModel().addVar(0, 1, 0, GRB.BINARY, GurobiAllocator.NULL);
 				andResult = allocator.getModel().addVar(0, 1, 0, GRB.BINARY, GurobiAllocator.NULL);
 			} catch (GRBException e) {
-				throw new AllocationException();
+				throw new AllocationException("allocation.gurobiException");
 			}
 
 			// Erstelle benötigte Teilterme
@@ -121,14 +121,14 @@ public class CriterionSameSemester implements GurobiCriterion {
 				orConstraint(firstAuxiliaryVariable, secondAuxiliaryVariable, orResult, allocator);
 				andConstraint(orResult, thirdAuxiliaryVariable, andResult, allocator);
 			} catch (GRBException e) {
-				throw new AllocationException();
+				throw new AllocationException("allocation.gurobiException");
 			}
 			bonus.addTerm(weight * 10, andResult);
 		}
 		try {
 			allocator.getOptimizationTerm().add(bonus);
 		} catch (GRBException e) {
-			throw new AllocationException();
+			throw new AllocationException("allocation.gurobiException");
 		}
 	}
 

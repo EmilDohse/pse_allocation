@@ -57,7 +57,7 @@ public class CriterionNoSingularStudent implements GurobiCriterion {
 				sizeOfLG = allocator.getModel().addVar(0, Double.MAX_VALUE, 0, GRB.INTEGER, GurobiAllocator.NULL);
 				allocator.getModel().addConstr(sizeOfLG, GRB.EQUAL, concreteSize, GurobiAllocator.NULL);
 			} catch (GRBException e) {
-				throw new AllocationException();
+				throw new AllocationException("allocation.gurobiException");
 			}
 
 			for (int j = 0; j < configuration.getTeams().size(); j++) {
@@ -69,7 +69,7 @@ public class CriterionNoSingularStudent implements GurobiCriterion {
 					auxiliaryVariable = allocator.getModel().addVar(0, 1, 0, GRB.BINARY, GurobiAllocator.NULL);
 					resultVariable = allocator.getModel().addVar(0, 1, 0, GRB.BINARY, GurobiAllocator.NULL);
 				} catch (GRBException e) {
-					throw new AllocationException();
+					throw new AllocationException("allocation.gurobiException");
 				}
 
 				// Erstelle benötigte Teilterme
@@ -99,7 +99,7 @@ public class CriterionNoSingularStudent implements GurobiCriterion {
 				try {
 					rightSideSecondConstraint.multAdd(9.1, negationAuxiliaryVariable);
 				} catch (GRBException e) {
-					throw new AllocationException();
+					throw new AllocationException("allocation.gurobiException");
 				}
 
 				try {
@@ -112,7 +112,7 @@ public class CriterionNoSingularStudent implements GurobiCriterion {
 					allocator.getModel().addConstr(varianceTeamAndLG, GRB.LESS_EQUAL, rightSideSecondConstraint,
 							GurobiAllocator.NULL);
 				} catch (GRBException e) {
-					throw new AllocationException();
+					throw new AllocationException("allocation.gurobiException");
 				}
 				// Erweitere Bonusterm
 				bonus.addTerm(weight * 10, resultVariable);
@@ -123,7 +123,7 @@ public class CriterionNoSingularStudent implements GurobiCriterion {
 		try {
 			allocator.getOptimizationTerm().add(bonus);
 		} catch (GRBException e) {
-			throw new AllocationException();
+			throw new AllocationException("allocation.gurobiException");
 		}
 	}
 }
