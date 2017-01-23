@@ -15,7 +15,15 @@ import java.util.List;
 public class Semester extends ElipseModel {
 
     /**
-     * Der Name des Semesters im Format: WSxx/xx oder SSxx
+     * true: Wintersemester, false: Sommersemester
+     */
+    private boolean             wintersemester;
+    /**
+     * Jahr, in dem das Semester stattfindet
+     */
+    private int                 year;
+    /**
+     * Der Name des Semesters
      */
     private String              name;
     /**
@@ -54,6 +62,44 @@ public class Semester extends ElipseModel {
      * Alle Einteilungen, die für dieses Semester berechnet wurden
      */
     private List<Allocation>    allocations;
+
+    /**
+     * Gibt zurück, ob es sich um ein Sommer- oder Wintersemester handelt
+     * 
+     * @return true: Wintersemester, false: Sommersemester
+     */
+    public boolean getWintersemester() {
+        return wintersemester;
+    }
+
+    /**
+     * Setz, ob es sich um ein Sommer oder Wintersemester handelt
+     * 
+     * @param wintersemester
+     *            true: Wintersemester, false: Sommersemester
+     */
+    public void setWintersemester(boolean wintersemester) {
+        this.wintersemester = wintersemester;
+    }
+
+    /**
+     * Getter für das Jahr
+     * 
+     * @return Jahr
+     */
+    public int getYear() {
+        return year;
+    }
+
+    /**
+     * Setter für das Jahr
+     * 
+     * @param year
+     *            Jahr
+     */
+    public void setYear(int year) {
+        this.year = year;
+    }
 
     /**
      * Setter für die Einteilungen.
@@ -314,11 +360,7 @@ public class Semester extends ElipseModel {
      *            Der Name des Semesters.
      */
     public void setName(String name) {
-        if (name.matches("WS\\d\\d/\\d\\d") || name.matches("SS\\d\\d")) {
-            this.name = name;
-        } else {
-            // TODO throws
-        }
+        this.name = name;
     }
 
     /**
