@@ -48,7 +48,7 @@ public class CriterionAllocated implements GurobiCriterion {
 		try {
 			allocator.getOptimizationTerm().add(bonus);
 		} catch (GRBException e) {
-			throw new AllocationException();
+			throw new AllocationException("allocation.gurobiException");
 		}
 
 	}
