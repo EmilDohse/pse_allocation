@@ -4,9 +4,22 @@
 
 package importExport;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
+
+import com.sun.org.apache.xml.internal.serializer.utils.Messages;
+
+import data.Achievement;
 import data.Allocation;
 import data.SPO;
 import data.Semester;
+import exception.ImporterException;
 
 /************************************************************/
 /**
@@ -16,85 +29,156 @@ public class Importer {
 
 	/**
 	 * Importiert eine Einteilung.
-	 * @param file Pfad zu einer .csv Datei.
-	 * @param semester Semester, dem die Einteilung hinzugefügt werden soll.
+	 * 
+	 * @param file
+	 *            Pfad zu einer .csv Datei.
+	 * @param semester
+	 *            Semester, dem die Einteilung hinzugefügt werden soll.
 	 */
 	public void importAllocation(String file, Semester semester) {
+
 	}
 
 	/**
 	 * Exportiert eine Einteilung.
-	 * @param file Der Ausgabepfad.
-	 * @param allocation Die Einteilung, die exportiert werden soll.
+	 * 
+	 * @param file
+	 *            Der Ausgabepfad.
+	 * @param allocation
+	 *            Die Einteilung, die exportiert werden soll.
 	 */
 	public void exportAllocation(String file, Allocation allocation) {
 	}
 
 	/**
 	 * Importiert zu PSE/TSE angemeldete Studenten.
-	 * @param file Pfad zu einer .csv Datei.
-	 * @param semester Das Semester, bei dem die Daten aktualisiert.
+	 * 
+	 * @param file
+	 *            Pfad zu einer .csv Datei.
+	 * @param semester
+	 *            Das Semester, bei dem die Daten aktualisiert.
 	 */
 	public void importCMSData(String file, Semester semester) {
 	}
 
 	/**
 	 * Exportiert Noten von Studenten für das CMS.
-	 * @param file Der Ausgabepfad.
-	 * @param Das Semester, aus dem die Noten der Studenten exportiert werden sollen.
+	 * 
+	 * @param file
+	 *            Der Ausgabepfad.
+	 * @param Das
+	 *            Semester, aus dem die Noten der Studenten exportiert werden
+	 *            sollen.
 	 */
 	public void exportCMSData(String file, Semester semester) {
+
 	}
-	
+
 	/**
-     * Importiert eine SPO.
-     * @param file Pfad zu einer .csv Datei.
-     */
-    public void importSPO(String file) {
-    }
-    
-    /**
-     * Exportiert eine SPO.
-     * @param file Der Ausgabepfad.
-     * @param spo Die SPO, die exportiert werden soll.
-     */
-    public void exportSPO(String file, SPO spo) {
-        
-    }
-    
-    /**
-     * Importiert Liste von Studenten.
-     * @param file Pfad zu einer .csv Datei.
-     * @param semester Das Semester, dem die Studenten hinzugefügt werden sollen.
-     */
-    public void importStudents(String file, Semester semester) {
-        
-    }
-    
-    /**
-     * Exportiert Liste aller registrierten Studenten in einem Semester.
-     * @param file Der Ausgabepfad.
-     * @param semester Das Semester, dessen Studenten exportiert werden sollen.
-     */
-    public void exportStudents(String file, Semester semester) {
-        
-    }
-    
-    /**
-     * Importiert eine Liste von Projekten.
-     * @param file Der Ausgabepfad.
-     * @param Semester Das Semester, dem die Projekte hinzugefügt werden sollen.
-     */
-    public void importProjects(String file, Semester semester) {
-        
-    }
-    
-    /**
-     * Exportiert die Projekte eines Semesters.
-     * @param file Der Ausgabepfad.
-     * @param semester Das Semester, aus dem die Projekte exportiert werden sollen.
-     */
-    public void exportProjects(String file, Semester semester) {
-        
-    }
+	 * Importiert eine SPO.
+	 * 
+	 * @param file
+	 *            Pfad zu einer .csv Datei.
+	 */
+	public void importSPO(String file) throws ImporterException {
+		try(BufferedReader br = new BufferedReader(new FileReader("file.txt"))) {
+			String header = br.readLine();
+			
+		} catch (FileNotFoundException e) {
+			throw new ImporterException("importer.FileNotFound");
+			
+		} catch (IOException e) {
+			throw new ImporterException("importer.IOException");
+		}
+	}
+
+	/**
+	 * Exportiert eine SPO.
+	 * 
+	 * @param file
+	 *            Der Ausgabepfad.
+	 * @param spo
+	 *            Die SPO, die exportiert werden soll.
+	 */
+	public void exportSPO(String file, SPO spo) throws ImporterException {
+		try (Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("file"), "utf-8"))) {
+			
+			// Write Header
+			writer.write("name;additionalAchievements;necessaryAchievements");
+			
+			//Create output String
+			String output = spo.getName();
+			output += ";";
+			
+			// Add all additional Achievements
+			for (Achievement achievement : spo.getAdditionalAchievements()) {
+				output += achievement.getName() + ",";
+			}
+			
+			//Remove trailing comma
+			output = output.substring(0, output.length() - 2);
+			
+			//Add all necessary Achievements
+			for (Achievement achievement : spo.getNecessaryAchievements()) {
+				output += achievement.getName() + ",";
+			}
+			
+			//remove trailing comma
+			output = output.substring(0, output.length() - 2);
+			
+			//write line
+			writer.write(output);
+		} catch (IOException e) {
+			throw new ImporterException();
+		}
+
+	}
+
+	/**
+	 * Importiert Liste von Studenten.
+	 * 
+	 * @param file
+	 *            Pfad zu einer .csv Datei.
+	 * @param semester
+	 *            Das Semester, dem die Studenten hinzugefügt werden sollen.
+	 */
+	public void importStudents(String file, Semester semester) {
+
+	}
+
+	/**
+	 * Exportiert Liste aller registrierten Studenten in einem Semester.
+	 * 
+	 * @param file
+	 *            Der Ausgabepfad.
+	 * @param semester
+	 *            Das Semester, dessen Studenten exportiert werden sollen.
+	 */
+	public void exportStudents(String file, Semester semester) {
+
+	}
+
+	/**
+	 * Importiert eine Liste von Projekten.
+	 * 
+	 * @param file
+	 *            Der Ausgabepfad.
+	 * @param Semester
+	 *            Das Semester, dem die Projekte hinzugefügt werden sollen.
+	 */
+	public void importProjects(String file, Semester semester) {
+
+	}
+
+	/**
+	 * Exportiert die Projekte eines Semesters.
+	 * 
+	 * @param file
+	 *            Der Ausgabepfad.
+	 * @param semester
+	 *            Das Semester, aus dem die Projekte exportiert werden sollen.
+	 */
+	public void exportProjects(String file, Semester semester) {
+
+	}
 }
