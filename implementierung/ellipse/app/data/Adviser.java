@@ -16,6 +16,14 @@ import javax.persistence.Entity;
 @Entity
 public class Adviser extends User {
 
+    public Adviser() {
+
+    }
+
+    public Adviser(String username, String password, String emailAddress, String firstName, String lastName) {
+        super(username, password, emailAddress, firstName, lastName);
+    }
+
     /**
      * Getter für die Projekte, die der Betreuer beaufsichtigt.
      * 

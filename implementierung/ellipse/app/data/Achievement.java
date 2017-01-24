@@ -54,8 +54,8 @@ public class Achievement extends ElipseModel {
      * 
      * @return Alle existierenden Teilleistungen.
      */
-    public static List<Achievement> getAchievements() {
-        return ElipseModel.getAll(Achievement.class);
+    public static List<Achievement1> getAchievements() {
+        return ElipseModel.getAll(Achievement1.class);
     }
 
     /**
@@ -67,10 +67,9 @@ public class Achievement extends ElipseModel {
      * @return Die bestimmte Teilleistung. Null falls keine Teilleistung den
      *         übergebenen Namen hat.
      */
-    public static Achievement getAchievement(String name) {
-        return getAchievements().stream()
-                .filter(achievement -> achievement.getName().equals(name))
-                .findFirst().orElse(null);
+    public static Achievement1 getAchievement(String name) {
+        return getAchievements().stream().filter(achievement -> achievement.getName().equals(name)).findFirst()
+                .orElse(null);
     }
 
 }

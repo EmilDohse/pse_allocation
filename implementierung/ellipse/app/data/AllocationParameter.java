@@ -24,6 +24,15 @@ public class AllocationParameter extends ElipseModel {
      */
     private int    value;
 
+    public AllocationParameter() {
+
+    }
+
+    public AllocationParameter(String name, int value) {
+        this.name = name;
+        this.value = value;
+    }
+
     /**
      * Getter für den Namen des Parameters.
      * 

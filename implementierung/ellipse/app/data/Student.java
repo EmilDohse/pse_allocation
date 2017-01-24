@@ -4,6 +4,7 @@
 
 package data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -55,7 +56,7 @@ public class Student extends User {
      * Die noch ausstehenden Teilleistungen des Studierenden.
      */
     @OneToMany
-    private List<Achievement> oralTestAchievement;
+    private List<Achievement> oralTestAchievements;
     /**
      * Das Fachsemester, in dem sich der Studierende zum Zeitpunkt des letzten
      * Registrierens befindet.
@@ -65,6 +66,22 @@ public class Student extends User {
      * Wahrheitswert, ob die E-Mail-Adresse verifiziert wurde.
      */
     private boolean           emailVerified;
+
+    public Student() {
+        completedAchievements = new ArrayList<Achievement>();
+        oralTestAchievements = new ArrayList<Achievement>();
+    }
+
+    public Student(String username, String password, String emailAddress, String firstName, String lastName,
+            int matriculationNumber, SPO spo, List<Achievement> completedAchievements,
+            List<Achievement> oralTestAchievements, int semester) {
+        super(username, password, emailAddress, firstName, lastName);
+        this.matriculationNumber = matriculationNumber;
+        this.spo = spo;
+        this.completedAchievements = completedAchievements;
+        this.oralTestAchievements = oralTestAchievements;
+        this.semester = semester;
+    }
 
     /**
      * Getter für die Matrikelnummer.
@@ -137,7 +154,7 @@ public class Student extends User {
      * @return Die noch ausstehenden Teilleistungen des Studierenden.
      */
     public List<Achievement> getOralTestAchievements() {
-        return oralTestAchievement;
+        return oralTestAchievements;
     }
 
     /**
@@ -234,7 +251,7 @@ public class Student extends User {
      *            Die noch aussteheneden Teilleistungen des Studierenden.
      */
     public void setOralTestAchievements(List<Achievement> oralTestAchievement) {
-        this.oralTestAchievement = oralTestAchievement;
+        this.oralTestAchievements = oralTestAchievement;
     }
 
     /**

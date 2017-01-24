@@ -25,7 +25,7 @@ public class Semester extends ElipseModel {
     /**
      * true: Wintersemester, false: Sommersemester
      */
-    private boolean             isWintersemester;
+    private boolean             wintersemester;
     /**
      * Jahr, in dem das Semester stattfindet
      */
@@ -81,13 +81,32 @@ public class Semester extends ElipseModel {
     @OneToMany
     private List<Allocation>    allocations;
 
+    public Semester() {
+        spos = new ArrayList<SPO>();
+        learningGroups = new ArrayList<LearningGroup>();
+        students = new ArrayList<Student>();
+        projects = new ArrayList<Project>();
+        allocations = new ArrayList<Allocation>();
+    }
+
+    public Semester(String name, boolean wintersemester, int year) {
+        this.name = name;
+        this.wintersemester = wintersemester;
+        this.year = year;
+        spos = new ArrayList<SPO>();
+        learningGroups = new ArrayList<LearningGroup>();
+        students = new ArrayList<Student>();
+        projects = new ArrayList<Project>();
+        allocations = new ArrayList<Allocation>();
+    }
+
     /**
      * Gibt zurück, ob es sich um ein Sommer- oder Wintersemester handelt
      * 
      * @return true: Wintersemester, false: Sommersemester
      */
     public boolean isWintersemester() {
-        return isWintersemester;
+        return wintersemester;
     }
 
     /**
@@ -97,7 +116,7 @@ public class Semester extends ElipseModel {
      *            true: Wintersemester, false: Sommersemester
      */
     public void setWintersemester(boolean wintersemester) {
-        this.isWintersemester = wintersemester;
+        this.wintersemester = wintersemester;
     }
 
     /**

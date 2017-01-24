@@ -48,6 +48,21 @@ public class LearningGroup extends ElipseModel {
      */
     private boolean       isPrivate;
 
+    public LearningGroup() {
+        members = new ArrayList<Student>();
+        ratings = new ArrayList<Rating>();
+    }
+
+    public LearningGroup(String name, String password, Student member, boolean isPrivate) {
+        this.name = name;
+        this.password = password;
+        members = new ArrayList<Student>();
+        members.add(member);
+        ratings = new ArrayList<Rating>();
+        this.isPrivate = isPrivate;
+        this.setMembers(members);
+    }
+
     /**
      * Getter für die Projektbewertungen.
      * 

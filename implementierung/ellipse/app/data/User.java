@@ -40,6 +40,18 @@ public abstract class User extends ElipseModel {
     @NotNull
     private String lastName;
 
+    public User() {
+
+    }
+
+    public User(String username, String password, String emailAddress, String firstName, String lastName) {
+        this.username = username;
+        this.password = password;
+        this.emailAddress = emailAddress;
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
     /**
      * Getter für den Benutzernamen.
      * 

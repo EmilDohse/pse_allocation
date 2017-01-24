@@ -4,6 +4,7 @@
 
 package data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -44,14 +45,13 @@ public class Allocation extends ElipseModel {
      *            Die eingestellten Parameter
      */
     public Allocation(List<Team> teams, String name, List<AllocationParameter> parameters) {
-        // TODO @Datenleute nochmal drüberschauen ob das passt ~Philipp
         this.teams = teams;
         this.name = name;
         this.parameters = parameters;
     }
 
     public Allocation() {
-        // TODO braucht nicht Ebean den default Konstruktor? ~ anderer Philipp
+        parameters = new ArrayList<AllocationParameter>();
     }
 
     /**

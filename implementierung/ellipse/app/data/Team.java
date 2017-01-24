@@ -30,6 +30,15 @@ public class Team extends ElipseModel {
     @OneToMany
     private List<Student> members;
 
+    public Team() {
+        members = new ArrayList<Student>();
+    }
+
+    public Team(Project project, List<Student> members) {
+        this.project = project;
+        this.members = members;
+    }
+
     /**
      * Setter für die Mitglieder des Teams.
      * 

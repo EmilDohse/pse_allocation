@@ -20,14 +20,6 @@ public class GeneralData {
      * Name des momentanen Semesters.
      */
     private static String currentSemester;
-    /**
-     * Anmeldename des Administrators.
-     */
-    private static String adminName;
-    /**
-     * Anmeldepasswort des Administrators.
-     */
-    private static String adminPassword;
 
     /**
      * Getter für das aktuelle Semester.
@@ -36,24 +28,6 @@ public class GeneralData {
      */
     public static Semester getCurrentSemester() {
         return Semester.getSemester(currentSemester);
-    }
-
-    /**
-     * Getter für den Anmeldenamen des Administrators.
-     * 
-     * @return Der Anmeldename des Administrators.
-     */
-    public static String getAdminName() {
-        return adminName;
-    }
-
-    /**
-     * Getter für das Anmeldepasswort des Administrators.
-     * 
-     * @return Das Anmeldepasswort des Administrators.
-     */
-    public static String getAdminPassword() {
-        return adminPassword;
     }
 
     /**

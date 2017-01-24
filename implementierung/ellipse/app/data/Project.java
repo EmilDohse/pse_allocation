@@ -56,6 +56,16 @@ public class Project extends ElipseModel {
     @OneToMany
     private List<Adviser> advisers;
 
+    public Project() {
+        advisers = new ArrayList<Adviser>();
+    }
+
+    public Project(String name, Adviser adviser) {
+        this.name = name;
+        advisers = new ArrayList<Adviser>();
+        advisers.add(adviser);
+    }
+
     /**
      * Getter für die Anzahl der Teams.
      * 

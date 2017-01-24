@@ -35,6 +35,17 @@ public class SPO extends ElipseModel {
     @OneToMany
     private List<Achievement> additionalAchievements;
 
+    public SPO() {
+        necessaryAchievements = new ArrayList<Achievement>();
+        additionalAchievements = new ArrayList<Achievement>();
+    }
+
+    public SPO(String name) {
+        this.name = name;
+        necessaryAchievements = new ArrayList<Achievement>();
+        additionalAchievements = new ArrayList<Achievement>();
+    }
+
     /**
      * Fügt eine zusätzliche Teilleistung hinzu.
      * 

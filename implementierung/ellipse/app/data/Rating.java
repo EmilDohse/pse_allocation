@@ -25,6 +25,15 @@ public class Rating extends ElipseModel {
     @OneToOne
     private Project project;
 
+    public Rating() {
+
+    }
+
+    public Rating(int rating, Project project) {
+        this.rating = rating;
+        this.project = project;
+    }
+
     /**
      * Getter für den Wert der Bewertung.
      * 
