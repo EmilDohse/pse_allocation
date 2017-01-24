@@ -4,6 +4,7 @@
 
 package data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -41,11 +42,11 @@ public class SPO extends ElipseModel {
      *            Teilleistung, die hinzugefügt wird.
      */
     public void addAdditionalAchievement(Achievement achievement) {
-        if (!additionalAchievements.contains(achievement)) {
-            additionalAchievements.add(achievement);
-        } else {
-            // TODO throws
+        if (additionalAchievements == null) {
+            additionalAchievements = new ArrayList<Achievement>();
         }
+
+        additionalAchievements.add(achievement);
     }
 
     /**
@@ -69,11 +70,11 @@ public class SPO extends ElipseModel {
      *            Teilleistung, die hinzugefügt wird.
      */
     public void addNecessaryAchievement(Achievement achievement) {
-        if (!necessaryAchievements.contains(achievement)) {
-            necessaryAchievements.add(achievement);
-        } else {
-            // TODO throws
+        if (necessaryAchievements == null) {
+            necessaryAchievements = new ArrayList<Achievement>();
         }
+
+        necessaryAchievements.add(achievement);
     }
 
     /**

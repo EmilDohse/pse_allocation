@@ -4,6 +4,7 @@
 
 package data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -46,11 +47,11 @@ public class Team extends ElipseModel {
      *            Der Studierende, der dem Team hinzugefügt wird.
      */
     public void addMember(Student member) {
-        if (!members.contains(member)) {
-            members.add(member);
-        } else {
-            // TODO throws
+        if (members == null) {
+            members = ArrayList<Student>();
         }
+        
+        members.add(member);
     }
 
     /**

@@ -145,11 +145,11 @@ public class Semester extends ElipseModel {
      *            Einteilung, die hinzugefügt wird.
      */
     public void addAllocation(Allocation allocation) {
-        if (!allocations.contains(allocation)) {
-            allocations.add(allocation);
-        } else {
-            // TODO throws
+        if (allocations == null) {
+            allocations = new ArrayList<Allocation>();
         }
+
+        allocations.add(allocation);
     }
 
     /**
@@ -192,11 +192,11 @@ public class Semester extends ElipseModel {
      *            Projekt, das hinzugefügt wird.
      */
     public void addProject(Project project) {
-        if (!projects.contains(project)) {
-            projects.add(project);
-        } else {
-            // TODO throws
+        if (projects == null) {
+            projects = new ArrayList<Project>();
         }
+
+        projects.add(project);
     }
 
     /**
@@ -239,11 +239,11 @@ public class Semester extends ElipseModel {
      *            Student, der hinzugefügt wird.
      */
     public void addStudent(Student student) {
-        if (!students.contains(student)) {
-            students.add(student);
-        } else {
-            // TODO throws
+        if (students == null) {
+            students = new ArrayList<Student>();
         }
+
+        students.add(student);
     }
 
     /**
@@ -286,11 +286,11 @@ public class Semester extends ElipseModel {
      *            Lerngruppe, die hinzugefügt wird.
      */
     public void addLearningGroup(LearningGroup learningGroup) {
-        if (!learningGroups.contains(learningGroup)) {
-            learningGroups.add(learningGroup);
-        } else {
-            // TODO throws
+        if (learningGroups == null) {
+            learningGroups = new ArrayList<LearningGroup>();
         }
+
+        learningGroups.add(learningGroup);
     }
 
     /**
@@ -314,11 +314,11 @@ public class Semester extends ElipseModel {
      *            SPO, die hinzugefügt wird.
      */
     public void addSPO(SPO spo) {
-        if (!spos.contains(spo)) {
-            spos.add(spo);
-        } else {
-            // TODO throws
+        if (spos == null) {
+            spos = new ArrayList<SPO>();
         }
+
+        spos.add(spo);
     }
 
     /**

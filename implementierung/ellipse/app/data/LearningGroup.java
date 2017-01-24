@@ -4,6 +4,7 @@
 
 package data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -171,11 +172,11 @@ public class LearningGroup extends ElipseModel {
      *            Student, der hinzugefügt wird.
      */
     public void addMember(Student student) {
-        if (!members.contains(student)) {
-            members.add(student);
-        } else {
-            // TODO throws
+        if (members == null) {
+            members = new ArrayList<Student>();
         }
+
+        members.add(student);
     }
 
     /**

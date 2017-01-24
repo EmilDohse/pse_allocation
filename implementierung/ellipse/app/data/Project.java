@@ -4,6 +4,7 @@
 
 package data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -104,11 +105,11 @@ public class Project extends ElipseModel {
      *            Betreuer der hinzugefügt wird.
      */
     public void addAdviser(Adviser adviser) {
-        if (!advisers.contains(adviser)) {
-            advisers.add(adviser);
-        } else {
-            // TODO throws
+        if (advisers == null) {
+            advisers = new ArrayList<Adviser>();
         }
+
+        advisers.add(adviser);
     }
 
     /**

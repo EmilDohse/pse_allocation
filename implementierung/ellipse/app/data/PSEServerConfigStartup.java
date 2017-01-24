@@ -22,6 +22,6 @@ public class PSEServerConfigStartup implements ServerConfigStartup {
      */
     @Override
     public void onStart(ServerConfig serverConfig) {
-
+        
     }
 }
