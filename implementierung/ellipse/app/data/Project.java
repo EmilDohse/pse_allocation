@@ -119,6 +119,10 @@ public class Project extends ElipseModel {
      *            Betreuer der entfernt wird.
      */
     public void removeAdviser(Adviser adviser) {
+        if (advisers == null) {
+            advisers = new ArrayList<Adviser>();
+        }
+
         if (advisers.contains(adviser)) {
             advisers.remove(adviser);
         } else {

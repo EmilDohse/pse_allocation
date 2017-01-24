@@ -186,6 +186,10 @@ public class LearningGroup extends ElipseModel {
      *            Student, der entfernt wird.
      */
     public void removeMember(Student student) {
+        if (members == null) {
+            members = new ArrayList<Student>();
+        }
+
         if (members.contains(student)) {
             members.remove(student);
         } else {

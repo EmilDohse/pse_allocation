@@ -61,6 +61,10 @@ public class Team extends ElipseModel {
      *            Der Studierende, der aus dem Team entfernt wird.
      */
     public void removeMember(Student member) {
+        if (members == null) {
+            members = new ArrayList<Student>();
+        }
+
         if (members.contains(member)) {
             members.remove(member);
         } else {

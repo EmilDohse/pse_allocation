@@ -159,6 +159,10 @@ public class Semester extends ElipseModel {
      *            Einteilung, die entfernt wird.
      */
     public void removeAllocation(Allocation allocation) {
+        if (allocations == null) {
+            allocations = new ArrayList<Allocation>();
+        }
+
         if (allocations.contains(allocation)) {
             allocations.remove(allocation);
         } else {
@@ -206,6 +210,10 @@ public class Semester extends ElipseModel {
      *            Projekt, das entfernt wird.
      */
     public void removeProject(Project project) {
+        if (projects == null) {
+            projects = new ArrayList<Project>();
+        }
+
         if (projects.contains(project)) {
             projects.remove(project);
         } else {
@@ -253,6 +261,10 @@ public class Semester extends ElipseModel {
      *            Student, der entfernt wird.
      */
     public void removeStudent(Student student) {
+        if (students == null) {
+            students = new ArrayList<Student>();
+        }
+
         if (students.contains(student)) {
             students.remove(student);
         } else {
@@ -300,6 +312,10 @@ public class Semester extends ElipseModel {
      *            Lerngruppe, die entfernt wird.
      */
     public void removeLearningGroup(LearningGroup learningGroup) {
+        if (learningGroups == null) {
+            learningGroups = new ArrayList<LearningGroup>();
+        }
+
         if (learningGroups.contains(learningGroup)) {
             learningGroups.remove(learningGroup);
         } else {
@@ -328,6 +344,10 @@ public class Semester extends ElipseModel {
      *            SPO, die entfernt wird.
      */
     public void removeSPO(SPO spo) {
+        if (spos == null) {
+            spos = new ArrayList<SPO>();
+        }
+
         if (spos.contains(spo)) {
             spos.remove(spo);
         } else {

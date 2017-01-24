@@ -56,6 +56,10 @@ public class SPO extends ElipseModel {
      *            Teilleistung, die entfernt wird.
      */
     public void removeAdditionalAchievement(Achievement achievement) {
+        if (additionalAchievements == null) {
+            additionalAchievements = new ArrayList<Achievement>();
+        }
+
         if (additionalAchievements.contains(achievement)) {
             additionalAchievements.remove(additionalAchievements);
         } else {
@@ -84,6 +88,10 @@ public class SPO extends ElipseModel {
      *            Teilleistung, die entfernt wird.
      */
     public void removeNecessaryAchievement(Achievement achievement) {
+        if (necessaryAchievements == null) {
+            necessaryAchievements = new ArrayList<Achievement>();
+        }
+
         if (necessaryAchievements.contains(achievement)) {
             necessaryAchievements.remove(achievement);
         } else {
