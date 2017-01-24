@@ -2,17 +2,11 @@ package data;
 
 import static org.junit.Assert.assertEquals;
 
-import org.junit.Before;
 import org.junit.Test;
 
 public class UserTest extends DataTest {
 
-    private User user;
-
-    @Before
-    public void beforeTest() {
-        user = new User();
-    }
+    protected User user;
 
     @Test
     public void testUsername() {

@@ -9,13 +9,14 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-public class StudentTest extends DataTest {
+public class StudentTest extends UserTest {
 
     private Student student;
 
     @Before
     public void beforeTest() {
         student = new Student();
+        user = student;
     }
 
     @Test
@@ -128,7 +129,7 @@ public class StudentTest extends DataTest {
         GeneralData.setCurrentSemester(s);
         assertEquals(p, student.getCurrentProject());
     }
-    
+
     @Test
     public void testGetCurrentTeam() {
         Semester s = new Semester();
@@ -144,7 +145,7 @@ public class StudentTest extends DataTest {
         GeneralData.setCurrentSemester(s);
         assertEquals(t, student.getCurrentTeam());
     }
-    
+
     @Test
     public void testGetCurrentLearningGroup() {
         Semester s = new Semester();
@@ -158,7 +159,7 @@ public class StudentTest extends DataTest {
         GeneralData.setCurrentSemester(s);
         assertEquals(l, student.getCurrentLearningGroup());
     }
-    
+
     @Test
     public void testGetLearningGroup() {
         Semester s = new Semester();
@@ -171,7 +172,7 @@ public class StudentTest extends DataTest {
         s.setLearningGroups(learningGroups);
         assertEquals(l, student.getLearningGroup(s));
     }
-    
+
     @Test
     public void testRegisteredMoreThanOnce() {
         Semester firstS = new Semester();
@@ -182,7 +183,7 @@ public class StudentTest extends DataTest {
         firstS.setStudents(students);
         secondS.setStudents(empty);
         assertEquals(student.registeredMoreThanOnce(), false);
-        
+
         secondS.setStudents(students);
         assertEquals(student.registeredMoreThanOnce(), true);
     }

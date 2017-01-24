@@ -48,9 +48,9 @@ public class Team extends ElipseModel {
      */
     public void addMember(Student member) {
         if (members == null) {
-            members = ArrayList<Student>();
+            members = new ArrayList<Student>();
         }
-        
+
         members.add(member);
     }
 

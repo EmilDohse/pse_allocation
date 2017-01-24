@@ -1,5 +1,4 @@
 package allocation;
-import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +10,7 @@ import data.AllocationParameter;
 import data.LearningGroup;
 import data.Student;
 import data.Team;
+import exception.AllocationException;
 import jdk.nashorn.internal.ir.annotations.Ignore;
 
 /**
@@ -44,10 +44,12 @@ public class AllocationQueueTest {
 
     /**
      * fügt eine config hinzu und überprüft ob diese angezeigt wird
+     * 
+     * @throws AllocationException
      */
     @Test
     @Ignore
-    private void testAddToQueue() {
+    public void testAddToQueue() throws AllocationException {
         allocQueue.addToQueue(config1);
         assert (allocQueue.getQueue().size() == 1);
 
@@ -55,25 +57,29 @@ public class AllocationQueueTest {
 
     /**
      * fügt eine zwei configs hinzu und überprüft die nanem
+     * 
+     * @throws AllocationException
      */
     @Test
     @Ignore
-    private void testAddToQueue2() {
+    public void testAddToQueue2() throws AllocationException {
         allocQueue.addToQueue(config1);
         allocQueue.addToQueue(config2);
         List<Configuration> list = allocQueue.getQueue();
         assert (list.get(0).getName().equals("test 1"));
         assert (list.get(1).getName().equals("test 2"));
-        assert(list.size() == 2);
+        assert (list.size() == 2);
     }
 
     /**
      * test überprüft ob das entfernen der im moment berechneten allocation dazu
      * führt das diese aus der liste der allocations verschwindet
+     * 
+     * @throws AllocationException
      */
     @Test
     @Ignore
-    private void testCancelAllocation() {
+    public void testCancelAllocation() throws AllocationException {
         allocQueue.addToQueue(config1);
         allocQueue.addToQueue(config2);
         List<Configuration> list = allocQueue.getQueue();
@@ -82,13 +88,16 @@ public class AllocationQueueTest {
         assert (list.get(0).getName().equals("test 2"));
         assert (list.size() == 1);
     }
+
     /**
-     * test überprüft ob das entfernen einer der nicht berechneten allocations dazu
-     * führt das diese aus der liste der allocations verschwindet
+     * test überprüft ob das entfernen einer der nicht berechneten allocations
+     * dazu führt das diese aus der liste der allocations verschwindet
+     * 
+     * @throws AllocationException
      */
     @Test
     @Ignore
-    private void testCancelAllocation2() {
+    public void testCancelAllocation2() throws AllocationException {
         allocQueue.addToQueue(config1);
         allocQueue.addToQueue(config2);
         List<Configuration> list = allocQueue.getQueue();

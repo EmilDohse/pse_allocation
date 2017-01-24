@@ -23,7 +23,7 @@ public class SemesterTest extends DataTest {
     public void testWintersemester() {
         boolean w = true;
         semester.setWintersemester(w);
-        assertEquals(w, semester.getWintersemester());
+        assertEquals(w, semester.isWintersemester());
     }
 
     @Test
