@@ -15,7 +15,6 @@ import com.avaje.ebean.Ebean;
 import data.Allocation;
 import data.AllocationParameter;
 import data.Team;
-import exception.AllocationException;
 
 import gurobi.*;
 import gurobi.GRB.DoubleAttr;
@@ -102,16 +101,22 @@ public class GurobiAllocator extends AbstractAllocator {
 	 *            Die Konfiguration, nach der die Einteilung berechnet werden
 	 *            soll.
 	 */
-	public void calculate(Configuration configuration) throws AllocationException {
+	public void calculate(Configuration configuration) {
 
 		// Hier wird die eigentliche Berechnung durchgeführt
-		GRBEnv env;
+		GRBEnv env = null;
 		try {
 			env = new GRBEnv();
 			this.model = this.makeModel(configuration, env);
 			this.model.optimize();
 		} catch (GRBException e) {
-			throw new AllocationException("allocation.gurobiException");
+			Allocation failure = nullObject("allocation.gurobiException");
+			Ebean.save(failure);
+			return;
+		} catch (NoSuchElementException e) {
+			Allocation failure = nullObject("allocation.parameterNotFound");
+			Ebean.save(failure);
+			return;
 		}
 
 		// erstelle Teams
@@ -121,26 +126,29 @@ public class GurobiAllocator extends AbstractAllocator {
 				try {
 					result = this.basicMatrix[j][i].get(DoubleAttr.X);
 				} catch (GRBException e) {
-					throw new AllocationException("allocation.gurobiException");
+					Allocation failure = nullObject("allocation.gurobiException");
+					Ebean.save(failure);
+					return;
 				}
 				if (result == 1) {
 					configuration.getTeams().get(i).addMember(configuration.getStudents().get(j));
 				}
 			}
 		}
-
-		// Erstelle Einteilung
-		Allocation allocation = new Allocation(configuration.getTeams(), configuration.getName(),
-				configuration.getParameters());
-		Ebean.save(allocation);
-
 		// Mache Environment und Model ungültig
 		try {
 			this.model.dispose();
 			env.dispose();
 		} catch (GRBException e) {
-			throw new AllocationException("allocation.gurobiException");
+			Allocation failure = nullObject("allocation.gurobiException");
+			Ebean.save(failure);
+			return;
 		}
+
+		// Erstelle Einteilung
+		Allocation allocation = new Allocation(configuration.getTeams(), configuration.getName(),
+				configuration.getParameters());
+		Ebean.save(allocation);
 
 	}
 
@@ -166,7 +174,7 @@ public class GurobiAllocator extends AbstractAllocator {
 		return criteria;
 	}
 
-	private GRBModel makeModel(Configuration configuration, GRBEnv env) throws GRBException, AllocationException {
+	private GRBModel makeModel(Configuration configuration, GRBEnv env) throws GRBException, NoSuchElementException {
 		GRBModel model = new GRBModel(env);
 
 		// Erstelle Basismatrix B
@@ -206,14 +214,10 @@ public class GurobiAllocator extends AbstractAllocator {
 		List<AllocationParameter> parameters = configuration.getParameters();
 		double minAdminSize;
 		double maxAdminSize;
-		try {
-			minAdminSize = parameters.stream().filter(parameter -> parameter.getName().equals("minSize")).findFirst()
-					.get().getValue();
-			maxAdminSize = parameters.stream().filter(parameter -> parameter.getName().equals("maxSize")).findFirst()
-					.get().getValue();
-		} catch (NoSuchElementException e) {
-			throw new AllocationException("allocation.parameterNotFound");
-		}
+		minAdminSize = parameters.stream().filter(parameter -> parameter.getName().equals("minSize")).findFirst().get()
+				.getValue();
+		maxAdminSize = parameters.stream().filter(parameter -> parameter.getName().equals("maxSize")).findFirst().get()
+				.getValue();
 
 		// Teamgröße zwischen min und max, oder 0
 		for (int i = 0; i < configuration.getTeams().size(); i++) {
@@ -242,13 +246,8 @@ public class GurobiAllocator extends AbstractAllocator {
 
 			// Finde den vom Admin eingegebenen Parameter
 			double weight;
-			try {
-				weight = configuration.getParameters().stream()
-						.filter(parameter -> parameter.getName().equals(criterion.getName())).findFirst().get()
-						.getValue();
-			} catch (NoSuchElementException e) {
-				throw new AllocationException("allocation.parameterNotFound");
-			}
+			weight = configuration.getParameters().stream()
+					.filter(parameter -> parameter.getName().equals(criterion.getName())).findFirst().get().getValue();
 			if (weight != 0) {
 				criterion.useCriteria(configuration, this, weight);
 			}
@@ -292,5 +291,11 @@ public class GurobiAllocator extends AbstractAllocator {
 		} else {
 			return team.getProject().getMaxTeamSize();
 		}
+	}
+
+	private Allocation nullObject(String errorMessage) {
+		Allocation failedAllocation = new Allocation(new ArrayList<Team>(), errorMessage,
+				new ArrayList<AllocationParameter>());
+		return failedAllocation;
 	}
 }

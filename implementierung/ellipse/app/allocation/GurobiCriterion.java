@@ -4,7 +4,7 @@
 
 package allocation;
 
-import exception.AllocationException;
+import gurobi.GRBException;
 
 /************************************************************/
 /**
@@ -24,7 +24,7 @@ public interface GurobiCriterion extends allocation.Criterion {
 	 *            Der vom Admin eingestellte Parameter.
 	 */
 	public void useCriteria(Configuration configuration, GurobiAllocator allocator, double weight)
-			throws AllocationException;
+			throws GRBException;
 
 	/**
 	 * Getter für den Namen des Kriteriums.

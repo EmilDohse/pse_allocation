@@ -6,7 +6,6 @@ package allocation;
 
 import data.GeneralData;
 import data.Semester;
-import exception.AllocationException;
 import gurobi.GRB;
 import gurobi.GRBException;
 import gurobi.GRBLinExpr;
@@ -39,8 +38,7 @@ public class CriterionSameSemester implements GurobiCriterion {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void useCriteria(Configuration configuration, GurobiAllocator allocator, double weight)
-			throws AllocationException {
+	public void useCriteria(Configuration configuration, GurobiAllocator allocator, double weight) throws GRBException {
 		GRBLinExpr bonus = new GRBLinExpr();
 
 		int normalSemester = getNormalSemester(GeneralData.getCurrentSemester());
@@ -55,17 +53,13 @@ public class CriterionSameSemester implements GurobiCriterion {
 			GRBVar orResult;
 			GRBVar andResult;
 
-			try {
-				AmountOfNormalSemesterStudents = allocator.getModel().addVar(0, Double.MAX_VALUE, 0, GRB.INTEGER,
-						GurobiAllocator.NULL);
-				firstAuxiliaryVariable = allocator.getModel().addVar(0, 1, 0, GRB.BINARY, GurobiAllocator.NULL);
-				secondAuxiliaryVariable = allocator.getModel().addVar(0, 1, 0, GRB.BINARY, GurobiAllocator.NULL);
-				thirdAuxiliaryVariable = allocator.getModel().addVar(0, 1, 0, GRB.BINARY, GurobiAllocator.NULL);
-				orResult = allocator.getModel().addVar(0, 1, 0, GRB.BINARY, GurobiAllocator.NULL);
-				andResult = allocator.getModel().addVar(0, 1, 0, GRB.BINARY, GurobiAllocator.NULL);
-			} catch (GRBException e) {
-				throw new AllocationException("allocation.gurobiException");
-			}
+			AmountOfNormalSemesterStudents = allocator.getModel().addVar(0, Double.MAX_VALUE, 0, GRB.INTEGER,
+					GurobiAllocator.NULL);
+			firstAuxiliaryVariable = allocator.getModel().addVar(0, 1, 0, GRB.BINARY, GurobiAllocator.NULL);
+			secondAuxiliaryVariable = allocator.getModel().addVar(0, 1, 0, GRB.BINARY, GurobiAllocator.NULL);
+			thirdAuxiliaryVariable = allocator.getModel().addVar(0, 1, 0, GRB.BINARY, GurobiAllocator.NULL);
+			orResult = allocator.getModel().addVar(0, 1, 0, GRB.BINARY, GurobiAllocator.NULL);
+			andResult = allocator.getModel().addVar(0, 1, 0, GRB.BINARY, GurobiAllocator.NULL);
 
 			// Erstelle benötigte Teilterme
 			GRBLinExpr normalSemesterCount = new GRBLinExpr();
@@ -102,34 +96,27 @@ public class CriterionSameSemester implements GurobiCriterion {
 			rightSideConstraintSix.addTerm(0.1, allocator.getTeamSizes()[j]);
 
 			// Übergebe dem Allocator die Constraints
-			try {
 
-				allocator.getModel().addConstr(AmountOfNormalSemesterStudents, GRB.EQUAL, normalSemesterCount,
-						GurobiAllocator.NULL);
-				allocator.getModel().addConstr(leftSideConstraintsOneAndTwo, GRB.LESS_EQUAL, rightSideConstraintOne,
-						GurobiAllocator.NULL);
-				allocator.getModel().addConstr(leftSideConstraintsOneAndTwo, GRB.GREATER_EQUAL, rightSideConstraintTwo,
-						GurobiAllocator.NULL);
-				allocator.getModel().addConstr(leftSideConstraintsThreeAndFour, GRB.LESS_EQUAL,
-						AmountOfNormalSemesterStudents, GurobiAllocator.NULL);
-				allocator.getModel().addConstr(leftSideConstraintsThreeAndFour, GRB.GREATER_EQUAL,
-						rightSideConstraintFour, GurobiAllocator.NULL);
-				allocator.getModel().addConstr(thirdAuxiliaryVariable, GRB.LESS_EQUAL, allocator.getTeamSizes()[j],
-						GurobiAllocator.NULL);
-				allocator.getModel().addConstr(thirdAuxiliaryVariable, GRB.GREATER_EQUAL, rightSideConstraintSix,
-						GurobiAllocator.NULL);
-				orConstraint(firstAuxiliaryVariable, secondAuxiliaryVariable, orResult, allocator);
-				andConstraint(orResult, thirdAuxiliaryVariable, andResult, allocator);
-			} catch (GRBException e) {
-				throw new AllocationException("allocation.gurobiException");
-			}
+			allocator.getModel().addConstr(AmountOfNormalSemesterStudents, GRB.EQUAL, normalSemesterCount,
+					GurobiAllocator.NULL);
+			allocator.getModel().addConstr(leftSideConstraintsOneAndTwo, GRB.LESS_EQUAL, rightSideConstraintOne,
+					GurobiAllocator.NULL);
+			allocator.getModel().addConstr(leftSideConstraintsOneAndTwo, GRB.GREATER_EQUAL, rightSideConstraintTwo,
+					GurobiAllocator.NULL);
+			allocator.getModel().addConstr(leftSideConstraintsThreeAndFour, GRB.LESS_EQUAL,
+					AmountOfNormalSemesterStudents, GurobiAllocator.NULL);
+			allocator.getModel().addConstr(leftSideConstraintsThreeAndFour, GRB.GREATER_EQUAL, rightSideConstraintFour,
+					GurobiAllocator.NULL);
+			allocator.getModel().addConstr(thirdAuxiliaryVariable, GRB.LESS_EQUAL, allocator.getTeamSizes()[j],
+					GurobiAllocator.NULL);
+			allocator.getModel().addConstr(thirdAuxiliaryVariable, GRB.GREATER_EQUAL, rightSideConstraintSix,
+					GurobiAllocator.NULL);
+			orConstraint(firstAuxiliaryVariable, secondAuxiliaryVariable, orResult, allocator);
+			andConstraint(orResult, thirdAuxiliaryVariable, andResult, allocator);
+
 			bonus.addTerm(weight * 10, andResult);
 		}
-		try {
-			allocator.getOptimizationTerm().add(bonus);
-		} catch (GRBException e) {
-			throw new AllocationException("allocation.gurobiException");
-		}
+		allocator.getOptimizationTerm().add(bonus);
 	}
 
 	/**
