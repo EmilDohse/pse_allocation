@@ -2,16 +2,24 @@ package data;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static play.test.Helpers.inMemoryDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class StudentTest extends UserTest {
 
     private Student student;
+
+    @BeforeClass
+    public static void beforeClass() {
+        // TODO wtf? Warum brauch ich das?
+        inMemoryDatabase();
+    }
 
     @Before
     public void beforeTest() {

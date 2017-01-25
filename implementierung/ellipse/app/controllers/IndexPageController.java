@@ -68,8 +68,7 @@ public class IndexPageController extends Controller {
         spo2.addNecessaryAchievement(a8);
         spos.add(spo1);
         spos.add(spo2);
-        play.twirl.api.Html content = views.html.indexInformation
-                .render("Hier könnte ihre Werbung stehen!");
+        play.twirl.api.Html content = views.html.indexInformation.render("Hier könnte ihre Werbung stehen!");
         return ok(views.html.index.render(content));
     }
 
@@ -82,8 +81,7 @@ public class IndexPageController extends Controller {
     public Result registerPage() {
         // TODO
 
-        play.twirl.api.Html content = views.html.indexRegistration
-                .render(GeneralData.getCurrentSemester().getSpos());
+        play.twirl.api.Html content = views.html.indexRegistration.render(GeneralData.getCurrentSemester().getSpos());
 
         return ok(views.html.index.render(content));
     }
@@ -112,12 +110,10 @@ public class IndexPageController extends Controller {
         if (form.data().size() == 0) {
             return badRequest("Expceting some data");
         } else {
-            String response = "Client " + form.get("nome_cliente")
-                    + "has phone number " + form.get("telefone_cliente");
+            String response = "Client " + form.get("nome_cliente") + "has phone number " + form.get("telefone_cliente");
 
             return ok(response);
         }
-        return null;
     }
 
     /**
