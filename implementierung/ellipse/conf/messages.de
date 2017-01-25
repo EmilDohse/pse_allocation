@@ -29,6 +29,7 @@ student.learningGroup.name = Name der Lerngruppe:
 student.learningGroup.password = Password:
 student.learningGroup.create = Lerngruppe erstellen
 student.learningGroup.join = Lerngruppe beitreten
+student.laerningGroup.leave = Lerngruppe verlassen
 student.result.information = Projektinformation:
 student.result.link = Link zur Projektseite
 
