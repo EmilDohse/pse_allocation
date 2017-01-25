@@ -7,9 +7,10 @@ package data;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 
 /************************************************************/
 /**
@@ -26,13 +27,13 @@ public class Team extends ElipseModel implements Comparable<Team> {
     /**
      * Das Projekt des Teams
      */
-    @OneToOne
+    @ManyToOne
     private Project       project;
 
     /**
      * Liste der Studierenden in diesem Teams.
      */
-    @OneToMany
+    @OneToMany(cascade = CascadeType.PERSIST)
     private List<Student> members;
 
     public Team() {

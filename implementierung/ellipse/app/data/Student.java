@@ -8,7 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 /************************************************************/
@@ -25,12 +26,12 @@ public class Student extends User {
     /**
      * Die SPO des Studierenden
      */
-    @OneToOne
+    @ManyToOne
     private SPO               spo;
     /**
      * Die bestandenen Teilleistungen.
      */
-    @OneToMany
+    @ManyToMany
     private List<Achievement> completedAchievements;
     /**
      * Wahr, wenn sich der Studierende bereits im Campus Management System für
@@ -55,7 +56,7 @@ public class Student extends User {
     /**
      * Die noch ausstehenden Teilleistungen des Studierenden.
      */
-    @OneToMany
+    @ManyToMany
     private List<Achievement> oralTestAchievements;
     /**
      * Das Fachsemester, in dem sich der Studierende zum Zeitpunkt des letzten

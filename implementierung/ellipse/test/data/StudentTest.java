@@ -2,24 +2,16 @@ package data;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static play.test.Helpers.inMemoryDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class StudentTest extends UserTest {
 
     private Student student;
-
-    @BeforeClass
-    public static void beforeClass() {
-        // TODO wtf? Warum brauch ich das?
-        inMemoryDatabase();
-    }
 
     @Before
     public void beforeTest() {
@@ -121,6 +113,10 @@ public class StudentTest extends UserTest {
     }
 
     @Test
+    public void testGetCurrentProjectWithDB() {
+        testMethodWithDatabase(this::testGetCurrentProject);
+    }
+
     public void testGetCurrentProject() {
         Semester s = new Semester();
         Allocation a = new Allocation();
@@ -139,6 +135,10 @@ public class StudentTest extends UserTest {
     }
 
     @Test
+    public void testGetCurrentTeamWithDB() {
+        testMethodWithDatabase(this::testGetCurrentTeam);
+    }
+
     public void testGetCurrentTeam() {
         Semester s = new Semester();
         Allocation a = new Allocation();
@@ -155,6 +155,10 @@ public class StudentTest extends UserTest {
     }
 
     @Test
+    public void testGetCurrentlearningGroupWithDB() {
+        testMethodWithDatabase(this::testGetCurrentLearningGroup);
+    }
+
     public void testGetCurrentLearningGroup() {
         Semester s = new Semester();
         LearningGroup l = new LearningGroup();
@@ -169,6 +173,10 @@ public class StudentTest extends UserTest {
     }
 
     @Test
+    public void testGetLearningGroupWithDB() {
+        testMethodWithDatabase(this::testGetLearningGroup);
+    }
+
     public void testGetLearningGroup() {
         Semester s = new Semester();
         LearningGroup l = new LearningGroup();
@@ -182,6 +190,10 @@ public class StudentTest extends UserTest {
     }
 
     @Test
+    public void testRegisteredMoreThanOnceWithDB() {
+        testMethodWithDatabase(this::testRegisteredMoreThanOnceWithDB);
+    }
+
     public void testRegisteredMoreThanOnce() {
         Semester firstS = new Semester();
         Semester secondS = new Semester();
@@ -193,6 +205,7 @@ public class StudentTest extends UserTest {
         assertEquals(student.registeredMoreThanOnce(), false);
 
         secondS.setStudents(students);
+
         assertEquals(student.registeredMoreThanOnce(), true);
     }
 }
