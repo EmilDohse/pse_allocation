@@ -2,5 +2,5 @@
 - Configuration: Project zu Team geändert
 - GurobiKriterion: configuration zusätzlich weight
 - AllocationException erstellt und throw-Deklarationen in allen Gurobi-Klassen hinzugefügt
-
+- Methode removeAllocationFromQueue in GeneralAdminController eingefügt und in die Routing-Tabelle
 
