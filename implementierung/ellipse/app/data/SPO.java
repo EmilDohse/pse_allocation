@@ -16,7 +16,7 @@ import javax.validation.constraints.NotNull;
  * Diese Klasse stellt eine Studienprüfungsordnung dar.
  */
 @Entity
-public class SPO extends ElipseModel {
+public class SPO extends ElipseModel implements Comparable<SPO> {
 
     /**
      * Der Name der Prüfungsordnung.
@@ -161,6 +161,11 @@ public class SPO extends ElipseModel {
      */
     public static SPO getSPO(String name) {
         return getSPOs().stream().filter(spo -> spo.getName().equals(name)).findFirst().orElse(null);
+    }
+
+    @Override
+    public int compareTo(SPO o) {
+        return name.compareTo(o.getName());
     }
 
 }
