@@ -25,7 +25,6 @@ public class StudentHappiness implements QualityCriterion {
      */
 	@Override
 	public String calculate(Allocation allocation) {
-		// TODO
-		return null;
+		
 	}
 }
