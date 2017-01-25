@@ -20,7 +20,7 @@ import javax.validation.constraints.NotNull;
  * Diese Klasse repräsentiert ein Semseter.
  */
 @Entity
-public class Semester extends ElipseModel {
+public class Semester extends ElipseModel implements Comparable<Semester> {
 
     /**
      * true: Wintersemester, false: Sommersemester
@@ -527,6 +527,16 @@ public class Semester extends ElipseModel {
      */
     public Date getRegistrationEnd() {
         return registrationEnd;
+    }
+
+    @Override
+    public int compareTo(Semester o) {
+        int temp = Integer.compare(year, o.getYear());
+        if (temp == 0) {
+            return Boolean.compare(wintersemester, o.isWintersemester());
+        } else {
+            return temp;
+        }
     }
 
 }

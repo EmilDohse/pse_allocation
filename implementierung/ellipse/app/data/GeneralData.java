@@ -12,14 +12,14 @@ import java.io.File;
  */
 public class GeneralData {
 
-    /**
-     * File where the Data is saved
-     */
-    private static File   file;
+    private static final File file   = new File("test");
+
+    private static boolean    loaded = false;
+
     /**
      * Name des momentanen Semesters.
      */
-    private static String currentSemester;
+    private static String     currentSemester;
 
     /**
      * Getter für das aktuelle Semester.
@@ -27,6 +27,11 @@ public class GeneralData {
      * @return Das aktuelle Semester.
      */
     public static Semester getCurrentSemester() {
+        if (loaded == false) {
+            load();
+            loaded = true;
+        }
+
         return Semester.getSemester(currentSemester);
     }
 
@@ -42,13 +47,8 @@ public class GeneralData {
 
     /**
      * Lädt die Daten aus einer Datei
-     * 
-     * @param file
-     *            Datei, woraus die Daten geladen werden
      */
-    public static void load(File file) {
-        GeneralData.file = file;
-
+    private static void load() {
         // TODO
     }
 

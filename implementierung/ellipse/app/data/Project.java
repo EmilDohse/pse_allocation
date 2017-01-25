@@ -16,7 +16,7 @@ import javax.validation.constraints.NotNull;
  * Klasse, die ein Project repräsentiert
  */
 @Entity
-public class Project extends ElipseModel {
+public class Project extends ElipseModel implements Comparable<Project> {
 
     /**
      * Der Name des Projektes.
@@ -316,6 +316,11 @@ public class Project extends ElipseModel {
         }
         // TODO throws
         return null;
+    }
+
+    @Override
+    public int compareTo(Project o) {
+        return name.compareTo(o.getName());
     }
 
 }
