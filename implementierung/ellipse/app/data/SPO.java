@@ -41,9 +41,8 @@ public class SPO extends ElipseModel {
     }
 
     public SPO(String name) {
+        this();
         this.name = name;
-        necessaryAchievements = new ArrayList<Achievement>();
-        additionalAchievements = new ArrayList<Achievement>();
     }
 
     /**
@@ -53,10 +52,6 @@ public class SPO extends ElipseModel {
      *            Teilleistung, die hinzugefügt wird.
      */
     public void addAdditionalAchievement(Achievement achievement) {
-        if (additionalAchievements == null) {
-            additionalAchievements = new ArrayList<Achievement>();
-        }
-
         additionalAchievements.add(achievement);
     }
 
@@ -67,15 +62,7 @@ public class SPO extends ElipseModel {
      *            Teilleistung, die entfernt wird.
      */
     public void removeAdditionalAchievement(Achievement achievement) {
-        if (additionalAchievements == null) {
-            additionalAchievements = new ArrayList<Achievement>();
-        }
-
-        if (additionalAchievements.contains(achievement)) {
-            additionalAchievements.remove(additionalAchievements);
-        } else {
-            // TODO throws
-        }
+        additionalAchievements.remove(achievement);
     }
 
     /**
@@ -85,10 +72,6 @@ public class SPO extends ElipseModel {
      *            Teilleistung, die hinzugefügt wird.
      */
     public void addNecessaryAchievement(Achievement achievement) {
-        if (necessaryAchievements == null) {
-            necessaryAchievements = new ArrayList<Achievement>();
-        }
-
         necessaryAchievements.add(achievement);
     }
 
@@ -99,15 +82,7 @@ public class SPO extends ElipseModel {
      *            Teilleistung, die entfernt wird.
      */
     public void removeNecessaryAchievement(Achievement achievement) {
-        if (necessaryAchievements == null) {
-            necessaryAchievements = new ArrayList<Achievement>();
-        }
-
-        if (necessaryAchievements.contains(achievement)) {
-            necessaryAchievements.remove(achievement);
-        } else {
-            // TODO throws
-        }
+        necessaryAchievements.remove(achievement);
     }
 
     /**
