@@ -28,7 +28,6 @@ import exception.AllocationException;
 public class AllocationQueue {
 
     private static final int                QUEUE_SIZE = 10;
-    ExceptionListener                       exceptionListener;
     private ExecutorService                 executer;
     /**
      * Calculator ist der Thread der die berechnung anstößt er verwendet das
@@ -60,7 +59,6 @@ public class AllocationQueue {
     private AllocationQueue() {
         this.configurationQueue = new ArrayBlockingQueue<>(QUEUE_SIZE);
         setAllocator(new GurobiAllocator());
-        exceptionListener = new ExceptionListener();
 
         runnable = new Runnable() {
 
@@ -84,7 +82,7 @@ public class AllocationQueue {
                         // hier wird nun der exceptionNotigfier aufgerufen der
                         // den Kontroller informiert das eine Exception
                         // aufgetreten ist
-                        exceptionListener.notifyAllocationException(e);
+                       //TODO muss hier überhaupt noch einen allocation exception gefangen werden?
                     }
                     currentlyCalculatedConfiguration = null;
                 }
