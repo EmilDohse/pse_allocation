@@ -1,12 +1,23 @@
 package data;
 
-import static play.test.Helpers.fakeApplication;
-import static play.test.Helpers.inMemoryDatabase;
-import static play.test.Helpers.running;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
+
+import play.Application;
+import play.test.Helpers;
 
 public class DataTest {
 
-    protected void testMethodWithDatabase(Runnable r) {
-        running(fakeApplication(inMemoryDatabase()), r);
+    private static Application app;
+
+    @BeforeClass
+    public static void beforeClass() {
+        app = Helpers.fakeApplication(Helpers.inMemoryDatabase());
+        Helpers.start(app);
+    }
+
+    @AfterClass
+    public static void afterClass() {
+        Helpers.stop(app);
     }
 }
