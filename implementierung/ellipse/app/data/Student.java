@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
@@ -32,6 +33,7 @@ public class Student extends User {
      * Die bestandenen Teilleistungen.
      */
     @ManyToMany
+    @JoinTable(name = "STUDENT_ACHIEVEMENT_COMPLETED")
     private List<Achievement> completedAchievements;
     /**
      * Wahr, wenn sich der Studierende bereits im Campus Management System für
@@ -57,6 +59,7 @@ public class Student extends User {
      * Die noch ausstehenden Teilleistungen des Studierenden.
      */
     @ManyToMany
+    @JoinTable(name = "STUDENT_ACHIEVEMENT_ORAL")
     private List<Achievement> oralTestAchievements;
     /**
      * Das Fachsemester, in dem sich der Studierende zum Zeitpunkt des letzten

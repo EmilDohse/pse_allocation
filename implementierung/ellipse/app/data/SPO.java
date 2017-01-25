@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotNull;
 
@@ -28,11 +29,13 @@ public class SPO extends ElipseModel implements Comparable<SPO> {
      * Teilnahme am PSE.
      */
     @ManyToMany
+    @JoinTable(name = "SPO_ACHIEVEMENT_NECESSARY")
     private List<Achievement> necessaryAchievements;
     /**
      * Die zusätzlichen Teilleistungen.
      */
     @ManyToMany
+    @JoinTable(name = "SPO_ACHIEVEMENT_ADDITIONAL")
     private List<Achievement> additionalAchievements;
 
     public SPO() {
