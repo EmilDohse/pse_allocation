@@ -18,9 +18,15 @@ import java.util.List;
 import com.avaje.ebean.Ebean;
 
 import data.Achievement;
+import data.Adviser;
 import data.Allocation;
+import data.Grade;
+import data.LearningGroup;
+import data.Project;
+import data.Rating;
 import data.SPO;
 import data.Semester;
+import data.Student;
 import exception.ImporterException;
 
 /************************************************************/
@@ -29,253 +35,369 @@ import exception.ImporterException;
  */
 public class Importer {
 
-    /**
-     * Importiert eine Einteilung.
-     * 
-     * @param file
-     *            Pfad zu einer .csv Datei.
-     * @param semester
-     *            Semester, dem die Einteilung hinzugefügt werden soll.
-     */
-    public void importAllocation(String file, Semester semester) {
+	/**
+	 * Importiert eine Einteilung.
+	 * 
+	 * @param file
+	 *            Pfad zu einer .csv Datei.
+	 * @param semester
+	 *            Semester, dem die Einteilung hinzugefügt werden soll.
+	 */
+	public void importAllocation(String file, Semester semester) {
 
-    }
+	}
 
-    /**
-     * Exportiert eine Einteilung.
-     * 
-     * @param file
-     *            Der Ausgabepfad.
-     * @param allocation
-     *            Die Einteilung, die exportiert werden soll.
-     */
-    public void exportAllocation(String file, Allocation allocation) {
-    }
+	/**
+	 * Exportiert eine Einteilung.
+	 * 
+	 * @param file
+	 *            Der Ausgabepfad.
+	 * @param allocation
+	 *            Die Einteilung, die exportiert werden soll.
+	 */
+	public void exportAllocation(String file, Allocation allocation) {
+	}
 
-    /**
-     * Importiert zu PSE/TSE angemeldete Studenten.
-     * 
-     * @param file
-     *            Pfad zu einer .csv Datei.
-     * @param semester
-     *            Das Semester, bei dem die Daten aktualisiert.
-     */
-    public void importCMSData(String file, Semester semester) {
-    }
+	/**
+	 * Importiert zu PSE/TSE angemeldete Studenten.
+	 * 
+	 * @param file
+	 *            Pfad zu einer .csv Datei.
+	 * @param semester
+	 *            Das Semester, bei dem die Daten aktualisiert.
+	 */
+	public void importCMSData(String file, Semester semester) {
+	}
 
-    /**
-     * Exportiert Noten von Studenten für das CMS.
-     * 
-     * @param file
-     *            Der Ausgabepfad.
-     * @param Das
-     *            Semester, aus dem die Noten der Studenten exportiert werden
-     *            sollen.
-     */
-    public void exportCMSData(String file, Semester semester) {
+	/**
+	 * Exportiert Noten von Studenten für das CMS.
+	 * 
+	 * @param file
+	 *            Der Ausgabepfad.
+	 * @param Das
+	 *            Semester, aus dem die Noten der Studenten exportiert werden
+	 *            sollen.
+	 */
+	public void exportCMSData(String file, Semester semester) {
 
-    }
+	}
 
-    /**
-     * Importiert eine SPO.
-     * 
-     * @param file
-     *            Pfad zu einer .csv Datei.
-     */
-    public void importSPO(String file) throws ImporterException {
-        try (BufferedReader br = new BufferedReader(
-                new FileReader("file.txt"))) {
+	/**
+	 * Importiert eine SPO.
+	 * 
+	 * @param file
+	 *            Pfad zu einer .csv Datei.
+	 */
+	public void importSPO(String file) throws ImporterException {
+		try (BufferedReader br = new BufferedReader(new FileReader("file.txt"))) {
 
-            // Lese Kopfzeile
-            String header = br.readLine();
-            String[] headerSplit = header.split(";");
+			// Lese Kopfzeile
+			String header = br.readLine();
+			String[] headerSplit = header.split(";");
 
-            // Prüfe, ob Kopzeile die richtige Länge, sowie richtige Namen hat
-            boolean headerLength = (headerSplit.length == 3);
-            boolean firstColumn = headerSplit[0].equals("Name");
-            boolean secondColumn = headerSplit[1]
-                    .equals("Additional Achievements");
-            boolean thirdColumn = headerSplit[2]
-                    .equals("Necessary Achievements");
+			// Prüfe, ob Kopzeile die richtige Länge, sowie richtige Namen hat
+			boolean headerLength = (headerSplit.length == 3);
+			boolean firstColumn = headerSplit[0].equals("Name");
+			boolean secondColumn = headerSplit[1].equals("Additional Achievements");
+			boolean thirdColumn = headerSplit[2].equals("Necessary Achievements");
 
-            if (headerLength && firstColumn && secondColumn && thirdColumn) {
+			if (headerLength && firstColumn && secondColumn && thirdColumn) {
 
-                // Lese die Zeile, in der die SPO steht
-                String line = br.readLine();
+				// Lese die Zeile, in der die SPO steht
+				String line = br.readLine();
 
-                // Teile die Zeile in Attribute auf
-                String[] lineSplit = line.split(";");
+				// Teile die Zeile in Attribute auf
+				String[] lineSplit = line.split(";");
 
-                // Prüfe, ob die Zeile die korrekte Form hat und ob die SPO noch
-                // nicht existiert
-                if (lineSplit.length == 3) {
-                    SPO spo = SPO.getSPO(lineSplit[0]);
-                    if (spo == null) {
-                        boolean additionalIsNotEmpty = (lineSplit[1]
-                                .length() != 0);
-                        boolean necessaryIsNotEmpty = (lineSplit[2]
-                                .length() != 0);
-                        if (additionalIsNotEmpty && necessaryIsNotEmpty) {
+				// Prüfe, ob die Zeile die korrekte Form hat und ob die SPO noch
+				// nicht existiert
+				if (lineSplit.length == 3) {
+					SPO spo = SPO.getSPO(lineSplit[0]);
+					if (spo == null) {
+						boolean additionalIsNotEmpty = (lineSplit[1].length() != 0);
+						boolean necessaryIsNotEmpty = (lineSplit[2].length() != 0);
+						if (additionalIsNotEmpty && necessaryIsNotEmpty) {
 
-                            // Teile die zusätzlichen Teilleistungen weiter auf
-                            String[] additionalSplit = lineSplit[1].split(",");
-                            List<Achievement> additionalAchievements = new ArrayList<Achievement>();
-                            for (int i = 0; i < additionalSplit.length; i++) {
+							// Teile die zusätzlichen Teilleistungen weiter auf
+							String[] additionalSplit = lineSplit[1].split(",");
+							List<Achievement> additionalAchievements = new ArrayList<Achievement>();
+							for (int i = 0; i < additionalSplit.length; i++) {
 
-                                // Prüfe, ob die aktuelle Teilleistung schon
-                                // existiert, wenn nicht lege sie an
-                                Achievement currentAchievement = Achievement
-                                        .getAchievement(additionalSplit[i]);
-                                if (currentAchievement != null) {
-                                    additionalAchievements
-                                            .add(currentAchievement);
-                                } else {
-                                    currentAchievement = new Achievement();
-                                    currentAchievement
-                                            .setName(additionalSplit[i]);
-                                    Ebean.save(currentAchievement);
-                                    additionalAchievements
-                                            .add(currentAchievement);
-                                }
-                            }
+								// Prüfe, ob die aktuelle Teilleistung schon
+								// existiert, wenn nicht lege sie an
+								Achievement currentAchievement = Achievement.getAchievement(additionalSplit[i]);
+								if (currentAchievement != null) {
+									additionalAchievements.add(currentAchievement);
+								} else {
+									currentAchievement = new Achievement();
+									currentAchievement.setName(additionalSplit[i]);
+									Ebean.save(currentAchievement);
+									additionalAchievements.add(currentAchievement);
+								}
+							}
 
-                            // Selbes Vorgehen für notwendige Teilleistungen
-                            String[] necessarySplit = lineSplit[2].split(",");
-                            List<Achievement> necessaryAchievements = new ArrayList<Achievement>();
+							// Selbes Vorgehen für notwendige Teilleistungen
+							String[] necessarySplit = lineSplit[2].split(",");
+							List<Achievement> necessaryAchievements = new ArrayList<Achievement>();
 
-                            for (int i = 0; i < necessaryAchievements
-                                    .size(); i++) {
-                                Achievement currentAchievement = Achievement
-                                        .getAchievement(necessarySplit[i]);
-                                if (currentAchievement != null) {
-                                    necessaryAchievements
-                                            .add(currentAchievement);
-                                } else {
-                                    currentAchievement = new Achievement();
-                                    currentAchievement
-                                            .setName(necessarySplit[i]);
-                                    Ebean.save(currentAchievement);
-                                    necessaryAchievements
-                                            .add(currentAchievement);
-                                }
-                            }
-                            SPO importedSpo = new SPO();
-                            importedSpo.setName(lineSplit[0]);
-                            importedSpo.setAdditionalAchievements(
-                                    additionalAchievements);
-                            importedSpo.setNecessaryAchievements(
-                                    necessaryAchievements);
-                            Ebean.save(importedSpo);
-                        } else {
-                            throw new ImporterException(
-                                    "importer.wrongFileFormat");
-                        }
-                    } else {
-                        throw new ImporterException("importer.alreadyExisting");
-                    }
-                } else {
-                    throw new ImporterException("importer.wrongFileFormat");
-                }
-            } else {
-                throw new ImporterException("importer.wrongFileFormat");
-            }
+							for (int i = 0; i < necessaryAchievements.size(); i++) {
+								Achievement currentAchievement = Achievement.getAchievement(necessarySplit[i]);
+								if (currentAchievement != null) {
+									necessaryAchievements.add(currentAchievement);
+								} else {
+									currentAchievement = new Achievement();
+									currentAchievement.setName(necessarySplit[i]);
+									Ebean.save(currentAchievement);
+									necessaryAchievements.add(currentAchievement);
+								}
+							}
+							SPO importedSpo = new SPO();
+							importedSpo.setName(lineSplit[0]);
+							importedSpo.setAdditionalAchievements(additionalAchievements);
+							importedSpo.setNecessaryAchievements(necessaryAchievements);
+							Ebean.save(importedSpo);
+						} else {
+							throw new ImporterException("importer.wrongFileFormat");
+						}
+					} else {
+						throw new ImporterException("importer.alreadyExisting");
+					}
+				} else {
+					throw new ImporterException("importer.wrongFileFormat");
+				}
+			} else {
+				throw new ImporterException("importer.wrongFileFormat");
+			}
 
-        } catch (FileNotFoundException e) {
-            throw new ImporterException("importer.FileNotFound");
+		} catch (FileNotFoundException e) {
+			throw new ImporterException("importer.FileNotFound");
 
-        } catch (IOException e) {
-            throw new ImporterException("importer.IOException");
-        }
-    }
+		} catch (IOException e) {
+			throw new ImporterException("importer.IOException");
+		}
+	}
 
-    /**
-     * Exportiert eine SPO.
-     * 
-     * @param file
-     *            Der Ausgabepfad.
-     * @param spo
-     *            Die SPO, die exportiert werden soll.
-     */
-    public void exportSPO(String file, SPO spo) throws ImporterException {
-        try (Writer writer = new BufferedWriter(new OutputStreamWriter(
-                new FileOutputStream("file"), "utf-8"))) {
+	/**
+	 * Exportiert eine SPO.
+	 * 
+	 * @param file
+	 *            Der Ausgabepfad.
+	 * @param spo
+	 *            Die SPO, die exportiert werden soll.
+	 */
+	public void exportSPO(String file, SPO spo) throws ImporterException {
+		try (Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("file"), "utf-8"))) {
 
-            // Write Header
-            writer.write("Name;Additional Achievements;Necessary Achievements");
+			// Write Header
+			writer.write("Name;Additional Achievements;Necessary Achievements");
 
-            // Create output String
-            String output = spo.getName();
-            output += ";";
+			// Create output String
+			String output = spo.getName();
+			output += ";";
 
-            // Add all additional Achievements
-            for (Achievement achievement : spo.getAdditionalAchievements()) {
-                output += achievement.getName() + ",";
-            }
+			// Add all additional Achievements
+			for (Achievement achievement : spo.getAdditionalAchievements()) {
+				output += achievement.getName() + ",";
+			}
 
-            // Remove trailing comma
-            output = output.substring(0, output.length() - 2);
+			// Remove trailing comma
+			output = output.substring(0, output.length() - 2);
 
-            // Add all necessary Achievements
-            for (Achievement achievement : spo.getNecessaryAchievements()) {
-                output += achievement.getName() + ",";
-            }
+			// Add all necessary Achievements
+			for (Achievement achievement : spo.getNecessaryAchievements()) {
+				output += achievement.getName() + ",";
+			}
 
-            // remove trailing comma
-            output = output.substring(0, output.length() - 2);
+			// remove trailing comma
+			output = output.substring(0, output.length() - 2);
 
-            // write line
-            writer.write(output);
-        } catch (IOException e) {
-            throw new ImporterException("importer.IOException");
-        }
+			// write line
+			writer.write(output);
+		} catch (IOException e) {
+			throw new ImporterException("importer.IOException");
+		}
 
-    }
+	}
 
-    /**
-     * Importiert Liste von Studenten.
-     * 
-     * @param file
-     *            Pfad zu einer .csv Datei.
-     * @param semester
-     *            Das Semester, dem die Studenten hinzugefügt werden sollen.
-     */
-    public void importStudents(String file, Semester semester) {
+	/**
+	 * TESTMETHODE!!! NICHT VERWENDEN!! Importiert Testdaten (Studenten und
+	 * Projekte)
+	 * 
+	 * @param studentFile
+	 *            Pfad zu einer .csv Datei mit Studenten.
+	 * @param projectFile
+	 *            Pfad zu einer .csv Datei mit Projekten
+	 */
+	public void importTestData(String studentFile, String projectFile) {
+		Semester testSemester = new Semester("TestSemester", true, 2016);
 
-    }
+		ArrayList<Project> testProjects = new ArrayList<>();
+		testSemester.setProjects(testProjects);
 
-    /**
-     * Exportiert Liste aller registrierten Studenten in einem Semester.
-     * 
-     * @param file
-     *            Der Ausgabepfad.
-     * @param semester
-     *            Das Semester, dessen Studenten exportiert werden sollen.
-     */
-    public void exportStudents(String file, Semester semester) {
+		ArrayList<LearningGroup> learningGroups = new ArrayList<>();
+		testSemester.setLearningGroups(learningGroups);
 
-    }
+		SPO testSPO;
+		if (SPO.getSPO("testSPO") == null) {
+			testSPO = new SPO("testSPO");
+			Achievement testHMorLA = new Achievement("testHMorLA");
+			Achievement testSWT = new Achievement("testSWT");
+			Achievement testAlgo = new Achievement("testAlgo");
+			testSPO.addNecessaryAchievement(testHMorLA);
+			testSPO.addNecessaryAchievement(testSWT);
+			testSPO.addAdditionalAchievement(testAlgo);
+			Ebean.save(testSPO);
 
-    /**
-     * Importiert eine Liste von Projekten.
-     * 
-     * @param file
-     *            Der Ausgabepfad.
-     * @param Semester
-     *            Das Semester, dem die Projekte hinzugefügt werden sollen.
-     */
-    public void importProjects(String file, Semester semester) {
+		} else {
+			testSPO = SPO.getSPO("testSPO");
+		}
+		testSemester.addSPO(testSPO);
 
-    }
+		Ebean.save(testSemester);
 
-    /**
-     * Exportiert die Projekte eines Semesters.
-     * 
-     * @param file
-     *            Der Ausgabepfad.
-     * @param semester
-     *            Das Semester, aus dem die Projekte exportiert werden sollen.
-     */
-    public void exportProjects(String file, Semester semester) {
+		String line = new String();
+		String splitter = ";";
 
-    }
+		Adviser dummy = new Adviser();
+		Ebean.save(dummy);
+		ArrayList<Adviser> advisers = new ArrayList<>();
+		advisers.add(dummy);
+
+		try (BufferedReader br = new BufferedReader(new FileReader(projectFile))) {
+			br.readLine();
+			while ((line = br.readLine()) != null) {
+
+				String[] attributes = line.split(splitter);
+
+				String name = attributes[0];
+				String institute = attributes[1];
+				int numberOfTeams = Integer.parseInt(attributes[2]);
+				int minSize = Integer.parseInt(attributes[3]);
+				int maxSize = Integer.parseInt(attributes[4]);
+
+				Project importedProject = new Project();
+
+				importedProject.setName(name);
+				importedProject.setInstitute(institute);
+				importedProject.setNumberOfTeams(numberOfTeams);
+				importedProject.setMinTeamSize(minSize);
+				importedProject.setMaxTeamSize(maxSize);
+				importedProject.setAdvisers(advisers);
+				importedProject.setProjectInfo(new String());
+				importedProject.setProjectURL(new String());
+				Ebean.save(importedProject);
+				testProjects.add(importedProject);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+			return;
+		}
+		try (BufferedReader br = new BufferedReader(new FileReader(studentFile))) {
+			br.readLine();
+			while ((line = br.readLine()) != null) {
+
+				String[] attributes = line.split(splitter);
+
+				int matNr = Integer.parseInt(attributes[0]);
+				String firstName = attributes[1].split(" ")[0];
+				String lastName = attributes[1].split(" ")[1];
+				int semester = Integer.parseInt(attributes[4]);
+				SPO spo = testSPO;
+				ArrayList<Achievement> completedAchievements = new ArrayList<>();
+				if (attributes[5].equals("True") || attributes[6].equals("True")) {
+					completedAchievements.add(Achievement.getAchievement("testHMorLA"));
+				}
+				if (attributes[7].equals("True")) {
+					completedAchievements.add(Achievement.getAchievement("testSWT"));
+				}
+				if (attributes[8].equals("True")) {
+					completedAchievements.add(Achievement.getAchievement("testAlgo"));
+				}
+
+				Student importedStudent = new Student();
+				importedStudent.setFirstName(firstName);
+				importedStudent.setLastName(lastName);
+				importedStudent.setMatriculationNumber(matNr);
+				importedStudent.setSPO(spo);
+				importedStudent.setCompletedAchievements(completedAchievements);
+				importedStudent.setRegisteredPSE(true);
+				importedStudent.setRegisteredTSE(true);
+				importedStudent.setGradePSE(Grade.UNKNOWN);
+				importedStudent.setGradeTSE(Grade.UNKNOWN);
+				importedStudent.setOralTestAchievements(new ArrayList<Achievement>());
+				importedStudent.setSemester(semester);
+				importedStudent.setEmailAddress(new String());
+				importedStudent.setIsEmailVerified(false);
+
+				Ebean.save(importedStudent);
+
+				LearningGroup currentGroup;
+				if (attributes[2].length() != 0) {
+					if (LearningGroup.getLearningGroup(attributes[2], testSemester) == null) {
+						currentGroup = new LearningGroup();
+						currentGroup.setName(attributes[2]);
+						currentGroup.addMember(importedStudent);
+						currentGroup.setPrivate(false);
+						Ebean.save(currentGroup);
+					} else {
+						currentGroup = LearningGroup.getLearningGroup(attributes[2], testSemester);
+						currentGroup.addMember(importedStudent);
+						Ebean.save(currentGroup);
+					}
+				} else {
+					currentGroup = new LearningGroup();
+					currentGroup.setName("test" + importedStudent.getMatriculationNumber());
+					currentGroup.setPrivate(true);
+					currentGroup.addMember(importedStudent);
+					Ebean.save(currentGroup);
+				}
+				ArrayList<Rating> ratings = new ArrayList<>();
+				for (int i = 0; i < testProjects.size(); i++) {
+					Rating currentRating = new Rating(Integer.parseInt(attributes[9 + i]), testProjects.get(i));
+					ratings.add(currentRating);
+				}
+				importedStudent.getLearningGroup(testSemester).setRatings(ratings);
+
+				Ebean.save(importedStudent.getLearningGroup(testSemester));
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Exportiert Liste aller registrierten Studenten in einem Semester.
+	 * 
+	 * @param file
+	 *            Der Ausgabepfad.
+	 * @param semester
+	 *            Das Semester, dessen Studenten exportiert werden sollen.
+	 */
+	public void exportStudents(String file, Semester semester) {
+
+	}
+
+	/**
+	 * Importiert eine Liste von Projekten.
+	 * 
+	 * @param file
+	 *            Der Ausgabepfad.
+	 * @param Semester
+	 *            Das Semester, dem die Projekte hinzugefügt werden sollen.
+	 */
+	public void importProjects(String file, Semester semester) {
+
+	}
+
+	/**
+	 * Exportiert die Projekte eines Semesters.
+	 * 
+	 * @param file
+	 *            Der Ausgabepfad.
+	 * @param semester
+	 *            Das Semester, aus dem die Projekte exportiert werden sollen.
+	 */
+	public void exportProjects(String file, Semester semester) {
+
+	}
 }

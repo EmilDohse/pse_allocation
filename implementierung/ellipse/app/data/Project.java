@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotNull;
 
 /************************************************************/
@@ -16,7 +16,7 @@ import javax.validation.constraints.NotNull;
  * Klasse, die ein Project repräsentiert
  */
 @Entity
-public class Project extends ElipseModel {
+public class Project extends ElipseModel implements Comparable<Project> {
 
     /**
      * Der Name des Projektes.
@@ -53,7 +53,7 @@ public class Project extends ElipseModel {
     /**
      * Betreuer des Projekts
      */
-    @OneToMany
+    @ManyToMany
     private List<Adviser> advisers;
 
     public Project() {
@@ -316,6 +316,11 @@ public class Project extends ElipseModel {
         }
         // TODO throws
         return null;
+    }
+
+    @Override
+    public int compareTo(Project o) {
+        return name.compareTo(o.getName());
     }
 
 }

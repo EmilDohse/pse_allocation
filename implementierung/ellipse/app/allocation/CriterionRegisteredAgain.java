@@ -4,7 +4,6 @@
 
 package allocation;
 
-import exception.AllocationException;
 import gurobi.GRBException;
 import gurobi.GRBLinExpr;
 
@@ -36,7 +35,7 @@ public class CriterionRegisteredAgain implements GurobiCriterion {
 	 */
 	@Override
 	public void useCriteria(Configuration configuration, GurobiAllocator allocator, double weight)
-			throws AllocationException {
+			throws GRBException {
 		GRBLinExpr bonus = new GRBLinExpr();
 		for (int i = 0; i < configuration.getStudents().size(); i++) {
 
@@ -47,10 +46,6 @@ public class CriterionRegisteredAgain implements GurobiCriterion {
 				}
 			}
 		}
-		try {
 			allocator.getOptimizationTerm().add(bonus);
-		} catch (GRBException e) {
-			throw new AllocationException("allocation.gurobiException");
-		}
 	}
 }
