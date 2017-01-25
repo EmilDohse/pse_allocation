@@ -6,6 +6,7 @@ package controllers;
 
 import data.GeneralData;
 import notificationSystem.Notifier;
+import play.data.DynamicForm;
 import play.mvc.Controller;
 import play.mvc.Result;
 
@@ -107,6 +108,15 @@ public class IndexPageController extends Controller {
      */
     public Result register() {
         // TODO
+        DynamicForm form = DynamicForm.form().bindFromRequest();
+        if (form.data().size() == 0) {
+            return badRequest("Expceting some data");
+        } else {
+            String response = "Client " + form.get("nome_cliente")
+                    + "has phone number " + form.get("telefone_cliente");
+
+            return ok(response);
+        }
         return null;
     }
 

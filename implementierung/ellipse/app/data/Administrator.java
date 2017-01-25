@@ -2,6 +2,8 @@ package data;
 
 import java.util.List;
 
+import javax.persistence.Entity;
+
 /**
  * Diese Klasse stellt einen Administrator dar
  */
