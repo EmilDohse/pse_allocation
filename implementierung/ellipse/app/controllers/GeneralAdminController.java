@@ -15,10 +15,11 @@ import play.mvc.Result;
  * oder gelöscht werden sollen.
  */
 public class GeneralAdminController extends Controller {
-	/**
-	 * 
-	 */
-	private AllocationQueue allocatorQueue;
+
+    /**
+     * 
+     */
+    private AllocationQueue allocatorQueue;
 
     /**
      * Diese Methode fügt einen Betreuer mit den Daten aus dem vom Administrator
@@ -44,18 +45,18 @@ public class GeneralAdminController extends Controller {
         return null;
     }
 
-	/**
-	 * Diese Methode fügt eine Einteilungskonfiguration in die
-	 * Berechnungswarteschlange hinzu. Der Administrator wird anschließend auf
-	 * die Berechnungsübersichtsseite weitergeleitet.
-	 * 
-	 * @return Die Seite, die als Antwort verschickt wird.
-	 */
-	public Result addAllocation() {
-		// TODO
-
-		return null;
-	}
+    /**
+     * Diese Methode fügt eine Einteilungskonfiguration in die
+     * Berechnungswarteschlange hinzu. Der Administrator wird anschließend auf
+     * die Berechnungsübersichtsseite weitergeleitet.
+     * 
+     * @return Die Seite, die als Antwort verschickt wird.
+     */
+    public Result addAllocation() {
+        // TODO
+        // TODO prüfen, ob die Studenten die Pflichtvorraussetzungen erfüllen
+        return null;
+    }
 
     /**
      * Diese Methode löscht eine Einteilungskonfiguration aus der
