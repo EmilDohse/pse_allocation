@@ -16,8 +16,13 @@ import javax.persistence.OneToOne;
  * Diese KLasse stellt ein Team eines Projektes dar.
  */
 @Entity
-public class Team extends ElipseModel {
+public class Team extends ElipseModel implements Comparable<Team> {
 
+    /**
+     * Nummer des Teams
+     */
+    // TODO @GeneratedValue
+    private int           teamNumber;
     /**
      * Das Projekt des Teams
      */
@@ -37,6 +42,25 @@ public class Team extends ElipseModel {
     public Team(Project project, List<Student> members) {
         this.project = project;
         this.members = members;
+    }
+
+    /**
+     * Getter für die Teamnummer
+     * 
+     * @return Teamnummer
+     */
+    public int getTeamNumber() {
+        return teamNumber;
+    }
+
+    /**
+     * Setter für die Teamnummer
+     * 
+     * @param teamNumber
+     *            Teamnummer
+     */
+    public void setTeamNumber(int teamNumber) {
+        this.teamNumber = teamNumber;
     }
 
     /**
@@ -128,6 +152,11 @@ public class Team extends ElipseModel {
      */
     public List<Adviser> getAdvisers() {
         return project.getAdvisers();
+    }
+
+    @Override
+    public int compareTo(Team o) {
+        return Integer.compare(teamNumber, o.getTeamNumber());
     }
 
 }
