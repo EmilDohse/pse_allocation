@@ -8,7 +8,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
@@ -38,7 +40,7 @@ public class Semester extends ElipseModel {
     /**
      * Die für dieses Semseter verfügbaren SPOs
      */
-    @OneToMany
+    @ManyToMany
     private List<SPO>           spos;
     /**
      * Eine Beschreibung/Infotext des Semesters.
@@ -63,22 +65,22 @@ public class Semester extends ElipseModel {
     /**
      * Alle Lerngruppen, die dieses Semester erstellt wurden
      */
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<LearningGroup> learningGroups;
     /**
      * Alle Studenten, die sich für dieses Semester angemeldet haben
      */
-    @OneToMany
+    @ManyToMany
     private List<Student>       students;
     /**
      * Alle Projekte, die für dieses Semester registriert wurden
      */
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Project>       projects;
     /**
      * Alle Einteilungen, die für dieses Semester berechnet wurden
      */
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Allocation>    allocations;
 
     public Semester() {
