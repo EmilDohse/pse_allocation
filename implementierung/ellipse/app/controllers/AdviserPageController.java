@@ -117,8 +117,8 @@ public class AdviserPageController extends Controller {
 	 * @return die Seite, die als Antwort verschickt wird.
 	 */
 	public Result accountPage() {
-		// TODO
-		return null;
+	    play.twirl.api.Html content = views.html.adviserAccount.render(); //TODO muss hier noch ein param mitgegeben werden?
+        return ok(views.html.adviser.render(content));
 	}
 
 	/**
