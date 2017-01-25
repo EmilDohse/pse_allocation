@@ -4,7 +4,8 @@
 
 package allocation;
 
-import exception.AllocationException;
+import java.util.NoSuchElementException;
+
 import gurobi.GRBException;
 import gurobi.GRBLinExpr;
 
@@ -36,7 +37,7 @@ public class CriterionRating implements GurobiCriterion {
 	 */
 	@Override
 	public void useCriteria(Configuration configuration, GurobiAllocator allocator, double weight)
-			throws AllocationException {
+			throws GRBException, NoSuchElementException {
 		GRBLinExpr bonus = new GRBLinExpr();
 		for (int i = 0; i < configuration.getStudents().size(); i++) {
 			for (int j = 0; j < configuration.getTeams().size(); j++) {
@@ -47,10 +48,6 @@ public class CriterionRating implements GurobiCriterion {
 				bonus.addTerm(weight * 2 * rating, allocator.getBasicMatrix()[i][j]);
 			}
 		}
-		try {
 			allocator.getOptimizationTerm().add(bonus);
-		} catch (GRBException e) {
-			throw new AllocationException("allocation.gurobiException");
-		}
 	}
 }
