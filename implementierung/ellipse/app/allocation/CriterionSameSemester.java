@@ -127,8 +127,11 @@ public class CriterionSameSemester implements GurobiCriterion {
 	 * @return 3 im WS, 4 im SS.
 	 */
 	private int getNormalSemester(Semester semester) {
-		// TODO an Datenimplementierung anpassen
-		return 0;
+		if (GeneralData.getCurrentSemester().isWintersemester()) {
+			return 3;
+		} else {
+			return 4;
+		}
 	}
 
 	/**
