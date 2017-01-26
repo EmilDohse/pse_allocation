@@ -95,7 +95,6 @@ create table rating (
   learning_group_id             integer not null,
   rating                        integer,
   project_id                    integer,
-  constraint uq_rating_project_id unique (project_id),
   constraint pk_rating primary key (id)
 );
 create sequence rating_seq;
@@ -147,7 +146,6 @@ create table semester_student (
 
 create table student (
   id                            integer not null,
-  team_id                       integer not null,
   username                      varchar(255) not null,
   password                      varchar(255) not null,
   email_address                 varchar(255) not null,
@@ -188,6 +186,12 @@ create table team (
 );
 create sequence team_seq;
 
+create table team_student (
+  team_id                       integer not null,
+  student_id                    integer not null,
+  constraint pk_team_student primary key (team_id,student_id)
+);
+
 alter table allocation add constraint fk_allocation_semester_id foreign key (semester_id) references semester (id) on delete restrict on update restrict;
 create index ix_allocation_semester_id on allocation (semester_id);
 
@@ -219,6 +223,7 @@ alter table rating add constraint fk_rating_learning_group_id foreign key (learn
 create index ix_rating_learning_group_id on rating (learning_group_id);
 
 alter table rating add constraint fk_rating_project_id foreign key (project_id) references project (id) on delete restrict on update restrict;
+create index ix_rating_project_id on rating (project_id);
 
 alter table spo_achievement_necessary add constraint fk_spo_achievement_necessary_spo foreign key (spo_id) references spo (id) on delete restrict on update restrict;
 create index ix_spo_achievement_necessary_spo on spo_achievement_necessary (spo_id);
@@ -246,9 +251,6 @@ create index ix_semester_student_semester on semester_student (semester_id);
 alter table semester_student add constraint fk_semester_student_student foreign key (student_id) references student (id) on delete restrict on update restrict;
 create index ix_semester_student_student on semester_student (student_id);
 
-alter table student add constraint fk_student_team_id foreign key (team_id) references team (id) on delete restrict on update restrict;
-create index ix_student_team_id on student (team_id);
-
 alter table student add constraint fk_student_spo_id foreign key (spo_id) references spo (id) on delete restrict on update restrict;
 create index ix_student_spo_id on student (spo_id);
 
@@ -269,6 +271,12 @@ create index ix_team_allocation_id on team (allocation_id);
 
 alter table team add constraint fk_team_project_id foreign key (project_id) references project (id) on delete restrict on update restrict;
 create index ix_team_project_id on team (project_id);
+
+alter table team_student add constraint fk_team_student_team foreign key (team_id) references team (id) on delete restrict on update restrict;
+create index ix_team_student_team on team_student (team_id);
+
+alter table team_student add constraint fk_team_student_student foreign key (student_id) references student (id) on delete restrict on update restrict;
+create index ix_team_student_student on team_student (student_id);
 
 
 # --- !Downs
@@ -304,6 +312,7 @@ alter table rating drop constraint if exists fk_rating_learning_group_id;
 drop index if exists ix_rating_learning_group_id;
 
 alter table rating drop constraint if exists fk_rating_project_id;
+drop index if exists ix_rating_project_id;
 
 alter table spo_achievement_necessary drop constraint if exists fk_spo_achievement_necessary_spo;
 drop index if exists ix_spo_achievement_necessary_spo;
@@ -331,9 +340,6 @@ drop index if exists ix_semester_student_semester;
 alter table semester_student drop constraint if exists fk_semester_student_student;
 drop index if exists ix_semester_student_student;
 
-alter table student drop constraint if exists fk_student_team_id;
-drop index if exists ix_student_team_id;
-
 alter table student drop constraint if exists fk_student_spo_id;
 drop index if exists ix_student_spo_id;
 
@@ -354,6 +360,12 @@ drop index if exists ix_team_allocation_id;
 
 alter table team drop constraint if exists fk_team_project_id;
 drop index if exists ix_team_project_id;
+
+alter table team_student drop constraint if exists fk_team_student_team;
+drop index if exists ix_team_student_team;
+
+alter table team_student drop constraint if exists fk_team_student_student;
+drop index if exists ix_team_student_student;
 
 drop table if exists achievement;
 drop sequence if exists achievement_seq;
@@ -408,4 +420,6 @@ drop table if exists student_achievement_oral;
 
 drop table if exists team;
 drop sequence if exists team_seq;
+
+drop table if exists team_student;
 
