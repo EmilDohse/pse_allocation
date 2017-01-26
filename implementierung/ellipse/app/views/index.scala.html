@@ -11,8 +11,8 @@
  *@
 
 @main(Messages("index.title"), {val map = new HashMap[String, String];
-map.put(Messages("index.sidebar.information"), controllers.routes.IndexPageController.indexPage().path());
-map.put(Messages("index.sidebar.registration"), controllers.routes.IndexPageController.registerPage().path());
+map.put(Messages("index.sidebar.information"), controllers.routes.IndexPageController.indexPage("").path());
+map.put(Messages("index.sidebar.registration"), controllers.routes.IndexPageController.registerPage("").path());
 map}) {
     <!-- Add Sibboleth Button??? -->
 }{

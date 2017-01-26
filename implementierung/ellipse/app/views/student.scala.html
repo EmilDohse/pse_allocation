@@ -11,8 +11,8 @@
  *@
 
 @main(Messages("student.title"), {val map = new HashMap[String, String];
-map.put(Messages("student.sidebar.learningGroup"), controllers.routes.StudentPageController.learningGroupPage().path());
-map.put(Messages("student.sidebar.rating"), controllers.routes.StudentPageController.ratingPage().path());
-map.put(Messages("student.sidebar.results"), controllers.routes.StudentPageController.resultsPage().path());
-map.put(Messages("student.sidebar.account"), controllers.routes.StudentPageController.accountPage().path());
+map.put(Messages("student.sidebar.learningGroup"), controllers.routes.StudentPageController.learningGroupPage("").path());
+map.put(Messages("student.sidebar.rating"), controllers.routes.StudentPageController.ratingPage("").path());
+map.put(Messages("student.sidebar.results"), controllers.routes.StudentPageController.resultsPage("").path());
+map.put(Messages("student.sidebar.account"), controllers.routes.StudentPageController.accountPage("").path());
 map}) {null} {@content}

@@ -4,7 +4,11 @@
 
 package controllers;
 
+import java.util.ArrayList;
+
+import allocation.AbstractAllocator;
 import allocation.AllocationQueue;
+import allocation.Criterion;
 import data.GeneralData;
 import data.Project;
 import data.Semester;
@@ -37,7 +41,8 @@ public class AdminPageController extends Controller {
      * @return Die Seite, die als Antwort verschickt wird.
      */
     public Result adviserPage(String error) {
-        play.twirl.api.Html content = views.html.adminAdvisers.render(GeneralData.getCurrentSemester().getAdvisers());
+        play.twirl.api.Html content = views.html.adminAdvisers.render(GeneralData.getCurrentSemester().getAdvisers(),
+                error);
         return ok(views.html.admin.render(content));
     }
 
@@ -50,7 +55,8 @@ public class AdminPageController extends Controller {
      * @return Die Seite, die als Antwort verschickt wird.
      */
     public Result allocationPage(String error) {
-        play.twirl.api.Html content = views.html.adminAllocation.render(AllocationQueue.getInstance());
+        ArrayList<allocation.Criterion> criteria = (ArrayList<Criterion>) AbstractAllocator.getAllCriteria();
+        play.twirl.api.Html content = views.html.adminAllocation.render(AllocationQueue.getInstance(), criteria);
         return ok(views.html.admin.render(content));
     }
 
@@ -73,7 +79,7 @@ public class AdminPageController extends Controller {
      * @return Die Seite, die als Antwort verschickt wird.
      */
     public Result exportImportPage(String error) {
-        play.twirl.api.Html content = views.html.ExportImport.render();
+        play.twirl.api.Html content = views.html.adminExportImport.render();
         return ok(views.html.admin.render(content));
     }
 
