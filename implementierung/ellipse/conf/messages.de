@@ -17,6 +17,9 @@ index.registration.form.necessaryAchievements = Benötigte Teilleistungen
 index.registration.form.additionalAchievements = Zusätzliche Teilleistungen
 index.registration.form.trueData = Alle Angaben wurden wahrheitsgemäß ausgefüllt.
 index.registration.form.register = Registrieren
+index.registration.error.matNrExists = Es gibt bereits einen Account mit dieser Matrikelnummer. 
+index.registration.error.genError = Bitte überprüfen Sie die Eingabe.
+
 
 student.title = Elipse - Studentenportal
 student.sidebar.learningGroup = Lerngruppe

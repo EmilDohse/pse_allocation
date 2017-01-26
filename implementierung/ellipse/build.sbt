@@ -21,3 +21,7 @@ playEnhancerEnabled := false
 fork in run := true
 
 fork in run := true
+
+
+
+routesGenerator := InjectedRoutesGenerator

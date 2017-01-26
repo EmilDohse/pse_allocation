@@ -23,7 +23,7 @@ public class StudentPageController extends Controller {
      * 
      * @return Die Seite, die als Antwort verschickt wird.
      */
-    public Result learningGroupPage() {
+    public Result learningGroupPage(String error) {
         // TODO
         return null;
     }
@@ -34,7 +34,7 @@ public class StudentPageController extends Controller {
      * 
      * @return Die Seite, die als Antwort verschickt wird.
      */
-    public Result ratingPage() {
+    public Result ratingPage(String error) {
         // TODO
         return null;
     }
@@ -46,7 +46,7 @@ public class StudentPageController extends Controller {
      * 
      * @return Die Seite, die als Antwort verschickt wird.
      */
-    public Result resultsPage() {
+    public Result resultsPage(String error) {
         // TODO
         return null;
     }
@@ -104,7 +104,7 @@ public class StudentPageController extends Controller {
      * 
      * @return Die Seite, die als Antwort verschickt wird.
      */
-    public Result accountPage() {
+    public Result accountPage(String error) {
         // TODO
         return null;
     }

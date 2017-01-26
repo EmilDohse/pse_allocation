@@ -5,6 +5,7 @@
 package controllers;
 
 import data.GeneralData;
+import data.Student;
 import notificationSystem.Notifier;
 import play.data.DynamicForm;
 import play.mvc.Controller;
@@ -31,7 +32,7 @@ public class IndexPageController extends Controller {
      * 
      * @return Die Seite, die als Antwort verschickt wird.
      */
-    public Result indexPage() {
+    public Result indexPage(String error) {
         // TODO
         java.util.ArrayList<data.SPO> spos = new java.util.ArrayList<>();
         data.SPO spo1 = new data.SPO();
@@ -68,8 +69,7 @@ public class IndexPageController extends Controller {
         spo2.addNecessaryAchievement(a8);
         spos.add(spo1);
         spos.add(spo2);
-        play.twirl.api.Html content = views.html.indexInformation
-                .render("Hier könnte ihre Werbung stehen!");
+        play.twirl.api.Html content = views.html.indexInformation.render("Hier könnte ihre Werbung stehen!");
         return ok(views.html.index.render(content));
     }
 
@@ -79,11 +79,11 @@ public class IndexPageController extends Controller {
      * 
      * @return Die Seite, die als Antwort verschickt wird.
      */
-    public Result registerPage() {
+    public Result registerPage(String error) {
         // TODO
 
-        play.twirl.api.Html content = views.html.indexRegistration
-                .render(GeneralData.getCurrentSemester().getSpos());
+        play.twirl.api.Html content = views.html.indexRegistration.render(GeneralData.getCurrentSemester().getSpos(),
+                error);
 
         return ok(views.html.index.render(content));
     }
@@ -107,17 +107,42 @@ public class IndexPageController extends Controller {
      * @return Die Seite, die als Antwort verschickt wird.
      */
     public Result register() {
-        // TODO
+
         DynamicForm form = DynamicForm.form().bindFromRequest();
         if (form.data().size() == 0) {
             return badRequest("Expceting some data");
         } else {
-            String response = "Client " + form.get("nome_cliente")
-                    + "has phone number " + form.get("telefone_cliente");
+            String firstName = form.get("firstName");
+            String lastName = form.get("lastName");
+            String email = form.get("email");
+            String password = form.get("pw");
+            String pwRepeat = form.get("rpw");
+            int matNr = -1;
+            try {
+                matNr = Integer.parseInt(form.get("matrnr"));
+            } catch (NumberFormatException e) {
+                String error = play.i18n.Messages.get("index.registration.error.genError");
+                return redirect(controllers.routes.IndexPageController.registerPage("hallo"));
+            }
 
-            return ok(response);
+            boolean trueData = false;
+
+            if (form.get("trueData") != null) { // TODO überprüfen ob man das so
+                                                // überprüft
+                trueData = true;
+            }
+
+            if (password.equals(pwRepeat) && trueData) {
+                if (Student.getStudent(matNr) == null) {
+
+                } else {
+                    return redirect(controllers.routes.IndexPageController
+                            .registerPage(play.i18n.Messages.get("index.registration.error.matNrExists")));
+                }
+            }
+
         }
-        return null;
+        return null; // TODO hier den redirect
     }
 
     /**
@@ -126,7 +151,7 @@ public class IndexPageController extends Controller {
      * 
      * @return Die Seite, die als Antwort verschickt wird.
      */
-    public Result passwordResetPage() {
+    public Result passwordResetPage(String error) {
         // TODO
         return null;
     }
@@ -151,7 +176,7 @@ public class IndexPageController extends Controller {
      * 
      * @return Die Seite, die als Antwort verschickt wird.
      */
-    public Result verificationPage() {
+    public Result verificationPage(String error) {
         // TODO
         return null;
     }

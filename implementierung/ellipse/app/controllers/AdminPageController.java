@@ -24,9 +24,8 @@ public class AdminPageController extends Controller {
      * 
      * @return Die Seite, die als Antwort verschickt wird.
      */
-    public Result projectPage() {
-        play.twirl.api.Html content = views.html.adminProjects
-                .render(GeneralData.getCurrentSemester().getProjects());
+    public Result projectPage(String error) {
+        play.twirl.api.Html content = views.html.adminProjects.render(GeneralData.getCurrentSemester().getProjects());
         return ok(views.html.admin.render(content));
     }
 
@@ -37,9 +36,8 @@ public class AdminPageController extends Controller {
      * 
      * @return Die Seite, die als Antwort verschickt wird.
      */
-    public Result adviserPage() {
-        play.twirl.api.Html content = views.html.adminAdvisers
-                .render(GeneralData.getCurrentSemester().getAdvisers());
+    public Result adviserPage(String error) {
+        play.twirl.api.Html content = views.html.adminAdvisers.render(GeneralData.getCurrentSemester().getAdvisers());
         return ok(views.html.admin.render(content));
     }
 
@@ -51,9 +49,8 @@ public class AdminPageController extends Controller {
      * 
      * @return Die Seite, die als Antwort verschickt wird.
      */
-    public Result allocationPage() {
-        play.twirl.api.Html content = views.html.adminAllocation
-                .render(AllocationQueue.getInstance());
+    public Result allocationPage(String error) {
+        play.twirl.api.Html content = views.html.adminAllocation.render(AllocationQueue.getInstance());
         return ok(views.html.admin.render(content));
     }
 
@@ -63,9 +60,8 @@ public class AdminPageController extends Controller {
      * 
      * @return Die Seite, die als Antwort verschickt wird.
      */
-    public Result resultsPage() {
-        play.twirl.api.Html content = views.html.adminResults
-                .render(GeneralData.getCurrentSemester().getAllocations());
+    public Result resultsPage(String error) {
+        play.twirl.api.Html content = views.html.adminResults.render(GeneralData.getCurrentSemester().getAllocations());
         return ok(views.html.admin.render(content));
     }
 
@@ -76,7 +72,7 @@ public class AdminPageController extends Controller {
      * 
      * @return Die Seite, die als Antwort verschickt wird.
      */
-    public Result exportImportPage() {
+    public Result exportImportPage(String error) {
         play.twirl.api.Html content = views.html.ExportImport.render();
         return ok(views.html.admin.render(content));
     }
@@ -87,7 +83,7 @@ public class AdminPageController extends Controller {
      * 
      * @return Die Seite, die als Antwort verschickt wird.
      */
-    public Result studentEditPage() {
+    public Result studentEditPage(String error) {
         play.twirl.api.Html content = views.html.adminStudentEdit.render();
         return ok(views.html.admin.render(content));
     }
@@ -98,9 +94,8 @@ public class AdminPageController extends Controller {
      * 
      * @return Die Seite, die als Antwort verschickt wird.
      */
-    public Result propertiesPage() {
-        play.twirl.api.Html content = views.html.adminProperties
-                .render(Semester.getSemesters());
+    public Result propertiesPage(String error) {
+        play.twirl.api.Html content = views.html.adminProperties.render(Semester.getSemesters());
         return ok(views.html.admin.render(content));
     }
 
@@ -115,10 +110,8 @@ public class AdminPageController extends Controller {
      * @return Die Seite, die als Antwort verschickt wird.
      */
     public Result projectEditPage(String name) {
-        Project project = Project.getProject(name,
-                GeneralData.getCurrentSemester());
-        play.twirl.api.Html content = views.html.projectEdit.render(project,
-                false);
+        Project project = Project.getProject(name, GeneralData.getCurrentSemester());
+        play.twirl.api.Html content = views.html.projectEdit.render(project, false);
         return ok(views.html.admin.render(content));
     }
 }
