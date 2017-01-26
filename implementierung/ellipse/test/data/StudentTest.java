@@ -126,7 +126,7 @@ public class StudentTest extends UserTest {
         teams.add(t);
         a.setTeams(teams);
         s.setFinalAllocation(a);
-        GeneralData.setCurrentSemester(s);
+        GeneralData.getInstance().setCurrentSemester(s);
         assertEquals(p, student.getCurrentProject());
     }
 
@@ -142,7 +142,15 @@ public class StudentTest extends UserTest {
         teams.add(t);
         a.setTeams(teams);
         s.setFinalAllocation(a);
-        GeneralData.setCurrentSemester(s);
+        GeneralData.getInstance().setCurrentSemester(s);
+        // save
+        // students.forEach(Student::save);
+        // teams.forEach(Team::save);
+        // a.save();
+        // s.update();
+        GeneralData.getInstance().update();
+        System.out.println(GeneralData.getInstance().getCurrentSemester());
+
         assertEquals(t, student.getCurrentTeam());
     }
 
@@ -156,7 +164,7 @@ public class StudentTest extends UserTest {
         List<LearningGroup> learningGroups = new ArrayList<LearningGroup>();
         learningGroups.add(l);
         s.setLearningGroups(learningGroups);
-        GeneralData.setCurrentSemester(s);
+        GeneralData.getInstance().setCurrentSemester(s);
         assertEquals(l, student.getCurrentLearningGroup());
     }
 

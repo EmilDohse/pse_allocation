@@ -4,35 +4,26 @@
 
 package data;
 
-import java.io.File;
+import java.util.NoSuchElementException;
 
 /************************************************************/
 /**
  * Diese Klasse beinhaltet generelle Daten, über den Zustand der Software.
  */
-public class GeneralData {
-
-    private static final File file   = new File("test");
-
-    private static boolean    loaded = false;
+public class GeneralData extends ElipseModel {
 
     /**
-     * Name des momentanen Semesters.
+     * Das momentane Semester.
      */
-    private static String     currentSemester;
+    private Semester currentSemester;
 
     /**
      * Getter für das aktuelle Semester.
      * 
      * @return Das aktuelle Semester.
      */
-    public static Semester getCurrentSemester() {
-        if (loaded == false) {
-            load();
-            loaded = true;
-        }
-
-        return Semester.getSemester(currentSemester);
+    public Semester getCurrentSemester() {
+        return currentSemester;
     }
 
     /**
@@ -41,21 +32,22 @@ public class GeneralData {
      * @param currentSemester
      *            Das aktuelle Semester.
      */
-    public static void setCurrentSemester(Semester currentSemester) {
-        GeneralData.currentSemester = currentSemester.getName();
+    public void setCurrentSemester(Semester currentSemester) {
+        this.currentSemester = currentSemester;
     }
 
     /**
-     * Lädt die Daten aus einer Datei
+     * Lädt die Daten aus der Datenbank
      */
-    private static void load() {
-        // TODO
+    public static GeneralData getInstance() {
+        try {
+            return ElipseModel.getAll(GeneralData.class).stream().findFirst().get();
+        } catch (NoSuchElementException e) {
+            GeneralData data = new GeneralData();
+            data.save();
+            return data;
+        }
+
     }
 
-    /**
-     * Speichert die Daten in einer Datei
-     */
-    public static void save() {
-        // TODO
-    }
 }

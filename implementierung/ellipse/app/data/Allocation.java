@@ -53,7 +53,7 @@ public class Allocation extends ElipseModel {
     }
 
     public Allocation() {
-        parameters = new ArrayList<AllocationParameter>();
+        this(new ArrayList<>(), "default_name", new ArrayList<>());
     }
 
     /**

@@ -72,8 +72,8 @@ public class Student extends User {
     private boolean           emailVerified;
 
     public Student() {
-        completedAchievements = new ArrayList<Achievement>();
-        oralTestAchievements = new ArrayList<Achievement>();
+        this("default_username", "1234", "anonymous@kit.edu", "Max", "Musterman", 0, new SPO(), new ArrayList<>(),
+                new ArrayList<>(), 0);
     }
 
     public Student(String username, String password, String emailAddress, String firstName, String lastName,
@@ -314,7 +314,7 @@ public class Student extends User {
      * @return Das Projekt des Studierenden.
      */
     public Project getCurrentProject() {
-        Allocation a = GeneralData.getCurrentSemester().getFinalAllocation();
+        Allocation a = GeneralData.getInstance().getCurrentSemester().getFinalAllocation();
         if (a == null) {
             // TODO throws
         }
@@ -334,7 +334,7 @@ public class Student extends User {
      * @return Das Team des Studierenden.
      */
     public Team getCurrentTeam() {
-        Allocation a = GeneralData.getCurrentSemester().getFinalAllocation();
+        Allocation a = GeneralData.getInstance().getCurrentSemester().getFinalAllocation();
         if (a == null) {
             // TODO throws
         }
@@ -368,7 +368,7 @@ public class Student extends User {
      * @return Lerngruppe, in der sich der Student aktuell befindet.
      */
     public LearningGroup getCurrentLearningGroup() {
-        return getLearningGroup(GeneralData.getCurrentSemester());
+        return getLearningGroup(GeneralData.getInstance().getCurrentSemester());
     }
 
     /**
