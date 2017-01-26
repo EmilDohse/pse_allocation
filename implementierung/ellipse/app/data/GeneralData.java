@@ -6,16 +6,26 @@ package data;
 
 import java.util.NoSuchElementException;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.OneToOne;
+import javax.persistence.Transient;
+
 /************************************************************/
 /**
  * Diese Klasse beinhaltet generelle Daten, über den Zustand der Software.
  */
+@Entity
 public class GeneralData extends ElipseModel {
+
+    @Transient
+    private static GeneralData instance;
 
     /**
      * Das momentane Semester.
      */
-    private Semester currentSemester;
+    @OneToOne(cascade = CascadeType.PERSIST)
+    private Semester           currentSemester;
 
     /**
      * Getter für das aktuelle Semester.
@@ -40,14 +50,18 @@ public class GeneralData extends ElipseModel {
      * Lädt die Daten aus der Datenbank
      */
     public static GeneralData getInstance() {
-        try {
-            return ElipseModel.getAll(GeneralData.class).stream().findFirst().get();
-        } catch (NoSuchElementException e) {
-            GeneralData data = new GeneralData();
-            data.save();
-            return data;
+        if (null == instance) {
+            // If instance is null try to load data
+            try {
+                instance = ElipseModel.getAll(GeneralData.class).stream().findFirst().get();
+            } catch (NoSuchElementException e) {
+                // If no GeneralData is in Database create one
+                GeneralData data = new GeneralData();
+                data.save();
+                return data;
+            }
         }
-
+        return instance;
     }
 
 }
