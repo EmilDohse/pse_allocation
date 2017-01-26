@@ -3,4 +3,5 @@
 - GurobiKriterion: configuration zusätzlich weight
 - AllocationException erstellt und throw-Deklarationen in allen Gurobi-Klassen hinzugefügt
 - Methode removeAllocationFromQueue in GeneralAdminController eingefügt und in die Routing-Tabelle
-
+-Routingtabelle und Controller-Methoden Parameter komplett geändert
+-QualityCriterion hat Methode getName()

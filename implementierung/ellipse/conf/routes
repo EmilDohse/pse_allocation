@@ -2,8 +2,8 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
-POST		/							controllers.IndexPageController.indexPage(error: String)
-POST		/index						controllers.IndexPageController.indexPage(error: String)
+POST	/							controllers.IndexPageController.indexPage(error: String)
+POST	/index						controllers.IndexPageController.indexPage(error: String)
 POST 	/login						controllers.IndexPageController.login()
 POST 	/register					controllers.IndexPageController.registerPage(error: java.lang.String)
 POST 	/reset						controllers.IndexPageController.passwordResetPage(error: String)
@@ -28,7 +28,7 @@ POST 	/adviser/join				controllers.AdviserPageController.joinProject()
 POST 	/adviser/leave				controllers.AdviserPageController.leaveProject()
 POST 	/adviser/saveGrades			controllers.AdviserPageController.saveStudentsGrades()
 POST	/adviser/account			controllers.AdviserPageController.accountPage(error: String)
-POST 	/adviser/editAccount				controllers.AdviserPageController.editAccount()
+POST 	/adviser/editAccount		controllers.AdviserPageController.editAccount()
 
 POST	/admin						controllers.AdminPageController.projectPage(error: String)
 POST 	/admin/projects				controllers.AdminPageController.projectPage(error: String)

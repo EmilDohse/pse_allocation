@@ -12,10 +12,21 @@ import data.Allocation;
  */
 public interface QualityCriterion {
 
-	/**
-	 * Berechnet das Gütekriterium einer Berechnung
-	 * 
-	 * @param allocation Berechnung, für die das Gütekriterium berechnet wird
-	 */
-	public String calculate(Allocation allocation);
+    /**
+     * Berechnet das Gütekriterium einer Berechnung
+     * 
+     * @param allocation
+     *            Berechnung, für die das Gütekriterium berechnet wird
+     * @return das Ergebnis der Berechnung
+     */
+    public String calculate(Allocation allocation);
+
+    /**
+     * Gibt den Name des Qualitätskriteriums zurück
+     * 
+     * @param local
+     *            die Sprache in welcher der Name zurückgegeben werden soll
+     * @return den Namen
+     */
+    public String getName(String local);
 }

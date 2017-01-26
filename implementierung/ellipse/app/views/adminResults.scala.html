@@ -1,4 +1,4 @@
-@(allocations: List[data.Allocation])
+@(allocations: List[data.Allocation], criteria: List[qualityCriteria.QualityCriterion])
 <div>
 
 	<!-- Nav tabs -->
@@ -7,6 +7,8 @@
 		<li role="presentation"><a href="#@allocation.getName()"
 			aria-controls="@allocation.getName()" role="tab" data-toggle="tab">@allocation.getName()</a></li>
 		}
+		<li role="presentation"><a href="#comparison"
+			aria-controls="comparison" role="tab" data-toggle="tab">@Messages("admin.results.comparison")</a></li>
 	</ul>
 
 	<!-- Tab panes -->
@@ -52,12 +54,12 @@
 						</div>
 						<div class="form-group">
 							<div class="col-sm-10">
-								<button type="submit" class="btn btn-default">@Messages("admin.results.moveMarkedStudents")</button>
+								<button type="submit" name="move" class="btn btn-default">@Messages("admin.results.moveMarkedStudents")</button>
 							</div>
 						</div>
 						<div class="form-group">
 							<div class="col-sm-10">
-								<button type="submit" class="btn btn-default">@Messages("admin.results.exchangeTwoStudents")</button>
+								<button type="submit" name="exchange" class="btn btn-default">@Messages("admin.results.exchangeTwoStudents")</button>
 							</div>
 						</div>
 					</div>
@@ -65,5 +67,30 @@
 			</div>
 		</div>
 		}
+		<div role="tabpanel" class="tab-pane" id="comparison">
+			<div class="row">
+				@for(allocation <- allocations) {
+				<div class="col-sm-6 col-md-6">
+					<h3><small>@allocation.getName()</small></h3>
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th>@Messages("admin.results.qualityCriterion")</th>
+								<th>@Messages("admin.results.value")</th>
+							</tr>
+						</thead>
+						<tbody>
+							@for(criterion <- criteria) {
+							<tr>
+								<td>@criterion.getName(@Messages.lang().code())</td>
+								<td>@criterion.calculate(allocation)</td>
+							</tr>
+							}
+						</tbody>
+					</table>
+				</div>
+				}
+			</div>
+		</div>
 	</div>
 </div>

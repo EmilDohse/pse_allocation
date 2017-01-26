@@ -76,6 +76,9 @@ admin.allocation.configName = Konfigurationsname
 admin.results.to = nach
 admin.results.moveMarkedStudents = markierte Personen verschieben
 admin.results.exchangeTwoStudents = markierte 2 Personen tauschen
+admin.results.comparison = Vergleich
+admin.results.qualityCriterion = Gütekriterium
+admin.results.value = Wert
 
 importer.FileNotFound = Datei konnte nicht gefunden werden
 importer.IOException = Fehler beim Lesen der Datei
