@@ -82,7 +82,7 @@
 						<tbody>
 							@for(criterion <- criteria) {
 							<tr>
-								<td>@criterion.getName(@Messages.lang().code())</td>
+								<td>@criterion.getName()</td>
 								<td>@criterion.calculate(allocation)</td>
 							</tr>
 							}

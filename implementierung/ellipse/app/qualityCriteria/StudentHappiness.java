@@ -28,8 +28,13 @@ public class StudentHappiness implements QualityCriterion {
                 sumOfRatings += t.getRating(t.getMembers().get(j));
             }
         }
-        double relativeHappiness = ((double) sumOfRatings
-                / (double) GeneralData.getCurrentSemester().getStudents().size()) / 5.0;
+        double relativeHappiness = ((double) sumOfRatings / (double) GeneralData
+                .getCurrentSemester().getStudents().size()) / 5.0;
         return String.valueOf(relativeHappiness);
+    }
+
+    @Override
+    public String getName() {
+        return "Studierendenzufriedenheit";
     }
 }

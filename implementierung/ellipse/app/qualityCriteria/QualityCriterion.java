@@ -28,5 +28,5 @@ public interface QualityCriterion {
      *            die Sprache in welcher der Name zurückgegeben werden soll
      * @return den Namen
      */
-    public String getName(String local);
+    public String getName();
 }
