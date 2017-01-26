@@ -70,7 +70,7 @@ public class IndexPageController extends Controller {
         spo2.addNecessaryAchievement(a8);
         spos.add(spo1);
         spos.add(spo2);
-        play.twirl.api.Html content = views.html.indexInformation.render("Hier könnte ihre Werbung stehen!");
+        play.twirl.api.Html content = views.html.indexInformation.render("Hier könnte ihre Werbung stehen!", error);
         return ok(views.html.index.render(content));
     }
 
