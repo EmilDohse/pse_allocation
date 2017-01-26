@@ -5,6 +5,7 @@
 package controllers;
 
 import data.GeneralData;
+import data.SPO;
 import data.Student;
 import notificationSystem.Notifier;
 import play.data.DynamicForm;
@@ -116,12 +117,14 @@ public class IndexPageController extends Controller {
             String email = form.get("email");
             String password = form.get("pw");
             String pwRepeat = form.get("rpw");
+            String matNrString = "";
             int matNr = -1;
             try {
-                matNr = Integer.parseInt(form.get("matrnr"));
+                matNrString = form.get("matrnr");
+                matNr = Integer.parseInt(matNrString);
             } catch (NumberFormatException e) {
-                String error = play.i18n.Messages.get("index.registration.error.genError");
-                return redirect(controllers.routes.IndexPageController.registerPage("hallo"));
+                return redirect(controllers.routes.IndexPageController
+                        .registerPage(play.i18n.Messages.get("index.registration.error.genError")));
             }
 
             boolean trueData = false;
@@ -133,15 +136,24 @@ public class IndexPageController extends Controller {
 
             if (password.equals(pwRepeat) && trueData) {
                 if (Student.getStudent(matNr) == null) {
-
+                    Student student = new Student(matNrString, password, email, firstName, lastName, matNr,
+                            new SPO() /* enter spo eleements here */,
+                            null/* completed achevevents */,
+                            null /* oral achevements here */,
+                            0/* semester here */);
+                    // TODO get student data from view
+                    student.save();
+                    return redirect(controllers.routes.IndexPageController.indexPage(""));
+                    // TODO falls nötig noch emial verification einleiten
                 } else {
                     return redirect(controllers.routes.IndexPageController
                             .registerPage(play.i18n.Messages.get("index.registration.error.matNrExists")));
                 }
             }
 
-        }
-        return null; // TODO hier den redirect
+        } // TODO braucht man hmehr als nur eine gererelle fehlermeldung?
+        return redirect(controllers.routes.IndexPageController
+                .registerPage(play.i18n.Messages.get("index.registration.error.genError")));
     }
 
     /**
