@@ -39,7 +39,7 @@ public class StudentTest extends UserTest {
         Achievement a = new Achievement();
         achievements.add(a);
         student.setCompletedAchievements(achievements);
-        assertEquals(student.getCompletedAchievements().size(), 1);
+        assertEquals(1, student.getCompletedAchievements().size());
         assertTrue(student.getCompletedAchievements().contains(a));
     }
 
@@ -49,7 +49,7 @@ public class StudentTest extends UserTest {
         Achievement a = new Achievement();
         achievements.add(a);
         student.setOralTestAchievements(achievements);
-        assertEquals(student.getOralTestAchievements().size(), 1);
+        assertEquals(1, student.getOralTestAchievements().size());
         assertTrue(student.getOralTestAchievements().contains(a));
     }
 
@@ -182,9 +182,10 @@ public class StudentTest extends UserTest {
         students.add(student);
         firstS.setStudents(students);
         secondS.setStudents(empty);
-        assertEquals(student.registeredMoreThanOnce(), false);
+        assertEquals(false, student.registeredMoreThanOnce());
 
         secondS.setStudents(students);
-        assertEquals(student.registeredMoreThanOnce(), true);
+
+        assertEquals(true, student.registeredMoreThanOnce());
     }
 }

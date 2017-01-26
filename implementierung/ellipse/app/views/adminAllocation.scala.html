@@ -1,1 +1,70 @@
-@(allocQueue: allocation.AllocationQueue)
+@(allocQueue: allocation.AllocationQueue, criteria:
+List[allocation.Criterion])
+<h1>@Messages("admin.sidebar.allocation")</h1>
+<div>
+	<form
+		action="@controllers.routes.GeneralAdminController.addAllocation().path()"
+		method="POST" class="form-horizontal">
+		<div class="form-group">
+			<label class="control-label col-sm-2" for="name">@Messages("admin.allocation.configName")</label>
+			<div class="col-sm-3">
+				<input type="text" class="form-control" name="name" id="name">
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-sm-2" for="maxTeamSize">@Messages("admin.projects.minSize")</label>
+			<div class="col-sm-3">
+				<input type="number" class="form-control" name="minSize"
+					id="minSize">
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-sm-2" for="preferedTeamSize">@Messages("admin.allocation.preferedTeamSize")</label>
+			<div class="col-sm-3">
+				<input type="number" class="form-control" name="preferedTeamSize"
+					id="preferedTeamSize">
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-sm-2" for="maxTeamSize">@Messages("admin.projects.maxSize")</label>
+			<div class="col-sm-3">
+				<input type="number" class="form-control" name="maxTeamSize"
+					id="maxTeamSize">
+			</div>
+		</div>
+		@for(criterion <- criteria) {
+		<div class="form-group">
+			<label class="control-label col-sm-2" for="maxTeamSize">@criterion.getName()</label>
+			<div class="col-sm-3">
+				<input type="range" min="0" max="100" value="100"
+					class="form-control" name="@criterion.getName()"
+					id="@criterion.getName()">
+			</div>
+		</div>
+		}
+		<div class="form-group">
+			<div class="col-sm-offset-2 col-sm-10">
+				<button type="submit" class="btn btn-default">@Messages("admin.allocation.addToQueue")</button>
+			</div>
+		</div>
+	</form>
+</div>
+<div>
+	<h3>
+		<small>@Messages("admin.allocation.queue")</small>
+	</h3>
+	<form
+		action="@controllers.routes.GeneralAdminController.removeAllocationFromQueue().path()"
+		method="POST" class="form-horizontal">
+		<select name="queue" id="queue" size="allocQueue.getQueue().size()"> @for(configuration <-
+			allocQueue.getQueue()) {
+			<option value="@configuration.getName()">@configuration.getName()</option>
+			}
+		</select>
+		<div class="form-group">
+			<div class="col-sm-10">
+				<button type="submit" class="btn btn-default">@Messages("admin.allocation.removeFromQueue")</button>
+			</div>
+		</div>
+	</form>
+</div>

@@ -7,7 +7,9 @@ package data;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
@@ -32,13 +34,13 @@ public class LearningGroup extends ElipseModel {
     /**
      * Die Mitglieder der Lerngruppe.
      */
-    @OneToMany
+    @ManyToMany
     private List<Student> members;
 
     /**
      * Die Projektbewertungen der Lerngruppe
      */
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Rating>  ratings;
 
     /**

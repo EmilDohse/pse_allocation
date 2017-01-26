@@ -4,7 +4,12 @@
 
 package qualityCriteria;
 
+import java.util.List;
+
 import data.Allocation;
+import data.GeneralData;
+import data.Student;
+import data.Team;
 
 /************************************************************/
 /**
@@ -17,7 +22,13 @@ public class NotAllocatedStudents implements QualityCriterion {
      */
 	@Override
 	public String calculate(Allocation allocation) {
-		// TODO
-		return null;
+		List<Team> teams = allocation.getTeams();
+		List<Student> registeredStudents = GeneralData.getCurrentSemester().getStudents();
+		
+		int notAllocatedStudents = registeredStudents.size();
+		for (int i = 0; i < teams.size(); i++) {
+		   notAllocatedStudents -= teams.get(i).getMembers().size();
+		}
+		return String.valueOf(notAllocatedStudents);
 	}
 }

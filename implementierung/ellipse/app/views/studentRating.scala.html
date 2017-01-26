@@ -25,4 +25,6 @@
 		}
 	</tbody>
 </table>
-<input type=submit value=@Messages("student.rating.submit")>
+<form action="@controllers.routes.StudentPageController.rate().path()" method="POST">
+	<input type=submit value=@Messages("student.rating.submit")>
+</form>

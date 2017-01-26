@@ -6,7 +6,6 @@ package allocation;
 
 import java.util.NoSuchElementException;
 
-import exception.AllocationException;
 import gurobi.GRB;
 import gurobi.GRBException;
 import gurobi.GRBLinExpr;
@@ -40,29 +39,22 @@ public class CriterionPreferredTeamSize implements GurobiCriterion {
 	 */
 	@Override
 	public void useCriteria(Configuration configuration, GurobiAllocator allocator, double weight)
-			throws AllocationException {
+			throws GRBException, NoSuchElementException {
 		GRBLinExpr bonus = new GRBLinExpr();
 		double prefSize;
 
 		// Finde die gewünschte Teamgröße
-		try {
-			prefSize = configuration.getParameters().stream()
-					.filter(parameter -> parameter.getName().equals("prefSize")).findFirst().get().getValue();
-		} catch (NoSuchElementException e) {
-			throw new AllocationException("allocation.parameterNotFound");
-		}
+
+		prefSize = configuration.getParameters().stream().filter(parameter -> parameter.getName().equals("prefSize"))
+				.findFirst().get().getValue();
 
 		for (int j = 0; j < configuration.getTeams().size(); j++) {
 
 			// Bestimme maximale Teamgröße
 			double maxSize;
 			if (configuration.getTeams().get(j).getProject().getMaxTeamSize() == -1) {
-				try {
-					maxSize = configuration.getParameters().stream()
-							.filter(parameter -> parameter.getName().equals("maxSize")).findFirst().get().getValue();
-				} catch (NoSuchElementException e) {
-					throw new AllocationException("allocation.parameterNotFound");
-				}
+				maxSize = configuration.getParameters().stream()
+						.filter(parameter -> parameter.getName().equals("maxSize")).findFirst().get().getValue();
 			} else {
 				maxSize = configuration.getTeams().get(j).getProject().getMaxTeamSize();
 			}
@@ -71,12 +63,8 @@ public class CriterionPreferredTeamSize implements GurobiCriterion {
 			GRBLinExpr varianceToPrefSize = new GRBLinExpr();
 			GRBVar isPrefSize;
 			GRBVar auxiliaryVariable;
-			try {
-				isPrefSize = allocator.getModel().addVar(0, 1, 0, GRB.BINARY, GurobiAllocator.NULL);
-				auxiliaryVariable = allocator.getModel().addVar(0, 1, 0, GRB.BINARY, GurobiAllocator.NULL);
-			} catch (GRBException e1) {
-				throw new AllocationException("allocation.gurobiException");
-			}
+			isPrefSize = allocator.getModel().addVar(0, 1, 0, GRB.BINARY, GurobiAllocator.NULL);
+			auxiliaryVariable = allocator.getModel().addVar(0, 1, 0, GRB.BINARY, GurobiAllocator.NULL);
 
 			// Initialisiere alle benötigten Teilterme
 			GRBLinExpr negationAuxiliaryVariable = new GRBLinExpr();
@@ -95,37 +83,28 @@ public class CriterionPreferredTeamSize implements GurobiCriterion {
 			varianceToPrefSize.addTerm(1, allocator.getTeamSizes()[j]);
 			varianceToPrefSize.addConstant(-prefSize);
 
-			try {
-				leftSideFirstConstraint.multAdd(-maxSize, negationIsPrefSize);
+			leftSideFirstConstraint.multAdd(-maxSize, negationIsPrefSize);
 
-				rightSideFirstConstraint.multAdd(maxSize, negationIsPrefSize);
+			rightSideFirstConstraint.multAdd(maxSize, negationIsPrefSize);
 
-				leftSideSecondConstraint.multAdd(0.1, negationIsPrefSize);
-				leftSideSecondConstraint.multAdd(-(maxSize + 0.1), negationAuxiliaryVariable);
+			leftSideSecondConstraint.multAdd(0.1, negationIsPrefSize);
+			leftSideSecondConstraint.multAdd(-(maxSize + 0.1), negationAuxiliaryVariable);
 
-				rightSideSecondConstraint.multAdd(-0.1, negationIsPrefSize);
-				rightSideSecondConstraint.multAdd((maxSize + 0.1), negationAuxiliaryVariable);
+			rightSideSecondConstraint.multAdd(-0.1, negationIsPrefSize);
+			rightSideSecondConstraint.multAdd((maxSize + 0.1), negationAuxiliaryVariable);
 
-				allocator.getModel().addConstr(leftSideFirstConstraint, GRB.LESS_EQUAL, varianceToPrefSize,
-						GurobiAllocator.NULL);
-				allocator.getModel().addConstr(varianceToPrefSize, GRB.LESS_EQUAL, rightSideFirstConstraint,
-						GurobiAllocator.NULL);
+			allocator.getModel().addConstr(leftSideFirstConstraint, GRB.LESS_EQUAL, varianceToPrefSize,
+					GurobiAllocator.NULL);
+			allocator.getModel().addConstr(varianceToPrefSize, GRB.LESS_EQUAL, rightSideFirstConstraint,
+					GurobiAllocator.NULL);
 
-				allocator.getModel().addConstr(leftSideSecondConstraint, GRB.LESS_EQUAL, varianceToPrefSize,
-						GurobiAllocator.NULL);
-				allocator.getModel().addConstr(varianceToPrefSize, GRB.LESS_EQUAL, rightSideSecondConstraint,
-						GurobiAllocator.NULL);
-			} catch (GRBException e) {
-				throw new AllocationException("allocation.gurobiException");
-			}
+			allocator.getModel().addConstr(leftSideSecondConstraint, GRB.LESS_EQUAL, varianceToPrefSize,
+					GurobiAllocator.NULL);
+			allocator.getModel().addConstr(varianceToPrefSize, GRB.LESS_EQUAL, rightSideSecondConstraint,
+					GurobiAllocator.NULL);
 
 			bonus.addTerm(weight * 10, isPrefSize);
 		}
-		try {
-			allocator.getOptimizationTerm().add(bonus);
-		} catch (GRBException e) {
-			throw new AllocationException("allocation.gurobiException");
-		}
-
+		allocator.getOptimizationTerm().add(bonus);
 	}
 }

@@ -81,10 +81,8 @@ public class IndexPageController extends Controller {
      */
     public Result registerPage(String error) {
         // TODO
-
         play.twirl.api.Html content = views.html.indexRegistration.render(GeneralData.getCurrentSemester().getSpos(),
                 error);
-
         return ok(views.html.index.render(content));
     }
 
@@ -112,6 +110,7 @@ public class IndexPageController extends Controller {
         if (form.data().size() == 0) {
             return badRequest("Expceting some data");
         } else {
+
             String firstName = form.get("firstName");
             String lastName = form.get("lastName");
             String email = form.get("email");

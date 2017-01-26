@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import data.LearningGroup;
-import exception.AllocationException;
 import gurobi.GRB;
 import gurobi.GRBException;
 import gurobi.GRBLinExpr;
@@ -41,7 +40,7 @@ public class CriterionLearningGroup implements GurobiCriterion {
 	 */
 	@Override
 	public void useCriteria(Configuration configuration, GurobiAllocator allocator, double weight)
-			throws AllocationException {
+			throws GRBException {
 		GRBLinExpr bonus = new GRBLinExpr();
 
 		// Betrachte nur Lerngruppen mit mehr als einem Mitglied
@@ -61,11 +60,7 @@ public class CriterionLearningGroup implements GurobiCriterion {
 					// Durchlaufe für jedes Paar, jedes Team
 					for (int t = 0; t < configuration.getTeams().size(); t++) {
 						GRBVar pairInSameTeam;
-						try {
 							pairInSameTeam = allocator.getModel().addVar(0, 1, 0, GRB.BINARY, GurobiAllocator.NULL);
-						} catch (GRBException e) {
-							throw new AllocationException("allocation.gurobiException");
-						}
 
 						// Benötigte Teilterme für AND-Verknüpfung
 						GRBLinExpr leftSideFirstConstraint = new GRBLinExpr();
@@ -79,24 +74,16 @@ public class CriterionLearningGroup implements GurobiCriterion {
 						leftSideSecondConstraint.addTerm(-1, allocator.getBasicMatrix()[firstStudentIndex][t]);
 						leftSideSecondConstraint.addTerm(-1, allocator.getBasicMatrix()[secondStudentIndex][t]);
 
-						try {
 							allocator.getModel().addConstr(leftSideFirstConstraint, GRB.LESS_EQUAL, 1,
 									GurobiAllocator.NULL);
 							allocator.getModel().addConstr(leftSideSecondConstraint, GRB.LESS_EQUAL, 0,
 									GurobiAllocator.NULL);
-						} catch (GRBException e) {
-							throw new AllocationException("allocation.gurobiException");
-						}
 
 						bonus.addTerm(weight * (10 / pairs), pairInSameTeam);
 					}
 				}
 			}
 		}
-		try {
 			allocator.getOptimizationTerm().add(bonus);
-		} catch (GRBException e) {
-			throw new AllocationException("allocation.gurobiException");
-		}
 	}
 }

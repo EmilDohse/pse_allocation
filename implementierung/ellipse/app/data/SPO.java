@@ -8,7 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotNull;
 
 /************************************************************/
@@ -16,7 +17,7 @@ import javax.validation.constraints.NotNull;
  * Diese Klasse stellt eine Studienprüfungsordnung dar.
  */
 @Entity
-public class SPO extends ElipseModel {
+public class SPO extends ElipseModel implements Comparable<SPO> {
 
     /**
      * Der Name der Prüfungsordnung.
@@ -27,12 +28,14 @@ public class SPO extends ElipseModel {
      * Die nach dieser Prüfungsordnung benötigten Teilleistungen für die
      * Teilnahme am PSE.
      */
-    @OneToMany
+    @ManyToMany
+    @JoinTable(name = "SPO_ACHIEVEMENT_NECESSARY")
     private List<Achievement> necessaryAchievements;
     /**
      * Die zusätzlichen Teilleistungen.
      */
-    @OneToMany
+    @ManyToMany
+    @JoinTable(name = "SPO_ACHIEVEMENT_ADDITIONAL")
     private List<Achievement> additionalAchievements;
 
     public SPO() {
@@ -161,6 +164,11 @@ public class SPO extends ElipseModel {
      */
     public static SPO getSPO(String name) {
         return getSPOs().stream().filter(spo -> spo.getName().equals(name)).findFirst().orElse(null);
+    }
+
+    @Override
+    public int compareTo(SPO o) {
+        return name.compareTo(o.getName());
     }
 
 }

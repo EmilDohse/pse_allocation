@@ -14,7 +14,7 @@ import javax.validation.constraints.NotNull;
  * Diese Klasse stellt eine Teilleistung im Studium dar.
  */
 @Entity
-public class Achievement extends ElipseModel {
+public class Achievement extends ElipseModel implements Comparable<Achievement> {
 
     /**
      * Der Name der Teilleistung.
@@ -70,6 +70,11 @@ public class Achievement extends ElipseModel {
     public static Achievement getAchievement(String name) {
         return getAchievements().stream().filter(achievement -> achievement.getName().equals(name)).findFirst()
                 .orElse(null);
+    }
+
+    @Override
+    public int compareTo(Achievement o) {
+        return name.compareTo(o.getName());
     }
 
 }

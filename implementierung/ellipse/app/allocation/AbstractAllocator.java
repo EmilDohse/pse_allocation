@@ -6,7 +6,6 @@ package allocation;
 
 import java.util.ServiceLoader;
 
-import exception.AllocationException;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -25,7 +24,7 @@ public abstract class AbstractAllocator {
      *            Die Konfiguration, nach der die Einteilung berechnet werden
      *            soll.
      */
-    public abstract void calculate(Configuration configuration) throws AllocationException;
+    public abstract void calculate(Configuration configuration);
 
     /**
      * methode zum abbruch einer Einteilung

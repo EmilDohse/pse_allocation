@@ -7,7 +7,9 @@ package data;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
@@ -21,7 +23,7 @@ public class Allocation extends ElipseModel {
     /**
      * Liste, die alle Teams enthält.
      */
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Team>                teams;
     /**
      * Der Name der Einteilung.
@@ -31,7 +33,7 @@ public class Allocation extends ElipseModel {
     /**
      * Parameter, mit der die Einteilung gemacht wurde.
      */
-    @OneToMany
+    @ManyToMany
     private List<AllocationParameter> parameters;
 
     /**

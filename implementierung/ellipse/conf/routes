@@ -47,6 +47,7 @@ POST 	/admin/editProject			controllers.AdminProjectController.editProject()
 POST 	/admin/addAdviser			controllers.GeneralAdminController.addAdviser()
 POST 	/admin/removeAdviser		controllers.GeneralAdminController.removeAdviser()
 POST 	/admin/addAllocation		controllers.GeneralAdminController.addAllocation()
+POST	/admin/removeFromQueue		controllers.GeneralAdminController.removeAllocationFromQueue()
 POST 	/admin/addStudent			controllers.GeneralAdminController.addStudent()
 POST 	/admin/removeStudent		controllers.GeneralAdminController.removeStudent()
 

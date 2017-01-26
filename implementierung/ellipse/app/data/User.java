@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
  * Diese Klasse stellt einen Benutzer der Anwendung dar.
  */
 @MappedSuperclass
-public abstract class User extends ElipseModel {
+public abstract class User extends ElipseModel implements Comparable<User> {
 
     /**
      * Der Anmeldename des Benutzers.
@@ -154,6 +154,16 @@ public abstract class User extends ElipseModel {
      */
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    @Override
+    public int compareTo(User o) {
+        int temp = lastName.compareTo(o.getLastName());
+        if (temp == 0) {
+            return firstName.compareTo(o.getFirstName());
+        } else {
+            return temp;
+        }
     }
 
 }
