@@ -119,14 +119,9 @@ public class AdviserPageController extends Controller {
      * @return die Seite, die als Antwort verschickt wird.
      */
     public Result accountPage(String error) {
-        play.twirl.api.Html content = views.html.adviserAccount.render(); // TODO
-                                                                          // muss
-                                                                          // hier
-                                                                          // noch
-                                                                          // ein
-                                                                          // param
-                                                                          // mitgegeben
-                                                                          // werden?
+        play.twirl.api.Html content = views.html.adviserAccount.render(error);
+        // TODO muss hier noch ein param mitgegeben werden?
+
         return ok(views.html.adviser.render(content));
     }
 

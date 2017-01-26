@@ -230,63 +230,76 @@ public class Importer {
 	 */
 	public void importTestData(String studentFile, String projectFile) {
 		Semester testSemester = new Semester("TestSemester", true, 2016);
+		testSemester.setInfoText("Ich bin ein Infotext");
 
 		ArrayList<Project> testProjects = new ArrayList<>();
 		testSemester.setProjects(testProjects);
 
-		ArrayList<LearningGroup> learningGroups = new ArrayList<>();
-		testSemester.setLearningGroups(learningGroups);
+		ArrayList<Student> testStudents = new ArrayList<>();
+		testSemester.setStudents(testStudents);
+
+		ArrayList<LearningGroup> testLearningGroups = new ArrayList<>();
+		testSemester.setLearningGroups(testLearningGroups);
+
+		Ebean.save(testSemester);
 
 		SPO testSPO;
 		if (SPO.getSPO("testSPO") == null) {
 			testSPO = new SPO("testSPO");
+			Ebean.save(testSPO);
 			Achievement testHMorLA = new Achievement("testHMorLA");
 			Achievement testSWT = new Achievement("testSWT");
 			Achievement testAlgo = new Achievement("testAlgo");
+			Ebean.save(testAlgo);
+			Ebean.save(testSWT);
+			Ebean.save(testHMorLA);
 			testSPO.addNecessaryAchievement(testHMorLA);
 			testSPO.addNecessaryAchievement(testSWT);
 			testSPO.addAdditionalAchievement(testAlgo);
-			Ebean.save(testSPO);
+			Ebean.update(testSPO);
 
 		} else {
 			testSPO = SPO.getSPO("testSPO");
+			Ebean.save(testSPO);
 		}
 		testSemester.addSPO(testSPO);
-
-		Ebean.save(testSemester);
+		Ebean.update(testSemester);
 
 		String line = new String();
 		String splitter = ";";
 
-		Adviser dummy = new Adviser();
+		Adviser dummy = new Adviser("Dummy", "dummy", "dummy@gmx.de", "Dum", "My");
 		Ebean.save(dummy);
 		ArrayList<Adviser> advisers = new ArrayList<>();
 		advisers.add(dummy);
 
 		try (BufferedReader br = new BufferedReader(new FileReader(projectFile))) {
 			br.readLine();
-			while ((line = br.readLine()) != null) {
+			while ((line = br.readLine()) != null && line.length() != 0) {
 
 				String[] attributes = line.split(splitter);
+				if (!attributes[0].contains("Webapplikation")) {
+					String name = attributes[0];
+					String institute = attributes[1];
+					int numberOfTeams = Integer.parseInt(attributes[2]);
+					int minSize = Integer.parseInt(attributes[3]);
+					int maxSize = Integer.parseInt(attributes[4]);
 
-				String name = attributes[0];
-				String institute = attributes[1];
-				int numberOfTeams = Integer.parseInt(attributes[2]);
-				int minSize = Integer.parseInt(attributes[3]);
-				int maxSize = Integer.parseInt(attributes[4]);
+					Project importedProject = new Project();
+					// Ebean.save(importedProject);
 
-				Project importedProject = new Project();
-
-				importedProject.setName(name);
-				importedProject.setInstitute(institute);
-				importedProject.setNumberOfTeams(numberOfTeams);
-				importedProject.setMinTeamSize(minSize);
-				importedProject.setMaxTeamSize(maxSize);
-				importedProject.setAdvisers(advisers);
-				importedProject.setProjectInfo(new String());
-				importedProject.setProjectURL(new String());
-				Ebean.save(importedProject);
-				testProjects.add(importedProject);
+					importedProject.setName(name);
+					importedProject.setInstitute(institute);
+					importedProject.setNumberOfTeams(numberOfTeams);
+					importedProject.setMinTeamSize(minSize);
+					importedProject.setMaxTeamSize(maxSize);
+					importedProject.setAdvisers(advisers);
+					importedProject.setProjectInfo(new String());
+					importedProject.setProjectURL(new String());
+					// Ebean.update(importedProject);
+					testProjects.add(importedProject);
+					Ebean.update(testSemester);
+				}
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -294,7 +307,7 @@ public class Importer {
 		}
 		try (BufferedReader br = new BufferedReader(new FileReader(studentFile))) {
 			br.readLine();
-			while ((line = br.readLine()) != null) {
+			while ((line = br.readLine()) != null && line.length() != 0) {
 
 				String[] attributes = line.split(splitter);
 
@@ -302,7 +315,6 @@ public class Importer {
 				String firstName = attributes[1].split(" ")[0];
 				String lastName = attributes[1].split(" ")[1];
 				int semester = Integer.parseInt(attributes[4]);
-				SPO spo = testSPO;
 				ArrayList<Achievement> completedAchievements = new ArrayList<>();
 				if (attributes[5].equals("True") || attributes[6].equals("True")) {
 					completedAchievements.add(Achievement.getAchievement("testHMorLA"));
@@ -315,10 +327,15 @@ public class Importer {
 				}
 
 				Student importedStudent = new Student();
+
+				importedStudent.setUserName(new String() + matNr);
+				importedStudent.setPassword("123");
+				importedStudent.setEmailAddress(new String());
 				importedStudent.setFirstName(firstName);
 				importedStudent.setLastName(lastName);
+
 				importedStudent.setMatriculationNumber(matNr);
-				importedStudent.setSPO(spo);
+				importedStudent.setSPO(testSPO);
 				importedStudent.setCompletedAchievements(completedAchievements);
 				importedStudent.setRegisteredPSE(true);
 				importedStudent.setRegisteredTSE(true);
@@ -329,7 +346,10 @@ public class Importer {
 				importedStudent.setEmailAddress(new String());
 				importedStudent.setIsEmailVerified(false);
 
-				Ebean.save(importedStudent);
+				testStudents.add(importedStudent);
+
+				Ebean.update(testSemester);
+				// Ebean.save(importedStudent);
 
 				LearningGroup currentGroup;
 				if (attributes[2].length() != 0) {
@@ -338,27 +358,30 @@ public class Importer {
 						currentGroup.setName(attributes[2]);
 						currentGroup.addMember(importedStudent);
 						currentGroup.setPrivate(false);
-						Ebean.save(currentGroup);
+						currentGroup.setPassword("123");
+						testLearningGroups.add(currentGroup);
 					} else {
 						currentGroup = LearningGroup.getLearningGroup(attributes[2], testSemester);
 						currentGroup.addMember(importedStudent);
-						Ebean.save(currentGroup);
 					}
 				} else {
 					currentGroup = new LearningGroup();
 					currentGroup.setName("test" + importedStudent.getMatriculationNumber());
 					currentGroup.setPrivate(true);
 					currentGroup.addMember(importedStudent);
-					Ebean.save(currentGroup);
+					currentGroup.setPassword("123");
+					testLearningGroups.add(currentGroup);
 				}
+				Ebean.update(testSemester);
+
 				ArrayList<Rating> ratings = new ArrayList<>();
-				for (int i = 0; i < testProjects.size(); i++) {
-					Rating currentRating = new Rating(Integer.parseInt(attributes[9 + i]), testProjects.get(i));
+				Rating currentRating;
+				for (int i = 0; i < testSemester.getProjects().size(); i++) {
+					currentRating = new Rating(Integer.parseInt(attributes[9 + i]), testProjects.get(i));
 					ratings.add(currentRating);
 				}
-				importedStudent.getLearningGroup(testSemester).setRatings(ratings);
-
-				Ebean.save(importedStudent.getLearningGroup(testSemester));
+				currentGroup.setRatings(ratings);
+				Ebean.update(currentGroup);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();

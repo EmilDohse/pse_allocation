@@ -5,7 +5,7 @@
 package data;
 
 import javax.persistence.Entity;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 
 /************************************************************/
 /**
@@ -15,61 +15,61 @@ import javax.persistence.OneToOne;
 @Entity
 public class Rating extends ElipseModel {
 
-    /**
-     * Der Wert der Bewertung.
-     */
-    private int     rating;
-    /**
-     * Das Projekt, dem die Bewertung gilt.
-     */
-    @OneToOne
-    private Project project;
+	/**
+	 * Der Wert der Bewertung.
+	 */
+	private int rating;
+	/**
+	 * Das Projekt, dem die Bewertung gilt.
+	 */
+	@ManyToOne
+	private Project project;
 
-    public Rating() {
+	public Rating() {
 
-    }
+	}
 
-    public Rating(int rating, Project project) {
-        this.rating = rating;
-        this.project = project;
-    }
+	public Rating(int rating, Project project) {
+		this.rating = rating;
+		this.project = project;
+	}
 
-    /**
-     * Getter für den Wert der Bewertung.
-     * 
-     * @return Der Wert der Bewertung.
-     */
-    public int getRating() {
-        return rating;
-    }
+	/**
+	 * Getter für den Wert der Bewertung.
+	 * 
+	 * @return Der Wert der Bewertung.
+	 */
+	public int getRating() {
+		return rating;
+	}
 
-    /**
-     * Getter für das Projekt der Bewertung.
-     * 
-     * @return Das Projekt, das bewertet wird.
-     */
-    public Project getProject() {
-        return project;
-    }
+	/**
+	 * Getter für das Projekt der Bewertung.
+	 * 
+	 * @return Das Projekt, das bewertet wird.
+	 */
+	public Project getProject() {
+		return project;
+	}
 
-    /**
-     * Setter für den Wert der Bewertung.
-     * 
-     * @param rating
-     *            Der Wert der Bewertung.
-     */
-    public void setRating(int rating) {
-        this.rating = rating;
-    }
+	/**
+	 * Setter für den Wert der Bewertung.
+	 * 
+	 * @param rating
+	 *            Der Wert der Bewertung.
+	 */
+	public void setRating(int rating) {
+		this.rating = rating;
+	}
 
-    /**
-     * Setter für das Projekt der Bewertung.
-     * 
-     * @param project
-     *            Das Projekt, das bewertet wird.
-     */
-    public void setProject(Project project) {
-        this.project = project;
-    }
+	/**
+	 * Setter für das Projekt der Bewertung.
+	 * 
+	 * @param project
+	 *            Das Projekt, das bewertet wird.
+	 */
+	public void setProject(Project project) {
+		this.project = project;
+	}
 
 }
