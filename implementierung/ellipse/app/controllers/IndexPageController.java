@@ -41,7 +41,6 @@ public class IndexPageController extends Controller {
     public Result indexPage(String error) {
         // TODO
         ctx().changeLang("de");
-        ctx().clearLang();
         System.out.println(ctx().lang().code());
         play.twirl.api.Html content = views.html.indexInformation
                 .render("Hier könnte ihre Werbung stehen!", error);
@@ -137,7 +136,7 @@ public class IndexPageController extends Controller {
                 matNr = Integer.parseInt(matNrString);
             } catch (NumberFormatException e) {
                 return redirect(controllers.routes.IndexPageController
-                        .registerPage(play.i18n.Messages
+                        .registerPage(ctx().messages()
                                 .at("index.registration.error.genError")));
             }
 
