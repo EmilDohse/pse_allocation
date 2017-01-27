@@ -57,6 +57,7 @@ public class IndexPageController extends Controller {
         java.util.ArrayList<data.SPO> spos = new java.util.ArrayList<>();
         data.SPO spo1 = new data.SPO();
         spo1.setName("SPO 2008");
+        spo1.setId(0);
         spo1.setAdditionalAchievements(new java.util.ArrayList<>());
         spo1.setNecessaryAchievements(new java.util.ArrayList<>());
         data.Achievement a1 = new data.Achievement("LA 1");
@@ -73,6 +74,7 @@ public class IndexPageController extends Controller {
         spo1.addNecessaryAchievement(a4);
         data.SPO spo2 = new data.SPO();
         spo2.setName("SPO 2015");
+        spo1.setId(1);
         spo2.setAdditionalAchievements(new java.util.ArrayList<>());
         spo2.setNecessaryAchievements(new java.util.ArrayList<>());
         data.Achievement a5 = new data.Achievement("Algo 3");
