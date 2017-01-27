@@ -40,8 +40,6 @@ public class IndexPageController extends Controller {
      */
     public Result indexPage(String error) {
         // TODO
-        ctx().changeLang("de");
-        System.out.println(ctx().lang().code());
         play.twirl.api.Html content = views.html.indexInformation
                 .render("Hier könnte ihre Werbung stehen!", error);
         return ok(views.html.index.render(content));
@@ -162,14 +160,14 @@ public class IndexPageController extends Controller {
                     // TODO falls nötig noch emial verification einleiten
                 } else {
                     return redirect(controllers.routes.IndexPageController
-                            .registerPage(play.i18n.Messages.get(
+                            .registerPage(ctx().messages().at(
                                     "index.registration.error.matNrExists")));
                 }
             }
 
         } // TODO braucht man hmehr als nur eine gererelle fehlermeldung?
         return redirect(controllers.routes.IndexPageController.registerPage(
-                play.i18n.Messages.get("index.registration.error.genError")));
+                ctx().messages().at("index.registration.error.genError")));
     }
 
     /**
