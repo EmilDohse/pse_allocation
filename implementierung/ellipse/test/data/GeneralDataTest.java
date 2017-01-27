@@ -30,7 +30,7 @@ public class GeneralDataTest extends DataTest {
     public void testSetSaveAndReload() {
         Semester semester = new Semester();
         data.setCurrentSemester(semester);
-        data.save();
+        GeneralData.getInstance().save();
         assertEquals(semester, GeneralData.getInstance().getCurrentSemester());
     }
 

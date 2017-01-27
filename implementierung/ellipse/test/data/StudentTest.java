@@ -142,14 +142,17 @@ public class StudentTest extends UserTest {
         teams.add(t);
         a.setTeams(teams);
         s.setFinalAllocation(a);
-        GeneralData.getInstance().setCurrentSemester(s);
+        GeneralData d = GeneralData.getInstance();
+        d.setCurrentSemester(s);
+        System.out.println(d.getId() + " " + d.getCurrentSemester());
         // save
-        // students.forEach(Student::save);
-        // teams.forEach(Team::save);
-        // a.save();
-        // s.update();
-        GeneralData.getInstance().update();
-        System.out.println(GeneralData.getInstance().getCurrentSemester());
+        students.forEach(Student::save);
+        teams.forEach(Team::save);
+        a.save();
+        s.save();
+        d.save();
+        // GeneralData.getInstance().save();
+        System.out.println(GeneralData.getInstance().getId() + " " + GeneralData.getInstance().getCurrentSemester());
 
         assertEquals(t, student.getCurrentTeam());
     }
