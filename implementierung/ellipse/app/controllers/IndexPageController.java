@@ -4,11 +4,13 @@
 
 package controllers;
 
-import data.GeneralData;
+import javax.inject.Inject;
+
 import data.SPO;
 import data.Student;
 import notificationSystem.Notifier;
 import play.data.DynamicForm;
+import play.data.FormFactory;
 import play.mvc.Controller;
 import play.mvc.Result;
 
@@ -26,6 +28,9 @@ public class IndexPageController extends Controller {
      */
     private Notifier notifier;
 
+    @Inject
+    FormFactory      formFactory;
+
     /**
      * Diese Methode gibt die Startseite zurück. Auf dieser Seite können sich
      * Administrator, Betreuer und Studenten anmelden oder aktuelle
@@ -35,6 +40,23 @@ public class IndexPageController extends Controller {
      */
     public Result indexPage(String error) {
         // TODO
+        ctx().changeLang("de");
+        ctx().clearLang();
+        System.out.println(ctx().lang().code());
+        play.twirl.api.Html content = views.html.indexInformation
+                .render("Hier könnte ihre Werbung stehen!", error);
+        return ok(views.html.index.render(content));
+    }
+
+    /**
+     * Diese Methode gibt die Seite zurück, auf der sich ein Student
+     * registrieren kann.
+     * 
+     * @return Die Seite, die als Antwort verschickt wird.
+     */
+    public Result registerPage(String error) {
+        // TODO
+        // Test Code
         java.util.ArrayList<data.SPO> spos = new java.util.ArrayList<>();
         data.SPO spo1 = new data.SPO();
         spo1.setName("SPO 2008");
@@ -70,21 +92,11 @@ public class IndexPageController extends Controller {
         spo2.addNecessaryAchievement(a8);
         spos.add(spo1);
         spos.add(spo2);
-        play.twirl.api.Html content = views.html.indexInformation
-                .render("Hier könnte ihre Werbung stehen!", error);
-        return ok(views.html.index.render(content));
-    }
-
-    /**
-     * Diese Methode gibt die Seite zurück, auf der sich ein Student
-     * registrieren kann.
-     * 
-     * @return Die Seite, die als Antwort verschickt wird.
-     */
-    public Result registerPage(String error) {
-        // TODO
-        play.twirl.api.Html content = views.html.indexRegistration
-                .render(GeneralData.getCurrentSemester().getSpos(), error);
+        play.twirl.api.Html content = views.html.indexRegistration.render(spos,
+                error);
+        // End Test Code
+        // play.twirl.api.Html content = views.html.indexRegistration
+        // .render(GeneralData.getCurrentSemester().getSpos(), error);
         return ok(views.html.index.render(content));
     }
 
@@ -108,7 +120,7 @@ public class IndexPageController extends Controller {
      */
     public Result register() {
 
-        DynamicForm form = DynamicForm.form().bindFromRequest();
+        DynamicForm form = formFactory.form().bindFromRequest();
         if (form.data().size() == 0) {
             return badRequest("Expceting some data");
         } else {
@@ -126,7 +138,7 @@ public class IndexPageController extends Controller {
             } catch (NumberFormatException e) {
                 return redirect(controllers.routes.IndexPageController
                         .registerPage(play.i18n.Messages
-                                .get("index.registration.error.genError")));
+                                .at("index.registration.error.genError")));
             }
 
             boolean trueData = false;
