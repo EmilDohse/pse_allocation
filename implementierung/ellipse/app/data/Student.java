@@ -7,6 +7,7 @@ package data;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -27,12 +28,12 @@ public class Student extends User {
     /**
      * Die SPO des Studierenden
      */
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private SPO               spo;
     /**
      * Die bestandenen Teilleistungen.
      */
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(name = "STUDENT_ACHIEVEMENT_COMPLETED")
     private List<Achievement> completedAchievements;
     /**
@@ -48,17 +49,17 @@ public class Student extends User {
     /**
      * Die PSE-Note des Studierenden.
      */
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Grade             gradePSE;
     /**
      * Die TSE-Note des Studierenden.
      */
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Grade             gradeTSE;
     /**
      * Die noch ausstehenden Teilleistungen des Studierenden.
      */
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(name = "STUDENT_ACHIEVEMENT_ORAL")
     private List<Achievement> oralTestAchievements;
     /**
@@ -334,7 +335,10 @@ public class Student extends User {
      * @return Das Team des Studierenden.
      */
     public Team getCurrentTeam() {
-        Allocation a = GeneralData.getInstance().getCurrentSemester().getFinalAllocation();
+        // TODO für Testzwecke gesplitet
+        GeneralData instance = GeneralData.getInstance();
+        Semester currentSemester = instance.getCurrentSemester();
+        Allocation a = currentSemester.getFinalAllocation();
         if (a == null) {
             // TODO throws
         }

@@ -10,6 +10,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
@@ -43,6 +44,11 @@ public class LearningGroup extends ElipseModel {
     @OneToMany(cascade = CascadeType.ALL)
     private List<Rating>  ratings;
 
+    // "Nehmt doch ein ORM. Das macht alles leichter" Thanks Obama
+    // Ebean braucht das hier
+    @ManyToOne
+    private Semester      semester;
+
     /**
      * Studierende, die keiner Lerngruppe angehören, werden als private
      * Lerngruppe der Größe 1 gespeichert. Eine private Lerngruppe kann also
@@ -63,6 +69,14 @@ public class LearningGroup extends ElipseModel {
         ratings = new ArrayList<Rating>();
         this.isPrivate = isPrivate;
         this.setMembers(members);
+    }
+
+    public Semester getSemester() {
+        return semester;
+    }
+
+    public void setSemester(Semester semester) {
+        this.semester = semester;
     }
 
     /**

@@ -19,145 +19,158 @@ import javax.persistence.ManyToOne;
 @Entity
 public class Team extends ElipseModel implements Comparable<Team> {
 
-	/**
-	 * Nummer des Teams
-	 */
-	// TODO @GeneratedValue
-	private int teamNumber;
-	/**
-	 * Das Projekt des Teams
-	 */
-	@ManyToOne
-	private Project project;
+    /**
+     * Nummer des Teams
+     */
+    // TODO @GeneratedValue
+    private int           teamNumber;
+    /**
+     * Das Projekt des Teams
+     */
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    private Project       project;
 
-	/**
-	 * Liste der Studierenden in diesem Teams.
-	 */
-	@ManyToMany(cascade = CascadeType.PERSIST)
-	private List<Student> members;
+    // "Nehmt doch ein ORM. Das macht alles leichter" Thanks Obama
+    // Ebean braucht das hier
+    @ManyToOne
+    private Allocation    allocation;
 
-	public Team() {
-		members = new ArrayList<Student>();
-	}
+    /**
+     * Liste der Studierenden in diesem Teams.
+     */
+    @ManyToMany(cascade = CascadeType.PERSIST)
+    private List<Student> members;
 
-	public Team(Project project, List<Student> members) {
-		this.project = project;
-		this.members = members;
-	}
+    public Team() {
+        members = new ArrayList<Student>();
+    }
 
-	/**
-	 * Getter für die Teamnummer
-	 * 
-	 * @return Teamnummer
-	 */
-	public int getTeamNumber() {
-		return teamNumber;
-	}
+    public Team(Project project, List<Student> members) {
+        this.project = project;
+        this.members = members;
+    }
 
-	/**
-	 * Setter für die Teamnummer
-	 * 
-	 * @param teamNumber
-	 *            Teamnummer
-	 */
-	public void setTeamNumber(int teamNumber) {
-		this.teamNumber = teamNumber;
-	}
+    public Allocation getAllocation() {
+        return allocation;
+    }
 
-	/**
-	 * Setter für die Mitglieder des Teams.
-	 * 
-	 * @param members
-	 *            Die Mitglieder des Teams.
-	 */
-	public void setMembers(List<Student> members) {
-		this.members = members;
-	}
+    public void setAllocation(Allocation allocation) {
+        this.allocation = allocation;
+    }
 
-	/**
-	 * Fügt einen Studierenden zum Team hinzu.
-	 * 
-	 * @param member
-	 *            Der Studierende, der dem Team hinzugefügt wird.
-	 */
-	public void addMember(Student member) {
-		if (members == null) {
-			members = new ArrayList<Student>();
-		}
+    /**
+     * Getter für die Teamnummer
+     * 
+     * @return Teamnummer
+     */
+    public int getTeamNumber() {
+        return teamNumber;
+    }
 
-		members.add(member);
-	}
+    /**
+     * Setter für die Teamnummer
+     * 
+     * @param teamNumber
+     *            Teamnummer
+     */
+    public void setTeamNumber(int teamNumber) {
+        this.teamNumber = teamNumber;
+    }
 
-	/**
-	 * Entfernt einen Studierenden aus dem Team.
-	 * 
-	 * @param member
-	 *            Der Studierende, der aus dem Team entfernt wird.
-	 */
-	public void removeMember(Student member) {
-		if (members == null) {
-			members = new ArrayList<Student>();
-		}
+    /**
+     * Setter für die Mitglieder des Teams.
+     * 
+     * @param members
+     *            Die Mitglieder des Teams.
+     */
+    public void setMembers(List<Student> members) {
+        this.members = members;
+    }
 
-		if (members.contains(member)) {
-			members.remove(member);
-		} else {
-			// TODO throws
-		}
-	}
+    /**
+     * Fügt einen Studierenden zum Team hinzu.
+     * 
+     * @param member
+     *            Der Studierende, der dem Team hinzugefügt wird.
+     */
+    public void addMember(Student member) {
+        if (members == null) {
+            members = new ArrayList<Student>();
+        }
 
-	/**
-	 * Getter für das Projekt.
-	 * 
-	 * @return Das Projekt.
-	 */
-	public Project getProject() {
-		return project;
-	}
+        members.add(member);
+    }
 
-	/**
-	 * Setter für das Projekt.
-	 * 
-	 * @param project
-	 *            Das Projekt.
-	 */
-	public void setProject(Project project) {
-		this.project = project;
-	}
+    /**
+     * Entfernt einen Studierenden aus dem Team.
+     * 
+     * @param member
+     *            Der Studierende, der aus dem Team entfernt wird.
+     */
+    public void removeMember(Student member) {
+        if (members == null) {
+            members = new ArrayList<Student>();
+        }
 
-	/**
-	 * Diese Methode gibt die Studierenden (Mitglieder) des Teams zurück.
-	 * 
-	 * @return Die Mitglieder des Teams.
-	 */
-	public List<Student> getMembers() {
-		return members;
-	}
+        if (members.contains(member)) {
+            members.remove(member);
+        } else {
+            // TODO throws
+        }
+    }
 
-	/**
-	 * Diese Methode gibt die Bewertung eines Studierenden zum Projekt dieses
-	 * Teams zurück.
-	 * 
-	 * @param student
-	 *            Der Studierende, dessen Bewertung zurückgegeben werden soll.
-	 * @return Die Bewertung des Studierenden.
-	 */
-	public int getRating(Student student) {
-		return student.getRating(project);
-	}
+    /**
+     * Getter für das Projekt.
+     * 
+     * @return Das Projekt.
+     */
+    public Project getProject() {
+        return project;
+    }
 
-	/**
-	 * Diese Methode gibt die Betreuer des Teams zurück.
-	 * 
-	 * @return Die Betreuer des Teams.
-	 */
-	public List<Adviser> getAdvisers() {
-		return project.getAdvisers();
-	}
+    /**
+     * Setter für das Projekt.
+     * 
+     * @param project
+     *            Das Projekt.
+     */
+    public void setProject(Project project) {
+        this.project = project;
+    }
 
-	@Override
-	public int compareTo(Team o) {
-		return Integer.compare(teamNumber, o.getTeamNumber());
-	}
+    /**
+     * Diese Methode gibt die Studierenden (Mitglieder) des Teams zurück.
+     * 
+     * @return Die Mitglieder des Teams.
+     */
+    public List<Student> getMembers() {
+        return members;
+    }
+
+    /**
+     * Diese Methode gibt die Bewertung eines Studierenden zum Projekt dieses
+     * Teams zurück.
+     * 
+     * @param student
+     *            Der Studierende, dessen Bewertung zurückgegeben werden soll.
+     * @return Die Bewertung des Studierenden.
+     */
+    public int getRating(Student student) {
+        return student.getRating(project);
+    }
+
+    /**
+     * Diese Methode gibt die Betreuer des Teams zurück.
+     * 
+     * @return Die Betreuer des Teams.
+     */
+    public List<Adviser> getAdvisers() {
+        return project.getAdvisers();
+    }
+
+    @Override
+    public int compareTo(Team o) {
+        return Integer.compare(teamNumber, o.getTeamNumber());
+    }
 
 }

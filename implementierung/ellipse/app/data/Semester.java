@@ -50,7 +50,7 @@ public class Semester extends ElipseModel implements Comparable<Semester> {
     /**
      * Die finale Einteilung der Studierenden auf die Projekte/Teams.
      */
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Allocation          finalAllocation;
     /**
      * Der Zeitpunkt ab dem sich Studenten registrieren können.
@@ -84,11 +84,7 @@ public class Semester extends ElipseModel implements Comparable<Semester> {
     private List<Allocation>    allocations;
 
     public Semester() {
-        spos = new ArrayList<SPO>();
-        learningGroups = new ArrayList<LearningGroup>();
-        students = new ArrayList<Student>();
-        projects = new ArrayList<Project>();
-        allocations = new ArrayList<Allocation>();
+        this("default_name", true, 1970);
     }
 
     public Semester(String name, boolean wintersemester, int year) {
@@ -100,6 +96,7 @@ public class Semester extends ElipseModel implements Comparable<Semester> {
         students = new ArrayList<Student>();
         projects = new ArrayList<Project>();
         allocations = new ArrayList<Allocation>();
+        infoText = "";
     }
 
     /**
