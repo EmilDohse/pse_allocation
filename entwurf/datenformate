@@ -2,19 +2,19 @@ Student akzeptiert
 Mat Num; Name; Lerngruppe; SPO; Fachsemester; hat HM; hat SWT; hat Algo; Bewertung Thema 1; ... ; Bewertung Thema 23
 
 akzeptier und exportiert
-Mat Num; Name; Lerngruppe; SPO; Fachsemester; Bestandene Teilleistungen; Noch ausstehende mündliche Prüfungen; Bewertungen
+MatNr;Vorname;Nachname;E-Mail;Passwort;Lerngruppe;LerngruppePasswort;SPO;Fachsemester;Bestandene Teilleistungen;Noch ausstehende Teilleistungen;Projektname 1;...;Projektname n
 
 wobei Bestandene Teilleistungen und Noch ausstehende mündliche Prüfungen Liste der Form
-HM, LA, Algo
+HM,LA,Algo
+und der Eintrag zur Spalte Projektname 1-n die Bewertung von 1-5 ist
+Passwort und LerngruppePasswort sind nicht im Klartext sondern als Key
 
-sowie Bewertung Liste der Form
-1, 2, 3
 
 Projekte
-Name; Institut; Anzahl Teams; Min. Teamgröße; Max. Teamgröße
+Name;Institut;Anzahl Teams;Min. Teamgröße;Max. Teamgröße
 
 akzeptiert und exportiert
-Name; Institut; Anzahl Teams; Min. Teamgröße; Max. Teamgröße;projectURL;projectInfo
+Name;Institut;Anzahl Teams;Min. Teamgröße;Max. Teamgröße;Projekt URL;Projektinfo
 
 Allocation:
 Projektname;Mitglieder;
