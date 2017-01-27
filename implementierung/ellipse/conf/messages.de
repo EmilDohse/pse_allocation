@@ -84,6 +84,4 @@ importer.FileNotFound = Datei konnte nicht gefunden werden
 importer.IOException = Fehler beim Lesen der Datei
 importer.wrongFileFormat = Die angegebene Datei hat nicht das erwartete Format
 importer.alreadyExisting = Die importierte Datei existiert schon
-
-allocation.gurobiException = Fehler beim Erstellen des Gurobi-Modells
-allocation.parameterNotFound = Es konnten nicht alle Parameter gefunden werden
+importer.notEmpty = Das angegebene Semester hat schon registrierte Studenten
