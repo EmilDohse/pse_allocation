@@ -41,7 +41,7 @@ student.result.link = Link zur Projektseite
 adviser.leaveProject = Projekt verlassen
 
 admin.title = Elipse - Adminstration
-admin.sidebar.adivser = Projektleiter
+admin.sidebar.adviser = Projektleiter
 admin.sidebar.projects = Projekte
 admin.sidebar.allocation = Einteilung
 admin.sidebar.results = Einteilungsergebnisse
