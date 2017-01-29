@@ -4,11 +4,14 @@
 
 package allocation;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import data.AllocationParameter;
-import data.Student;
+import data.GeneralData;
 import data.LearningGroup;
+import data.Project;
+import data.Student;
 import data.Team;
 
 /************************************************************/
@@ -55,12 +58,21 @@ public class Configuration {
      *            Liste von Parametern, die der Admin eingestellt hat.
      */
     public Configuration(String allocationName, List<Student> students, List<LearningGroup> learningGroups,
-            List<Team> teams, List<AllocationParameter> parameters) {
+            List<AllocationParameter> parameters) {
         this.allocationName = allocationName;
         this.students = students;
         this.parameters = parameters;
-        this.teams = teams;
         this.learningGroups = learningGroups;
+        teams = new ArrayList<>();
+        // teams werden aus projekten erstellt
+        ArrayList<Project> projects = (ArrayList<Project>) GeneralData.getCurrentSemester().getProjects();
+        for (Project project : projects) {
+            for (int i = 1; i <= project.getNumberOfTeams(); i++) {
+                Team team = new Team(project, new ArrayList<>());
+                team.setTeamNumber(i);
+                teams.add(team);
+            }
+        }
     }
 
     /**
