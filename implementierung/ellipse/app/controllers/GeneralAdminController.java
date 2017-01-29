@@ -91,8 +91,8 @@ public class GeneralAdminController extends Controller {
             minSize = Integer.parseInt(minSizeString);
             maxSize = Integer.parseInt(maxSizeString);
         } catch (NumberFormatException e) {
-            return redirect(controllers.routes.AdminPageController.allocationPage("")); // TODO
-                                                                                        // Message
+            return redirect(controllers.routes.AdminPageController
+                    .allocationPage(ctx().messages().at("admin.allocation.error.generalError")));
         }
         ArrayList<AllocationParameter> allocParam = new ArrayList<>(); // die
                                                                        // liste
@@ -133,8 +133,8 @@ public class GeneralAdminController extends Controller {
         }
 
         Configuration configuration = new Configuration(name, studenst, learningGroups, allocParam);
-        // TODO prüfen, ob die Studenten die Pflichtvorraussetzungen erfüllen
-        return null;
+        queue.addToQueue(configuration);
+        return redirect(controllers.routes.AdminPageController.allocationPage(""));
     }
 
     /**
