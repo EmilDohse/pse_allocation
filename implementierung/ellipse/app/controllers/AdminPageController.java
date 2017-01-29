@@ -12,6 +12,7 @@ import allocation.AllocationQueue;
 import allocation.Criterion;
 import data.GeneralData;
 import data.Project;
+import data.SPO;
 import data.Semester;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -111,7 +112,7 @@ public class AdminPageController extends Controller {
      */
     public Result propertiesPage(String error) {
         play.twirl.api.Html content = views.html.adminProperties
-                .render(Semester.getSemesters(), error);
+                .render(Semester.getSemesters(), SPO.getSPOs(), error);
         return ok(views.html.admin.render(content));
     }
 
