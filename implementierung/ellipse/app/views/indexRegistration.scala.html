@@ -109,13 +109,13 @@
 				<optgroup
 					label='@Messages("index.registration.form.necessaryAchievements")'>
 					@for(nAchievement <- spo.getNecessaryAchievements()) {
-					<option value="@nAchievement.getName()">@nAchievement.getName()</option>
+					<option value="@nAchievement.getId()">@nAchievement.getName()</option>
 					}
 				</optgroup>
 				<optgroup
 					label='@Messages("index.registration.form.additionalAchievements")'>
 					@for(aAchievement <- spo.getAdditionalAchievements()) {
-					<option value="@aAchievement.getName()">@aAchievement.getName()</option>
+					<option value="@aAchievement.getId()">@aAchievement.getName()</option>
 					}
 				</optgroup>
 			</select>
@@ -137,13 +137,13 @@
 				<optgroup
 					label='@Messages("index.registration.form.necessaryAchievements")'>
 					@for(nAchievement <- spo.getNecessaryAchievements()) {
-					<option value="@nAchievement.getName()">@nAchievement.getName()</option>
+					<option value="@nAchievement.getId()">@nAchievement.getName()</option>
 					}
 				</optgroup>
 				<optgroup
 					label='@Messages("index.registration.form.additionalAchievements")'>
 					@for(aAchievement <- spo.getAdditionalAchievements()) {
-					<option value="@aAchievement.getName()">@aAchievement.getName()</option>
+					<option value="@aAchievement.getId()">@aAchievement.getName()</option>
 					}
 				</optgroup>
 			</select>
@@ -156,7 +156,7 @@
 				value="trueData">@Messages("index.registration.form.trueData")</label>
 		</div>
 	</div>
-	
+
 	<div class="form-group">
 		<div class="col-sm-offset-2 col-sm-10">
 			<button type="submit" class="btn btn-default">@Messages("index.registration.form.register")</button>
