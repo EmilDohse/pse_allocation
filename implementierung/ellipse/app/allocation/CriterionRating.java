@@ -15,39 +15,40 @@ import gurobi.GRBLinExpr;
  * berücksichtigt werden.
  */
 public class CriterionRating implements GurobiCriterion {
-	private String name;
 
-	/**
-	 * Standard-Konstruktor, der den Namen eindeutig setzt
-	 */
-	public CriterionRating() {
-		this.name = "Rating";
-	}
+    private String name;
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public String getName() {
-		return this.name;
-	}
+    /**
+     * Standard-Konstruktor, der den Namen eindeutig setzt.
+     */
+    public CriterionRating() {
+        this.name = "Rating";
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void useCriteria(Configuration configuration, GurobiAllocator allocator, double weight)
-			throws GRBException, NoSuchElementException {
-		GRBLinExpr bonus = new GRBLinExpr();
-		for (int i = 0; i < configuration.getStudents().size(); i++) {
-			for (int j = 0; j < configuration.getTeams().size(); j++) {
-				// Bestimme Bewertung des Studenten für das Projekt, zu dem das
-				// Team gehört
-				double rating = configuration.getStudents().get(i)
-						.getRating(configuration.getTeams().get(j).getProject());
-				bonus.addTerm(weight * 2 * rating, allocator.getBasicMatrix()[i][j]);
-			}
-		}
-			allocator.getOptimizationTerm().add(bonus);
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getName() {
+        return this.name;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void useCriteria(Configuration configuration, GurobiAllocator allocator, double weight)
+            throws GRBException, NoSuchElementException {
+        GRBLinExpr bonus = new GRBLinExpr();
+        for (int i = 0; i < configuration.getStudents().size(); i++) {
+            for (int j = 0; j < configuration.getTeams().size(); j++) {
+                // Bestimme Bewertung des Studenten für das Projekt, zu dem das
+                // Team gehört
+                double rating = configuration.getStudents().get(i)
+                        .getRating(configuration.getTeams().get(j).getProject());
+                bonus.addTerm(weight * 2 * rating, allocator.getBasicMatrix()[i][j]);
+            }
+        }
+        allocator.getOptimizationTerm().add(bonus);
+    }
 }

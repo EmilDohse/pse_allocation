@@ -17,94 +17,95 @@ import gurobi.GRBVar;
  * Teamgröße haben.
  */
 public class CriterionPreferredTeamSize implements GurobiCriterion {
-	private String name;
 
-	/**
-	 * Standard-Konstruktor, der den Namen eindeutig setzt
-	 */
-	public CriterionPreferredTeamSize() {
-		this.name = "PreferredTeamSize";
-	}
+    private String name;
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public String getName() {
-		return this.name;
-	}
+    /**
+     * Standard-Konstruktor, der den Namen eindeutig setzt.
+     */
+    public CriterionPreferredTeamSize() {
+        this.name = "PreferredTeamSize";
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void useCriteria(Configuration configuration, GurobiAllocator allocator, double weight)
-			throws GRBException, NoSuchElementException {
-		GRBLinExpr bonus = new GRBLinExpr();
-		double prefSize;
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getName() {
+        return this.name;
+    }
 
-		// Finde die gewünschte Teamgröße
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void useCriteria(Configuration configuration, GurobiAllocator allocator, double weight)
+            throws GRBException, NoSuchElementException {
+        GRBLinExpr bonus = new GRBLinExpr();
+        double prefSize;
 
-		prefSize = configuration.getParameters().stream().filter(parameter -> parameter.getName().equals("prefSize"))
-				.findFirst().get().getValue();
+        // Finde die gewünschte Teamgröße
 
-		for (int j = 0; j < configuration.getTeams().size(); j++) {
+        prefSize = configuration.getParameters().stream().filter(parameter -> parameter.getName().equals("prefSize"))
+                .findFirst().get().getValue();
 
-			// Bestimme maximale Teamgröße
-			double maxSize;
-			if (configuration.getTeams().get(j).getProject().getMaxTeamSize() == -1) {
-				maxSize = configuration.getParameters().stream()
-						.filter(parameter -> parameter.getName().equals("maxSize")).findFirst().get().getValue();
-			} else {
-				maxSize = configuration.getTeams().get(j).getProject().getMaxTeamSize();
-			}
+        for (int j = 0; j < configuration.getTeams().size(); j++) {
 
-			// benötigte Variablen
-			GRBLinExpr varianceToPrefSize = new GRBLinExpr();
-			GRBVar isPrefSize;
-			GRBVar auxiliaryVariable;
-			isPrefSize = allocator.getModel().addVar(0, 1, 0, GRB.BINARY, GurobiAllocator.NULL);
-			auxiliaryVariable = allocator.getModel().addVar(0, 1, 0, GRB.BINARY, GurobiAllocator.NULL);
+            // Bestimme maximale Teamgröße
+            double maxSize;
+            if (configuration.getTeams().get(j).getProject().getMaxTeamSize() == -1) {
+                maxSize = configuration.getParameters().stream()
+                        .filter(parameter -> parameter.getName().equals("maxSize")).findFirst().get().getValue();
+            } else {
+                maxSize = configuration.getTeams().get(j).getProject().getMaxTeamSize();
+            }
 
-			// Initialisiere alle benötigten Teilterme
-			GRBLinExpr negationAuxiliaryVariable = new GRBLinExpr();
-			GRBLinExpr negationIsPrefSize = new GRBLinExpr();
-			GRBLinExpr leftSideFirstConstraint = new GRBLinExpr();
-			GRBLinExpr rightSideFirstConstraint = new GRBLinExpr();
-			GRBLinExpr leftSideSecondConstraint = new GRBLinExpr();
-			GRBLinExpr rightSideSecondConstraint = new GRBLinExpr();
+            // benötigte Variablen
+            GRBLinExpr varianceToPrefSize = new GRBLinExpr();
+            GRBVar isPrefSize;
+            GRBVar auxiliaryVariable;
+            isPrefSize = allocator.getModel().addVar(0, 1, 0, GRB.BINARY, GurobiAllocator.NULL);
+            auxiliaryVariable = allocator.getModel().addVar(0, 1, 0, GRB.BINARY, GurobiAllocator.NULL);
 
-			negationAuxiliaryVariable.addConstant(1);
-			negationAuxiliaryVariable.addTerm(-1, auxiliaryVariable);
+            // Initialisiere alle benötigten Teilterme
+            GRBLinExpr negationAuxiliaryVariable = new GRBLinExpr();
+            GRBLinExpr negationIsPrefSize = new GRBLinExpr();
+            GRBLinExpr leftSideFirstConstraint = new GRBLinExpr();
+            GRBLinExpr rightSideFirstConstraint = new GRBLinExpr();
+            GRBLinExpr leftSideSecondConstraint = new GRBLinExpr();
+            GRBLinExpr rightSideSecondConstraint = new GRBLinExpr();
 
-			negationIsPrefSize.addConstant(1);
-			negationIsPrefSize.addTerm(-1, isPrefSize);
+            negationAuxiliaryVariable.addConstant(1);
+            negationAuxiliaryVariable.addTerm(-1, auxiliaryVariable);
 
-			varianceToPrefSize.addTerm(1, allocator.getTeamSizes()[j]);
-			varianceToPrefSize.addConstant(-prefSize);
+            negationIsPrefSize.addConstant(1);
+            negationIsPrefSize.addTerm(-1, isPrefSize);
 
-			leftSideFirstConstraint.multAdd(-maxSize, negationIsPrefSize);
+            varianceToPrefSize.addTerm(1, allocator.getTeamSizes()[j]);
+            varianceToPrefSize.addConstant(-prefSize);
 
-			rightSideFirstConstraint.multAdd(maxSize, negationIsPrefSize);
+            leftSideFirstConstraint.multAdd(-maxSize, negationIsPrefSize);
 
-			leftSideSecondConstraint.multAdd(0.1, negationIsPrefSize);
-			leftSideSecondConstraint.multAdd(-(maxSize + 0.1), negationAuxiliaryVariable);
+            rightSideFirstConstraint.multAdd(maxSize, negationIsPrefSize);
 
-			rightSideSecondConstraint.multAdd(-0.1, negationIsPrefSize);
-			rightSideSecondConstraint.multAdd((maxSize + 0.1), negationAuxiliaryVariable);
+            leftSideSecondConstraint.multAdd(0.1, negationIsPrefSize);
+            leftSideSecondConstraint.multAdd(-(maxSize + 0.1), negationAuxiliaryVariable);
 
-			allocator.getModel().addConstr(leftSideFirstConstraint, GRB.LESS_EQUAL, varianceToPrefSize,
-					GurobiAllocator.NULL);
-			allocator.getModel().addConstr(varianceToPrefSize, GRB.LESS_EQUAL, rightSideFirstConstraint,
-					GurobiAllocator.NULL);
+            rightSideSecondConstraint.multAdd(-0.1, negationIsPrefSize);
+            rightSideSecondConstraint.multAdd((maxSize + 0.1), negationAuxiliaryVariable);
 
-			allocator.getModel().addConstr(leftSideSecondConstraint, GRB.LESS_EQUAL, varianceToPrefSize,
-					GurobiAllocator.NULL);
-			allocator.getModel().addConstr(varianceToPrefSize, GRB.LESS_EQUAL, rightSideSecondConstraint,
-					GurobiAllocator.NULL);
+            allocator.getModel().addConstr(leftSideFirstConstraint, GRB.LESS_EQUAL, varianceToPrefSize,
+                    GurobiAllocator.NULL);
+            allocator.getModel().addConstr(varianceToPrefSize, GRB.LESS_EQUAL, rightSideFirstConstraint,
+                    GurobiAllocator.NULL);
 
-			bonus.addTerm(weight * 10, isPrefSize);
-		}
-		allocator.getOptimizationTerm().add(bonus);
-	}
+            allocator.getModel().addConstr(leftSideSecondConstraint, GRB.LESS_EQUAL, varianceToPrefSize,
+                    GurobiAllocator.NULL);
+            allocator.getModel().addConstr(varianceToPrefSize, GRB.LESS_EQUAL, rightSideSecondConstraint,
+                    GurobiAllocator.NULL);
+
+            bonus.addTerm(weight * 10, isPrefSize);
+        }
+        allocator.getOptimizationTerm().add(bonus);
+    }
 }

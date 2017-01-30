@@ -16,54 +16,54 @@ import gurobi.GRBLinExpr;
  */
 public class CriterionPreferHigherSemester implements GurobiCriterion {
 
-	private String name;
+    private String name;
 
-	/**
-	 * Standard-Konstruktor, der den Namen eindeutig setzt
-	 */
-	public CriterionPreferHigherSemester() {
-		this.name = "PreferHigherSemester";
-	}
+    /**
+     * Standard-Konstruktor, der den Namen eindeutig setzt.
+     */
+    public CriterionPreferHigherSemester() {
+        this.name = "PreferHigherSemester";
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public String getName() {
-		return this.name;
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getName() {
+        return this.name;
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void useCriteria(Configuration configuration, GurobiAllocator allocator, double weight) throws GRBException {
-		GRBLinExpr bonus = new GRBLinExpr();
-		for (int i = 0; i < configuration.getStudents().size(); i++) {
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void useCriteria(Configuration configuration, GurobiAllocator allocator, double weight) throws GRBException {
+        GRBLinExpr bonus = new GRBLinExpr();
+        for (int i = 0; i < configuration.getStudents().size(); i++) {
 
-			// Betrachte nur Studenten in höherem, als dem normalen Semester
-			int normalSemester = getNormalSemester(GeneralData.getCurrentSemester());
-			if (configuration.getStudents().get(i).getSemester() > normalSemester) {
-				for (int j = 0; j < configuration.getTeams().size(); j++) {
-					bonus.addTerm(weight * 10, allocator.getBasicMatrix()[i][j]);
-				}
-			}
-		}
-		allocator.getOptimizationTerm().add(bonus);
-	}
+            // Betrachte nur Studenten in höherem, als dem normalen Semester
+            int normalSemester = getNormalSemester(GeneralData.getCurrentSemester());
+            if (configuration.getStudents().get(i).getSemester() > normalSemester) {
+                for (int j = 0; j < configuration.getTeams().size(); j++) {
+                    bonus.addTerm(weight * 10, allocator.getBasicMatrix()[i][j]);
+                }
+            }
+        }
+        allocator.getOptimizationTerm().add(bonus);
+    }
 
-	/**
-	 * Bestimme "normales" Fachsemester für das PSE.
-	 * 
-	 * @param semester
-	 *            Das Semester, das überprüft werden soll.
-	 * @return 3 im WS, 4 im SS.
-	 */
-	private int getNormalSemester(Semester semester) {
-		if (GeneralData.getCurrentSemester().isWintersemester()) {
-			return 3;
-		} else {
-			return 4;
-		}
-	}
+    /**
+     * Bestimme "normales" Fachsemester für das PSE.
+     * 
+     * @param semester
+     *            Das Semester, das überprüft werden soll.
+     * @return 3 im WS, 4 im SS.
+     */
+    private int getNormalSemester(Semester semester) {
+        if (GeneralData.getCurrentSemester().isWintersemester()) {
+            return 3;
+        } else {
+            return 4;
+        }
+    }
 }

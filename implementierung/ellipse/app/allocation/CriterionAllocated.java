@@ -13,36 +13,37 @@ import gurobi.GRBLinExpr;
  * eingeteilt werden.
  */
 public class CriterionAllocated implements GurobiCriterion {
-	private String name;
 
-	/**
-	 * Standard-Konstruktor, der den Namen eindeutig setzt
-	 */
-	public CriterionAllocated() {
-		this.name = "Allocated";
-	}
+    private String name;
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public String getName() {
-		return this.name;
-	}
+    /**
+     * Standard-Konstruktor, der den Namen eindeutig setzt.
+     */
+    public CriterionAllocated() {
+        this.name = "Allocated";
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void useCriteria(Configuration configuration, GurobiAllocator allocator, double weight) throws GRBException {
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getName() {
+        return this.name;
+    }
 
-		// Erzeuge Ergänzung zum Optimierungsterm
-		GRBLinExpr bonus = new GRBLinExpr();
-		for (int i = 0; i < configuration.getStudents().size(); i++) {
-			for (int j = 0; j < configuration.getTeams().size(); j++) {
-				bonus.addTerm(weight * 10, allocator.getBasicMatrix()[i][j]);
-			}
-		}
-		allocator.getOptimizationTerm().add(bonus);
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void useCriteria(Configuration configuration, GurobiAllocator allocator, double weight) throws GRBException {
+
+        // Erzeuge Ergänzung zum Optimierungsterm
+        GRBLinExpr bonus = new GRBLinExpr();
+        for (int i = 0; i < configuration.getStudents().size(); i++) {
+            for (int j = 0; j < configuration.getTeams().size(); j++) {
+                bonus.addTerm(weight * 10, allocator.getBasicMatrix()[i][j]);
+            }
+        }
+        allocator.getOptimizationTerm().add(bonus);
+    }
 }

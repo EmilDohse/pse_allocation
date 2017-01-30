@@ -105,7 +105,7 @@ public class Configuration {
     /**
      * Getter für Lerngruppen.
      * 
-     * @return Array von Lerngruppen, die zugeteilt werden sollen.
+     * @return Liste von Lerngruppen, die zugeteilt werden sollen.
      */
     public List<LearningGroup> getLearningGroups() {
         return learningGroups;
@@ -118,5 +118,19 @@ public class Configuration {
      */
     public List<AllocationParameter> getParameters() {
         return parameters;
+    }
+
+    /**
+     * compares two configurations by name
+     * 
+     * @param o
+     *            die configuration mit der verglichen wird
+     * @return true wenn die namen übereinstimmen
+     */
+    public boolean compareTo(Object o) {
+        if (o instanceof Configuration) {
+            return ((Configuration) o).getName().equals(this.getName());
+        }
+        return false;
     }
 }
