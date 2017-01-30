@@ -197,10 +197,13 @@ public class StudentTest extends UserTest {
         List<Student> students = new ArrayList<Student>();
         students.add(student);
         firstS.setStudents(students);
+        firstS.save();
         secondS.setStudents(empty);
+        secondS.save();
         assertEquals(false, student.registeredMoreThanOnce());
 
         secondS.setStudents(students);
+        secondS.save();
 
         assertEquals(true, student.registeredMoreThanOnce());
     }
