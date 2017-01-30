@@ -13,7 +13,7 @@ import data.Team;
 
 /************************************************************/
 /**
- * Gütekriterium, das die Anzahl der nicht zugeteilten Studenten berechnet
+ * Gütekriterium, das die Anzahl der nicht zugeteilten Studenten berechnet.
  */
 public class NotAllocatedStudents implements QualityCriterion {
 
@@ -23,8 +23,7 @@ public class NotAllocatedStudents implements QualityCriterion {
     @Override
     public String calculate(Allocation allocation) {
         List<Team> teams = allocation.getTeams();
-        List<Student> registeredStudents = GeneralData.getCurrentSemester()
-                .getStudents();
+        List<Student> registeredStudents = GeneralData.getCurrentSemester().getStudents();
 
         int notAllocatedStudents = registeredStudents.size();
         for (int i = 0; i < teams.size(); i++) {

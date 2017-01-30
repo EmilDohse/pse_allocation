@@ -4,17 +4,45 @@
 
 package security;
 
+import static play.inject.Bindings.bind;
+
+import org.pac4j.core.authorization.authorizer.RequireAnyRoleAuthorizer;
+import org.pac4j.core.client.Clients;
+import org.pac4j.core.config.Config;
+import org.pac4j.http.client.indirect.FormClient;
+import org.pac4j.play.http.DefaultHttpActionAdapter;
+import org.pac4j.play.store.PlayCacheStore;
+import org.pac4j.play.store.PlaySessionStore;
+
 /************************************************************/
 /**
- * Das SecurityModule ist eine von der Bibliothek pac4j vorgeschriebene Klasse, welche die Bibliothek konfiguriert. 
- * Darin wird festgelegt, welche Authentifizierungsmethoden verwendet werden sollen.
+ * Das SecurityModule ist eine von der Bibliothek pac4j vorgeschriebene Klasse,
+ * welche die Bibliothek konfiguriert. Darin wird festgelegt, welche
+ * Authentifizierungsmethoden verwendet werden sollen.
  */
 public class SecurityModule {
 
-	/**
-	 * Diese Methode wird von der Bibliothek aufgerufen und 
-	 * kreiert und konfiguriert die Authentifizierungsmethoden.
-	 */
-	public void configure() {
-	}
+    /**
+     * Diese Methode wird von der Bibliothek aufgerufen und kreiert und
+     * konfiguriert die Authentifizierungsmethoden.
+     */
+    public void configure() {
+        bind(PlaySessionStore.class).to(PlayCacheStore.class);
+
+        FormClient formClient = new FormClient(
+                controllers.routes.IndexPageController.indexPage("").path(),
+                new UserAuthenticator());
+
+        Clients clients = new Clients("/callback", formClient);
+
+        Config config = new Config(clients);
+        config.addAuthorizer("admin",
+                new RequireAnyRoleAuthorizer<>("ROLE_ADMIN"));
+        config.addAuthorizer("adviser",
+                new RequireAnyRoleAuthorizer<>("ROLE_ADVISER"));
+        config.addAuthorizer("student",
+                new RequireAnyRoleAuthorizer<>("ROLE_STUDENT"));
+        config.setHttpActionAdapter(new DefaultHttpActionAdapter());
+        bind(Config.class).toInstance(config);
+    }
 }

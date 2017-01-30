@@ -37,8 +37,8 @@ public class GurobiAllocator extends AbstractAllocator {
     public static final String NULL = new String();
 
     /**
-     * Die Basismatrix (NxM) welche anzeigt, ob ein Student n in einem Team m
-     * ist. Die Mte Spalte ist das Team der nicht zugeteilten
+     * Die Basismatrix (NxM), welche anzeigt, ob ein Student n in einem Team m
+     * ist. Die Mte Spalte ist das Team der nicht Zugeteilten.
      */
     private GRBVar[][]         basicMatrix;
     /**

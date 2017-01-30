@@ -16,6 +16,7 @@ import data.Adviser;
 import data.AllocationParameter;
 import data.GeneralData;
 import data.LearningGroup;
+import data.SPO;
 import data.Student;
 import play.data.DynamicForm;
 import play.data.FormFactory;
@@ -145,8 +146,11 @@ public class GeneralAdminController extends Controller {
      * @return Die Seite, die als Antwort verschickt wird.
      */
     public Result removeAllocationFromQueue() {
-        // TODO
-        return null;
+        DynamicForm form = formFactory.form().bindFromRequest();
+        String configName = form.get("queue");
+        AllocationQueue allocationQueue = AllocationQueue.getInstance();
+        allocationQueue.cancelAllocation(new Configuration(configName, null, null, null));
+        return redirect(controllers.routes.AdminPageController.allocationPage(""));
     }
 
     /**
@@ -157,8 +161,29 @@ public class GeneralAdminController extends Controller {
      * @return Die Seite, die als Antwort verschickt wird.
      */
     public Result addStudent() {
-        // TODO
-        return null;
+        DynamicForm form = formFactory.form().bindFromRequest();
+        String firstName = form.get("firstName");
+        String lastName = form.get("lastName");
+        String matNrString = form.get("matrnr");
+        String email = form.get("email");
+        String password = form.get("password");
+        String semesterString = form.get("semester");
+        int matNr;
+        int semester;
+        String spoName = form.get("spo");
+        SPO spo = SPO.getSPO(spoName);
+        try {
+            matNr = Integer.parseInt(matNrString);
+            semester = Integer.parseInt(semesterString);
+        } catch (NumberFormatException e) {
+            return redirect(controllers.routes.AdminPageController
+                    .studentEditPage(ctx().messages().at("admin.allocation.error.generalError")));
+        }
+
+        Student student = new Student(matNrString, password, email, firstName, lastName, matNr, spo,
+                spo.getNecessaryAchievements(), new ArrayList<>(), semester);
+        GeneralData.getCurrentSemester().addStudent(student);
+        return redirect(controllers.routes.AdminPageController.studentEditPage(""));
     }
 
     /**
@@ -169,7 +194,18 @@ public class GeneralAdminController extends Controller {
      * @return Die Seite, die als Antwort verschickt wird.
      */
     public Result removeStudent() {
-        // TODO
-        return null;
+        // TODO javascript wanung vor löschen
+        DynamicForm form = formFactory.form().bindFromRequest();
+        String matNrString = form.get("matrnr2");
+        int matNr;
+        try {
+            matNr = Integer.parseInt(matNrString);
+        } catch (NumberFormatException e) {
+            return redirect(controllers.routes.AdminPageController
+                    .studentEditPage(ctx().messages().at("admin.allocation.error.generalError")));
+        }
+        Student student = Student.getStudent(matNr);
+        GeneralData.getCurrentSemester().removeStudent(student);
+        return redirect(controllers.routes.AdminPageController.studentEditPage(""));
     }
 }

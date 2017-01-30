@@ -13,39 +13,39 @@ import gurobi.GRBLinExpr;
  * PSE Platz beworben haben, bevorzugt werden.
  */
 public class CriterionRegisteredAgain implements GurobiCriterion {
-	private String name;
 
-	/**
-	 * Standard-Konstruktor, der den Namen eindeutig setzt
-	 */
-	public CriterionRegisteredAgain() {
-		this.name = "RegisteredAgain";
-	}
+    private String name;
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public String getName() {
-		return this.name;
-	}
+    /**
+     * Standard-Konstruktor, der den Namen eindeutig setzt.
+     */
+    public CriterionRegisteredAgain() {
+        this.name = "RegisteredAgain";
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void useCriteria(Configuration configuration, GurobiAllocator allocator, double weight)
-			throws GRBException {
-		GRBLinExpr bonus = new GRBLinExpr();
-		for (int i = 0; i < configuration.getStudents().size(); i++) {
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getName() {
+        return this.name;
+    }
 
-			// Betrachte nur Studenten, die sich erneut registriert haben
-			if (configuration.getStudents().get(i).registeredMoreThanOnce()) {
-				for (int j = 0; j < configuration.getTeams().size(); j++) {
-					bonus.addTerm(weight * 10, allocator.getBasicMatrix()[i][j]);
-				}
-			}
-		}
-			allocator.getOptimizationTerm().add(bonus);
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void useCriteria(Configuration configuration, GurobiAllocator allocator, double weight) throws GRBException {
+        GRBLinExpr bonus = new GRBLinExpr();
+        for (int i = 0; i < configuration.getStudents().size(); i++) {
+
+            // Betrachte nur Studenten, die sich erneut registriert haben
+            if (configuration.getStudents().get(i).registeredMoreThanOnce()) {
+                for (int j = 0; j < configuration.getTeams().size(); j++) {
+                    bonus.addTerm(weight * 10, allocator.getBasicMatrix()[i][j]);
+                }
+            }
+        }
+        allocator.getOptimizationTerm().add(bonus);
+    }
 }

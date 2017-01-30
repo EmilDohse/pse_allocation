@@ -23,9 +23,15 @@
 		@for(spo <- spos) {
 		<div role="tabpanel" class="tab-pane" id="@spo.getId()">
 			<form
-				action="@controllers.routes.AdminPropertiesController.removeAchievement().path()"		
-				method="POST" class="form-horizontal"> <input type="hidden"
-					name="id" value="@spo.getId()"><!--  TODO: Ändere Controller methode zu changeAchievements oder so -->
+				action="@controllers.routes.AdminPropertiesController.changeSPO().path()"
+				method="POST" class="form-horizontal">
+				<input type="hidden" name="id" value="@spo.getId()">
+				<div class="form-group">
+					<label class="control-label col-sm-2" for="name">@Messages("admin.properties.name")</label>
+					<div class="col-sm-8">
+						<input type="text" class="form-control" name="nameSPO" id="nameSPO" value="@spo.getName()">
+					</div>
+				</div>
 				<table class="table table-striped">
 					<thead>
 						<tr>
@@ -75,8 +81,8 @@
 				method="POST" class="form-inline">
 				<input type="hidden" name="id" value="@spo.getId()">
 				<div class="form-group">
-					<label for="name">@Messages("admin.properties.achievementName")</label> <input
-						type="text" class="form-control" name="name" id="name">
+					<label for="name">@Messages("admin.properties.achievementName")</label>
+					<input type="text" class="form-control" name="nameAchiev" id="nameAchiev">
 				</div>
 
 				<div class="form-group">
@@ -117,6 +123,13 @@
 				action="@controllers.routes.AdminPropertiesController.editSemester().path()"
 				method="POST" class="form-horizontal">
 				<input type="hidden" name="id" value="@semester.getId()">
+				
+				<div class="form-group">
+					<label class="control-label col-sm-2" for="name">@Messages("admin.properties.name")</label>
+					<div class="col-sm-8">
+						<input type="text" class="form-control" name="name" id="name2" value="@semester.getName()">
+					</div>
+				</div>
 
 				<div class="form-group">
 					<label class="control-label col-sm-2" for="description">@Messages("admin.properties.generalInfo")</label>
@@ -172,6 +185,14 @@
 					<div class="col-sm-offset-2 col-sm-10">
 						<button type="submit" class="btn btn-default">@Messages("admin.properties.saveProperties")</button>
 					</div>
+				</div>
+			</form>
+			<form
+				action="@controllers.routes.AdminPropertiesController.removeSemester().path()"
+				method="POST" class="form-inline">
+				<input type="hidden" name="id" value="@semester.getId()">
+				<div class="form-group">
+					<button type="submit" class="btn btn-default">@Messages("admin.properties.removeSemester")</button>
 				</div>
 			</form>
 		</div>

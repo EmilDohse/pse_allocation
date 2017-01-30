@@ -12,7 +12,7 @@ import data.Student;
 
 /************************************************************/
 /**
- * Gütekriterium, das die Anzahl der zerteilten Lerngruppen berechnet
+ * Gütekriterium, das die Anzahl der zerteilten Lerngruppen berechnet.
  */
 public class splitLearningGroups implements QualityCriterion {
 
@@ -22,18 +22,14 @@ public class splitLearningGroups implements QualityCriterion {
     @Override
     public String calculate(Allocation allocation) {
         int numberOfSplitLearningGroups = 0;
-        for (int i = 0; i < GeneralData.getCurrentSemester().getLearningGroups()
-                .size(); i++) {
-            LearningGroup lg = GeneralData.getCurrentSemester()
-                    .getLearningGroups().get(i);
+        for (int i = 0; i < GeneralData.getCurrentSemester().getLearningGroups().size(); i++) {
+            LearningGroup lg = GeneralData.getCurrentSemester().getLearningGroups().get(i);
             Project p1 = lg.getMembers().get(0).getCurrentProject();
             if (!lg.isPrivate() && lg.getMembers().size() > 1) {
                 boolean hasBeenDevided = false;
-                for (int j = 1; (j < lg.getMembers().size())
-                        && !hasBeenDevided; j++) {
+                for (int j = 1; (j < lg.getMembers().size()) && !hasBeenDevided; j++) {
                     Student memberJ = lg.getMembers().get(j);
-                    if (memberJ.getCurrentProject() != null
-                            && !memberJ.getCurrentProject().equals(p1)) {
+                    if (memberJ.getCurrentProject() != null && !memberJ.getCurrentProject().equals(p1)) {
                         hasBeenDevided = true;
                     }
                 }

@@ -55,7 +55,7 @@ POST 	/admin/advisers				controllers.AdminPageController.adviserPage(error: Stri
 POST 	/admin/allocation			controllers.AdminPageController.allocationPage(error: String)
 POST 	/admin/results				controllers.AdminPageController.resultsPage(error: String)
 POST 	/admin/exportImport			controllers.AdminPageController.exportImportPage(error: String)
-POST 	/admin/studentEdit			controllers.AdminPageController.studentEditPage(error: String)
+POST 	/admin/studentEdit			controllers.AdminPageController.studentEditPage( error: String)
 POST 	/admin/properties			controllers.AdminPageController.propertiesPage(error: String)
 GET 	/admin/projectEdit/:name	controllers.AdminPageController.projectEditPage(name: String)
 
@@ -76,7 +76,7 @@ POST 	/admin/addSPO				controllers.AdminPropertiesController.addSPO()
 POST 	/admin/removeSPO			controllers.AdminPropertiesController.removeSPO()
 POST 	/admin/editSemester			controllers.AdminPropertiesController.editSemester()
 POST 	/admin/addAchievement		controllers.AdminPropertiesController.addAchievement()
-POST 	/admin/removeAchievement	controllers.AdminPropertiesController.removeAchievement()
+POST 	/admin/changeSPO			controllers.AdminPropertiesController.changeSPO()
 
 POST 	/admin/swapStudents			controllers.AdminEditAllocationController.swapStudents()
 POST 	/admin/moveStudents			controllers.AdminEditAllocationController.moveStudents()
@@ -98,3 +98,5 @@ POST 	/admin/exportStudents		controllers.AdminImportExportController.exportStude
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
+
+GET    /callback    				@org.pac4j.play.CallbackController.callback()

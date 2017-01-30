@@ -36,6 +36,9 @@ student.learningGroup.join = Lerngruppe beitreten
 student.laerningGroup.leave = Lerngruppe verlassen
 student.result.information = Projektinformation:
 student.result.link = Link zur Projektseite
+student.account.newEmail = Neue E-Mail-Addresse
+student.account.change = Ändern
+student.account.newPassword = Neues Passwort
 
 
 adviser.leaveProject = Projekt verlassen
@@ -111,6 +114,8 @@ admin.properties.saveSPO = speichere SPO
 admin.properties.achievementName = Name
 admin.properties.addAchievement = Teilleistung hinzufügen
 admin.properties.removeSPO = SPO löschen
+admin.properties.name = Name
+admin.properties.removeSemester = Semester löschen
 
 importer.FileNotFound = Datei konnte nicht gefunden werden
 importer.IOException = Fehler beim Lesen der Datei

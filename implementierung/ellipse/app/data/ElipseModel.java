@@ -60,4 +60,16 @@ public abstract class ElipseModel extends Model {
         return Ebean.find(type).findList();
     }
 
+    /**
+     * Gibt Liste aller Instanzen einer Unterklasse von ElipseModel zurück, die
+     * in der Datenbank sind.
+     * 
+     * @param type
+     *            Die konkrete Klasse der Instanzen, die geladen werden sollen.
+     * @return Liste aller Instanzen der Klasse "type" in der Datenbank.
+     */
+    public static <T extends ElipseModel> T getById(Class<T> type, int id) {
+        return Ebean.find(type, id);
+    }
+
 }

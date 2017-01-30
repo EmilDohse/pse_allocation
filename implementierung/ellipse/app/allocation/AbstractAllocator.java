@@ -25,7 +25,7 @@ public abstract class AbstractAllocator {
     public abstract void calculate(Configuration configuration);
 
     /**
-     * methode zum abbruch einer Einteilung
+     * Methode zum Abbruch einer Einteilung.
      */
     public abstract void cancel();
 
