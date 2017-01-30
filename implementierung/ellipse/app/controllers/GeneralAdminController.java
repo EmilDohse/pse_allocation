@@ -194,7 +194,18 @@ public class GeneralAdminController extends Controller {
      * @return Die Seite, die als Antwort verschickt wird.
      */
     public Result removeStudent() {
-        // TODO
-        return null;
+        // TODO javascript wanung vor löschen
+        DynamicForm form = formFactory.form().bindFromRequest();
+        String matNrString = form.get("matrnr2");
+        int matNr;
+        try {
+            matNr = Integer.parseInt(matNrString);
+        } catch (NumberFormatException e) {
+            return redirect(controllers.routes.AdminPageController
+                    .studentEditPage(ctx().messages().at("admin.allocation.error.generalError")));
+        }
+        Student student = Student.getStudent(matNr);
+        GeneralData.getCurrentSemester().removeStudent(student);
+        return redirect(controllers.routes.AdminPageController.studentEditPage(""));
     }
 }
