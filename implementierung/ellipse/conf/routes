@@ -38,8 +38,8 @@ POST 	/student/results			controllers.StudentPageController.resultsPage(error: St
 POST 	/student/account			controllers.StudentPageController.accountPage(error: String)
 POST 	/student/edit				controllers.StudentPageController.editAccount()
 
-GET 	/adviser					controllers.AdviserPageController.projectsPage(null)
-GET 	/adviser/projects/:name		controllers.AdviserPageController.projectsPage(name: String)
+
+GET 	/adviser/projects/:id		controllers.AdviserPageController.projectsPage(id: Int)
 POST 	/adviser/add				controllers.AdviserPageController.addProject()
 POST 	/adviser/remove				controllers.AdviserPageController.removeProject()
 POST 	/adviser/edit				controllers.AdviserPageController.editProject()

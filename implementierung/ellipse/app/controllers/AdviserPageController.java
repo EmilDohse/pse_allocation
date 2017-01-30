@@ -6,6 +6,7 @@ package controllers;
 
 import javax.inject.Inject;
 
+import data.Adviser;
 import data.ElipseModel;
 import data.GeneralData;
 import data.Project;
@@ -13,6 +14,7 @@ import play.data.DynamicForm;
 import play.data.FormFactory;
 import play.mvc.Controller;
 import play.mvc.Result;
+import security.UserManagement;
 
 /************************************************************/
 /**
@@ -36,11 +38,11 @@ public class AdviserPageController extends Controller {
      * 
      * @return die Seite, die als Antwort verschickt wird.
      */
-    public Result projectsPage(String name) {// TODO null entfernen hier muss
-                                             // ein leeres projekt
-                                             // übergenenwerden
-        play.twirl.api.Html content = views.html.projectEdit
-                .render(GeneralData.getCurrentSemester().getProjects().get(0), false);
+    public Result projectsPage(int id) {
+        UserManagement user = new UserManagement();
+        Adviser adviser = (Adviser) user.getUserProfile(ctx());
+        boolean isAdviser = adviser.getProjects().contains(ElipseModel.getById(Project.class, id));
+        play.twirl.api.Html content = views.html.projectEdit.render(ElipseModel.getById(Project.class, id), isAdviser);
         return ok(views.html.adviser.render(content));
     }
 
@@ -51,8 +53,11 @@ public class AdviserPageController extends Controller {
      * @return die Seite, die als Antwort verschickt wird.
      */
     public Result addProject() {
-        // TODO
-        return null;
+        UserManagement user = new UserManagement();
+        Adviser adviser = (Adviser) user.getUserProfile(ctx());
+        Project project = new Project("new Project" + adviser.getFirstName() + adviser.getLastName(), adviser);
+        project.save();
+        return redirect(controllers.routes.AdviserPageController.projectsPage(project.getId()));
     }
 
     /**
@@ -64,8 +69,17 @@ public class AdviserPageController extends Controller {
      * @return die Seite, die als Antwort verschickt wird.
      */
     public Result removeProject() {
-        // TODO
-        return null;
+        UserManagement user = new UserManagement();
+        Adviser adviser = (Adviser) user.getUserProfile(ctx());
+        DynamicForm form = formFactory.form().bindFromRequest();
+        int id = Integer.parseInt(form.get("id"));
+        Project project = ElipseModel.getById(Project.class, id);
+        if (adviser.getProjects().contains(project)) {
+            project.delete();
+
+        }
+        return redirect(controllers.routes.AdviserPageController
+                .projectsPage(GeneralData.getCurrentSemester().getProjects().get(0).getId()));
     }
 
     /**
@@ -78,6 +92,9 @@ public class AdviserPageController extends Controller {
      * @return die Seite, die als Antwort verschickt wird.
      */
     public Result editProject() {
+        UserManagement user = new UserManagement();
+        Adviser adviser = (Adviser) user.getUserProfile(ctx());
+
         DynamicForm form = formFactory.form().bindFromRequest();
         String projName = form.get("name");
         String url = form.get("url");
@@ -92,12 +109,16 @@ public class AdviserPageController extends Controller {
         int minSize;
         int maxSize;
         Project project = ElipseModel.getById(Project.class, id);
+        boolean isAdviser = adviser.getProjects().contains(project);
+        if (!isAdviser) {
+            return redirect(controllers.routes.AdviserPageController.projectsPage(id));
+        }
         try {
             numberOfTeams = Integer.parseInt(numberOfTeamsString);
             minSize = Integer.parseInt(minSizeString);
             maxSize = Integer.parseInt(maxSizeString);
         } catch (NumberFormatException e) {
-            return redirect(controllers.routes.AdviserPageController.projectsPage(project.getName()));
+            return redirect(controllers.routes.AdviserPageController.projectsPage(id));
         }
 
         project.setInstitute(institute);
@@ -108,9 +129,8 @@ public class AdviserPageController extends Controller {
         project.setProjectInfo(description);
         project.setProjectURL(url);
         project.save();
-        // TODO ist es wirklich sinnvoll mit dem namen auf ein Projekt
-        // zuzugreifen - dieser ist nicht eindeutig
-        return redirect(controllers.routes.AdviserPageController.projectsPage(project.getName()));
+
+        return redirect(controllers.routes.AdviserPageController.projectsPage(project.getId()));
     }
 
     /**
@@ -124,8 +144,16 @@ public class AdviserPageController extends Controller {
      * @return die Seite, die als Antwort verschickt wird.
      */
     public Result joinProject() {
-        // TODO
-        return null;
+        UserManagement user = new UserManagement();
+        Adviser adviser = (Adviser) user.getUserProfile(ctx());
+        DynamicForm form = formFactory.form().bindFromRequest();
+        int id = Integer.parseInt(form.get("id"));
+        Project project = ElipseModel.getById(Project.class, id);
+        if (!adviser.getProjects().contains(project)) {
+            project.addAdviser(adviser);
+            project.save();
+        }
+        return redirect(controllers.routes.AdviserPageController.projectsPage(project.getId()));
     }
 
     /**
@@ -137,8 +165,18 @@ public class AdviserPageController extends Controller {
      * @return die Seite, die als Antwort verschickt wird.
      */
     public Result leaveProject() {
-        // TODO
-        return null;
+        // TODO wenn es nicht in ordnung ist das ein projekt ohne beteruer
+        // existiert hier einbauen
+        UserManagement user = new UserManagement();
+        Adviser adviser = (Adviser) user.getUserProfile(ctx());
+        DynamicForm form = formFactory.form().bindFromRequest();
+        int id = Integer.parseInt(form.get("id"));
+        Project project = ElipseModel.getById(Project.class, id);
+        if (adviser.getProjects().contains(project)) {
+            project.removeAdviser(adviser);
+            project.save();
+        }
+        return redirect(controllers.routes.AdviserPageController.projectsPage(project.getId()));
     }
 
     /**

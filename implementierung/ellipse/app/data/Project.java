@@ -323,4 +323,8 @@ public class Project extends ElipseModel implements Comparable<Project> {
         return name.compareTo(o.getName());
     }
 
+    @Override
+    public boolean equals(Object o) {
+        return false;// TODO implementieren problem projektname nicth eindeutig?
+    }
 }
