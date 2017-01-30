@@ -8,6 +8,7 @@ import java.util.Calendar;
 
 import javax.inject.Inject;
 
+import data.Achievement;
 import data.ElipseModel;
 import data.SPO;
 import data.Semester;
@@ -116,8 +117,20 @@ public class AdminPropertiesController extends Controller {
      * @return Die Seite, die als Antwort verschickt wird.
      */
     public Result addAchievement() {
-        // TODO
-        return null;
+        DynamicForm form = formFactory.form().bindFromRequest();
+        String nameAchiev = form.get("nameAchiev");
+        String idSPOString = form.get("nameSPO");
+        int idSPO;
+        try {
+            idSPO = Integer.parseInt(idSPOString);
+        } catch (NumberFormatException e) {
+            return redirect(controllers.routes.AdminPageController
+                    .propertiesPage(ctx().messages().at("admin.allocation.error.generalError")));
+        }
+        SPO spo = ElipseModel.getById(SPO.class, idSPO);
+        spo.addNecessaryAchievement(new Achievement(nameAchiev));
+        spo.save();
+        return redirect(controllers.routes.AdminPageController.propertiesPage(""));
     }
 
     /**
