@@ -99,8 +99,12 @@ public class StudentTest extends UserTest {
 
     @Test
     public void testGetRating() {
+        // TODO Warum muss ich in einer bestimmten Reihenfolge speichern?
+        student.save();
         int r = 11;
         Project p = new Project();
+        p.setSemester(GeneralData.getInstance().getCurrentSemester());
+        p.save();
         List<Rating> ratings = new ArrayList<Rating>();
         Rating rating = new Rating();
         rating.setRating(r);
@@ -111,6 +115,9 @@ public class StudentTest extends UserTest {
         List<Student> students = new ArrayList<Student>();
         students.add(student);
         l.setMembers(students);
+        GeneralData.getInstance().getCurrentSemester().addLearningGroup(l);
+        GeneralData.getInstance().save();
+        // TODO student.getRating() muss weg. Der Callstack ist krebserregend.
         assertEquals(r, student.getRating(p));
     }
 

@@ -57,13 +57,16 @@ public class LearningGroup extends ElipseModel {
     private boolean       isPrivate;
 
     public LearningGroup() {
-        members = new ArrayList<Student>();
-        ratings = new ArrayList<Rating>();
+        this("default_name", "1234");
+    }
+
+    public LearningGroup(String name, String password) {
+        this.name = name;
+        this.password = password;
     }
 
     public LearningGroup(String name, String password, Student member, boolean isPrivate) {
-        this.name = name;
-        this.password = password;
+        this(name, password);
         members = new ArrayList<Student>();
         members.add(member);
         ratings = new ArrayList<Rating>();
