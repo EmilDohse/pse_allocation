@@ -105,7 +105,7 @@ public class Configuration {
     /**
      * Getter für Lerngruppen.
      * 
-     * @return Array von Lerngruppen, die zugeteilt werden sollen.
+     * @return Liste von Lerngruppen, die zugeteilt werden sollen.
      */
     public List<LearningGroup> getLearningGroups() {
         return learningGroups;
