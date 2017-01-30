@@ -4,7 +4,21 @@
 
 package controllers;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.inject.Inject;
+
 import allocation.AllocationQueue;
+import allocation.Configuration;
+import data.Achievement;
+import data.Adviser;
+import data.AllocationParameter;
+import data.GeneralData;
+import data.LearningGroup;
+import data.Student;
+import play.data.DynamicForm;
+import play.data.FormFactory;
 import play.mvc.Controller;
 import play.mvc.Result;
 
@@ -16,6 +30,8 @@ import play.mvc.Result;
  */
 public class GeneralAdminController extends Controller {
 
+    @Inject
+    FormFactory             formFactory;
     /**
      * 
      */
@@ -29,8 +45,16 @@ public class GeneralAdminController extends Controller {
      * @return Die Seite, die als Antwort verschickt wird.
      */
     public Result addAdviser() {
-        // TODO
-        return null;
+        DynamicForm form = formFactory.form().bindFromRequest();
+        String firstName = form.get("firstName");
+        String lastName = form.get("lastName");
+        String email = form.get("email");
+        String password = form.get("password");
+        // TODO password per email?
+        Adviser adviser = new Adviser(email, password, email, firstName, lastName);
+        adviser.save();
+        return redirect(controllers.routes.AdminPageController.adviserPage(""));
+
     }
 
     /**
@@ -53,9 +77,64 @@ public class GeneralAdminController extends Controller {
      * @return Die Seite, die als Antwort verschickt wird.
      */
     public Result addAllocation() {
-        // TODO
-        // TODO prüfen, ob die Studenten die Pflichtvorraussetzungen erfüllen
-        return null;
+
+        DynamicForm form = formFactory.form().bindFromRequest();
+        String name = form.get("name");
+        String preferedSizeString = form.get("preferedTeamSize");
+        String minSizeString = form.get("minSize");
+        String maxSizeString = form.get("maxSize");
+        int preferedSize;
+        int minSize;
+        int maxSize;
+        try {
+            preferedSize = Integer.parseInt(preferedSizeString);
+            minSize = Integer.parseInt(minSizeString);
+            maxSize = Integer.parseInt(maxSizeString);
+        } catch (NumberFormatException e) {
+            return redirect(controllers.routes.AdminPageController
+                    .allocationPage(ctx().messages().at("admin.allocation.error.generalError")));
+        }
+        ArrayList<AllocationParameter> allocParam = new ArrayList<>(); // die
+                                                                       // liste
+                                                                       // der
+                                                                       // Parameter
+                                                                       // wird
+                                                                       // erstellt
+        allocParam.add(new AllocationParameter("minSize", minSize));
+        allocParam.add(new AllocationParameter("maxSize", maxSize));
+        allocParam.add(new AllocationParameter("prefSize", preferedSize));
+
+        AllocationQueue queue = AllocationQueue.getInstance();
+        List<Student> studenst = GeneralData.getCurrentSemester().getStudents();
+        List<LearningGroup> learningGroups = GeneralData.getCurrentSemester().getLearningGroups();
+        for (Student student : studenst) { // es wird erneut überprüft ob der
+                                           // student die neccesary achiefments
+                                           // hat und wenn nicht wird der
+                                           // student aus der allocation und der
+                                           // lerngruppe entfernt (nur für diese
+                                           // config)
+            boolean achiefment = true;
+            for (Achievement achiev : student.getSPO().getNecessaryAchievements()) {
+                if (achiefment) {
+                    achiefment = student.getCompletedAchievements().contains(achiev);
+                }
+            }
+            if (!achiefment) {
+                studenst.remove(student);
+                LearningGroup lg = student.getLearningGroup(GeneralData.getCurrentSemester());
+                // TODO braucht learning group ein comparable?oder equals
+                for (LearningGroup iterLg : learningGroups) {
+                    if (iterLg.equals(lg)) {
+                        iterLg.removeMember(student);
+                    }
+                }
+
+            }
+        }
+
+        Configuration configuration = new Configuration(name, studenst, learningGroups, allocParam);
+        queue.addToQueue(configuration);
+        return redirect(controllers.routes.AdminPageController.allocationPage(""));
     }
 
     /**

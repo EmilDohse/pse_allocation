@@ -40,6 +40,7 @@ public class AdminProjectController extends Controller {
         // TODO muss man hier nicht
         // igendwie den adcviser
         // weglassen können?
+        GeneralData.getCurrentSemester().addProject(project);
         return redirect(controllers.routes.AdminPageController.projectEditPage(projName));
     }
 
@@ -56,7 +57,7 @@ public class AdminProjectController extends Controller {
         Project project = Project.getProject(projName, GeneralData.getCurrentSemester());
         // TODO hier eine warnmeldung ausgeben ob das projekt wirklich gelöscht
         // werden soll
-        project.deletePermanent();
+        GeneralData.getCurrentSemester().removeProject(project);
         return redirect(controllers.routes.AdminPageController
                 .projectEditPage(GeneralData.getCurrentSemester().getProjects().get(0).getName()));
     }
