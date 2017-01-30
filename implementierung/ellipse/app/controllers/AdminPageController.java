@@ -31,8 +31,8 @@ public class AdminPageController extends Controller {
      * @return Die Seite, die als Antwort verschickt wird.
      */
     public Result projectPage(String error) {
-        play.twirl.api.Html content = views.html.adminProjects
-                .render(GeneralData.getCurrentSemester().getProjects(), error);
+        play.twirl.api.Html content = views.html.adminProjects.render(GeneralData.getCurrentSemester().getProjects(),
+                error);
         return ok(views.html.admin.render(content));
     }
 
@@ -44,8 +44,8 @@ public class AdminPageController extends Controller {
      * @return Die Seite, die als Antwort verschickt wird.
      */
     public Result adviserPage(String error) {
-        play.twirl.api.Html content = views.html.adminAdvisers
-                .render(GeneralData.getCurrentSemester().getAdvisers(), error);
+        play.twirl.api.Html content = views.html.adminAdvisers.render(GeneralData.getCurrentSemester().getAdvisers(),
+                error);
         return ok(views.html.admin.render(content));
     }
 
@@ -58,10 +58,8 @@ public class AdminPageController extends Controller {
      * @return Die Seite, die als Antwort verschickt wird.
      */
     public Result allocationPage(String error) {
-        ArrayList<allocation.Criterion> criteria = (ArrayList<Criterion>) AbstractAllocator
-                .getAllCriteria();
-        play.twirl.api.Html content = views.html.adminAllocation
-                .render(AllocationQueue.getInstance(), criteria, error);
+        ArrayList<allocation.Criterion> criteria = (ArrayList<Criterion>) AbstractAllocator.getAllCriteria();
+        play.twirl.api.Html content = views.html.adminAllocation.render(AllocationQueue.getInstance(), criteria, error);
         return ok(views.html.admin.render(content));
     }
 
@@ -72,10 +70,8 @@ public class AdminPageController extends Controller {
      * @return Die Seite, die als Antwort verschickt wird.
      */
     public Result resultsPage(String error) {
-        qualityCriteria.QualityCriterion[] criteria = qualityCriteria.QualityCriteriaLoader
-                .getAllQualityCriteria();
-        play.twirl.api.Html content = views.html.adminResults.render(
-                GeneralData.getCurrentSemester().getAllocations(),
+        qualityCriteria.QualityCriterion[] criteria = qualityCriteria.QualityCriteriaLoader.getAllQualityCriteria();
+        play.twirl.api.Html content = views.html.adminResults.render(GeneralData.getCurrentSemester().getAllocations(),
                 Arrays.asList(criteria), error);
         return ok(views.html.admin.render(content));
     }
@@ -88,8 +84,7 @@ public class AdminPageController extends Controller {
      * @return Die Seite, die als Antwort verschickt wird.
      */
     public Result exportImportPage(String error) {
-        play.twirl.api.Html content = views.html.adminExportImport
-                .render(error);
+        play.twirl.api.Html content = views.html.adminExportImport.render(error);
         return ok(views.html.admin.render(content));
     }
 
@@ -100,7 +95,8 @@ public class AdminPageController extends Controller {
      * @return Die Seite, die als Antwort verschickt wird.
      */
     public Result studentEditPage(String error) {
-        play.twirl.api.Html content = views.html.adminStudentEdit.render(error);
+        play.twirl.api.Html content = views.html.adminStudentEdit.render(GeneralData.getCurrentSemester().getSpos(),
+                error);
         return ok(views.html.admin.render(content));
     }
 
@@ -111,8 +107,7 @@ public class AdminPageController extends Controller {
      * @return Die Seite, die als Antwort verschickt wird.
      */
     public Result propertiesPage(String error) {
-        play.twirl.api.Html content = views.html.adminProperties
-                .render(Semester.getSemesters(), SPO.getSPOs(), error);
+        play.twirl.api.Html content = views.html.adminProperties.render(Semester.getSemesters(), SPO.getSPOs(), error);
         return ok(views.html.admin.render(content));
     }
 
@@ -127,10 +122,8 @@ public class AdminPageController extends Controller {
      * @return Die Seite, die als Antwort verschickt wird.
      */
     public Result projectEditPage(String name) {
-        Project project = Project.getProject(name,
-                GeneralData.getCurrentSemester());
-        play.twirl.api.Html content = views.html.projectEdit.render(project,
-                false);
+        Project project = Project.getProject(name, GeneralData.getCurrentSemester());
+        play.twirl.api.Html content = views.html.projectEdit.render(project, false);
         return ok(views.html.admin.render(content));
     }
 }
