@@ -34,7 +34,11 @@ public class NotAllocatedStudents implements QualityCriterion {
     }
 
     @Override
-    public String getName() {
-        return "Nicht zugeteilte Studenten";
+    public String getName(String local) {
+        if (local.equals("de")) {
+            return "Nicht zugeteilte Studenten";
+        } else {
+            return "Not allocated students";
+        }
     }
 }

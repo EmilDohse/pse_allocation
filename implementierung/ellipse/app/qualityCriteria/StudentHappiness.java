@@ -34,7 +34,11 @@ public class StudentHappiness implements QualityCriterion {
     }
 
     @Override
-    public String getName() {
-        return "Studierendenzufriedenheit";
+    public String getName(String local) {
+        if (local.equals("de")) {
+            return "Studierendenzufriedenheit";
+        } else {
+            return "Student-Happiness";
+        }
     }
 }

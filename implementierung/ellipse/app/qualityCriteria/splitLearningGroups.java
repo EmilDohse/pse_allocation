@@ -46,7 +46,11 @@ public class splitLearningGroups implements QualityCriterion {
     }
 
     @Override
-    public String getName() {
-        return "Getrennte Lerngruppen";
+    public String getName(String local) {
+        if (local.equals("de")) {
+            return "Getrennte Lerngruppen";
+        } else {
+            return "Splitted Learning Groups";
+        }
     }
 }
