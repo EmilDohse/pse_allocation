@@ -12,4 +12,9 @@ public class UserProfile extends CommonProfile {
         super();
         this.user = user;
     }
+
+    public User getUser() {
+        return user;
+    }
+
 }
