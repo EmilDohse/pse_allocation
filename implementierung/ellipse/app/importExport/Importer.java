@@ -11,7 +11,6 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
-import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -127,10 +126,6 @@ public class Importer {
                             importedSpo.setName(lineSplit[0]);
                             List<Achievement> additionalAchievements = new ArrayList<Achievement>();
                             List<Achievement> necessaryAchievements = new ArrayList<Achievement>();
-                            importedSpo.setAdditionalAchievements(
-                                    additionalAchievements);
-                            importedSpo.setNecessaryAchievements(
-                                    necessaryAchievements);
                             Ebean.save(importedSpo);
 
                             // Teile die zusätzlichen Teilleistungen weiter auf
@@ -157,8 +152,7 @@ public class Importer {
 
                             // Selbes Vorgehen für notwendige Teilleistungen
                             String[] necessarySplit = lineSplit[2].split(",");
-                            for (int i = 0; i < necessaryAchievements
-                                    .size(); i++) {
+                            for (int i = 0; i < necessarySplit.length; i++) {
                                 Achievement currentAchievement = Achievement
                                         .getAchievement(necessarySplit[i]);
                                 if (currentAchievement != null) {
@@ -173,6 +167,10 @@ public class Importer {
                                     Ebean.save(currentAchievement);
                                 }
                             }
+                            importedSpo.setAdditionalAchievements(
+                                    additionalAchievements);
+                            importedSpo.setNecessaryAchievements(
+                                    necessaryAchievements);
                             Ebean.update(importedSpo);
                         } else {
                             throw new ImporterException(
@@ -205,11 +203,12 @@ public class Importer {
      *            Die SPO, die exportiert werden soll.
      */
     public void exportSPO(String file, SPO spo) throws ImporterException {
-        try (Writer writer = new BufferedWriter(new OutputStreamWriter(
-                new FileOutputStream("file"), "utf-8"))) {
+        try (BufferedWriter writer = new BufferedWriter(
+                new OutputStreamWriter(new FileOutputStream(file), "utf-8"))) {
 
             // Write Header
             writer.write("Name;Additional Achievements;Necessary Achievements");
+            writer.newLine();
 
             // Create output String
             String output = spo.getName();
@@ -221,7 +220,7 @@ public class Importer {
             }
 
             // Remove trailing comma
-            output = output.substring(0, output.length() - 2);
+            output = output.substring(0, output.length() - 1) + ";";
 
             // Add all necessary Achievements
             for (Achievement achievement : spo.getNecessaryAchievements()) {
@@ -229,7 +228,7 @@ public class Importer {
             }
 
             // remove trailing comma
-            output = output.substring(0, output.length() - 2);
+            output = output.substring(0, output.length() - 1);
 
             // write line
             writer.write(output);
@@ -408,7 +407,7 @@ public class Importer {
                 Rating currentRating;
                 for (int i = 0; i < testSemester.getProjects().size(); i++) {
                     currentRating = new Rating(
-                            Integer.parseInt(attributes[9 + i]),
+                            Integer.parseInt(attributes[9 + i]) + 1,
                             testProjects.get(i));
                     ratings.add(currentRating);
                 }
@@ -443,6 +442,11 @@ public class Importer {
 
         ArrayList<Student> students = new ArrayList<>();
         ArrayList<LearningGroup> learningGroups = new ArrayList<>();
+
+        semester.setStudents(students);
+        semester.setLearningGroups(learningGroups);
+
+        Ebean.update(semester);
 
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
 
@@ -499,7 +503,7 @@ public class Importer {
                     matNr = Integer.parseInt(lineSplit[0]);
                     semesterNumber = Integer.parseInt(lineSplit[8]);
                     for (int i = 0; i < ratings.length; i++) {
-                        ratings[i] = Integer.parseInt(lineSplit[11 + i]);
+                        ratings[i] = Integer.parseInt(lineSplit[11 + i]) + 1;
                     }
                 } catch (NumberFormatException e) {
                     throw new ImporterException("importer.wrongFileFormat");
@@ -548,6 +552,8 @@ public class Importer {
 
                 students.add(importedStudent);
 
+                Ebean.update(semester);
+
                 LearningGroup currentGroup;
                 if (lineSplit[5].length() != 0) {
                     // Erzeuge neue Gruppe mit dem gesetzten Namen, falls sie
@@ -579,6 +585,8 @@ public class Importer {
                     learningGroups.add(currentGroup);
                 }
 
+                Ebean.update(semester);
+
                 ArrayList<Rating> LeaningGoupRatings = new ArrayList<>();
                 Rating currentRating;
                 for (int i = 11; i < lineSplit.length; i++) {
@@ -587,8 +595,7 @@ public class Importer {
                     LeaningGoupRatings.add(currentRating);
                 }
                 currentGroup.setRatings(LeaningGoupRatings);
-                semester.setLearningGroups(learningGroups);
-                semester.setStudents(students);
+                Ebean.update(currentGroup);
                 Ebean.update(semester);
             }
         } catch (FileNotFoundException e) {
@@ -605,9 +612,72 @@ public class Importer {
      *            Der Ausgabepfad.
      * @param semester
      *            Das Semester, dessen Studenten exportiert werden sollen.
+     * @throws ImporterException
+     *             Wird vom Controller behandelt.
      */
-    public void exportStudents(String file, Semester semester) {
+    public void exportStudents(String file, Semester semester)
+            throws ImporterException {
+        try (BufferedWriter bw = new BufferedWriter(
+                new OutputStreamWriter(new FileOutputStream(file)))) {
+            String header = "MatNr;Vorname;Nachname;E-Mail;Passwort;Lerngruppe;LerngruppePasswort;"
+                    + "SPO;Fachsemester;Bestandene Teilleistungen;Noch ausstehende Teilleistungen;";
+            for (Project project : semester.getProjects()) {
+                header += project.getName() + ";";
+            }
+            header = header.substring(0, header.length() - 1);
 
+            bw.write(header);
+            bw.newLine();
+
+            for (Student student : semester.getStudents()) {
+                String output = new String();
+                output += student.getMatriculationNumber() + ";";
+                output += student.getFirstName() + ";";
+                output += student.getLastName() + ";";
+                output += student.getEmailAddress() + ";";
+                output += student.getPassword() + ";";
+                LearningGroup lg = student.getLearningGroup(semester);
+                if (!lg.isPrivate()) {
+                    output += student.getLearningGroup(semester).getName()
+                            + ";";
+                    output += student.getLearningGroup(semester).getPassword()
+                            + ";";
+                } else {
+                    output += ";;";
+                }
+
+                output += student.getSPO().getName() + ";";
+                output += student.getSemester() + ";";
+
+                for (Achievement achievement : student
+                        .getCompletedAchievements()) {
+                    output += achievement.getName() + ",";
+                }
+                output = output.substring(0, output.length() - 1) + ";";
+
+                if (!student.getOralTestAchievements().isEmpty()) {
+                    for (Achievement achievement : student
+                            .getOralTestAchievements()) {
+                        output += achievement.getName() + ",";
+                    }
+                    output = output.substring(0, output.length() - 1) + ";";
+                } else {
+                    output += ";";
+                }
+
+                for (Project project : semester.getProjects()) {
+                    output += student.getRating(project) + ";";
+                }
+                output.substring(0, output.length() - 1);
+                bw.write(output);
+                bw.newLine();
+            }
+
+        } catch (FileNotFoundException e) {
+            throw new ImporterException("importer.FileNotFound");
+        } catch (IOException e) {
+            throw new ImporterException("importer.IOException");
+        }
     }
 
     /**
@@ -618,7 +688,7 @@ public class Importer {
      * @param Semester
      *            Das Semester, dem die Projekte hinzugefügt werden sollen.
      * @throws ImporterException
-     *             Wird vom Controller behandelt
+     *             Wird vom Controller behandelt.
      */
     public void importProjects(String file, Semester semester)
             throws ImporterException {
@@ -722,12 +792,14 @@ public class Importer {
             Achievement currentAchievement = Achievement
                     .getAchievement(split[i]);
             if (currentAchievement == null) {
+                System.out.println("nullPointer");
                 throw new ImporterException("importer.wrongFileFormat");
             }
             // Prüfe, ob die Teilleistungen in der SPO existieren
-            if (!(spo.getNecessaryAchievements().contains(currentAchievement))
+            if (!((spo.getNecessaryAchievements().contains(currentAchievement))
                     || spo.getAdditionalAchievements()
-                            .contains(currentAchievement)) {
+                            .contains(currentAchievement))) {
+                System.out.println(currentAchievement.getName() + " notFound");
                 throw new ImporterException("importer.wrongFileFormat");
             }
             achievements.add(currentAchievement);

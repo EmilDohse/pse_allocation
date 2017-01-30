@@ -68,12 +68,14 @@ public class ImporterTest {
         }
         // Importiere Studenten
         try {
-            importerExporter.importStudents("students.csv",
+            importerExporter.importStudents("studentsNew.csv",
                     importStudentSemester);
             assertFalse(Semester.getSemester("importStudentSemester")
                     .getStudents().isEmpty());
+            importerExporter.exportStudents("exportStudents.csv",
+                    Semester.getSemester("importStudentSemester"));
         } catch (ImporterException e) {
-            assertTrue(true);
+            assertTrue(false);
         }
     }
 
@@ -100,10 +102,13 @@ public class ImporterTest {
             assertNotNull(SPO.getSPO("2008"));
             assertFalse(
                     SPO.getSPO("2008").getAdditionalAchievements().isEmpty());
+            assertFalse(
+                    SPO.getSPO("2008").getNecessaryAchievements().isEmpty());
             // TODO Hier kommt BeanList deferred raus... Keine Ahnung wie man
             // das fixt
             // assertEquals(2, SPO.getSPO("2008").getAdditionalAchievements());
             // assertEquals(2, SPO.getSPO("2008").getNecessaryAchievements());
+            importerExporter.exportSPO("exportSpo.csv", SPO.getSPO("2008"));
         } catch (ImporterException e) {
             assertTrue(false);
         }
