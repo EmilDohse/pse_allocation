@@ -13,7 +13,6 @@ public class AdviserTest extends UserTest {
 
     @Before
     public void before() {
-        user = new Adviser();
     }
 
     @Test
@@ -32,7 +31,6 @@ public class AdviserTest extends UserTest {
         assertEquals(name, a.getUserName());
     }
 
-    @Override
     @Test
     public void testFirstName() {
         String name = "Name";
@@ -41,7 +39,6 @@ public class AdviserTest extends UserTest {
         assertEquals(name, a.getFirstName());
     }
 
-    @Override
     @Test
     public void testLastName() {
         String name = "Name";
