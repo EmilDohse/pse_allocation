@@ -4,14 +4,14 @@
 
 package data;
 
-import javax.persistence.MappedSuperclass;
+import java.util.List;
+
 import javax.validation.constraints.NotNull;
 
 /************************************************************/
 /**
  * Diese Klasse stellt einen Benutzer der Anwendung dar.
  */
-@MappedSuperclass
 public abstract class User extends ElipseModel implements Comparable<User> {
 
     /**
@@ -44,7 +44,8 @@ public abstract class User extends ElipseModel implements Comparable<User> {
 
     }
 
-    public User(String username, String password, String emailAddress, String firstName, String lastName) {
+    public User(String username, String password, String emailAddress,
+            String firstName, String lastName) {
         this.username = username;
         this.password = password;
         this.emailAddress = emailAddress;
@@ -154,6 +155,15 @@ public abstract class User extends ElipseModel implements Comparable<User> {
      */
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    /**
+     * Diese Methode gibt alle Users zurück.
+     * 
+     * @return Alle User.
+     */
+    public static List<User> getUsers() {
+        return ElipseModel.getAll(User.class);
     }
 
     @Override
