@@ -4,8 +4,16 @@
 
 package controllers;
 
-import play.mvc.Result;
+import java.util.Calendar;
+
+import javax.inject.Inject;
+
+import data.ElipseModel;
+import data.Semester;
+import play.data.DynamicForm;
+import play.data.FormFactory;
 import play.mvc.Controller;
+import play.mvc.Result;
 
 /************************************************************/
 /**
@@ -13,6 +21,9 @@ import play.mvc.Controller;
  * beim Ändern der Einstellungen abgeschickt werden.
  */
 public class AdminPropertiesController extends Controller {
+
+    @Inject
+    FormFactory formFactory;
 
     /**
      * Diese Methode lässt den Administrator ein neues Semester erstellen und
@@ -22,8 +33,9 @@ public class AdminPropertiesController extends Controller {
      * @return Die Seite, die als Antwort verschickt wird.
      */
     public Result addSemester() {
-        // TODO
-        return null;
+        Semester semester = new Semester("newSemester", true, Calendar.getInstance().get(Calendar.YEAR));
+        semester.save();
+        return redirect(controllers.routes.AdminPageController.propertiesPage(""));
     }
 
     /**
@@ -34,8 +46,18 @@ public class AdminPropertiesController extends Controller {
      * @return Die Seite, die als Antwort verschickt wird.
      */
     public Result removeSemester() {
-        // TODO
-        return null;
+        DynamicForm form = formFactory.form().bindFromRequest();
+        String semesterIdString = form.get("id");
+        int semesterId;
+        try {
+            semesterId = Integer.parseInt(semesterIdString);
+        } catch (NumberFormatException e) {
+            return redirect(controllers.routes.AdminPageController
+                    .propertiesPage(ctx().messages().at("admin.allocation.error.generalError")));
+        }
+        Semester semster = ElipseModel.getById(Semester.class, semesterId);
+        semster.delete();
+        return redirect(controllers.routes.AdminPageController.propertiesPage(""));
     }
 
     /**
@@ -88,13 +110,12 @@ public class AdminPropertiesController extends Controller {
     }
 
     /**
-     * Diese Methode löscht eine bereits existierende Teilleistung aus einer
-     * SPO. Der Administrator wird daraufhin zur Einstellungsseite
-     * zurückgeleitet.
+     * Diese Methode übernimmt änderungen an der SPO. Der Administrator wird
+     * daraufhin zur Einstellungsseite zurückgeleitet.
      * 
      * @return Die Seite, die als Antwort verschickt wird.
      */
-    public Result removeAchievement() {
+    public Result changeSPO() {
         // TODO
         return null;
     }
