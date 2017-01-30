@@ -6,17 +6,17 @@ package qualityCriteria;
 
 /************************************************************/
 /**
- * Klasse, die alle Gütekriterien lädt
+ * Klasse, die alle Gütekriterien lädt.
  */
 public class QualityCriteriaLoader {
 
-	/**
-	 * Gibt alle gütekriterien zurück.
-	 * 
-	 * @return Liste aller Gütekriterien
-	 */
-	public static QualityCriterion[] getAllQualityCriteria() {
-		// TODO
-		return null;
-	}
+    /**
+     * Gibt alle gütekriterien zurück.
+     * 
+     * @return Liste aller Gütekriterien
+     */
+    public static QualityCriterion[] getAllQualityCriteria() {
+        // TODO
+        return null;
+    }
 }

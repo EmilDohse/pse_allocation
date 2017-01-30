@@ -13,23 +13,22 @@ import gurobi.GRBException;
  */
 public interface GurobiCriterion extends allocation.Criterion {
 
-	/**
-	 * Bildet den Optimierungsterm und fügt ihn dem GurobiAllocator hinzu.
-	 * 
-	 * @param configuration
-	 *            Die Konfiguration, die zur Berechnung verwendet wird.
-	 * @param allocator
-	 *            Die Allocator-Instanz welche dieses Kriterium verwenden soll.
-	 * @param weight
-	 *            Der vom Admin eingestellte Parameter.
-	 */
-	public void useCriteria(Configuration configuration, GurobiAllocator allocator, double weight)
-			throws GRBException;
+    /**
+     * Bildet den Optimierungsterm und fügt ihn dem GurobiAllocator hinzu.
+     * 
+     * @param configuration
+     *            Die Konfiguration, die zur Berechnung verwendet wird.
+     * @param allocator
+     *            Die Allocator-Instanz welche dieses Kriterium verwenden soll.
+     * @param weight
+     *            Der vom Admin eingestellte Parameter.
+     */
+    public void useCriteria(Configuration configuration, GurobiAllocator allocator, double weight) throws GRBException;
 
-	/**
-	 * Getter für den Namen des Kriteriums.
-	 * 
-	 * @return Der Name des Kriteriums.
-	 */
-	public String getName();
+    /**
+     * Getter für den Namen des Kriteriums.
+     * 
+     * @return Der Name des Kriteriums.
+     */
+    public String getName();
 }
