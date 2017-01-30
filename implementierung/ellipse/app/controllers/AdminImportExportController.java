@@ -39,7 +39,8 @@ public class AdminImportExportController extends Controller {
         try {
             importer.importAllocation(filePath, GeneralData.getCurrentSemester());
         } catch (ImporterException e) {
-            return redirect(controllers.routes.AdminPageController.exportImportPage(e.getMessage()));
+            return redirect(
+                    controllers.routes.AdminPageController.exportImportPage(ctx().messages().at(e.getMessage())));
         }
 
         return redirect(controllers.routes.AdminPageController.exportImportPage(""));
@@ -71,7 +72,8 @@ public class AdminImportExportController extends Controller {
         try {
             importer.importSPO(filePath);
         } catch (ImporterException e) {
-            return redirect(controllers.routes.AdminPageController.exportImportPage(e.getMessage()));
+            return redirect(
+                    controllers.routes.AdminPageController.exportImportPage(ctx().messages().at(e.getMessage())));
         }
 
         return redirect(controllers.routes.AdminPageController.exportImportPage(""));
@@ -103,7 +105,8 @@ public class AdminImportExportController extends Controller {
         try {
             importer.importProjects(filePath, GeneralData.getCurrentSemester());
         } catch (ImporterException e) {
-            return redirect(controllers.routes.AdminPageController.exportImportPage(e.getMessage()));
+            return redirect(
+                    controllers.routes.AdminPageController.exportImportPage(ctx().messages().at(e.getMessage())));
         }
 
         return redirect(controllers.routes.AdminPageController.exportImportPage(""));
@@ -136,7 +139,8 @@ public class AdminImportExportController extends Controller {
         try {
             importer.importCMSData(filePath, GeneralData.getCurrentSemester());
         } catch (ImporterException e) {
-            return redirect(controllers.routes.AdminPageController.exportImportPage(e.getMessage()));
+            return redirect(
+                    controllers.routes.AdminPageController.exportImportPage(ctx().messages().at(e.getMessage())));
         }
 
         return redirect(controllers.routes.AdminPageController.exportImportPage(""));
@@ -169,7 +173,8 @@ public class AdminImportExportController extends Controller {
         try {
             importer.importStudents(filePath, GeneralData.getCurrentSemester());
         } catch (ImporterException e) {
-            return redirect(controllers.routes.AdminPageController.exportImportPage(e.getMessage()));
+            return redirect(
+                    controllers.routes.AdminPageController.exportImportPage(ctx().messages().at(e.getMessage())));
         }
 
         return redirect(controllers.routes.AdminPageController.exportImportPage(""));
