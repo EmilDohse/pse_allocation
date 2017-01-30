@@ -4,6 +4,8 @@
 
 package security;
 
+import static play.inject.Bindings.bind;
+
 import org.pac4j.core.authorization.authorizer.RequireAnyRoleAuthorizer;
 import org.pac4j.core.client.Clients;
 import org.pac4j.core.config.Config;
@@ -28,7 +30,7 @@ public class SecurityModule {
         bind(PlaySessionStore.class).to(PlayCacheStore.class);
 
         FormClient formClient = new FormClient(
-                controllers.routes.IndexPageController.indexPage().path(),
+                controllers.routes.IndexPageController.indexPage("").path(),
                 new UserAuthenticator());
 
         Clients clients = new Clients("/callback", formClient);
