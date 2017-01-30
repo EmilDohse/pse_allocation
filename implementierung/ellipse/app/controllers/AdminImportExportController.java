@@ -4,8 +4,15 @@
 
 package controllers;
 
-import play.mvc.Result;
+import javax.inject.Inject;
+
+import data.GeneralData;
+import exception.ImporterException;
+import importExport.Importer;
+import play.data.DynamicForm;
+import play.data.FormFactory;
 import play.mvc.Controller;
+import play.mvc.Result;
 
 /************************************************************/
 /**
@@ -14,16 +21,28 @@ import play.mvc.Controller;
  */
 public class AdminImportExportController extends Controller {
 
+    @Inject
+    FormFactory formFactory;
+
     /**
      * Diese Methode importiert eine Einteilung, sodass sie in der
-     * Einteilungsübersicht erscheint. Der Administrator wird daraufhin auf die
-     * Import/Export-Seite zurückgeleitet.
+     * Einteilungsübersicht des aktuellen semesters erscheint. Der Administrator
+     * wird daraufhin auf die Import/Export-Seite zurückgeleitet.
      * 
      * @return Die Seite, die als Antwort verschickt wird.
      */
     public Result importAllocation() {
-        // TODO
-        return null;
+
+        DynamicForm form = formFactory.form().bindFromRequest();
+        String filePath = form.get("file");
+        importExport.Importer importer = new Importer();
+        try {
+            importer.importAllocation(filePath, GeneralData.getCurrentSemester());
+        } catch (ImporterException e) {
+            return redirect(controllers.routes.AdminPageController.exportImportPage(e.getMessage()));
+        }
+
+        return redirect(controllers.routes.AdminPageController.exportImportPage(""));
     }
 
     /**
@@ -34,8 +53,8 @@ public class AdminImportExportController extends Controller {
      * @return Die Seite, die als Antwort verschickt wird.
      */
     public Result exportAllocation() {
-	// TODO
-	return null;
+        // TODO
+        return null;
     }
 
     /**
@@ -46,8 +65,16 @@ public class AdminImportExportController extends Controller {
      * @return Die Seite, die als Antwort verschickt wird.
      */
     public Result importSPO() {
-		// TODO
-		return null;
+        DynamicForm form = formFactory.form().bindFromRequest();
+        String filePath = form.get("file");
+        importExport.Importer importer = new Importer();
+        try {
+            importer.importSPO(filePath);
+        } catch (ImporterException e) {
+            return redirect(controllers.routes.AdminPageController.exportImportPage(e.getMessage()));
+        }
+
+        return redirect(controllers.routes.AdminPageController.exportImportPage(""));
     }
 
     /**
@@ -58,8 +85,8 @@ public class AdminImportExportController extends Controller {
      * @return Die Seite, die als Antwort verschickt wird.
      */
     public Result exportSPO() {
-		// TODO
-		return null;
+        // TODO
+        return null;
     }
 
     /**
@@ -70,8 +97,16 @@ public class AdminImportExportController extends Controller {
      * @return Die Seite, die als Antwort verschickt wird.
      */
     public Result importProjects() {
-		// TODO
-		return null;
+        DynamicForm form = formFactory.form().bindFromRequest();
+        String filePath = form.get("file");
+        importExport.Importer importer = new Importer();
+        try {
+            importer.importProjects(filePath, GeneralData.getCurrentSemester());
+        } catch (ImporterException e) {
+            return redirect(controllers.routes.AdminPageController.exportImportPage(e.getMessage()));
+        }
+
+        return redirect(controllers.routes.AdminPageController.exportImportPage(""));
     }
 
     /**
@@ -89,14 +124,22 @@ public class AdminImportExportController extends Controller {
     /**
      * Diese Methode importiert eine csv-Datei mit Daten aus dem CMS
      * (CampusManagementSystem) und fügt die Daten zu den bereits vorhandenen
-     * hinzu. Der Administrator wird daraufhin auf die Import/Export-Seite
-     * zurückgeleitet.
+     * hinzu (im aktuellen semester). Der Administrator wird daraufhin auf die
+     * Import/Export-Seite zurückgeleitet.
      * 
      * @return Die Seite, die als Antwort verschickt wird.
      */
     public Result importCMSData() {
-        // TODO
-        return null;
+        DynamicForm form = formFactory.form().bindFromRequest();
+        String filePath = form.get("file");
+        importExport.Importer importer = new Importer();
+        try {
+            importer.importCMSData(filePath, GeneralData.getCurrentSemester());
+        } catch (ImporterException e) {
+            return redirect(controllers.routes.AdminPageController.exportImportPage(e.getMessage()));
+        }
+
+        return redirect(controllers.routes.AdminPageController.exportImportPage(""));
     }
 
     /**
@@ -120,8 +163,16 @@ public class AdminImportExportController extends Controller {
      * @return Die Seite, die als Antwort verschickt wird.
      */
     public Result importStudents() {
-        // TODO
-        return null;
+        DynamicForm form = formFactory.form().bindFromRequest();
+        String filePath = form.get("file");
+        importExport.Importer importer = new Importer();
+        try {
+            importer.importStudents(filePath, GeneralData.getCurrentSemester());
+        } catch (ImporterException e) {
+            return redirect(controllers.routes.AdminPageController.exportImportPage(e.getMessage()));
+        }
+
+        return redirect(controllers.routes.AdminPageController.exportImportPage(""));
     }
 
     /**
