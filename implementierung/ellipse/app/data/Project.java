@@ -9,6 +9,7 @@ import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
 /************************************************************/
@@ -56,14 +57,31 @@ public class Project extends ElipseModel implements Comparable<Project> {
     @ManyToMany
     private List<Adviser> advisers;
 
+    /**
+     * Danke Ebean.
+     */
+    @ManyToOne
+    private Semester      semester;
+
     public Project() {
-        advisers = new ArrayList<Adviser>();
+        this("default_name", "default_info", "default_institut", "default_url");
+    }
+
+    public Project(String name, String projectInfo, String institut, String url) {
+        this.name = name;
+        this.projectInfo = projectInfo;
+        this.institute = institut;
+        this.projectURL = url;
     }
 
     public Project(String name, Adviser adviser) {
+        this();
         this.name = name;
-        advisers = new ArrayList<Adviser>();
         advisers.add(adviser);
+    }
+
+    public void setSemester(Semester semester) {
+        this.semester = semester;
     }
 
     /**
@@ -309,13 +327,15 @@ public class Project extends ElipseModel implements Comparable<Project> {
      * @return Semester, in dem das Projekt angeboten wurde.
      */
     public Semester getSemester() {
-        for (Semester s : Semester.getSemesters()) {
-            if (s.getProjects().contains(this)) {
-                return s;
-            }
-        }
-        // TODO throws
-        return null;
+        // for (Semester s : Semester.getSemesters()) {
+        // if (s.getProjects().contains(this)) {
+        // return s;
+        // }
+        // }
+        // // TODO throws
+        // return null;
+        // TODO
+        return semester;
     }
 
     @Override

@@ -335,10 +335,7 @@ public class Student extends User {
      * @return Das Team des Studierenden.
      */
     public Team getCurrentTeam() {
-        // TODO für Testzwecke gesplitet
-        GeneralData instance = GeneralData.getInstance();
-        Semester currentSemester = instance.getCurrentSemester();
-        Allocation a = currentSemester.getFinalAllocation();
+        Allocation a = GeneralData.getInstance().getCurrentSemester().getFinalAllocation();
         if (a == null) {
             // TODO throws
         }
