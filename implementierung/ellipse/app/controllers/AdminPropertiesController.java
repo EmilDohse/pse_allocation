@@ -9,6 +9,7 @@ import java.util.Calendar;
 import javax.inject.Inject;
 
 import data.ElipseModel;
+import data.SPO;
 import data.Semester;
 import play.data.DynamicForm;
 import play.data.FormFactory;
@@ -68,8 +69,9 @@ public class AdminPropertiesController extends Controller {
      * @return Die Seite, die als Antwort verschickt wird.
      */
     public Result addSPO() {
-        // TODO
-        return null;
+        SPO spo = new SPO("newSPO");
+        spo.save();
+        return redirect(controllers.routes.AdminPageController.propertiesPage(""));
     }
 
     /**
@@ -80,8 +82,17 @@ public class AdminPropertiesController extends Controller {
      * @return Die Seite, die als Antwort verschickt wird.
      */
     public Result removeSPO() {
-        // TODO
-        return null;
+        DynamicForm form = formFactory.form().bindFromRequest();
+        String spoIdString = form.get("id");
+        int spoId;
+        try {
+            spoId = Integer.parseInt(spoIdString);
+        } catch (NumberFormatException e) {
+            return redirect(controllers.routes.AdminPageController
+                    .propertiesPage(ctx().messages().at("admin.allocation.error.generalError")));
+        }
+        ElipseModel.getById(SPO.class, spoId).delete();
+        return redirect(controllers.routes.AdminPageController.propertiesPage(""));
     }
 
     /**
