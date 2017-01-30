@@ -61,9 +61,12 @@ public class AdviserTest extends UserTest {
         Project projectTwo = new Project();
         List<Adviser> advisers = new ArrayList<Adviser>();
         Adviser a = new Adviser();
+        a.save();
         advisers.add(a);
         project.setAdvisers(advisers);
+        project.save();
         projectTwo.setAdvisers(advisers);
+        projectTwo.save();
         assertTrue(a.getProjects().contains(project));
         assertTrue(a.getProjects().contains(projectTwo));
         assertTrue(a.getProjects().size() == 2);
