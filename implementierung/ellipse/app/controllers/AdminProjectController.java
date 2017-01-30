@@ -42,7 +42,7 @@ public class AdminProjectController extends Controller {
         // igendwie den adcviser
         // weglassen können?
         GeneralData.getCurrentSemester().addProject(project);
-        return redirect(controllers.routes.AdminPageController.projectEditPage(projName));
+        return redirect(controllers.routes.AdminPageController.projectEditPage(project.getId()));
     }
 
     /**
@@ -60,7 +60,7 @@ public class AdminProjectController extends Controller {
         // werden soll
         GeneralData.getCurrentSemester().removeProject(project);
         return redirect(controllers.routes.AdminPageController
-                .projectEditPage(GeneralData.getCurrentSemester().getProjects().get(0).getName()));
+                .projectEditPage(GeneralData.getCurrentSemester().getProjects().get(0).getId()));
     }
 
     /**
@@ -91,7 +91,7 @@ public class AdminProjectController extends Controller {
             minSize = Integer.parseInt(minSizeString);
             maxSize = Integer.parseInt(maxSizeString);
         } catch (NumberFormatException e) {
-            return redirect(controllers.routes.AdminPageController.projectEditPage(project.getName()));
+            return redirect(controllers.routes.AdminPageController.projectEditPage(project.getId()));
         }
 
         project.setInstitute(institute);
@@ -102,6 +102,6 @@ public class AdminProjectController extends Controller {
         project.setProjectInfo(description);
         project.setProjectURL(url);
         project.save();
-        return redirect(controllers.routes.AdminPageController.projectEditPage(project.getName()));
+        return redirect(controllers.routes.AdminPageController.projectEditPage(project.getId()));
     }
 }

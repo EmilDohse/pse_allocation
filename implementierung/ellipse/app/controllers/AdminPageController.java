@@ -10,6 +10,7 @@ import java.util.Arrays;
 import allocation.AbstractAllocator;
 import allocation.AllocationQueue;
 import allocation.Criterion;
+import data.ElipseModel;
 import data.GeneralData;
 import data.Project;
 import data.SPO;
@@ -115,15 +116,15 @@ public class AdminPageController extends Controller {
      * Diese Methode gibt die Seite zurück, auf der der Administrator ein
      * Projekt editieren kann.
      * 
-     * @param name
-     *            Der Name des Projektes (da mitgegeben über die URL, ist der
-     *            String encoded)
+     * @param id
+     *            die Id des Projekts
      * 
      * @return Die Seite, die als Antwort verschickt wird.
      */
-    public Result projectEditPage(String name) {
-        Project project = Project.getProject(name, GeneralData.getCurrentSemester());
+    public Result projectEditPage(int id) {
+        Project project = ElipseModel.getById(Project.class, id);
         play.twirl.api.Html content = views.html.projectEdit.render(project, false);
+        // TODO heier wirklich false?
         return ok(views.html.admin.render(content));
     }
 }

@@ -32,9 +32,8 @@ public class AdviserPageController extends Controller {
      * Entfernen eines Projektes ist beschränkt auf Betreuer, welche dem Projekt
      * beigetreten sind.
      * 
-     * @param name
-     *            Der Name des Projektes (da mitgegeben über die URL, ist der
-     *            String encoded)
+     * @param id
+     *            Die ID des Projekts
      * 
      * @return die Seite, die als Antwort verschickt wird.
      */

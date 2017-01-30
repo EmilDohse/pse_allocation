@@ -66,7 +66,7 @@ public class GeneralAdminController extends Controller {
      * @return Die Seite, die als Antwort verschickt wird.
      */
     public Result removeAdviser() {
-        // TODO
+        // TODO hier fehlt noch der view
         return null;
     }
 

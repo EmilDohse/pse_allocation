@@ -57,7 +57,7 @@ POST 	/admin/results				controllers.AdminPageController.resultsPage(error: Strin
 POST 	/admin/exportImport			controllers.AdminPageController.exportImportPage(error: String)
 POST 	/admin/studentEdit			controllers.AdminPageController.studentEditPage( error: String)
 POST 	/admin/properties			controllers.AdminPageController.propertiesPage(error: String)
-GET 	/admin/projectEdit/:name	controllers.AdminPageController.projectEditPage(name: String)
+GET 	/admin/projectEdit/:id	controllers.AdminPageController.projectEditPage(id: Int)
 
 POST 	/admin/addProject			controllers.AdminProjectController.addProject()
 POST 	/admin/removeProject		controllers.AdminProjectController.removeProject()
