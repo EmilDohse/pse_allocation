@@ -4,12 +4,16 @@
 
 package controllers;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.List;
 
 import javax.inject.Inject;
 
 import data.Achievement;
 import data.ElipseModel;
+import data.GeneralData;
 import data.SPO;
 import data.Semester;
 import play.data.DynamicForm;
@@ -104,8 +108,42 @@ public class AdminPropertiesController extends Controller {
      * @return Die Seite, die als Antwort verschickt wird.
      */
     public Result editSemester() {
-        // TODO
-        return null;
+        DynamicForm form = formFactory.form().bindFromRequest();
+        String name = form.get("name2");
+        String idString = form.get("id");
+        int id = Integer.parseInt(idString);
+        String generalInfo = form.get("info");
+        String registrationStart = form.get("registrationStart");
+        String registrationEnd = form.get("registrationEnd");
+        java.util.Date startDate;
+        java.util.Date endDate;
+        String semesterActive = form.get("semester-active");
+        try {
+            SimpleDateFormat format = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy");
+            // TODO stimmt dieses simpleformat so?
+            startDate = format.parse(registrationStart);
+            endDate = format.parse(registrationEnd);
+        } catch (ParseException e) {
+            return redirect(controllers.routes.AdminPageController
+                    .propertiesPage(ctx().messages().at("admin.allocation.error.generalError")));
+        }
+        // TODO heri noch die multiselectbox auslesen mit den SPOs
+        Semester semester = ElipseModel.getById(Semester.class, id);
+        semester.setInfoText(generalInfo);
+        semester.setName(name);
+        semester.setRegistrationStart(startDate);
+        semester.setRegistrationEnd(endDate);
+        semester.setWintersemester(true); // TODO hier noch checkbox machen und
+                                          // dann abfangen
+        semester.setYear(2000); // TODO hier noch eingabefeld
+        if (semesterActive != null) {
+            GeneralData.setCurrentSemester(semester);
+            GeneralData.save(); // TODO muss man hier generalData speichern?
+        }
+
+        semester.save();
+
+        return redirect(controllers.routes.AdminPageController.propertiesPage(""));
     }
 
     /**
@@ -140,7 +178,43 @@ public class AdminPropertiesController extends Controller {
      * @return Die Seite, die als Antwort verschickt wird.
      */
     public Result changeSPO() {
-        // TODO
-        return null;
+        DynamicForm form = formFactory.form().bindFromRequest();
+        String nameSPO = form.get("nameSPO");
+        String idString = form.get("id");
+        int id;
+
+        try {
+            id = Integer.parseInt(idString);
+        } catch (NumberFormatException e) {
+            return redirect(controllers.routes.AdminPageController
+                    .propertiesPage(ctx().messages().at("admin.allocation.error.generalError")));
+        }
+        SPO spo = ElipseModel.getById(SPO.class, id);
+        List<Achievement> necAchiev = spo.getNecessaryAchievements();
+        List<Achievement> addAchiev = spo.getAdditionalAchievements();
+        for (Achievement achiev : necAchiev) {
+            // für alle neccesary und additional achievments wird geprüft ob sie
+            // gelöscht werden müssen oder in die andere liste müssen
+            if (form.get("delete-" + Integer.toString(achiev.getId())) != null) {
+                spo.removeNecessaryAchievement(achiev);
+            } else if (form.get("necessary-" + Integer.toString(achiev.getId())) == null) {
+                spo.addAdditionalAchievement(achiev);
+                spo.removeNecessaryAchievement(achiev);
+            }
+            // TODO überprüfen ob checkboxen so funktionieren
+        }
+        for (Achievement achiev : addAchiev) {
+            if (form.get("delete-" + Integer.toString(achiev.getId())) != null) {
+                spo.removeAdditionalAchievement(achiev);
+            } else if (form.get("necessary-" + Integer.toString(achiev.getId())) != null) {
+                spo.addNecessaryAchievement(achiev);
+                spo.removeAdditionalAchievement(achiev);
+            }
+        }
+
+        // name wird aktualisiert
+        spo.setName(nameSPO);
+        spo.save();
+        return redirect(controllers.routes.AdminPageController.propertiesPage(""));
     }
 }

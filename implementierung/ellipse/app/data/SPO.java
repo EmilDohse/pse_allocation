@@ -166,9 +166,25 @@ public class SPO extends ElipseModel implements Comparable<SPO> {
         return getSPOs().stream().filter(spo -> spo.getName().equals(name)).findFirst().orElse(null);
     }
 
+    /**
+     * vergleicht die beiden spos anhand ihrenr namen
+     */
     @Override
     public int compareTo(SPO o) {
         return name.compareTo(o.getName());
+    }
+
+    /**
+     * vergleicht die beiden spos anhand ihrenr namen
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof SPO) {
+            if (((SPO) o).getName().equals(this.name)) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }
