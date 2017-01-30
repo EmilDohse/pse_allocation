@@ -14,7 +14,7 @@ import java.util.concurrent.Executors;
 /************************************************************/
 /**
  * Die AllocationQueue dient dazu, die Berechnung von Einteilungen als
- * FIFO-Warteschlange zu realisieren. Wenn eine berechnung fertig ist wird die
+ * FIFO-Warteschlange zu realisieren. Wenn eine Berechnung fertig ist wird die
  * nächste Berechnung angestoßen. Die Queue ist als Singelton implementiert.
  */
 public class AllocationQueue {
@@ -22,8 +22,8 @@ public class AllocationQueue {
     private static final int                QUEUE_SIZE = 10;
     private ExecutorService                 executer;
     /**
-     * Calculator ist der Thread der die berechnung anstößt er verwendet das
-     * Runnable runnable
+     * Calculator ist der Thread der die Berechnung anstößt . Er verwendet das
+     * Runnable runnable.
      */
     private Thread                          calculator;
     private Runnable                        runnable;
@@ -55,6 +55,7 @@ public class AllocationQueue {
         runnable = new Runnable() {
 
             @Override
+
             public void run() {
                 while (true) {
                     synchronized (this) { // syncronized da ansonsten probleme
@@ -151,8 +152,8 @@ public class AllocationQueue {
     }
 
     /**
-     * hier wird der thread gestartet der überpüft ob die liste leer ist und sie
-     * gegebenenfalls abarbeitet
+     * Hier wird der thread gestartet, der überpüft ob die liste leer ist und
+     * sie gegebenenfalls abarbeitet.
      */
     private void calculate() {
         executer = Executors.newFixedThreadPool(1);

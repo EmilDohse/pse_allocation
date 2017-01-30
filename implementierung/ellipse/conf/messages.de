@@ -36,6 +36,9 @@ student.learningGroup.join = Lerngruppe beitreten
 student.laerningGroup.leave = Lerngruppe verlassen
 student.result.information = Projektinformation:
 student.result.link = Link zur Projektseite
+student.account.newEmail = Neue E-Mail-Addresse
+student.account.change = Ändern
+student.account.newPassword = Neues Passwort
 
 
 adviser.leaveProject = Projekt verlassen

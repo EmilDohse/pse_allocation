@@ -4,6 +4,7 @@
 
 package controllers;
 
+import data.GeneralData;
 import play.mvc.Controller;
 import play.mvc.Result;
 
@@ -35,8 +36,9 @@ public class StudentPageController extends Controller {
      * @return Die Seite, die als Antwort verschickt wird.
      */
     public Result ratingPage(String error) {
-        // TODO
-        return null;
+        play.twirl.api.Html content = views.html.studentRating.
+                render(GeneralData.getCurrentSemester().getProjects(), error);
+        return ok(views.html.student.render(content));
     }
 
     /**

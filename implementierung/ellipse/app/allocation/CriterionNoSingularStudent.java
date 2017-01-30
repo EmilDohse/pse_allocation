@@ -19,89 +19,90 @@ import gurobi.GRBVar;
  * einem einzelnen Studierenden besteht.
  */
 public class CriterionNoSingularStudent implements GurobiCriterion {
-	private String name;
 
-	/**
-	 * Standard-Konstruktor, der den Namen eindeutig setzt
-	 */
-	public CriterionNoSingularStudent() {
-		this.name = "NoSingularStudent";
-	}
+    private String name;
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public String getName() {
-		return this.name;
-	}
+    /**
+     * Standard-Konstruktor, der den Namen eindeutig setzt.
+     */
+    public CriterionNoSingularStudent() {
+        this.name = "NoSingularStudent";
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void useCriteria(Configuration configuration, GurobiAllocator allocator, double weight) throws GRBException {
-		GRBLinExpr bonus = new GRBLinExpr();
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getName() {
+        return this.name;
+    }
 
-		// Betrachte nur Gruppen mit mehr als einem Mitglied
-		List<LearningGroup> bigGroups = configuration.getLearningGroups().stream()
-				.filter(lg -> lg.getMembers().size() > 1).collect(Collectors.toList());
-		for (int i = 0; i < bigGroups.size(); i++) {
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void useCriteria(Configuration configuration, GurobiAllocator allocator, double weight) throws GRBException {
+        GRBLinExpr bonus = new GRBLinExpr();
 
-			// Erstelle Variable, die genau der Lerngruppengröße entspricht
-			double concreteSize = bigGroups.get(i).getMembers().size();
-			GRBVar sizeOfLG;
-			sizeOfLG = allocator.getModel().addVar(0, Double.MAX_VALUE, 0, GRB.INTEGER, GurobiAllocator.NULL);
-			allocator.getModel().addConstr(sizeOfLG, GRB.EQUAL, concreteSize, GurobiAllocator.NULL);
+        // Betrachte nur Gruppen mit mehr als einem Mitglied
+        List<LearningGroup> bigGroups = configuration.getLearningGroups().stream()
+                .filter(lg -> lg.getMembers().size() > 1).collect(Collectors.toList());
+        for (int i = 0; i < bigGroups.size(); i++) {
 
-			for (int j = 0; j < configuration.getTeams().size(); j++) {
+            // Erstelle Variable, die genau der Lerngruppengröße entspricht
+            double concreteSize = bigGroups.get(i).getMembers().size();
+            GRBVar sizeOfLG;
+            sizeOfLG = allocator.getModel().addVar(0, Double.MAX_VALUE, 0, GRB.INTEGER, GurobiAllocator.NULL);
+            allocator.getModel().addConstr(sizeOfLG, GRB.EQUAL, concreteSize, GurobiAllocator.NULL);
 
-				// Erstelle Variable für den Bonus und eine Hilfsvariable
-				GRBVar auxiliaryVariable;
-				GRBVar resultVariable;
-				auxiliaryVariable = allocator.getModel().addVar(0, 1, 0, GRB.BINARY, GurobiAllocator.NULL);
-				resultVariable = allocator.getModel().addVar(0, 1, 0, GRB.BINARY, GurobiAllocator.NULL);
+            for (int j = 0; j < configuration.getTeams().size(); j++) {
 
-				// Erstelle benötigte Teilterme
-				GRBLinExpr varianceTeamAndLG = new GRBLinExpr();
-				GRBLinExpr leftSideFirstConstraint = new GRBLinExpr();
-				GRBLinExpr rightSideFirstConstraint = new GRBLinExpr();
-				GRBLinExpr leftSideSecondConstraint = new GRBLinExpr();
-				GRBLinExpr negationAuxiliaryVariable = new GRBLinExpr();
-				GRBLinExpr rightSideSecondConstraint = new GRBLinExpr();
+                // Erstelle Variable für den Bonus und eine Hilfsvariable
+                GRBVar auxiliaryVariable;
+                GRBVar resultVariable;
+                auxiliaryVariable = allocator.getModel().addVar(0, 1, 0, GRB.BINARY, GurobiAllocator.NULL);
+                resultVariable = allocator.getModel().addVar(0, 1, 0, GRB.BINARY, GurobiAllocator.NULL);
 
-				// Teilterme der Constraints aus Entwurfsdokument
-				varianceTeamAndLG.addTerm(1, allocator.getTeamSizes()[j]);
-				varianceTeamAndLG.addTerm(-1, sizeOfLG);
-				varianceTeamAndLG.addConstant(-1);
+                // Erstelle benötigte Teilterme
+                GRBLinExpr varianceTeamAndLG = new GRBLinExpr();
+                GRBLinExpr leftSideFirstConstraint = new GRBLinExpr();
+                GRBLinExpr rightSideFirstConstraint = new GRBLinExpr();
+                GRBLinExpr leftSideSecondConstraint = new GRBLinExpr();
+                GRBLinExpr negationAuxiliaryVariable = new GRBLinExpr();
+                GRBLinExpr rightSideSecondConstraint = new GRBLinExpr();
 
-				leftSideFirstConstraint.addTerm(-9, resultVariable);
+                // Teilterme der Constraints aus Entwurfsdokument
+                varianceTeamAndLG.addTerm(1, allocator.getTeamSizes()[j]);
+                varianceTeamAndLG.addTerm(-1, sizeOfLG);
+                varianceTeamAndLG.addConstant(-1);
 
-				rightSideFirstConstraint.addTerm(9, resultVariable);
+                leftSideFirstConstraint.addTerm(-9, resultVariable);
 
-				leftSideSecondConstraint.addTerm(0.1, resultVariable);
-				leftSideSecondConstraint.addTerm(-9.1, auxiliaryVariable);
+                rightSideFirstConstraint.addTerm(9, resultVariable);
 
-				negationAuxiliaryVariable.addConstant(1);
-				negationAuxiliaryVariable.addTerm(-1, auxiliaryVariable);
+                leftSideSecondConstraint.addTerm(0.1, resultVariable);
+                leftSideSecondConstraint.addTerm(-9.1, auxiliaryVariable);
 
-				rightSideSecondConstraint.addTerm(-0.1, resultVariable);
-				rightSideSecondConstraint.multAdd(9.1, negationAuxiliaryVariable);
+                negationAuxiliaryVariable.addConstant(1);
+                negationAuxiliaryVariable.addTerm(-1, auxiliaryVariable);
 
-				allocator.getModel().addConstr(leftSideFirstConstraint, GRB.LESS_EQUAL, varianceTeamAndLG,
-						GurobiAllocator.NULL);
-				allocator.getModel().addConstr(varianceTeamAndLG, GRB.LESS_EQUAL, rightSideFirstConstraint,
-						GurobiAllocator.NULL);
-				allocator.getModel().addConstr(leftSideSecondConstraint, GRB.LESS_EQUAL, varianceTeamAndLG,
-						GurobiAllocator.NULL);
-				allocator.getModel().addConstr(varianceTeamAndLG, GRB.LESS_EQUAL, rightSideSecondConstraint,
-						GurobiAllocator.NULL);
-				// Erweitere Bonusterm
-				bonus.addTerm(weight * 10, resultVariable);
-			}
-		}
+                rightSideSecondConstraint.addTerm(-0.1, resultVariable);
+                rightSideSecondConstraint.multAdd(9.1, negationAuxiliaryVariable);
 
-		// Füge Bonus dem Optimierungsterm hinzu
-		allocator.getOptimizationTerm().add(bonus);
-	}
+                allocator.getModel().addConstr(leftSideFirstConstraint, GRB.LESS_EQUAL, varianceTeamAndLG,
+                        GurobiAllocator.NULL);
+                allocator.getModel().addConstr(varianceTeamAndLG, GRB.LESS_EQUAL, rightSideFirstConstraint,
+                        GurobiAllocator.NULL);
+                allocator.getModel().addConstr(leftSideSecondConstraint, GRB.LESS_EQUAL, varianceTeamAndLG,
+                        GurobiAllocator.NULL);
+                allocator.getModel().addConstr(varianceTeamAndLG, GRB.LESS_EQUAL, rightSideSecondConstraint,
+                        GurobiAllocator.NULL);
+                // Erweitere Bonusterm
+                bonus.addTerm(weight * 10, resultVariable);
+            }
+        }
+
+        // Füge Bonus dem Optimierungsterm hinzu
+        allocator.getOptimizationTerm().add(bonus);
+    }
 }
