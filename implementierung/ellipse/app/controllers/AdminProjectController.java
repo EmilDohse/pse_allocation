@@ -6,6 +6,7 @@ package controllers;
 
 import javax.inject.Inject;
 
+import data.ElipseModel;
 import data.GeneralData;
 import data.Project;
 import notificationSystem.Notifier;
@@ -79,18 +80,20 @@ public class AdminProjectController extends Controller {
         String numberOfTeamsString = form.get("teamCount");
         String minSizeString = form.get("minSize");
         String maxSizeString = form.get("maxSize");
+        String idString = form.get("id");
         int numberOfTeams;
         int minSize;
         int maxSize;
-
+        int id = Integer.parseInt(idString);
+        Project project = ElipseModel.getById(Project.class, id);
         try {
             numberOfTeams = Integer.parseInt(numberOfTeamsString);
             minSize = Integer.parseInt(minSizeString);
             maxSize = Integer.parseInt(maxSizeString);
         } catch (NumberFormatException e) {
-            return redirect(controllers.routes.AdminPageController.projectEditPage(projName));
+            return redirect(controllers.routes.AdminPageController.projectEditPage(project.getName()));
         }
-        Project project = Project.getProject(projName, GeneralData.getCurrentSemester());
+
         project.setInstitute(institute);
         project.setMaxTeamSize(maxSize);
         project.setMinTeamSize(minSize);
@@ -99,6 +102,6 @@ public class AdminProjectController extends Controller {
         project.setProjectInfo(description);
         project.setProjectURL(url);
         project.save();
-        return redirect(controllers.routes.AdminPageController.projectEditPage(projName));
+        return redirect(controllers.routes.AdminPageController.projectEditPage(project.getName()));
     }
 }

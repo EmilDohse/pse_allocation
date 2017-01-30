@@ -4,6 +4,13 @@
 
 package controllers;
 
+import javax.inject.Inject;
+
+import data.ElipseModel;
+import data.GeneralData;
+import data.Project;
+import play.data.DynamicForm;
+import play.data.FormFactory;
 import play.mvc.Controller;
 import play.mvc.Result;
 
@@ -13,6 +20,9 @@ import play.mvc.Result;
  * im Betreuerbereich aufkommen.
  */
 public class AdviserPageController extends Controller {
+
+    @Inject
+    FormFactory formFactory;
 
     /**
      * Diese Methode gibt die Seite zurück, auf der der Betreuer Projekte sieht,
@@ -29,7 +39,8 @@ public class AdviserPageController extends Controller {
     public Result projectsPage(String name) {// TODO null entfernen hier muss
                                              // ein leeres projekt
                                              // übergenenwerden
-        play.twirl.api.Html content = views.html.projectEdit.render(null, false);
+        play.twirl.api.Html content = views.html.projectEdit
+                .render(GeneralData.getCurrentSemester().getProjects().get(0), false);
         return ok(views.html.adviser.render(content));
     }
 
@@ -67,8 +78,39 @@ public class AdviserPageController extends Controller {
      * @return die Seite, die als Antwort verschickt wird.
      */
     public Result editProject() {
-        // TODO
-        return null;
+        DynamicForm form = formFactory.form().bindFromRequest();
+        String projName = form.get("name");
+        String url = form.get("url");
+        String institute = form.get("institute");
+        String description = form.get("description");
+        String numberOfTeamsString = form.get("teamCount");
+        String minSizeString = form.get("minSize");
+        String maxSizeString = form.get("maxSize");
+        String idString = form.get("id"); // TODO im view die ID hinzufügen
+        int id = Integer.parseInt(idString);
+        int numberOfTeams;
+        int minSize;
+        int maxSize;
+        Project project = ElipseModel.getById(Project.class, id);
+        try {
+            numberOfTeams = Integer.parseInt(numberOfTeamsString);
+            minSize = Integer.parseInt(minSizeString);
+            maxSize = Integer.parseInt(maxSizeString);
+        } catch (NumberFormatException e) {
+            return redirect(controllers.routes.AdviserPageController.projectsPage(project.getName()));
+        }
+
+        project.setInstitute(institute);
+        project.setMaxTeamSize(maxSize);
+        project.setMinTeamSize(minSize);
+        project.setName(projName);
+        project.setNumberOfTeams(numberOfTeams);
+        project.setProjectInfo(description);
+        project.setProjectURL(url);
+        project.save();
+        // TODO ist es wirklich sinnvoll mit dem namen auf ein Projekt
+        // zuzugreifen - dieser ist nicht eindeutig
+        return redirect(controllers.routes.AdviserPageController.projectsPage(project.getName()));
     }
 
     /**
