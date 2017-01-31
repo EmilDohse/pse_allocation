@@ -1,8 +1,18 @@
-@(allocations: List[data.Allocation], criteria: List[qualityCriteria.QualityCriterion], error: String)
+@(allocations: List[data.Allocation], criteria:
+List[qualityCriteria.QualityCriterion], error: String)
 <div>
 	<h1>@Messages("admin.sidebar.results")</h1>
 	<!-- Nav tabs -->
-	<ul class="nav nav-tabs" role="tablist">
+	<script type="text/javascript">
+		$(function() {
+			$('#allocation-tabs a:first').tab('show');
+		});
+		$('#allocation-tabs a').click(function(e) {
+			e.preventDefault();
+			$(this).tab('show');
+		})
+	</script>
+	<ul class="nav nav-tabs" role="tablist" id="allocation-tabs">
 		@for(allocation <- allocations) {
 		<li role="presentation"><a href="#@allocation.getName()"
 			aria-controls="@allocation.getName()" role="tab" data-toggle="tab">@allocation.getName()</a></li>
@@ -71,7 +81,9 @@
 			<div class="row">
 				@for(allocation <- allocations) {
 				<div class="col-sm-6 col-md-6">
-					<h3><small>@allocation.getName()</small></h3>
+					<h3>
+						<small>@allocation.getName()</small>
+					</h3>
 					<table class="table table-striped">
 						<thead>
 							<tr>

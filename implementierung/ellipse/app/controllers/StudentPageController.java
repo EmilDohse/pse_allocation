@@ -4,7 +4,7 @@
 
 package controllers;
 
-import javax.inject.Inject;
+import com.google.inject.Inject;
 
 import data.GeneralData;
 import data.LearningGroup;
@@ -37,8 +37,9 @@ public class StudentPageController extends Controller {
     public Result learningGroupPage(String error) {
         UserManagement user = new UserManagement();
         Student student = (Student) user.getUserProfile(ctx());
-        play.twirl.api.Html content = views.html.studentLearningGroup
-                .render(student.getLearningGroup(GeneralData.getCurrentSemester()), error);
+        play.twirl.api.Html content = views.html.studentLearningGroup.render(
+                student.getLearningGroup(GeneralData.getCurrentSemester()),
+                error);
         return ok(views.html.student.render(content));
     }
 
@@ -49,8 +50,8 @@ public class StudentPageController extends Controller {
      * @return Die Seite, die als Antwort verschickt wird.
      */
     public Result ratingPage(String error) {
-        play.twirl.api.Html content = views.html.studentRating.render(GeneralData.getCurrentSemester().getProjects(),
-                error);
+        play.twirl.api.Html content = views.html.studentRating
+                .render(GeneralData.getCurrentSemester().getProjects(), error);
         return ok(views.html.student.render(content));
     }
 
@@ -75,7 +76,8 @@ public class StudentPageController extends Controller {
         UserManagement user = new UserManagement();
         Student student = (Student) user.getUserProfile(ctx());
         play.twirl.api.Html content = views.html.studentResult
-                .render(GeneralData.getCurrentSemester().getFinalAllocation().getTeam(student).getProject(), error);
+                .render(GeneralData.getCurrentSemester().getFinalAllocation()
+                        .getTeam(student).getProject(), error);
         return ok(views.html.student.render(content));
     }
 
@@ -105,16 +107,19 @@ public class StudentPageController extends Controller {
         String name = form.get("learningGroupname");
         String password = form.get("learningGroupPassword");
         // TODO stimmt hier der rückgabewert in html
-        if (!(LearningGroup.getLearningGroup(name, GeneralData.getCurrentSemester()) == null)) {
+        if (!(LearningGroup.getLearningGroup(name,
+                GeneralData.getCurrentSemester()) == null)) {
             return redirect(controllers.routes.StudentPageController
-                    .learningGroupPage(ctx().messages().at("student .learningGroup.error.existsAllready")));
+                    .learningGroupPage(ctx().messages().at(
+                            "student .learningGroup.error.existsAllready")));
         }
         LearningGroup lg = new LearningGroup(name, password, student, false);
         student.getLearningGroup(GeneralData.getCurrentSemester()).delete();
         // TODO falls man die alten bewertungen wieder will muss man hier die
         // alte lerngruppe behalten
         GeneralData.getCurrentSemester().addLearningGroup(lg);
-        return redirect(controllers.routes.StudentPageController.learningGroupPage(""));
+        return redirect(
+                controllers.routes.StudentPageController.learningGroupPage(""));
     }
 
     /**
@@ -126,14 +131,19 @@ public class StudentPageController extends Controller {
     public Result leaveLearningGroup() {
         UserManagement user = new UserManagement();
         Student student = (Student) user.getUserProfile(ctx());
-        if (student.getLearningGroup(GeneralData.getCurrentSemester()).getMembers().size() == 1) {
-            LearningGroup lg = new LearningGroup("private" + student.getUserName(), "", student, true);
-            return redirect(controllers.routes.StudentPageController.learningGroupPage(""));
+        if (student.getLearningGroup(GeneralData.getCurrentSemester())
+                .getMembers().size() == 1) {
+            LearningGroup lg = new LearningGroup(
+                    "private" + student.getUserName(), "", student, true);
+            return redirect(controllers.routes.StudentPageController
+                    .learningGroupPage(""));
         } // hier wurde der student wieder in seine privat elerngruppe eingefügt
-        LearningGroup lg = student.getLearningGroup(GeneralData.getCurrentSemester());
+        LearningGroup lg = student
+                .getLearningGroup(GeneralData.getCurrentSemester());
         lg.removeMember(student);
         lg.save();
-        return redirect(controllers.routes.StudentPageController.learningGroupPage(""));
+        return redirect(
+                controllers.routes.StudentPageController.learningGroupPage(""));
 
     }
 
@@ -150,23 +160,28 @@ public class StudentPageController extends Controller {
         DynamicForm form = formFactory.form().bindFromRequest();
         String name = form.get("learningGroupname");
         String pw = form.get("learningGroupPassword");
-        LearningGroup lgOld = student.getLearningGroup(GeneralData.getCurrentSemester());
-        LearningGroup lgNew = LearningGroup.getLearningGroup(name, GeneralData.getCurrentSemester());
+        LearningGroup lgOld = student
+                .getLearningGroup(GeneralData.getCurrentSemester());
+        LearningGroup lgNew = LearningGroup.getLearningGroup(name,
+                GeneralData.getCurrentSemester());
         // TODO hier nicht >5 sondern irgendwo den admin festlegen lassen wie
         // groß lerngruppen maximal sein dürfen
         if (lgNew.getMembers().size() > 5) {
             return redirect(controllers.routes.StudentPageController
-                    .learningGroupPage(ctx().messages().at("student .learningGroup.error.learningGroupFull")));
+                    .learningGroupPage(ctx().messages().at(
+                            "student .learningGroup.error.learningGroupFull")));
         } // wenn die lerngruppe bereits voll ist wird ein fehler zurückgegeben
 
         if (lgNew.getPassword().equals(pw)) {
             lgOld.delete(); // die private lerngruppe wird gelöscht
             lgNew.addMember(student);
-            return redirect(controllers.routes.StudentPageController.learningGroupPage(""));
+            return redirect(controllers.routes.StudentPageController
+                    .learningGroupPage(""));
         }
 
         return redirect(controllers.routes.StudentPageController
-                .learningGroupPage(ctx().messages().at("student .learningGroup.error.wrongPW")));
+                .learningGroupPage(ctx().messages()
+                        .at("student .learningGroup.error.wrongPW")));
     }
 
     /**
@@ -178,7 +193,8 @@ public class StudentPageController extends Controller {
     public Result accountPage(String error) {
         UserManagement user = new UserManagement();
         Student student = (Student) user.getUserProfile(ctx());
-        play.twirl.api.Html content = views.html.studentAccount.render(student, error);
+        play.twirl.api.Html content = views.html.studentAccount.render(student,
+                error);
         return ok(views.html.student.render(content));
     }
 

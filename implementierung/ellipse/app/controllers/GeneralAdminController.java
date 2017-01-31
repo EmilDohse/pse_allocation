@@ -7,7 +7,7 @@ package controllers;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.inject.Inject;
+import com.google.inject.Inject;
 
 import allocation.AllocationQueue;
 import allocation.Configuration;
@@ -52,7 +52,8 @@ public class GeneralAdminController extends Controller {
         String email = form.get("email");
         String password = form.get("password");
         // TODO password per email?
-        Adviser adviser = new Adviser(email, password, email, firstName, lastName);
+        Adviser adviser = new Adviser(email, password, email, firstName,
+                lastName);
         adviser.save();
         return redirect(controllers.routes.AdminPageController.adviserPage(""));
 
@@ -93,7 +94,8 @@ public class GeneralAdminController extends Controller {
             maxSize = Integer.parseInt(maxSizeString);
         } catch (NumberFormatException e) {
             return redirect(controllers.routes.AdminPageController
-                    .allocationPage(ctx().messages().at("admin.allocation.error.generalError")));
+                    .allocationPage(ctx().messages()
+                            .at("admin.allocation.error.generalError")));
         }
         ArrayList<AllocationParameter> allocParam = new ArrayList<>(); // die
                                                                        // liste
@@ -107,7 +109,8 @@ public class GeneralAdminController extends Controller {
 
         AllocationQueue queue = AllocationQueue.getInstance();
         List<Student> studenst = GeneralData.getCurrentSemester().getStudents();
-        List<LearningGroup> learningGroups = GeneralData.getCurrentSemester().getLearningGroups();
+        List<LearningGroup> learningGroups = GeneralData.getCurrentSemester()
+                .getLearningGroups();
         for (Student student : studenst) { // es wird erneut überprüft ob der
                                            // student die neccesary achiefments
                                            // hat und wenn nicht wird der
@@ -115,14 +118,17 @@ public class GeneralAdminController extends Controller {
                                            // lerngruppe entfernt (nur für diese
                                            // config)
             boolean achiefment = true;
-            for (Achievement achiev : student.getSPO().getNecessaryAchievements()) {
+            for (Achievement achiev : student.getSPO()
+                    .getNecessaryAchievements()) {
                 if (achiefment) {
-                    achiefment = student.getCompletedAchievements().contains(achiev);
+                    achiefment = student.getCompletedAchievements()
+                            .contains(achiev);
                 }
             }
             if (!achiefment) {
                 studenst.remove(student);
-                LearningGroup lg = student.getLearningGroup(GeneralData.getCurrentSemester());
+                LearningGroup lg = student
+                        .getLearningGroup(GeneralData.getCurrentSemester());
                 // TODO braucht learning group ein comparable?oder equals
                 for (LearningGroup iterLg : learningGroups) {
                     if (iterLg.equals(lg)) {
@@ -133,9 +139,11 @@ public class GeneralAdminController extends Controller {
             }
         }
 
-        Configuration configuration = new Configuration(name, studenst, learningGroups, allocParam);
+        Configuration configuration = new Configuration(name, studenst,
+                learningGroups, allocParam);
         queue.addToQueue(configuration);
-        return redirect(controllers.routes.AdminPageController.allocationPage(""));
+        return redirect(
+                controllers.routes.AdminPageController.allocationPage(""));
     }
 
     /**
@@ -149,8 +157,10 @@ public class GeneralAdminController extends Controller {
         DynamicForm form = formFactory.form().bindFromRequest();
         String configName = form.get("queue");
         AllocationQueue allocationQueue = AllocationQueue.getInstance();
-        allocationQueue.cancelAllocation(new Configuration(configName, null, null, null));
-        return redirect(controllers.routes.AdminPageController.allocationPage(""));
+        allocationQueue.cancelAllocation(
+                new Configuration(configName, null, null, null));
+        return redirect(
+                controllers.routes.AdminPageController.allocationPage(""));
     }
 
     /**
@@ -177,13 +187,16 @@ public class GeneralAdminController extends Controller {
             semester = Integer.parseInt(semesterString);
         } catch (NumberFormatException e) {
             return redirect(controllers.routes.AdminPageController
-                    .studentEditPage(ctx().messages().at("admin.allocation.error.generalError")));
+                    .studentEditPage(ctx().messages()
+                            .at("admin.allocation.error.generalError")));
         }
 
-        Student student = new Student(matNrString, password, email, firstName, lastName, matNr, spo,
-                spo.getNecessaryAchievements(), new ArrayList<>(), semester);
+        Student student = new Student(matNrString, password, email, firstName,
+                lastName, matNr, spo, spo.getNecessaryAchievements(),
+                new ArrayList<>(), semester);
         GeneralData.getCurrentSemester().addStudent(student);
-        return redirect(controllers.routes.AdminPageController.studentEditPage(""));
+        return redirect(
+                controllers.routes.AdminPageController.studentEditPage(""));
     }
 
     /**
@@ -202,10 +215,12 @@ public class GeneralAdminController extends Controller {
             matNr = Integer.parseInt(matNrString);
         } catch (NumberFormatException e) {
             return redirect(controllers.routes.AdminPageController
-                    .studentEditPage(ctx().messages().at("admin.allocation.error.generalError")));
+                    .studentEditPage(ctx().messages()
+                            .at("admin.allocation.error.generalError")));
         }
         Student student = Student.getStudent(matNr);
         GeneralData.getCurrentSemester().removeStudent(student);
-        return redirect(controllers.routes.AdminPageController.studentEditPage(""));
+        return redirect(
+                controllers.routes.AdminPageController.studentEditPage(""));
     }
 }
