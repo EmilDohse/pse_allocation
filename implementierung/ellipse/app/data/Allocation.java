@@ -162,6 +162,9 @@ public class Allocation extends ElipseModel {
             oldTeam.removeMember(student);
         }
         team.addMember(student);
+        if (!teams.contains(team)) {
+            teams.add(team);
+        }
     }
 
     /**
