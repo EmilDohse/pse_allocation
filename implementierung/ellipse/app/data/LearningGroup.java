@@ -120,6 +120,7 @@ public class LearningGroup extends ElipseModel {
         Rating r = new Rating();
         r.setProject(project);
         r.setRating(rating);
+        ratings.add(r);
         // TODO save
     }
 
