@@ -4,6 +4,11 @@
 
 package qualityCriteria;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ServiceLoader;
+
 /************************************************************/
 /**
  * Klasse, die alle Gütekriterien lädt.
@@ -15,8 +20,13 @@ public class QualityCriteriaLoader {
      * 
      * @return Liste aller Gütekriterien
      */
-    public static QualityCriterion[] getAllQualityCriteria() {
-        // TODO
-        return null;
+    public static List<QualityCriterion> getAllQualityCriteria() {
+        ArrayList<QualityCriterion> qc = new ArrayList<>();
+        Iterator<QualityCriterion> iter = ServiceLoader
+                .load(QualityCriterion.class).iterator();
+        while (iter.hasNext()) {
+            qc.add(iter.next());
+        }
+        return qc;
     }
 }

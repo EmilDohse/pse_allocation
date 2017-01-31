@@ -14,7 +14,7 @@ import data.Student;
 /**
  * Gütekriterium, das die Anzahl der zerteilten Lerngruppen berechnet.
  */
-public class splitLearningGroups implements QualityCriterion {
+public class SplitLearningGroups implements QualityCriterion {
 
     /**
      * {@inheritDoc}
