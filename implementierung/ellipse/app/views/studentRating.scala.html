@@ -20,11 +20,11 @@
 		@for(project <- projects) {
 		<tr>
 			<td>@project.getName()</td>
-			<td><input type="radio" name=@project.getName()</td>
-			<td><input type="radio" name=@project.getName()</td>
-			<td><input type="radio" name=@project.getName()</td>
-			<td><input type="radio" name=@project.getName()</td>
-			<td><input type="radio" name=@project.getName()</td>
+			<td><input type="radio" name="@project.getId()" value="2"></td>
+			<td><input type="radio" name="@project.getId()" value="4"></td>
+			<td><input type="radio" name="@project.getId()" value="6"></td>
+			<td><input type="radio" name="@project.getId()" value="8"></td>
+			<td><input type="radio" name="@project.getId()" value="10"></td>
 		</tr>
 		}
 	</tbody>
