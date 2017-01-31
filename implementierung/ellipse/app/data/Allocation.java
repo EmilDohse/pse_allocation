@@ -37,7 +37,6 @@ public class Allocation extends ElipseModel {
     @ManyToMany(cascade = CascadeType.ALL)
     private List<AllocationParameter> parameters;
 
-    // "Nehmt doch ein ORM. Das macht alles leichter" Thanks Obama
     // Ebean braucht das hier
     @ManyToOne
     private Semester                  semester;
@@ -66,6 +65,14 @@ public class Allocation extends ElipseModel {
         return semester;
     }
 
+    /**
+     * Setter für das Semester. Sollte nicht manuell benutzt werden. Zum Setzten
+     * reicht es, die Allocation uber Semester.addAllocation() oder
+     * Semester.setAllocations hinzuzufügen.
+     * 
+     * @param semester
+     *            Das Semester, zu dem diese Allocation gehört.
+     */
     public void setSemester(Semester semester) {
         this.semester = semester;
     }

@@ -22,10 +22,20 @@ public class GeneralData extends ElipseModel {
     private static GeneralData instance;
 
     /**
+     * !!!DO NOT USE THIS!!! GeneralData is supposed to be a Singleton.
+     * Constructor is only public due to restrictions in EBean. Use
+     * GeneralData.getInstance() instead.
+     */
+    @Deprecated
+    public GeneralData() {
+        super();
+    }
+
+    /**
      * Das momentane Semester.
      */
     @OneToOne(cascade = CascadeType.PERSIST)
-    private Semester           currentSemester;
+    private Semester currentSemester;
 
     /**
      * Getter für das aktuelle Semester.

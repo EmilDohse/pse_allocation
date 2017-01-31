@@ -138,12 +138,14 @@ public class Semester extends ElipseModel implements Comparable<Semester> {
     }
 
     /**
-     * Setter für die Einteilungen.
+     * Setter für die Einteilungen. Setzt auch bei der Allocation die
+     * Gegenassoziation auf dieses Semester.
      * 
      * @param allocations
      *            Die Einteilungen.
      */
     public void setAllocations(List<Allocation> allocations) {
+        allocations.forEach(a -> a.setSemester(this));
         this.allocations = allocations;
     }
 
@@ -157,16 +159,14 @@ public class Semester extends ElipseModel implements Comparable<Semester> {
     }
 
     /**
-     * Fügt dem Semester eine Einteilung hinzu.
+     * Fügt dem Semester eine Einteilung hinzu. Setzt auch bei der Allocation
+     * die Gegenassoziation auf dieses Semester.
      * 
      * @param allocation
      *            Einteilung, die hinzugefügt wird.
      */
     public void addAllocation(Allocation allocation) {
-        if (allocations == null) {
-            allocations = new ArrayList<Allocation>();
-        }
-
+        allocation.setSemester(this);
         allocations.add(allocation);
     }
 
@@ -177,24 +177,18 @@ public class Semester extends ElipseModel implements Comparable<Semester> {
      *            Einteilung, die entfernt wird.
      */
     public void removeAllocation(Allocation allocation) {
-        if (allocations == null) {
-            allocations = new ArrayList<Allocation>();
-        }
-
-        if (allocations.contains(allocation)) {
-            allocations.remove(allocation);
-        } else {
-            // TODO throws
-        }
+        allocations.remove(allocation);
     }
 
     /**
-     * Setter für die Projekte.
+     * Setter für die Projekte. Setzt auch beim Projekt die Gegenassoziation auf
+     * dieses Semester.
      * 
      * @param projects
      *            Die Projekte, die dem Semester übergeben werden.
      */
     public void setProjects(List<Project> projects) {
+        projects.forEach(p -> p.setSemester(this));
         this.projects = projects;
     }
 
@@ -208,16 +202,14 @@ public class Semester extends ElipseModel implements Comparable<Semester> {
     }
 
     /**
-     * Fügt ein Projekt hinzu.
+     * Fügt ein Projekt hinzu. Setzt auch bei der Projekt die Gegenassoziation
+     * auf dieses Semester.
      * 
      * @param project
      *            Projekt, das hinzugefügt wird.
      */
     public void addProject(Project project) {
-        if (projects == null) {
-            projects = new ArrayList<Project>();
-        }
-
+        project.setSemester(this);
         projects.add(project);
     }
 
@@ -228,15 +220,7 @@ public class Semester extends ElipseModel implements Comparable<Semester> {
      *            Projekt, das entfernt wird.
      */
     public void removeProject(Project project) {
-        if (projects == null) {
-            projects = new ArrayList<Project>();
-        }
-
-        if (projects.contains(project)) {
-            projects.remove(project);
-        } else {
-            // TODO throws
-        }
+        projects.remove(project);
     }
 
     /**
@@ -265,10 +249,6 @@ public class Semester extends ElipseModel implements Comparable<Semester> {
      *            Student, der hinzugefügt wird.
      */
     public void addStudent(Student student) {
-        if (students == null) {
-            students = new ArrayList<Student>();
-        }
-
         students.add(student);
     }
 
@@ -279,24 +259,18 @@ public class Semester extends ElipseModel implements Comparable<Semester> {
      *            Student, der entfernt wird.
      */
     public void removeStudent(Student student) {
-        if (students == null) {
-            students = new ArrayList<Student>();
-        }
-
-        if (students.contains(student)) {
-            students.remove(student);
-        } else {
-            // TODO throws
-        }
+        students.remove(student);
     }
 
     /**
-     * Setter für die Lerngruppen.
+     * Setter für die Lerngruppen. Setzt auch bei der Lerngruppe die
+     * Gegenassoziation auf dieses Semester.
      * 
      * @param learningGroups
      *            Die Lerngruppen, die dem Semester übergeben werden.
      */
     public void setLearningGroups(List<LearningGroup> learningGroups) {
+        learningGroups.forEach(lg -> lg.setSemester(this));
         this.learningGroups = learningGroups;
     }
 
@@ -310,16 +284,14 @@ public class Semester extends ElipseModel implements Comparable<Semester> {
     }
 
     /**
-     * Fügt eine Lerngruppe hinzu.
+     * Fügt eine Lerngruppe hinzu. Setzt auch bei der Lerngruppe die
+     * Gegenassoziation auf dieses Semester.
      * 
      * @param learningGroup
      *            Lerngruppe, die hinzugefügt wird.
      */
     public void addLearningGroup(LearningGroup learningGroup) {
-        if (learningGroups == null) {
-            learningGroups = new ArrayList<LearningGroup>();
-        }
-
+        learningGroup.setSemester(this);
         learningGroups.add(learningGroup);
     }
 
@@ -330,15 +302,7 @@ public class Semester extends ElipseModel implements Comparable<Semester> {
      *            Lerngruppe, die entfernt wird.
      */
     public void removeLearningGroup(LearningGroup learningGroup) {
-        if (learningGroups == null) {
-            learningGroups = new ArrayList<LearningGroup>();
-        }
-
-        if (learningGroups.contains(learningGroup)) {
-            learningGroups.remove(learningGroup);
-        } else {
-            // TODO throws
-        }
+        learningGroups.remove(learningGroup);
     }
 
     /**
@@ -348,10 +312,6 @@ public class Semester extends ElipseModel implements Comparable<Semester> {
      *            SPO, die hinzugefügt wird.
      */
     public void addSPO(SPO spo) {
-        if (spos == null) {
-            spos = new ArrayList<SPO>();
-        }
-
         spos.add(spo);
     }
 
@@ -362,15 +322,7 @@ public class Semester extends ElipseModel implements Comparable<Semester> {
      *            SPO, die entfernt wird.
      */
     public void removeSPO(SPO spo) {
-        if (spos == null) {
-            spos = new ArrayList<SPO>();
-        }
-
-        if (spos.contains(spo)) {
-            spos.remove(spo);
-        } else {
-            // TODO throws
-        }
+        spos.remove(spo);
     }
 
     /**
@@ -526,6 +478,20 @@ public class Semester extends ElipseModel implements Comparable<Semester> {
      */
     public Date getRegistrationEnd() {
         return registrationEnd;
+    }
+
+    /**
+     * Gibt die Lerngruppe des Studenten in diesem Semester zurück. Null falls
+     * er keine besitzt.
+     * 
+     * @param student
+     *            Der Student, dessen Lerngruppe zurückgegeben wird.
+     * @return Die Lerngruppe des Studenten. Null falls der Student in diesem
+     *         Semester in keiner Lerngruppe ist.
+     */
+    public LearningGroup getLearningGroupOf(Student student) {
+        return learningGroups.stream().filter(learningGroup -> learningGroup.getMembers().contains(student)).findFirst()
+                .orElse(null);
     }
 
     @Override

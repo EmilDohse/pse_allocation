@@ -11,7 +11,7 @@ import javax.persistence.Entity;
 public class Administrator extends User {
 
     public Administrator() {
-
+        super();
     }
 
     public Administrator(String username, String password, String emailAddress, String firstName, String lastName) {

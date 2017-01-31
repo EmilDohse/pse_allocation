@@ -25,13 +25,12 @@ public class Rating extends ElipseModel {
     @ManyToOne
     private Project       project;
 
-    // "Nehmt doch ein ORM. Das macht alles leichter" Thanks Obama
     // Ebean braucht das hier
     @ManyToOne
     private LearningGroup learningGroup;
 
     public Rating() {
-
+        this(0, new Project());
     }
 
     public Rating(int rating, Project project) {
@@ -43,6 +42,14 @@ public class Rating extends ElipseModel {
         return learningGroup;
     }
 
+    /**
+     * Setter für die Lerngruppe. Sollte nicht manuell benutzt werden. Zum
+     * Setzten reicht es, die Lerngruppe uber LearningGroup.rate() oder
+     * LearningGroup.setRatings() hinzuzufügen.
+     * 
+     * @param learningGroup
+     *            Die Lerngruppe, zu dem diese Bewertung gehört.
+     */
     public void setLearningGroup(LearningGroup learningGroup) {
         this.learningGroup = learningGroup;
     }

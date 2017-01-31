@@ -30,7 +30,6 @@ public class Team extends ElipseModel implements Comparable<Team> {
     @ManyToOne(cascade = CascadeType.PERSIST)
     private Project       project;
 
-    // "Nehmt doch ein ORM. Das macht alles leichter" Thanks Obama
     // Ebean braucht das hier
     @ManyToOne
     private Allocation    allocation;
@@ -147,17 +146,17 @@ public class Team extends ElipseModel implements Comparable<Team> {
         return members;
     }
 
-    /**
-     * Diese Methode gibt die Bewertung eines Studierenden zum Projekt dieses
-     * Teams zurück.
-     * 
-     * @param student
-     *            Der Studierende, dessen Bewertung zurückgegeben werden soll.
-     * @return Die Bewertung des Studierenden.
-     */
-    public int getRating(Student student) {
-        return student.getRating(project);
-    }
+    // /**
+    // * Diese Methode gibt die Bewertung eines Studierenden zum Projekt dieses
+    // * Teams zurück.
+    // *
+    // * @param student
+    // * Der Studierende, dessen Bewertung zurückgegeben werden soll.
+    // * @return Die Bewertung des Studierenden.
+    // */
+    // public int getRating(Student student) {
+    // return student.getRating(project);
+    // }
 
     /**
      * Diese Methode gibt die Betreuer des Teams zurück.

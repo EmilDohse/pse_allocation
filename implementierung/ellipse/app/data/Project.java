@@ -4,7 +4,6 @@
 
 package data;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -80,6 +79,14 @@ public class Project extends ElipseModel implements Comparable<Project> {
         advisers.add(adviser);
     }
 
+    /**
+     * Setter für das Semester. Sollte nicht manuell benutzt werden. Zum Setzten
+     * reicht es, das Projekt uber Semester.addProject() oder
+     * Semester.setProjects hinzuzufügen.
+     * 
+     * @param semester
+     *            Das Semester, zu dem diese Projekt gehört.
+     */
     public void setSemester(Semester semester) {
         this.semester = semester;
     }
@@ -133,10 +140,6 @@ public class Project extends ElipseModel implements Comparable<Project> {
      *            Betreuer der hinzugefügt wird.
      */
     public void addAdviser(Adviser adviser) {
-        if (advisers == null) {
-            advisers = new ArrayList<Adviser>();
-        }
-
         advisers.add(adviser);
     }
 
@@ -147,15 +150,7 @@ public class Project extends ElipseModel implements Comparable<Project> {
      *            Betreuer der entfernt wird.
      */
     public void removeAdviser(Adviser adviser) {
-        if (advisers == null) {
-            advisers = new ArrayList<Adviser>();
-        }
-
-        if (advisers.contains(adviser)) {
-            advisers.remove(adviser);
-        } else {
-            // TODO throws
-        }
+        advisers.remove(adviser);
     }
 
     /**
@@ -309,17 +304,18 @@ public class Project extends ElipseModel implements Comparable<Project> {
         return getProjects().stream().filter(project -> project.getName().equals(name)).findFirst().orElse(null);
     }
 
-    /**
-     * Diese Methode gibt die Bewertung eines spezifischen Studenten für dieses
-     * Projekt zurück.
-     * 
-     * @param student
-     *            Der Student, dessen Bewertung zurückgegeben werdedn soll.
-     * @return Die Bewertung des Studenten.
-     */
-    public int getRating(Student student) {
-        return student.getLearningGroup(getSemester()).getRating(this);
-    }
+    // /**
+    // * Diese Methode gibt die Bewertung eines spezifischen Studenten für
+    // dieses
+    // * Projekt zurück.
+    // *
+    // * @param student
+    // * Der Student, dessen Bewertung zurückgegeben werdedn soll.
+    // * @return Die Bewertung des Studenten.
+    // */
+    // public int getRating(Student student) {
+    // return student.getLearningGroup(getSemester()).getRating(this);
+    // }
 
     /**
      * Gibt das Semester zurück, in dem das Projekt angeboten wurde.
@@ -327,14 +323,6 @@ public class Project extends ElipseModel implements Comparable<Project> {
      * @return Semester, in dem das Projekt angeboten wurde.
      */
     public Semester getSemester() {
-        // for (Semester s : Semester.getSemesters()) {
-        // if (s.getProjects().contains(this)) {
-        // return s;
-        // }
-        // }
-        // // TODO throws
-        // return null;
-        // TODO
         return semester;
     }
 

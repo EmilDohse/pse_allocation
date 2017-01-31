@@ -44,7 +44,6 @@ public class LearningGroup extends ElipseModel {
     @OneToMany(cascade = CascadeType.ALL)
     private List<Rating>  ratings;
 
-    // "Nehmt doch ein ORM. Das macht alles leichter" Thanks Obama
     // Ebean braucht das hier
     @ManyToOne
     private Semester      semester;
@@ -78,6 +77,14 @@ public class LearningGroup extends ElipseModel {
         return semester;
     }
 
+    /**
+     * Setter für das Semester. Sollte nicht manuell benutzt werden. Zum Setzten
+     * reicht es, die Semester uber Semester.addLearningGroup() oder
+     * Semester.setLearningGroups hinzuzufügen.
+     * 
+     * @param semester
+     *            Das Semester, zu dem diese LearningGroup gehört.
+     */
     public void setSemester(Semester semester) {
         this.semester = semester;
     }
@@ -92,17 +99,20 @@ public class LearningGroup extends ElipseModel {
     }
 
     /**
-     * Setter für die Projektbewertungen.
+     * Setter für die Projektbewertungen. Setzt auch bei der Bewertung die
+     * Gegenassoziation auf diese Lerngruppe.
      * 
      * @param ratings
      *            Projektbewertungen der Lerngruppe.
      */
     public void setRatings(List<Rating> ratings) {
+        ratings.forEach(r -> r.setLearningGroup(this));
         this.ratings = ratings;
     }
 
     /**
-     * Ändert die Bewertung für ein Projekt.
+     * Ändert die Bewertung für ein Projekt. Setzt auch bei der Bewertung die
+     * Gegenassoziation auf diese Lerngruppe.
      * 
      * @param project
      *            Projekt, für das die Bewertung geändert wird.
@@ -121,6 +131,7 @@ public class LearningGroup extends ElipseModel {
         r.setProject(project);
         r.setRating(rating);
         ratings.add(r);
+        r.setLearningGroup(this);
         // TODO save
     }
 
