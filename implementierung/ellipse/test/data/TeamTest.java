@@ -63,17 +63,28 @@ public class TeamTest extends DataTest {
     public void testGetRating() {
         List<Student> students = new ArrayList<Student>();
         Student student = new Student();
+        student.save();
+        students.add(student);
         LearningGroup learningGroup = new LearningGroup();
         learningGroup.setMembers(students);
+        learningGroup.save();
         Rating rating = new Rating();
         Project project = new Project();
+        Semester semester = new Semester();
+        semester.addLearningGroup(learningGroup);
+        semester.save();
+        project.setSemester(semester);
+        project.save();
         int r = 11;
         rating.setProject(project);
         rating.setRating(r);
+        rating.save();
         List<Rating> ratings = new ArrayList<Rating>();
         ratings.add(rating);
         learningGroup.setRatings(ratings);
+        learningGroup.save();
         team.setProject(project);
+        team.save();
         assertEquals(r, team.getRating(student));
     }
 }
