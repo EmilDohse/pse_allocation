@@ -6,14 +6,12 @@ package data;
 
 import java.util.List;
 
-import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotNull;
 
 /************************************************************/
 /**
  * Diese Klasse stellt einen Benutzer der Anwendung dar.
  */
-@MappedSuperclass
 public abstract class User extends ElipseModel implements Comparable<User> {
 
     /**
