@@ -7,6 +7,9 @@ import org.pac4j.core.exception.AccountNotFoundException;
 import org.pac4j.core.exception.BadCredentialsException;
 import org.pac4j.core.exception.HttpAction;
 
+import data.Administrator;
+import data.Adviser;
+import data.Student;
 import data.User;
 
 /**
@@ -21,11 +24,38 @@ public class UserAuthenticator
     @Override
     public void validate(UsernamePasswordCredentials credentials,
             WebContext context) throws HttpAction {
-        for (User u : User.getUsers()) {
+        for (User u : Administrator.getAdministrators()) {
             if (credentials.getUsername().equals(u.getUserName())) {
                 // TODO : Password Encryption
                 if (credentials.getPassword().equals(u.getPassword())) {
                     UserProfile profile = new UserProfile(u);
+                    profile.addRole("ROLE_ADMIN");
+                    credentials.setUserProfile(profile);
+                } else {
+                    throw new BadCredentialsException("Bad credentials for: "
+                            + credentials.getUsername());
+                }
+            }
+        }
+        for (User u : Student.getStudents()) {
+            if (credentials.getUsername().equals(u.getUserName())) {
+                // TODO : Password Encryption
+                if (credentials.getPassword().equals(u.getPassword())) {
+                    UserProfile profile = new UserProfile(u);
+                    profile.addRole("ROLE_STUDENT");
+                    credentials.setUserProfile(profile);
+                } else {
+                    throw new BadCredentialsException("Bad credentials for: "
+                            + credentials.getUsername());
+                }
+            }
+        }
+        for (User u : Adviser.getAdvisers()) {
+            if (credentials.getUsername().equals(u.getUserName())) {
+                // TODO : Password Encryption
+                if (credentials.getPassword().equals(u.getPassword())) {
+                    UserProfile profile = new UserProfile(u);
+                    profile.addRole("ROLE_ADVISER");
                     credentials.setUserProfile(profile);
                 } else {
                     throw new BadCredentialsException("Bad credentials for: "
