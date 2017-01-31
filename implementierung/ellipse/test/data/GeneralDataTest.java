@@ -81,11 +81,8 @@ public class GeneralDataTest extends DataTest {
     public void testWithStudent() {
         Student student = new Student();
         Semester s = new Semester();
-        s.save();
         Allocation a = new Allocation();
-        a.setSemester(s);
         Team t = new Team();
-        t.setAllocation(a);
         Project p = new Project();
         List<Student> students = new ArrayList<Student>();
         students.add(student);
