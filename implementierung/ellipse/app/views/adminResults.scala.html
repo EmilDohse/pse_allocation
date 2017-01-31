@@ -1,3 +1,8 @@
+@*
+ * Diese Seite zeigt die Ergebnisse der Einteilung dem Admin an.
+ * Dafür wird eine Liste an Einteilungen benötigt und die Liste an verfügbaren
+ * Qualitätskriterien. Zusätzlich kann eine Fehlermeldung übergeben werden.
+ *@
 @(allocations: List[data.Allocation], criteria:
 List[qualityCriteria.QualityCriterion], error: String)
 <div>
