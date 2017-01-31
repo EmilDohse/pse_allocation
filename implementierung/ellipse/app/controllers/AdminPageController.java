@@ -5,7 +5,6 @@
 package controllers;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import allocation.AbstractAllocator;
 import allocation.AllocationQueue;
@@ -75,8 +74,8 @@ public class AdminPageController extends Controller {
         ArrayList<qualityCriteria.QualityCriterion> criteria = new ArrayList<>(
                 qualityCriteria.QualityCriteriaLoader.getAllQualityCriteria());
         play.twirl.api.Html content = views.html.adminResults.render(
-                GeneralData.getCurrentSemester().getAllocations(),
-                Arrays.asList(criteria), error);
+                GeneralData.getCurrentSemester().getAllocations(), criteria,
+                error);
         return ok(views.html.admin.render(content));
     }
 
