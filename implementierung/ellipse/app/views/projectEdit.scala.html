@@ -1,9 +1,7 @@
-@*
- * Diese Seite zeigt die Projekteditierungsseite.
- * Als Parameter wird das Projekt übergeben und die Information,
- * ob ein Admin oder ein Betreuer die Seite angezeigt bekommt.
- *@
-@(project: data.Project, isAdviser: Boolean)
+@* * Diese Seite zeigt die Projekteditierungsseite. * Als Parameter wird
+das Projekt übergeben und die Information, * ob ein Admin oder ein
+Betreuer die Seite angezeigt bekommt. *@ @(project: data.Project,
+isAdviser: Boolean)
 
 <h1>@Messages("admin.projects.editProject")</h1>
 @if(isAdviser) {
@@ -14,7 +12,8 @@
 	<form
 		action="@controllers.routes.AdminProjectController.editProject().path()"
 		method="POST" class="form-horizontal">
-		}
+		} <input type="hidden" name="id" id="id"
+			value="@project.getId()">
 
 		<div class="form-group">
 			<label class="control-label col-sm-2" for="name">@Messages("admin.projects.name")</label>

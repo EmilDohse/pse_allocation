@@ -59,6 +59,7 @@ admin.advisers.name = Name
 admin.advisers.email = E-Mail-Adresse
 admin.advisers.projectCount = Projektanzahl
 admin.advisers.form.addAdviser = Betreuer erstellen
+admin.advisers.form.removeAdviser = Betreuer löschen
 admin.projects.name = Name
 admin.projects.teamSize = Teamgöße
 admin.projects.numberOfTeams = Anzahl der Teams
@@ -120,6 +121,7 @@ admin.properties.addAchievement = Teilleistung hinzufügen
 admin.properties.removeSPO = SPO löschen
 admin.properties.name = Name
 admin.properties.removeSemester = Semester löschen
+admin.properties.maxGroupSize = Maximale Lerngruppengröße
 
 importer.FileNotFound = Datei konnte nicht gefunden werden
 importer.IOException = Fehler beim Lesen der Datei
