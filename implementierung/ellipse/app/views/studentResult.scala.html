@@ -1,13 +1,29 @@
-@*
- * Diese Seite zeigt das Ergebnis dem Studenten an.
- * Als Parameter wird das Projekt und eine Fehlermeldung übergeben.
- *@
-@(project:data.Project, error: String)
+@* * Diese Seite zeigt das Ergebnis dem Studenten an. * Als Parameter
+wird das Projekt und eine Fehlermeldung übergeben. *@ @(team:data.Team,
+error: String)
 
 <h1>@Messages("student.sidebar.results")</h1>
-<h3>@project.getName()</h3>
+<h3>@team.getProject().getName()</h3>
+<p>
+	<a href="@team.getProject().getProjectURL()">@Messages("student.result.link")</a>
+</p>
 <div>
-	<p>@Messages("student.result.information")</p>
-	<p>@project.getProjectInfo()
-	<p><a href="@project.getProjectURL()">@Messages("student.result.link")</a></p>
+	<h3>
+		<small>@Messages("student.result.information")</small>
+	</h3>
+	<div>@team.getProject().getProjectInfo()</div>
+</div>
+<div>
+	<h3>
+		<small>@Messages("student.result.members")</small>
+	</h3>
+	<table class="table table-striped">
+		<tbody>
+			@for(member <- team.getMembers()) {
+			<tr>
+				<td>@member.getName()</td>
+			</tr>
+			}
+		</tbody>
+	</table>
 </div>
