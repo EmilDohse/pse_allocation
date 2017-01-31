@@ -1,14 +1,8 @@
 @*
- * This template takes a single argument, a String containing a
- * message to display.
+ * Dieses Template wir dvon allen Studentenseiten verwendet und 
+ * nimmt als Parameter den eigentlichen Content entgegen.
  *@
 @(content: Html)
-
-@*
- * Call the `main` template with two arguments. The first
- * argument is a `String` with the title of the page, the second
- * argument is an `Html` object containing the body of the page.
- *@
 
 @main(Messages("student.title"), {val map = new HashMap[String, String];
 map.put(Messages("student.sidebar.learningGroup"), controllers.routes.StudentPageController.learningGroupPage("").path());

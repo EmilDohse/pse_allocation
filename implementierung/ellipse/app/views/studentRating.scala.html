@@ -1,3 +1,7 @@
+@*
+ * Diese Seite zeigt die Tabelle zum bewerten dem Studenten an.
+ * Als Parameter wird die Liste an Projekten und eine Fehlermeldung übergeben.
+ *@
 @(projects:List[data.Project], error: String)
 <h1>@Messages("admin.sidebar.rating")</h1>
 
@@ -16,11 +20,11 @@
 		@for(project <- projects) {
 		<tr>
 			<td>@project.getName()</td>
-			<td><input type="radio" name=@project.getName()</td>
-			<td><input type="radio" name=@project.getName()</td>
-			<td><input type="radio" name=@project.getName()</td>
-			<td><input type="radio" name=@project.getName()</td>
-			<td><input type="radio" name=@project.getName()</td>
+			<td><input type="radio" name="@project.getId()" value="2"></td>
+			<td><input type="radio" name="@project.getId()" value="4"></td>
+			<td><input type="radio" name="@project.getId()" value="6"></td>
+			<td><input type="radio" name="@project.getId()" value="8"></td>
+			<td><input type="radio" name="@project.getId()" value="10"></td>
 		</tr>
 		}
 	</tbody>

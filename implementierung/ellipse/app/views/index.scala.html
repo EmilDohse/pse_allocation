@@ -1,20 +1,13 @@
 @*
- * This template takes a single argument, a String containing a
- * message to display.
+ * Dies ist das Template was für Index Seiten verwendet wird.
+ * Als Parameter wird der Inhalt der Seite übergeben.
  *@
 @(content: Html)
-
-@*
- * Call the `main` template with two arguments. The first
- * argument is a `String` with the title of the page, the second
- * argument is an `Html` object containing the body of the page.
- *@
 
 @main(Messages("index.title"), {val map = new HashMap[String, String];
 map.put(Messages("index.sidebar.information"), controllers.routes.IndexPageController.indexPage("").path());
 map.put(Messages("index.sidebar.registration"), controllers.routes.IndexPageController.registerPage("").path());
 map}) {
-    <!-- Add Sibboleth Button??? -->
 }{
 
     @content

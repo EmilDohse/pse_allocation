@@ -77,7 +77,7 @@ public class StudentPageController extends Controller {
         Student student = (Student) user.getUserProfile(ctx());
         play.twirl.api.Html content = views.html.studentResult
                 .render(GeneralData.getCurrentSemester().getFinalAllocation()
-                        .getTeam(student).getProject(), error);
+                        .getTeam(student), error);
         return ok(views.html.student.render(content));
     }
 
