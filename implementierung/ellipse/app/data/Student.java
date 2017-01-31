@@ -382,7 +382,6 @@ public class Student extends User {
      */
     public LearningGroup getLearningGroup(Semester semester) {
         List<LearningGroup> list = semester.getLearningGroups();
-
         for (LearningGroup l : list) {
             if (l.getMembers().contains(this)) {
                 return l;
