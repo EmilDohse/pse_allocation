@@ -42,8 +42,7 @@ public class AdminProjectController extends Controller {
         // igendwie den adcviser
         // weglassen können?
         GeneralData.getCurrentSemester().addProject(project);
-        return redirect(controllers.routes.AdminPageController
-                .projectEditPage(project.getId()));
+        return redirect(controllers.routes.AdminPageController.projectEditPage(project.getId()));
     }
 
     /**
@@ -56,13 +55,12 @@ public class AdminProjectController extends Controller {
     public Result removeProject() {
         DynamicForm form = formFactory.form().bindFromRequest();
         String projName = form.get("name");
-        Project project = Project.getProject(projName,
-                GeneralData.getCurrentSemester());
+        Project project = Project.getProject(projName, GeneralData.getCurrentSemester());
         // TODO hier eine warnmeldung ausgeben ob das projekt wirklich gelöscht
         // werden soll
         GeneralData.getCurrentSemester().removeProject(project);
-        return redirect(controllers.routes.AdminPageController.projectEditPage(
-                GeneralData.getCurrentSemester().getProjects().get(0).getId()));
+        return redirect(controllers.routes.AdminPageController
+                .projectEditPage(GeneralData.getCurrentSemester().getProjects().get(0).getId()));
     }
 
     /**
@@ -74,6 +72,7 @@ public class AdminProjectController extends Controller {
      * @return Die Seite, die als Antwort verschickt wird.
      */
     public Result editProject() {
+        // die projektdaten werden aus dem formular ausgelesen
         DynamicForm form = formFactory.form().bindFromRequest();
         String projName = form.get("name");
         String url = form.get("url");
@@ -93,10 +92,9 @@ public class AdminProjectController extends Controller {
             minSize = Integer.parseInt(minSizeString);
             maxSize = Integer.parseInt(maxSizeString);
         } catch (NumberFormatException e) {
-            return redirect(controllers.routes.AdminPageController
-                    .projectEditPage(project.getId()));
+            return redirect(controllers.routes.AdminPageController.projectEditPage(project.getId()));
         }
-
+        // und dem projekt hinzugefügt
         project.setInstitute(institute);
         project.setMaxTeamSize(maxSize);
         project.setMinTeamSize(minSize);
@@ -105,7 +103,6 @@ public class AdminProjectController extends Controller {
         project.setProjectInfo(description);
         project.setProjectURL(url);
         project.save();
-        return redirect(controllers.routes.AdminPageController
-                .projectEditPage(project.getId()));
+        return redirect(controllers.routes.AdminPageController.projectEditPage(project.getId()));
     }
 }
