@@ -1,4 +1,7 @@
 index.title = Elipse - Index
+index.username = Username (Matrnr)
+index.password = Passwort
+index.login = Anmelden
 index.sidebar.information = Allgemeine Informationen
 index.sidebar.registration = Registrierung
 index.registration.form.personalData = Persönliche Daten

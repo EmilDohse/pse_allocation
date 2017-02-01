@@ -46,13 +46,7 @@ public class SecurityModule extends AbstractModule {
         formClient.setName("FormClient");
 
         Clients clients = new Clients("/callback", formClient);
-
-        CallbackController callbackController = new CallbackController();
-        callbackController.setDefaultUrl("/");
-        bind(CallbackController.class).toInstance(callbackController);
-        ApplicationLogoutController logoutController = new ApplicationLogoutController();
-        logoutController.setDefaultUrl("/");
-        bind(ApplicationLogoutController.class).toInstance(logoutController);
+        clients.init();
 
         Config config = new Config(clients);
         config.addAuthorizer("admin",
@@ -63,6 +57,15 @@ public class SecurityModule extends AbstractModule {
                 new RequireAnyRoleAuthorizer<UserProfile>("ROLE_STUDENT"));
         config.setHttpActionAdapter(new DefaultHttpActionAdapter());
         bind(Config.class).toInstance(config);
+
+        CallbackController callbackController = new CallbackController();
+        callbackController.setDefaultUrl("/");
+        callbackController.setConfig(config);
+        callbackController.setMultiProfile(false);
+        bind(CallbackController.class).toInstance(callbackController);
+        ApplicationLogoutController logoutController = new ApplicationLogoutController();
+        logoutController.setDefaultUrl("/");
+        bind(ApplicationLogoutController.class).toInstance(logoutController);
 
     }
 }
