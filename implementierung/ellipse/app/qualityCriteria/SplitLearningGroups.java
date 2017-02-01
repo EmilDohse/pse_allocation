@@ -23,26 +23,16 @@ public class SplitLearningGroups implements QualityCriterion {
     @Override
     public String calculate(Allocation allocation) {
         int numberOfSplitLearningGroups = 0;
-<<<<<<< HEAD:implementierung/ellipse/app/qualityCriteria/SplitLearningGroups.java
-        for (int i = 0; i < GeneralData.getCurrentSemester().getLearningGroups().size(); i++) {
-            LearningGroup lg = GeneralData.getCurrentSemester().getLearningGroups().get(i);
-            Project p1 = lg.getMembers().get(0).getCurrentProject();
-=======
         Semester semester = GeneralData.getInstance().getCurrentSemester();
         for (int i = 0; i < semester.getLearningGroups().size(); i++) {
             LearningGroup lg = semester.getLearningGroups().get(i);
             Project p1 = allocation.getTeam(lg.getMembers().get(0)).getProject();
->>>>>>> generalDataSingleton:implementierung/ellipse/app/qualityCriteria/splitLearningGroups.java
             if (!lg.isPrivate() && lg.getMembers().size() > 1) {
                 boolean hasBeenDevided = false;
                 for (int j = 1; (j < lg.getMembers().size()) && !hasBeenDevided; j++) {
                     Student memberJ = lg.getMembers().get(j);
-<<<<<<< HEAD:implementierung/ellipse/app/qualityCriteria/SplitLearningGroups.java
-                    if (memberJ.getCurrentProject() != null && !memberJ.getCurrentProject().equals(p1)) {
-=======
                     Project memeberJProject = allocation.getTeam(memberJ).getProject();
                     if (memeberJProject != null && !memeberJProject.equals(p1)) {
->>>>>>> generalDataSingleton:implementierung/ellipse/app/qualityCriteria/splitLearningGroups.java
                         hasBeenDevided = true;
                     }
                 }
