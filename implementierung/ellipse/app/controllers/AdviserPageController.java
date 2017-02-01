@@ -40,10 +40,8 @@ public class AdviserPageController extends Controller {
     public Result projectsPage(int id) {
         UserManagement user = new UserManagement();
         Adviser adviser = (Adviser) user.getUserProfile(ctx());
-        boolean isAdviser = adviser.getProjects()
-                .contains(ElipseModel.getById(Project.class, id));
-        play.twirl.api.Html content = views.html.projectEdit
-                .render(ElipseModel.getById(Project.class, id), isAdviser);
+        boolean isAdviser = adviser.getProjects().contains(ElipseModel.getById(Project.class, id));
+        play.twirl.api.Html content = views.html.projectEdit.render(ElipseModel.getById(Project.class, id), isAdviser);
         return ok(views.html.adviser.render(content));
     }
 
@@ -56,12 +54,9 @@ public class AdviserPageController extends Controller {
     public Result addProject() {
         UserManagement user = new UserManagement();
         Adviser adviser = (Adviser) user.getUserProfile(ctx());
-        Project project = new Project(
-                "new Project" + adviser.getFirstName() + adviser.getLastName(),
-                adviser);
+        Project project = new Project("new Project" + adviser.getFirstName() + adviser.getLastName(), adviser);
         project.save();
-        return redirect(controllers.routes.AdviserPageController
-                .projectsPage(project.getId()));
+        return redirect(controllers.routes.AdviserPageController.projectsPage(project.getId()));
     }
 
     /**
@@ -82,8 +77,8 @@ public class AdviserPageController extends Controller {
             project.delete();
 
         }
-        return redirect(controllers.routes.AdviserPageController.projectsPage(
-                GeneralData.getCurrentSemester().getProjects().get(0).getId()));
+        return redirect(controllers.routes.AdviserPageController
+                .projectsPage(GeneralData.getInstance().getCurrentSemester().getProjects().get(0).getId()));
     }
 
     /**
@@ -115,16 +110,14 @@ public class AdviserPageController extends Controller {
         Project project = ElipseModel.getById(Project.class, id);
         boolean isAdviser = adviser.getProjects().contains(project);
         if (!isAdviser) {
-            return redirect(
-                    controllers.routes.AdviserPageController.projectsPage(id));
+            return redirect(controllers.routes.AdviserPageController.projectsPage(id));
         }
         try {
             numberOfTeams = Integer.parseInt(numberOfTeamsString);
             minSize = Integer.parseInt(minSizeString);
             maxSize = Integer.parseInt(maxSizeString);
         } catch (NumberFormatException e) {
-            return redirect(
-                    controllers.routes.AdviserPageController.projectsPage(id));
+            return redirect(controllers.routes.AdviserPageController.projectsPage(id));
         }
 
         project.setInstitute(institute);
@@ -136,8 +129,7 @@ public class AdviserPageController extends Controller {
         project.setProjectURL(url);
         project.save();
 
-        return redirect(controllers.routes.AdviserPageController
-                .projectsPage(project.getId()));
+        return redirect(controllers.routes.AdviserPageController.projectsPage(project.getId()));
     }
 
     /**
@@ -160,8 +152,7 @@ public class AdviserPageController extends Controller {
             project.addAdviser(adviser);
             project.save();
         }
-        return redirect(controllers.routes.AdviserPageController
-                .projectsPage(project.getId()));
+        return redirect(controllers.routes.AdviserPageController.projectsPage(project.getId()));
     }
 
     /**
@@ -184,8 +175,7 @@ public class AdviserPageController extends Controller {
             project.removeAdviser(adviser);
             project.save();
         }
-        return redirect(controllers.routes.AdviserPageController
-                .projectsPage(project.getId()));
+        return redirect(controllers.routes.AdviserPageController.projectsPage(project.getId()));
     }
 
     /**

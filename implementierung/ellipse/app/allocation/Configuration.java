@@ -65,7 +65,7 @@ public class Configuration {
         this.learningGroups = learningGroups;
         teams = new ArrayList<>();
         // teams werden aus projekten erstellt
-        ArrayList<Project> projects = (ArrayList<Project>) GeneralData.getCurrentSemester().getProjects();
+        ArrayList<Project> projects = (ArrayList<Project>) GeneralData.getInstance().getCurrentSemester().getProjects();
         for (Project project : projects) {
             for (int i = 1; i <= project.getNumberOfTeams(); i++) {
                 Team team = new Team(project, new ArrayList<>());

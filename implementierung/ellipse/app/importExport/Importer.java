@@ -595,10 +595,10 @@ public class Importer {
                 output += student.getLastName() + ";";
                 output += student.getEmailAddress() + ";";
                 output += student.getPassword() + ";";
-                LearningGroup lg = student.getLearningGroup(semester);
+                LearningGroup lg = semester.getLearningGroupOf(student);
                 if (!lg.isPrivate()) {
-                    output += student.getLearningGroup(semester).getName() + ";";
-                    output += student.getLearningGroup(semester).getPassword() + ";";
+                    output += lg.getName() + ";";
+                    output += lg.getPassword() + ";";
                 } else {
                     output += ";;";
                 }
@@ -621,7 +621,8 @@ public class Importer {
                 }
 
                 for (Project project : semester.getProjects()) {
-                    output += student.getRating(project) + ";";
+                    double rating = semester.getLearningGroupOf(student).getRating(project);
+                    output += rating + ";";
                 }
                 output.substring(0, output.length() - 1);
                 bw.write(output);

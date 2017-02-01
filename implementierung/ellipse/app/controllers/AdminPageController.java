@@ -5,7 +5,6 @@
 package controllers;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import allocation.AbstractAllocator;
 import allocation.AllocationQueue;
@@ -72,8 +71,8 @@ public class AdminPageController extends Controller {
     public Result resultsPage(String error) {
         ArrayList<qualityCriteria.QualityCriterion> criteria = new ArrayList<>(
                 qualityCriteria.QualityCriteriaLoader.getAllQualityCriteria());
-        play.twirl.api.Html content = views.html.adminResults.render(
-                GeneralData.getInstance().getCurrentSemester().getAllocations(), Arrays.asList(criteria), error);
+        play.twirl.api.Html content = views.html.adminResults
+                .render(GeneralData.getInstance().getCurrentSemester().getAllocations(), criteria, error);
         return ok(views.html.admin.render(content));
     }
 
@@ -96,8 +95,8 @@ public class AdminPageController extends Controller {
      * @return Die Seite, die als Antwort verschickt wird.
      */
     public Result studentEditPage(String error) {
-        play.twirl.api.Html content = views.html.adminStudentEdit.render(GeneralData.getCurrentSemester().getSpos(),
-                error);
+        play.twirl.api.Html content = views.html.adminStudentEdit
+                .render(GeneralData.getInstance().getCurrentSemester().getSpos(), error);
         return ok(views.html.admin.render(content));
     }
 

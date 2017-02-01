@@ -37,15 +37,13 @@ public class AdminImportExportController extends Controller {
         String filePath = form.get("file");
         importExport.Importer importer = new Importer();
         try {
-            importer.importAllocation(filePath,
-                    GeneralData.getCurrentSemester());
+            importer.importAllocation(filePath, GeneralData.getInstance().getCurrentSemester());
         } catch (ImporterException e) {
-            return redirect(controllers.routes.AdminPageController
-                    .exportImportPage(ctx().messages().at(e.getMessage())));
+            return redirect(
+                    controllers.routes.AdminPageController.exportImportPage(ctx().messages().at(e.getMessage())));
         }
 
-        return redirect(
-                controllers.routes.AdminPageController.exportImportPage(""));
+        return redirect(controllers.routes.AdminPageController.exportImportPage(""));
     }
 
     /**
@@ -74,12 +72,11 @@ public class AdminImportExportController extends Controller {
         try {
             importer.importSPO(filePath);
         } catch (ImporterException e) {
-            return redirect(controllers.routes.AdminPageController
-                    .exportImportPage(ctx().messages().at(e.getMessage())));
+            return redirect(
+                    controllers.routes.AdminPageController.exportImportPage(ctx().messages().at(e.getMessage())));
         }
 
-        return redirect(
-                controllers.routes.AdminPageController.exportImportPage(""));
+        return redirect(controllers.routes.AdminPageController.exportImportPage(""));
     }
 
     /**
@@ -106,14 +103,13 @@ public class AdminImportExportController extends Controller {
         String filePath = form.get("file");
         importExport.Importer importer = new Importer();
         try {
-            importer.importProjects(filePath, GeneralData.getCurrentSemester());
+            importer.importProjects(filePath, GeneralData.getInstance().getCurrentSemester());
         } catch (ImporterException e) {
-            return redirect(controllers.routes.AdminPageController
-                    .exportImportPage(ctx().messages().at(e.getMessage())));
+            return redirect(
+                    controllers.routes.AdminPageController.exportImportPage(ctx().messages().at(e.getMessage())));
         }
 
-        return redirect(
-                controllers.routes.AdminPageController.exportImportPage(""));
+        return redirect(controllers.routes.AdminPageController.exportImportPage(""));
     }
 
     /**
@@ -141,14 +137,13 @@ public class AdminImportExportController extends Controller {
         String filePath = form.get("file");
         importExport.Importer importer = new Importer();
         try {
-            importer.importCMSData(filePath, GeneralData.getCurrentSemester());
+            importer.importCMSData(filePath, GeneralData.getInstance().getCurrentSemester());
         } catch (ImporterException e) {
-            return redirect(controllers.routes.AdminPageController
-                    .exportImportPage(ctx().messages().at(e.getMessage())));
+            return redirect(
+                    controllers.routes.AdminPageController.exportImportPage(ctx().messages().at(e.getMessage())));
         }
 
-        return redirect(
-                controllers.routes.AdminPageController.exportImportPage(""));
+        return redirect(controllers.routes.AdminPageController.exportImportPage(""));
     }
 
     /**
@@ -176,14 +171,13 @@ public class AdminImportExportController extends Controller {
         String filePath = form.get("file");
         importExport.Importer importer = new Importer();
         try {
-            importer.importStudents(filePath, GeneralData.getCurrentSemester());
+            importer.importStudents(filePath, GeneralData.getInstance().getCurrentSemester());
         } catch (ImporterException e) {
-            return redirect(controllers.routes.AdminPageController
-                    .exportImportPage(ctx().messages().at(e.getMessage())));
+            return redirect(
+                    controllers.routes.AdminPageController.exportImportPage(ctx().messages().at(e.getMessage())));
         }
 
-        return redirect(
-                controllers.routes.AdminPageController.exportImportPage(""));
+        return redirect(controllers.routes.AdminPageController.exportImportPage(""));
     }
 
     /**
