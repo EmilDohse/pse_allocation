@@ -105,7 +105,23 @@ public class IndexPageController extends Controller {
      * @return Die Seite, die als Antwort verschickt wird.
      */
     public Result login() {
-        // TODO
+        // TODO die methode ist nur als platzhalter sodass man testen kann
+        DynamicForm form = formFactory.form().bindFromRequest();
+        String username = form.get("username");
+        String password = form.get("password");
+
+        // TODO ab hier die richtige überprüfung einfügen
+
+        if (username.equals("student")) {
+            return redirect(controllers.routes.StudentPageController.learningGroupPage(""));
+        }
+        if (username.equals("admin")) {
+            return redirect(controllers.routes.AdminPageController.propertiesPage(""));
+        }
+        if (username.equals("adviser")) {
+            return redirect(controllers.routes.AdviserPageController
+                    .projectsPage(GeneralData.getInstance().getCurrentSemester().getProjects().get(0).getId()));
+        }
         return null;
     }
 
@@ -122,7 +138,7 @@ public class IndexPageController extends Controller {
         if (form.data().size() == 0) {
             return badRequest("Expceting some data");
         } else {
-
+            // die felder werden ausgelesen
             String firstName = form.get("firstName");
             String lastName = form.get("lastName");
             String email = form.get("email");
@@ -131,6 +147,7 @@ public class IndexPageController extends Controller {
             String matNrString = "";
             int matNr = -1;
             try {
+                // die matrikelnummer wird geparst
                 matNrString = form.get("matrnr");
                 matNr = Integer.parseInt(matNrString);
             } catch (NumberFormatException e) {
@@ -146,6 +163,9 @@ public class IndexPageController extends Controller {
             }
 
             if (password.equals(pwRepeat) && trueData) {
+                // wenn der student bestätigt hat das seine angaben richtig sind
+                // und die passwörter übereinstimmen wird ein neuer student
+                // hinzugefügt
                 if (Student.getStudent(matNr) == null) {
                     Student student = new Student(matNrString, password, email, firstName, lastName, matNr,
                             new SPO() /* enter spo eleements here */,
@@ -157,10 +177,10 @@ public class IndexPageController extends Controller {
                     return redirect(controllers.routes.IndexPageController.indexPage(""));
                     // TODO falls nötig noch emial verification einleiten
                 } else {
-                    // student.save(); Muss das rein?
+                    // falls bereits ein studnent mit dieser matrikelnumer im
+                    // system existiert kann sich der student nicht registrieren
                     return redirect(controllers.routes.IndexPageController
                             .registerPage(ctx().messages().at("index.registration.error.matNrExists")));
-
                 }
             }
 

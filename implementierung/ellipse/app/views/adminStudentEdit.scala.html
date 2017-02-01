@@ -1,11 +1,11 @@
-@*
- * Diese Seite zeigt ein Formular zum löschen/hinzufügen von Studenten dem Admin an.
- * Dafür wird eine Liste an SPOs benötigt. 
- * Zusätzlich kann eine Fehlermeldung übergeben werden.
- *@
-@(spos: List[data.SPO],error: String)
+@* * Diese Seite zeigt ein Formular zum löschen/hinzufügen von Studenten
+dem Admin an. * Dafür wird eine Liste an SPOs benötigt. * Zusätzlich
+kann eine Fehlermeldung übergeben werden. *@ @(spos:
+List[data.SPO],error: String)
+<div class="alert alert-danger" role="alert">@error</div>
 <h1>@Messages("admin.sidebar.studentEdit")</h1>
-<form action="@controllers.routes.GeneralAdminController.addStudent().path()"
+<form
+	action="@controllers.routes.GeneralAdminController.addStudent().path()"
 	method="POST" class="form-horizontal">
 	<h3>@Messages("admin.studentEdit.addStudent")</h3>
 
@@ -23,33 +23,34 @@
 			<input type="text" class="form-control" name="lastName" id="lastName">
 		</div>
 	</div>
-	
+
 	<div class="form-group">
 		<label class="control-label col-sm-2" for="matrnr">@Messages("index.registration.form.matrnr")</label>
 		<div class="col-sm-3">
 			<input type="text" class="form-control" name="matrnr" id="matrnr">
 		</div>
 	</div>
-<div class="form-group">
+	<div class="form-group">
 		<label class="control-label col-sm-2" for="email">@Messages("index.registration.form.email")</label>
 		<div class="col-sm-3">
 			<input type="text" class="form-control" name="email" id="email">
 		</div>
 	</div>
-<div class="form-group">
+	<div class="form-group">
 		<label class="control-label col-sm-2" for="password">@Messages("index.registration.form.password")</label>
 		<div class="col-sm-3">
 			<input type="text" class="form-control" name="password" id="password">
 		</div>
 	</div>
-		<div class="form-group">
-		<label class="control-label col-sm-2" for="semester">@Messages			("index.registration.form.semester")</label>
+	<div class="form-group">
+		<label class="control-label col-sm-2" for="semester">@Messages
+			("index.registration.form.semester")</label>
 		<div class="col-sm-3">
 			<input type="number" class="form-control" id="semester"
 				name="semester">
 		</div>
 	</div>
-<div class="form-group">
+	<div class="form-group">
 		<label class="control-label col-sm-2" for="spo">@Messages("index.registration.form.spo")</label>
 		<div class="col-sm-3">
 			<select class="form-control" name="spo" id="spo"
@@ -60,16 +61,17 @@
 	</div>
 
 
-	<div class="form-group">        
-      <div class="col-sm-offset-2 col-sm-10">
-        <button type="submit" class="btn btn-default">@Messages("admin.studentEdit.add")</button>
-      </div>
-    </div>
+	<div class="form-group">
+		<div class="col-sm-offset-2 col-sm-10">
+			<button type="submit" class="btn btn-default">@Messages("admin.studentEdit.add")</button>
+		</div>
+	</div>
 </form>
-<form action="@controllers.routes.GeneralAdminController.removeStudent().path()"
+<form
+	action="@controllers.routes.GeneralAdminController.removeStudent().path()"
 	method="POST" class="form-horizontal">
 	<h3>@Messages("admin.studentEdit.removeStudent")</h3>
-	
+
 	<div class="form-group">
 		<label class="control-label col-sm-2" for="matrnr">@Messages("index.registration.form.matrnr")</label>
 		<div class="col-sm-3">
@@ -77,9 +79,9 @@
 		</div>
 	</div>
 
-	<div class="form-group">        
-      <div class="col-sm-offset-2 col-sm-10">
-        <button type="submit" class="btn btn-default">@Messages("admin.studentEdit.remove")</button>
-      </div>
-    </div>
+	<div class="form-group">
+		<div class="col-sm-offset-2 col-sm-10">
+			<button type="submit" class="btn btn-default">@Messages("admin.studentEdit.remove")</button>
+		</div>
+	</div>
 </form>

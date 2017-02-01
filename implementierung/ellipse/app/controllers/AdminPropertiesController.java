@@ -40,6 +40,7 @@ public class AdminPropertiesController extends Controller {
      */
     public Result addSemester() {
         Semester semester = new Semester("newSemester", true, Calendar.getInstance().get(Calendar.YEAR));
+        // fügt neues semester als wintersemester im aktuellen jahr ein
         semester.save();
         return redirect(controllers.routes.AdminPageController.propertiesPage(""));
     }

@@ -1,35 +1,37 @@
-@*
- * Diese Seite zeigt die Lerngruppe dem Studenten an oder gibt 
- * ihm ein Formular zum erstellen oder beitreten einer Lerngruppe.
- * Als Parameter wird eine Lerngruppe übergeben und eine Fehlermeldung.
- *@
+@* * Diese Seite zeigt die Lerngruppe dem Studenten an oder gibt * ihm
+ein Formular zum erstellen oder beitreten einer Lerngruppe. * Als
+Parameter wird eine Lerngruppe übergeben und eine Fehlermeldung. *@
 @(learningGroup:data.LearningGroup, error: String)
-
+<div class="alert alert-danger" role="alert">@error</div>
 <h1>@Messages("admin.sidebar.learningGroup")</h1>
 @if(!learningGroup.isPrivate()) {
-<form>
-<table class="table table-striped">
-	<thead>
-		<tr>
-			<th>@Messages("student.learningGroup.members")</th>
-		</tr>
-	</thead>
-	<tbody>
-		@for(member <- learningGroup.getMembers()) {
-		<tr>
-			<td>@member.getFirstName() + " " + @member.getLastName()</td>
-		</tr>
-		}
-	</tbody>
-</table>
+<form action="@controllers.routes.StudentPageController.leaveLearningGroup().path()" method="POST">
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>@Messages("student.learningGroup.members")</th>
+			</tr>
+		</thead>
+		<tbody>
+			@for(member <- learningGroup.getMembers()) {
+			<tr>
+				<td>@member.getFirstName() + " " + @member.getLastName()</td>
+			</tr>
+			}
+		</tbody>
+	</table>
+	<input type=submit value="@Messages("student.learningGroup.leave")">
 </form>
-<input type=submit value="@Messages("student.learningGroup.leave")">
 } else {
+<!-- TODO: Refaktorisieren des Formulars, und irgendwie hinbekommen, dass das Formular an zwei controllermethoden gesendet werden kann. -->
 <form>
-	<p>@Messages("student.learningGroup.name") <br> <input type=text
-		name="learningGroupname" value=""> <br><p>@Messages("student.learningGroup.password")<br>
-	<input name="learningGroupPassword" value=""> <br>
-<input type=submit value=@Messages("student.learningGroup.create")>
-<input type=submit value=@Messages("student.learningGroup.join")>
+	<p>
+		@Messages("student.learningGroup.name") <br> <input type=text
+			name="learningGroupname" value=""> <br>
+	<p>
+		@Messages("student.learningGroup.password")<br> <input
+			name="learningGroupPassword" value=""> <br> <input
+			type=submit value=@Messages( "student.learningGroup.create")>
+		<input type=submit value=@Messages( "student.learningGroup.join")>
 </form>
 }

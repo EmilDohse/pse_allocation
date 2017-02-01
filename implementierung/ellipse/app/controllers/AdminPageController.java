@@ -123,7 +123,6 @@ public class AdminPageController extends Controller {
     public Result projectEditPage(int id) {
         Project project = ElipseModel.getById(Project.class, id);
         play.twirl.api.Html content = views.html.projectEdit.render(project, false);
-        // TODO heier wirklich false?
         return ok(views.html.admin.render(content));
     }
 }

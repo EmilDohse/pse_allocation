@@ -1,5 +1,6 @@
 package security;
 
+import org.pac4j.core.context.Pac4jConstants;
 import org.pac4j.core.context.WebContext;
 import org.pac4j.core.credentials.UsernamePasswordCredentials;
 import org.pac4j.core.credentials.authenticator.Authenticator;
@@ -24,6 +25,7 @@ public class UserAuthenticator
     @Override
     public void validate(UsernamePasswordCredentials credentials,
             WebContext context) throws HttpAction {
+        System.out.println("Validation runnning");
         for (User u : Administrator.getAdministrators()) {
             if (credentials.getUsername().equals(u.getUserName())) {
                 // TODO : Password Encryption
@@ -31,6 +33,9 @@ public class UserAuthenticator
                     UserProfile profile = new UserProfile(u);
                     profile.addRole("ROLE_ADMIN");
                     credentials.setUserProfile(profile);
+                    context.setSessionAttribute(Pac4jConstants.REQUESTED_URL,
+                            "/admin");
+                    return;
                 } else {
                     throw new BadCredentialsException("Bad credentials for: "
                             + credentials.getUsername());
@@ -44,6 +49,9 @@ public class UserAuthenticator
                     UserProfile profile = new UserProfile(u);
                     profile.addRole("ROLE_STUDENT");
                     credentials.setUserProfile(profile);
+                    context.setSessionAttribute(Pac4jConstants.REQUESTED_URL,
+                            "/student");
+                    return;
                 } else {
                     throw new BadCredentialsException("Bad credentials for: "
                             + credentials.getUsername());
@@ -57,6 +65,9 @@ public class UserAuthenticator
                     UserProfile profile = new UserProfile(u);
                     profile.addRole("ROLE_ADVISER");
                     credentials.setUserProfile(profile);
+                    context.setSessionAttribute(Pac4jConstants.REQUESTED_URL,
+                            "/adviser");
+                    return;
                 } else {
                     throw new BadCredentialsException("Bad credentials for: "
                             + credentials.getUsername());

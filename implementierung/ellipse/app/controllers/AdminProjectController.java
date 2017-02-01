@@ -72,6 +72,7 @@ public class AdminProjectController extends Controller {
      * @return Die Seite, die als Antwort verschickt wird.
      */
     public Result editProject() {
+        // die projektdaten werden aus dem formular ausgelesen
         DynamicForm form = formFactory.form().bindFromRequest();
         String projName = form.get("name");
         String url = form.get("url");
@@ -93,7 +94,7 @@ public class AdminProjectController extends Controller {
         } catch (NumberFormatException e) {
             return redirect(controllers.routes.AdminPageController.projectEditPage(project.getId()));
         }
-
+        // und dem projekt hinzugefügt
         project.setInstitute(institute);
         project.setMaxTeamSize(maxSize);
         project.setMinTeamSize(minSize);

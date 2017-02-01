@@ -1,15 +1,32 @@
-@*
- * Dies ist das Template was für Index Seiten verwendet wird.
- * Als Parameter wird der Inhalt der Seite übergeben.
- *@
-@(content: Html)
+@* * Dies ist das Template was für Index Seiten verwendet wird. * Als
+Parameter wird der Inhalt der Seite übergeben. *@ @(content: Html)
 
 @main(Messages("index.title"), {val map = new HashMap[String, String];
-map.put(Messages("index.sidebar.information"), controllers.routes.IndexPageController.indexPage("").path());
-map.put(Messages("index.sidebar.registration"), controllers.routes.IndexPageController.registerPage("").path());
-map}) {
-}{
-
-    @content
-
-}
+map.put(Messages("index.sidebar.information"),
+controllers.routes.IndexPageController.indexPage("").path());
+map.put(Messages("index.sidebar.registration"),
+controllers.routes.IndexPageController.registerPage("").path()); map}) {
+<!-- Sidebar content (loginForm) -->
+<form action="/callback" method="POST" class="form-horizontal">
+<input type="hidden" name="client_name" value="FormClient">
+	<div class="form-group">
+		<label class="sr-only" for="login_username">@Messages("index.username")</label>
+		<div class="col-sm-12">
+			<input type="text" class="form-control" name="username"
+				id="login_username" placeholder='@Messages("index.username")'>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="sr-only" for="login_password">@Messages("index.password")</label>
+		<div class="col-sm-12">
+			<input type="password" class="form-control" name="password"
+				id="login_password" placeholder='@Messages("index.password")'>
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="col-sm-12">
+			<button type="submit" class="btn btn-default">@Messages("index.login")</button>
+		</div>
+	</div>
+</form>
+}{ @content }

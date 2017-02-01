@@ -1,8 +1,6 @@
-@*
- * Diese Seite zeigt die ImportExport Ansicht dem Admin an.
- * Zusätzlich kann eine Fehlermeldung übergeben werden.
- *@
-@(error: String)
+@* * Diese Seite zeigt die ImportExport Ansicht dem Admin an. *
+Zusätzlich kann eine Fehlermeldung übergeben werden. *@ @(error: String)
+<div class="alert alert-danger" role="alert">@error</div>
 <h1>@Messages("admin.sidebar.exportImport")</h1>
 <h3>@Messages("admin.eximport.import")</h3>
 <form

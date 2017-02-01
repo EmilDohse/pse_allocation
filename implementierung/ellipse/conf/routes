@@ -37,7 +37,7 @@ POST 	/student/rate				controllers.StudentPageController.rate()
 POST 	/student/results			controllers.StudentPageController.resultsPage(error: String)
 POST 	/student/account			controllers.StudentPageController.accountPage(error: String)
 POST 	/student/edit				controllers.StudentPageController.editAccount()
-
+POST    /student/leaveLG            controllers.StudentPageController.leaveLearningGroup()
 
 GET 	/adviser/projects/:id		controllers.AdviserPageController.projectsPage(id: Int)
 POST 	/adviser/add				controllers.AdviserPageController.addProject()
@@ -102,3 +102,4 @@ GET     /assets/*file               controllers.Assets.versioned(path="/public",
 #Pac4j controller für callback und logout Prozedur
 GET    /callback    				@org.pac4j.play.CallbackController.callback()
 GET    /logout     					@org.pac4j.play.ApplicationLogoutController.logout()
+POST   /callback    				@org.pac4j.play.CallbackController.callback()

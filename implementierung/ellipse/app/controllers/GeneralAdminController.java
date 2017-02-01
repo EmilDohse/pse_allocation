@@ -132,7 +132,7 @@ public class GeneralAdminController extends Controller {
 
             }
         }
-
+        // configuration wird erstellt und hinzugefügt
         Configuration configuration = new Configuration(name, studenst, learningGroups, allocParam);
         queue.addToQueue(configuration);
         return redirect(controllers.routes.AdminPageController.allocationPage(""));
@@ -179,7 +179,7 @@ public class GeneralAdminController extends Controller {
             return redirect(controllers.routes.AdminPageController
                     .studentEditPage(ctx().messages().at("admin.allocation.error.generalError")));
         }
-
+        // der username eines studenten ist seine matNr
         Student student = new Student(matNrString, password, email, firstName, lastName, matNr, spo,
                 spo.getNecessaryAchievements(), new ArrayList<>(), semester);
         GeneralData.getInstance().getCurrentSemester().addStudent(student);
