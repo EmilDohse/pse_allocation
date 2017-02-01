@@ -99,5 +99,6 @@ POST 	/admin/exportStudents		controllers.AdminImportExportController.exportStude
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
 
+#Pac4j controller für callback und logout Prozedur
 GET    /callback    				@org.pac4j.play.CallbackController.callback()
 GET    /logout     					@org.pac4j.play.ApplicationLogoutController.logout()
