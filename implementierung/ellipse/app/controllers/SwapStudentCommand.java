@@ -43,7 +43,7 @@ public class SwapStudentCommand extends EditAllocationCommand {
     @Override
     public void execute() {
         Team firstTeam = allocation.getTeam(firstStudent);
-        Team secondTeam = allocation.getTeam(secondStudentStudent);
+        Team secondTeam = allocation.getTeam(secondStudent);
         // TODO hier eine warnung werfen falls die teamgröße überschritten wird
         firstTeam.removeMember(firstStudent);
         secondTeam.addMember(firstStudent);
@@ -60,7 +60,7 @@ public class SwapStudentCommand extends EditAllocationCommand {
     @Override
     public void undo() {
         Team firstTeam = allocation.getTeam(firstStudent);
-        Team secondTeam = allocation.getTeam(secondStudentStudent);
+        Team secondTeam = allocation.getTeam(secondStudent);
         // TODO hier eine warnung werfen falls die teamgröße überschritten wird
         firstTeam.removeMember(firstStudent);
         secondTeam.addMember(firstStudent);
