@@ -1,11 +1,9 @@
-@*
- * Diese Seite zeigt die Einteilungskonfiguration dem Admin an.
- * Dafür wird eine AllocationQueue benötigt und die Liste an verfügbaren
- * Einteilungs-Kriterien. Zusätzlich kann eine Fehlermeldung übergeben werden.
- *@
- 
-@(allocQueue: allocation.AllocationQueue, criteria:
+@* * Diese Seite zeigt die Einteilungskonfiguration dem Admin an. *
+Dafür wird eine AllocationQueue benötigt und die Liste an verfügbaren *
+Einteilungs-Kriterien. Zusätzlich kann eine Fehlermeldung übergeben
+werden. *@ @(allocQueue: allocation.AllocationQueue, criteria:
 List[allocation.Criterion],error: String)
+<div class="alert alert-danger" role="alert">@error</div>
 <h1>@Messages("admin.sidebar.allocation")</h1>
 <div>
 	<form
@@ -62,8 +60,8 @@ List[allocation.Criterion],error: String)
 	<form
 		action="@controllers.routes.GeneralAdminController.removeAllocationFromQueue().path()"
 		method="POST" class="form-horizontal">
-		<select name="queue" id="queue" size="allocQueue.getQueue().size()"> @for(configuration <-
-			allocQueue.getQueue()) {
+		<select name="queue" id="queue" size="allocQueue.getQueue().size()">
+			@for(configuration <- allocQueue.getQueue()) {
 			<option value="@configuration.getName()">@configuration.getName()</option>
 			}
 		</select>

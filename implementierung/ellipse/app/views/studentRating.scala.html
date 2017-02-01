@@ -1,8 +1,7 @@
-@*
- * Diese Seite zeigt die Tabelle zum bewerten dem Studenten an.
- * Als Parameter wird die Liste an Projekten und eine Fehlermeldung übergeben.
- *@
-@(projects:List[data.Project], error: String)
+@* * Diese Seite zeigt die Tabelle zum bewerten dem Studenten an. * Als
+Parameter wird die Liste an Projekten und eine Fehlermeldung übergeben.
+*@ @(projects:List[data.Project], error: String)
+<div class="alert alert-danger" role="alert">@error</div>
 <h1>@Messages("admin.sidebar.rating")</h1>
 
 <table class="table table-striped">
@@ -29,6 +28,7 @@
 		}
 	</tbody>
 </table>
-<form action="@controllers.routes.StudentPageController.rate().path()" method="POST">
+<form action="@controllers.routes.StudentPageController.rate().path()"
+	method="POST">
 	<input type="submit" value='@Messages("student.rating.submit")'>
 </form>
