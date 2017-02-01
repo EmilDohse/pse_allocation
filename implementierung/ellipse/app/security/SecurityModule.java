@@ -43,8 +43,9 @@ public class SecurityModule extends AbstractModule {
         bind(PlaySessionStore.class).to(PlayCacheStore.class);
 
         FormClient formClient = new FormClient("/", new UserAuthenticator());
+        formClient.setName("FormClient");
 
-        Clients clients = new Clients("/callback");
+        Clients clients = new Clients("/callback", formClient);
 
         CallbackController callbackController = new CallbackController();
         callbackController.setDefaultUrl("/");
