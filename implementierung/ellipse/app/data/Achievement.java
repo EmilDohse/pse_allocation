@@ -23,7 +23,7 @@ public class Achievement extends ElipseModel implements Comparable<Achievement> 
     private String name;
 
     public Achievement() {
-
+        this("default_name");
     }
 
     public Achievement(String name) {

@@ -17,7 +17,7 @@ import javax.persistence.Entity;
 public class Adviser extends User {
 
     public Adviser() {
-
+        super();
     }
 
     public Adviser(String username, String password, String emailAddress, String firstName, String lastName) {

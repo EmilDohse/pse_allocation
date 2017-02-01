@@ -10,6 +10,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
@@ -33,8 +34,12 @@ public class Allocation extends ElipseModel {
     /**
      * Parameter, mit der die Einteilung gemacht wurde.
      */
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     private List<AllocationParameter> parameters;
+
+    // Ebean braucht das hier
+    @ManyToOne
+    private Semester                  semester;
 
     /**
      * Konstruktor, der alles außer ID setzt
@@ -53,7 +58,23 @@ public class Allocation extends ElipseModel {
     }
 
     public Allocation() {
-        parameters = new ArrayList<AllocationParameter>();
+        this(new ArrayList<>(), "default_name", new ArrayList<>());
+    }
+
+    public Semester getSemester() {
+        return semester;
+    }
+
+    /**
+     * Setter für das Semester. Sollte nicht manuell benutzt werden. Zum Setzten
+     * reicht es, die Allocation uber Semester.addAllocation() oder
+     * Semester.setAllocations hinzuzufügen.
+     * 
+     * @param semester
+     *            Das Semester, zu dem diese Allocation gehört.
+     */
+    public void setSemester(Semester semester) {
+        this.semester = semester;
     }
 
     /**
@@ -148,6 +169,9 @@ public class Allocation extends ElipseModel {
             oldTeam.removeMember(student);
         }
         team.addMember(student);
+        if (!teams.contains(team)) {
+            teams.add(team);
+        }
     }
 
     /**

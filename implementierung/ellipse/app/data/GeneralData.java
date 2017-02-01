@@ -4,35 +4,46 @@
 
 package data;
 
-import java.io.File;
+import java.util.NoSuchElementException;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.OneToOne;
+import javax.persistence.Transient;
 
 /************************************************************/
 /**
  * Diese Klasse beinhaltet generelle Daten, über den Zustand der Software.
  */
-public class GeneralData {
+@Entity
+public class GeneralData extends ElipseModel {
 
-    private static final File file   = new File("test");
-
-    private static boolean    loaded = false;
+    @Transient
+    private static GeneralData instance;
 
     /**
-     * Name des momentanen Semesters.
+     * !!!DO NOT USE THIS!!! GeneralData is supposed to be a Singleton.
+     * Constructor is only public due to restrictions in EBean. Use
+     * GeneralData.getInstance() instead.
      */
-    private static String     currentSemester;
+    @Deprecated
+    public GeneralData() {
+        super();
+    }
+
+    /**
+     * Das momentane Semester.
+     */
+    @OneToOne(cascade = CascadeType.PERSIST)
+    private Semester currentSemester;
 
     /**
      * Getter für das aktuelle Semester.
      * 
      * @return Das aktuelle Semester.
      */
-    public static Semester getCurrentSemester() {
-        if (loaded == false) {
-            load();
-            loaded = true;
-        }
-
-        return Semester.getSemester(currentSemester);
+    public Semester getCurrentSemester() {
+        return currentSemester;
     }
 
     /**
@@ -41,21 +52,26 @@ public class GeneralData {
      * @param currentSemester
      *            Das aktuelle Semester.
      */
-    public static void setCurrentSemester(Semester currentSemester) {
-        GeneralData.currentSemester = currentSemester.getName();
+    public void setCurrentSemester(Semester currentSemester) {
+        this.currentSemester = currentSemester;
     }
 
     /**
-     * Lädt die Daten aus einer Datei
+     * Lädt die Daten aus der Datenbank
      */
-    private static void load() {
-        // TODO
+    public static GeneralData getInstance() {
+        if (null == instance) {
+            // If instance is null try to load data
+            try {
+                instance = ElipseModel.getAll(GeneralData.class).stream().findFirst().get();
+            } catch (NoSuchElementException e) {
+                // If no GeneralData is in Database create one
+                GeneralData data = new GeneralData();
+                data.save();
+                return data;
+            }
+        }
+        return instance;
     }
 
-    /**
-     * Speichert die Daten in einer Datei
-     */
-    public static void save() {
-        // TODO
-    }
 }

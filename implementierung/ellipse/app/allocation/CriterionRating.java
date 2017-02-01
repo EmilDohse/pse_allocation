@@ -6,6 +6,10 @@ package allocation;
 
 import java.util.NoSuchElementException;
 
+import data.GeneralData;
+import data.Project;
+import data.Semester;
+import data.Student;
 import gurobi.GRBException;
 import gurobi.GRBLinExpr;
 
@@ -44,8 +48,11 @@ public class CriterionRating implements GurobiCriterion {
             for (int j = 0; j < configuration.getTeams().size(); j++) {
                 // Bestimme Bewertung des Studenten für das Projekt, zu dem das
                 // Team gehört
-                double rating = configuration.getStudents().get(i)
-                        .getRating(configuration.getTeams().get(j).getProject());
+
+                Semester semester = GeneralData.getInstance().getCurrentSemester();
+                Student student = configuration.getStudents().get(i);
+                Project project = configuration.getTeams().get(j).getProject();
+                double rating = semester.getLearningGroupOf(student).getRating(project);
                 bonus.addTerm(weight * 2 * rating, allocator.getBasicMatrix()[i][j]);
             }
         }

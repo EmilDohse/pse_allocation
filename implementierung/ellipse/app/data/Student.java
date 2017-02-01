@@ -7,6 +7,7 @@ package data;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -27,12 +28,12 @@ public class Student extends User {
     /**
      * Die SPO des Studierenden
      */
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private SPO               spo;
     /**
      * Die bestandenen Teilleistungen.
      */
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(name = "STUDENT_ACHIEVEMENT_COMPLETED")
     private List<Achievement> completedAchievements;
     /**
@@ -48,17 +49,17 @@ public class Student extends User {
     /**
      * Die PSE-Note des Studierenden.
      */
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Grade             gradePSE;
     /**
      * Die TSE-Note des Studierenden.
      */
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Grade             gradeTSE;
     /**
      * Die noch ausstehenden Teilleistungen des Studierenden.
      */
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(name = "STUDENT_ACHIEVEMENT_ORAL")
     private List<Achievement> oralTestAchievements;
     /**
@@ -72,8 +73,8 @@ public class Student extends User {
     private boolean           emailVerified;
 
     public Student() {
-        completedAchievements = new ArrayList<Achievement>();
-        oralTestAchievements = new ArrayList<Achievement>();
+        this("default_username", "1234", "anonymous@kit.edu", "Max", "Musterman", 0, new SPO(), new ArrayList<>(),
+                new ArrayList<>(), 0);
     }
 
     public Student(String username, String password, String emailAddress, String firstName, String lastName,
@@ -296,51 +297,54 @@ public class Student extends User {
         return ElipseModel.getAll(Student.class);
     }
 
-    /**
-     * Diese Methode gibt die Bewertung des Studiereden zu einem bestimmten
-     * Projekt zurück.
-     * 
-     * @param project
-     *            Das Projekt.
-     * @return Die Bewertung des Studierenden für das bestimmte Projekt.
-     */
-    public int getRating(Project project) {
-        return project.getRating(this);
-    }
+    // /**
+    // * Diese Methode gibt die Bewertung des Studiereden zu einem bestimmten
+    // * Projekt zurück.
+    // *
+    // * @param project
+    // * Das Projekt.
+    // * @return Die Bewertung des Studierenden für das bestimmte Projekt.
+    // */
+    // public int getRating(Project project) {
+    // return project.getRating(this);
+    // }
 
-    /**
-     * Diese Methode gibt das Projekt zurück, dem der Studierende zugeteilt ist.
-     * 
-     * @return Das Projekt des Studierenden.
-     */
-    public Project getCurrentProject() {
-        Allocation a = GeneralData.getCurrentSemester().getFinalAllocation();
-        if (a == null) {
-            // TODO throws
-        }
+    // /**
+    // * Diese Methode gibt das Projekt zurück, dem der Studierende zugeteilt
+    // ist.
+    // *
+    // * @return Das Projekt des Studierenden.
+    // */
+    // public Project getCurrentProject() {
+    // Allocation a =
+    // GeneralData.getInstance().getCurrentSemester().getFinalAllocation();
+    // if (a == null) {
+    // // TODO throws
+    // }
+    //
+    // Team t = a.getTeam(this);
+    // if (t == null) {
+    // return null;
+    // }
+    //
+    // return t.getProject();
+    // }
 
-        Team t = a.getTeam(this);
-        if (t == null) {
-            return null;
-        }
-
-        return t.getProject();
-    }
-
-    /**
-     * Diese Methode gibt das Team, in dem der Studierende sich befindet,
-     * zurück.
-     * 
-     * @return Das Team des Studierenden.
-     */
-    public Team getCurrentTeam() {
-        Allocation a = GeneralData.getCurrentSemester().getFinalAllocation();
-        if (a == null) {
-            // TODO throws
-        }
-
-        return a.getTeam(this);
-    }
+    // /**
+    // * Diese Methode gibt das Team, in dem der Studierende sich befindet,
+    // * zurück.
+    // *
+    // * @return Das Team des Studierenden.
+    // */
+    // public Team getCurrentTeam() {
+    // Allocation a =
+    // GeneralData.getInstance().getCurrentSemester().getFinalAllocation();
+    // if (a == null) {
+    // // TODO throws
+    // }
+    //
+    // return a.getTeam(this);
+    // }
 
     /**
      * Diese Methode gibt zurück, ob die E-Mail-Adresse verifiziert wurde.
@@ -362,38 +366,37 @@ public class Student extends User {
         this.emailVerified = isEmailVerified;
     }
 
-    /**
-     * Gibt die Lerngruppe zurück, in der sich der Student aktuell befindet.
-     * 
-     * @return Lerngruppe, in der sich der Student aktuell befindet.
-     */
-    public LearningGroup getCurrentLearningGroup() {
-        return getLearningGroup(GeneralData.getCurrentSemester());
-    }
+    // /**
+    // * Gibt die Lerngruppe zurück, in der sich der Student aktuell befindet.
+    // *
+    // * @return Lerngruppe, in der sich der Student aktuell befindet.
+    // */
+    // public LearningGroup getCurrentLearningGroup() {
+    // return getLearningGroup(GeneralData.getInstance().getCurrentSemester());
+    // }
 
-    /**
-     * Gibt die Lerngruppe zurück, in der der Student im übergebenen Semester
-     * war
-     * 
-     * @param semester
-     *            Semester, in dem gesucht wird
-     * @return Lerngruppe
-     */
-    public LearningGroup getLearningGroup(Semester semester) {
-        List<LearningGroup> list = semester.getLearningGroups();
-
-        for (LearningGroup l : list) {
-            if (l.getMembers().contains(this)) {
-                return l;
-            }
-        }
-        // TODO throws
-        return null;
-    }
+    // /**
+    // * Gibt die Lerngruppe zurück, in der der Student im übergebenen Semester
+    // * war
+    // *
+    // * @param semester
+    // * Semester, in dem gesucht wird
+    // * @return Lerngruppe
+    // */
+    // public LearningGroup getLearningGroup(Semester semester) {
+    // List<LearningGroup> list = semester.getLearningGroups();
+    // for (LearningGroup l : list) {
+    // if (l.getMembers().contains(this)) {
+    // return l;
+    // }
+    // }
+    // // TODO throws
+    // return null;
+    // }
 
     /**
      * Returns true if a student is registered in more than one semester
-     * 
+     *
      * @return registered in more than one semester
      */
     public boolean registeredMoreThanOnce() {

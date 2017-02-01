@@ -19,7 +19,7 @@ public class CriterionPreferHigherSemester implements GurobiCriterion {
     private String name;
 
     /**
-     * Standard-Konstruktor, der den Namen eindeutig setzt.
+     * Standard-Konstruktor, der den Namen eindeutig setzt
      */
     public CriterionPreferHigherSemester() {
         this.name = "PreferHigherSemester";

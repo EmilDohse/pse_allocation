@@ -42,7 +42,7 @@ public class CriterionPreferHigherSemester implements GurobiCriterion {
         for (int i = 0; i < configuration.getStudents().size(); i++) {
 
             // Betrachte nur Studenten in höherem, als dem normalen Semester
-            int normalSemester = getNormalSemester(GeneralData.getInstance().getCurrentSemester());
+            int normalSemester = getNormalSemester(GeneralData.getCurrentSemester());
             if (configuration.getStudents().get(i).getSemester() > normalSemester) {
                 for (int j = 0; j < configuration.getTeams().size(); j++) {
                     bonus.addTerm(weight * 10, allocator.getBasicMatrix()[i][j]);
@@ -60,7 +60,7 @@ public class CriterionPreferHigherSemester implements GurobiCriterion {
      * @return 3 im WS, 4 im SS.
      */
     private int getNormalSemester(Semester semester) {
-        if (GeneralData.getInstance().getCurrentSemester().isWintersemester()) {
+        if (GeneralData.getCurrentSemester().isWintersemester()) {
             return 3;
         } else {
             return 4;

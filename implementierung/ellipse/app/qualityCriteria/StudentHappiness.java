@@ -6,6 +6,9 @@ package qualityCriteria;
 
 import data.Allocation;
 import data.GeneralData;
+import data.Project;
+import data.Semester;
+import data.Student;
 import data.Team;
 
 /************************************************************/
@@ -25,11 +28,16 @@ public class StudentHappiness implements QualityCriterion {
         for (int i = 0; i < allocation.getTeams().size(); i++) {
             Team t = allocation.getTeams().get(i);
             for (int j = 0; j < t.getMembers().size(); j++) {
-                sumOfRatings += t.getRating(t.getMembers().get(j));
+                Student student = t.getMembers().get(j);
+                Semester semester = GeneralData.getInstance().getCurrentSemester();
+                Project project = t.getProject();
+                double rating = semester.getLearningGroupOf(student).getRating(project);
+                sumOfRatings += rating;
             }
         }
-        double relativeHappiness = ((double) sumOfRatings
-                / (double) GeneralData.getCurrentSemester().getStudents().size()) / 5.0;
+
+        double relativeHappiness = (sumOfRatings
+                / (double) GeneralData.getInstance().getCurrentSemester().getStudents().size()) / 5.0;
         return String.valueOf(relativeHappiness);
     }
 

@@ -54,24 +54,30 @@ public class LearningGroupTest extends DataTest {
 
     @Test
     public void testRatings() {
+        // TODO Warum Reihenfolge beim save relevant?
         Rating rating = new Rating();
         Project firstP = new Project();
+        firstP.save();
         rating.setProject(firstP);
         List<Rating> ratings = new ArrayList<Rating>();
         ratings.add(rating);
         learningGroup.setRatings(ratings);
-        assertEquals(learningGroup.getRatings().size(), 1);
+        learningGroup.save();
+        assertEquals(1, learningGroup.getRatings().size());
         assertTrue(learningGroup.getRatings().contains(rating));
 
         int firstR = 11;
         learningGroup.rate(firstP, firstR);
-        assertEquals(learningGroup.getRating(firstP), firstR);
+        learningGroup.save();
+        assertEquals(firstR, learningGroup.getRating(firstP));
 
         int secondR = 42;
         Project secondP = new Project();
+        secondP.save();
         learningGroup.rate(secondP, secondR);
-        assertEquals(learningGroup.getRating(secondP), secondR);
-        assertEquals(learningGroup.getRatings().size(), 2);
+        learningGroup.save();
+        assertEquals(secondR, learningGroup.getRating(secondP));
+        assertEquals(2, learningGroup.getRatings().size());
     }
 
     @Test
