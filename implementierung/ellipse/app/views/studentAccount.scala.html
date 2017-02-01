@@ -1,16 +1,15 @@
-@*
- * Diese Seite zeigt die Accountseite dem Studenten an.
- * Als Parameter wird der Student und eine Fehlermeldung übergeben.
- *@
+@* * Diese Seite zeigt die Accountseite dem Studenten an. * Als
+Parameter wird der Student und eine Fehlermeldung übergeben. *@
 @(project:data.Student, error: String)
-
+<div class="alert alert-danger" role="alert">@error</div>
 <h1>@Messages("student.sidebar.account")</h1>
 <form>
-	<input type=text value=@Messages("student.account.newEmail") name=newEmail>
-	<input type=submit value=@Messages("student.student.change") name=submitNewEmail><br><br>
-	<label>@Messages("student.account.newPassword")</label><br>
-	<input type=text name=newPassword><br>
-	<label>@Messages("student.account.newPasswordRepeat")</label><br>
-	<input type=text name=newPasswordRepeat><br>
-	<input type=submit value=@Messages("student.student.change")><br><br>
+	<input type=text value=@Messages( "student.account.newEmail")
+		name=newEmail> <input type=submit value=@Messages(
+		"student.student.change") name=submitNewEmail><br>
+	<br> <label>@Messages("student.account.newPassword")</label><br>
+	<input type=text name=newPassword><br> <label>@Messages("student.account.newPasswordRepeat")</label><br>
+	<input type=text name=newPasswordRepeat><br> <input
+		type=submit value=@Messages( "student.student.change")><br>
+	<br>
 </form>
