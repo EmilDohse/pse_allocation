@@ -10,36 +10,57 @@ import data.Team;
 
 /************************************************************/
 /**
- * Konkretes Kommando zum verschieben eines Studierenden von seinem aktuellen Team in ein neues.
+ * Konkretes Kommando zum verschieben eines Studierenden von seinem aktuellen
+ * Team in ein neues.
  */
 public class MoveStudentCommand extends EditAllocationCommand {
-	
-	private Allocation allocation;
-	private Student student;
-	private Team newTeam;
 
-	/**
-	 * Erzeugt ein neues Kommando zum verschieben eines Studierenden.
-	 * @param allocation Einteilung, auf die sich die Änderung bezieht.
-	 * @param student Studierender, der verschoben werden soll.
-	 * @param newTeam Neues Team, in das der Studierende eingeteilt wird.
-	 */
-	public MoveStudentCommand(Allocation allocation, Student student, Team newTeam) {
-		super();
-		this.allocation = allocation;
-		this.student = student;
-		this.newTeam = newTeam;
-	}
+    private Allocation allocation;
+    private Student    student;
+    private Team       newTeam;
+    private Team       oldTeam;
 
-	/**
-	 * {@inheritDoc}
-	 */
-	public void execute() {
-	}
+    /**
+     * Erzeugt ein neues Kommando zum verschieben eines Studierenden.
+     * 
+     * @param allocation
+     *            Einteilung, auf die sich die Änderung bezieht.
+     * @param student
+     *            Studierender, der verschoben werden soll.
+     * @param newTeam
+     *            Neues Team, in das der Studierende eingeteilt wird.
+     */
+    public MoveStudentCommand(Allocation allocation, Student student, Team newTeam) {
+        super();
+        this.allocation = allocation;
+        this.student = student;
+        this.newTeam = newTeam;
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	public void undo() {
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void execute() {
+        oldTeam = allocation.getTeam(student);
+
+        // TODO hier eine warnung werfen falls die teamgröße überschritten wird
+        oldTeam.removeMember(student);
+        newTeam.addMember(student);
+        oldTeam.save();
+        newTeam.save();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void undo() {
+
+        // TODO hier eine warnung werfen falls die teamgröße überschritten wird
+        newTeam.removeMember(student);
+        oldTeam.addMember(student);
+        oldTeam.save();
+        newTeam.save();
+    }
 }
