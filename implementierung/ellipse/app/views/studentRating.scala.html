@@ -1,7 +1,8 @@
 @* * Diese Seite zeigt die Tabelle zum bewerten dem Studenten an. * Als
 Parameter wird die Liste an Projekten und eine Fehlermeldung übergeben.
-*@ @(projects:List[data.Project], error: String)
+*@ @(projects:List[data.Project], error: String) @if(!error.isEmpty()){
 <div class="alert alert-danger" role="alert">@error</div>
+}
 <h1>@Messages("admin.sidebar.rating")</h1>
 
 <table class="table table-striped">

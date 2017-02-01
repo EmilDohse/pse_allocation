@@ -31,8 +31,8 @@ create table adviser (
 
 create table allocation (
   id                            integer not null,
-  semester_id                   integer not null,
   name                          varchar(255) not null,
+  semester_id                   integer,
   constraint pk_allocation primary key (id),
   foreign key (semester_id) references semester (id) on delete restrict on update restrict
 );
@@ -52,11 +52,19 @@ create table allocation_parameter (
   constraint pk_allocation_parameter primary key (id)
 );
 
+create table general_data (
+  id                            integer not null,
+  current_semester_id           integer,
+  constraint uq_general_data_current_semester_id unique (current_semester_id),
+  constraint pk_general_data primary key (id),
+  foreign key (current_semester_id) references semester (id) on delete restrict on update restrict
+);
+
 create table learning_group (
   id                            integer not null,
-  semester_id                   integer not null,
   name                          varchar(255) not null,
   password                      varchar(255) not null,
+  semester_id                   integer,
   is_private                    integer(1),
   constraint pk_learning_group primary key (id),
   foreign key (semester_id) references semester (id) on delete restrict on update restrict
@@ -72,7 +80,6 @@ create table learning_group_student (
 
 create table project (
   id                            integer not null,
-  semester_id                   integer not null,
   name                          varchar(255) not null,
   min_team_size                 integer,
   max_team_size                 integer,
@@ -80,6 +87,7 @@ create table project (
   project_info                  varchar(255) not null,
   project_url                   varchar(255) not null,
   institute                     varchar(255) not null,
+  semester_id                   integer,
   constraint pk_project primary key (id),
   foreign key (semester_id) references semester (id) on delete restrict on update restrict
 );
@@ -94,12 +102,12 @@ create table project_adviser (
 
 create table rating (
   id                            integer not null,
-  learning_group_id             integer not null,
   rating                        integer,
   project_id                    integer,
+  learning_group_id             integer,
   constraint pk_rating primary key (id),
-  foreign key (learning_group_id) references learning_group (id) on delete restrict on update restrict,
-  foreign key (project_id) references project (id) on delete restrict on update restrict
+  foreign key (project_id) references project (id) on delete restrict on update restrict,
+  foreign key (learning_group_id) references learning_group (id) on delete restrict on update restrict
 );
 
 create table spo (
@@ -193,12 +201,12 @@ create table student_achievement_oral (
 
 create table team (
   id                            integer not null,
-  allocation_id                 integer not null,
   team_number                   integer,
   project_id                    integer,
+  allocation_id                 integer,
   constraint pk_team primary key (id),
-  foreign key (allocation_id) references allocation (id) on delete restrict on update restrict,
-  foreign key (project_id) references project (id) on delete restrict on update restrict
+  foreign key (project_id) references project (id) on delete restrict on update restrict,
+  foreign key (allocation_id) references allocation (id) on delete restrict on update restrict
 );
 
 create table team_student (
@@ -223,6 +231,8 @@ drop table if exists allocation;
 drop table if exists allocation_allocation_parameter;
 
 drop table if exists allocation_parameter;
+
+drop table if exists general_data;
 
 drop table if exists learning_group;
 

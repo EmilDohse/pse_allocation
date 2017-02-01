@@ -2,10 +2,14 @@
 ein Formular zum erstellen oder beitreten einer Lerngruppe. * Als
 Parameter wird eine Lerngruppe übergeben und eine Fehlermeldung. *@
 @(learningGroup:data.LearningGroup, error: String)
+@if(!error.isEmpty()){
 <div class="alert alert-danger" role="alert">@error</div>
+}
 <h1>@Messages("admin.sidebar.learningGroup")</h1>
 @if(!learningGroup.isPrivate()) {
-<form action="@controllers.routes.StudentPageController.leaveLearningGroup().path()" method="POST">
+<form
+	action="@controllers.routes.StudentPageController.leaveLearningGroup().path()"
+	method="POST">
 	<table class="table table-striped">
 		<thead>
 			<tr>

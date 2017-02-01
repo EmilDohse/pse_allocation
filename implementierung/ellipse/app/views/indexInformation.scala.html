@@ -1,6 +1,7 @@
 @* * Diese Seite zeigt die Informationen an. * Diese werden als
 Parameter übergeben. * Zusätzlich kann eine Fehlermeldung übergeben
-werden. *@ @(information: String, error: String)
+werden. *@ @(information: String, error: String) @if(!error.isEmpty()){
 <div class="alert alert-danger" role="alert">@error</div>
+}
 <h1>@Messages("index.sidebar.information")</h1>
 <div class="well">@information</div>

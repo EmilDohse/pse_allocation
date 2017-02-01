@@ -1,3 +1,5 @@
 @* * Diese Seite zeigt dem Betreuer seine Account Seite an. * Zusätzlich
 wird eine Fehlermeldung übergeben. *@ @(error: String)
+@if(!error.isEmpty()){
 <div class="alert alert-danger" role="alert">@error</div>
+}

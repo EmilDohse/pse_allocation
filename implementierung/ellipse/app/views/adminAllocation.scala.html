@@ -2,8 +2,9 @@
 Dafür wird eine AllocationQueue benötigt und die Liste an verfügbaren *
 Einteilungs-Kriterien. Zusätzlich kann eine Fehlermeldung übergeben
 werden. *@ @(allocQueue: allocation.AllocationQueue, criteria:
-List[allocation.Criterion],error: String)
+List[allocation.Criterion],error: String) @if(!error.isEmpty()){
 <div class="alert alert-danger" role="alert">@error</div>
+}
 <h1>@Messages("admin.sidebar.allocation")</h1>
 <div>
 	<form
