@@ -9,6 +9,11 @@ spos: List[data.SPO], error: String) @if(!error.isEmpty()){
 	rel="stylesheet">
 <script
 	src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+<script type="text/javascript"
+	src='@routes.Assets.versioned("javascripts/bootstrap-multiselect.js")'></script>
+<link rel="stylesheet"
+	href='@routes.Assets.versioned("stylesheets/bootstrap-multiselect.css")'
+	type="text/css" />
 <h1>@Messages("admin.sidebar.properties")</h1>
 <div>
 	<h3>@Messages("admin.properties.SPO")</h3>
@@ -17,32 +22,32 @@ spos: List[data.SPO], error: String) @if(!error.isEmpty()){
 		$(function() {
 			$('#spo-tabs a:first').tab('show');
 		});
-		$('#spo-tabs a').click(function(e) {
+		$('#spo-tabs .tablink').click(function(e) {
 			e.preventDefault();
 			$(this).tab('show');
 		})
 	</script>
 	<ul class="nav nav-tabs" role="tablist" id="spo-tabs">
 		@for(spo <- spos) {
-		<li role="presentation"><a href="#@spo.getId()"
-			aria-controls="@spo.getName()" role="tab" data-toggle="tab">@spo.getName()</a></li>
-		}
+		<li role="presentation"><a href="#spo-@spo.getId()"
+			aria-controls="@spo.getName()" role="tab" data-toggle="tab"
+			class="tablink">@spo.getName()</a></li> }
 		<li role="presentation"><a
 			href="@controllers.routes.AdminPropertiesController.addSPO().path()"
-			aria-controls="add" role="tab" data-toggle="tab">+</a></li>
+			aria-controls="add">+</a></li>
 	</ul>
 
 	<!-- Tab panes -->
 	<div class="tab-content">
 		@for(spo <- spos) {
-		<div role="tabpanel" class="tab-pane" id="@spo.getId()">
+		<div role="tabpanel" class="tab-pane" id="spo-@spo.getId()">
 			<form
 				action="@controllers.routes.AdminPropertiesController.changeSPO().path()"
 				method="POST" class="form-horizontal">
 				<input type="hidden" name="id" value="@spo.getId()">
 				<div class="form-group">
 					<label class="control-label col-sm-2" for="name">@Messages("admin.properties.name")</label>
-					<div class="col-sm-8">
+					<div class="col-sm-3">
 						<input type="text" class="form-control" name="nameSPO"
 							id="nameSPO" value="@spo.getName()">
 					</div>
@@ -124,25 +129,25 @@ spos: List[data.SPO], error: String) @if(!error.isEmpty()){
 		$(function() {
 			$('#semester-tabs a:first').tab('show');
 		});
-		$('#semester-tabs a').click(function(e) {
+		$('#semester-tabs .tablink').click(function(e) {
 			e.preventDefault();
 			$(this).tab('show');
 		})
 	</script>
 	<ul class="nav nav-tabs" role="tablist" id="semester-tabs">
 		@for(semester <- semesters) {
-		<li role="presentation"><a href="#@semester.getId()"
-			aria-controls="@semester.getName()" role="tab" data-toggle="tab">@semester.getName()</a></li>
-		}
+		<li role="presentation"><a href="#semester-@semester.getId()"
+			aria-controls="@semester.getName()" role="tab" data-toggle="tab"
+			class="tablink">@semester.getName()</a></li> }
 		<li role="presentation"><a
 			href="@controllers.routes.AdminPropertiesController.addSemester().path()"
-			aria-controls="add" role="tab" data-toggle="tab">+</a></li>
+			aria-controls="add">+</a></li>
 	</ul>
 
 	<!-- Tab panes -->
 	<div class="tab-content">
 		@for(semester <- semesters) {
-		<div role="tabpanel" class="tab-pane" id="@semester.getId()">
+		<div role="tabpanel" class="tab-pane" id="semester-@semester.getId()">
 			<!-- Add current values to form -->
 			<form
 				action="@controllers.routes.AdminPropertiesController.editSemester().path()"
@@ -151,9 +156,27 @@ spos: List[data.SPO], error: String) @if(!error.isEmpty()){
 
 				<div class="form-group">
 					<label class="control-label col-sm-2" for="name">@Messages("admin.properties.name")</label>
-					<div class="col-sm-8">
+					<div class="col-sm-3">
 						<input type="text" class="form-control" name="name2" id="name2"
 							value="@semester.getName()">
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="control-label col-sm-2" for="name">@Messages("admin.properties.year")</label>
+					<div class="col-sm-3">
+						<input type="number" class="form-control" name="year" id="year"
+							value="@semester.getName()">
+					</div>
+				</div>
+
+				<div class="form-group">
+					<div class="col-sm-offset-2 checkbox">
+						<input type="checkbox" checked data-toggle="toggle"
+							data-on='@Messages("admin.properties.winterSemester")'
+							data-off='@Messages("admin.properties.summerSemester")'
+							data-onstyle="success" data-offstyle="danger" data-width="200"
+							name="wintersemester" id="wintersemester">
 					</div>
 				</div>
 
@@ -166,7 +189,7 @@ spos: List[data.SPO], error: String) @if(!error.isEmpty()){
 				<div class="form-group">
 					<label class="control-label col-sm-2" for="maxGroupSize">@Messages("admin.properties.maxGroupSize")</label>
 					<div class="col-sm-3">
-						<input type="text" class="form-control" name="maxGroupSize"
+						<input type="number" class="form-control" name="maxGroupSize"
 							id="maxGroupSize">
 					</div>
 				</div>
@@ -189,8 +212,7 @@ spos: List[data.SPO], error: String) @if(!error.isEmpty()){
 
 				<script type="text/javascript">
 					$(document).ready(function() {
-						$('#spo').multiselect({
-							enableClickableOptGroups : true,
+						$('#availabe-spo').multiselect({
 							maxHeight : 300,
 							numberDisplayed : 6
 						});
@@ -198,19 +220,19 @@ spos: List[data.SPO], error: String) @if(!error.isEmpty()){
 				</script>
 				<div class="form-group">
 					<label class="control-label col-sm-2" for="spo">@Messages("admin.properties.availableSPOs")</label>
-					<select id="spo" name="spo" class="form-control"
+					<select id="availabe-spo" name="spo" class="form-control"
 						multiple="multiple"> @for(spo <- spos) {
 						<option value="@spo.getId()">@spo.getName()</option> }
 					</select>
 				</div>
 				<div class="form-group col-sm-offset-2">
 					<div class="checkbox">
-						<label>@Messages("admin.properties.semester") <input
+						<label class="control-label col-sm-2" for="semester-active">@Messages("admin.properties.semester")</label><input
 							type="checkbox" checked data-toggle="toggle"
 							data-on='@Messages("admin.properties.activ")'
 							data-off='@Messages("admin.properties.inactiv")'
-							data-onstyle="success" data-offstyle="danger"
-							name="semester-active" id="semester-active"></label>
+							data-onstyle="success" data-offstyle="danger" data-width="100"
+							name="semester-active" id="semester-active" class="form-control">
 					</div>
 				</div>
 

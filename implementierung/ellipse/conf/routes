@@ -20,6 +20,8 @@ GET 	/admin/results				controllers.AdminPageController.resultsPage(error = "")
 GET 	/admin/exportImport			controllers.AdminPageController.exportImportPage(error = "")
 GET 	/admin/studentEdit			controllers.AdminPageController.studentEditPage(error = "")
 GET 	/admin/properties			controllers.AdminPageController.propertiesPage(error = "")
+GET 	/admin/addSemester			controllers.AdminPropertiesController.addSemester()
+GET 	/admin/addSPO				controllers.AdminPropertiesController.addSPO()
 
 POST	/							controllers.IndexPageController.indexPage(error: String)
 POST	/index						controllers.IndexPageController.indexPage(error: String)
