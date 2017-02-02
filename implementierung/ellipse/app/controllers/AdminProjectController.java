@@ -6,6 +6,7 @@ package controllers;
 
 import com.google.inject.Inject;
 
+import data.Adviser;
 import data.ElipseModel;
 import data.GeneralData;
 import data.Project;
@@ -23,10 +24,11 @@ import play.mvc.Result;
  */
 public class AdminProjectController extends Controller {
 
-    private Notifier notifier;
+    private static Adviser dummieAdviser = new Adviser("dummieAdviser", "dummie", "", "dummie", "adviser");
+    private Notifier       notifier;
 
     @Inject
-    FormFactory      formFactory;
+    FormFactory            formFactory;
 
     /**
      * Diese Methode fügt ein neues Projekt in das System ein und leitet den
@@ -37,7 +39,7 @@ public class AdminProjectController extends Controller {
     public Result addProject() {
         DynamicForm form = formFactory.form().bindFromRequest();
         String projName = form.get("name");
-        Project project = new Project(projName, null);
+        Project project = new Project(projName, dummieAdviser);
         // TODO muss man hier nicht
         // igendwie den adcviser
         // weglassen können?

@@ -29,6 +29,10 @@ public class Semester extends ElipseModel implements Comparable<Semester> {
      */
     private boolean             wintersemester;
     /**
+     * maximale größe einer lerngruppe
+     */
+    private int                 maxGroupSize;
+    /**
      * Jahr, in dem das Semester stattfindet
      */
     private int                 year;
@@ -97,6 +101,15 @@ public class Semester extends ElipseModel implements Comparable<Semester> {
         projects = new ArrayList<Project>();
         allocations = new ArrayList<Allocation>();
         infoText = "";
+        maxGroupSize = 6;
+    }
+
+    public int getMaxGroupSize() {
+        return maxGroupSize;
+    }
+
+    public void setMaxGroupSize(int maxGroupSize) {
+        this.maxGroupSize = maxGroupSize;
     }
 
     /**
