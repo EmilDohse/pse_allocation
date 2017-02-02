@@ -213,5 +213,6 @@ public class StudentPageController extends Controller {
         student.setPassword(pw);
         // TODO hier verschlüüseln
         student.save();
+        return redirect(controllers.routes.StudentPageController.accountPage(""));
     }
 }
