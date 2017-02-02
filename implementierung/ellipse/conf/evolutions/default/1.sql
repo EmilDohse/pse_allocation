@@ -135,6 +135,7 @@ create table spo_achievement_additional (
 create table semester (
   id                            integer not null,
   wintersemester                integer(1),
+  max_group_size                integer,
   year                          integer,
   name                          varchar(255) not null,
   info_text                     varchar(255) not null,

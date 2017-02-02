@@ -2,14 +2,6 @@
  * Dies ist das Admin Template durch das alle Admin-Seiten angezeigt werden.
  * Als Parameter wird der html content der angezeigten Seite entgegen genommen.
  *@
-@(content: Html)
+@(menu: views.Menu)(content: Html)
 
-@main(Messages("admin.title"), {val map = new HashMap[String, String];
-map.put(Messages("admin.sidebar.adviser"), controllers.routes.AdminPageController.adviserPage("").path());
-map.put(Messages("admin.sidebar.projects"), controllers.routes.AdminPageController.projectPage("").path());
-map.put(Messages("admin.sidebar.allocation"), controllers.routes.AdminPageController.allocationPage("").path());
-map.put(Messages("admin.sidebar.results"), controllers.routes.AdminPageController.resultsPage("").path());
-map.put(Messages("admin.sidebar.exportImport"), controllers.routes.AdminPageController.exportImportPage("").path());
-map.put(Messages("admin.sidebar.studentEdit"), controllers.routes.AdminPageController.studentEditPage("").path());
-map.put(Messages("admin.sidebar.properties"), controllers.routes.AdminPageController.propertiesPage("").path());
-map}) {null} {@content}
+@main(Messages("admin.title"), menu) { } {@content}

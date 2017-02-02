@@ -1,59 +1,57 @@
-@*
- * Dieses Template ist das Haupttemplate und wird von allen verwendet.
- * Dies erstellt die HTML Struktur und fügt passende Quellen ein.
- * Als Parameter wird der Titel, den Seitenleisteninhalt, zusätzlichen Seitenleisten
- * inhalt und den eigentlichen Inhalt der Seite übergeben.
- *@
-@(title: String, sidebar: HashMap[String, String])(sidebarContent: Html)(content: Html)
+@* * Dieses Template ist das Haupttemplate und wird von allen verwendet.
+* Dies erstellt die HTML Struktur und fügt passende Quellen ein. * Als
+Parameter wird der Titel, den Seitenleisteninhalt, zusätzlichen
+Seitenleisten * inhalt und den eigentlichen Inhalt der Seite übergeben.
+*@ @(title: String, menu: views.Menu)(sidebarContent: Html)(content: Html)
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>@title</title>
-    <link rel="stylesheet" media="screen" href='@routes.Assets.versioned("stylesheets/main.css")'>
-    <link rel="shortcut icon" type="image/png" href='@routes.Assets.versioned("images/favicon.png")'>
-    <script src='@routes.Assets.versioned("javascripts/hello.js")' type="text/javascript"></script>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+<title>@title</title>
+<link rel="stylesheet" media="screen"
+	href='@routes.Assets.versioned("stylesheets/main.css")'>
+<link rel="shortcut icon" type="image/png"
+	href='@routes.Assets.versioned("images/favicon.png")'>
+<script src='@routes.Assets.versioned("javascripts/hello.js")'
+	type="text/javascript"></script>
 
-    <!-- Bootstrap -->
-    <link href='@routes.Assets.versioned("stylesheets/bootstrap.min.css")' rel="stylesheet">
+<!-- Bootstrap -->
+<link href='@routes.Assets.versioned("stylesheets/bootstrap.min.css")'
+	rel="stylesheet">
 
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-    
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js'></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src='@routes.Assets.versioned("javascripts/bootstrap.min.js")'></script>
-  </head>
-  <body>
-  	<div class="container-fluid">
-  		<div class="row">
-	        <div class="col-sm-3 col-md-2 sidebar">
-	        	<div class="nav nav-sidebar">
-	            	@sidebarContent
-	          	</div>
-	          	<ul class="nav nav-sidebar">
-	          		@displaySidebarItem(entry: java.util.Map.Entry[String, String]) = {
-  						<li><a href='@entry.getValue()'>@entry.getKey()</a></li>
-					}
-					
-	          		@for(item <- sidebar.entrySet()) {
-  						@displaySidebarItem(item)
-					}
-	       		</ul>
-	        </div>
-	        
-	        <div class="col-sm-9 col-md-10 main">
-	        @content
-	        </div>
-  		</div>
-    </div>
-  </body>
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script
+	src='https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js'></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src='@routes.Assets.versioned("javascripts/bootstrap.min.js")'></script>
+</head>
+<body>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-3 col-md-2 sidebar">
+				<div class="nav nav-sidebar">@sidebarContent</div>
+				<ul class="nav nav-sidebar">
+					@displaySidebarItem(item: views.MenuItem) = { @if(item.isActive()) {
+					<li class="active"><a href='@item.getLink()'>@item.getMenuText()</a></li>
+					} else {
+					<li><a href='@item.getLink()'>@item.getMenuText()</a></li> } }
+
+					@for(item <- menu.getIterator()) { @displaySidebarItem(item) }
+				</ul>
+			</div>
+
+			<div class="col-sm-9 col-md-10 main">@content</div>
+		</div>
+	</div>
+</body>
 </html>

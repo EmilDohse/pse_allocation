@@ -14,6 +14,8 @@ import play.data.DynamicForm;
 import play.data.FormFactory;
 import play.mvc.Controller;
 import play.mvc.Result;
+import views.IndexMenu;
+import views.Menu;
 
 /************************************************************/
 /**
@@ -41,8 +43,10 @@ public class IndexPageController extends Controller {
      */
     public Result indexPage(String error) {
         // TODO
-        play.twirl.api.Html content = views.html.indexInformation.render("Hier könnte ihre Werbung stehen!", error);
-        return ok(views.html.index.render(content));
+        play.twirl.api.Html content = views.html.indexInformation
+                .render("Hier könnte ihre Werbung stehen!", error);
+        Menu menu = new IndexMenu(ctx(), ctx().request().path());
+        return ok(views.html.index.render(menu, content));
     }
 
     /**
@@ -91,11 +95,13 @@ public class IndexPageController extends Controller {
         spo2.addNecessaryAchievement(a8);
         spos.add(spo1);
         spos.add(spo2);
-        play.twirl.api.Html content = views.html.indexRegistration.render(spos, error);
+        play.twirl.api.Html content = views.html.indexRegistration.render(spos,
+                error);
         // End Test Code
         // play.twirl.api.Html content = views.html.indexRegistration
         // .render(GeneralData.getCurrentSemester().getSpos(), error);
-        return ok(views.html.index.render(content));
+        Menu menu = new IndexMenu(ctx(), ctx().request().path());
+        return ok(views.html.index.render(menu, content));
     }
 
     /**
@@ -113,14 +119,17 @@ public class IndexPageController extends Controller {
         // TODO ab hier die richtige überprüfung einfügen
 
         if (username.equals("student")) {
-            return redirect(controllers.routes.StudentPageController.learningGroupPage(""));
+            return redirect(controllers.routes.StudentPageController
+                    .learningGroupPage(""));
         }
         if (username.equals("admin")) {
-            return redirect(controllers.routes.AdminPageController.propertiesPage(""));
+            return redirect(
+                    controllers.routes.AdminPageController.propertiesPage(""));
         }
         if (username.equals("adviser")) {
             return redirect(controllers.routes.AdviserPageController
-                    .projectsPage(GeneralData.getInstance().getCurrentSemester().getProjects().get(0).getId()));
+                    .projectsPage(GeneralData.getInstance().getCurrentSemester()
+                            .getProjects().get(0).getId()));
         }
         return null;
     }
@@ -155,7 +164,8 @@ public class IndexPageController extends Controller {
                 semester = Integer.parseInt(semesterString);
             } catch (NumberFormatException e) {
                 return redirect(controllers.routes.IndexPageController
-                        .registerPage(ctx().messages().at("index.registration.error.genError")));
+                        .registerPage(ctx().messages()
+                                .at("index.registration.error.genError")));
             }
 
             boolean trueData = false;
@@ -170,25 +180,29 @@ public class IndexPageController extends Controller {
                 // und die passwörter übereinstimmen wird ein neuer student
                 // hinzugefügt
                 if (Student.getStudent(matNr) == null) {
-                    Student student = new Student(matNrString, password, email, firstName, lastName, matNr,
+                    Student student = new Student(matNrString, password, email,
+                            firstName, lastName, matNr,
                             new SPO() /* enter spo eleements here */,
                             null/* completed achevevents */,
                             null /* oral achevements here */, semester);
                     // TODO get student data from view
-                    GeneralData.getInstance().getCurrentSemester().addStudent(student);
-                    return redirect(controllers.routes.IndexPageController.indexPage(""));
+                    GeneralData.getInstance().getCurrentSemester()
+                            .addStudent(student);
+                    return redirect(controllers.routes.IndexPageController
+                            .indexPage(""));
                     // TODO falls nötig noch emial verification einleiten
                 } else {
                     // falls bereits ein studnent mit dieser matrikelnumer im
                     // system existiert kann sich der student nicht registrieren
                     return redirect(controllers.routes.IndexPageController
-                            .registerPage(ctx().messages().at("index.registration.error.matNrExists")));
+                            .registerPage(ctx().messages().at(
+                                    "index.registration.error.matNrExists")));
                 }
             }
 
         } // TODO braucht man hmehr als nur eine gererelle fehlermeldung?
-        return redirect(controllers.routes.IndexPageController
-                .registerPage(ctx().messages().at("index.registration.error.genError")));
+        return redirect(controllers.routes.IndexPageController.registerPage(
+                ctx().messages().at("index.registration.error.genError")));
     }
 
     /**
