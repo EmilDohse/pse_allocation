@@ -113,9 +113,12 @@ public class AdminPropertiesController extends Controller {
         String name = form.get("name2");
         String yearString = form.get("year");
         String idString = form.get("id");
+        String maxGroupSizeString = form.get("maxGroupSize");
+        int maxGroupSize;
         int id;
         int year;
         try {
+            maxGroupSize = Integer.parseInt(maxGroupSizeString);
             id = Integer.parseInt(idString);
             year = Integer.parseInt(yearString);
         } catch (Exception e) {
@@ -146,6 +149,7 @@ public class AdminPropertiesController extends Controller {
         semester.setRegistrationEnd(endDate);
         semester.setWintersemester(wintersemester != null);
         // true wenn witersemseter == null
+        emester.setMaxGroupSize(maxGroupSize);
         semester.setYear(year);
         if (semesterActive != null) {
             GeneralData.getInstance().setCurrentSemester(semester);

@@ -68,13 +68,9 @@ public class StudentPageController extends Controller {
     public Result resultsPage(String error) {
         // TODO überprüft man no final allocation wirklich über ob es null ist?
         if (GeneralData.getInstance().getCurrentSemester().getFinalAllocation() == null) {
-            // play.twirl.api.Html content =
-            // views.html.noAllocationYet.render();
-            // return ok(views.html.student.render(content));
-            // TODO implement
-            // no
-            // AllocationYet
-            // TODO was muss man tun um das hier richtig anzuzeigen?
+            play.twirl.api.Html content = views.html.noAllocationYet.render();
+            return ok(views.html.student.render(content));
+
         }
         UserManagement user = new UserManagement();
         Student student = (Student) user.getUserProfile(ctx());
@@ -153,7 +149,8 @@ public class StudentPageController extends Controller {
 
     /**
      * Diese Methode fügt den Studenten zu einer Lerngruppe hinzu, falls eine
-     * Lerngruppe mit dem Namen und dem zugehörigen Passwort existiert.
+     * Lerngruppe mit dem Namen und dem zugehörigen Passwort existiert und die
+     * Lerngruppe noch nicht größergleich der maximalen Lerngruppenqröße ist .
      * Anschließend wird der Student auf die Lerngruppen-Seite zurückgeleitet.
      * 
      * @return Die Seite, die als Antwort verschickt wird.
@@ -166,9 +163,7 @@ public class StudentPageController extends Controller {
         String pw = form.get("learningGroupPassword");
         LearningGroup lgOld = GeneralData.getInstance().getCurrentSemester().getLearningGroupOf(student);
         LearningGroup lgNew = LearningGroup.getLearningGroup(name, GeneralData.getInstance().getCurrentSemester());
-        // TODO hier nicht >5 sondern irgendwo den admin festlegen lassen wie
-        // groß lerngruppen maximal sein dürfen
-        if (lgNew.getMembers().size() > 5) {
+        if (lgNew.getMembers().size() >= GeneralData.getInstance().getCurrentSemester().getMaxGroupSize()) {
             return redirect(controllers.routes.StudentPageController
                     .learningGroupPage(ctx().messages().at("student .learningGroup.error.learningGroupFull")));
         } // wenn die lerngruppe bereits voll ist wird ein fehler zurückgegeben
@@ -203,7 +198,20 @@ public class StudentPageController extends Controller {
      * @return Die Seite, die als Antwort verschickt wird.
      */
     public Result editAccount() {
-        // TODO
-        return null;
+        UserManagement user = new UserManagement();
+        Student student = (Student) user.getUserProfile(ctx());
+        DynamicForm form = formFactory.form().bindFromRequest();
+        String email = form.get("newEmail");
+        String pw = form.get("newPassword");
+        String pwrepeat = form.get("newPasswordRepeat");
+        if (!pw.equals(pwrepeat)) {
+            // TODO error message
+            return redirect(controllers.routes.StudentPageController.accountPafe("error"));
+        }
+        student.setEmailAddress(email);
+        // TODO hier verifikation
+        student.setPassword(pw);
+        // TODO hier verschlüüseln
+        student.save();
     }
 }

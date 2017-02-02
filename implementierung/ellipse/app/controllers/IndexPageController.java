@@ -145,11 +145,14 @@ public class IndexPageController extends Controller {
             String password = form.get("pw");
             String pwRepeat = form.get("rpw");
             String matNrString = "";
+            String semesterString = form.get("semester");
+            int semester = -1;
             int matNr = -1;
             try {
                 // die matrikelnummer wird geparst
                 matNrString = form.get("matrnr");
                 matNr = Integer.parseInt(matNrString);
+                semester = Integer.parseInt(semesterString);
             } catch (NumberFormatException e) {
                 return redirect(controllers.routes.IndexPageController
                         .registerPage(ctx().messages().at("index.registration.error.genError")));
@@ -170,8 +173,7 @@ public class IndexPageController extends Controller {
                     Student student = new Student(matNrString, password, email, firstName, lastName, matNr,
                             new SPO() /* enter spo eleements here */,
                             null/* completed achevevents */,
-                            null /* oral achevements here */,
-                            0/* semester here */);
+                            null /* oral achevements here */, semester);
                     // TODO get student data from view
                     GeneralData.getInstance().getCurrentSemester().addStudent(student);
                     return redirect(controllers.routes.IndexPageController.indexPage(""));
