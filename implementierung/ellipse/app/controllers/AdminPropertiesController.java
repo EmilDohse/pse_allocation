@@ -149,7 +149,7 @@ public class AdminPropertiesController extends Controller {
         semester.setRegistrationEnd(endDate);
         semester.setWintersemester(wintersemester != null);
         // true wenn witersemseter == null
-        emester.setMaxGroupSize(maxGroupSize);
+        semester.setMaxGroupSize(maxGroupSize);
         semester.setYear(year);
         if (semesterActive != null) {
             GeneralData.getInstance().setCurrentSemester(semester);

@@ -206,7 +206,7 @@ public class StudentPageController extends Controller {
         String pwrepeat = form.get("newPasswordRepeat");
         if (!pw.equals(pwrepeat)) {
             // TODO error message
-            return redirect(controllers.routes.StudentPageController.accountPafe("error"));
+            return redirect(controllers.routes.StudentPageController.accountPage("error"));
         }
         student.setEmailAddress(email);
         // TODO hier verifikation
