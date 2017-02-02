@@ -125,6 +125,7 @@ admin.properties.removeSPO = SPO löschen
 admin.properties.name = Name
 admin.properties.removeSemester = Semester löschen
 admin.properties.maxGroupSize = Maximale Lerngruppengröße
+admin.error.noSemester = Kein Semester vorhanden. Erstellen Sie bitte eines in den Einstellungen.
 
 importer.FileNotFound = Datei konnte nicht gefunden werden
 importer.IOException = Fehler beim Lesen der Datei

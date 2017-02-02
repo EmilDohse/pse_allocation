@@ -16,3 +16,4 @@
 *.run.xml
 *.metadata
 *.sbtserver
+RUNNING_PID
