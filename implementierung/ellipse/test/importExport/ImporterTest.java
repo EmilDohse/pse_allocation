@@ -12,22 +12,28 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.avaje.ebean.Ebean;
+import com.avaje.ebean.EbeanServer;
+import com.avaje.ebean.EbeanServerFactory;
+import com.avaje.ebean.config.ServerConfig;
 
 import data.SPO;
 import data.Semester;
 import exception.ImporterException;
-import play.Application;
-import play.test.Helpers;
 
 public class ImporterTest {
 
     private static Importer    importerExporter;
-    private static Application app;
+    private static EbeanServer server;
 
     @BeforeClass
     public static void beforeClass() {
-        app = Helpers.fakeApplication(Helpers.inMemoryDatabase());
-        Helpers.start(app);
+        ServerConfig config = new ServerConfig();
+        config.setName("db");
+        config.loadTestProperties();
+        config.setDefaultServer(true);
+        config.setRegister(true);
+
+        server = EbeanServerFactory.create(config);
     }
 
     @Before
@@ -38,11 +44,9 @@ public class ImporterTest {
 
     @Test
     public void testImportTestData() {
-        importerExporter.importTestData("students.training.csv",
-                "topics.training.csv");
+        importerExporter.importTestData("students.training.csv", "topics.training.csv");
         assertNotNull(Semester.getSemester("TestSemester"));
-        assertEquals(227,
-                Semester.getSemester("TestSemester").getStudents().size());
+        assertEquals(227, Semester.getSemester("TestSemester").getStudents().size());
     }
 
     @Test
@@ -55,25 +59,20 @@ public class ImporterTest {
             // wird, sollte aber keine Probleme machen
         }
         // Lege Semester an
-        Semester importStudentSemester = new Semester("importStudentSemester",
-                true, 2017);
+        Semester importStudentSemester = new Semester("importStudentSemester", true, 2017);
         importStudentSemester.setInfoText("Ich bin ein Infotext");
         Ebean.save(importStudentSemester);
         // Importiere Projekte
         try {
-            importerExporter.importProjects("Projekte.csv",
-                    importStudentSemester);
+            importerExporter.importProjects("Projekte.csv", importStudentSemester);
         } catch (ImporterException e1) {
             assertTrue(false);
         }
         // Importiere Studenten
         try {
-            importerExporter.importStudents("studentsNew.csv",
-                    importStudentSemester);
-            assertFalse(Semester.getSemester("importStudentSemester")
-                    .getStudents().isEmpty());
-            importerExporter.exportStudents("exportStudents.csv",
-                    Semester.getSemester("importStudentSemester"));
+            importerExporter.importStudents("studentsNew.csv", importStudentSemester);
+            assertFalse(Semester.getSemester("importStudentSemester").getStudents().isEmpty());
+            importerExporter.exportStudents("exportStudents.csv", Semester.getSemester("importStudentSemester"));
         } catch (ImporterException e) {
             assertTrue(false);
         }
@@ -86,10 +85,8 @@ public class ImporterTest {
         Ebean.save(importProjects);
         try {
             importerExporter.importProjects("Projekte.csv", importProjects);
-            assertFalse(Semester.getSemester("importProjects").getProjects()
-                    .isEmpty());
-            assertEquals(23, Semester.getSemester("importProjects")
-                    .getProjects().size());
+            assertFalse(Semester.getSemester("importProjects").getProjects().isEmpty());
+            assertEquals(23, Semester.getSemester("importProjects").getProjects().size());
         } catch (ImporterException e) {
             assertTrue(false);
         }
@@ -100,10 +97,8 @@ public class ImporterTest {
         try {
             importerExporter.importSPO("spo2008.csv");
             assertNotNull(SPO.getSPO("2008"));
-            assertFalse(
-                    SPO.getSPO("2008").getAdditionalAchievements().isEmpty());
-            assertFalse(
-                    SPO.getSPO("2008").getNecessaryAchievements().isEmpty());
+            assertFalse(SPO.getSPO("2008").getAdditionalAchievements().isEmpty());
+            assertFalse(SPO.getSPO("2008").getNecessaryAchievements().isEmpty());
             // TODO Hier kommt BeanList deferred raus... Keine Ahnung wie man
             // das fixt
             // assertEquals(2, SPO.getSPO("2008").getAdditionalAchievements());
@@ -122,6 +117,6 @@ public class ImporterTest {
 
     @AfterClass
     public static void afterClass() {
-        Helpers.stop(app);
+        server.shutdown(false, false);
     }
 }
