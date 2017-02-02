@@ -17,7 +17,7 @@ import javax.persistence.ManyToOne;
  * Diese KLasse stellt ein Team eines Projektes dar.
  */
 @Entity
-public class Team extends ElipseModel implements Comparable<Team> {
+public class Team extends ElipseModel /* implements Comparable<Team> */ {
 
     /**
      * Nummer des Teams
@@ -167,18 +167,10 @@ public class Team extends ElipseModel implements Comparable<Team> {
         return project.getAdvisers();
     }
 
-    /**
-     * getter für die id
-     */
-    @Override
-    public int getId() {
-        // TODO iplementiern wird gebraucht
-        return 0;
-    }
-
-    @Override
-    public int compareTo(Team o) {
-        return Integer.compare(teamNumber, o.getTeamNumber());
-    }
+    //
+    // @Override
+    // public int compareTo(Team o) {
+    // return Integer.compare(teamNumber, o.getTeamNumber());
+    // }
 
 }

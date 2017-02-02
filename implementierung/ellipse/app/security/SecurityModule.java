@@ -29,8 +29,7 @@ public class SecurityModule extends AbstractModule {
 
     private final Configuration configuration;
 
-    public SecurityModule(final Environment environment,
-            final Configuration configuration) {
+    public SecurityModule(final Environment environment, final Configuration configuration) {
         this.configuration = configuration;
     }
 
@@ -49,12 +48,9 @@ public class SecurityModule extends AbstractModule {
         clients.init();
 
         Config config = new Config(clients);
-        config.addAuthorizer("admin",
-                new RequireAnyRoleAuthorizer<UserProfile>("ROLE_ADMIN"));
-        config.addAuthorizer("adviser",
-                new RequireAnyRoleAuthorizer<UserProfile>("ROLE_ADVISER"));
-        config.addAuthorizer("student",
-                new RequireAnyRoleAuthorizer<UserProfile>("ROLE_STUDENT"));
+        config.addAuthorizer("admin", new RequireAnyRoleAuthorizer<UserProfile>("ROLE_ADMIN"));
+        config.addAuthorizer("adviser", new RequireAnyRoleAuthorizer<UserProfile>("ROLE_ADVISER"));
+        config.addAuthorizer("student", new RequireAnyRoleAuthorizer<UserProfile>("ROLE_STUDENT"));
         config.setHttpActionAdapter(new DefaultHttpActionAdapter());
         bind(Config.class).toInstance(config);
 

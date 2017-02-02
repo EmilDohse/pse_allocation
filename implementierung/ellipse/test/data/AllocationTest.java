@@ -49,7 +49,6 @@ public class AllocationTest extends DataTest {
         team.save();
         a.setTeams(teams);
         // a.save();
-        System.out.println(a.getTeams());
         assertEquals(teams, a.getTeams());
         assertEquals(team, a.getTeam(student));
         // set Students Team
