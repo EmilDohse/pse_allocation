@@ -33,6 +33,7 @@ List[qualityCriteria.QualityCriterion], error: String)
 		<div role="tabpanel" class="tab-pane" id="@allocation.getName()">
 			<div class="row">
 				<form>
+					<input type="hidden" name ="allocationID" value="@allocation.getId()">
 					<div class="col-sm-6 col-md-6">
 						@for(team <- allocation.getTeams()) {
 						<table class="table table-striped">
@@ -46,8 +47,8 @@ List[qualityCriteria.QualityCriterion], error: String)
 							<tbody>
 								@for(member <- team.getMembers()) {
 								<tr>
-									<td><input type="checkbox" name="@member.getName()"
-										id="@member.getName()"></td>
+									<td><input type="checkbox" name="@member.getId()"
+										id="@member.getId()"></td>
 									<td>@member.getName()</td>
 								</tr>
 								}
@@ -60,10 +61,10 @@ List[qualityCriteria.QualityCriterion], error: String)
 						<div class="form-group">
 							<label class="control-label col-sm-1" for="rpw">@Messages("admin.results.to")</label>
 							<div class="col-sm-3">
-								<select id="project-selection"> @for(team <-
+								<select name="project-selection" id="project-selection"> @for(team <-
 									allocation.getTeams()) {
 									<option
-										value="@team.getProject().getName()_#@team.getTeamNumber()">@team.getProject().getName()
+										value="@team.getId()">@team.getProject().getName()
 										- Team #@team.getTeamNumber()</option> }
 								</select>
 							</div>
