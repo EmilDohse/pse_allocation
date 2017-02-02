@@ -111,11 +111,21 @@ public class AdminPropertiesController extends Controller {
     public Result editSemester() {
         DynamicForm form = formFactory.form().bindFromRequest();
         String name = form.get("name2");
+        String yearString = form.get("year");
         String idString = form.get("id");
-        int id = Integer.parseInt(idString);
+        int id;
+        int year;
+        try {
+            id = Integer.parseInt(idString);
+            year = Integer.parseInt(yearString);
+        } catch (Exception e) {
+            // TODO error mesage
+            return redirect(controllers.routes.AdminPageController.propertiesPage("error"));
+        }
         String generalInfo = form.get("info");
         String registrationStart = form.get("registrationStart");
         String registrationEnd = form.get("registrationEnd");
+        String wintersemester = form.get("wintersemester");
         java.util.Date startDate;
         java.util.Date endDate;
         String semesterActive = form.get("semester-active");
@@ -134,9 +144,9 @@ public class AdminPropertiesController extends Controller {
         semester.setName(name);
         semester.setRegistrationStart(startDate);
         semester.setRegistrationEnd(endDate);
-        semester.setWintersemester(true); // TODO hier noch checkbox machen und
-                                          // dann abfangen
-        semester.setYear(2000); // TODO hier noch eingabefeld
+        semester.setWintersemester(wintersemester != null);
+        // true wenn witersemseter == null
+        semester.setYear(year);
         if (semesterActive != null) {
             GeneralData.getInstance().setCurrentSemester(semester);
             GeneralData.getInstance().save(); // TODO muss man hier generalData
@@ -159,7 +169,7 @@ public class AdminPropertiesController extends Controller {
     public Result addAchievement() {
         DynamicForm form = formFactory.form().bindFromRequest();
         String nameAchiev = form.get("nameAchiev");
-        String idSPOString = form.get("nameSPO");
+        String idSPOString = form.get("id");
         int idSPO;
         try {
             idSPO = Integer.parseInt(idSPOString);
