@@ -4,10 +4,14 @@
 
 package controllers;
 
+import java.util.ArrayList;
+
 import com.google.inject.Inject;
 
 import data.GeneralData;
 import data.LearningGroup;
+import data.Project;
+import data.Rating;
 import data.Student;
 import play.data.DynamicForm;
 import play.data.FormFactory;
@@ -87,8 +91,18 @@ public class StudentPageController extends Controller {
      * @return Die Seite, die als Antwort verschickt wird.
      */
     public Result rate() {
-        // TODO
-        return null;
+        UserManagement user = new UserManagement();
+        Student student = (Student) user.getUserProfile(ctx());
+        DynamicForm form = formFactory.form().bindFromRequest();
+        LearningGroup lg = GeneralData.getInstance().getCurrentSemester().getLearningGroupOf(student);
+        ArrayList<Rating> ratings = new ArrayList<>();
+        for (Project project : GeneralData.getInstance().getCurrentSemester().getProjects()) {
+            Rating rating = new Rating(Integer.parseInt(form.get(Integer.toString(project.getId()))), project);
+            // holt sich das rating des studenten aus dem formular
+            ratings.add(rating);
+        }
+        lg.setRatings(ratings);
+        return redirect(controllers.routes.StudentPageController.learningGroupPage(""));
     }
 
     /**
