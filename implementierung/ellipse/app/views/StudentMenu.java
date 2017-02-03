@@ -2,8 +2,24 @@ package views;
 
 import play.mvc.Http.Context;
 
+/**
+ * Diese Klasse wird für das Studenten-Menü verwendet und enthält alle Einträge
+ * schon voreingestellt.
+ * 
+ * @author daniel
+ *
+ */
 public class StudentMenu extends Menu {
 
+    /**
+     * Erstellt ein neues Studenten-Menü
+     * 
+     * @param context
+     *            aktueller Kontext, wird für das Auswählen der aktuellen
+     *            Sprache verwendet.
+     * @param activeUrl
+     *            die aktive URL, setzt den passenden Eintrag auf aktiv.
+     */
     public StudentMenu(Context context, String activeUrl) {
         addItems(context);
         setActive(activeUrl);
