@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import allocation.AbstractAllocator;
 import allocation.AllocationQueue;
+import data.Adviser;
 import data.ElipseModel;
 import data.GeneralData;
 import data.Project;
@@ -53,13 +54,9 @@ public class AdminPageController extends Controller {
      */
     public Result adviserPage(String error) {
         play.twirl.api.Html content;
-        if (GeneralData.getInstance().getCurrentSemester() == null) {
-            content = views.html.adminAdvisers.render(new ArrayList<>(), error
-                    + "\n" + ctx().messages().at("admin.error.noSemester"));
-        } else {
-            content = views.html.adminAdvisers.render(GeneralData.getInstance()
-                    .getCurrentSemester().getAdvisers(), error);
-        }
+
+        content = views.html.adminAdvisers.render(Adviser.getAdvisers(), error);
+
         Menu menu = new AdminMenu(ctx(), ctx().request().path());
         return ok(views.html.admin.render(menu, content));
     }
