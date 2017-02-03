@@ -140,6 +140,7 @@ public class AdminPropertiesController extends Controller {
         java.util.Date startDate;
         java.util.Date endDate;
         String semesterActive = form.get("semester-active");
+        // List<String> spoMulti = ("spo-multiselect[]");
         try {
             SimpleDateFormat format = new SimpleDateFormat(
                     "dd.MM.yyyy HH:mm:ss");
@@ -221,27 +222,35 @@ public class AdminPropertiesController extends Controller {
         SPO spo = ElipseModel.getById(SPO.class, id);
         List<Achievement> necAchiev = spo.getNecessaryAchievements();
         List<Achievement> addAchiev = spo.getAdditionalAchievements();
-        for (Achievement achiev : necAchiev) {
+        // itterators werden kreiert da man sonst nichts entfernen pver
+        // hinzufügen kann
+
+        java.util.Iterator<Achievement> necAchievments = necAchiev.iterator();
+        while (necAchievments.hasNext()) {
             // für alle neccesary und additional achievments wird geprüft ob sie
             // gelöscht werden müssen oder in die andere liste müssen
+            Achievement achiev = necAchievments.next();
             if (form.get(
                     "delete-" + Integer.toString(achiev.getId())) != null) {
-                spo.removeNecessaryAchievement(achiev);
+                necAchievments.remove();
             } else if (form.get(
                     "necessary-" + Integer.toString(achiev.getId())) == null) {
                 spo.addAdditionalAchievement(achiev);
-                spo.removeNecessaryAchievement(achiev);
+                necAchievments.remove();
             }
-            // TODO überprüfen ob checkboxen so funktionieren
+
         }
-        for (Achievement achiev : addAchiev) {
+        java.util.Iterator<Achievement> addAchievments = addAchiev.iterator();
+        while (addAchievments.hasNext()) {
+            Achievement achiev = addAchievments.next();
             if (form.get(
                     "delete-" + Integer.toString(achiev.getId())) != null) {
-                spo.removeAdditionalAchievement(achiev);
+                addAchievments.remove();
+
             } else if (form.get(
                     "necessary-" + Integer.toString(achiev.getId())) != null) {
                 spo.addNecessaryAchievement(achiev);
-                spo.removeAdditionalAchievement(achiev);
+                addAchievments.remove();
             }
         }
 
