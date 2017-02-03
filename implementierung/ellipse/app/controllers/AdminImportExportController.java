@@ -4,14 +4,17 @@
 
 package controllers;
 
+import java.io.File;
+
 import com.google.inject.Inject;
 
 import data.GeneralData;
 import exception.ImporterException;
 import importExport.Importer;
-import play.data.DynamicForm;
 import play.data.FormFactory;
 import play.mvc.Controller;
+import play.mvc.Http.MultipartFormData;
+import play.mvc.Http.MultipartFormData.FilePart;
 import play.mvc.Result;
 
 /************************************************************/
@@ -33,17 +36,29 @@ public class AdminImportExportController extends Controller {
      */
     public Result importAllocation() {
 
-        DynamicForm form = formFactory.form().bindFromRequest();
-        String filePath = form.get("file");
-        importExport.Importer importer = new Importer();
-        try {
-            importer.importAllocation(filePath, GeneralData.getInstance().getCurrentSemester());
-        } catch (ImporterException e) {
-            return redirect(
-                    controllers.routes.AdminPageController.exportImportPage(ctx().messages().at(e.getMessage())));
-        }
+        MultipartFormData<File> body = request().body().asMultipartFormData();
+        FilePart<File> importData = body.getFile("file");
 
-        return redirect(controllers.routes.AdminPageController.exportImportPage(""));
+        if (importData != null) {
+            String fileName = importData.getFilename();
+            String contentType = importData.getContentType();
+            File file = importData.getFile();
+            importExport.Importer importer = new Importer();
+            try {// TODO wenn wir wollen können wir hier das file übergebben
+                 // (api änderung)
+                importer.importAllocation(file.getAbsolutePath(),
+                        GeneralData.getInstance().getCurrentSemester());
+                return redirect(controllers.routes.AdminPageController
+                        .exportImportPage(""));
+            } catch (ImporterException e) {
+                return redirect(controllers.routes.AdminPageController
+                        .exportImportPage(ctx().messages().at(e.getMessage())));
+            }
+        }
+        // TODO error message
+        return redirect(controllers.routes.AdminPageController
+                .exportImportPage("error"));
+
     }
 
     /**
@@ -66,17 +81,28 @@ public class AdminImportExportController extends Controller {
      * @return Die Seite, die als Antwort verschickt wird.
      */
     public Result importSPO() {
-        DynamicForm form = formFactory.form().bindFromRequest();
-        String filePath = form.get("file");
-        importExport.Importer importer = new Importer();
-        try {
-            importer.importSPO(filePath);
-        } catch (ImporterException e) {
-            return redirect(
-                    controllers.routes.AdminPageController.exportImportPage(ctx().messages().at(e.getMessage())));
-        }
+        MultipartFormData<File> body = request().body().asMultipartFormData();
+        FilePart<File> importData = body.getFile("file");
 
-        return redirect(controllers.routes.AdminPageController.exportImportPage(""));
+        if (importData != null) {
+            String fileName = importData.getFilename();
+            String contentType = importData.getContentType();
+            File file = importData.getFile();
+            importExport.Importer importer = new Importer();
+            try {// TODO wenn wir wollen können wir hier das file übergebben
+                 // (api änderung)
+                importer.importSPO(file.getAbsolutePath());
+                return redirect(controllers.routes.AdminPageController
+                        .exportImportPage(""));
+            } catch (ImporterException e) {
+                return redirect(controllers.routes.AdminPageController
+                        .exportImportPage(ctx().messages().at(e.getMessage())));
+            }
+        }
+        // TODO error message
+        return redirect(controllers.routes.AdminPageController
+                .exportImportPage("error"));
+
     }
 
     /**
@@ -99,17 +125,29 @@ public class AdminImportExportController extends Controller {
      * @return Die Seite, die als Antwort verschickt wird.
      */
     public Result importProjects() {
-        DynamicForm form = formFactory.form().bindFromRequest();
-        String filePath = form.get("file");
-        importExport.Importer importer = new Importer();
-        try {
-            importer.importProjects(filePath, GeneralData.getInstance().getCurrentSemester());
-        } catch (ImporterException e) {
-            return redirect(
-                    controllers.routes.AdminPageController.exportImportPage(ctx().messages().at(e.getMessage())));
-        }
+        MultipartFormData<File> body = request().body().asMultipartFormData();
+        FilePart<File> importData = body.getFile("file");
 
-        return redirect(controllers.routes.AdminPageController.exportImportPage(""));
+        if (importData != null) {
+            String fileName = importData.getFilename();
+            String contentType = importData.getContentType();
+            File file = importData.getFile();
+            importExport.Importer importer = new Importer();
+            try {// TODO wenn wir wollen können wir hier das file übergebben
+                 // (api änderung)
+                importer.importProjects(file.getAbsolutePath(),
+                        GeneralData.getInstance().getCurrentSemester());
+                return redirect(controllers.routes.AdminPageController
+                        .exportImportPage(""));
+
+            } catch (ImporterException e) {
+                return redirect(controllers.routes.AdminPageController
+                        .exportImportPage(ctx().messages().at(e.getMessage())));
+            }
+        }
+        // TODO error message
+        return redirect(controllers.routes.AdminPageController
+                .exportImportPage("error"));
     }
 
     /**
@@ -133,17 +171,28 @@ public class AdminImportExportController extends Controller {
      * @return Die Seite, die als Antwort verschickt wird.
      */
     public Result importCMSData() {
-        DynamicForm form = formFactory.form().bindFromRequest();
-        String filePath = form.get("file");
-        importExport.Importer importer = new Importer();
-        try {
-            importer.importCMSData(filePath, GeneralData.getInstance().getCurrentSemester());
-        } catch (ImporterException e) {
-            return redirect(
-                    controllers.routes.AdminPageController.exportImportPage(ctx().messages().at(e.getMessage())));
-        }
+        MultipartFormData<File> body = request().body().asMultipartFormData();
+        FilePart<File> importData = body.getFile("file");
 
-        return redirect(controllers.routes.AdminPageController.exportImportPage(""));
+        if (importData != null) {
+            String fileName = importData.getFilename();
+            String contentType = importData.getContentType();
+            File file = importData.getFile();
+            importExport.Importer importer = new Importer();
+            try {// TODO wenn wir wollen können wir hier das file übergebben
+                 // (api änderung)
+                importer.importCMSData(file.getAbsolutePath(),
+                        GeneralData.getInstance().getCurrentSemester());
+                return redirect(controllers.routes.AdminPageController
+                        .exportImportPage(""));
+            } catch (ImporterException e) {
+                return redirect(controllers.routes.AdminPageController
+                        .exportImportPage(ctx().messages().at(e.getMessage())));
+            }
+        }
+        // TODO error message
+        return redirect(controllers.routes.AdminPageController
+                .exportImportPage("error"));
     }
 
     /**
@@ -167,17 +216,28 @@ public class AdminImportExportController extends Controller {
      * @return Die Seite, die als Antwort verschickt wird.
      */
     public Result importStudents() {
-        DynamicForm form = formFactory.form().bindFromRequest();
-        String filePath = form.get("file");
-        importExport.Importer importer = new Importer();
-        try {
-            importer.importStudents(filePath, GeneralData.getInstance().getCurrentSemester());
-        } catch (ImporterException e) {
-            return redirect(
-                    controllers.routes.AdminPageController.exportImportPage(ctx().messages().at(e.getMessage())));
-        }
+        MultipartFormData<File> body = request().body().asMultipartFormData();
+        FilePart<File> importData = body.getFile("file");
 
-        return redirect(controllers.routes.AdminPageController.exportImportPage(""));
+        if (importData != null) {
+            String fileName = importData.getFilename();
+            String contentType = importData.getContentType();
+            File file = importData.getFile();
+            importExport.Importer importer = new Importer();
+            try {// TODO wenn wir wollen können wir hier das file übergebben
+                 // (api änderung)
+                importer.importStudents(file.getAbsolutePath(),
+                        GeneralData.getInstance().getCurrentSemester());
+                return redirect(controllers.routes.AdminPageController
+                        .exportImportPage(""));
+            } catch (ImporterException e) {
+                return redirect(controllers.routes.AdminPageController
+                        .exportImportPage(ctx().messages().at(e.getMessage())));
+            }
+        }
+        // TODO error message
+        return redirect(controllers.routes.AdminPageController
+                .exportImportPage("error"));
     }
 
     /**
