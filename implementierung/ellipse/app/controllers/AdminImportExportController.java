@@ -5,10 +5,13 @@
 package controllers;
 
 import java.io.File;
+import java.util.ArrayList;
 
 import com.google.inject.Inject;
 
+import data.Allocation;
 import data.GeneralData;
+import data.SPO;
 import exception.ImporterException;
 import importExport.Importer;
 import play.data.FormFactory;
@@ -69,8 +72,12 @@ public class AdminImportExportController extends Controller {
      * @return Die Seite, die als Antwort verschickt wird.
      */
     public Result exportAllocation() {
-        // TODO
-        return null;
+        importExport.Importer importer = new Importer();
+        File file = new File("/imExport/exportAllocation.csv");
+        importer.exportAllocation(file.getAbsolutePath(),
+                new Allocation(new ArrayList<>(), "hallo", new ArrayList<>()));
+        return ok(file); // TODO auswahl der einteilungen
+
     }
 
     /**
@@ -113,8 +120,17 @@ public class AdminImportExportController extends Controller {
      * @return Die Seite, die als Antwort verschickt wird.
      */
     public Result exportSPO() {
-        // TODO
-        return null;
+        importExport.Importer importer = new Importer();
+        File file = new File("/imExport/exportSPO.csv");
+        try {
+            importer.exportSPO(file.getAbsolutePath(), new SPO("haool"));
+            // TODO spo auswahl
+        } catch (ImporterException e) {
+            return redirect(controllers.routes.AdminPageController
+                    .exportImportPage(ctx().messages().at(e.getMessage())));
+        }
+
+        return ok(file);
     }
 
     /**
@@ -158,8 +174,12 @@ public class AdminImportExportController extends Controller {
      * @return Die Seite, die als Antwort verschickt wird.
      */
     public Result exportProjects() {
-        // TODO
-        return null;
+        importExport.Importer importer = new Importer();
+        File file = new File("/imExport/exportProjects.csv");
+        importer.exportProjects(file.getAbsolutePath(),
+                GeneralData.getInstance().getCurrentSemester());
+
+        return ok(file);
     }
 
     /**
@@ -204,8 +224,17 @@ public class AdminImportExportController extends Controller {
      * @return Die Seite, die als Antwort verschickt wird.
      */
     public Result exportCMSData() {
-        // TODO
-        return null;
+        importExport.Importer importer = new Importer();
+        File file = new File("/imExport/exportCMS.csv");
+        try {
+            importer.exportCMSData(file.getAbsolutePath(),
+                    GeneralData.getInstance().getCurrentSemester());
+        } catch (ImporterException e) {
+            return redirect(controllers.routes.AdminPageController
+                    .exportImportPage(ctx().messages().at(e.getMessage())));
+        }
+
+        return ok(file);
     }
 
     /**
@@ -248,7 +277,16 @@ public class AdminImportExportController extends Controller {
      * @return Die Seite, die als Antwort verschickt wird.
      */
     public Result exportStudents() {
-        // TODO
-        return null;
+        importExport.Importer importer = new Importer();
+        File file = new File("/imExport/exportStudents.csv");
+        try {
+            importer.exportStudents(file.getAbsolutePath(),
+                    GeneralData.getInstance().getCurrentSemester());
+        } catch (ImporterException e) {
+            return redirect(controllers.routes.AdminPageController
+                    .exportImportPage(ctx().messages().at(e.getMessage())));
+        }
+
+        return ok(file);
     }
 }
