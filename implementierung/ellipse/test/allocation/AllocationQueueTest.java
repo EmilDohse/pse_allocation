@@ -1,13 +1,22 @@
 package allocation;
 
+import static org.junit.Assert.assertTrue;
+
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
+
+import com.avaje.ebean.EbeanServer;
+import com.avaje.ebean.EbeanServerFactory;
+import com.avaje.ebean.config.ServerConfig;
 
 import data.AllocationParameter;
 import data.LearningGroup;
+import data.Project;
 import data.Student;
 import jdk.nashorn.internal.ir.annotations.Ignore;
 
@@ -19,17 +28,34 @@ import jdk.nashorn.internal.ir.annotations.Ignore;
  */
 public class AllocationQueueTest {
 
-    AllocationQueue allocQueue;
-    Configuration   config1;
-    Configuration   config2;
+    AllocationQueue            allocQueue;
+    Configuration              configOne;
+    Configuration              configTwo;
+    private static EbeanServer server;
+
+    @BeforeClass
+    public static void beforeClass() {
+        ServerConfig config = new ServerConfig();
+        config.setName("db");
+        config.loadTestProperties();
+        config.setDefaultServer(true);
+        config.setRegister(true);
+
+        server = EbeanServerFactory.create(config);
+    }
+
+    @AfterClass
+    public static void afterClass() {
+        server.shutdown(false, false);
+    }
 
     @Before
     public void init() {
         allocQueue = AllocationQueue.getInstance();
-        config1 = new Configuration("test 1", new ArrayList<Student>(), new ArrayList<LearningGroup>(),
-                new ArrayList<AllocationParameter>());
-        config1 = new Configuration("test 2", new ArrayList<Student>(), new ArrayList<LearningGroup>(),
-                new ArrayList<AllocationParameter>());
+        configOne = new Configuration("test 1", new ArrayList<Student>(), new ArrayList<LearningGroup>(),
+                new ArrayList<Project>(), new ArrayList<AllocationParameter>());
+        configTwo = new Configuration("test 2", new ArrayList<Student>(), new ArrayList<LearningGroup>(),
+                new ArrayList<Project>(), new ArrayList<AllocationParameter>());
     }
 
     /**
@@ -37,7 +63,7 @@ public class AllocationQueueTest {
      */
     @Test
     public void testSingelton() {
-        assert (allocQueue != null);
+        assertTrue(allocQueue != null);
     }
 
     /**
@@ -48,8 +74,8 @@ public class AllocationQueueTest {
     @Test
     @Ignore
     public void testAddToQueue() {
-        allocQueue.addToQueue(config1);
-        assert (allocQueue.getQueue().size() == 1);
+        allocQueue.addToQueue(configOne);
+        assertTrue(allocQueue.getQueue().size() == 1);
 
     }
 
@@ -61,12 +87,12 @@ public class AllocationQueueTest {
     @Test
     @Ignore
     public void testAddToQueue2() {
-        allocQueue.addToQueue(config1);
-        allocQueue.addToQueue(config2);
+        allocQueue.addToQueue(configOne);
+        allocQueue.addToQueue(configTwo);
         List<Configuration> list = allocQueue.getQueue();
-        assert (list.get(0).getName().equals("test 1"));
-        assert (list.get(1).getName().equals("test 2"));
-        assert (list.size() == 2);
+        assertTrue(list.get(0).getName().equals("test 1"));
+        assertTrue(list.get(1).getName().equals("test 2"));
+        assertTrue(list.size() == 2);
     }
 
     /**
@@ -78,13 +104,13 @@ public class AllocationQueueTest {
     @Test
     @Ignore
     public void testCancelAllocation() {
-        allocQueue.addToQueue(config1);
-        allocQueue.addToQueue(config2);
+        allocQueue.addToQueue(configOne);
+        allocQueue.addToQueue(configTwo);
         List<Configuration> list = allocQueue.getQueue();
-        allocQueue.cancelAllocation(list.get(0));
+        allocQueue.cancelAllocation(list.get(0).getName());
         list = allocQueue.getQueue();
-        assert (list.get(0).getName().equals("test 2"));
-        assert (list.size() == 1);
+        assertTrue(list.get(0).getName().equals("test 2"));
+        assertTrue(list.size() == 1);
     }
 
     /**
@@ -96,12 +122,12 @@ public class AllocationQueueTest {
     @Test
     @Ignore
     public void testCancelAllocation2() {
-        allocQueue.addToQueue(config1);
-        allocQueue.addToQueue(config2);
+        allocQueue.addToQueue(configOne);
+        allocQueue.addToQueue(configTwo);
         List<Configuration> list = allocQueue.getQueue();
-        allocQueue.cancelAllocation(list.get(1));
+        allocQueue.cancelAllocation(list.get(1).getName());
         list = allocQueue.getQueue();
-        assert (list.get(0).getName().equals("test 1"));
-        assert (list.size() == 1);
+        assertTrue(list.get(0).getName().equals("test 1"));
+        assertTrue(list.size() == 1);
     }
 }

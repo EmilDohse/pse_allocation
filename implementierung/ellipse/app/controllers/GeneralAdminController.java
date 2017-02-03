@@ -16,6 +16,7 @@ import data.Adviser;
 import data.AllocationParameter;
 import data.GeneralData;
 import data.LearningGroup;
+import data.Project;
 import data.SPO;
 import data.Student;
 import play.data.DynamicForm;
@@ -106,9 +107,10 @@ public class GeneralAdminController extends Controller {
         allocParam.add(new AllocationParameter("prefSize", preferedSize));
 
         AllocationQueue queue = AllocationQueue.getInstance();
-        List<Student> studenst = GeneralData.getInstance().getCurrentSemester().getStudents();
+        List<Student> students = GeneralData.getInstance().getCurrentSemester().getStudents();
         List<LearningGroup> learningGroups = GeneralData.getInstance().getCurrentSemester().getLearningGroups();
-        for (Student student : studenst) { // es wird erneut überprüft ob der
+        List<Project> projects = GeneralData.getInstance().getCurrentSemester().getProjects();
+        for (Student student : students) { // es wird erneut überprüft ob der
                                            // student die neccesary achiefments
                                            // hat und wenn nicht wird der
                                            // student aus der allocation und der
@@ -121,7 +123,7 @@ public class GeneralAdminController extends Controller {
                 }
             }
             if (!achiefment) {
-                studenst.remove(student);
+                students.remove(student);
                 LearningGroup lg = GeneralData.getInstance().getCurrentSemester().getLearningGroupOf(student);
                 // TODO braucht learning group ein comparable?oder equals
                 for (LearningGroup iterLg : learningGroups) {
@@ -133,7 +135,7 @@ public class GeneralAdminController extends Controller {
             }
         }
         // configuration wird erstellt und hinzugefügt
-        Configuration configuration = new Configuration(name, studenst, learningGroups, allocParam);
+        Configuration configuration = new Configuration(name, students, learningGroups, projects, allocParam);
         queue.addToQueue(configuration);
         return redirect(controllers.routes.AdminPageController.allocationPage(""));
     }
@@ -149,7 +151,7 @@ public class GeneralAdminController extends Controller {
         DynamicForm form = formFactory.form().bindFromRequest();
         String configName = form.get("queue");
         AllocationQueue allocationQueue = AllocationQueue.getInstance();
-        allocationQueue.cancelAllocation(new Configuration(configName, null, null, null));
+        allocationQueue.cancelAllocation(configName);
         return redirect(controllers.routes.AdminPageController.allocationPage(""));
     }
 
