@@ -4,6 +4,7 @@
 
 package data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -66,11 +67,13 @@ public class Project extends ElipseModel /* implements Comparable<Project> */ {
         this("default_name", "default_info", "default_institut", "default_url");
     }
 
-    public Project(String name, String projectInfo, String institut, String url) {
+    public Project(String name, String projectInfo, String institut,
+            String url) {
         this.name = name;
         this.projectInfo = projectInfo;
         this.institute = institut;
         this.projectURL = url;
+        advisers = new ArrayList<>();
     }
 
     public Project(String name, Adviser adviser) {
@@ -301,7 +304,9 @@ public class Project extends ElipseModel /* implements Comparable<Project> */ {
      *         gefunden wurde.
      */
     public static Project getProject(String name, Semester semester) {
-        return getProjects().stream().filter(project -> project.getName().equals(name)).findFirst().orElse(null);
+        return getProjects().stream()
+                .filter(project -> project.getName().equals(name)).findFirst()
+                .orElse(null);
     }
 
     // /**
