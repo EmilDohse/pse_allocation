@@ -2,8 +2,24 @@ package views;
 
 import play.mvc.Http.Context;
 
+/**
+ * Diese Klasse wird für das Administrator-Menü verwendet und enthält alle
+ * Einträge schon voreingestellt.
+ * 
+ * @author daniel
+ *
+ */
 public class AdminMenu extends Menu {
 
+    /**
+     * Erstellt ein neues Admin-Menü
+     * 
+     * @param context
+     *            aktueller Kontext, wird für das Auswählen der aktuellen
+     *            Sprache verwendet.
+     * @param activeUrl
+     *            die aktive URL, setzt den passenden Eintrag auf aktiv.
+     */
     public AdminMenu(Context context, String activeUrl) {
         addItems(context);
         setActive(activeUrl);

@@ -108,7 +108,7 @@ Liste aller SPOs benötigt. * Eine Fehlermeldung kann zusätzlich
 			<label class="control-label col-sm-2"
 				for="completed-achievements-selection-@spo.getId()">@Messages("index.registration.form.passedAchievements")</label>
 			<select id="completed-achievements-selection-@spo.getId()"
-				name="completed-@spo.getId()" class="form-control"
+				name="completed-@spo.getId()-multiselect[]" class="form-control"
 				multiple="multiple">
 				<optgroup
 					label='@Messages("index.registration.form.necessaryAchievements")'>
@@ -137,7 +137,7 @@ Liste aller SPOs benötigt. * Eine Fehlermeldung kann zusätzlich
 			<label class="control-label col-sm-2"
 				for="due-achievements-selection-@spo.getId()">@Messages("index.registration.form.dueAchievements")</label>
 			<select id="due-achievements-selection-@spo.getId()"
-				name="due-@spo.getName()" class="form-control" multiple="multiple">
+				name="due-@spo.getName()-multiselect[]" class="form-control" multiple="multiple">
 				<optgroup
 					label='@Messages("index.registration.form.necessaryAchievements")'>
 					@for(nAchievement <- spo.getNecessaryAchievements()) {

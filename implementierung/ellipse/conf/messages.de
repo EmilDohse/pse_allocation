@@ -46,7 +46,7 @@ student.result.members = Teammitglieder
 student.account.newEmail = Neue E-Mail-Addresse
 student.account.change = Ändern
 student.account.newPassword = Neues Passwort
-
+student.error.noAllocationYet = Bisher existieren noch keine fertig berechneten Einteilungen.
 
 adviser.leaveProject = Projekt verlassen
 
@@ -123,7 +123,7 @@ admin.properties.achievementName = Name
 admin.properties.addAchievement = Teilleistung hinzufügen
 admin.properties.removeSPO = SPO löschen
 admin.properties.name = Name
-admin.properties.year = year
+admin.properties.year = Jahr
 admin.properties.winterSemester = Wintersemester
 admin.properties.summerSemester = Sommersemester
 admin.properties.removeSemester = Semester löschen

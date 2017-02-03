@@ -43,7 +43,7 @@ spos: List[data.SPO], error: String) @if(!error.isEmpty()){
 		<div role="tabpanel" class="tab-pane" id="spo-@spo.getId()">
 			<form
 				action="@controllers.routes.AdminPropertiesController.changeSPO().path()"
-				method="POST" class="form-horizontal">
+				method="POST" class="form-inline">
 				<input type="hidden" name="id" value="@spo.getId()">
 				<div class="form-group">
 					<label class="control-label col-sm-2" for="name">@Messages("admin.properties.name")</label>
@@ -166,13 +166,14 @@ spos: List[data.SPO], error: String) @if(!error.isEmpty()){
 					<label class="control-label col-sm-2" for="name">@Messages("admin.properties.year")</label>
 					<div class="col-sm-3">
 						<input type="number" class="form-control" name="year" id="year"
-							value="@semester.getName()">
+							value="@semester.getYear()">
 					</div>
 				</div>
 
 				<div class="form-group">
 					<div class="col-sm-offset-2 checkbox">
-						<input type="checkbox" checked data-toggle="toggle"
+						<input type="checkbox"
+							@if(semester.isWintersemester()) {checked} data-toggle="toggle"
 							data-on='@Messages("admin.properties.winterSemester")'
 							data-off='@Messages("admin.properties.summerSemester")'
 							data-onstyle="success" data-offstyle="danger" data-width="200"
@@ -190,7 +191,7 @@ spos: List[data.SPO], error: String) @if(!error.isEmpty()){
 					<label class="control-label col-sm-2" for="maxGroupSize">@Messages("admin.properties.maxGroupSize")</label>
 					<div class="col-sm-3">
 						<input type="number" class="form-control" name="maxGroupSize"
-							id="maxGroupSize">
+							id="maxGroupSize" value="@semester.getMaxGroupSize()">
 					</div>
 				</div>
 				<!--  Temporarily type text but should not be final. Search for better options. -->
@@ -198,7 +199,10 @@ spos: List[data.SPO], error: String) @if(!error.isEmpty()){
 					<label class="control-label col-sm-2" for="registrationStart">@Messages("admin.properties.registrationStart")</label>
 					<div class="col-sm-3">
 						<input type="text" class="form-control" name="registrationStart"
-							id="registrationStart">
+							id="registrationStart"
+							value='@{val format = new java.text.SimpleDateFormat(
+                    "dd.MM.yyyy HH:mm:ss");if(semester.getRegistrationStart() != null) {format.format(semester.getRegistrationStart());}
+                    else{format.format(new java.util.Date());}}'>
 					</div>
 				</div>
 
@@ -206,7 +210,10 @@ spos: List[data.SPO], error: String) @if(!error.isEmpty()){
 					<label class="control-label col-sm-2" for="registrationEnd">@Messages("admin.properties.registrationEnd")</label>
 					<div class="col-sm-3">
 						<input type="text" class="form-control" name="registrationEnd"
-							id="registrationEnd">
+							id="registrationEnd"
+							value='@{val format = new java.text.SimpleDateFormat(
+                    "dd.MM.yyyy HH:mm:ss");if(semester.getRegistrationEnd() != null) {format.format(semester.getRegistrationEnd());}
+                    else{format.format(new java.util.Date());}}'>
 					</div>
 				</div>
 
@@ -214,14 +221,16 @@ spos: List[data.SPO], error: String) @if(!error.isEmpty()){
 					$(document).ready(function() {
 						$('#availabe-spo').multiselect({
 							maxHeight : 300,
-							numberDisplayed : 6
+							numberDisplayed : 6,
+							disableIfEmpty : true
 						});
 					});
 				</script>
 				<div class="form-group">
 					<label class="control-label col-sm-2" for="spo">@Messages("admin.properties.availableSPOs")</label>
-					<select id="availabe-spo" name="spo" class="form-control"
-						multiple="multiple"> @for(spo <- spos) {
+					<select id="availabe-spo" name="spo-multiselect[]"
+						class="form-control" multiple="multiple"> @for(spo <-
+						spos) {
 						<option value="@spo.getId()">@spo.getName()</option> }
 					</select>
 				</div>
