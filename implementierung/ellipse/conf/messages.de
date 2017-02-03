@@ -46,7 +46,7 @@ student.result.members = Teammitglieder
 student.account.newEmail = Neue E-Mail-Addresse
 student.account.change = Ändern
 student.account.newPassword = Neues Passwort
-
+student.error.noAllocationYet = Bisher existieren noch keine fertig berechneten Einteilungen.
 
 adviser.leaveProject = Projekt verlassen
 
