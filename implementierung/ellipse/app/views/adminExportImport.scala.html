@@ -7,7 +7,7 @@ Zusätzlich kann eine Fehlermeldung übergeben werden. *@ @(error: String)
 <h3>@Messages("admin.eximport.import")</h3>
 <form
 	action="@controllers.routes.AdminImportExportController.importAllocation().path()"
-	method="POST" class="form-inline">
+	method="POST" class="form-inline" enctype="multipart/form-data">
 	<div class="form-group">
 		<label class="control-label col-sm-2" for="file">@Messages("admin.eximport.chooseFile")</label>
 		<div class="col-sm-3">
@@ -18,7 +18,7 @@ Zusätzlich kann eine Fehlermeldung übergeben werden. *@ @(error: String)
 </form>
 <form
 	action="@controllers.routes.AdminImportExportController.importCMSData().path()"
-	method="POST" class="form-inline">
+	method="POST" class="form-inline" enctype="multipart/form-data">
 	<div class="form-group">
 		<label class="control-label col-sm-2" for="file1">@Messages("admin.eximport.chooseFile")</label>
 		<div class="col-sm-3">
@@ -29,7 +29,7 @@ Zusätzlich kann eine Fehlermeldung übergeben werden. *@ @(error: String)
 </form>
 <form
 	action="@controllers.routes.AdminImportExportController.importSPO().path()"
-	method="POST" class="form-inline">
+	method="POST" class="form-inline" enctype="multipart/form-data">
 	<div class="form-group">
 		<label class="control-label col-sm-2" for="file2">@Messages("admin.eximport.chooseFile")</label>
 		<div class="col-sm-3">
@@ -40,7 +40,7 @@ Zusätzlich kann eine Fehlermeldung übergeben werden. *@ @(error: String)
 </form>
 <form
 	action="@controllers.routes.AdminImportExportController.importStudents().path()"
-	method="POST" class="form-inline">
+	method="POST" class="form-inline" enctype="multipart/form-data">
 	<div class="form-group">
 		<label class="control-label col-sm-2" for="file3">@Messages("admin.eximport.chooseFile")</label>
 		<div class="col-sm-3">
@@ -51,7 +51,7 @@ Zusätzlich kann eine Fehlermeldung übergeben werden. *@ @(error: String)
 </form>
 <form
 	action="@controllers.routes.AdminImportExportController.importProjects().path()"
-	method="POST" class="form-inline">
+	method="POST" class="form-inline" enctype="multipart/form-data">
 	<div class="form-group">
 		<label class="control-label col-sm-2" for="file4">@Messages("admin.eximport.chooseFile")</label>
 		<div class="col-sm-3">
