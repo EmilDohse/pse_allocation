@@ -6,7 +6,6 @@ package controllers;
 
 import com.google.inject.Inject;
 
-import data.Adviser;
 import data.ElipseModel;
 import data.GeneralData;
 import data.Project;
@@ -24,11 +23,10 @@ import play.mvc.Result;
  */
 public class AdminProjectController extends Controller {
 
-    private static Adviser dummieAdviser = new Adviser("dummieAdviser", "dummie", "", "dummie", "adviser");
-    private Notifier       notifier;
+    private Notifier notifier;
 
     @Inject
-    FormFactory            formFactory;
+    FormFactory      formFactory;
 
     /**
      * Diese Methode fügt ein neues Projekt in das System ein und leitet den
@@ -39,12 +37,14 @@ public class AdminProjectController extends Controller {
     public Result addProject() {
         DynamicForm form = formFactory.form().bindFromRequest();
         String projName = form.get("name");
-        Project project = new Project(projName, dummieAdviser);
+        Project project = new Project(projName, "", "", "");
+        project.save();
         // TODO muss man hier nicht
         // igendwie den adcviser
         // weglassen können?
         GeneralData.getInstance().getCurrentSemester().addProject(project);
-        return redirect(controllers.routes.AdminPageController.projectEditPage(project.getId()));
+        return redirect(controllers.routes.AdminPageController
+                .projectEditPage(project.getId()));
     }
 
     /**
@@ -57,12 +57,14 @@ public class AdminProjectController extends Controller {
     public Result removeProject() {
         DynamicForm form = formFactory.form().bindFromRequest();
         String projName = form.get("name");
-        Project project = Project.getProject(projName, GeneralData.getInstance().getCurrentSemester());
+        Project project = Project.getProject(projName,
+                GeneralData.getInstance().getCurrentSemester());
         // TODO hier eine warnmeldung ausgeben ob das projekt wirklich gelöscht
         // werden soll
         GeneralData.getInstance().getCurrentSemester().removeProject(project);
         return redirect(controllers.routes.AdminPageController
-                .projectEditPage(GeneralData.getInstance().getCurrentSemester().getProjects().get(0).getId()));
+                .projectEditPage(GeneralData.getInstance().getCurrentSemester()
+                        .getProjects().get(0).getId()));
     }
 
     /**
@@ -94,7 +96,8 @@ public class AdminProjectController extends Controller {
             minSize = Integer.parseInt(minSizeString);
             maxSize = Integer.parseInt(maxSizeString);
         } catch (NumberFormatException e) {
-            return redirect(controllers.routes.AdminPageController.projectEditPage(project.getId()));
+            return redirect(controllers.routes.AdminPageController
+                    .projectEditPage(project.getId()));
         }
         // und dem projekt hinzugefügt
         project.setInstitute(institute);
@@ -105,6 +108,7 @@ public class AdminProjectController extends Controller {
         project.setProjectInfo(description);
         project.setProjectURL(url);
         project.save();
-        return redirect(controllers.routes.AdminPageController.projectEditPage(project.getId()));
+        return redirect(controllers.routes.AdminPageController
+                .projectEditPage(project.getId()));
     }
 }
