@@ -151,7 +151,7 @@ public class GeneralAdminController extends Controller {
         DynamicForm form = formFactory.form().bindFromRequest();
         String configName = form.get("queue");
         AllocationQueue allocationQueue = AllocationQueue.getInstance();
-        allocationQueue.cancelAllocation(new Configuration(configName, null, null, null, null));
+        allocationQueue.cancelAllocation(configName);
         return redirect(controllers.routes.AdminPageController.allocationPage(""));
     }
 

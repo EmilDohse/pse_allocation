@@ -107,7 +107,7 @@ public class AllocationQueueTest {
         allocQueue.addToQueue(configOne);
         allocQueue.addToQueue(configTwo);
         List<Configuration> list = allocQueue.getQueue();
-        allocQueue.cancelAllocation(list.get(0));
+        allocQueue.cancelAllocation(list.get(0).getName());
         list = allocQueue.getQueue();
         assertTrue(list.get(0).getName().equals("test 2"));
         assertTrue(list.size() == 1);
@@ -125,7 +125,7 @@ public class AllocationQueueTest {
         allocQueue.addToQueue(configOne);
         allocQueue.addToQueue(configTwo);
         List<Configuration> list = allocQueue.getQueue();
-        allocQueue.cancelAllocation(list.get(1));
+        allocQueue.cancelAllocation(list.get(1).getName());
         list = allocQueue.getQueue();
         assertTrue(list.get(0).getName().equals("test 1"));
         assertTrue(list.size() == 1);

@@ -8,8 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 /************************************************************/
 /**
@@ -20,7 +18,6 @@ import java.util.concurrent.Executors;
 public class AllocationQueue {
 
     private static final int                QUEUE_SIZE = 10;
-    private ExecutorService                 executer;
     /**
      * Calculator ist der Thread der die Berechnung anstößt . Er verwendet das
      * Runnable runnable.
@@ -76,8 +73,9 @@ public class AllocationQueue {
             }
 
         };
-        calculate(); // hier wird der thread gestartet der überpüft ob die liste
-                     // leer ist und sie gegebenenfalls abarbeitet
+        calculator = new Thread(runnable);// hier wird der thread gestartet der
+                                          // überpüft ob die liste
+        calculator.start(); // leer ist und sie gegebenenfalls abarbeitet
     }
 
     /**
@@ -102,8 +100,11 @@ public class AllocationQueue {
      *            Die Konfiguration, die zur Berechnungsqueue hinzugefügt wird.
      */
     public void addToQueue(allocation.Configuration configuration) {
-        configurationQueue.add(configuration);
-        notifyAll(); // der calculator thread wird geweckt
+        synchronized (this.runnable) {
+            configurationQueue.add(configuration);
+            System.out.println("Add");
+            this.runnable.notifyAll(); // der calculator thread wird geweckt
+        }
     }
 
     /**
@@ -111,13 +112,15 @@ public class AllocationQueue {
      * Konfiguration bereits berechnet wird, wird die Berechnung abgebrochen.
      * 
      * @param configuration
-     *            Die Konfiguration, die entfernt werden soll.
+     *            Der Name der Konfiguration, die entfernt werden soll.
      */
-    public void cancelAllocation(allocation.Configuration configuration) {
-        synchronized (this) {
-            if (configuration.getName().equals(currentlyCalculatedConfiguration.getName())) {
+    public void cancelAllocation(String name) {
+        synchronized (this.runnable) {
+            if (null != currentlyCalculatedConfiguration && name.equals(currentlyCalculatedConfiguration.getName())) {
                 allocator.cancel();
             } else {
+                Configuration configuration = configurationQueue.stream().filter(conf -> conf.getName().equals(name))
+                        .findFirst().orElse(null);
                 configurationQueue.remove(configuration);
             }
         }
@@ -136,7 +139,7 @@ public class AllocationQueue {
         // nicht voll sein wird hier nur 4
         // hier könnte QUEUE_SIZE verwendet werden da die queue jedoch meist
         // nicht voll sein wird hier nur 4
-        synchronized (this) {
+        synchronized (this.runnable) {
             if (currentlyCalculatedConfiguration != null) {
                 list.add(currentlyCalculatedConfiguration);
             }
@@ -149,16 +152,6 @@ public class AllocationQueue {
 
     private void setAllocator(AbstractAllocator allocator) {
         this.allocator = allocator;
-    }
-
-    /**
-     * Hier wird der thread gestartet, der überpüft ob die liste leer ist und
-     * sie gegebenenfalls abarbeitet.
-     */
-    private void calculate() {
-        executer = Executors.newFixedThreadPool(1);
-        calculator = new Thread(runnable);
-        executer.execute(calculator);
     }
 
 }
