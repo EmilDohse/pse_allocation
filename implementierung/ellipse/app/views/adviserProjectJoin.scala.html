@@ -1,0 +1,16 @@
+@* * Diese Seite wird angezeigt, falls der Betreuer dem selektiertem
+Projekt noch nicht beigetreten ist. Er bekommt Projektdaten angezeigt
+und kann dem Projekt beitreten, damit er es editieren kann. *@
+@(project: data.Project)
+<h1>@project.getName()</h1>
+<div>@project.getProjectInfo()</div>
+<form
+	action="@controllers.routes.AdviserPageController.joinProject().path()"
+	method="POST" class="form-horizontal">
+	<input type="hidden" name="id" id="id" value="@project.getId()">
+	<div class="form-group">
+		<div class="col-sm-offset-2 col-sm-10">
+			<button type="submit" class="btn btn-default">@Messages("adviser.joinProject")</button>
+		</div>
+	</div>
+</form>

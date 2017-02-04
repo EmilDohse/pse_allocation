@@ -41,6 +41,7 @@ POST 	/student/account			controllers.StudentPageController.accountPage(error: St
 POST 	/student/edit				controllers.StudentPageController.editAccount()
 POST    /student/leaveLG            controllers.StudentPageController.leaveLearningGroup()
 
+GET		/adviser					controllers.AdviserPageController.projectsPage(id: Int = -1)
 GET 	/adviser/projects/:id		controllers.AdviserPageController.projectsPage(id: Int)
 POST 	/adviser/add				controllers.AdviserPageController.addProject()
 POST 	/adviser/remove				controllers.AdviserPageController.removeProject()

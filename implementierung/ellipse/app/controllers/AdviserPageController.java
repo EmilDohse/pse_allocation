@@ -15,6 +15,8 @@ import play.data.FormFactory;
 import play.mvc.Controller;
 import play.mvc.Result;
 import security.UserManagement;
+import views.AdviserMenu;
+import views.Menu;
 
 /************************************************************/
 /**
@@ -38,11 +40,32 @@ public class AdviserPageController extends Controller {
      * @return die Seite, die als Antwort verschickt wird.
      */
     public Result projectsPage(int id) {
-        play.twirl.api.Html content = views.html.projectEdit.render(
-                ElipseModel.getById(Project.class, id), true,
-                Adviser.getAdvisers());
+        Menu menu = new AdviserMenu(ctx().request().path());
+        if (id == -1) {
+            if (GeneralData.getInstance().getCurrentSemester().getProjects()
+                    .size() == 0) {
+                play.twirl.api.Html content = views.html.adviserNoProject
+                        .render();
+                return ok(views.html.adviser.render(menu, content));
+            } else {
+                id = GeneralData.getInstance().getCurrentSemester()
+                        .getProjects().get(0).getId();
+            }
+        }
+
+        Project project = ElipseModel.getById(Project.class, id);
+
+        UserManagement user = new UserManagement();
+        Adviser adviser = (Adviser) user.getUserProfile(ctx());
+        play.twirl.api.Html content;
+        if (adviser.getProjects().contains(project)) {
+            content = views.html.projectEdit.render(project, true,
+                    Adviser.getAdvisers());
+        } else {
+            content = views.html.adviserProjectJoin.render(project);
+        }
         // true bedeutet das der aufrufende adviser ist
-        return ok(views.html.adviser.render(content));
+        return ok(views.html.adviser.render(menu, content));
     }
 
     /**
@@ -211,8 +234,8 @@ public class AdviserPageController extends Controller {
     public Result accountPage(String error) {
         play.twirl.api.Html content = views.html.adviserAccount.render(error);
         // TODO muss hier noch ein param mitgegeben werden?
-
-        return ok(views.html.adviser.render(content));
+        Menu menu = new AdviserMenu(ctx().request().path());
+        return ok(views.html.adviser.render(menu, content));
     }
 
     /**

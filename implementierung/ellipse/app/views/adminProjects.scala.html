@@ -23,7 +23,7 @@ error: String) @if(!error.isEmpty()){
 			<td>@project.getName()</td>
 			<td>@project.getInstitute()</td>
 			<td>@project.getProjectURL()</td>
-			<td>@for(adviser <- project.getAdvisers()) { adviser.getName() </br>}
+			<td>@for(adviser <- project.getAdvisers()) { @adviser.getName() </br>}
 			</td>
 			<td>@project.getMinTeamSize() - @project.getMaxTeamSize()</td>
 			<td>@project.getNumberOfTeams()</td>

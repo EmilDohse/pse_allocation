@@ -3,6 +3,6 @@
  * Als Parameter wird der Seiteninhalt übergeben.
  * TODO: Temporary content
  *@
-@(content: Html)
+@(menu: views.Menu)(content: Html)
 
-@main(Messages("admin.title"), new views.Menu()) { } {@content}
+@main(Messages("admin.title"), menu) {<a class="btn btn-default" href='@org.pac4j.play.routes.ApplicationLogoutController.logout().path()' role="button">@Messages("logout")</a> } {@content}
