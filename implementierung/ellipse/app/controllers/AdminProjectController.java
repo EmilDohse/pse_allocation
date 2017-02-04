@@ -39,12 +39,10 @@ public class AdminProjectController extends Controller {
         String projName = form.get("name");
         Project project = new Project(projName, "", "", "");
         project.save();
-        // TODO muss man hier nicht
-        // igendwie den adcviser
-        // weglassen können?
         GeneralData.getInstance().getCurrentSemester().addProject(project);
         return redirect(controllers.routes.AdminPageController
                 .projectEditPage(project.getId()));
+
     }
 
     /**
@@ -57,11 +55,12 @@ public class AdminProjectController extends Controller {
     public Result removeProject() {
         DynamicForm form = formFactory.form().bindFromRequest();
         String projName = form.get("name");
-        Project project = Project.getProject(projName,
-                GeneralData.getInstance().getCurrentSemester());
+        Project project = ElipseModel.getById(Project.class,
+                Integer.parseInt(form.get("id")));
         // TODO hier eine warnmeldung ausgeben ob das projekt wirklich gelöscht
         // werden soll
         GeneralData.getInstance().getCurrentSemester().removeProject(project);
+
         return redirect(controllers.routes.AdminPageController
                 .projectEditPage(GeneralData.getInstance().getCurrentSemester()
                         .getProjects().get(0).getId()));
