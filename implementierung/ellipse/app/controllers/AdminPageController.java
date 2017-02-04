@@ -158,6 +158,17 @@ public class AdminPageController extends Controller {
      * @return Die Seite, die als Antwort verschickt wird.
      */
     public Result projectEditPage(int id) {
+        if (id == -1) {
+            if (GeneralData.getInstance().getCurrentSemester().getProjects()
+                    .size() == 0) {
+                return redirect(
+                        controllers.routes.AdminPageController.projectPage(""));
+            } else {
+                id = GeneralData.getInstance().getCurrentSemester()
+                        .getProjects().get(0).getId();
+            }
+
+        }
         Project project = ElipseModel.getById(Project.class, id);
         play.twirl.api.Html content = views.html.projectEdit.render(project,
                 false);

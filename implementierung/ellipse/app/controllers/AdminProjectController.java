@@ -61,9 +61,8 @@ public class AdminProjectController extends Controller {
         // werden soll
         GeneralData.getInstance().getCurrentSemester().removeProject(project);
 
-        return redirect(controllers.routes.AdminPageController
-                .projectEditPage(GeneralData.getInstance().getCurrentSemester()
-                        .getProjects().get(0).getId()));
+        return redirect(
+                controllers.routes.AdminPageController.projectEditPage(-1));
     }
 
     /**
