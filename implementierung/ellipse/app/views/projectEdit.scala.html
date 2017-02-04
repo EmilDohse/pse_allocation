@@ -1,8 +1,13 @@
 @* * Diese Seite zeigt die Projekteditierungsseite. * Als Parameter wird
 das Projekt übergeben und die Information, * ob ein Admin oder ein
 Betreuer die Seite angezeigt bekommt. *@ @(project: data.Project,
-isAdviser: Boolean)
+isAdviser: Boolean, advisers: List[data.Adviser])
 
+<script type="text/javascript"
+	src='@routes.Assets.versioned("javascripts/bootstrap-multiselect.js")'></script>
+<link rel="stylesheet"
+	href='@routes.Assets.versioned("stylesheets/bootstrap-multiselect.css")'
+	type="text/css" />
 <h1>@Messages("admin.projects.editProject")</h1>
 @if(isAdviser) {
 <form
@@ -70,8 +75,31 @@ isAdviser: Boolean)
 					id="maxSize" value="@project.getMaxTeamSize()">
 			</div>
 		</div>
-
-		<!-- TODO: Projektbetreuer !!! -->
+		<script type="text/javascript">
+			$(document).ready(
+					function() {
+						$('#adviser-selection')
+								.multiselect({
+									maxHeight : 300,
+									numberDisplayed : 6
+								});
+					});
+		</script>
+		<div class="form-group">
+			<label class="control-label col-sm-2"
+				for="adviser-selection">@Messages("admin.projects.advisers")</label>
+			<select id="adviser-selection"
+				name="adviser-multiselect[]" class="form-control"
+				multiple="multiple">
+					@for(adviser <- advisers) {
+						@if(project.getAdvisers().contains(adviser)) {
+							<option selected value="@adviser.getId()">@adviser.getName()</option>
+						} else {
+							<option value="@adviser.getId()">@adviser.getName()</option>
+						}
+					}
+			</select>
+		</div>
 
 		<div class="form-group">
 			<div class="col-sm-offset-2 col-sm-10">
@@ -83,10 +111,10 @@ isAdviser: Boolean)
 	<form
 		action="@controllers.routes.AdviserPageController.leaveProject().path()"
 		method="POST" class="form-horizontal">
+		<input type="hidden" name="id" id="id2"
+			value="@project.getId()">
 		<div class="form-group">
 			<div class="col-sm-offset-2 col-sm-10">
-				<input type="hidden" name="name" id="name2"
-					value="@project.getName()">
 				<button type="submit" class="btn btn-warning">@Messages("adviser.leaveProject")</button>
 			</div>
 		</div>
@@ -94,10 +122,10 @@ isAdviser: Boolean)
 	<form
 		action="@controllers.routes.AdviserPageController.removeProject().path()"
 		method="POST" class="form-horizontal">
+		<input type="hidden" name="id" id="id3"
+			value="@project.getId()">
 		<div class="form-group">
 			<div class="col-sm-offset-2 col-sm-10">
-				<input type="hidden" name="name" id="name3"
-					value="@project.getName()">
 				<button type="submit" class="btn btn-danger">@Messages("admin.projects.removeProject")</button>
 			</div>
 		</div>
@@ -106,12 +134,10 @@ isAdviser: Boolean)
 	<form
 		action="@controllers.routes.AdminProjectController.removeProject().path()"
 		method="POST" class="form-horizontal">
-		<input type="hidden" name="id" id="id"
+		<input type="hidden" name="id" id="id4"
 			value="@project.getId()">
 		<div class="form-group">
 			<div class="col-sm-offset-2 col-sm-10">
-				<input type="hidden" name="name" id="name3"
-					value="@project.getName()">
 				<button type="submit" class="btn btn-danger">@Messages("admin.projects.removeProject")</button>
 			</div>
 		</div>

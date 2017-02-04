@@ -171,7 +171,7 @@ public class AdminPageController extends Controller {
         }
         Project project = ElipseModel.getById(Project.class, id);
         play.twirl.api.Html content = views.html.projectEdit.render(project,
-                false);
+                false, Adviser.getAdvisers());
         Menu menu = new AdminMenu(ctx(), ctx().request().path());
         return ok(views.html.admin.render(menu, content));
     }

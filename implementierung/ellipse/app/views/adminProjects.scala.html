@@ -14,6 +14,7 @@ error: String) @if(!error.isEmpty()){
 			<th>@Messages("admin.projects.advisers")</th>
 			<th>@Messages("admin.projects.teamSize")</th>
 			<th>@Messages("admin.projects.numberOfTeams")</th>
+			<th></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -26,6 +27,7 @@ error: String) @if(!error.isEmpty()){
 			</td>
 			<td>@project.getMinTeamSize() - @project.getMaxTeamSize()</td>
 			<td>@project.getNumberOfTeams()</td>
+			<td><a class="btn btn-default" href='@controllers.routes.AdminPageController.projectEditPage(project.getId()).path()' role="button">@Messages("admin.projects.editProject")</a></td>
 		</tr>
 		}
 	</tbody>
