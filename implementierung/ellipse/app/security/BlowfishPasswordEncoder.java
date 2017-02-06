@@ -6,11 +6,16 @@ public class BlowfishPasswordEncoder implements PasswordEncoder {
 
     @Override
     public String encode(String password) {
-        // BCrypt.hashpw(password, BCrypt.gensalt());
+
+        // TODO
+        return password;
+        // return BCrypt.hashpw(password, BCrypt.gensalt());
     }
 
     @Override
     public boolean matches(String plainPassword, String encodedPassword) {
+        return false;
+        // BCrypt.checkpw(plainPassword, encodedPassword);
     }
 
 }
