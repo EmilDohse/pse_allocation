@@ -124,15 +124,15 @@ public class GeneralAdminController extends Controller {
                                            // student aus der allocation und der
                                            // lerngruppe entfernt (nur für diese
                                            // config)
-            boolean achiefment = true;
+            boolean achievement = true;
             for (Achievement achiev : student.getSPO()
                     .getNecessaryAchievements()) {
-                if (achiefment) {
-                    achiefment = student.getCompletedAchievements()
+                if (achievement) {
+                    achievement = student.getCompletedAchievements()
                             .contains(achiev);
                 }
             }
-            if (!achiefment) {
+            if (!achievement) {
                 students.remove(student);
                 LearningGroup lg = GeneralData.getInstance()
                         .getCurrentSemester().getLearningGroupOf(student);

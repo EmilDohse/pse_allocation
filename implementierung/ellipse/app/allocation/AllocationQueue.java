@@ -47,7 +47,7 @@ public class AllocationQueue {
      */
     private AllocationQueue() {
         this.configurationQueue = new ArrayBlockingQueue<>(QUEUE_SIZE);
-        setAllocator(new GurobiAllocator());
+        this.allocator = new GurobiAllocator();
 
         runnable = new Runnable() {
 
@@ -65,7 +65,8 @@ public class AllocationQueue {
                                 e.printStackTrace();
                             }
                         }
-                        currentlyCalculatedConfiguration = configurationQueue.poll();
+                        currentlyCalculatedConfiguration = configurationQueue
+                                .poll();
                     }
                     allocator.calculate(currentlyCalculatedConfiguration);
                     currentlyCalculatedConfiguration = null;
@@ -116,11 +117,13 @@ public class AllocationQueue {
      */
     public void cancelAllocation(String name) {
         synchronized (this.runnable) {
-            if (null != currentlyCalculatedConfiguration && name.equals(currentlyCalculatedConfiguration.getName())) {
+            if (null != currentlyCalculatedConfiguration && name
+                    .equals(currentlyCalculatedConfiguration.getName())) {
                 allocator.cancel();
             } else {
-                Configuration configuration = configurationQueue.stream().filter(conf -> conf.getName().equals(name))
-                        .findFirst().orElse(null);
+                Configuration configuration = configurationQueue.stream()
+                        .filter(conf -> conf.getName().equals(name)).findFirst()
+                        .orElse(null);
                 configurationQueue.remove(configuration);
             }
         }
@@ -150,7 +153,7 @@ public class AllocationQueue {
         return list;
     }
 
-    private void setAllocator(AbstractAllocator allocator) {
+    public void setAllocator(AbstractAllocator allocator) {
         this.allocator = allocator;
     }
 

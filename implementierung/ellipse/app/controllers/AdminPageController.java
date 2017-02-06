@@ -5,10 +5,12 @@
 package controllers;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import allocation.AbstractAllocator;
 import allocation.AllocationQueue;
 import data.Adviser;
+import data.Allocation;
 import data.ElipseModel;
 import data.GeneralData;
 import data.Project;
@@ -93,8 +95,15 @@ public class AdminPageController extends Controller {
                     criteria, error + "\n"
                             + ctx().messages().at("admin.error.noSemester"));
         } else {
-            content = views.html.adminResults.render(GeneralData.getInstance()
-                    .getCurrentSemester().getAllocations(), criteria, error);
+            List<Allocation> allocations = GeneralData.getInstance()
+                    .getCurrentSemester().getAllocations();
+            if (!allocations.isEmpty()) {
+                content = views.html.adminResults.render(GeneralData
+                        .getInstance().getCurrentSemester().getAllocations(),
+                        criteria, error);
+            } else {
+                content = views.html.noAllocationYet.render();
+            }
         }
         Menu menu = new AdminMenu(ctx(), ctx().request().path());
         return ok(views.html.admin.render(menu, content));

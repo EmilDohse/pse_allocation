@@ -6,3 +6,4 @@
 -Routingtabelle und Controller-Methoden Parameter komplett geändert
 -QualityCriterion hat Methode getName()
 -view.Menu usw erstellt
+-MultiselectList hinzugefügt.
