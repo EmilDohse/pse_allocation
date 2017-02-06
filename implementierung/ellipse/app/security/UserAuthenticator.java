@@ -4,6 +4,7 @@ import org.pac4j.core.context.Pac4jConstants;
 import org.pac4j.core.context.WebContext;
 import org.pac4j.core.credentials.UsernamePasswordCredentials;
 import org.pac4j.core.credentials.authenticator.Authenticator;
+import org.pac4j.core.credentials.password.PasswordEncoder;
 import org.pac4j.core.exception.AccountNotFoundException;
 import org.pac4j.core.exception.BadCredentialsException;
 import org.pac4j.core.exception.HttpAction;
@@ -25,11 +26,11 @@ public class UserAuthenticator
     @Override
     public void validate(UsernamePasswordCredentials credentials,
             WebContext context) throws HttpAction {
-        System.out.println("Validation runnning");
+        PasswordEncoder encoder = new BlowfishPasswordEncoder();
         for (User u : Administrator.getAdministrators()) {
             if (credentials.getUsername().equals(u.getUserName())) {
-                // TODO : Password Encryption
-                if (credentials.getPassword().equals(u.getPassword())) {
+                if (encoder.matches(credentials.getPassword(),
+                        u.getPassword())) {
                     UserProfile profile = new UserProfile(u);
                     profile.addRole("ROLE_ADMIN");
                     credentials.setUserProfile(profile);
@@ -44,8 +45,8 @@ public class UserAuthenticator
         }
         for (User u : Student.getStudents()) {
             if (credentials.getUsername().equals(u.getUserName())) {
-                // TODO : Password Encryption
-                if (credentials.getPassword().equals(u.getPassword())) {
+                if (encoder.matches(credentials.getPassword(),
+                        u.getPassword())) {
                     UserProfile profile = new UserProfile(u);
                     profile.addRole("ROLE_STUDENT");
                     credentials.setUserProfile(profile);
@@ -60,8 +61,8 @@ public class UserAuthenticator
         }
         for (User u : Adviser.getAdvisers()) {
             if (credentials.getUsername().equals(u.getUserName())) {
-                // TODO : Password Encryption
-                if (credentials.getPassword().equals(u.getPassword())) {
+                if (encoder.matches(credentials.getPassword(),
+                        u.getPassword())) {
                     UserProfile profile = new UserProfile(u);
                     profile.addRole("ROLE_ADVISER");
                     credentials.setUserProfile(profile);

@@ -18,6 +18,7 @@ import play.data.DynamicForm;
 import play.data.FormFactory;
 import play.mvc.Controller;
 import play.mvc.Result;
+import security.BlowfishPasswordEncoder;
 import views.IndexMenu;
 import views.Menu;
 
@@ -158,9 +159,10 @@ public class IndexPageController extends Controller {
                 // und die passwörter übereinstimmen wird ein neuer student
                 // hinzugefügt
                 if (Student.getStudent(matNr) == null) {
-
-                    Student student = new Student(matNrString, password, email,
-                            firstName, lastName, matNr, spo,
+                    String encPassword = new BlowfishPasswordEncoder()
+                            .encode(password);
+                    Student student = new Student(matNrString, encPassword,
+                            email, firstName, lastName, matNr, spo,
                             completedAchievments, notCompletedAchievments,
                             semester);
                     // TODO get student data from view

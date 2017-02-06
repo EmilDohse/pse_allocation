@@ -5,6 +5,7 @@ import javax.inject.Singleton;
 import com.avaje.ebean.Ebean;
 
 import data.Administrator;
+import security.BlowfishPasswordEncoder;
 
 @Singleton
 public class StartupCode implements StartupInterface {
@@ -18,7 +19,8 @@ public class StartupCode implements StartupInterface {
         System.out.println("---- ONSTARTUP -----");
         if (Ebean.getServer(null) != null) {
             if (Administrator.getAdministrators().isEmpty()) {
-                Administrator admin = new Administrator("admin", "admin",
+                Administrator admin = new Administrator("admin",
+                        new BlowfishPasswordEncoder().encode("admin"),
                         "myemail@kit.edu", "Administrator", "Admin");
                 admin.save();
             }

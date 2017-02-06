@@ -24,6 +24,7 @@ import play.data.DynamicForm;
 import play.data.FormFactory;
 import play.mvc.Controller;
 import play.mvc.Result;
+import security.BlowfishPasswordEncoder;
 
 /************************************************************/
 /**
@@ -53,8 +54,9 @@ public class GeneralAdminController extends Controller {
         String lastName = form.get("lastName");
         String email = form.get("email");
         String password = form.get("password");
+        String encPassword = new BlowfishPasswordEncoder().encode(password);
         // TODO password per email?
-        Adviser adviser = new Adviser(email, password, email, firstName,
+        Adviser adviser = new Adviser(email, encPassword, email, firstName,
                 lastName);
         adviser.save();
         return redirect(controllers.routes.AdminPageController.adviserPage(""));
