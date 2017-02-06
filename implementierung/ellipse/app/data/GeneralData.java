@@ -18,9 +18,6 @@ import javax.persistence.Transient;
 @Entity
 public class GeneralData extends ElipseModel {
 
-    @Transient
-    private static GeneralData instance;
-
     /**
      * !!!DO NOT USE THIS!!! GeneralData is supposed to be a Singleton.
      * Constructor is only public due to restrictions in EBean. Use
@@ -60,16 +57,14 @@ public class GeneralData extends ElipseModel {
      * Lädt die Daten aus der Datenbank
      */
     public static GeneralData getInstance() {
-        if (null == instance) {
-            // If instance is null try to load data
-            try {
-                instance = ElipseModel.getAll(GeneralData.class).stream().findFirst().get();
-            } catch (NoSuchElementException e) {
-                // If no GeneralData is in Database create one
-                GeneralData data = new GeneralData();
-                data.save();
-                return data;
-            }
+        GeneralData instance;
+        try {
+            instance = ElipseModel.getAll(GeneralData.class).stream().findFirst().get();
+        } catch (NoSuchElementException e) {
+            // If no GeneralData is in Database create one
+            GeneralData data = new GeneralData();
+            data.save();
+            return data;
         }
         return instance;
     }
