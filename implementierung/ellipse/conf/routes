@@ -25,7 +25,6 @@ GET 	/admin/addSPO				controllers.AdminPropertiesController.addSPO()
 
 POST	/							controllers.IndexPageController.indexPage(error: String)
 POST	/index						controllers.IndexPageController.indexPage(error: String)
-POST 	/login						controllers.IndexPageController.login()
 POST 	/register					controllers.IndexPageController.registerPage(error: String)
 POST 	/reset						controllers.IndexPageController.passwordResetPage(error: String)
 POST 	/resetPassword				controllers.IndexPageController.passwordReset()
