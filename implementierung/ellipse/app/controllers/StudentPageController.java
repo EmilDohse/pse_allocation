@@ -264,6 +264,7 @@ public class StudentPageController extends Controller {
      * @return Die Seite, die als Antwort verschickt wird.
      */
     public Result sendNewVerificationLink() {
+        // TODO: Verifkationscode neu erstellen und senden
         return redirect(
                 controllers.routes.StudentPageController.accountPage(""));
     }
