@@ -200,7 +200,9 @@ public class AdminPropertiesController extends Controller {
                     .propertiesPage(ctx().messages().at("admin.allocation.error.generalError")));
         }
         SPO spo = ElipseModel.getById(SPO.class, idSPO);
-        spo.addNecessaryAchievement(new Achievement(nameAchiev));
+        Achievement achievement = new Achievement(nameAchiev);
+        spo.addNecessaryAchievement(achievement);
+        achievement.save();
         spo.save();
         return redirect(controllers.routes.AdminPageController.propertiesPage(""));
     }
