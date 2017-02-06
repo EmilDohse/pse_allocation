@@ -46,8 +46,11 @@ student.result.information = Projektinformation
 student.result.link = Link zur Projektseite
 student.result.members = Teammitglieder
 student.account.newEmail = Neue E-Mail-Addresse
-student.account.change = Ändern
+student.account.pwChange = Passwort ändern
+student.account.emailChange = E-Mail ändern
 student.account.newPassword = Neues Passwort
+student.account.newPasswordRepeat = Neues Passwort wiederholen
+student.account.sendNewVerificationLink = Neuen Verifikations-Code schicken.
 student.error.noAllocationYet = Bisher existieren noch keine fertig berechneten Einteilungen.
 
 adviser.leaveProject = Projekt verlassen

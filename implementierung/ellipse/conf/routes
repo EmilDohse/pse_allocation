@@ -11,6 +11,7 @@ GET 	/student/group				controllers.StudentPageController.learningGroupPage(error
 GET 	/student/rating				controllers.StudentPageController.ratingPage(error = "")
 GET 	/student/results			controllers.StudentPageController.resultsPage(error = "")
 GET 	/student/account			controllers.StudentPageController.accountPage(error = "")
+GET		/student/reverify			controllers.StudentPageController.sendNewVerificationLink()
 GET		/adviser/account			controllers.AdviserPageController.accountPage(error = "")
 GET		/admin						controllers.AdminPageController.projectPage(error = "")
 GET 	/admin/projects				controllers.AdminPageController.projectPage(error = "")

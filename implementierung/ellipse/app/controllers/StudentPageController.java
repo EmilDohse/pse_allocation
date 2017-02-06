@@ -17,6 +17,7 @@ import play.data.DynamicForm;
 import play.data.FormFactory;
 import play.mvc.Controller;
 import play.mvc.Result;
+import security.BlowfishPasswordEncoder;
 import security.UserManagement;
 import views.Menu;
 import views.StudentMenu;
@@ -234,19 +235,35 @@ public class StudentPageController extends Controller {
         UserManagement user = new UserManagement();
         Student student = (Student) user.getUserProfile(ctx());
         DynamicForm form = formFactory.form().bindFromRequest();
-        String email = form.get("newEmail");
-        String pw = form.get("newPassword");
-        String pwrepeat = form.get("newPasswordRepeat");
-        if (!pw.equals(pwrepeat)) {
-            // TODO error message
-            return redirect(controllers.routes.StudentPageController
-                    .accountPage("error"));
+
+        if (form.get("passwordChange") != null) {
+            String pw = form.get("newPassword");
+            String pwrepeat = form.get("newPasswordRepeat");
+            if (!pw.equals(pwrepeat)) {
+                // TODO error message
+                return redirect(controllers.routes.StudentPageController
+                        .accountPage("error"));
+            }
+            String pwEnc = new BlowfishPasswordEncoder().encode(pw);
+            student.setPassword(pwEnc);
         }
-        student.setEmailAddress(email);
-        // TODO hier verifikation
-        student.setPassword(pw);
-        // TODO hier verschlüüseln
+        if (form.get("emailChange") != null) {
+            String email = form.get("newEmail");
+            student.setEmailAddress(email);
+            // TODO hier verifikation
+        }
         student.save();
+        return redirect(
+                controllers.routes.StudentPageController.accountPage(""));
+    }
+
+    /**
+     * Diese Methode verschickt einen neuen Verifikations-Code an die aktuelle
+     * E-Mail-Adresse.
+     * 
+     * @return Die Seite, die als Antwort verschickt wird.
+     */
+    public Result sendNewVerificationLink() {
         return redirect(
                 controllers.routes.StudentPageController.accountPage(""));
     }
