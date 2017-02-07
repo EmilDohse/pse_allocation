@@ -20,7 +20,9 @@ import gurobi.GRBVar;
  */
 public class CriterionNoSingularStudent implements GurobiCriterion {
 
-    private String name;
+    private static final String DE_NAME = "Kein einzelner Student zu Lerngruppe";
+    private static final String EN_NAME = "No singular student plus learning group in a team";
+    private String              name;
 
     /**
      * Standard-Konstruktor, der den Namen eindeutig setzt.
@@ -41,27 +43,33 @@ public class CriterionNoSingularStudent implements GurobiCriterion {
      * {@inheritDoc}
      */
     @Override
-    public void useCriteria(Configuration configuration, GurobiAllocator allocator, double weight) throws GRBException {
+    public void useCriteria(Configuration configuration,
+            GurobiAllocator allocator, double weight) throws GRBException {
         GRBLinExpr bonus = new GRBLinExpr();
 
         // Betrachte nur Gruppen mit mehr als einem Mitglied
-        List<LearningGroup> bigGroups = configuration.getLearningGroups().stream()
-                .filter(lg -> lg.getMembers().size() > 1).collect(Collectors.toList());
+        List<LearningGroup> bigGroups = configuration.getLearningGroups()
+                .stream().filter(lg -> lg.getMembers().size() > 1)
+                .collect(Collectors.toList());
         for (int i = 0; i < bigGroups.size(); i++) {
 
             // Erstelle Variable, die genau der Lerngruppengröße entspricht
             double concreteSize = bigGroups.get(i).getMembers().size();
             GRBVar sizeOfLG;
-            sizeOfLG = allocator.getModel().addVar(0, Double.MAX_VALUE, 0, GRB.INTEGER, GurobiAllocator.NULL);
-            allocator.getModel().addConstr(sizeOfLG, GRB.EQUAL, concreteSize, GurobiAllocator.NULL);
+            sizeOfLG = allocator.getModel().addVar(0, Double.MAX_VALUE, 0,
+                    GRB.INTEGER, GurobiAllocator.NULL);
+            allocator.getModel().addConstr(sizeOfLG, GRB.EQUAL, concreteSize,
+                    GurobiAllocator.NULL);
 
             for (int j = 0; j < configuration.getTeams().size(); j++) {
 
                 // Erstelle Variable für den Bonus und eine Hilfsvariable
                 GRBVar auxiliaryVariable;
                 GRBVar resultVariable;
-                auxiliaryVariable = allocator.getModel().addVar(0, 1, 0, GRB.BINARY, GurobiAllocator.NULL);
-                resultVariable = allocator.getModel().addVar(0, 1, 0, GRB.BINARY, GurobiAllocator.NULL);
+                auxiliaryVariable = allocator.getModel().addVar(0, 1, 0,
+                        GRB.BINARY, GurobiAllocator.NULL);
+                resultVariable = allocator.getModel().addVar(0, 1, 0,
+                        GRB.BINARY, GurobiAllocator.NULL);
 
                 // Erstelle benötigte Teilterme
                 GRBLinExpr varianceTeamAndLG = new GRBLinExpr();
@@ -87,15 +95,20 @@ public class CriterionNoSingularStudent implements GurobiCriterion {
                 negationAuxiliaryVariable.addTerm(-1, auxiliaryVariable);
 
                 rightSideSecondConstraint.addTerm(-0.1, resultVariable);
-                rightSideSecondConstraint.multAdd(9.1, negationAuxiliaryVariable);
+                rightSideSecondConstraint.multAdd(9.1,
+                        negationAuxiliaryVariable);
 
-                allocator.getModel().addConstr(leftSideFirstConstraint, GRB.LESS_EQUAL, varianceTeamAndLG,
+                allocator.getModel().addConstr(leftSideFirstConstraint,
+                        GRB.LESS_EQUAL, varianceTeamAndLG,
                         GurobiAllocator.NULL);
-                allocator.getModel().addConstr(varianceTeamAndLG, GRB.LESS_EQUAL, rightSideFirstConstraint,
+                allocator.getModel().addConstr(varianceTeamAndLG,
+                        GRB.LESS_EQUAL, rightSideFirstConstraint,
                         GurobiAllocator.NULL);
-                allocator.getModel().addConstr(leftSideSecondConstraint, GRB.LESS_EQUAL, varianceTeamAndLG,
+                allocator.getModel().addConstr(leftSideSecondConstraint,
+                        GRB.LESS_EQUAL, varianceTeamAndLG,
                         GurobiAllocator.NULL);
-                allocator.getModel().addConstr(varianceTeamAndLG, GRB.LESS_EQUAL, rightSideSecondConstraint,
+                allocator.getModel().addConstr(varianceTeamAndLG,
+                        GRB.LESS_EQUAL, rightSideSecondConstraint,
                         GurobiAllocator.NULL);
                 // Erweitere Bonusterm
                 bonus.addTerm(weight * 10, resultVariable);
@@ -104,5 +117,15 @@ public class CriterionNoSingularStudent implements GurobiCriterion {
 
         // Füge Bonus dem Optimierungsterm hinzu
         allocator.getOptimizationTerm().add(bonus);
+    }
+
+    @Override
+    public String getDisplayName(String local) {
+        switch (local) {
+        case "de":
+            return DE_NAME;
+        default:
+            return EN_NAME;
+        }
     }
 }

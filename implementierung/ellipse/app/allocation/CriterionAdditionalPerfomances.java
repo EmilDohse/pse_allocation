@@ -14,7 +14,9 @@ import gurobi.GRBLinExpr;
  */
 public class CriterionAdditionalPerfomances implements GurobiCriterion {
 
-    private String name;
+    private static final String DE_NAME = "Bonus für zusätzliche Teilleistungen";
+    private static final String EN_NAME = "bonus additional perfomances";
+    private String              name;
 
     /**
      * Standard-Konstruktor, der den Namen eindeutig setzt.
@@ -35,7 +37,8 @@ public class CriterionAdditionalPerfomances implements GurobiCriterion {
      * {@inheritDoc}
      */
     @Override
-    public void useCriteria(Configuration configuration, GurobiAllocator allocator, double weight) throws GRBException {
+    public void useCriteria(Configuration configuration,
+            GurobiAllocator allocator, double weight) throws GRBException {
 
         // Erzeuge den Zusatz zum Optimierungsterm
         GRBLinExpr bonus = new GRBLinExpr();
@@ -43,14 +46,27 @@ public class CriterionAdditionalPerfomances implements GurobiCriterion {
 
             // Prüfe, ob der Student mehr als die benötigten Teilleistungen
             // abgeschlossen hat
-            int amountOfAchievements = configuration.getStudents().get(i).getCompletedAchievements().size();
-            int necessaryAmount = configuration.getStudents().get(i).getSPO().getNecessaryAchievements().size();
+            int amountOfAchievements = configuration.getStudents().get(i)
+                    .getCompletedAchievements().size();
+            int necessaryAmount = configuration.getStudents().get(i).getSPO()
+                    .getNecessaryAchievements().size();
             if (amountOfAchievements > necessaryAmount) {
                 for (int j = 0; j < configuration.getTeams().size(); j++) {
-                    bonus.addTerm(weight * 10, allocator.getBasicMatrix()[i][j]);
+                    bonus.addTerm(weight * 10,
+                            allocator.getBasicMatrix()[i][j]);
                 }
             }
         }
         allocator.getOptimizationTerm().add(bonus);
+    }
+
+    @Override
+    public String getDisplayName(String local) {
+        switch (local) {
+        case "de":
+            return DE_NAME;
+        default:
+            return EN_NAME;
+        }
     }
 }
