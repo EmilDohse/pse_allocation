@@ -41,7 +41,7 @@ public class AdminPropertiesController extends Controller {
      */
     public Result addSemester() {
         Semester semester = new Semester("newSemester", true, Calendar.getInstance().get(Calendar.YEAR));
-        // fügt neues semester als wintersemester im aktuellen jahr ein
+        // TODO fügt neues semester als wintersemester im aktuellen jahr ein
         semester.save();
         return redirect(controllers.routes.AdminPageController.propertiesPage(""));
     }
@@ -60,8 +60,8 @@ public class AdminPropertiesController extends Controller {
         try {
             semesterId = Integer.parseInt(semesterIdString);
         } catch (NumberFormatException e) {
-            return redirect(controllers.routes.AdminPageController
-                    .propertiesPage(ctx().messages().at("admin.allocation.error.generalError")));
+            return redirect(controllers.routes.AdminPageController.propertiesPage(ctx().messages().at(
+                    "admin.allocation.error.generalError")));
         }
         Semester semster = ElipseModel.getById(Semester.class, semesterId);
         semster.delete();
@@ -95,8 +95,8 @@ public class AdminPropertiesController extends Controller {
         try {
             spoId = Integer.parseInt(spoIdString);
         } catch (NumberFormatException e) {
-            return redirect(controllers.routes.AdminPageController
-                    .propertiesPage(ctx().messages().at("admin.allocation.error.generalError")));
+            return redirect(controllers.routes.AdminPageController.propertiesPage(ctx().messages().at(
+                    "admin.allocation.error.generalError")));
         }
         ElipseModel.getById(SPO.class, spoId).delete();
         return redirect(controllers.routes.AdminPageController.propertiesPage(""));
@@ -126,8 +126,8 @@ public class AdminPropertiesController extends Controller {
             try {
                 spoId = Integer.parseInt(spoIdString);
             } catch (NumberFormatException e) {
-                return redirect(controllers.routes.IndexPageController
-                        .registerPage(ctx().messages().at("index.registration.error.genError")));
+                return redirect(controllers.routes.IndexPageController.registerPage(ctx().messages().at(
+                        "index.registration.error.genError")));
             }
             usedSPOs.add(ElipseModel.getById(SPO.class, spoId));
             i++;
@@ -139,7 +139,7 @@ public class AdminPropertiesController extends Controller {
             id = Integer.parseInt(idString);
             year = Integer.parseInt(yearString);
         } catch (Exception e) {
-            // TODO error mesage
+            // TODO error message
             return redirect(controllers.routes.AdminPageController.propertiesPage("error"));
         }
         String generalInfo = form.get("info");
@@ -155,27 +155,29 @@ public class AdminPropertiesController extends Controller {
             startDate = format.parse(registrationStart);
             endDate = format.parse(registrationEnd);
         } catch (ParseException e) {
-            return redirect(controllers.routes.AdminPageController
-                    .propertiesPage(ctx().messages().at("admin.allocation.error.generalError")));
+            return redirect(controllers.routes.AdminPageController.propertiesPage(ctx().messages().at(
+                    "admin.allocation.error.generalError")));
         }
-        // TODO heri noch die multiselectbox auslesen mit den SPOs
+        // TODO hier noch die multiselectbox auslesen mit den SPOs
         Semester semester = ElipseModel.getById(Semester.class, id);
-        semester.setSpos(usedSPOs);
-        semester.setInfoText(generalInfo);
-        semester.setName(name);
-        semester.setRegistrationStart(startDate);
-        semester.setRegistrationEnd(endDate);
-        semester.setWintersemester(wintersemester != null);
-        // true wenn witersemseter == null
-        semester.setMaxGroupSize(maxGroupSize);
-        semester.setYear(year);
-        if (semesterActive != null) {
-            GeneralData.loadInstance().setCurrentSemester(semester);
-            GeneralData.loadInstance().save(); // TODO muss man hier generalData
-                                              // speichern?
-        }
+        semester.doTransaction(() -> {
+            semester.setSpos(usedSPOs);
+            semester.setInfoText(generalInfo);
+            semester.setName(name);
+            semester.setRegistrationStart(startDate);
+            semester.setRegistrationEnd(endDate);
+            semester.setWintersemester(wintersemester != null);
+            // true wenn wintersemester == null
+            semester.setMaxGroupSize(maxGroupSize);
+            semester.setYear(year);
+        });
 
-        semester.save();
+        if (semesterActive != null) {
+            GeneralData data = GeneralData.loadInstance();
+            data.doTransaction(() -> {
+                data.setCurrentSemester(semester);
+            });
+        }
 
         return redirect(controllers.routes.AdminPageController.propertiesPage(""));
     }
@@ -196,14 +198,15 @@ public class AdminPropertiesController extends Controller {
         try {
             idSPO = Integer.parseInt(idSPOString);
         } catch (NumberFormatException e) {
-            return redirect(controllers.routes.AdminPageController
-                    .propertiesPage(ctx().messages().at("admin.allocation.error.generalError")));
+            return redirect(controllers.routes.AdminPageController.propertiesPage(ctx().messages().at(
+                    "admin.allocation.error.generalError")));
         }
         SPO spo = ElipseModel.getById(SPO.class, idSPO);
         Achievement achievement = new Achievement(nameAchiev);
-        spo.addNecessaryAchievement(achievement);
         achievement.save();
-        spo.save();
+        spo.doTransaction(() -> {
+            spo.addNecessaryAchievement(achievement);
+        });
         return redirect(controllers.routes.AdminPageController.propertiesPage(""));
     }
 
@@ -222,8 +225,8 @@ public class AdminPropertiesController extends Controller {
         try {
             id = Integer.parseInt(idString);
         } catch (NumberFormatException e) {
-            return redirect(controllers.routes.AdminPageController
-                    .propertiesPage(ctx().messages().at("admin.allocation.error.generalError")));
+            return redirect(controllers.routes.AdminPageController.propertiesPage(ctx().messages().at(
+                    "admin.allocation.error.generalError")));
         }
         SPO spo = ElipseModel.getById(SPO.class, id);
         List<Achievement> necAchiev = spo.getNecessaryAchievements();
@@ -231,6 +234,7 @@ public class AdminPropertiesController extends Controller {
         // itterators werden kreiert da man sonst nichts entfernen pver
         // hinzufügen kann
 
+        // TODO glaube, dass funktioniert so nicht (überarbeiten)
         java.util.Iterator<Achievement> necAchievments = necAchiev.iterator();
         while (necAchievments.hasNext()) {
             // für alle neccesary und additional achievments wird geprüft ob sie
@@ -244,6 +248,7 @@ public class AdminPropertiesController extends Controller {
             }
 
         }
+        // TODO glaube, dass funktioniert so nicht (überarbeiten)
         java.util.Iterator<Achievement> addAchievments = addAchiev.iterator();
         while (addAchievments.hasNext()) {
             Achievement achiev = addAchievments.next();
@@ -257,8 +262,9 @@ public class AdminPropertiesController extends Controller {
         }
 
         // name wird aktualisiert
-        spo.setName(nameSPO);
-        spo.save();
+        spo.doTransaction(() -> {
+            spo.setName(nameSPO);
+        });
         return redirect(controllers.routes.AdminPageController.propertiesPage(""));
     }
 }
