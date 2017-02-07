@@ -16,6 +16,9 @@ import data.Team;
  */
 public class SplitLearningGroups implements QualityCriterion {
 
+    private static final String DE_NAME = "Anzahl gesplitteter Lerngruppen";
+    private static final String EN_NAME = "Number of splitted learning groups";
+
     /**
      * {@inheritDoc}
      */
@@ -57,10 +60,11 @@ public class SplitLearningGroups implements QualityCriterion {
 
     @Override
     public String getName(String local) {
-        if (local.equals("de")) {
-            return "Getrennte Lerngruppen";
-        } else {
-            return "Splitted Learning Groups";
+        switch (local) {
+        case "de":
+            return DE_NAME;
+        default:
+            return EN_NAME;
         }
     }
 }

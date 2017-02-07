@@ -4,6 +4,8 @@
 
 package qualityCriteria;
 
+import java.text.NumberFormat;
+
 import data.Allocation;
 import data.GeneralData;
 import data.Project;
@@ -19,6 +21,9 @@ import data.Team;
  */
 public class StudentHappiness implements QualityCriterion {
 
+    private static final String DE_NAME = "Studierendenzufriedenheit";
+    private static final String EN_NAME = "Student happiness";
+
     /**
      * {@inheritDoc}
      */
@@ -29,24 +34,30 @@ public class StudentHappiness implements QualityCriterion {
             Team t = allocation.getTeams().get(i);
             for (int j = 0; j < t.getMembers().size(); j++) {
                 Student student = t.getMembers().get(j);
-                Semester semester = GeneralData.loadInstance().getCurrentSemester();
+                Semester semester = GeneralData.loadInstance()
+                        .getCurrentSemester();
                 Project project = t.getProject();
-                double rating = semester.getLearningGroupOf(student).getRating(project);
+                double rating = semester.getLearningGroupOf(student)
+                        .getRating(project);
                 sumOfRatings += rating;
             }
         }
 
-        double relativeHappiness = (sumOfRatings
-                / (double) GeneralData.loadInstance().getCurrentSemester().getStudents().size()) / 5.0;
-        return String.valueOf(relativeHappiness);
+        double relativeHappiness = (sumOfRatings / (double) GeneralData
+                .loadInstance().getCurrentSemester().getStudents().size())
+                / 5.0;
+        NumberFormat nf = NumberFormat.getInstance();
+        nf.setMaximumFractionDigits(2);
+        return nf.format(100 * relativeHappiness) + "%";
     }
 
     @Override
     public String getName(String local) {
-        if (local.equals("de")) {
-            return "Studierendenzufriedenheit";
-        } else {
-            return "Student-Happiness";
+        switch (local) {
+        case "de":
+            return DE_NAME;
+        default:
+            return EN_NAME;
         }
     }
 }
