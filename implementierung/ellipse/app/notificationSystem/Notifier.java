@@ -57,14 +57,14 @@ public class Notifier {
     }
 
     public void notifyAdviser(Allocation allocation, Adviser adviser) {
-        String memberList = "";
+        String teamsList = "";
         // TODO Warte auf methode getTamsByAdviser
         List<Team> advisersTeams = allocation.getTeamsByAdviser(adviser);
         for (int i = 0; i < advisersTeams.size(); i++) {
-            memberList += advisersTeams.get(i).toStringForNotification();
+            teamsList += advisersTeams.get(i).toStringForNotification();
         }
         String bodyText = Messages.get("email.notifyResultsAdviser", adviser.getFirstName(), adviser.getLastName(),
-                memberList);
+                teamsList);
         String subject = Messages.get("email.subjectResults");
         this.sendEmail(subject, "TODO", adviser.getEmailAddress(), bodyText);
     }

@@ -1,6 +1,11 @@
 logout = Abmelden
 
-email.notifyResults = Hallo {1} {2},\ndie PSE-Einteilung ist nun abgeschlossen.\nSie wurden dem Projekt {3} zugeteilt.\nWeitere Informationen zu Ihrem Projekt, Ihren Betreuern oder ihrer Gruppe erhalten Sie, wenn Sie sich einloogen.
+email.notifyResultsStudent = Hallo {1} {2},\ndie PSE-Einteilung ist nun abgeschlossen.\nSie wurden dem Projekt {3} zugeteilt.\nWeitere Informationen zu Ihrem Projekt, Ihren Betreuern oder ihrer Gruppe erhalten Sie, wenn Sie sich einloggen.
+email.notifyResultsAdviser = Hallo {1} {2},\ndie PSE-Einteilung ist nun abgeschlossen.\nSie betreuen die folgenden Teams:\n{3}
+email.adviserPassword =	Hallo {1} {2},\nIhr Passwort für das PSE-Portal lautet:\{3}
+email.subjectAdviserPassword = PSE-Passwort
+email.subjectResults = PSE-Einteilungsergebnisse
+
 
 index.title = Elipse - Index
 index.username = Benutzername (Matrnr)
