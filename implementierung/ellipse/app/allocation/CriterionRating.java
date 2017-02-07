@@ -49,7 +49,7 @@ public class CriterionRating implements GurobiCriterion {
                 // Bestimme Bewertung des Studenten für das Projekt, zu dem das
                 // Team gehört
 
-                Semester semester = GeneralData.getInstance().getCurrentSemester();
+                Semester semester = GeneralData.loadInstance().getCurrentSemester();
                 Student student = configuration.getStudents().get(i);
                 Project project = configuration.getTeams().get(j).getProject();
                 double rating = semester.getLearningGroupOf(student).getRating(project);

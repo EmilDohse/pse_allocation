@@ -24,7 +24,7 @@ public class AdviserMenu extends Menu {
     }
 
     private final void addItems() {
-        for (Project p : GeneralData.getInstance().getCurrentSemester()
+        for (Project p : GeneralData.loadInstance().getCurrentSemester()
                 .getProjects()) {
             addItem(p.getName(), controllers.routes.AdviserPageController
                     .projectsPage(p.getId()).path());

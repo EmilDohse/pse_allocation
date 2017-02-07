@@ -48,7 +48,7 @@ public class IndexPageController extends Controller {
      */
     public Result indexPage(String error) {
         play.twirl.api.Html content = views.html.indexInformation.render(
-                GeneralData.getInstance().getCurrentSemester().getInfoText(),
+                GeneralData.loadInstance().getCurrentSemester().getInfoText(),
                 error);
         Menu menu = new IndexMenu(ctx(), ctx().request().path());
         return ok(views.html.index.render(menu, content));
@@ -62,7 +62,7 @@ public class IndexPageController extends Controller {
      */
     public Result registerPage(String error) {
         play.twirl.api.Html content = views.html.indexRegistration.render(
-                GeneralData.getInstance().getCurrentSemester().getSpos(),
+                GeneralData.loadInstance().getCurrentSemester().getSpos(),
                 error);
         Menu menu = new IndexMenu(ctx(), ctx().request().path());
         return ok(views.html.index.render(menu, content));
@@ -166,7 +166,7 @@ public class IndexPageController extends Controller {
                             completedAchievments, notCompletedAchievments,
                             semester);
                     // TODO get student data from view
-                    GeneralData.getInstance().getCurrentSemester()
+                    GeneralData.loadInstance().getCurrentSemester()
                             .addStudent(student);
                     return redirect(controllers.routes.IndexPageController
                             .indexPage("error"));

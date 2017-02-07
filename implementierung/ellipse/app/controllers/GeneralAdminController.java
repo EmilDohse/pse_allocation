@@ -114,11 +114,11 @@ public class GeneralAdminController extends Controller {
         allocParam.add(new AllocationParameter("prefSize", preferedSize));
 
         AllocationQueue queue = AllocationQueue.getInstance();
-        List<Student> students = GeneralData.getInstance().getCurrentSemester()
+        List<Student> students = GeneralData.loadInstance().getCurrentSemester()
                 .getStudents();
-        List<LearningGroup> learningGroups = GeneralData.getInstance()
+        List<LearningGroup> learningGroups = GeneralData.loadInstance()
                 .getCurrentSemester().getLearningGroups();
-        List<Project> projects = GeneralData.getInstance().getCurrentSemester()
+        List<Project> projects = GeneralData.loadInstance().getCurrentSemester()
                 .getProjects();
         for (Student student : students) { // es wird erneut überprüft ob der
                                            // student die neccesary achiefments
@@ -136,7 +136,7 @@ public class GeneralAdminController extends Controller {
             }
             if (!achievement) {
                 students.remove(student);
-                LearningGroup lg = GeneralData.getInstance()
+                LearningGroup lg = GeneralData.loadInstance()
                         .getCurrentSemester().getLearningGroupOf(student);
                 // TODO braucht learning group ein comparable?oder equals
                 for (LearningGroup iterLg : learningGroups) {
@@ -202,7 +202,7 @@ public class GeneralAdminController extends Controller {
         Student student = new Student(matNrString, password, email, firstName,
                 lastName, matNr, spo, spo.getNecessaryAchievements(),
                 new ArrayList<>(), semester);
-        GeneralData.getInstance().getCurrentSemester().addStudent(student);
+        GeneralData.loadInstance().getCurrentSemester().addStudent(student);
         return redirect(
                 controllers.routes.AdminPageController.studentEditPage(""));
     }
@@ -227,7 +227,7 @@ public class GeneralAdminController extends Controller {
                             .at("admin.allocation.error.generalError")));
         }
         Student student = Student.getStudent(matNr);
-        GeneralData.getInstance().getCurrentSemester().removeStudent(student);
+        GeneralData.loadInstance().getCurrentSemester().removeStudent(student);
         return redirect(
                 controllers.routes.AdminPageController.studentEditPage(""));
     }

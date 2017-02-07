@@ -186,7 +186,7 @@ public class AdminEditAllocationController extends Controller {
         }
         Allocation allocation = ElipseModel.getById(Allocation.class,
                 allocationId);
-        GeneralData.getInstance().getCurrentSemester()
+        GeneralData.loadInstance().getCurrentSemester()
                 .setFinalAllocation(allocation);
         return redirect(controllers.routes.AdminPageController.resultsPage(""));
     }
@@ -214,7 +214,7 @@ public class AdminEditAllocationController extends Controller {
                 allocationId);
         Allocation clonedAllocation = new Allocation(allocation.getTeams(),
                 "cloned" + allocation.getName(), allocation.getParameters());
-        GeneralData.getInstance().getCurrentSemester()
+        GeneralData.loadInstance().getCurrentSemester()
                 .addAllocation(clonedAllocation);
         return redirect(controllers.routes.AdminPageController.resultsPage(""));
     }
@@ -238,7 +238,7 @@ public class AdminEditAllocationController extends Controller {
         }
         Allocation allocation = ElipseModel.getById(Allocation.class,
                 allocationId);
-        GeneralData.getInstance().getCurrentSemester()
+        GeneralData.loadInstance().getCurrentSemester()
                 .removeAllocation(allocation);
         return redirect(controllers.routes.AdminPageController.resultsPage(""));
     }
