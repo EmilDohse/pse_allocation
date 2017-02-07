@@ -5,6 +5,7 @@
 package notificationSystem;
 
 import data.Allocation;
+import data.GeneralData;
 import data.Student;
 import data.User;
 import data.Adviser;
@@ -46,6 +47,7 @@ public class Notifier {
 
     public void notifyAdviser(Allocation allocation, Adviser adviser) {
         String memberList = "";
+        // TODO Warte auf methode getTamsByAdviser
         String bodyText = Messages.get("email.notifyResultsAdviser", adviser.getFirstName(), adviser.getLastName(),
                 memberList);
         String subject = Messages.get("email.subjectResults");
