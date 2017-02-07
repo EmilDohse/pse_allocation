@@ -14,6 +14,7 @@ import com.avaje.ebean.Ebean;
 
 import data.Allocation;
 import data.AllocationParameter;
+import data.GeneralData;
 import data.Team;
 import gurobi.GRB;
 import gurobi.GRB.DoubleAttr;
@@ -160,6 +161,10 @@ public class GurobiAllocator extends AbstractAllocator {
         Allocation allocation = new Allocation(configuration.getTeams(),
                 configuration.getName(), configuration.getParameters());
         Ebean.save(allocation);
+        allocation.doTransaction(() -> {
+            allocation.setSemester(
+                    GeneralData.loadInstance().getCurrentSemester());
+        });
 
     }
 

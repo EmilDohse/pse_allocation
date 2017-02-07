@@ -26,13 +26,19 @@ public class SplitLearningGroups implements QualityCriterion {
         Semester semester = GeneralData.loadInstance().getCurrentSemester();
         for (int i = 0; i < semester.getLearningGroups().size(); i++) {
             LearningGroup lg = semester.getLearningGroups().get(i);
-            Project p1 = allocation.getTeam(lg.getMembers().get(0)).getProject();
+            // TODO Dadurch, dass nicht jeder in einem Team ist tritt hier eine
+            // NullPointerException auf.
+            Project p1 = allocation.getTeam(lg.getMembers().get(0))
+                    .getProject();
             if (!lg.isPrivate() && lg.getMembers().size() > 1) {
                 boolean hasBeenDevided = false;
-                for (int j = 1; (j < lg.getMembers().size()) && !hasBeenDevided; j++) {
+                for (int j = 1; (j < lg.getMembers().size())
+                        && !hasBeenDevided; j++) {
                     Student memberJ = lg.getMembers().get(j);
-                    Project memeberJProject = allocation.getTeam(memberJ).getProject();
-                    if (memeberJProject != null && !memeberJProject.equals(p1)) {
+                    Project memeberJProject = allocation.getTeam(memberJ)
+                            .getProject();
+                    if (memeberJProject != null
+                            && !memeberJProject.equals(p1)) {
                         hasBeenDevided = true;
                     }
                 }
