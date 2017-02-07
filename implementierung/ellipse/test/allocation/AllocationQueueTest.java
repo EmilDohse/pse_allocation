@@ -20,7 +20,6 @@ import data.AllocationParameter;
 import data.LearningGroup;
 import data.Project;
 import data.Student;
-import jdk.nashorn.internal.ir.annotations.Ignore;
 
 /**
  * tests zur klasse allocation queue
@@ -84,7 +83,6 @@ public class AllocationQueueTest {
      * @throws AllocationException
      */
     @Test
-    @Ignore
     public void testAddToQueue() {
         allocQueue.addToQueue(configOne);
         assertTrue(allocQueue.getQueue().size() == 1);
@@ -97,7 +95,6 @@ public class AllocationQueueTest {
      * @throws AllocationException
      */
     @Test
-    @Ignore
     public void testAddToQueue2() {
         allocQueue.addToQueue(configOne);
         allocQueue.addToQueue(configTwo);
@@ -114,7 +111,6 @@ public class AllocationQueueTest {
      * @throws AllocationException
      */
     @Test
-    @Ignore
     public void testCancelAllocation() {
         allocQueue.addToQueue(configOne);
         allocQueue.addToQueue(configTwo);
@@ -132,7 +128,6 @@ public class AllocationQueueTest {
      * @throws AllocationException
      */
     @Test
-    @Ignore
     public void testCancelAllocation2() {
         allocQueue.addToQueue(configOne);
         allocQueue.addToQueue(configTwo);
