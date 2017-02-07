@@ -157,7 +157,7 @@ public class AdminPageController extends Controller {
      * @return Die Seite, die als Antwort verschickt wird.
      */
     public Result projectEditPage(int id) {
-        // TODO wann wird die id -1?
+        // kein Element ausgewählt
         if (id == -1) {
             if (GeneralData.loadInstance().getCurrentSemester().getProjects().size() == 0) {
                 return redirect(controllers.routes.AdminPageController.projectPage(""));

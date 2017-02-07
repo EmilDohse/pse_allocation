@@ -64,7 +64,7 @@ public class AdminProjectController extends Controller {
         Project project = ElipseModel.getById(Project.class, Integer.parseInt(form.get("id")));
         // TODO hier eine warnmeldung ausgeben ob das projekt wirklich gelöscht
         // werden soll
-        GeneralData.loadInstance().getCurrentSemester().removeProject(project);
+        project.delete();
 
         return redirect(controllers.routes.AdminPageController.projectPage(""));
     }
@@ -114,15 +114,17 @@ public class AdminProjectController extends Controller {
         }
 
         // und dem projekt hinzugefügt
-        project.setAdvisers(advisers);
-        project.setInstitute(institute);
-        project.setMaxTeamSize(maxSize);
-        project.setMinTeamSize(minSize);
-        project.setName(projName);
-        project.setNumberOfTeams(numberOfTeams);
-        project.setProjectInfo(description);
-        project.setProjectURL(url);
-        project.save();
+        project.doTransaction(() -> {
+            project.setAdvisers(advisers);
+            project.setInstitute(institute);
+            project.setMaxTeamSize(maxSize);
+            project.setMinTeamSize(minSize);
+            project.setName(projName);
+            project.setNumberOfTeams(numberOfTeams);
+            project.setProjectInfo(description);
+            project.setProjectURL(url);
+        });
+
         return redirect(controllers.routes.AdminPageController.projectPage(""));
     }
 }
