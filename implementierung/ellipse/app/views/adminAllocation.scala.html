@@ -46,8 +46,8 @@ List[allocation.Criterion],error: String) @if(!error.isEmpty()){
 			</div>
 		</div>
 		@for(criterion <- criteria) {
-		<div class="form-group bs-slider">
-			<label class="control-label col-sm-2" for="maxTeamSize">@criterion.getName()</label>
+		<div class="form-group bs-slider-group">
+			<label class="control-label col-sm-2" for="@criterion.getName()">@criterion.getDisplayName(ctx().lang().code())</label>
 			<div class="col-sm-3">
 				<!-- Bootstrap Slider -->
 				<script type="text/javascript">
@@ -60,7 +60,7 @@ List[allocation.Criterion],error: String) @if(!error.isEmpty()){
 										}
 									});
 				</script>
-				<input name="@criterion.getName()" id="@criterion.getName()"
+				<input class="bs-slider" name="@criterion.getName()" id="@criterion.getName()"
 					data-provide="slider" data-slider-id='@criterion.getName()'
 					type="text" data-slider-min="0" data-slider-max="100"
 					data-slider-step="1" data-slider-value="0" />

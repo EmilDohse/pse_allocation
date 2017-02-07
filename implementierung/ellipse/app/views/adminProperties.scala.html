@@ -230,18 +230,21 @@ spos: List[data.SPO], error: String) @if(!error.isEmpty()){
 					<label class="control-label col-sm-2" for="spo">@Messages("admin.properties.availableSPOs")</label>
 					<select id="availabe-spo" name="spo-multiselect[]"
 						class="form-control" multiple="multiple"> @for(spo <-
-						spos) {
-						<option value="@spo.getId()">@spo.getName()</option> }
+						spos) { @if(semester.getSpos().contains(spo)) {
+						<option value="@spo.getId()" checked>@spo.getName()</option> }
+						else {
+						<option value="@spo.getId()">@spo.getName()</option>} }
 					</select>
 				</div>
 				<div class="form-group col-sm-offset-2">
 					<div class="checkbox">
 						<label class="control-label col-sm-2" for="semester-active">@Messages("admin.properties.semester")</label><input
-							type="checkbox" checked data-toggle="toggle" 
+							type="checkbox" checked data-toggle="toggle"
 							data-on='@Messages("admin.properties.activ")'
 							data-off='@Messages("admin.properties.inactiv")'
 							data-onstyle="success" data-offstyle="danger" data-width="100"
-							name="semester-active" id="semester-active" class="form-control"><!-- TODO: Internen State anzeigen, nicht standardmäßig checked -->
+							name="semester-active" id="semester-active" class="form-control">
+						<!-- TODO: Internen State anzeigen, nicht standardmäßig checked -->
 					</div>
 				</div>
 
