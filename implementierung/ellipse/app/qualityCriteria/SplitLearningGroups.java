@@ -7,9 +7,8 @@ package qualityCriteria;
 import data.Allocation;
 import data.GeneralData;
 import data.LearningGroup;
-import data.Project;
 import data.Semester;
-import data.Student;
+import data.Team;
 
 /************************************************************/
 /**
@@ -24,26 +23,32 @@ public class SplitLearningGroups implements QualityCriterion {
     public String calculate(Allocation allocation) {
         int numberOfSplitLearningGroups = 0;
         Semester semester = GeneralData.loadInstance().getCurrentSemester();
-        for (int i = 0; i < semester.getLearningGroups().size(); i++) {
-            LearningGroup lg = semester.getLearningGroups().get(i);
-            // TODO Dadurch, dass nicht jeder in einem Team ist tritt hier eine
-            // NullPointerException auf.
-            Project p1 = allocation.getTeam(lg.getMembers().get(0))
-                    .getProject();
-            if (!lg.isPrivate() && lg.getMembers().size() > 1) {
-                boolean hasBeenDevided = false;
-                for (int j = 1; (j < lg.getMembers().size())
-                        && !hasBeenDevided; j++) {
-                    Student memberJ = lg.getMembers().get(j);
-                    Project memeberJProject = allocation.getTeam(memberJ)
-                            .getProject();
-                    if (memeberJProject != null
-                            && !memeberJProject.equals(p1)) {
-                        hasBeenDevided = true;
+
+        // Durchlaufe alle Lerngruppen
+        for (LearningGroup lg : semester.getLearningGroups()) {
+
+            // Betrachte nur Lerngruppen mir mehr als einem Mitglied
+            if (lg.getMembers().size() > 1) {
+
+                // Suche erstes Team ungleich null
+                int i = 0;
+                Team firstTeam = null;
+                for (i = 0; i < lg.getMembers().size(); i++) {
+                    firstTeam = allocation.getTeam(lg.getMembers().get(i));
+                    if (firstTeam != null) {
+                        break;
                     }
                 }
-                if (hasBeenDevided) {
-                    numberOfSplitLearningGroups++;
+                if (i != lg.getMembers().size()) {
+                    for (int r = i + 1; r < lg.getMembers().size(); r++) {
+                        Team currentTeam = allocation
+                                .getTeam(lg.getMembers().get(r));
+                        if (currentTeam != null
+                                && !currentTeam.equals(firstTeam)) {
+                            numberOfSplitLearningGroups += 1;
+                            break;
+                        }
+                    }
                 }
             }
         }
