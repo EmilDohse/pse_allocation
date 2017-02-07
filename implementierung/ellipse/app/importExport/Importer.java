@@ -172,7 +172,9 @@ public class Importer {
                 } else {
                     throw new ImporterException("importer.wrongFileFormat");
                 }
-            } else {
+            } else
+
+            {
                 throw new ImporterException("importer.wrongFileFormat");
             }
 
@@ -353,7 +355,6 @@ public class Importer {
                     importedStudent.setIsEmailVerified(false);
 
                 });
-
                 testStudents.add(importedStudent);
 
                 LearningGroup currentGroup;
@@ -394,7 +395,9 @@ public class Importer {
                 currentGroup.setRatings(ratings);
                 Ebean.update(currentGroup);
             }
-        } catch (IOException e) {
+        } catch (
+
+        IOException e) {
             e.printStackTrace();
         }
     }
@@ -457,7 +460,7 @@ public class Importer {
             boolean projectsExist = true;
             for (int i = wantedHeader.length; i < headerSplit.length; i++) {
                 String currentProjectName = headerSplit[i];
-                if (Project.getProject(currentProjectName, semester) == null) {
+                if (getProjectByName(semester, currentProjectName) == null) {
                     projectsExist = false;
                 }
             }
@@ -566,7 +569,8 @@ public class Importer {
                 ArrayList<Rating> LeaningGoupRatings = new ArrayList<>();
                 Rating currentRating;
                 for (int i = 11; i < lineSplit.length; i++) {
-                    currentRating = new Rating(ratings[i - 11], Project.getProject(headerSplit[i], semester));
+                    currentRating = new Rating(ratings[i - 11], getProjectByName(semester, headerSplit[i]));
+                    currentRating.save();
                     LeaningGoupRatings.add(currentRating);
                 }
                 currentGroup.doTransaction(() -> {
@@ -732,6 +736,7 @@ public class Importer {
                     importedProject.setAdvisers(new ArrayList<Adviser>());
                 });
                 projects.add(importedProject);
+
             }
             semester.setProjects(projects);
             Ebean.update(semester);
@@ -750,9 +755,33 @@ public class Importer {
      *            Der Ausgabepfad.
      * @param semester
      *            Das Semester, aus dem die Projekte exportiert werden sollen.
+     * @throws ImporterException
+     *             wird vom Controller behandelt.
      */
-    public void exportProjects(String file, Semester semester) {
+    public void exportProjects(String file, Semester semester) throws ImporterException {
+        try (BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file)))) {
+            String header = "Name;Institut;Anzahl Teams;Min. Size;Max. Size;Projekt URL;Projektinfo";
+            bw.write(header);
+            bw.newLine();
 
+            for (Project project : semester.getProjects()) {
+                String line = new String();
+                line += project.getName() + ";";
+                line += project.getInstitute() + ";";
+                line += project.getNumberOfTeams() + ";";
+                line += project.getMinTeamSize() + ";";
+                line += project.getMaxTeamSize() + ";";
+                line += project.getProjectURL() + ";";
+                line += project.getProjectInfo();
+
+                bw.write(line);
+                bw.newLine();
+            }
+        } catch (FileNotFoundException e) {
+            throw new ImporterException("importer.FileNotFound");
+        } catch (IOException e) {
+            throw new ImporterException("importer.IOException");
+        }
     }
 
     private ArrayList<Achievement> parseAchievements(String[] split, SPO spo) throws ImporterException {
@@ -774,5 +803,15 @@ public class Importer {
         }
 
         return achievements;
+    }
+
+    private Project getProjectByName(Semester semester, String name) {
+        Project project = null;
+        for (int i = 0; i < semester.getProjects().size(); i++) {
+            if (semester.getProjects().get(i).getName().equals(name)) {
+                project = semester.getProjects().get(i);
+            }
+        }
+        return project;
     }
 }

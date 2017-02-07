@@ -1,8 +1,8 @@
 logout = Abmelden
 
-email.notifyResultsStudent = Hallo {1} {2},\ndie PSE-Einteilung ist nun abgeschlossen.\nSie wurden dem Projekt {3} zugeteilt.\nWeitere Informationen zu Ihrem Projekt, Ihren Betreuern oder ihrer Gruppe erhalten Sie, wenn Sie sich einloggen.
-email.notifyResultsAdviser = Hallo {1} {2},\ndie PSE-Einteilung ist nun abgeschlossen.\nSie betreuen die folgenden Teams:\n{3}
-email.adviserPassword =	Hallo {1} {2},\nIhr Passwort für das PSE-Portal lautet:\{3}
+email.notifyResultsStudent = Hallo {1},\ndie PSE-Einteilung ist nun abgeschlossen.\nSie wurden dem Projekt {2} zugeteilt.\nWeitere Informationen zu Ihrem Projekt, Ihren Betreuern oder ihrer Gruppe erhalten Sie, wenn Sie sich einloggen.
+email.notifyResultsAdviser = Hallo {1},\ndie PSE-Einteilung ist nun abgeschlossen.\nSie betreuen die folgenden Teams:\n{2}
+email.adviserPassword =	Hallo {1},\nIhr Passwort für das PSE-Portal lautet:\{2}
 email.subjectAdviserPassword = PSE-Passwort
 email.subjectResults = PSE-Einteilungsergebnisse
 
@@ -99,6 +99,7 @@ admin.studentEdit.addStudent = Student hinzufügen
 admin.studentEdit.removeStudent = Student löschen
 admin.studentEdit.add = hinzufügen
 admin.studentEdit.remove = löschen
+admin.allocation.newAllocation = Neue Einteilung erstellen
 admin.allocation.curValue = Aktueller Wert
 admin.allocation.preferedTeamSize = Gewünschte Teamgröße
 admin.allocation.addToQueue = Zur Berechnungsliste hinzufügen

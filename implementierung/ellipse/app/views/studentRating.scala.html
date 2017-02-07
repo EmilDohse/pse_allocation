@@ -17,9 +17,25 @@ Parameter wird die Liste an Projekten und eine Fehlermeldung übergeben.
 		</tr>
 	</thead>
 	<tbody>
-		@for(project <- projects) {
+		<div class="panel-group" id="accordion" role="tablist"
+			aria-multiselectable="true">@for(project <- projects) {
 		<tr>
-			<td>@project.getName()</td>
+			<td><div class="panel panel-default">
+					<div class="panel-heading" role="tab" id="heading-@project.getId()">
+						<h4 class="panel-title">
+							<a role="button" data-toggle="collapse" data-parent="#accordion"
+								href="#collapse@project.getId()" aria-expanded="true"
+								aria-controls="collapse@project.getId()">@project.getName()<small>@project.getInstitute()</small></a>
+						</h4>
+					</div>
+					<div id="collapse@project.getId()" class="panel-collapse collapse"
+						role="tabpanel" aria-labelledby="heading-@project.getId()">
+						<div class="panel-body">
+						<h5><small><a href="@project.getProjectURL()">@project.getProjectURL()</a></small></h5>
+						@project.getProjectInfo()
+						</div>
+					</div>
+				</div></td>
 			<td><input type="radio" name="@project.getId()" value="2"></td>
 			<td><input type="radio" name="@project.getId()" value="4"></td>
 			<td><input type="radio" name="@project.getId()" value="6"></td>

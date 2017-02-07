@@ -16,7 +16,9 @@ import gurobi.GRBLinExpr;
  */
 public class CriterionPreferHigherSemester implements GurobiCriterion {
 
-    private String name;
+    private static final String DE_NAME = "Bevorzuge Studenten höheren Semesters";
+    private static final String EN_NAME = "Bonus students of higher semesters";
+    private String              name;
 
     /**
      * Standard-Konstruktor, der den Namen eindeutig setzt.
@@ -37,15 +39,19 @@ public class CriterionPreferHigherSemester implements GurobiCriterion {
      * {@inheritDoc}
      */
     @Override
-    public void useCriteria(Configuration configuration, GurobiAllocator allocator, double weight) throws GRBException {
+    public void useCriteria(Configuration configuration,
+            GurobiAllocator allocator, double weight) throws GRBException {
         GRBLinExpr bonus = new GRBLinExpr();
         for (int i = 0; i < configuration.getStudents().size(); i++) {
 
             // Betrachte nur Studenten in höherem, als dem normalen Semester
-            int normalSemester = getNormalSemester(GeneralData.loadInstance().getCurrentSemester());
-            if (configuration.getStudents().get(i).getSemester() > normalSemester) {
+            int normalSemester = getNormalSemester(
+                    GeneralData.loadInstance().getCurrentSemester());
+            if (configuration.getStudents().get(i)
+                    .getSemester() > normalSemester) {
                 for (int j = 0; j < configuration.getTeams().size(); j++) {
-                    bonus.addTerm(weight * 10, allocator.getBasicMatrix()[i][j]);
+                    bonus.addTerm(weight * 10,
+                            allocator.getBasicMatrix()[i][j]);
                 }
             }
         }
@@ -60,10 +66,21 @@ public class CriterionPreferHigherSemester implements GurobiCriterion {
      * @return 3 im WS, 4 im SS.
      */
     private int getNormalSemester(Semester semester) {
-        if (GeneralData.loadInstance().getCurrentSemester().isWintersemester()) {
+        if (GeneralData.loadInstance().getCurrentSemester()
+                .isWintersemester()) {
             return 3;
         } else {
             return 4;
+        }
+    }
+
+    @Override
+    public String getDisplayName(String local) {
+        switch (local) {
+        case "de":
+            return DE_NAME;
+        default:
+            return EN_NAME;
         }
     }
 }

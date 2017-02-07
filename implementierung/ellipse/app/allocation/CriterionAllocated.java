@@ -14,7 +14,9 @@ import gurobi.GRBLinExpr;
  */
 public class CriterionAllocated implements GurobiCriterion {
 
-    private String name;
+    private static final String DE_NAME = "Teile möglichst viele Studenten ein";
+    private static final String EN_NAME = "Assign as many students as possible";
+    private String              name;
 
     /**
      * Standard-Konstruktor, der den Namen eindeutig setzt.
@@ -35,7 +37,8 @@ public class CriterionAllocated implements GurobiCriterion {
      * {@inheritDoc}
      */
     @Override
-    public void useCriteria(Configuration configuration, GurobiAllocator allocator, double weight) throws GRBException {
+    public void useCriteria(Configuration configuration,
+            GurobiAllocator allocator, double weight) throws GRBException {
 
         // Erzeuge Ergänzung zum Optimierungsterm
         GRBLinExpr bonus = new GRBLinExpr();
@@ -45,5 +48,15 @@ public class CriterionAllocated implements GurobiCriterion {
             }
         }
         allocator.getOptimizationTerm().add(bonus);
+    }
+
+    @Override
+    public String getDisplayName(String local) {
+        switch (local) {
+        case "de":
+            return DE_NAME;
+        default:
+            return EN_NAME;
+        }
     }
 }
