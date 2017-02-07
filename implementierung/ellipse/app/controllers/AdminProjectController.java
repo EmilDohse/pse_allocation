@@ -12,6 +12,7 @@ import data.Adviser;
 import data.ElipseModel;
 import data.GeneralData;
 import data.Project;
+import data.Semester;
 import notificationSystem.Notifier;
 import play.data.DynamicForm;
 import play.data.FormFactory;
@@ -42,9 +43,11 @@ public class AdminProjectController extends Controller {
         String projName = form.get("name");
         Project project = new Project(projName, "", "", "");
         project.save();
-        GeneralData.loadInstance().getCurrentSemester().addProject(project);
-        return redirect(controllers.routes.AdminPageController
-                .projectEditPage(project.getId()));
+        Semester semester = GeneralData.loadInstance().getCurrentSemester();
+        semester.doTransaction(() -> {
+            semester.addProject(project);
+        });
+        return redirect(controllers.routes.AdminPageController.projectEditPage(project.getId()));
 
     }
 
@@ -58,8 +61,7 @@ public class AdminProjectController extends Controller {
     public Result removeProject() {
         DynamicForm form = formFactory.form().bindFromRequest();
         String projName = form.get("name");
-        Project project = ElipseModel.getById(Project.class,
-                Integer.parseInt(form.get("id")));
+        Project project = ElipseModel.getById(Project.class, Integer.parseInt(form.get("id")));
         // TODO hier eine warnmeldung ausgeben ob das projekt wirklich gelöscht
         // werden soll
         GeneralData.loadInstance().getCurrentSemester().removeProject(project);
@@ -96,20 +98,17 @@ public class AdminProjectController extends Controller {
             minSize = Integer.parseInt(minSizeString);
             maxSize = Integer.parseInt(maxSizeString);
         } catch (NumberFormatException e) {
-            return redirect(controllers.routes.AdminPageController
-                    .projectEditPage(project.getId()));
+            return redirect(controllers.routes.AdminPageController.projectEditPage(project.getId()));
         }
         ArrayList<Adviser> advisers = new ArrayList<>();
-        String[] adviserIds = MultiselectList.getValueArray(form,
-                "adviser-multiselect");
+        String[] adviserIds = MultiselectList.getValueArray(form, "adviser-multiselect");
         for (String adviserIdString : adviserIds) {
             int adviserId;
             try {
                 adviserId = Integer.parseInt(adviserIdString);
             } catch (NumberFormatException e) {
-                return redirect(controllers.routes.IndexPageController
-                        .registerPage(ctx().messages()
-                                .at("index.registration.error.genError")));
+                return redirect(controllers.routes.IndexPageController.registerPage(ctx().messages().at(
+                        "index.registration.error.genError")));
             }
             advisers.add(ElipseModel.getById(Adviser.class, adviserId));
         }

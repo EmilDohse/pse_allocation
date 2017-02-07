@@ -5,6 +5,11 @@ werden. *@ @(allocQueue: allocation.AllocationQueue, criteria:
 List[allocation.Criterion],error: String) @if(!error.isEmpty()){
 <div class="alert alert-danger" role="alert">@error</div>
 }
+<script type="text/javascript"
+	src='@routes.Assets.versioned("javascripts/bootstrap-slider.min.js")'></script>
+<link rel="stylesheet"
+	href='@routes.Assets.versioned("stylesheets/bootstrap-slider.min.css")'
+	type="text/css" />
 <h1>@Messages("admin.sidebar.allocation")</h1>
 <div>
 	<form
@@ -41,9 +46,21 @@ List[allocation.Criterion],error: String) @if(!error.isEmpty()){
 		<div class="form-group">
 			<label class="control-label col-sm-2" for="maxTeamSize">@criterion.getName()</label>
 			<div class="col-sm-3">
-				<input type="range" min="0" max="100" value="100"
+				<!-- <input type="range" min="0" max="100" value="100"
 					class="form-control" name="@criterion.getName()"
-					id="@criterion.getName()">
+					id="@criterion.getName()">-->
+				<!-- Bootstrap Slider -->
+				<script type="text/javascript">
+					$('#@criterion.getName()').slider({
+						formatter : function(value) {
+							return '@Messages("admin.allocation.curValue"): ' + value;
+						}
+					});
+				</script>
+				<input name="@criterion.getName()" id="@criterion.getName()"
+					data-slider-id='@criterion.getName()' type="text"
+					data-slider-min="0" data-slider-max="100" data-slider-step="1"
+					data-slider-value="0" />
 			</div>
 		</div>
 		}
