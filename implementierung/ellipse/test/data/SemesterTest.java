@@ -17,6 +17,7 @@ public class SemesterTest extends DataTest {
     @Before
     public void beforeTest() {
         semester = new Semester();
+        semester.save();
     }
 
     @Test
