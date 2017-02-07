@@ -1,5 +1,7 @@
 package allocation;
 
+import static org.junit.Assert.assertTrue;
+
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -7,10 +9,10 @@ import jdk.nashorn.internal.ir.annotations.Ignore;
 
 public class AbstractAllocatorTest {
 
-    AbstractAllocator abstAllocator;
+    static AbstractAllocator abstAllocator;
 
     @BeforeClass
-    public void init() {
+    public static void init() {
         abstAllocator = new AbstractAllocator() {
 
             @Override
@@ -32,7 +34,7 @@ public class AbstractAllocatorTest {
     @Test
     @Ignore
     public void testServiceLoader() {
-        assert (abstAllocator.getAllCriteria().size() > 0);
+        assertTrue(abstAllocator.getAllCriteria().size() > 0);
     }
 
 }
