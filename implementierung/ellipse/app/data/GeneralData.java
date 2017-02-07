@@ -56,7 +56,7 @@ public class GeneralData extends ElipseModel {
     /**
      * Lädt die Daten aus der Datenbank
      */
-    public static GeneralData getInstance() {
+    public static GeneralData loadInstance() {
         GeneralData instance;
         try {
             instance = ElipseModel.getAll(GeneralData.class).stream().findFirst().get();

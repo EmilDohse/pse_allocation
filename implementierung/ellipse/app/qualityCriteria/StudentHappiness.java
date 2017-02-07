@@ -29,7 +29,7 @@ public class StudentHappiness implements QualityCriterion {
             Team t = allocation.getTeams().get(i);
             for (int j = 0; j < t.getMembers().size(); j++) {
                 Student student = t.getMembers().get(j);
-                Semester semester = GeneralData.getInstance().getCurrentSemester();
+                Semester semester = GeneralData.loadInstance().getCurrentSemester();
                 Project project = t.getProject();
                 double rating = semester.getLearningGroupOf(student).getRating(project);
                 sumOfRatings += rating;
@@ -37,7 +37,7 @@ public class StudentHappiness implements QualityCriterion {
         }
 
         double relativeHappiness = (sumOfRatings
-                / (double) GeneralData.getInstance().getCurrentSemester().getStudents().size()) / 5.0;
+                / (double) GeneralData.loadInstance().getCurrentSemester().getStudents().size()) / 5.0;
         return String.valueOf(relativeHappiness);
     }
 

@@ -17,7 +17,7 @@ public class StudentTest extends UserTest {
     @Before
     public void beforeTest() {
         student = new Student();
-        data = GeneralData.getInstance();
+        data = GeneralData.loadInstance();
     }
 
     @Test

@@ -131,8 +131,8 @@ public class ProjectTest extends DataTest {
         projects.add(project);
         s.setProjects(projects);
         s.save();
-        GeneralData.getInstance().setCurrentSemester(s);
-        GeneralData.getInstance().save();
+        GeneralData.loadInstance().setCurrentSemester(s);
+        GeneralData.loadInstance().save();
         assertEquals(s, project.getSemester());
     }
 }

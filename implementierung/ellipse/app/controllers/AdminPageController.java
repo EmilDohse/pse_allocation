@@ -7,7 +7,6 @@ package controllers;
 import java.util.ArrayList;
 import java.util.List;
 
-import allocation.AbstractAllocator;
 import allocation.AllocationQueue;
 import data.Adviser;
 import data.Allocation;
@@ -36,11 +35,11 @@ public class AdminPageController extends Controller {
      */
     public Result projectPage(String error) {
         play.twirl.api.Html content;
-        if (GeneralData.getInstance().getCurrentSemester() == null) {
+        if (GeneralData.loadInstance().getCurrentSemester() == null) {
             content = views.html.adminProjects.render(new ArrayList<>(), error
                     + "\n" + ctx().messages().at("admin.error.noSemester"));
         } else {
-            content = views.html.adminProjects.render(GeneralData.getInstance()
+            content = views.html.adminProjects.render(GeneralData.loadInstance()
                     .getCurrentSemester().getProjects(), error);
         }
         Menu menu = new AdminMenu(ctx(), ctx().request().path());
@@ -73,7 +72,7 @@ public class AdminPageController extends Controller {
      */
     public Result allocationPage(String error) {
         ArrayList<allocation.Criterion> criteria = new ArrayList<>(
-                AbstractAllocator.getAllCriteria());
+                AllocationQueue.getInstance().getAllocator().getAllCriteria());
         play.twirl.api.Html content = views.html.adminAllocation
                 .render(AllocationQueue.getInstance(), criteria, error);
         Menu menu = new AdminMenu(ctx(), ctx().request().path());
@@ -90,16 +89,16 @@ public class AdminPageController extends Controller {
         ArrayList<qualityCriteria.QualityCriterion> criteria = new ArrayList<>(
                 qualityCriteria.QualityCriteriaLoader.getAllQualityCriteria());
         play.twirl.api.Html content;
-        if (GeneralData.getInstance().getCurrentSemester() == null) {
+        if (GeneralData.loadInstance().getCurrentSemester() == null) {
             content = views.html.adminResults.render(new ArrayList<>(),
                     criteria, error + "\n"
                             + ctx().messages().at("admin.error.noSemester"));
         } else {
-            List<Allocation> allocations = GeneralData.getInstance()
+            List<Allocation> allocations = GeneralData.loadInstance()
                     .getCurrentSemester().getAllocations();
             if (!allocations.isEmpty()) {
                 content = views.html.adminResults.render(GeneralData
-                        .getInstance().getCurrentSemester().getAllocations(),
+                        .loadInstance().getCurrentSemester().getAllocations(),
                         criteria, error);
             } else {
                 content = views.html.noAllocationYet.render();
@@ -131,13 +130,13 @@ public class AdminPageController extends Controller {
      */
     public Result studentEditPage(String error) {
         play.twirl.api.Html content;
-        if (GeneralData.getInstance().getCurrentSemester() == null) {
+        if (GeneralData.loadInstance().getCurrentSemester() == null) {
             content = views.html.adminStudentEdit.render(new ArrayList<>(),
                     error + "\n"
                             + ctx().messages().at("admin.error.noSemester"));
         } else {
             content = views.html.adminStudentEdit.render(
-                    GeneralData.getInstance().getCurrentSemester().getSpos(),
+                    GeneralData.loadInstance().getCurrentSemester().getSpos(),
                     error);
         }
         Menu menu = new AdminMenu(ctx(), ctx().request().path());
@@ -168,12 +167,12 @@ public class AdminPageController extends Controller {
      */
     public Result projectEditPage(int id) {
         if (id == -1) {
-            if (GeneralData.getInstance().getCurrentSemester().getProjects()
+            if (GeneralData.loadInstance().getCurrentSemester().getProjects()
                     .size() == 0) {
                 return redirect(
                         controllers.routes.AdminPageController.projectPage(""));
             } else {
-                id = GeneralData.getInstance().getCurrentSemester()
+                id = GeneralData.loadInstance().getCurrentSemester()
                         .getProjects().get(0).getId();
             }
 

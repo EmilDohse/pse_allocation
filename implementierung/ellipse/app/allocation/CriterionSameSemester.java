@@ -42,7 +42,7 @@ public class CriterionSameSemester implements GurobiCriterion {
     public void useCriteria(Configuration configuration, GurobiAllocator allocator, double weight) throws GRBException {
         GRBLinExpr bonus = new GRBLinExpr();
 
-        int normalSemester = getNormalSemester(GeneralData.getInstance().getCurrentSemester());
+        int normalSemester = getNormalSemester(GeneralData.loadInstance().getCurrentSemester());
         for (int j = 0; j < configuration.getTeams().size(); j++) {
 
             // Erstelle Variablen; bis auf "AmountOfNormalSemesterStudents" alle
@@ -128,7 +128,7 @@ public class CriterionSameSemester implements GurobiCriterion {
      * @return 3 im WS, 4 im SS.
      */
     private int getNormalSemester(Semester semester) {
-        if (GeneralData.getInstance().getCurrentSemester().isWintersemester()) {
+        if (GeneralData.loadInstance().getCurrentSemester().isWintersemester()) {
             return 3;
         } else {
             return 4;

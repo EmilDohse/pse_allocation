@@ -10,6 +10,7 @@ public class AchievementTest extends DataTest {
     public void testID() {
         int id = 42;
         Achievement a = new Achievement();
+        a.doTransaction((() -> a.setId(id)));
         a.setId(id);
         assertEquals(id, a.getId());
     }
@@ -18,7 +19,9 @@ public class AchievementTest extends DataTest {
     public void testName() {
         String name = "Name";
         Achievement a = new Achievement();
-        a.setName(name);
+        a.doTransaction(() -> {
+            a.setName(name);
+        });
         assertEquals(name, a.getName());
     }
 }

@@ -41,15 +41,15 @@ public class AdviserPageController extends Controller {
      * @return die Seite, die als Antwort verschickt wird.
      */
     public Result projectsPage(int id) {
-        Menu menu = new AdviserMenu(ctx().request().path());
+        Menu menu = new AdviserMenu(ctx(), ctx().request().path());
         if (id == -1) {
-            if (GeneralData.getInstance().getCurrentSemester().getProjects()
+            if (GeneralData.loadInstance().getCurrentSemester().getProjects()
                     .size() == 0) {
                 play.twirl.api.Html content = views.html.adviserNoProject
                         .render();
                 return ok(views.html.adviser.render(menu, content));
             } else {
-                id = GeneralData.getInstance().getCurrentSemester()
+                id = GeneralData.loadInstance().getCurrentSemester()
                         .getProjects().get(0).getId();
             }
         }
@@ -107,7 +107,7 @@ public class AdviserPageController extends Controller {
 
         }
         return redirect(controllers.routes.AdviserPageController
-                .projectsPage(GeneralData.getInstance().getCurrentSemester()
+                .projectsPage(GeneralData.loadInstance().getCurrentSemester()
                         .getProjects().get(0).getId()));
     }
 
@@ -235,7 +235,7 @@ public class AdviserPageController extends Controller {
     public Result accountPage(String error) {
         play.twirl.api.Html content = views.html.adviserAccount.render(error);
         // TODO muss hier noch ein param mitgegeben werden?
-        Menu menu = new AdviserMenu(ctx().request().path());
+        Menu menu = new AdviserMenu(ctx(), ctx().request().path());
         return ok(views.html.adviser.render(menu, content));
     }
 
