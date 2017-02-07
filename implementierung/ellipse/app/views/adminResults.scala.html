@@ -30,9 +30,10 @@ List[qualityCriteria.QualityCriterion], error: String)
 	<!-- Tab panes -->
 	<div class="tab-content">
 		@for(allocation <- allocations) {
+		<!-- Einteilungseditierungsseite -->
 		<div role="tabpanel" class="tab-pane" id="@allocation.getName()">
 			<div class="row">
-				<form>
+				<form method="POST" action="@controllers.routes.AdminEditAllocationController.editAllocation().path()">
 					<input type="hidden" name ="allocationID" value="@allocation.getId()">
 					<div class="col-sm-6 col-md-6">
 						@for(team <- allocation.getTeams()) {
@@ -47,7 +48,7 @@ List[qualityCriteria.QualityCriterion], error: String)
 							<tbody>
 								@for(member <- team.getMembers()) {
 								<tr>
-									<td><input type="checkbox" name="@member.getId()"
+									<td><input type="checkbox" name="selected-students[]" value="@member.getId()"
 										id="@member.getId()"></td>
 									<td>@member.getName()</td>
 								</tr>
@@ -84,6 +85,7 @@ List[qualityCriteria.QualityCriterion], error: String)
 			</div>
 		</div>
 		}
+		<!-- Vergleichstab inhalt -->
 		<div role="tabpanel" class="tab-pane" id="comparison">
 			<div class="row">
 				@for(allocation <- allocations) {

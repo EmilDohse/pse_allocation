@@ -56,6 +56,11 @@ student.error.noAllocationYet = Bisher existieren noch keine fertig berechneten 
 adviser.leaveProject = Projekt verlassen
 advsier.noProject = Es ist kein Projekt aktuell vorhanden.
 adviser.joinProject = Projekt beitreten
+adviser.account.newEmail = Neue E-Mail-Addresse
+adviser.account.pwChange = Passwort ändern
+adviser.account.emailChange = E-Mail ändern
+adviser.account.newPassword = Neues Passwort
+adviser.account.newPasswordRepeat = Neues Passwort wiederholen
 
 admin.title = Elipse - Adminstration
 admin.sidebar.adviser = Projektleiter

@@ -3,3 +3,26 @@ wird eine Fehlermeldung übergeben. *@ @(error: String)
 @if(!error.isEmpty()){
 <div class="alert alert-danger" role="alert">@error</div>
 }
+<h1>@Messages("adviser.sidebar.account")</h1>
+<form
+	action="@controllers.routes.AdviserPageController.editAccount().path()"
+	method="POST" class="form-horizontal">
+	<div class="form-group">
+		<label for="newEmail">@Messages("adviser.account.newEmail")</label><input
+			type="text" id="newEmail" name="newEmail">
+	</div>
+	<div class="form-group">
+		<button type="submit" name="emailChange">@Messages("adviser.student.emailChange")</button>
+	</div>
+	<div class="form-group">
+		<label>@Messages("adviser.account.newPassword")</label><input
+			type="password" name="newPassword">
+	</div>
+	<div class="form-group">
+		<label>@Messages("adviser.account.newPasswordRepeat")</label><input
+			type="password" name="newPasswordRepeat">
+	</div>
+	<div class="form-group">
+		<button type="submit" name="passwordChange">@Messages("adviser.account.pwChange")</button>
+	</div>
+</form>

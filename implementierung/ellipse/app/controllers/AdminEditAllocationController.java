@@ -4,6 +4,7 @@
 
 package controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
@@ -34,6 +35,36 @@ public class AdminEditAllocationController extends Controller {
     public static Stack<EditAllocationCommand> undoStack = new Stack<>();
 
     /**
+     * Diese Methode editiert die Einteilung.
+     * 
+     * @return Die Seite, die als Antwort verschickt wird.
+     */
+    public Result editAllocation() {
+        DynamicForm form = formFactory.form().bindFromRequest();
+        String[] selectedIdsString = MultiselectList.getValueArray(form,
+                "selected-students");
+        ArrayList<Integer> selectedIds = new ArrayList<>();
+        for (String s : selectedIdsString) {
+            try {
+                selectedIds.add(Integer.parseInt(s));
+            } catch (NumberFormatException e) {
+                // TODO errror benennen
+                return redirect(controllers.routes.AdminPageController
+                        .resultsPage("error"));
+            }
+        }
+        if (form.get("move") != null) {
+            return moveStudents(form, selectedIds);
+        } else if (form.get("exchange") != null) {
+            return swapStudents(form, selectedIds);
+        } else {
+            // TODO: Internal Error oder so
+            return redirect(controllers.routes.AdminPageController
+                    .resultsPage("error"));
+        }
+    }
+
+    /**
      * Diese Methode tauscht zwei Studenten, welche der Administrator vorher in
      * einem Formular ausgewählt hat. Ein Tausch innerhalb eines Teams wird
      * nicht unterbunden, hat jedoch keine Auswirkung. Anschließend wird der
@@ -41,19 +72,20 @@ public class AdminEditAllocationController extends Controller {
      * 
      * @return Die Seite, die als Antwort verschickt wird.
      */
-    public Result swapStudents() {
-        DynamicForm form = formFactory.form().bindFromRequest();
+    public Result swapStudents(DynamicForm form, ArrayList<Integer> ids) {
         String allocationIdString = form.get("allocationId");
         int allocationId;
         try {
             allocationId = Integer.parseInt(allocationIdString);
         } catch (NumberFormatException e) {
             // TODO errror benennen
-            return redirect(controllers.routes.AdminPageController.resultsPage("error"));
+            return redirect(controllers.routes.AdminPageController
+                    .resultsPage("error"));
         }
         // über alle teams der allocation wird itteriert und geprüft ob zwei
         // studierende markiert wurden, dann diese beiden getauscht
-        Allocation allocation = ElipseModel.getById(Allocation.class, allocationId);
+        Allocation allocation = ElipseModel.getById(Allocation.class,
+                allocationId);
         List<Team> teams = allocation.getTeams();
         int countMarked = 0;
         Stack<Student> selectedStudent = new Stack<>();
@@ -67,8 +99,8 @@ public class AdminEditAllocationController extends Controller {
             }
         }
         if (countMarked == 2) {
-            SwapStudentCommand command = new SwapStudentCommand(allocation, selectedStudent.pop(),
-                    selectedStudent.pop());
+            SwapStudentCommand command = new SwapStudentCommand(allocation,
+                    selectedStudent.pop(), selectedStudent.pop());
             command.execute();
             undoStack.push(command);
         } else {
@@ -86,8 +118,7 @@ public class AdminEditAllocationController extends Controller {
      * 
      * @return Die Seite, die als Antwort verschickt wird.
      */
-    public Result moveStudents() {
-        DynamicForm form = formFactory.form().bindFromRequest();
+    public Result moveStudents(DynamicForm form, ArrayList<Integer> ids) {
         String teamIdString = form.get("project-selection");
         String allocationIdString = form.get("allocationId");
         int allocationId;
@@ -97,14 +128,16 @@ public class AdminEditAllocationController extends Controller {
             allocationId = Integer.parseInt(allocationIdString);
         } catch (NumberFormatException e) {
             // TODO errror benennen
-            return redirect(controllers.routes.AdminPageController.resultsPage("error"));
+            return redirect(controllers.routes.AdminPageController
+                    .resultsPage("error"));
         }
         // etwas umständlich geht aber nicht besser... die allocation wird aus
         // der id bestimmt dann über alle studierenden iteriert um
         // herauszufinden bei wem das häkchen gesetzt wurde dann überprüft ob
         // nur ein student ausgewählt wurde
         Team newTeam = ElipseModel.getById(Team.class, teamId);
-        Allocation allocation = ElipseModel.getById(Allocation.class, allocationId);
+        Allocation allocation = ElipseModel.getById(Allocation.class,
+                allocationId);
         List<Team> teams = allocation.getTeams();
         int countMarked = 0;
         Student selectedStudent = new Student(); // hier leer initialisiert da
@@ -121,7 +154,8 @@ public class AdminEditAllocationController extends Controller {
             }
         }
         if (countMarked == 1) {
-            MoveStudentCommand command = new MoveStudentCommand(allocation, selectedStudent, newTeam);
+            MoveStudentCommand command = new MoveStudentCommand(allocation,
+                    selectedStudent, newTeam);
             command.execute();
             undoStack.push(command);
         } else {
@@ -147,10 +181,13 @@ public class AdminEditAllocationController extends Controller {
         try {
             allocationId = Integer.parseInt(allocationIdString);
         } catch (NumberFormatException e) {
-            return redirect(controllers.routes.AdminPageController.resultsPage("error"));
+            return redirect(controllers.routes.AdminPageController
+                    .resultsPage("error"));
         }
-        Allocation allocation = ElipseModel.getById(Allocation.class, allocationId);
-        GeneralData.getInstance().getCurrentSemester().setFinalAllocation(allocation);
+        Allocation allocation = ElipseModel.getById(Allocation.class,
+                allocationId);
+        GeneralData.getInstance().getCurrentSemester()
+                .setFinalAllocation(allocation);
         return redirect(controllers.routes.AdminPageController.resultsPage(""));
     }
 
@@ -170,12 +207,15 @@ public class AdminEditAllocationController extends Controller {
         try {
             allocationId = Integer.parseInt(allocationIdString);
         } catch (NumberFormatException e) {
-            return redirect(controllers.routes.AdminPageController.resultsPage("error"));
+            return redirect(controllers.routes.AdminPageController
+                    .resultsPage("error"));
         }
-        Allocation allocation = ElipseModel.getById(Allocation.class, allocationId);
-        Allocation clonedAllocation = new Allocation(allocation.getTeams(), "cloned" + allocation.getName(),
-                allocation.getParameters());
-        GeneralData.getInstance().getCurrentSemester().addAllocation(clonedAllocation);
+        Allocation allocation = ElipseModel.getById(Allocation.class,
+                allocationId);
+        Allocation clonedAllocation = new Allocation(allocation.getTeams(),
+                "cloned" + allocation.getName(), allocation.getParameters());
+        GeneralData.getInstance().getCurrentSemester()
+                .addAllocation(clonedAllocation);
         return redirect(controllers.routes.AdminPageController.resultsPage(""));
     }
 
@@ -193,10 +233,13 @@ public class AdminEditAllocationController extends Controller {
         try {
             allocationId = Integer.parseInt(allocationIdString);
         } catch (NumberFormatException e) {
-            return redirect(controllers.routes.AdminPageController.resultsPage("error"));
+            return redirect(controllers.routes.AdminPageController
+                    .resultsPage("error"));
         }
-        Allocation allocation = ElipseModel.getById(Allocation.class, allocationId);
-        GeneralData.getInstance().getCurrentSemester().removeAllocation(allocation);
+        Allocation allocation = ElipseModel.getById(Allocation.class,
+                allocationId);
+        GeneralData.getInstance().getCurrentSemester()
+                .removeAllocation(allocation);
         return redirect(controllers.routes.AdminPageController.resultsPage(""));
     }
 
@@ -209,7 +252,8 @@ public class AdminEditAllocationController extends Controller {
      */
     public Result undoAllocationEdit() {
         if (undoStack.isEmpty()) {// TODO auf der ganzen seite die errors
-            return redirect(controllers.routes.AdminPageController.resultsPage("error"));
+            return redirect(controllers.routes.AdminPageController
+                    .resultsPage("error"));
         }
         undoStack.pop().undo();
         return redirect(controllers.routes.AdminPageController.resultsPage(""));

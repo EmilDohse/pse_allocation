@@ -14,6 +14,7 @@ import play.data.DynamicForm;
 import play.data.FormFactory;
 import play.mvc.Controller;
 import play.mvc.Result;
+import security.BlowfishPasswordEncoder;
 import security.UserManagement;
 import views.AdviserMenu;
 import views.Menu;
@@ -245,7 +246,28 @@ public class AdviserPageController extends Controller {
      * @return die Seite, die als Antwort verschickt wird.
      */
     public Result editAccount() {
-        // TODO
-        return null;
+        UserManagement user = new UserManagement();
+        Adviser adviser = (Adviser) user.getUserProfile(ctx());
+        DynamicForm form = formFactory.form().bindFromRequest();
+
+        if (form.get("passwordChange") != null) {
+            String pw = form.get("newPassword");
+            String pwrepeat = form.get("newPasswordRepeat");
+            if (!pw.equals(pwrepeat)) {
+                // TODO error message
+                return redirect(controllers.routes.AdviserPageController
+                        .accountPage("error"));
+            }
+            String pwEnc = new BlowfishPasswordEncoder().encode(pw);
+            adviser.setPassword(pwEnc);
+        }
+        if (form.get("emailChange") != null) {
+            String email = form.get("newEmail");
+            adviser.setEmailAddress(email);
+            // TODO hier verifikation
+        }
+        adviser.save();
+        return redirect(
+                controllers.routes.AdviserPageController.accountPage(""));
     }
 }
