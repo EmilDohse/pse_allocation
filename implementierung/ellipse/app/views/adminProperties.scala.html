@@ -1,6 +1,6 @@
 @* * Diese Seite zeigt die Einstellungsseite dem Admin an. * Dafür wird
 eine Liste an Semestern und SPOs benötigt * Zusätzlich kann eine
-Fehlermeldung übergeben werden. *@ @(semesters: List[data.Semester],
+Fehlermeldung übergeben werden. *@ @(activeSemester: data.Semester, semesters: List[data.Semester],
 spos: List[data.SPO], error: String) @if(!error.isEmpty()){
 <div class="alert alert-danger" role="alert">@error</div>
 }
@@ -194,7 +194,6 @@ spos: List[data.SPO], error: String) @if(!error.isEmpty()){
 							id="maxGroupSize" value="@semester.getMaxGroupSize()">
 					</div>
 				</div>
-				<!--  Temporarily type text but should not be final. Search for better options. -->
 				<div class="form-group">
 					<label class="control-label col-sm-2" for="registrationStart">@Messages("admin.properties.registrationStart")</label>
 					<div class="col-sm-3">
@@ -219,7 +218,7 @@ spos: List[data.SPO], error: String) @if(!error.isEmpty()){
 
 				<script type="text/javascript">
 					$(document).ready(function() {
-						$('#availabe-spo').multiselect({
+						$('#availabe-spo-@semester.getId()').multiselect({
 							maxHeight : 300,
 							numberDisplayed : 6,
 							disableIfEmpty : true
@@ -227,12 +226,12 @@ spos: List[data.SPO], error: String) @if(!error.isEmpty()){
 					});
 				</script>
 				<div class="form-group">
-					<label class="control-label col-sm-2" for="spo">@Messages("admin.properties.availableSPOs")</label>
-					<select id="availabe-spo" name="spo-multiselect[]"
+					<label class="control-label col-sm-2" for="availabe-spo-@semester.getId()">@Messages("admin.properties.availableSPOs")</label>
+					<select id="availabe-spo-@semester.getId()" name="spo-multiselect-@semester.getId()[]"
 						class="form-control" multiple="multiple">
 						@for(spo <-spos) { 
 							@if(semester.getSpos().contains(spo)) {
-								<option value="@spo.getId()" checked>@spo.getName()</option> 
+								<option value="@spo.getId()" selected="selected">@spo.getName()</option> 
 							} else {
 								<option value="@spo.getId()">@spo.getName()</option>
 							} 
@@ -242,12 +241,11 @@ spos: List[data.SPO], error: String) @if(!error.isEmpty()){
 				<div class="form-group col-sm-offset-2">
 					<div class="checkbox">
 						<label class="control-label col-sm-2" for="semester-active">@Messages("admin.properties.semester")</label><input
-							type="checkbox" checked data-toggle="toggle"
+							type="checkbox" @if(semester.equals(activeSemester)) {checked} data-toggle="toggle"
 							data-on='@Messages("admin.properties.activ")'
 							data-off='@Messages("admin.properties.inactiv")'
 							data-onstyle="success" data-offstyle="danger" data-width="100"
 							name="semester-active" id="semester-active" class="form-control">
-						<!-- TODO: Internen State anzeigen, nicht standardmäßig checked -->
 					</div>
 				</div>
 

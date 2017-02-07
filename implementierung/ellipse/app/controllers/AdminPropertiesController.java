@@ -127,7 +127,7 @@ public class AdminPropertiesController extends Controller {
         int year;
         ArrayList<SPO> usedSPOs = new ArrayList<>();
         String[] spoIdStrings = MultiselectList.getValueArray(form,
-                "spo-multiselect");
+                "spo-multiselect-" + idString);
         for (String spoIdString : spoIdStrings) {
             try {
                 usedSPOs.add(ElipseModel.getById(SPO.class,
@@ -177,7 +177,7 @@ public class AdminPropertiesController extends Controller {
             semester.setMaxGroupSize(maxGroupSize);
             semester.setYear(year);
         });
-
+        System.out.println(semester.getSpos().size());
         if (semesterActive != null) {
             GeneralData data = GeneralData.loadInstance();
             data.doTransaction(() -> {
