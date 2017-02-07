@@ -4,6 +4,8 @@
 
 package controllers;
 
+import java.util.List;
+
 import data.Allocation;
 import data.Student;
 import data.Team;
@@ -15,10 +17,10 @@ import data.Team;
  */
 public class MoveStudentCommand extends EditAllocationCommand {
 
-    private Allocation allocation;
-    private Student    student;
-    private Team       newTeam;
-    private Team       oldTeam;
+    private Allocation    allocation;
+    private List<Student> students;
+    private Team          newTeam;
+    private Team          oldTeam;
 
     /**
      * Erzeugt ein neues Kommando zum verschieben eines Studierenden.
@@ -30,10 +32,10 @@ public class MoveStudentCommand extends EditAllocationCommand {
      * @param newTeam
      *            Neues Team, in das der Studierende eingeteilt wird.
      */
-    public MoveStudentCommand(Allocation allocation, Student student, Team newTeam) {
+    public MoveStudentCommand(Allocation allocation, List<Student> students, Team newTeam) {
         super();
         this.allocation = allocation;
-        this.student = student;
+        this.students = students;
         this.newTeam = newTeam;
     }
 
@@ -42,13 +44,18 @@ public class MoveStudentCommand extends EditAllocationCommand {
      */
     @Override
     public void execute() {
-        oldTeam = allocation.getTeam(student);
 
-        // TODO hier eine warnung werfen falls die teamgröße überschritten wird
-        oldTeam.removeMember(student);
-        newTeam.addMember(student);
-        oldTeam.save();
-        newTeam.save();
+        for (Student s : students) {
+            oldTeam = allocation.getTeam(s);
+            // TODO hier eine warnung werfen falls die teamgröße überschritten
+            // wird
+            oldTeam.doTransaction(() -> {
+                oldTeam.removeMember(s);
+            });
+            newTeam.doTransaction(() -> {
+                newTeam.addMember(s);
+            });
+        }
     }
 
     /**
@@ -56,11 +63,15 @@ public class MoveStudentCommand extends EditAllocationCommand {
      */
     @Override
     public void undo() {
-
-        // TODO hier eine warnung werfen falls die teamgröße überschritten wird
-        newTeam.removeMember(student);
-        oldTeam.addMember(student);
-        oldTeam.save();
-        newTeam.save();
+        for (Student s : students) {
+            // TODO hier eine warnung werfen falls die teamgröße überschritten
+            // wird
+            newTeam.doTransaction(() -> {
+                newTeam.removeMember(s);
+            });
+            oldTeam.doTransaction(() -> {
+                oldTeam.addMember(s);
+            });
+        }
     }
 }

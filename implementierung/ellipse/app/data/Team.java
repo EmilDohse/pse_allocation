@@ -173,4 +173,12 @@ public class Team extends ElipseModel /* implements Comparable<Team> */ {
     // return Integer.compare(teamNumber, o.getTeamNumber());
     // }
 
+    public String toStringForNotification() {
+        String toReturn = this.getTeamNumber() + ":\n";
+        for (int i = 0; i < this.getMembers().size(); i++) {
+            toReturn += members.get(i).toStringForNotification() + "\n";
+        }
+        return toReturn;
+    }
+
 }
