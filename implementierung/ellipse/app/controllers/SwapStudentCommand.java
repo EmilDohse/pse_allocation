@@ -45,13 +45,14 @@ public class SwapStudentCommand extends EditAllocationCommand {
         Team firstTeam = allocation.getTeam(firstStudent);
         Team secondTeam = allocation.getTeam(secondStudent);
         // TODO hier eine warnung werfen falls die teamgröße überschritten wird
-        firstTeam.removeMember(firstStudent);
-        secondTeam.addMember(firstStudent);
-        secondTeam.removeMember(secondStudent);
-        firstTeam.addMember(secondStudent);
-        firstTeam.save();
-        secondTeam.save();
-
+        firstTeam.doTransaction(() -> {
+            firstTeam.removeMember(firstStudent);
+            firstTeam.addMember(secondStudent);
+        });
+        secondTeam.doTransaction(() -> {
+            secondTeam.addMember(firstStudent);
+            secondTeam.removeMember(secondStudent);
+        });
     }
 
     /**

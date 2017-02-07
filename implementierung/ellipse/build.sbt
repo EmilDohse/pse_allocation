@@ -12,7 +12,8 @@ libraryDependencies ++= Seq(
   javaWs,
   "org.pac4j" % "play-pac4j" % "2.6.1",
   "org.pac4j" % "pac4j-http" % "1.9.5",
-  "org.xerial" % "sqlite-jdbc" % "3.15.1"
+  "org.xerial" % "sqlite-jdbc" % "3.15.1",
+  "com.typesafe.play" %% "play-mailer" % "5.0.0"
 )
 
 resolvers += "SQLite-JDBC Repository" at "https://oss.sonatype.org/content/repositories/snapshots"
@@ -23,3 +24,6 @@ playEnhancerEnabled := false
 fork in run := true
 
 routesGenerator := InjectedRoutesGenerator
+
+
+fork in run := true
