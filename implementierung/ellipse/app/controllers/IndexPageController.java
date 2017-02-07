@@ -12,6 +12,7 @@ import data.Achievement;
 import data.ElipseModel;
 import data.GeneralData;
 import data.SPO;
+import data.Semester;
 import data.Student;
 import notificationSystem.Notifier;
 import play.data.DynamicForm;
@@ -47,9 +48,8 @@ public class IndexPageController extends Controller {
      * @return Die Seite, die als Antwort verschickt wird.
      */
     public Result indexPage(String error) {
-        play.twirl.api.Html content = views.html.indexInformation.render(
-                GeneralData.loadInstance().getCurrentSemester().getInfoText(),
-                error);
+        play.twirl.api.Html content = views.html.indexInformation
+                .render(GeneralData.loadInstance().getCurrentSemester().getInfoText(), error);
         Menu menu = new IndexMenu(ctx(), ctx().request().path());
         return ok(views.html.index.render(menu, content));
     }
@@ -61,9 +61,8 @@ public class IndexPageController extends Controller {
      * @return Die Seite, die als Antwort verschickt wird.
      */
     public Result registerPage(String error) {
-        play.twirl.api.Html content = views.html.indexRegistration.render(
-                GeneralData.loadInstance().getCurrentSemester().getSpos(),
-                error);
+        play.twirl.api.Html content = views.html.indexRegistration
+                .render(GeneralData.loadInstance().getCurrentSemester().getSpos(), error);
         Menu menu = new IndexMenu(ctx(), ctx().request().path());
         return ok(views.html.index.render(menu, content));
     }
@@ -99,90 +98,73 @@ public class IndexPageController extends Controller {
                 matNr = Integer.parseInt(matNrString);
                 semester = Integer.parseInt(semesterString);
                 spoId = Integer.parseInt(spoIdString);
+                SPO spo = ElipseModel.getById(SPO.class, spoId);
+                boolean trueData = false;
+
+                if (form.get("trueData") != null) {
+                    // wenn der student angekreuzt hat das seine angaben der
+                    // wahrheit entsprechen
+                    trueData = true;
+                }
+                ArrayList<Achievement> completedAchievments = new ArrayList<>();
+                ArrayList<Achievement> notCompletedAchievments = new ArrayList<>();
+                String completedAchievmentIdString = form.get("completed-" + spoIdString + "-multiselect[0]");
+                int i = 0;
+                int completdeAchievmentId;
+                while (completedAchievmentIdString != null) {
+                    completdeAchievmentId = Integer.parseInt(completedAchievmentIdString);
+                    completedAchievments.add(ElipseModel.getById(Achievement.class, completdeAchievmentId));
+                    i++;
+                    completedAchievmentIdString = form
+                            .get("completed-" + spoIdString + "-multiselect[" + Integer.toString(i) + "]");
+                }
+                String notCompletedAchievmentIdString = form.get("due-" + spoIdString + "-multiselect[0]");
+                i = 0;
+                int notCompletedachievmentId;
+                while (notCompletedAchievmentIdString != null) {
+                    notCompletedachievmentId = Integer.parseInt(notCompletedAchievmentIdString);
+                    notCompletedAchievments.add(ElipseModel.getById(Achievement.class, notCompletedachievmentId));
+                    i++;
+                    notCompletedAchievmentIdString = form
+                            .get("due-" + spoIdString + "-multiselect[" + Integer.toString(i) + "]");
+                }
+
+                if (password.equals(pwRepeat) && trueData) {
+                    // wenn der student bestätigt hat das seine angaben richtig
+                    // sind und die passwörter übereinstimmen wird ein neuer
+                    // student hinzugefügt
+                    if (Student.getStudent(matNr) == null) {
+                        String encPassword = new BlowfishPasswordEncoder().encode(password);
+                        Student student = new Student(matNrString, encPassword, email, firstName, lastName, matNr, spo,
+                                completedAchievments, notCompletedAchievments, semester);
+                        student.save();
+                        // TODO get student data from view
+                        Semester currentSemester = GeneralData.loadInstance().getCurrentSemester();
+                        currentSemester.doTransaction(() -> {
+                            currentSemester.addStudent(student);
+                        });
+                        return redirect(controllers.routes.IndexPageController.indexPage("error"));
+                        // TODO falls nötig noch emial verification einleiten
+                    } else {
+                        // falls bereits ein studnent mit dieser matrikelnumer
+                        // im system existiert kann sich der student nicht
+                        // registrieren
+                        return redirect(controllers.routes.IndexPageController
+                                .registerPage(ctx().messages().at("index.registration.error.matNrExists")));
+                    }
+                }
+
+                // TODO braucht man hmehr als nur eine gererelle fehlermeldung?
+                return redirect(controllers.routes.IndexPageController
+                        .registerPage(ctx().messages().at("index.registration.error.genError")));
+
             } catch (NumberFormatException e) {
                 return redirect(controllers.routes.IndexPageController
-                        .registerPage(ctx().messages()
-                                .at("index.registration.error.genError")));
-            }
-            SPO spo = ElipseModel.getById(SPO.class, spoId);
-            boolean trueData = false;
+                        .registerPage(ctx().messages().at("index.registration.error.genError")));
 
-            if (form.get("trueData") != null) {
-                // wenn der student angekreuzt hat das seine angaben der
-                // wahrheit entsprechen
-                trueData = true;
             }
-            ArrayList<Achievement> completedAchievments = new ArrayList<>();
-            ArrayList<Achievement> notCompletedAchievments = new ArrayList<>();
-            String completedAchievmentIdString = form
-                    .get("completed-" + spoIdString + "-multiselect[0]");
-            int i = 0;
-            int completdeAchievmentId;
-            while (completedAchievmentIdString != null) {
-                try {
-                    completdeAchievmentId = Integer
-                            .parseInt(completedAchievmentIdString);
-                } catch (NumberFormatException e) {
-                    return redirect(controllers.routes.IndexPageController
-                            .registerPage(ctx().messages()
-                                    .at("index.registration.error.genError")));
-                }
-                completedAchievments.add(ElipseModel.getById(Achievement.class,
-                        completdeAchievmentId));
-                i++;
-                completedAchievmentIdString = form
-                        .get("completed-" + spoIdString + "-multiselect["
-                                + Integer.toString(i) + "]");
-            }
-            String notCompletedAchievmentIdString = form
-                    .get("due-" + spoIdString + "-multiselect[0]");
-            i = 0;
-            int notCompletedachievmentId;
-            while (notCompletedAchievmentIdString != null) {
-                try {
-                    notCompletedachievmentId = Integer
-                            .parseInt(notCompletedAchievmentIdString);
-                } catch (NumberFormatException e) {
-                    return redirect(controllers.routes.IndexPageController
-                            .registerPage(ctx().messages()
-                                    .at("index.registration.error.genError")));
-                }
-                notCompletedAchievments.add(ElipseModel
-                        .getById(Achievement.class, notCompletedachievmentId));
-                i++;
-                notCompletedAchievmentIdString = form.get("due-" + spoIdString
-                        + "-multiselect[" + Integer.toString(i) + "]");
-            }
+        }
 
-            if (password.equals(pwRepeat) && trueData) {
-                // wenn der student bestätigt hat das seine angaben richtig sind
-                // und die passwörter übereinstimmen wird ein neuer student
-                // hinzugefügt
-                if (Student.getStudent(matNr) == null) {
-                    String encPassword = new BlowfishPasswordEncoder()
-                            .encode(password);
-                    Student student = new Student(matNrString, encPassword,
-                            email, firstName, lastName, matNr, spo,
-                            completedAchievments, notCompletedAchievments,
-                            semester);
-                    // TODO get student data from view
-                    GeneralData.loadInstance().getCurrentSemester()
-                            .addStudent(student);
-                    return redirect(controllers.routes.IndexPageController
-                            .indexPage("error"));
-                    // TODO falls nötig noch emial verification einleiten
-                } else {
-                    // falls bereits ein studnent mit dieser matrikelnumer im
-                    // system existiert kann sich der student nicht registrieren
-                    return redirect(controllers.routes.IndexPageController
-                            .registerPage(ctx().messages().at(
-                                    "index.registration.error.matNrExists")));
-                }
-            }
-
-        } // TODO braucht man hmehr als nur eine gererelle fehlermeldung?
-        return redirect(controllers.routes.IndexPageController.registerPage(
-                ctx().messages().at("index.registration.error.genError")));
     }
 
     /**
