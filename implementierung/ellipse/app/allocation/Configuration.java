@@ -56,13 +56,14 @@ public class Configuration {
      * @param parameters
      *            Liste von Parametern, die der Admin eingestellt hat.
      */
-    public Configuration(String allocationName, List<Student> students, List<LearningGroup> learningGroups,
-            List<Project> projects, List<AllocationParameter> parameters) {
+    public Configuration(String allocationName, List<Student> students,
+            List<LearningGroup> learningGroups, List<Project> projects,
+            List<AllocationParameter> parameters) {
         this.allocationName = allocationName;
         this.students = students;
         this.parameters = parameters;
         this.learningGroups = learningGroups;
-        teams = new ArrayList<>();
+        this.teams = new ArrayList<>();
         // teams werden aus projekten erstellt
         for (Project project : projects) {
             for (int i = 1; i <= project.getNumberOfTeams(); i++) {

@@ -112,13 +112,15 @@ public class GurobiAllocator extends AbstractAllocator {
         GRBEnv env = null;
         try {
             env = new GRBEnv();
-            this.model = this.makeModel(configuration, env);
+            this.model = makeModel(configuration, env);
             this.model.optimize();
         } catch (GRBException e) {
+            System.out.println("1");
             Allocation failure = nullObject("allocation.gurobiException");
             Ebean.save(failure);
             return;
         } catch (NoSuchElementException e) {
+            System.out.println("2");
             Allocation failure = nullObject("allocation.parameterNotFound");
             Ebean.save(failure);
             return;
@@ -131,6 +133,7 @@ public class GurobiAllocator extends AbstractAllocator {
                 try {
                     result = this.basicMatrix[j][i].get(DoubleAttr.X);
                 } catch (GRBException e) {
+                    System.out.println("3");
                     Allocation failure = nullObject(
                             "allocation.gurobiException");
                     Ebean.save(failure);
@@ -147,6 +150,7 @@ public class GurobiAllocator extends AbstractAllocator {
             this.model.dispose();
             env.dispose();
         } catch (GRBException e) {
+            System.out.println("4");
             Allocation failure = nullObject("allocation.gurobiException");
             Ebean.save(failure);
             return;
@@ -193,8 +197,8 @@ public class GurobiAllocator extends AbstractAllocator {
         this.basicMatrix = new GRBVar[configuration.getStudents()
                 .size()][configuration.getTeams().size() + 1];
         for (int i = 0; i < configuration.getStudents().size(); i++) {
-            for (int j = 0; i <= configuration.getTeams().size(); j++) {
-                this.basicMatrix[i][j] = this.model.addVar(0, 1, 0, GRB.BINARY,
+            for (int j = 0; j <= configuration.getTeams().size(); j++) {
+                this.basicMatrix[i][j] = model.addVar(0, 1, 0, GRB.BINARY,
                         NULL);
             }
         }
@@ -207,7 +211,7 @@ public class GurobiAllocator extends AbstractAllocator {
             for (int j = 0; j <= configuration.getTeams().size(); j++) {
                 teamsPerStudent.addTerm(1, this.basicMatrix[i][j]);
             }
-            this.model.addConstr(teamsPerStudent, GRB.EQUAL, 1, NULL);
+            model.addConstr(teamsPerStudent, GRB.EQUAL, 1, NULL);
         }
 
         // Erzeuge Teamgröße-Variablen
@@ -215,13 +219,13 @@ public class GurobiAllocator extends AbstractAllocator {
         this.teamSizes = new GRBVar[configuration.getTeams().size()];
 
         for (int i = 0; i < configuration.getTeams().size(); i++) {
-            teamSizes[i] = this.model.addVar(0, Double.MAX_VALUE, 0,
-                    GRB.INTEGER, NULL);
+            teamSizes[i] = model.addVar(0, Double.MAX_VALUE, 0, GRB.INTEGER,
+                    NULL);
             GRBLinExpr teamSum = new GRBLinExpr();
             for (int j = 0; j < configuration.getStudents().size(); j++) {
                 teamSum.addTerm(1, this.basicMatrix[j][i]);
             }
-            this.model.addConstr(teamSizes[i], GRB.EQUAL, teamSum, NULL);
+            model.addConstr(teamSizes[i], GRB.EQUAL, teamSum, NULL);
         }
 
         // Bestimme die vom Admin eingestellte min- und max-Größe
@@ -237,8 +241,7 @@ public class GurobiAllocator extends AbstractAllocator {
 
         // Teamgröße zwischen min und max, oder 0
         for (int i = 0; i < configuration.getTeams().size(); i++) {
-            GRBVar correctTeamSize = this.model.addVar(0, 1, 0, GRB.BINARY,
-                    NULL);
+            GRBVar correctTeamSize = model.addVar(0, 1, 0, GRB.BINARY, NULL);
 
             GRBLinExpr secondConstraintRightSide = new GRBLinExpr();
             GRBLinExpr thirdConstraintRightSide = new GRBLinExpr();
@@ -251,13 +254,15 @@ public class GurobiAllocator extends AbstractAllocator {
                     getMinSize(configuration.getTeams().get(i), minAdminSize),
                     correctTeamSize);
 
-            this.model.addConstr(correctTeamSize, GRB.LESS_EQUAL,
-                    this.teamSizes[i], NULL);
-            this.model.addConstr(this.teamSizes[i], GRB.LESS_EQUAL,
+            model.addConstr(correctTeamSize, GRB.LESS_EQUAL, this.teamSizes[i],
+                    NULL);
+            model.addConstr(this.teamSizes[i], GRB.LESS_EQUAL,
                     secondConstraintRightSide, NULL);
-            this.model.addConstr(this.teamSizes[i], GRB.GREATER_EQUAL,
+            model.addConstr(this.teamSizes[i], GRB.GREATER_EQUAL,
                     thirdConstraintRightSide, NULL);
         }
+
+        this.model = model;
 
         // Initialisiere Optimierungsterm
         this.optTerm = new GRBLinExpr();
@@ -320,6 +325,7 @@ public class GurobiAllocator extends AbstractAllocator {
     private Allocation nullObject(String errorMessage) {
         Allocation failedAllocation = new Allocation(new ArrayList<Team>(),
                 errorMessage, new ArrayList<AllocationParameter>());
+        System.out.println("ERROR");
         return failedAllocation;
     }
 }
