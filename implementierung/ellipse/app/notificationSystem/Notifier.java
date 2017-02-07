@@ -14,6 +14,7 @@ import play.libs.mailer.Email;
 import play.libs.mailer.MailerClient;
 import javax.inject.Inject;
 import java.io.File;
+import java.util.List;
 
 /************************************************************/
 /**
@@ -36,6 +37,15 @@ public class Notifier {
      *            veröffentlichte Einteilung
      */
     public void notifyAllUsers(Allocation allocation) {
+        List<Adviser> advisers = GeneralData.loadInstance().getCurrentSemester().getAdvisers();
+        List<Student> students = GeneralData.loadInstance().getCurrentSemester().getStudents();
+
+        for (int i = 0; i < advisers.size(); i++) {
+            this.notifyAdviser(allocation, advisers.get(i));
+        }
+        for (int i = 0; i < students.size(); i++) {
+            this.notifyStudent(allocation, students.get(i));
+        }
     }
 
     public void notifyStudent(Allocation allocation, Student student) {
