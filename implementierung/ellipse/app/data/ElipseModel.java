@@ -73,10 +73,10 @@ public abstract class ElipseModel extends Model {
     }
 
     public void doTransaction(Transaction transaction) {
-        Ebean.beginTransaction();
+        // Ebean.beginTransaction();
         transaction.transact();
         this.save();
-        Ebean.endTransaction();
+        // Ebean.endTransaction();
     }
 
 }

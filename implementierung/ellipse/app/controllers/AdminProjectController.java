@@ -112,6 +112,9 @@ public class AdminProjectController extends Controller {
             }
             advisers.add(ElipseModel.getById(Adviser.class, adviserId));
         }
+        if (minSize > maxSize) {
+            // TODO redirect error
+        }
 
         // und dem projekt hinzugefügt
         project.doTransaction(() -> {

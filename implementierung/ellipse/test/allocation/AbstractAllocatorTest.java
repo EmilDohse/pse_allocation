@@ -2,6 +2,8 @@ package allocation;
 
 import static org.junit.Assert.assertTrue;
 
+import java.util.List;
+
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -23,6 +25,12 @@ public class AbstractAllocatorTest {
             @Override
             public void calculate(Configuration configuration) {
                 // empty
+            }
+
+            @Override
+            public List<? extends Criterion> getAllCriteria() {
+                // empty
+                return null;
             }
         };
     }
