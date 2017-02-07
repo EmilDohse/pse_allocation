@@ -7,43 +7,50 @@ package notificationSystem;
 import data.Allocation;
 import data.Student;
 import data.User;
+import play.libs.mailer.Email;
+import play.libs.mailer.MailerClient;
+import javax.inject.Inject;
+import java.io.File;
 
 /************************************************************/
 /**
- * Klasse die alle Benachrichtigungen der Benutzer (Studenten und Betreuer) per E-Mail übernimmt.
+ * Klasse die alle Benachrichtigungen der Benutzer (Studenten und Betreuer) per
+ * E-Mail übernimmt.
  */
 public class Notifier {
 
-	/**
-	 * Verschickt an alle Benutzer (Betreuer und Studenten) eine E-Mail mit ihrem zugeteilten Team/Projekt.
-	 * 
-	 * @param allocation veröffentlichte Einteilung
-	 */
-	public void notifyAllUsers(Allocation allocation) {
-	}
+    @Inject
+    MailerClient mailerClient;
 
-	/**
-	 * Verschickt an einen Benutzer (Betreuer oder Student) eine E-Mmail mit seinem zugeteilten Team/Project
-	 * 
-	 * @param allocation veröffentlichte Einteilung
-	 * @param user Benutzer, der benachrichtigt wird
-	 */
-	public void notifyUser(Allocation allocation, User user) {
-	}
+    /**
+     * Verschickt an alle Benutzer (Betreuer und Studenten) eine E-Mail mit
+     * ihrem zugeteilten Team/Projekt.
+     * 
+     * @param allocation
+     *            veröffentlichte Einteilung
+     */
+    public void notifyAllUsers(Allocation allocation) {
+    }
 
-	/**
-	 * Verschickt ein neu generiertes Passwort an einen Benutzer.
-	 * 
-	 * @param user Benutzer, der das neue Passwort erhält
-	 */
-	public void sendNewPassword(User user) {
-	}
+    /**
+     * Verschickt an einen Benutzer (Betreuer oder Student) eine E-Mmail mit
+     * seinem zugeteilten Team/Project
+     * 
+     * @param allocation
+     *            veröffentlichte Einteilung
+     * @param user
+     *            Benutzer, der benachrichtigt wird
+     */
+    public void notifyUser(Allocation allocation, User user) {
+    }
 
-	/**
-	 * Verschickt eine email zur Verifikation der email-Adresse an einen Studenten.
-	 * 
-	 * @param student Student, der die email erhält
-	 */
-	public void sendVerificationMail(Student student) {
-	}
+    /**
+     * Verschickt eine email zur Verifikation der email-Adresse an einen
+     * Studenten.
+     * 
+     * @param student
+     *            Student, der die email erhält
+     */
+    public void sendVerificationMail(Student student) {
+    }
 }
