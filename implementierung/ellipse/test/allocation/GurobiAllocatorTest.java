@@ -83,9 +83,10 @@ public class GurobiAllocatorTest {
         para.add(new AllocationParameter("minSize", 4));
         para.add(new AllocationParameter("maxSize", 6));
         para.add(new AllocationParameter("prefSize", 5));
-        Configuration conf = new Configuration("Test", semester.getStudents(),
-                semester.getLearningGroups(), semester.getProjects(), para);
-        ga.calculate(conf);
+        Configuration conf = new Configuration("Test", semester.getStudents(), semester.getLearningGroups(),
+                semester.getProjects(), para);
+        ga.init(conf);
+        ga.calculate();
     }
 
     @After

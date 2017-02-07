@@ -1,10 +1,12 @@
 package allocation;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -52,10 +54,20 @@ public class AllocationQueueTest {
     @Before
     public void init() {
         allocQueue = AllocationQueue.getInstance();
+        AllocationParameter paramOne = new AllocationParameter("minSize", 1);
+        AllocationParameter paramTwo = new AllocationParameter("maxSize", 2);
+        List<AllocationParameter> paramList = new ArrayList<>();
+        paramList.add(paramOne);
+        paramList.add(paramTwo);
         configOne = new Configuration("test 1", new ArrayList<Student>(), new ArrayList<LearningGroup>(),
-                new ArrayList<Project>(), new ArrayList<AllocationParameter>());
+                new ArrayList<Project>(), paramList);
         configTwo = new Configuration("test 2", new ArrayList<Student>(), new ArrayList<LearningGroup>(),
-                new ArrayList<Project>(), new ArrayList<AllocationParameter>());
+                new ArrayList<Project>(), paramList);
+    }
+
+    @After
+    public void after() {
+        allocQueue.clear();
     }
 
     /**
@@ -109,8 +121,8 @@ public class AllocationQueueTest {
         List<Configuration> list = allocQueue.getQueue();
         allocQueue.cancelAllocation(list.get(0).getName());
         list = allocQueue.getQueue();
-        assertTrue(list.get(0).getName().equals("test 2"));
-        assertTrue(list.size() == 1);
+        assertEquals("test 2", list.get(0).getName());
+        assertEquals(1, list.size());
     }
 
     /**

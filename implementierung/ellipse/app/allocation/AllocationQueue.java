@@ -19,10 +19,8 @@ public class AllocationQueue {
 
     private static final int                QUEUE_SIZE = 10;
     /**
-     * Calculator ist der Thread der die Berechnung anstößt . Er verwendet das
-     * Runnable runnable.
+     * Der Worker-Thread, der die Berechnungen durchführt
      */
-    private Thread                          calculator;
     private Runnable                        runnable;
     /**
      * Die intern verwendete queue.
@@ -52,11 +50,11 @@ public class AllocationQueue {
         runnable = new Runnable() {
 
             @Override
-
             public void run() {
                 while (true) {
-                    synchronized (this) { // syncronized da ansonsten probleme
-                                          // mit dem cancel() kommen könnten
+                    synchronized (this) { // syncronized da
+                                          // ansonsten probleme
+                        // mit dem cancel() kommen könnten
                         while (configurationQueue.isEmpty()) {
                             try {
                                 wait();
@@ -65,18 +63,18 @@ public class AllocationQueue {
                                 e.printStackTrace();
                             }
                         }
-                        currentlyCalculatedConfiguration = configurationQueue
-                                .poll();
+                        currentlyCalculatedConfiguration = configurationQueue.poll();
+                        allocator.init(currentlyCalculatedConfiguration);
                     }
-                    allocator.calculate(currentlyCalculatedConfiguration);
+                    allocator.calculate();
                     currentlyCalculatedConfiguration = null;
                 }
             }
 
         };
-        calculator = new Thread(runnable);// hier wird der thread gestartet der
-                                          // überpüft ob die liste
-        calculator.start(); // leer ist und sie gegebenenfalls abarbeitet
+        new Thread(runnable).start();// hier wird der thread gestartet der
+                                     // überpüft ob die liste
+        // leer ist und sie gegebenenfalls abarbeitet
     }
 
     /**
@@ -103,8 +101,8 @@ public class AllocationQueue {
     public void addToQueue(allocation.Configuration configuration) {
         synchronized (this.runnable) {
             configurationQueue.add(configuration);
-            System.out.println("Add");
-            this.runnable.notifyAll(); // der calculator thread wird geweckt
+            this.runnable.notifyAll(); // der calculator thread wird
+                                       // geweckt
         }
     }
 
@@ -117,13 +115,12 @@ public class AllocationQueue {
      */
     public void cancelAllocation(String name) {
         synchronized (this.runnable) {
-            if (null != currentlyCalculatedConfiguration && name
-                    .equals(currentlyCalculatedConfiguration.getName())) {
+            if (null != currentlyCalculatedConfiguration && name.equals(currentlyCalculatedConfiguration.getName())) {
+                currentlyCalculatedConfiguration = null;
                 allocator.cancel();
             } else {
-                Configuration configuration = configurationQueue.stream()
-                        .filter(conf -> conf.getName().equals(name)).findFirst()
-                        .orElse(null);
+                Configuration configuration = configurationQueue.stream().filter(conf -> conf.getName().equals(name))
+                        .findFirst().orElse(null);
                 configurationQueue.remove(configuration);
             }
         }
@@ -137,11 +134,9 @@ public class AllocationQueue {
      * @return Liste der Konfigurationen als FIFO-Queue angeordnet.
      */
     public List<allocation.Configuration> getQueue() {
+        // hier könnte QUEUE_SIZE verwendet werden da die queue jedoch meist
+        // nicht voll sein wird hier nur 4
         ArrayList<allocation.Configuration> list = new ArrayList<>(4);
-        // hier könnte QUEUE_SIZE verwendet werden da die queue jedoch meist
-        // nicht voll sein wird hier nur 4
-        // hier könnte QUEUE_SIZE verwendet werden da die queue jedoch meist
-        // nicht voll sein wird hier nur 4
         synchronized (this.runnable) {
             if (currentlyCalculatedConfiguration != null) {
                 list.add(currentlyCalculatedConfiguration);
@@ -159,6 +154,16 @@ public class AllocationQueue {
 
     public AbstractAllocator getAllocator() {
         return allocator;
+    }
+
+    /**
+     * Entfernt alle Elemente aus der Queue.
+     */
+    public void clear() {
+        synchronized (this.runnable) {
+            configurationQueue.clear();
+            currentlyCalculatedConfiguration = null;
+        }
     }
 
 }
