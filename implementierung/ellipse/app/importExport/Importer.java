@@ -14,8 +14,6 @@ import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.avaje.ebean.Ebean;
-
 import data.Achievement;
 import data.Adviser;
 import data.Allocation;
@@ -393,7 +391,7 @@ public class Importer {
                     ratings.add(currentRating);
                 }
                 currentGroup.setRatings(ratings);
-                Ebean.update(currentGroup);
+                currentGroup.save();
             }
         } catch (
 
@@ -421,14 +419,8 @@ public class Importer {
         if (!(semester.getStudents().size() == 0)) {
             throw new ImporterException("importer.notEmpty");
         }
-
         ArrayList<Student> students = new ArrayList<>();
         ArrayList<LearningGroup> learningGroups = new ArrayList<>();
-
-        semester.doTransaction(() -> {
-            semester.setStudents(students);
-            semester.setLearningGroups(learningGroups);
-        });
 
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
 
@@ -529,6 +521,9 @@ public class Importer {
                     importedStudent.setGradeTSE(Grade.UNKNOWN);
                 });
                 students.add(importedStudent);
+                semester.doTransaction(() -> {
+                    semester.setStudents(students);
+                });
 
                 LearningGroup currentGroup;
                 if (lineSplit[5].length() != 0) {
@@ -563,9 +558,6 @@ public class Importer {
                     });
                     learningGroups.add(currentGroup);
                 }
-
-                semester.save();
-
                 ArrayList<Rating> LeaningGoupRatings = new ArrayList<>();
                 Rating currentRating;
                 for (int i = 11; i < lineSplit.length; i++) {
@@ -575,8 +567,8 @@ public class Importer {
                 }
                 currentGroup.doTransaction(() -> {
                     currentGroup.setRatings(LeaningGoupRatings);
+                    semester.setLearningGroups(learningGroups);
                 });
-                semester.save();
             }
         } catch (FileNotFoundException e) {
             throw new ImporterException("importer.FileNotFound");
@@ -738,8 +730,9 @@ public class Importer {
                 projects.add(importedProject);
 
             }
-            semester.setProjects(projects);
-            Ebean.update(semester);
+            semester.doTransaction(() -> {
+                semester.setProjects(projects);
+            });
 
         } catch (FileNotFoundException e) {
             throw new ImporterException("importer.FileNotFound");
