@@ -157,4 +157,8 @@ public class AllocationQueue {
         this.allocator = allocator;
     }
 
+    public AbstractAllocator getAllocator() {
+        return allocator;
+    }
+
 }
