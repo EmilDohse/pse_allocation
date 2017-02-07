@@ -5,26 +5,27 @@ Parameter wird eine Lerngruppe übergeben und eine Fehlermeldung. *@
 @if(!error.isEmpty()){
 <div class="alert alert-danger" role="alert">@error</div>
 }
-<h1>@Messages("admin.sidebar.learningGroup")</h1>
+<h1>@Messages("student.sidebar.learningGroup")</h1>
 @if(!learningGroup.isPrivate()) {
+
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th>@Messages("student.learningGroup.members")</th>
+		</tr>
+	</thead>
+	<tbody>
+		@for(member <- learningGroup.getMembers()) {
+		<tr>
+			<td>@member.getName()</td>
+		</tr>
+		}
+	</tbody>
+</table>
 <form
 	action="@controllers.routes.StudentPageController.leaveLearningGroup().path()"
 	method="POST">
-	<table class="table table-striped">
-		<thead>
-			<tr>
-				<th>@Messages("student.learningGroup.members")</th>
-			</tr>
-		</thead>
-		<tbody>
-			@for(member <- learningGroup.getMembers()) {
-			<tr>
-				<td>@member.getFirstName() + " " + @member.getLastName()</td>
-			</tr>
-			}
-		</tbody>
-	</table>
-	<input type=submit value="@Messages("student.learningGroup.leave")">
+	<button type=submit class="btn btn-default">@Messages("student.learningGroup.leave")</button>
 </form>
 } else {
 <!-- TODO: Refaktorisieren des Formulars, und irgendwie hinbekommen, dass das Formular an zwei controllermethoden gesendet werden kann. -->

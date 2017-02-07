@@ -8,25 +8,37 @@ Parameter wird der Student und eine Fehlermeldung übergeben. *@
 	action="@controllers.routes.StudentPageController.editAccount().path()"
 	method="POST" class="form-horizontal">
 	<div class="form-group">
-		<label for="newEmail">@Messages("student.account.newEmail")</label><input
-			type="text" id="newEmail" name="newEmail">
+		<label class="control-label col-sm-2" for="newEmail">@Messages("student.account.newEmail")</label>
+		<div class="col-sm-3">
+			<input type="text" id="newEmail" class="form-control" name="newEmail">
+		</div>
 	</div>
 	<div class="form-group">
-		<button type="submit" name="emailChange">@Messages("student.student.emailChange")</button>
+		<div class="col-sm-offset-2 col-sm-10">
+			<button type="submit" name="emailChange" class="btn btn-default">@Messages("student.account.emailChange")</button>
+		</div>
 	</div>
 	<div class="form-group">
-		<label>@Messages("student.account.newPassword")</label><input
-			type="password" name="newPassword">
+		<label class="control-label col-sm-2" for="newPassword">@Messages("student.account.newPassword")</label>
+		<div class="col-sm-3">
+			<input type="password" class="form-control" name="newPassword"
+				id="newPassword">
+		</div>
 	</div>
 	<div class="form-group">
-		<label>@Messages("student.account.newPasswordRepeat")</label><input
-			type="password" name="newPasswordRepeat">
+		<label class="control-label col-sm-2" for="newPasswordRepeat">@Messages("student.account.newPasswordRepeat")</label>
+		<div class="col-sm-3">
+			<input type="password" class="form-control" name="newPasswordRepeat"
+				id="newPasswordRepeat">
+		</div>
 	</div>
 	<div class="form-group">
-		<button type="submit" name="passwordChange">@Messages("student.account.pwChange")</button>
+		<div class="col-sm-offset-2 col-sm-10">
+			<button type="submit" name="passwordChange" class="btn btn-default">@Messages("student.account.pwChange")</button>
+		</div>
 	</div>
 </form>
 <div>
-	<a
+	<a class="btn btn-default"
 		href="@controllers.routes.StudentPageController.sendNewVerificationLink().path()">@Messages("student.account.sendNewVerificationLink")</a>
 </div>

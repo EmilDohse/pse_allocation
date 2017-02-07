@@ -3,9 +3,11 @@ Parameter wird die Liste an Projekten und eine Fehlermeldung übergeben.
 *@ @(projects:List[data.Project], error: String) @if(!error.isEmpty()){
 <div class="alert alert-danger" role="alert">@error</div>
 }
-<h1>@Messages("admin.sidebar.rating")</h1>
+<h1>@Messages("student.sidebar.rating")</h1>
 
-<table class="table table-striped">
+<form action="@controllers.routes.StudentPageController.rate().path()"
+	method="POST">
+<table class="table">
 	<thead>
 		<tr>
 			<th>@Messages("student.rating.projectname")</th>
@@ -25,7 +27,7 @@ Parameter wird die Liste an Projekten und eine Fehlermeldung übergeben.
 						<h4 class="panel-title">
 							<a role="button" data-toggle="collapse" data-parent="#accordion"
 								href="#collapse@project.getId()" aria-expanded="true"
-								aria-controls="collapse@project.getId()">@project.getName()<small>@project.getInstitute()</small></a>
+								aria-controls="collapse@project.getId()">@project.getName()<br><small>@project.getInstitute()</small></a>
 						</h4>
 					</div>
 					<div id="collapse@project.getId()" class="panel-collapse collapse"
@@ -36,6 +38,7 @@ Parameter wird die Liste an Projekten und eine Fehlermeldung übergeben.
 						</div>
 					</div>
 				</div></td>
+				<!-- TODO: Current Value anzeigen -->
 			<td><input type="radio" name="@project.getId()" value="2"></td>
 			<td><input type="radio" name="@project.getId()" value="4"></td>
 			<td><input type="radio" name="@project.getId()" value="6"></td>
@@ -45,7 +48,5 @@ Parameter wird die Liste an Projekten und eine Fehlermeldung übergeben.
 		}
 	</tbody>
 </table>
-<form action="@controllers.routes.StudentPageController.rate().path()"
-	method="POST">
-	<input type="submit" value='@Messages("student.rating.submit")'>
+	<button type="submit" class="btn btn-default">@Messages("student.rating.submit")</button>
 </form>

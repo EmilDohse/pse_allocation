@@ -11,6 +11,7 @@ import com.google.inject.Inject;
 
 import allocation.AllocationQueue;
 import allocation.Configuration;
+import allocation.Criterion;
 import data.Achievement;
 import data.Adviser;
 import data.AllocationParameter;
@@ -113,6 +114,18 @@ public class GeneralAdminController extends Controller {
         allocParam.add(new AllocationParameter("minSize", minSize));
         allocParam.add(new AllocationParameter("maxSize", maxSize));
         allocParam.add(new AllocationParameter("prefSize", preferedSize));
+        for (Criterion criterion : AllocationQueue.getInstance().getAllocator()
+                .getAllCriteria()) {
+            try {
+                int value = Integer.parseInt(form.get(criterion.getName()));
+                allocParam.add(
+                        new AllocationParameter(criterion.getName(), value));
+            } catch (NumberFormatException e) {
+                return redirect(controllers.routes.AdminPageController
+                        .allocationPage(ctx().messages()
+                                .at("admin.allocation.error.generalError")));
+            }
+        }
 
         AllocationQueue queue = AllocationQueue.getInstance();
         List<Student> students = GeneralData.loadInstance().getCurrentSemester()
