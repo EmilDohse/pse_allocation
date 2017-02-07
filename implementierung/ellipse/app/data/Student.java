@@ -299,6 +299,7 @@ public class Student extends User {
 
     public String toStringForNotification() {
         String toReturn = this.getFirstName() + " " + this.getLastName() + ", " + this.getSemester();
+        return toReturn;
     }
 
     // /**
