@@ -7,6 +7,7 @@ package notificationSystem;
 import data.Allocation;
 import data.GeneralData;
 import data.Student;
+import data.Team;
 import data.User;
 import data.Adviser;
 import play.i18n.Messages;
@@ -14,6 +15,7 @@ import play.libs.mailer.Email;
 import play.libs.mailer.MailerClient;
 import javax.inject.Inject;
 import java.io.File;
+import java.util.List;
 
 /************************************************************/
 /**
@@ -36,6 +38,15 @@ public class Notifier {
      *            veröffentlichte Einteilung
      */
     public void notifyAllUsers(Allocation allocation) {
+        List<Adviser> advisers = GeneralData.loadInstance().getCurrentSemester().getAdvisers();
+        List<Student> students = GeneralData.loadInstance().getCurrentSemester().getStudents();
+
+        for (int i = 0; i < advisers.size(); i++) {
+            this.notifyAdviser(allocation, advisers.get(i));
+        }
+        for (int i = 0; i < students.size(); i++) {
+            this.notifyStudent(allocation, students.get(i));
+        }
     }
 
     public void notifyStudent(Allocation allocation, Student student) {
@@ -48,10 +59,14 @@ public class Notifier {
     public void notifyAdviser(Allocation allocation, Adviser adviser) {
         String memberList = "";
         // TODO Warte auf methode getTamsByAdviser
+        List<Team> advisersTeams = allocation.getTeamsByAdviser(adviser);
+        for (int i = 0; i < advisersTeams.size(); i++) {
+            memberList += advisersTeams.get(i).toStringForNotification();
+        }
         String bodyText = Messages.get("email.notifyResultsAdviser", adviser.getFirstName(), adviser.getLastName(),
                 memberList);
         String subject = Messages.get("email.subjectResults");
-        this.sendEmail(subject, "TODO", student.getEmailAddress(), bodyText);
+        this.sendEmail(subject, "TODO", adviser.getEmailAddress(), bodyText);
     }
 
     public void sendAdviserPassword(Adviser adviser, String password) {
