@@ -12,6 +12,9 @@ List[allocation.Criterion],error: String) @if(!error.isEmpty()){
 	type="text/css" />
 <h1>@Messages("admin.sidebar.allocation")</h1>
 <div>
+<h3>
+		<small>@Messages("admin.allocation.newAllocation")</small>
+	</h3>
 	<form
 		action="@controllers.routes.GeneralAdminController.addAllocation().path()"
 		method="POST" class="form-horizontal">
@@ -43,7 +46,7 @@ List[allocation.Criterion],error: String) @if(!error.isEmpty()){
 			</div>
 		</div>
 		@for(criterion <- criteria) {
-		<div class="form-group">
+		<div class="form-group bs-slider">
 			<label class="control-label col-sm-2" for="maxTeamSize">@criterion.getName()</label>
 			<div class="col-sm-3">
 				<!-- <input type="range" min="0" max="100" value="100"
@@ -51,16 +54,19 @@ List[allocation.Criterion],error: String) @if(!error.isEmpty()){
 					id="@criterion.getName()">-->
 				<!-- Bootstrap Slider -->
 				<script type="text/javascript">
-					$('#@criterion.getName()').slider({
-						formatter : function(value) {
-							return '@Messages("admin.allocation.curValue"): ' + value;
-						}
-					});
+					$('#@criterion.getName()')
+							.slider(
+									{
+										formatter : function(value) {
+											return '@Messages("admin.allocation.curValue"): '
+													+ value;
+										}
+									});
 				</script>
 				<input name="@criterion.getName()" id="@criterion.getName()"
-					data-slider-id='@criterion.getName()' type="text"
-					data-slider-min="0" data-slider-max="100" data-slider-step="1"
-					data-slider-value="0" />
+					data-provide="slider" data-slider-id='@criterion.getName()'
+					type="text" data-slider-min="0" data-slider-max="100"
+					data-slider-step="1" data-slider-value="0" />
 			</div>
 		</div>
 		}
