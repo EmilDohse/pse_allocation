@@ -5,6 +5,7 @@ package allocation;
 
 public interface Criterion {
 
+    // TODO Namen für unterschiedliche Sprachen
     /**
      * Getter für den Namen des Kriteriums.
      * 

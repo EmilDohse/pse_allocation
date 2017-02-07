@@ -27,6 +27,9 @@ public class Notifier {
     @Inject
     MailerClient mailerClient;
 
+    /**
+     * Konstruktor Methode.
+     */
     public Notifier() {
     }
 
@@ -49,6 +52,15 @@ public class Notifier {
         }
     }
 
+    /**
+     * Verschickt eine E-Mail an einen Studenten und benachrichtigt ihn über die
+     * finale Einteilung.
+     * 
+     * @param allocation
+     *            Die finale Einteilung
+     * @param student
+     *            Der zu benachrichtigende Student
+     */
     public void notifyStudent(Allocation allocation, Student student) {
         String bodyText = Messages.get("email.notifyResultsStudent", student.getFirstName(), student.getLastName(),
                 allocation.getTeam(student).getProject().getName());
@@ -56,15 +68,24 @@ public class Notifier {
         this.sendEmail(subject, "TODO", student.getEmailAddress(), bodyText);
     }
 
+    /**
+     * Verschickt eine E-Mail an einen Betreuer und benachrichtigt ihn über die
+     * finale Einteilung.
+     * 
+     * @param allocation
+     *            Die finale Einteilung.
+     * @param adviser
+     *            Der zu benachrichtigegnde Betreuer.
+     */
     public void notifyAdviser(Allocation allocation, Adviser adviser) {
-        String memberList = "";
+        String teamsList = "";
         // TODO Warte auf methode getTamsByAdviser
         List<Team> advisersTeams = allocation.getTeamsByAdviser(adviser);
         for (int i = 0; i < advisersTeams.size(); i++) {
-            memberList += advisersTeams.get(i).toStringForNotification();
+            teamsList += advisersTeams.get(i).toStringForNotification();
         }
         String bodyText = Messages.get("email.notifyResultsAdviser", adviser.getFirstName(), adviser.getLastName(),
-                memberList);
+                teamsList);
         String subject = Messages.get("email.subjectResults");
         this.sendEmail(subject, "TODO", adviser.getEmailAddress(), bodyText);
     }

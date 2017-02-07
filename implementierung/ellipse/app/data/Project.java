@@ -292,23 +292,6 @@ public class Project extends ElipseModel /* implements Comparable<Project> */ {
         return ElipseModel.getAll(Project.class);
     }
 
-    /**
-     * Diese Methode gibt ein spezifisches Projekt zurück, welches über seinen
-     * Namen und das Semester, in dem es erstellt wurde, identifiziert wird.
-     * 
-     * @param name
-     *            Der Name des Projektes.
-     * @param semester
-     *            Das Semester, in dem das Projekt erstellt wurde.
-     * @return Das spezifische Projekt. Null falls keine passendes Projekt
-     *         gefunden wurde.
-     */
-    public static Project getProject(String name, Semester semester) {
-        return getProjects().stream()
-                .filter(project -> project.getName().equals(name)).findFirst()
-                .orElse(null);
-    }
-
     // /**
     // * Diese Methode gibt die Bewertung eines spezifischen Studenten für
     // dieses
