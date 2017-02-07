@@ -1,7 +1,9 @@
 logout = Abmelden
 
+email.notifyResults = Hallo {1} {2},\ndie PSE-Einteilung ist nun abgeschlossen.\nSie wurden dem Projekt {3} zugeteilt.\nWeitere Informationen zu Ihrem Projekt, Ihren Betreuern oder ihrer Gruppe erhalten Sie, wenn Sie sich einloogen.
+
 index.title = Elipse - Index
-index.username = Username (Matrnr)
+index.username = Benutzername (Matrnr)
 index.password = Passwort
 index.login = Anmelden
 index.sidebar.information = Allgemeine Informationen

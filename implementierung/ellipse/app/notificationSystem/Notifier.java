@@ -7,6 +7,8 @@ package notificationSystem;
 import data.Allocation;
 import data.Student;
 import data.User;
+import data.Adviser;
+import play.i18n.Messages;
 import play.libs.mailer.Email;
 import play.libs.mailer.MailerClient;
 import javax.inject.Inject;
@@ -22,6 +24,9 @@ public class Notifier {
     @Inject
     MailerClient mailerClient;
 
+    public Notifier() {
+    }
+
     /**
      * Verschickt an alle Benutzer (Betreuer und Studenten) eine E-Mail mit
      * ihrem zugeteilten Team/Projekt.
@@ -32,16 +37,26 @@ public class Notifier {
     public void notifyAllUsers(Allocation allocation) {
     }
 
-    /**
-     * Verschickt an einen Benutzer (Betreuer oder Student) eine E-Mmail mit
-     * seinem zugeteilten Team/Project
-     * 
-     * @param allocation
-     *            veröffentlichte Einteilung
-     * @param user
-     *            Benutzer, der benachrichtigt wird
-     */
-    public void notifyUser(Allocation allocation, User user) {
+    public void notifyStudent(Allocation allocation, Student student) {
+        String bodyText = Messages.get("email.notifyResultsStudent", student.getFirstName(), student.getLastName(),
+                allocation.getTeam(student).getProject().getName());
+        String subject = Messages.get("email.subjectResults");
+        this.sendEmail(subject, "TODO", student.getEmailAddress(), bodyText);
+    }
+
+    public void notifyAdviser(Allocation allocation, Adviser adviser) {
+        String memberList = "";
+        String bodyText = Messages.get("email.notifyResultsAdviser", adviser.getFirstName(), adviser.getLastName(),
+                memberList);
+        String subject = Messages.get("email.subjectResults");
+        this.sendEmail(subject, "TODO", student.getEmailAddress(), bodyText);
+    }
+
+    public void sendAdviserPassword(Adviser adviser, String password) {
+        String bodyText = Messages.get("email.adviserPassword", adviser.getFirstName(), adviser.getLastName(),
+                password);
+        String subject = Messages.get("email.subjectAdviserPassword");
+        this.sendEmail(subject, "TODO", adviser.getEmailAddress(), bodyText);
     }
 
     /**
@@ -52,5 +67,10 @@ public class Notifier {
      *            Student, der die email erhält
      */
     public void sendVerificationMail(Student student) {
+    }
+
+    private void sendEmail(String subject, String mailFrom, String mailTo, String bodyText) {
+        Email email = new Email().setSubject(subject).setFrom(mailFrom).addTo(mailTo).setBodyText(bodyText);
+        mailerClient.send(email);
     }
 }
