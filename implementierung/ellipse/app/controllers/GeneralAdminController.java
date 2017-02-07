@@ -57,7 +57,8 @@ public class GeneralAdminController extends Controller {
         String password = form.get("password");
         String encPassword = new BlowfishPasswordEncoder().encode(password);
         // TODO password per email?
-        Adviser adviser = new Adviser(email, encPassword, email, firstName, lastName);
+        Adviser adviser = new Adviser(email, encPassword, email, firstName,
+                lastName);
         adviser.save();
         return redirect(controllers.routes.AdminPageController.adviserPage(""));
 
@@ -89,8 +90,8 @@ public class GeneralAdminController extends Controller {
         DynamicForm form = formFactory.form().bindFromRequest();
         String name = form.get("name");
         String preferedSizeString = form.get("preferedTeamSize");
-        String minSizeString = form.get("minSize");
-        String maxSizeString = form.get("maxSize");
+        String minSizeString = form.get("minTeamSize");
+        String maxSizeString = form.get("maxTeamSize");
         int preferedSize;
         int minSize;
         int maxSize;
@@ -100,7 +101,8 @@ public class GeneralAdminController extends Controller {
             maxSize = Integer.parseInt(maxSizeString);
         } catch (NumberFormatException e) {
             return redirect(controllers.routes.AdminPageController
-                    .allocationPage(ctx().messages().at("admin.allocation.error.generalError")));
+                    .allocationPage(ctx().messages()
+                            .at("admin.allocation.error.generalError")));
         }
         ArrayList<AllocationParameter> allocParam = new ArrayList<>(); // die
                                                                        // liste
@@ -113,9 +115,12 @@ public class GeneralAdminController extends Controller {
         allocParam.add(new AllocationParameter("prefSize", preferedSize));
 
         AllocationQueue queue = AllocationQueue.getInstance();
-        List<Student> students = GeneralData.loadInstance().getCurrentSemester().getStudents();
-        List<LearningGroup> learningGroups = GeneralData.loadInstance().getCurrentSemester().getLearningGroups();
-        List<Project> projects = GeneralData.loadInstance().getCurrentSemester().getProjects();
+        List<Student> students = GeneralData.loadInstance().getCurrentSemester()
+                .getStudents();
+        List<LearningGroup> learningGroups = GeneralData.loadInstance()
+                .getCurrentSemester().getLearningGroups();
+        List<Project> projects = GeneralData.loadInstance().getCurrentSemester()
+                .getProjects();
         for (Student student : students) { // es wird erneut überprüft ob der
                                            // student die neccesary achievements
                                            // hat und wenn nicht wird der
@@ -123,7 +128,8 @@ public class GeneralAdminController extends Controller {
                                            // lerngruppe entfernt (nur für diese
                                            // config)
             boolean hasAchievements = true;
-            for (Achievement achiev : student.getSPO().getNecessaryAchievements()) {
+            for (Achievement achiev : student.getSPO()
+                    .getNecessaryAchievements()) {
                 if (!student.getCompletedAchievements().contains(achiev)) {
                     hasAchievements = false;
                     break;
@@ -131,7 +137,8 @@ public class GeneralAdminController extends Controller {
             }
             if (!hasAchievements) {
                 students.remove(student);
-                LearningGroup lg = GeneralData.loadInstance().getCurrentSemester().getLearningGroupOf(student);
+                LearningGroup lg = GeneralData.loadInstance()
+                        .getCurrentSemester().getLearningGroupOf(student);
                 // TODO braucht learning group ein comparable?oder equals
                 for (LearningGroup iterLg : learningGroups) {
                     if (iterLg.equals(lg)) {
@@ -142,9 +149,11 @@ public class GeneralAdminController extends Controller {
             }
         }
         // configuration wird erstellt und hinzugefügt
-        Configuration configuration = new Configuration(name, students, learningGroups, projects, allocParam);
+        Configuration configuration = new Configuration(name, students,
+                learningGroups, projects, allocParam);
         queue.addToQueue(configuration);
-        return redirect(controllers.routes.AdminPageController.allocationPage(""));
+        return redirect(
+                controllers.routes.AdminPageController.allocationPage(""));
     }
 
     /**
@@ -159,7 +168,8 @@ public class GeneralAdminController extends Controller {
         String configName = form.get("queue");
         AllocationQueue allocationQueue = AllocationQueue.getInstance();
         allocationQueue.cancelAllocation(configName);
-        return redirect(controllers.routes.AdminPageController.allocationPage(""));
+        return redirect(
+                controllers.routes.AdminPageController.allocationPage(""));
     }
 
     /**
@@ -186,17 +196,21 @@ public class GeneralAdminController extends Controller {
             semester = Integer.parseInt(semesterString);
         } catch (NumberFormatException e) {
             return redirect(controllers.routes.AdminPageController
-                    .studentEditPage(ctx().messages().at("admin.allocation.error.generalError")));
+                    .studentEditPage(ctx().messages()
+                            .at("admin.allocation.error.generalError")));
         }
         // der username eines studenten ist seine matNr
-        Student student = new Student(matNrString, password, email, firstName, lastName, matNr, spo,
-                spo.getNecessaryAchievements(), new ArrayList<>(), semester);
+        Student student = new Student(matNrString, password, email, firstName,
+                lastName, matNr, spo, spo.getNecessaryAchievements(),
+                new ArrayList<>(), semester);
         student.save();
-        Semester currentSemester = GeneralData.loadInstance().getCurrentSemester();
+        Semester currentSemester = GeneralData.loadInstance()
+                .getCurrentSemester();
         currentSemester.doTransaction(() -> {
             currentSemester.addStudent(student);
         });
-        return redirect(controllers.routes.AdminPageController.studentEditPage(""));
+        return redirect(
+                controllers.routes.AdminPageController.studentEditPage(""));
     }
 
     /**
@@ -215,13 +229,16 @@ public class GeneralAdminController extends Controller {
             matNr = Integer.parseInt(matNrString);
         } catch (NumberFormatException e) {
             return redirect(controllers.routes.AdminPageController
-                    .studentEditPage(ctx().messages().at("admin.allocation.error.generalError")));
+                    .studentEditPage(ctx().messages()
+                            .at("admin.allocation.error.generalError")));
         }
         Student student = Student.getStudent(matNr);
-        Semester currentSemester = GeneralData.loadInstance().getCurrentSemester();
+        Semester currentSemester = GeneralData.loadInstance()
+                .getCurrentSemester();
         currentSemester.doTransaction(() -> {
             currentSemester.removeStudent(student);
         });
-        return redirect(controllers.routes.AdminPageController.studentEditPage(""));
+        return redirect(
+                controllers.routes.AdminPageController.studentEditPage(""));
     }
 }
