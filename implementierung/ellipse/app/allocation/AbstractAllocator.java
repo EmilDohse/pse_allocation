@@ -4,10 +4,7 @@
 
 package allocation;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ServiceLoader;
 
 /************************************************************/
 /**
@@ -34,12 +31,5 @@ public abstract class AbstractAllocator {
      * 
      * @return Die Liste aller verfügbarer Kriterien.
      */
-    public static List<? extends Criterion> getAllCriteria() {
-        Iterator<Criterion> iter = ServiceLoader.load(Criterion.class).iterator();
-        ArrayList<Criterion> criteria = new ArrayList<Criterion>();
-        while (iter.hasNext()) {
-            criteria.add(iter.next());
-        }
-        return criteria;
-    }
+    public abstract List<? extends Criterion> getAllCriteria();
 }

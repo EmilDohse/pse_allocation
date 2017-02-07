@@ -7,7 +7,6 @@ package controllers;
 import java.util.ArrayList;
 import java.util.List;
 
-import allocation.AbstractAllocator;
 import allocation.AllocationQueue;
 import data.Adviser;
 import data.Allocation;
@@ -73,7 +72,7 @@ public class AdminPageController extends Controller {
      */
     public Result allocationPage(String error) {
         ArrayList<allocation.Criterion> criteria = new ArrayList<>(
-                AbstractAllocator.getAllCriteria());
+                AllocationQueue.getInstance().getAllocator().getAllCriteria());
         play.twirl.api.Html content = views.html.adminAllocation
                 .render(AllocationQueue.getInstance(), criteria, error);
         Menu menu = new AdminMenu(ctx(), ctx().request().path());

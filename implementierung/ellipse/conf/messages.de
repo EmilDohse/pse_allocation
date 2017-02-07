@@ -53,6 +53,7 @@ student.account.newPasswordRepeat = Neues Passwort wiederholen
 student.account.sendNewVerificationLink = Neuen Verifikations-Code schicken.
 student.error.noAllocationYet = Bisher existieren noch keine fertig berechneten Einteilungen.
 
+adviser.sidebar.account = Account
 adviser.leaveProject = Projekt verlassen
 advsier.noProject = Es ist kein Projekt aktuell vorhanden.
 adviser.joinProject = Projekt beitreten
