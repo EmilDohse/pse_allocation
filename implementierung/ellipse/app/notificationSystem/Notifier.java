@@ -66,7 +66,7 @@ public class Notifier {
         String bodyText = Messages.get("email.notifyResultsAdviser", adviser.getFirstName(), adviser.getLastName(),
                 memberList);
         String subject = Messages.get("email.subjectResults");
-        this.sendEmail(subject, "TODO", student.getEmailAddress(), bodyText);
+        this.sendEmail(subject, "TODO", adviser.getEmailAddress(), bodyText);
     }
 
     public void sendAdviserPassword(Adviser adviser, String password) {
