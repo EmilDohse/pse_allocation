@@ -8,6 +8,7 @@ import java.util.List;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.avaje.ebean.EbeanServer;
@@ -18,7 +19,6 @@ import data.AllocationParameter;
 import data.LearningGroup;
 import data.Project;
 import data.Student;
-import jdk.nashorn.internal.ir.annotations.Ignore;
 
 /**
  * tests zur klasse allocation queue
@@ -52,10 +52,12 @@ public class AllocationQueueTest {
     @Before
     public void init() {
         allocQueue = AllocationQueue.getInstance();
-        configOne = new Configuration("test 1", new ArrayList<Student>(), new ArrayList<LearningGroup>(),
-                new ArrayList<Project>(), new ArrayList<AllocationParameter>());
-        configTwo = new Configuration("test 2", new ArrayList<Student>(), new ArrayList<LearningGroup>(),
-                new ArrayList<Project>(), new ArrayList<AllocationParameter>());
+        configOne = new Configuration("test 1", new ArrayList<Student>(),
+                new ArrayList<LearningGroup>(), new ArrayList<Project>(),
+                new ArrayList<AllocationParameter>());
+        configTwo = new Configuration("test 2", new ArrayList<Student>(),
+                new ArrayList<LearningGroup>(), new ArrayList<Project>(),
+                new ArrayList<AllocationParameter>());
     }
 
     /**

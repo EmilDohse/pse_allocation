@@ -2,6 +2,7 @@ package allocation;
 
 import static org.junit.Assert.assertTrue;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,9 +59,9 @@ public class GurobiAllocatorTest {
         semester.setInfoText("Hallo");
         semester.save();
         try {
-            ie.importSPO("spo2008.csv");
-            ie.importProjects("Projekte.csv", semester);
-            ie.importStudents("studentsNew.csv", semester);
+            ie.importSPO(new File("spo2008.csv"));
+            ie.importProjects(new File("Projekte.csv"), semester);
+            ie.importStudents(new File("studentsNew.csv"), semester);
         } catch (ImporterException e) {
             e.printStackTrace();
             assertTrue(false);

@@ -6,6 +6,7 @@ package importExport;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
@@ -89,7 +90,7 @@ public class Importer {
      * @param file
      *            Pfad zu einer .csv Datei.
      */
-    public void importSPO(String file) throws ImporterException {
+    public void importSPO(File file) throws ImporterException {
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
 
             // Lese Kopfzeile
@@ -207,7 +208,7 @@ public class Importer {
      * @param spo
      *            Die SPO, die exportiert werden soll.
      */
-    public void exportSPO(String file, SPO spo) throws ImporterException {
+    public void exportSPO(File file, SPO spo) throws ImporterException {
         try (BufferedWriter writer = new BufferedWriter(
                 new OutputStreamWriter(new FileOutputStream(file), "utf-8"))) {
 
@@ -444,7 +445,7 @@ public class Importer {
      * @throws ImporterException
      *             Wird vom Controller behandelt.
      */
-    public void importStudents(String file, Semester semester)
+    public void importStudents(File file, Semester semester)
             throws ImporterException {
         // Prüfe ob die Studentenliste leer ist
         if (!(semester.getStudents().size() == 0)) {
@@ -627,7 +628,7 @@ public class Importer {
      * @throws ImporterException
      *             Wird vom Controller behandelt.
      */
-    public void exportStudents(String file, Semester semester)
+    public void exportStudents(File file, Semester semester)
             throws ImporterException {
         try (BufferedWriter bw = new BufferedWriter(
                 new OutputStreamWriter(new FileOutputStream(file)))) {
@@ -702,7 +703,7 @@ public class Importer {
      * @throws ImporterException
      *             Wird vom Controller behandelt.
      */
-    public void importProjects(String file, Semester semester)
+    public void importProjects(File file, Semester semester)
             throws ImporterException {
 
         // Prüfe, ob die Projektliste des Smeesters noch leer ist
@@ -797,7 +798,7 @@ public class Importer {
      * @throws ImporterException
      *             wird vom Controller behandelt.
      */
-    public void exportProjects(String file, Semester semester)
+    public void exportProjects(File file, Semester semester)
             throws ImporterException {
         try (BufferedWriter bw = new BufferedWriter(
                 new OutputStreamWriter(new FileOutputStream(file)))) {
