@@ -297,6 +297,10 @@ public class Student extends User {
         return ElipseModel.getAll(Student.class);
     }
 
+    public String toStringForNotification() {
+        String toReturn = this.getFirstName() + " " + this.getLastName() + ", " + this.getSemester();
+    }
+
     // /**
     // * Diese Methode gibt die Bewertung des Studiereden zu einem bestimmten
     // * Projekt zurück.
