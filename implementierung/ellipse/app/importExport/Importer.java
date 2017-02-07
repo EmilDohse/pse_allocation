@@ -119,10 +119,11 @@ public class Importer {
 
                             // Erstelle die neue SPO
                             SPO importedSpo = new SPO();
-                            importedSpo.setName(lineSplit[0]);
+                            importedSpo.doTransaction(() -> {
+                                importedSpo.setName(lineSplit[0]);
+                            });
                             List<Achievement> additionalAchievements = new ArrayList<Achievement>();
                             List<Achievement> necessaryAchievements = new ArrayList<Achievement>();
-                            Ebean.save(importedSpo);
 
                             // Teile die zusätzlichen Teilleistungen weiter auf
                             String[] additionalSplit = lineSplit[1].split(",");
@@ -134,13 +135,14 @@ public class Importer {
                                 if (currentAchievement != null) {
                                     additionalAchievements.add(currentAchievement);
                                 } else {
-                                    currentAchievement = new Achievement();
-                                    currentAchievement.setName(additionalSplit[i]);
-                                    additionalAchievements.add(currentAchievement);
-                                    Ebean.save(currentAchievement);
+                                    Achievement newAchievement = new Achievement();
+                                    String name = additionalSplit[i];
+                                    newAchievement.doTransaction(() -> {
+                                        newAchievement.setName(name);
+                                    });
+                                    additionalAchievements.add(newAchievement);
                                 }
                             }
-                            Ebean.update(importedSpo);
 
                             // Selbes Vorgehen für notwendige Teilleistungen
                             String[] necessarySplit = lineSplit[2].split(",");
@@ -149,15 +151,18 @@ public class Importer {
                                 if (currentAchievement != null) {
                                     necessaryAchievements.add(currentAchievement);
                                 } else {
-                                    currentAchievement = new Achievement();
-                                    currentAchievement.setName(necessarySplit[i]);
-                                    necessaryAchievements.add(currentAchievement);
-                                    Ebean.save(currentAchievement);
+                                    Achievement newAchievement = new Achievement();
+                                    String name = necessarySplit[i];
+                                    newAchievement.doTransaction(() -> {
+                                        newAchievement.setName(name);
+                                    });
+                                    necessaryAchievements.add(newAchievement);
                                 }
                             }
-                            importedSpo.setAdditionalAchievements(additionalAchievements);
-                            importedSpo.setNecessaryAchievements(necessaryAchievements);
-                            Ebean.update(importedSpo);
+                            importedSpo.doTransaction(() -> {
+                                importedSpo.setAdditionalAchievements(additionalAchievements);
+                                importedSpo.setNecessaryAchievements(necessaryAchievements);
+                            });
                         } else {
                             throw new ImporterException("importer.wrongFileFormat");
                         }
@@ -231,48 +236,47 @@ public class Importer {
      * @param projectFile
      *            Pfad zu einer .csv Datei mit Projekten
      */
+    @Deprecated
     public void importTestData(String studentFile, String projectFile) {
         Semester testSemester = new Semester("TestSemester", true, 2016);
-        testSemester.setInfoText("Ich bin ein Infotext");
-
         ArrayList<Project> testProjects = new ArrayList<>();
-        testSemester.setProjects(testProjects);
-
         ArrayList<Student> testStudents = new ArrayList<>();
-        testSemester.setStudents(testStudents);
-
         ArrayList<LearningGroup> testLearningGroups = new ArrayList<>();
-        testSemester.setLearningGroups(testLearningGroups);
+        testSemester.doTransaction(() -> {
+            testSemester.setInfoText("Ich bin ein Infotext");
+            testSemester.setProjects(testProjects);
+            testSemester.setStudents(testStudents);
+            testSemester.setLearningGroups(testLearningGroups);
 
-        Ebean.save(testSemester);
-
+        });
         SPO testSPO;
         if (SPO.getSPO("testSPO") == null) {
             testSPO = new SPO("testSPO");
-            Ebean.save(testSPO);
+            testSPO.save();
             Achievement testHMorLA = new Achievement("testHMorLA");
             Achievement testSWT = new Achievement("testSWT");
             Achievement testAlgo = new Achievement("testAlgo");
-            Ebean.save(testAlgo);
-            Ebean.save(testSWT);
-            Ebean.save(testHMorLA);
-            testSPO.addNecessaryAchievement(testHMorLA);
-            testSPO.addNecessaryAchievement(testSWT);
-            testSPO.addAdditionalAchievement(testAlgo);
-            Ebean.update(testSPO);
+            testAlgo.save();
+            testSWT.save();
+            testHMorLA.save();
+            testSPO.doTransaction(() -> {
+                testSPO.addNecessaryAchievement(testHMorLA);
+                testSPO.addNecessaryAchievement(testSWT);
+                testSPO.addAdditionalAchievement(testAlgo);
+            });
 
         } else {
             testSPO = SPO.getSPO("testSPO");
-            Ebean.save(testSPO);
         }
-        testSemester.addSPO(testSPO);
-        Ebean.update(testSemester);
+        testSemester.doTransaction(() -> {
+            testSemester.addSPO(testSPO);
+        });
 
         String line = new String();
         String splitter = ";";
 
         Adviser dummy = new Adviser("Dummy", "dummy", "dummy@gmx.de", "Dum", "My");
-        Ebean.save(dummy);
+        dummy.save();
         ArrayList<Adviser> advisers = new ArrayList<>();
         advisers.add(dummy);
 
@@ -289,19 +293,18 @@ public class Importer {
                     int maxSize = Integer.parseInt(attributes[4]);
 
                     Project importedProject = new Project();
-                    // Ebean.save(importedProject);
-
-                    importedProject.setName(name);
-                    importedProject.setInstitute(institute);
-                    importedProject.setNumberOfTeams(numberOfTeams);
-                    importedProject.setMinTeamSize(minSize);
-                    importedProject.setMaxTeamSize(maxSize);
-                    importedProject.setAdvisers(advisers);
-                    importedProject.setProjectInfo(new String());
-                    importedProject.setProjectURL(new String());
-                    // Ebean.update(importedProject);
+                    importedProject.doTransaction(() -> {
+                        importedProject.setName(name);
+                        importedProject.setInstitute(institute);
+                        importedProject.setNumberOfTeams(numberOfTeams);
+                        importedProject.setMinTeamSize(minSize);
+                        importedProject.setMaxTeamSize(maxSize);
+                        importedProject.setAdvisers(advisers);
+                        importedProject.setProjectInfo(new String());
+                        importedProject.setProjectURL(new String());
+                    });
                     testProjects.add(importedProject);
-                    Ebean.update(testSemester);
+                    testSemester.save();
                 }
             }
         } catch (IOException e) {
@@ -330,51 +333,57 @@ public class Importer {
                 }
 
                 Student importedStudent = new Student();
+                importedStudent.doTransaction(() -> {
+                    importedStudent.setUserName(new String() + matNr);
+                    importedStudent.setPassword("123");
+                    importedStudent.setEmailAddress(new String());
+                    importedStudent.setFirstName(firstName);
+                    importedStudent.setLastName(lastName);
 
-                importedStudent.setUserName(new String() + matNr);
-                importedStudent.setPassword("123");
-                importedStudent.setEmailAddress(new String());
-                importedStudent.setFirstName(firstName);
-                importedStudent.setLastName(lastName);
+                    importedStudent.setMatriculationNumber(matNr);
+                    importedStudent.setSPO(testSPO);
+                    importedStudent.setCompletedAchievements(completedAchievements);
+                    importedStudent.setRegisteredPSE(true);
+                    importedStudent.setRegisteredTSE(true);
+                    importedStudent.setGradePSE(Grade.UNKNOWN);
+                    importedStudent.setGradeTSE(Grade.UNKNOWN);
+                    importedStudent.setOralTestAchievements(new ArrayList<Achievement>());
+                    importedStudent.setSemester(semester);
+                    importedStudent.setEmailAddress(new String());
+                    importedStudent.setIsEmailVerified(false);
 
-                importedStudent.setMatriculationNumber(matNr);
-                importedStudent.setSPO(testSPO);
-                importedStudent.setCompletedAchievements(completedAchievements);
-                importedStudent.setRegisteredPSE(true);
-                importedStudent.setRegisteredTSE(true);
-                importedStudent.setGradePSE(Grade.UNKNOWN);
-                importedStudent.setGradeTSE(Grade.UNKNOWN);
-                importedStudent.setOralTestAchievements(new ArrayList<Achievement>());
-                importedStudent.setSemester(semester);
-                importedStudent.setEmailAddress(new String());
-                importedStudent.setIsEmailVerified(false);
+                });
 
                 testStudents.add(importedStudent);
-
-                Ebean.update(testSemester);
 
                 LearningGroup currentGroup;
                 if (attributes[2].length() != 0) {
                     if (LearningGroup.getLearningGroup(attributes[2], testSemester) == null) {
                         currentGroup = new LearningGroup();
-                        currentGroup.setName(attributes[2]);
-                        currentGroup.addMember(importedStudent);
-                        currentGroup.setPrivate(false);
-                        currentGroup.setPassword("123");
+                        currentGroup.doTransaction(() -> {
+                            currentGroup.setName(attributes[2]);
+                            currentGroup.addMember(importedStudent);
+                            currentGroup.setPrivate(false);
+                            currentGroup.setPassword("123");
+                        });
                         testLearningGroups.add(currentGroup);
                     } else {
                         currentGroup = LearningGroup.getLearningGroup(attributes[2], testSemester);
-                        currentGroup.addMember(importedStudent);
+                        currentGroup.doTransaction(() -> {
+                            currentGroup.addMember(importedStudent);
+                        });
                     }
                 } else {
                     currentGroup = new LearningGroup();
-                    currentGroup.setName("test" + importedStudent.getMatriculationNumber());
-                    currentGroup.setPrivate(true);
-                    currentGroup.addMember(importedStudent);
-                    currentGroup.setPassword("123");
+                    currentGroup.doTransaction(() -> {
+                        currentGroup.setName("test" + importedStudent.getMatriculationNumber());
+                        currentGroup.setPrivate(true);
+                        currentGroup.addMember(importedStudent);
+                        currentGroup.setPassword("123");
+                    });
                     testLearningGroups.add(currentGroup);
                 }
-                Ebean.update(testSemester);
+                testSemester.save();
 
                 ArrayList<Rating> ratings = new ArrayList<>();
                 Rating currentRating;
@@ -413,10 +422,10 @@ public class Importer {
         ArrayList<Student> students = new ArrayList<>();
         ArrayList<LearningGroup> learningGroups = new ArrayList<>();
 
-        semester.setStudents(students);
-        semester.setLearningGroups(learningGroups);
-
-        Ebean.update(semester);
+        semester.doTransaction(() -> {
+            semester.setStudents(students);
+            semester.setLearningGroups(learningGroups);
+        });
 
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
 
@@ -509,15 +518,14 @@ public class Importer {
                 // Erzeuge den Studenten
                 Student importedStudent = new Student(new String() + matNr, password, email, firstName, lastName, matNr,
                         spo, completedAchievements, oralTestAchievements, semesterNumber);
-                importedStudent.setRegisteredPSE(false);
-                importedStudent.setRegisteredTSE(false);
-                importedStudent.setIsEmailVerified(false);
-                importedStudent.setGradePSE(Grade.UNKNOWN);
-                importedStudent.setGradeTSE(Grade.UNKNOWN);
-
+                importedStudent.doTransaction(() -> {
+                    importedStudent.setRegisteredPSE(false);
+                    importedStudent.setRegisteredTSE(false);
+                    importedStudent.setIsEmailVerified(false);
+                    importedStudent.setGradePSE(Grade.UNKNOWN);
+                    importedStudent.setGradeTSE(Grade.UNKNOWN);
+                });
                 students.add(importedStudent);
-
-                Ebean.update(semester);
 
                 LearningGroup currentGroup;
                 if (lineSplit[5].length() != 0) {
@@ -525,29 +533,35 @@ public class Importer {
                     // noch nicht existiert
                     if (LearningGroup.getLearningGroup(lineSplit[5], semester) == null) {
                         currentGroup = new LearningGroup();
-                        currentGroup.setName(lineSplit[5]);
-                        currentGroup.addMember(importedStudent);
-                        currentGroup.setPrivate(false);
-                        currentGroup.setPassword(lineSplit[6]);
+                        currentGroup.doTransaction(() -> {
+                            currentGroup.setName(lineSplit[5]);
+                            currentGroup.addMember(importedStudent);
+                            currentGroup.setPrivate(false);
+                            currentGroup.setPassword(lineSplit[6]);
+                        });
                         learningGroups.add(currentGroup);
                         // Füge der Gruppe mit dem gesetzten Namen den Studenten
                         // hinzu, falls sie schon existiert
                     } else {
                         currentGroup = LearningGroup.getLearningGroup(lineSplit[5], semester);
-                        currentGroup.addMember(importedStudent);
+                        currentGroup.doTransaction(() -> {
+                            currentGroup.addMember(importedStudent);
+                        });
                     }
                     // Erstelle eine private Lerngruppe, wenn keine angegeben
                     // wurde
                 } else {
                     currentGroup = new LearningGroup();
-                    currentGroup.setName(new String() + importedStudent.getMatriculationNumber());
-                    currentGroup.setPrivate(true);
-                    currentGroup.addMember(importedStudent);
-                    currentGroup.setPassword(new String());
+                    currentGroup.doTransaction(() -> {
+                        currentGroup.setName(new String() + importedStudent.getMatriculationNumber());
+                        currentGroup.setPrivate(true);
+                        currentGroup.addMember(importedStudent);
+                        currentGroup.setPassword(new String());
+                    });
                     learningGroups.add(currentGroup);
                 }
 
-                Ebean.update(semester);
+                semester.save();
 
                 ArrayList<Rating> LeaningGoupRatings = new ArrayList<>();
                 Rating currentRating;
@@ -555,9 +569,10 @@ public class Importer {
                     currentRating = new Rating(ratings[i - 11], Project.getProject(headerSplit[i], semester));
                     LeaningGoupRatings.add(currentRating);
                 }
-                currentGroup.setRatings(LeaningGoupRatings);
-                Ebean.update(currentGroup);
-                Ebean.update(semester);
+                currentGroup.doTransaction(() -> {
+                    currentGroup.setRatings(LeaningGoupRatings);
+                });
+                semester.save();
             }
         } catch (FileNotFoundException e) {
             throw new ImporterException("importer.FileNotFound");
@@ -706,15 +721,16 @@ public class Importer {
                     throw new ImporterException("importer.wrongFileFormat");
                 }
                 Project importedProject = new Project();
-                importedProject.setName(name);
-                importedProject.setMinTeamSize(minSize);
-                importedProject.setMaxTeamSize(maxSize);
-                importedProject.setNumberOfTeams(numberOfTeams);
-                importedProject.setProjectInfo(info);
-                importedProject.setProjectURL(url);
-                importedProject.setInstitute(institute);
-                importedProject.setAdvisers(new ArrayList<Adviser>());
-
+                importedProject.doTransaction(() -> {
+                    importedProject.setName(name);
+                    importedProject.setMinTeamSize(minSize);
+                    importedProject.setMaxTeamSize(maxSize);
+                    importedProject.setNumberOfTeams(numberOfTeams);
+                    importedProject.setProjectInfo(info);
+                    importedProject.setProjectURL(url);
+                    importedProject.setInstitute(institute);
+                    importedProject.setAdvisers(new ArrayList<Adviser>());
+                });
                 projects.add(importedProject);
             }
             semester.setProjects(projects);
