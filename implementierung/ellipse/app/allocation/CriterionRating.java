@@ -20,7 +20,9 @@ import gurobi.GRBLinExpr;
  */
 public class CriterionRating implements GurobiCriterion {
 
-    private String name;
+    private static final String DE_NAME = "Beachte Bewertungen";
+    private static final String EN_NAME = "Respect ratings";
+    private String              name;
 
     /**
      * Standard-Konstruktor, der den Namen eindeutig setzt.
@@ -41,7 +43,8 @@ public class CriterionRating implements GurobiCriterion {
      * {@inheritDoc}
      */
     @Override
-    public void useCriteria(Configuration configuration, GurobiAllocator allocator, double weight)
+    public void useCriteria(Configuration configuration,
+            GurobiAllocator allocator, double weight)
             throws GRBException, NoSuchElementException {
         GRBLinExpr bonus = new GRBLinExpr();
         for (int i = 0; i < configuration.getStudents().size(); i++) {
@@ -49,13 +52,26 @@ public class CriterionRating implements GurobiCriterion {
                 // Bestimme Bewertung des Studenten für das Projekt, zu dem das
                 // Team gehört
 
-                Semester semester = GeneralData.loadInstance().getCurrentSemester();
+                Semester semester = GeneralData.loadInstance()
+                        .getCurrentSemester();
                 Student student = configuration.getStudents().get(i);
                 Project project = configuration.getTeams().get(j).getProject();
-                double rating = semester.getLearningGroupOf(student).getRating(project);
-                bonus.addTerm(weight * 2 * rating, allocator.getBasicMatrix()[i][j]);
+                double rating = semester.getLearningGroupOf(student)
+                        .getRating(project);
+                bonus.addTerm(weight * 2 * rating,
+                        allocator.getBasicMatrix()[i][j]);
             }
         }
         allocator.getOptimizationTerm().add(bonus);
+    }
+
+    @Override
+    public String getDisplayName(String local) {
+        switch (local) {
+        case "de":
+            return DE_NAME;
+        default:
+            return EN_NAME;
+        }
     }
 }
