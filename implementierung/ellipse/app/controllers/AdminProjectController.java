@@ -42,7 +42,7 @@ public class AdminProjectController extends Controller {
         String projName = form.get("name");
         Project project = new Project(projName, "", "", "");
         project.save();
-        GeneralData.getInstance().getCurrentSemester().addProject(project);
+        GeneralData.loadInstance().getCurrentSemester().addProject(project);
         return redirect(controllers.routes.AdminPageController
                 .projectEditPage(project.getId()));
 
@@ -62,7 +62,7 @@ public class AdminProjectController extends Controller {
                 Integer.parseInt(form.get("id")));
         // TODO hier eine warnmeldung ausgeben ob das projekt wirklich gelöscht
         // werden soll
-        GeneralData.getInstance().getCurrentSemester().removeProject(project);
+        GeneralData.loadInstance().getCurrentSemester().removeProject(project);
 
         return redirect(controllers.routes.AdminPageController.projectPage(""));
     }

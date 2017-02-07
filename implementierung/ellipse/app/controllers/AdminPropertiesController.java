@@ -170,8 +170,8 @@ public class AdminPropertiesController extends Controller {
         semester.setMaxGroupSize(maxGroupSize);
         semester.setYear(year);
         if (semesterActive != null) {
-            GeneralData.getInstance().setCurrentSemester(semester);
-            GeneralData.getInstance().save(); // TODO muss man hier generalData
+            GeneralData.loadInstance().setCurrentSemester(semester);
+            GeneralData.loadInstance().save(); // TODO muss man hier generalData
                                               // speichern?
         }
 

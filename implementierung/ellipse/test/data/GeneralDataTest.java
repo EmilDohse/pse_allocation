@@ -17,12 +17,12 @@ public class GeneralDataTest extends DataTest {
 
     @Before
     public void before() {
-        data = GeneralData.getInstance();
+        data = GeneralData.loadInstance();
     }
 
     @Test
     public void testGetInstance() {
-        assertEquals(data, GeneralData.getInstance());
+        assertEquals(data, GeneralData.loadInstance());
     }
 
     @Test
@@ -35,17 +35,17 @@ public class GeneralDataTest extends DataTest {
     @Test
     public void testSetSaveAndReload() {
         Semester semester = new Semester();
-        GeneralData.getInstance().setCurrentSemester(semester);
-        GeneralData.getInstance().save();
-        assertEquals(semester, GeneralData.getInstance().getCurrentSemester());
+        GeneralData.loadInstance().setCurrentSemester(semester);
+        GeneralData.loadInstance().save();
+        assertEquals(semester, GeneralData.loadInstance().getCurrentSemester());
     }
 
     @Test
     public void testWithSemester() {
         Semester s = new Semester();
-        GeneralData.getInstance().setCurrentSemester(s);
-        GeneralData.getInstance().save();
-        assertEquals(s, GeneralData.getInstance().getCurrentSemester());
+        GeneralData.loadInstance().setCurrentSemester(s);
+        GeneralData.loadInstance().save();
+        assertEquals(s, GeneralData.loadInstance().getCurrentSemester());
     }
 
     @Test
@@ -53,9 +53,9 @@ public class GeneralDataTest extends DataTest {
         Semester s = new Semester();
         Allocation a = new Allocation();
         s.setFinalAllocation(a);
-        GeneralData.getInstance().setCurrentSemester(s);
-        GeneralData.getInstance().save();
-        assertEquals(s, GeneralData.getInstance().getCurrentSemester());
+        GeneralData.loadInstance().setCurrentSemester(s);
+        GeneralData.loadInstance().save();
+        assertEquals(s, GeneralData.loadInstance().getCurrentSemester());
         assertEquals(a, s.getFinalAllocation());
     }
 
@@ -68,9 +68,9 @@ public class GeneralDataTest extends DataTest {
         teams.add(t);
         a.setTeams(teams);
         s.setFinalAllocation(a);
-        GeneralData.getInstance().setCurrentSemester(s);
-        GeneralData.getInstance().save();
-        assertEquals(s, GeneralData.getInstance().getCurrentSemester());
+        GeneralData.loadInstance().setCurrentSemester(s);
+        GeneralData.loadInstance().save();
+        assertEquals(s, GeneralData.loadInstance().getCurrentSemester());
         assertEquals(a, s.getFinalAllocation());
         assertNotNull(a.getTeams());
         assertFalse(a.getTeams().isEmpty());
@@ -92,9 +92,9 @@ public class GeneralDataTest extends DataTest {
         teams.add(t);
         a.setTeams(teams);
         s.setFinalAllocation(a);
-        GeneralData.getInstance().setCurrentSemester(s);
-        GeneralData.getInstance().save();
-        assertEquals(s, GeneralData.getInstance().getCurrentSemester());
+        GeneralData.loadInstance().setCurrentSemester(s);
+        GeneralData.loadInstance().save();
+        assertEquals(s, GeneralData.loadInstance().getCurrentSemester());
         assertEquals(a, s.getFinalAllocation());
         assertNotNull(a.getTeams());
         assertFalse(a.getTeams().isEmpty());

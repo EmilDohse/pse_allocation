@@ -23,7 +23,7 @@ public class NotAllocatedStudents implements QualityCriterion {
     @Override
     public String calculate(Allocation allocation) {
         List<Team> teams = allocation.getTeams();
-        List<Student> registeredStudents = GeneralData.getInstance().getCurrentSemester().getStudents();
+        List<Student> registeredStudents = GeneralData.loadInstance().getCurrentSemester().getStudents();
 
         int notAllocatedStudents = registeredStudents.size();
         for (int i = 0; i < teams.size(); i++) {

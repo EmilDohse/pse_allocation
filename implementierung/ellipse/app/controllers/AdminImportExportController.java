@@ -50,7 +50,7 @@ public class AdminImportExportController extends Controller {
             try {// TODO wenn wir wollen können wir hier das file übergebben
                  // (api änderung)
                 importer.importAllocation(file.getAbsolutePath(),
-                        GeneralData.getInstance().getCurrentSemester());
+                        GeneralData.loadInstance().getCurrentSemester());
                 return redirect(controllers.routes.AdminPageController
                         .exportImportPage(""));
             } catch (ImporterException e) {
@@ -152,7 +152,7 @@ public class AdminImportExportController extends Controller {
             try {// TODO wenn wir wollen können wir hier das file übergebben
                  // (api änderung)
                 importer.importProjects(file.getAbsolutePath(),
-                        GeneralData.getInstance().getCurrentSemester());
+                        GeneralData.loadInstance().getCurrentSemester());
                 return redirect(controllers.routes.AdminPageController
                         .exportImportPage(""));
 
@@ -177,7 +177,7 @@ public class AdminImportExportController extends Controller {
         importExport.Importer importer = new Importer();
         File file = new File("/imExport/exportProjects.csv");
         importer.exportProjects(file.getAbsolutePath(),
-                GeneralData.getInstance().getCurrentSemester());
+                GeneralData.loadInstance().getCurrentSemester());
 
         return ok(file);
     }
@@ -202,7 +202,7 @@ public class AdminImportExportController extends Controller {
             try {// TODO wenn wir wollen können wir hier das file übergebben
                  // (api änderung)
                 importer.importCMSData(file.getAbsolutePath(),
-                        GeneralData.getInstance().getCurrentSemester());
+                        GeneralData.loadInstance().getCurrentSemester());
                 return redirect(controllers.routes.AdminPageController
                         .exportImportPage(""));
             } catch (ImporterException e) {
@@ -228,7 +228,7 @@ public class AdminImportExportController extends Controller {
         File file = new File("/imExport/exportCMS.csv");
         try {
             importer.exportCMSData(file.getAbsolutePath(),
-                    GeneralData.getInstance().getCurrentSemester());
+                    GeneralData.loadInstance().getCurrentSemester());
         } catch (ImporterException e) {
             return redirect(controllers.routes.AdminPageController
                     .exportImportPage(ctx().messages().at(e.getMessage())));
@@ -256,7 +256,7 @@ public class AdminImportExportController extends Controller {
             try {// TODO wenn wir wollen können wir hier das file übergebben
                  // (api änderung)
                 importer.importStudents(file.getAbsolutePath(),
-                        GeneralData.getInstance().getCurrentSemester());
+                        GeneralData.loadInstance().getCurrentSemester());
                 return redirect(controllers.routes.AdminPageController
                         .exportImportPage(""));
             } catch (ImporterException e) {
@@ -281,7 +281,7 @@ public class AdminImportExportController extends Controller {
         File file = new File("/imExport/exportStudents.csv");
         try {
             importer.exportStudents(file.getAbsolutePath(),
-                    GeneralData.getInstance().getCurrentSemester());
+                    GeneralData.loadInstance().getCurrentSemester());
         } catch (ImporterException e) {
             return redirect(controllers.routes.AdminPageController
                     .exportImportPage(ctx().messages().at(e.getMessage())));

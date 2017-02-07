@@ -45,7 +45,7 @@ public class StudentPageController extends Controller {
         UserManagement user = new UserManagement();
         Student student = (Student) user.getUserProfile(ctx());
         play.twirl.api.Html content = views.html.studentLearningGroup
-                .render(GeneralData.getInstance().getCurrentSemester()
+                .render(GeneralData.loadInstance().getCurrentSemester()
                         .getLearningGroupOf(student), error);
         Menu menu = new StudentMenu(ctx(), ctx().request().path());
         return ok(views.html.student.render(menu, content));
@@ -59,7 +59,7 @@ public class StudentPageController extends Controller {
      */
     public Result ratingPage(String error) {
         play.twirl.api.Html content = views.html.studentRating.render(
-                GeneralData.getInstance().getCurrentSemester().getProjects(),
+                GeneralData.loadInstance().getCurrentSemester().getProjects(),
                 error);
         Menu menu = new StudentMenu(ctx(), ctx().request().path());
         return ok(views.html.student.render(menu, content));
@@ -74,7 +74,7 @@ public class StudentPageController extends Controller {
      */
     public Result resultsPage(String error) {
         // TODO überprüft man no final allocation wirklich über ob es null ist?
-        if (GeneralData.getInstance().getCurrentSemester()
+        if (GeneralData.loadInstance().getCurrentSemester()
                 .getFinalAllocation() == null) {
             play.twirl.api.Html content = views.html.noAllocationYet.render();
             Menu menu = new StudentMenu(ctx(), ctx().request().path());
@@ -84,7 +84,7 @@ public class StudentPageController extends Controller {
         UserManagement user = new UserManagement();
         Student student = (Student) user.getUserProfile(ctx());
         play.twirl.api.Html content = views.html.studentResult
-                .render(GeneralData.getInstance().getCurrentSemester()
+                .render(GeneralData.loadInstance().getCurrentSemester()
                         .getFinalAllocation().getTeam(student), error);
         Menu menu = new StudentMenu(ctx(), ctx().request().path());
         return ok(views.html.student.render(menu, content));
@@ -101,10 +101,10 @@ public class StudentPageController extends Controller {
         UserManagement user = new UserManagement();
         Student student = (Student) user.getUserProfile(ctx());
         DynamicForm form = formFactory.form().bindFromRequest();
-        LearningGroup lg = GeneralData.getInstance().getCurrentSemester()
+        LearningGroup lg = GeneralData.loadInstance().getCurrentSemester()
                 .getLearningGroupOf(student);
         ArrayList<Rating> ratings = new ArrayList<>();
-        for (Project project : GeneralData.getInstance().getCurrentSemester()
+        for (Project project : GeneralData.loadInstance().getCurrentSemester()
                 .getProjects()) {
             Rating rating = new Rating(
                     Integer.parseInt(
@@ -133,17 +133,17 @@ public class StudentPageController extends Controller {
         String password = form.get("learningGroupPassword");
         // TODO stimmt hier der rückgabewert in html
         if (!(LearningGroup.getLearningGroup(name,
-                GeneralData.getInstance().getCurrentSemester()) == null)) {
+                GeneralData.loadInstance().getCurrentSemester()) == null)) {
             return redirect(controllers.routes.StudentPageController
                     .learningGroupPage(ctx().messages().at(
                             "student .learningGroup.error.existsAllready")));
         }
         LearningGroup lg = new LearningGroup(name, password, student, false);
-        GeneralData.getInstance().getCurrentSemester()
+        GeneralData.loadInstance().getCurrentSemester()
                 .getLearningGroupOf(student).delete();
         // TODO falls man die alten bewertungen wieder will muss man hier die
         // alte lerngruppe behalten
-        GeneralData.getInstance().getCurrentSemester().addLearningGroup(lg);
+        GeneralData.loadInstance().getCurrentSemester().addLearningGroup(lg);
         return redirect(
                 controllers.routes.StudentPageController.learningGroupPage(""));
     }
@@ -157,14 +157,14 @@ public class StudentPageController extends Controller {
     public Result leaveLearningGroup() {
         UserManagement user = new UserManagement();
         Student student = (Student) user.getUserProfile(ctx());
-        if (GeneralData.getInstance().getCurrentSemester()
+        if (GeneralData.loadInstance().getCurrentSemester()
                 .getLearningGroupOf(student).getMembers().size() == 1) {
             LearningGroup lg = new LearningGroup(
                     "private" + student.getUserName(), "", student, true);
             return redirect(controllers.routes.StudentPageController
                     .learningGroupPage(""));
         } // hier wurde der student wieder in seine privat elerngruppe eingefügt
-        LearningGroup lg = GeneralData.getInstance().getCurrentSemester()
+        LearningGroup lg = GeneralData.loadInstance().getCurrentSemester()
                 .getLearningGroupOf(student);
         lg.removeMember(student);
         lg.save();
@@ -187,11 +187,11 @@ public class StudentPageController extends Controller {
         DynamicForm form = formFactory.form().bindFromRequest();
         String name = form.get("learningGroupname");
         String pw = form.get("learningGroupPassword");
-        LearningGroup lgOld = GeneralData.getInstance().getCurrentSemester()
+        LearningGroup lgOld = GeneralData.loadInstance().getCurrentSemester()
                 .getLearningGroupOf(student);
         LearningGroup lgNew = LearningGroup.getLearningGroup(name,
-                GeneralData.getInstance().getCurrentSemester());
-        if (lgNew.getMembers().size() >= GeneralData.getInstance()
+                GeneralData.loadInstance().getCurrentSemester());
+        if (lgNew.getMembers().size() >= GeneralData.loadInstance()
                 .getCurrentSemester().getMaxGroupSize()) {
             return redirect(controllers.routes.StudentPageController
                     .learningGroupPage(ctx().messages().at(
