@@ -5,45 +5,74 @@
 package notificationSystem;
 
 import data.Allocation;
+import data.GeneralData;
 import data.Student;
 import data.User;
+import data.Adviser;
+import play.i18n.Messages;
+import play.libs.mailer.Email;
+import play.libs.mailer.MailerClient;
+import javax.inject.Inject;
+import java.io.File;
 
 /************************************************************/
 /**
- * Klasse die alle Benachrichtigungen der Benutzer (Studenten und Betreuer) per E-Mail übernimmt.
+ * Klasse die alle Benachrichtigungen der Benutzer (Studenten und Betreuer) per
+ * E-Mail übernimmt.
  */
 public class Notifier {
 
-	/**
-	 * Verschickt an alle Benutzer (Betreuer und Studenten) eine E-Mail mit ihrem zugeteilten Team/Projekt.
-	 * 
-	 * @param allocation veröffentlichte Einteilung
-	 */
-	public void notifyAllUsers(Allocation allocation) {
-	}
+    @Inject
+    MailerClient mailerClient;
 
-	/**
-	 * Verschickt an einen Benutzer (Betreuer oder Student) eine E-Mmail mit seinem zugeteilten Team/Project
-	 * 
-	 * @param allocation veröffentlichte Einteilung
-	 * @param user Benutzer, der benachrichtigt wird
-	 */
-	public void notifyUser(Allocation allocation, User user) {
-	}
+    public Notifier() {
+    }
 
-	/**
-	 * Verschickt ein neu generiertes Passwort an einen Benutzer.
-	 * 
-	 * @param user Benutzer, der das neue Passwort erhält
-	 */
-	public void sendNewPassword(User user) {
-	}
+    /**
+     * Verschickt an alle Benutzer (Betreuer und Studenten) eine E-Mail mit
+     * ihrem zugeteilten Team/Projekt.
+     * 
+     * @param allocation
+     *            veröffentlichte Einteilung
+     */
+    public void notifyAllUsers(Allocation allocation) {
+    }
 
-	/**
-	 * Verschickt eine email zur Verifikation der email-Adresse an einen Studenten.
-	 * 
-	 * @param student Student, der die email erhält
-	 */
-	public void sendVerificationMail(Student student) {
-	}
+    public void notifyStudent(Allocation allocation, Student student) {
+        String bodyText = Messages.get("email.notifyResultsStudent", student.getFirstName(), student.getLastName(),
+                allocation.getTeam(student).getProject().getName());
+        String subject = Messages.get("email.subjectResults");
+        this.sendEmail(subject, "TODO", student.getEmailAddress(), bodyText);
+    }
+
+    public void notifyAdviser(Allocation allocation, Adviser adviser) {
+        String memberList = "";
+        // TODO Warte auf methode getTamsByAdviser
+        String bodyText = Messages.get("email.notifyResultsAdviser", adviser.getFirstName(), adviser.getLastName(),
+                memberList);
+        String subject = Messages.get("email.subjectResults");
+        this.sendEmail(subject, "TODO", student.getEmailAddress(), bodyText);
+    }
+
+    public void sendAdviserPassword(Adviser adviser, String password) {
+        String bodyText = Messages.get("email.adviserPassword", adviser.getFirstName(), adviser.getLastName(),
+                password);
+        String subject = Messages.get("email.subjectAdviserPassword");
+        this.sendEmail(subject, "TODO", adviser.getEmailAddress(), bodyText);
+    }
+
+    /**
+     * Verschickt eine email zur Verifikation der email-Adresse an einen
+     * Studenten.
+     * 
+     * @param student
+     *            Student, der die email erhält
+     */
+    public void sendVerificationMail(Student student) {
+    }
+
+    private void sendEmail(String subject, String mailFrom, String mailTo, String bodyText) {
+        Email email = new Email().setSubject(subject).setFrom(mailFrom).addTo(mailTo).setBodyText(bodyText);
+        mailerClient.send(email);
+    }
 }
