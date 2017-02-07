@@ -21,6 +21,8 @@ import play.mvc.Http.Context;
 /**
  * Klasse die alle Benachrichtigungen der Benutzer (Studenten und Betreuer) per
  * E-Mail übernimmt.
+ * 
+ * TODO: Absenederadresse überall finalisieren.
  */
 public class Notifier {
 
@@ -49,12 +51,8 @@ public class Notifier {
         List<Student> students = GeneralData.loadInstance().getCurrentSemester()
                 .getStudents();
 
-        for (int i = 0; i < advisers.size(); i++) {
-            this.notifyAdviser(allocation, advisers.get(i));
-        }
-        for (int i = 0; i < students.size(); i++) {
-            this.notifyStudent(allocation, students.get(i));
-        }
+        advisers.forEach((adviser) -> notifyAdviser(allocation, adviser));
+        students.forEach((student) -> notifyStudent(allocation, student));
     }
 
     /**
@@ -68,7 +66,7 @@ public class Notifier {
      */
     public void notifyStudent(Allocation allocation, Student student) {
         String bodyText = ctx.messages().at("email.notifyResultsStudent",
-                student.getFirstName(), student.getLastName(),
+                student.getName(),
                 allocation.getTeam(student).getProject().getName());
         String subject = ctx.messages().at("email.subjectResults");
         this.sendEmail(subject, "TODO", student.getEmailAddress(), bodyText);
@@ -85,20 +83,19 @@ public class Notifier {
      */
     public void notifyAdviser(Allocation allocation, Adviser adviser) {
         String teamsList = "";
-        // TODO Warte auf methode getTamsByAdviser
         List<Team> advisersTeams = allocation.getTeamsByAdviser(adviser);
         for (int i = 0; i < advisersTeams.size(); i++) {
-            teamsList += advisersTeams.get(i).toStringForNotification();
+            teamsList += advisersTeams.get(i).toStringForNotification() + "\n";
         }
         String bodyText = ctx.messages().at("email.notifyResultsAdviser",
-                adviser.getFirstName(), adviser.getLastName(), teamsList);
+                adviser.getName(), teamsList);
         String subject = ctx.messages().at("email.subjectResults");
         this.sendEmail(subject, "TODO", adviser.getEmailAddress(), bodyText);
     }
 
     public void sendAdviserPassword(Adviser adviser, String password) {
         String bodyText = ctx.messages().at("email.adviserPassword",
-                adviser.getFirstName(), adviser.getLastName(), password);
+                adviser.getName(), password);
         String subject = ctx.messages().at("email.subjectAdviserPassword");
         this.sendEmail(subject, "TODO", adviser.getEmailAddress(), bodyText);
     }

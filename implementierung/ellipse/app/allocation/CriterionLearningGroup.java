@@ -19,7 +19,9 @@ import gurobi.GRBVar;
  */
 public class CriterionLearningGroup implements GurobiCriterion {
 
-    private String name;
+    private static final String DE_NAME = "Lerngruppe nicht trennen";
+    private static final String EN_NAME = "Do not split learning groups";
+    private String              name;
 
     /**
      * Standard-Konstruktor, der den Namen eindeutig setzt.
@@ -40,44 +42,54 @@ public class CriterionLearningGroup implements GurobiCriterion {
      * {@inheritDoc}
      */
     @Override
-    public void useCriteria(Configuration configuration, GurobiAllocator allocator, double weight) throws GRBException {
+    public void useCriteria(Configuration configuration,
+            GurobiAllocator allocator, double weight) throws GRBException {
         GRBLinExpr bonus = new GRBLinExpr();
 
         // Betrachte nur Lerngruppen mit mehr als einem Mitglied
-        List<LearningGroup> bigGroups = configuration.getLearningGroups().stream()
-                .filter(lg -> lg.getMembers().size() > 1).collect(Collectors.toList());
+        List<LearningGroup> bigGroups = configuration.getLearningGroups()
+                .stream().filter(lg -> lg.getMembers().size() > 1)
+                .collect(Collectors.toList());
         for (LearningGroup lg : bigGroups) {
-            double pairs = ((lg.getMembers().size() - 1) * lg.getMembers().size()) / 2;
+            double pairs = ((lg.getMembers().size() - 1)
+                    * lg.getMembers().size()) / 2;
 
             // Schleife durchläuft alle Paare von Studenten in der Lerngruppe
             for (int i = 0; i < lg.getMembers().size() - 1; i++) {
                 for (int j = i + 1; j < lg.getMembers().size(); j++) {
 
                     // finde Indizes der Mitglieder in Studentenliste
-                    int firstStudentIndex = configuration.getStudents().indexOf(lg.getMembers().get(i));
-                    int secondStudentIndex = configuration.getStudents().indexOf(lg.getMembers().get(j));
+                    int firstStudentIndex = configuration.getStudents()
+                            .indexOf(lg.getMembers().get(i));
+                    int secondStudentIndex = configuration.getStudents()
+                            .indexOf(lg.getMembers().get(j));
 
                     // Durchlaufe für jedes Paar, jedes Team
                     for (int t = 0; t < configuration.getTeams().size(); t++) {
                         GRBVar pairInSameTeam;
-                        pairInSameTeam = allocator.getModel().addVar(0, 1, 0, GRB.BINARY, GurobiAllocator.NULL);
+                        pairInSameTeam = allocator.getModel().addVar(0, 1, 0,
+                                GRB.BINARY, GurobiAllocator.NULL);
 
                         // Benötigte Teilterme für AND-Verknüpfung
                         GRBLinExpr leftSideFirstConstraint = new GRBLinExpr();
                         GRBLinExpr leftSideSecondConstraint = new GRBLinExpr();
 
-                        leftSideFirstConstraint.addTerm(1, allocator.getBasicMatrix()[firstStudentIndex][t]);
-                        leftSideFirstConstraint.addTerm(1, allocator.getBasicMatrix()[secondStudentIndex][t]);
+                        leftSideFirstConstraint.addTerm(1, allocator
+                                .getBasicMatrix()[firstStudentIndex][t]);
+                        leftSideFirstConstraint.addTerm(1, allocator
+                                .getBasicMatrix()[secondStudentIndex][t]);
                         leftSideFirstConstraint.addTerm(-2, pairInSameTeam);
 
                         leftSideSecondConstraint.addTerm(2, pairInSameTeam);
-                        leftSideSecondConstraint.addTerm(-1, allocator.getBasicMatrix()[firstStudentIndex][t]);
-                        leftSideSecondConstraint.addTerm(-1, allocator.getBasicMatrix()[secondStudentIndex][t]);
+                        leftSideSecondConstraint.addTerm(-1, allocator
+                                .getBasicMatrix()[firstStudentIndex][t]);
+                        leftSideSecondConstraint.addTerm(-1, allocator
+                                .getBasicMatrix()[secondStudentIndex][t]);
 
-                        allocator.getModel().addConstr(leftSideFirstConstraint, GRB.LESS_EQUAL, 1,
-                                GurobiAllocator.NULL);
-                        allocator.getModel().addConstr(leftSideSecondConstraint, GRB.LESS_EQUAL, 0,
-                                GurobiAllocator.NULL);
+                        allocator.getModel().addConstr(leftSideFirstConstraint,
+                                GRB.LESS_EQUAL, 1, GurobiAllocator.NULL);
+                        allocator.getModel().addConstr(leftSideSecondConstraint,
+                                GRB.LESS_EQUAL, 0, GurobiAllocator.NULL);
 
                         bonus.addTerm(weight * (10 / pairs), pairInSameTeam);
                     }
@@ -85,5 +97,15 @@ public class CriterionLearningGroup implements GurobiCriterion {
             }
         }
         allocator.getOptimizationTerm().add(bonus);
+    }
+
+    @Override
+    public String getDisplayName(String local) {
+        switch (local) {
+        case "de":
+            return DE_NAME;
+        default:
+            return EN_NAME;
+        }
     }
 }

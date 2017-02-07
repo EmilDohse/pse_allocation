@@ -14,7 +14,9 @@ import gurobi.GRBLinExpr;
  */
 public class CriterionRegisteredAgain implements GurobiCriterion {
 
-    private String name;
+    private static final String DE_NAME = "Bonus für Zweitanmeldung";
+    private static final String EN_NAME = "Bonus second registration";
+    private String              name;
 
     /**
      * Standard-Konstruktor, der den Namen eindeutig setzt.
@@ -35,17 +37,29 @@ public class CriterionRegisteredAgain implements GurobiCriterion {
      * {@inheritDoc}
      */
     @Override
-    public void useCriteria(Configuration configuration, GurobiAllocator allocator, double weight) throws GRBException {
+    public void useCriteria(Configuration configuration,
+            GurobiAllocator allocator, double weight) throws GRBException {
         GRBLinExpr bonus = new GRBLinExpr();
         for (int i = 0; i < configuration.getStudents().size(); i++) {
 
             // Betrachte nur Studenten, die sich erneut registriert haben
             if (configuration.getStudents().get(i).registeredMoreThanOnce()) {
                 for (int j = 0; j < configuration.getTeams().size(); j++) {
-                    bonus.addTerm(weight * 10, allocator.getBasicMatrix()[i][j]);
+                    bonus.addTerm(weight * 10,
+                            allocator.getBasicMatrix()[i][j]);
                 }
             }
         }
         allocator.getOptimizationTerm().add(bonus);
+    }
+
+    @Override
+    public String getDisplayName(String local) {
+        switch (local) {
+        case "de":
+            return DE_NAME;
+        default:
+            return EN_NAME;
+        }
     }
 }

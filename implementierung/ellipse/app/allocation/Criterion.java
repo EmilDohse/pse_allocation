@@ -12,4 +12,6 @@ public interface Criterion {
      * @return Der Name des Kriteriums.
      */
     public String getName();
+
+    public String getDisplayName(String local);
 }
