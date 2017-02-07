@@ -35,26 +35,24 @@ public class GeneralDataTest extends DataTest {
     @Test
     public void testSetSaveAndReload() {
         Semester semester = new Semester();
-        GeneralData.loadInstance().setCurrentSemester(semester);
-        GeneralData.loadInstance().save();
+        GeneralData testData = GeneralData.loadInstance();
+        testData.doTransaction(() -> {
+            testData.setCurrentSemester(semester);
+        });
         assertEquals(semester, GeneralData.loadInstance().getCurrentSemester());
-    }
-
-    @Test
-    public void testWithSemester() {
-        Semester s = new Semester();
-        GeneralData.loadInstance().setCurrentSemester(s);
-        GeneralData.loadInstance().save();
-        assertEquals(s, GeneralData.loadInstance().getCurrentSemester());
     }
 
     @Test
     public void testWithAllocation() {
         Semester s = new Semester();
         Allocation a = new Allocation();
-        s.setFinalAllocation(a);
-        GeneralData.loadInstance().setCurrentSemester(s);
-        GeneralData.loadInstance().save();
+        s.doTransaction(() -> {
+            s.setFinalAllocation(a);
+        });
+        GeneralData testData = GeneralData.loadInstance();
+        testData.doTransaction(() -> {
+            testData.setCurrentSemester(s);
+        });
         assertEquals(s, GeneralData.loadInstance().getCurrentSemester());
         assertEquals(a, s.getFinalAllocation());
     }
@@ -66,10 +64,16 @@ public class GeneralDataTest extends DataTest {
         Team t = new Team();
         List<Team> teams = new ArrayList<Team>();
         teams.add(t);
-        a.setTeams(teams);
-        s.setFinalAllocation(a);
-        GeneralData.loadInstance().setCurrentSemester(s);
-        GeneralData.loadInstance().save();
+        a.doTransaction(() -> {
+            a.setTeams(teams);
+        });
+        s.doTransaction(() -> {
+            s.setFinalAllocation(a);
+        });
+        GeneralData testData = GeneralData.loadInstance();
+        testData.doTransaction(() -> {
+            testData.setCurrentSemester(s);
+        });
         assertEquals(s, GeneralData.loadInstance().getCurrentSemester());
         assertEquals(a, s.getFinalAllocation());
         assertNotNull(a.getTeams());
@@ -86,14 +90,22 @@ public class GeneralDataTest extends DataTest {
         Project p = new Project();
         List<Student> students = new ArrayList<Student>();
         students.add(student);
-        t.setMembers(students);
-        t.setProject(p);
+        t.doTransaction(() -> {
+            t.setMembers(students);
+            t.setProject(p);
+        });
         List<Team> teams = new ArrayList<Team>();
         teams.add(t);
-        a.setTeams(teams);
-        s.setFinalAllocation(a);
-        GeneralData.loadInstance().setCurrentSemester(s);
-        GeneralData.loadInstance().save();
+        a.doTransaction(() -> {
+            a.setTeams(teams);
+        });
+        s.doTransaction(() -> {
+            s.setFinalAllocation(a);
+        });
+        GeneralData testData = GeneralData.loadInstance();
+        testData.doTransaction(() -> {
+            testData.setCurrentSemester(s);
+        });
         assertEquals(s, GeneralData.loadInstance().getCurrentSemester());
         assertEquals(a, s.getFinalAllocation());
         assertNotNull(a.getTeams());
