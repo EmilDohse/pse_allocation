@@ -175,6 +175,23 @@ public class Allocation extends ElipseModel {
     }
 
     /**
+     * Gibt alle Teams, die ein Adviser betreut zurück.
+     * 
+     * @param adviser
+     *            Betreuer, für den die Teams zurückgegeben werden.
+     * @return List der Teams, die der Adviser betreut.
+     */
+    public List<Team> getTeamsByAdviser(Adviser adviser) {
+        List<Team> teamsByAdviser = new ArrayList<Team>();
+        for (Team t : teams) {
+            if (t.getProject().getAdvisers().contains(adviser)) {
+                teamsByAdviser.add(t);
+            }
+        }
+        return teamsByAdviser;
+    }
+
+    /**
      * Diese Methode gibt alle Einteilungen zurück.
      * 
      * @return Alle Einteilungen.
