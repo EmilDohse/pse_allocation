@@ -51,14 +51,11 @@ public class AdviserPageController extends Controller {
         Menu menu = new AdviserMenu(ctx(), ctx().request().path());
         // kein Element ausgewählt
         if (id == -1) {
-            if (GeneralData.loadInstance().getCurrentSemester().getProjects()
-                    .size() == 0) {
-                play.twirl.api.Html content = views.html.adviserNoProject
-                        .render();
+            if (GeneralData.loadInstance().getCurrentSemester().getProjects().size() == 0) {
+                play.twirl.api.Html content = views.html.adviserNoProject.render();
                 return ok(views.html.adviser.render(menu, content));
             } else {
-                id = GeneralData.loadInstance().getCurrentSemester()
-                        .getProjects().get(0).getId();
+                id = GeneralData.loadInstance().getCurrentSemester().getProjects().get(0).getId();
             }
         }
 
@@ -70,15 +67,12 @@ public class AdviserPageController extends Controller {
         if (adviser.getProjects().contains(project)) { // Ist der Betreuer schon
                                                        // Betreuer des
                                                        // Projektes?
-            Allocation finalAlloc = GeneralData.loadInstance()
-                    .getCurrentSemester().getFinalAllocation();
+            Allocation finalAlloc = GeneralData.loadInstance().getCurrentSemester().getFinalAllocation();
             if (finalAlloc != null) { // Lade Seite, auf der der Betreuer seine
                                       // eingeteilten Teams sieht
-                content = views.html.adviserAllocationInfo.render(finalAlloc
-                        .getTeamsByProject(project));
+                content = views.html.adviserAllocationInfo.render(finalAlloc.getTeamsByProject(project));
             } else { // Lade Seite zum editieren der Projekteinstellungen
-                content = views.html.projectEdit.render(project, true,
-                        Adviser.getAdvisers());
+                content = views.html.projectEdit.render(project, true, Adviser.getAdvisers());
             }
         } else { // Lade Seite zum Beitreten zum Projekt, wenn er noch nicht
                  // Betreuer des Projektes ist
@@ -98,15 +92,13 @@ public class AdviserPageController extends Controller {
     public Result addProject() {
         UserManagement user = new UserManagement();
         Adviser adviser = (Adviser) user.getUserProfile(ctx());
-        Project project = new Project("new Project" + adviser.getFirstName()
-                + adviser.getLastName(), adviser);
+        Project project = new Project("new Project" + adviser.getFirstName() + adviser.getLastName(), adviser);
         project.save();
         Semester semester = GeneralData.loadInstance().getCurrentSemester();
         semester.doTransaction(() -> {
             semester.addProject(project);
         });
-        return redirect(controllers.routes.AdviserPageController
-                .projectsPage(project.getId()));
+        return redirect(controllers.routes.AdviserPageController.projectsPage(project.getId()));
     }
 
     /**
@@ -128,8 +120,7 @@ public class AdviserPageController extends Controller {
             project.delete();
         }
         return redirect(controllers.routes.AdviserPageController
-                .projectsPage(GeneralData.loadInstance().getCurrentSemester()
-                        .getProjects().get(0).getId()));
+                .projectsPage(GeneralData.loadInstance().getCurrentSemester().getProjects().get(0).getId()));
     }
 
     /**
@@ -162,16 +153,14 @@ public class AdviserPageController extends Controller {
         boolean isAdviser = adviser.getProjects().contains(project);
         if (!isAdviser) {
             // TODO fehlermeldung?
-            return redirect(controllers.routes.AdviserPageController
-                    .projectsPage(id));
+            return redirect(controllers.routes.AdviserPageController.projectsPage(id));
         }
         try {
             numberOfTeams = Integer.parseInt(numberOfTeamsString);
             minSize = Integer.parseInt(minSizeString);
             maxSize = Integer.parseInt(maxSizeString);
         } catch (NumberFormatException e) {
-            return redirect(controllers.routes.AdviserPageController
-                    .projectsPage(id));
+            return redirect(controllers.routes.AdviserPageController.projectsPage(id));
         }
 
         project.doTransaction(() -> {
@@ -184,8 +173,7 @@ public class AdviserPageController extends Controller {
             project.setProjectURL(url);
         });
 
-        return redirect(controllers.routes.AdviserPageController
-                .projectsPage(project.getId()));
+        return redirect(controllers.routes.AdviserPageController.projectsPage(project.getId()));
     }
 
     /**
@@ -211,8 +199,7 @@ public class AdviserPageController extends Controller {
         } else {
             // TODO error
         }
-        return redirect(controllers.routes.AdviserPageController
-                .projectsPage(project.getId()));
+        return redirect(controllers.routes.AdviserPageController.projectsPage(project.getId()));
     }
 
     /**
@@ -236,8 +223,7 @@ public class AdviserPageController extends Controller {
         } else {
             // TODO error
         }
-        return redirect(controllers.routes.AdviserPageController
-                .projectsPage(project.getId()));
+        return redirect(controllers.routes.AdviserPageController.projectsPage(project.getId()));
     }
 
     /**
@@ -259,12 +245,10 @@ public class AdviserPageController extends Controller {
         boolean isAdviser = adviser.getProjects().contains(project);
         if (!isAdviser) {
             // TODO fehlermeldung?
-            return redirect(controllers.routes.AdviserPageController
-                    .projectsPage(id));
+            return redirect(controllers.routes.AdviserPageController.projectsPage(id));
         }
         // Dies nur ausführen, falls Betreuer wirklich zum Projekt gehört
-        Allocation finalAlloc = GeneralData.loadInstance().getCurrentSemester()
-                .getFinalAllocation();
+        Allocation finalAlloc = GeneralData.loadInstance().getCurrentSemester().getFinalAllocation();
         if (finalAlloc == null) {
             // TODO error
         }
@@ -274,13 +258,10 @@ public class AdviserPageController extends Controller {
                 int pseGrade;
                 int tseGrade;
                 try {
-                    pseGrade = Integer.parseInt(form.get(student.getId()
-                            + "-pseGrade"));
-                    tseGrade = Integer.parseInt(form.get(student.getId()
-                            + "-tseGrade"));
+                    pseGrade = Integer.parseInt(form.get(student.getId() + "-pseGrade"));
+                    tseGrade = Integer.parseInt(form.get(student.getId() + "-tseGrade"));
                 } catch (NumberFormatException e) {
-                    return redirect(controllers.routes.AdviserPageController
-                            .projectsPage(id));
+                    return redirect(controllers.routes.AdviserPageController.projectsPage(id));
                 }
                 student.doTransaction(() -> {
                     student.setGradePSE(Grade.getGradeByNumber(pseGrade));
@@ -288,8 +269,7 @@ public class AdviserPageController extends Controller {
                 });
             }
         }
-        return redirect(controllers.routes.AdviserPageController
-                .projectsPage(id));
+        return redirect(controllers.routes.AdviserPageController.projectsPage(id));
     }
 
     /**
@@ -317,12 +297,15 @@ public class AdviserPageController extends Controller {
         DynamicForm form = formFactory.form().bindFromRequest();
 
         if (form.get("passwordChange") != null) {
+            String oldpw = form.get("oldPassword");
             String pw = form.get("newPassword");
             String pwrepeat = form.get("newPasswordRepeat");
-            if (!pw.equals(pwrepeat)) {
+
+            boolean matches = new BlowfishPasswordEncoder().matches(oldpw, adviser.getPassword());
+
+            if (!pw.equals(pwrepeat) || !matches) {
                 // TODO error message
-                return redirect(controllers.routes.AdviserPageController
-                        .accountPage("error"));
+                return redirect(controllers.routes.AdviserPageController.accountPage("error"));
             }
             String pwEnc = new BlowfishPasswordEncoder().encode(pw);
             adviser.doTransaction(() -> {
@@ -336,7 +319,6 @@ public class AdviserPageController extends Controller {
             });
             // TODO hier verifikation
         }
-        return redirect(controllers.routes.AdviserPageController
-                .accountPage(""));
+        return redirect(controllers.routes.AdviserPageController.accountPage(""));
     }
 }
