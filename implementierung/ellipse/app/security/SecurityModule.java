@@ -61,6 +61,8 @@ public class SecurityModule extends AbstractModule {
         config.setHttpActionAdapter(new DefaultHttpActionAdapter());
         bind(Config.class).toInstance(config);
 
+        // Setzt die Config in ein Singelton damit das UserManagement keine
+        // NullpointerException wirft, da Dependency Injection nicht immer tut
         ConfigSingleton.setConfig(config);
 
         CallbackController callbackController = new CallbackController();

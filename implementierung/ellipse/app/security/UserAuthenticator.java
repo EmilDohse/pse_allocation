@@ -61,22 +61,6 @@ public class UserAuthenticator
                 }
             }
         }
-        for (User u : Student.getStudents()) {
-            if (credentials.getUsername().equals(u.getUserName())) {
-                if (encoder.matches(credentials.getPassword(),
-                        u.getPassword())) {
-                    UserProfile profile = new UserProfile(u);
-                    profile.addRole("ROLE_STUDENT_OLD");
-                    credentials.setUserProfile(profile);
-                    context.setSessionAttribute(Pac4jConstants.REQUESTED_URL,
-                            "/changeForm");
-                    return;
-                } else {
-                    throw new BadCredentialsException("Bad credentials for: "
-                            + credentials.getUsername());
-                }
-            }
-        }
         for (User u : Adviser.getAdvisers()) {
             if (credentials.getUsername().equals(u.getUserName())) {
                 if (encoder.matches(credentials.getPassword(),
@@ -86,6 +70,22 @@ public class UserAuthenticator
                     credentials.setUserProfile(profile);
                     context.setSessionAttribute(Pac4jConstants.REQUESTED_URL,
                             "/adviser");
+                    return;
+                } else {
+                    throw new BadCredentialsException("Bad credentials for: "
+                            + credentials.getUsername());
+                }
+            }
+        }
+        for (User u : Student.getStudents()) {
+            if (credentials.getUsername().equals(u.getUserName())) {
+                if (encoder.matches(credentials.getPassword(),
+                        u.getPassword())) {
+                    UserProfile profile = new UserProfile(u);
+                    profile.addRole("ROLE_STUDENT_OLD");
+                    credentials.setUserProfile(profile);
+                    context.setSessionAttribute(Pac4jConstants.REQUESTED_URL,
+                            "/studentOld/changeForm");
                     return;
                 } else {
                     throw new BadCredentialsException("Bad credentials for: "

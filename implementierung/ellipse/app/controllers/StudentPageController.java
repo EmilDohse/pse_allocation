@@ -41,28 +41,6 @@ public class StudentPageController extends Controller {
     FormFactory formFactory;
 
     /**
-     * Auf diese Seite wird der Student beim anmelden weitergeleitet, um zu
-     * checken, ob der Student im aktuellen Semester drin ist oder nicht. Fall
-     * er im aktuellen Semester ist, wird er ins Studentenportal weitergeleitet,
-     * ansonsten muss er erst ein Formular für die Datenaktualisierung
-     * ausfüllen.
-     * 
-     * @return Die Seite auf die er weitergeleitet wird.
-     */
-    public Result checkStudent() {
-        Student student = (Student) new UserManagement().getUserProfile(ctx());
-        if (GeneralData.loadInstance().getCurrentSemester().getStudents()
-                .contains(student)) {
-            return redirect(
-                    controllers.routes.StudentPageController.learningGroupPage(
-                            ctx().messages().at("error.internalError")));
-        } else {
-            return redirect(controllers.routes.StudentPageController
-                    .changeFormPage(""));
-        }
-    }
-
-    /**
      * Diese Seite stellt das Formular dar, das ein Student ausfüllen muss, wenn
      * er zwar einen Account hat, aber nicht im aktuellen PSE-Semester ist. Hier
      * darf er dann seine Studierendendaten aktualisieren.
@@ -113,8 +91,8 @@ public class StudentPageController extends Controller {
                             .createAchievementList(form, "completed-"
                                     + spoIdString + "-multiselect");
                 } catch (NumberFormatException e) {
-                    return redirect(controllers.routes.IndexPageController
-                            .registerPage(ctx().messages()
+                    return redirect(controllers.routes.StudentPageController
+                            .changeFormPage(ctx().messages()
                                     .at("error.internalError")));
                 }
                 try {
@@ -122,22 +100,22 @@ public class StudentPageController extends Controller {
                             .createAchievementList(form,
                                     "due-" + spoIdString + "-multiselect");
                 } catch (NumberFormatException e) {
-                    return redirect(controllers.routes.IndexPageController
-                            .registerPage(ctx().messages()
+                    return redirect(controllers.routes.StudentPageController
+                            .changeFormPage(ctx().messages()
                                     .at("error.internalError")));
                 }
 
                 // TODO: Daten ändern im Studenten (bekommt man heraus über das
                 // UserManagement) und Student zum aktuellen Semester
-                // hinzufügen???
-
+                // hinzufügen??? und im UserManagement addRole... ausführen
+                // redirect umändern zu learningGroupPage
                 return redirect(controllers.routes.IndexPageController
                         .registerPage(ctx().messages()
                                 .at("index.registration.error.genError")));
 
             } catch (NumberFormatException e) {
-                return redirect(controllers.routes.IndexPageController
-                        .registerPage(ctx().messages()
+                return redirect(controllers.routes.StudentPageController
+                        .changeFormPage(ctx().messages()
                                 .at("index.registration.error.genError")));
 
             }
