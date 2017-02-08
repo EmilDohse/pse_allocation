@@ -25,6 +25,8 @@ import play.mvc.Result;
  * abgeschickt werden.
  */
 public class AdminProjectController extends Controller {
+	
+	private static final String INTERNAL_ERROR = "error.internalError";
 
     @Inject
     FormFactory formFactory;
@@ -37,6 +39,10 @@ public class AdminProjectController extends Controller {
      */
     public Result addProject() {
         DynamicForm form = formFactory.form().bindFromRequest();
+        if (form.data().isEmpty()) {
+            return badRequest(ctx().messages().at(
+            		INTERNAL_ERROR));
+        }
         String projName = form.get("name");
         Project project = new Project(projName, "", "", "");
         project.save();
@@ -57,6 +63,10 @@ public class AdminProjectController extends Controller {
      */
     public Result removeProject() {
         DynamicForm form = formFactory.form().bindFromRequest();
+        if (form.data().isEmpty()) {
+            return badRequest(ctx().messages().at(
+            		INTERNAL_ERROR));
+        }
         Project project = ElipseModel.getById(Project.class, Integer.parseInt(form.get("id")));
         // TODO hier eine warnmeldung ausgeben ob das projekt wirklich gelöscht
         // werden soll
@@ -76,6 +86,10 @@ public class AdminProjectController extends Controller {
     public Result editProject() {
         // die projektdaten werden aus dem formular ausgelesen
         DynamicForm form = formFactory.form().bindFromRequest();
+        if (form.data().isEmpty()) {
+            return badRequest(ctx().messages().at(
+            		INTERNAL_ERROR));
+        }
         String projName = form.get("name");
         String url = form.get("url");
         String institute = form.get("institute");
@@ -109,7 +123,8 @@ public class AdminProjectController extends Controller {
             advisers.add(ElipseModel.getById(Adviser.class, adviserId));
         }
         if (minSize > maxSize) {
-            // TODO redirect error
+        	return redirect(controllers.routes.IndexPageController
+                    .registerPage(ctx().messages().at("index.registration.error.minMax")));
         }
 
         // und dem projekt hinzugefügt
