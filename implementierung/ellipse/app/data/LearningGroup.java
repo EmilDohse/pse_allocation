@@ -62,15 +62,15 @@ public class LearningGroup extends ElipseModel {
     public LearningGroup(String name, String password) {
         this.name = name;
         this.password = password;
+        this.members = new ArrayList<Student>();
+        this.ratings = new ArrayList<Rating>();
     }
 
-    public LearningGroup(String name, String password, Student member, boolean isPrivate) {
+    public LearningGroup(String name, String password, Student member,
+            boolean isPrivate) {
         this(name, password);
-        members = new ArrayList<Student>();
-        members.add(member);
-        ratings = new ArrayList<Rating>();
+        members.add(member); // TODO wirft NullPointer
         this.isPrivate = isPrivate;
-        this.setMembers(members);
     }
 
     public Semester getSemester() {
@@ -273,7 +273,8 @@ public class LearningGroup extends ElipseModel {
      *         wird.
      */
     public static LearningGroup getLearningGroup(String name, Semester semester) {
-        return semester.getLearningGroups().stream().filter(group -> group.getName().equals(name)).findFirst()
+        return semester.getLearningGroups().stream()
+                .filter(group -> group.getName().equals(name)).findFirst()
                 .orElse(null);
     }
 
