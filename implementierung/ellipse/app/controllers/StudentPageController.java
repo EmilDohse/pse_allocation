@@ -41,15 +41,36 @@ public class StudentPageController extends Controller {
     FormFactory formFactory;
 
     /**
+     * Auf diese Seite wird der Student beim anmelden weitergeleitet, um zu
+     * checken, ob der Student im aktuellen Semester drin ist oder nicht. Fall
+     * er im aktuellen Semester ist, wird er ins Studentenportal weitergeleitet,
+     * ansonsten muss er erst ein Formular für die Datenaktualisierung
+     * ausfüllen.
      * 
-     * @return
+     * @return Die Seite auf die er weitergeleitet wird.
      */
     public Result checkStudent() {
-        // TODO checken ob alter student oder neuer und passend weiterleiten
-        //
-        return null;
+        Student student = (Student) new UserManagement().getUserProfile(ctx());
+        if (GeneralData.loadInstance().getCurrentSemester().getStudents()
+                .contains(student)) {
+            return redirect(
+                    controllers.routes.StudentPageController.learningGroupPage(
+                            ctx().messages().at("error.internalError")));
+        } else {
+            return redirect(controllers.routes.StudentPageController
+                    .changeFormPage(""));
+        }
     }
 
+    /**
+     * Diese Seite stellt das Formular dar, das ein Student ausfüllen muss, wenn
+     * er zwar einen Account hat, aber nicht im aktuellen PSE-Semester ist. Hier
+     * darf er dann seine Studierendendaten aktualisieren.
+     * 
+     * @param error
+     *            Fehlermeldung, die angezeigt werden soll
+     * @return Die Seite, die angezeigt wird.
+     */
     public Result changeFormPage(String error) {
         play.twirl.api.Html content = views.html.studentChangeData.render(
                 GeneralData.loadInstance().getCurrentSemester().getSpos(),
@@ -58,27 +79,23 @@ public class StudentPageController extends Controller {
         return ok(views.html.student.render(menu, content));
     }
 
+    /**
+     * Hier wird das Formular aus {@code changeFormPage} ausgewertet und er wird
+     * wenn alles korrekt ist in das Studentenportal weitergeleitet wird.
+     * 
+     * @return die Seite, die angezeigt wird.
+     */
     public Result changeData() {
         DynamicForm form = formFactory.form().bindFromRequest();
         if (form.data().size() == 0) {
             return badRequest("Expceting some data");
         } else {
             // die felder werden ausgelesen
-            String firstName = form.get("firstName");
-            String lastName = form.get("lastName");
-            String email = form.get("email");
-            String password = form.get("pw");
-            String pwRepeat = form.get("rpw");
-            String matNrString = "";
             String semesterString = form.get("semester");
             String spoIdString = form.get("spo");
             int spoId;
             int semester = -1;
-            int matNr = -1;
             try {
-                // die matrikelnummer wird geparst
-                matNrString = form.get("matrnr");
-                matNr = Integer.parseInt(matNrString);
                 semester = Integer.parseInt(semesterString);
                 spoId = Integer.parseInt(spoIdString);
                 SPO spo = ElipseModel.getById(SPO.class, spoId);
@@ -110,39 +127,10 @@ public class StudentPageController extends Controller {
                                     .at("error.internalError")));
                 }
 
-                if (password.equals(pwRepeat) && trueData) {
-                    // wenn der student bestätigt hat das seine angaben richtig
-                    // sind und die passwörter übereinstimmen wird ein neuer
-                    // student hinzugefügt
-                    if (Student.getStudent(matNr) == null) {
-                        String encPassword = new BlowfishPasswordEncoder()
-                                .encode(password);
-                        Student student = new Student(matNrString, encPassword,
-                                email, firstName, lastName, matNr, spo,
-                                completedAchievements, nonCompletedAchievements,
-                                semester);
-                        student.save();
-                        // TODO get student data from view
-                        Semester currentSemester = GeneralData.loadInstance()
-                                .getCurrentSemester();
-                        currentSemester.doTransaction(() -> {
-                            currentSemester.addStudent(student);
-                        });
-                        return redirect(controllers.routes.IndexPageController
-                                .indexPage("error"));
-                        // TODO falls nötig noch emial verification einleiten
-                    } else {
+                // TODO: Daten ändern im Studenten (bekommt man heraus über das
+                // UserManagement) und Student zum aktuellen Semester
+                // hinzufügen???
 
-                        // falls bereits ein studnent mit dieser matrikelnumer
-                        // im system existiert kann sich der student nicht
-                        // registrieren
-                        return redirect(controllers.routes.IndexPageController
-                                .registerPage(ctx().messages().at(
-                                        "index.registration.error.matNrExists")));
-                    }
-                }
-
-                // TODO braucht man hmehr als nur eine gererelle fehlermeldung?
                 return redirect(controllers.routes.IndexPageController
                         .registerPage(ctx().messages()
                                 .at("index.registration.error.genError")));
@@ -154,6 +142,7 @@ public class StudentPageController extends Controller {
 
             }
         }
+
     }
 
     /**
