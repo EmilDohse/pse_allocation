@@ -72,9 +72,10 @@ adviser.account.newPasswordRepeat = Neues Passwort wiederholen
 adviser.allocationInfo.name = Name
 adviser.allocationInfo.learningGroup = Lerngruppe
 adviser.allocationInfo.rating = Bewertung
-adviser.allocationInfo.oralDue = Mündliche Prüfung noch ausstehend
+adviser.allocationInfo.oralDue = Mündliche Prüfungen noch ausstehend
 adviser.allocationInfo.gradePSE = Note PSE
 adviser.allocationInfo.gradeTSE = Note TSE
+adviser.allocationInfo.setRatings = Noten eintragen
 
 admin.title = Elipse - Adminstration
 admin.sidebar.adviser = Projektleiter

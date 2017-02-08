@@ -1,36 +1,56 @@
 @(teams: List[data.Team])
-<h1>teams[0].getProject().getName()</h1>
-@for(team <- teams) {
-<h3>Team #@team.getTeamNumber()</h3>
-<table class="table table-striped">
-	<thead>
-		<tr>
-			<th>@Messages("adviser.allocationInfo.name")</th>
-			<th>@Messages("index.registration.form.matrnr")</th>
-			<th>@Messages("index.registration.form.email")</th>
-			<th>@Messages("index.registration.form.semester")</th>
-			<th>@Messages("adviser.allocationInfo.learningGroup")</th>
-			<th>@Messages("adviser.allocationInfo.rating")</th>
-			<th>@Messages("adviser.allocationInfo.oralDue")</th>
-			<th>@Messages("adviser.allocationInfo.gradePSE")</th>
-			<th>@Messages("adviser.allocationInfo.gradeTSE")</th>
-		</tr>
-	</thead>
-	<tbody>
-		@for(member <- team.getMembers()) {
-		<tr>
-			<td>@member.getName()</td>
-			<td>@member.getMatriculationNumber()</td>
-			<td>@member.getEmailAddress()</td>
-			<td>@member.getSemester()</td>
-			<td>@data.GeneralData.loadInstance().getCurrentSemester().getLearningGroupOf(member).getName()</td>
-			<td>@data.GeneralData.loadInstance().getCurrentSemester().getLearningGroupOf(member).getRating(team.getProject())</td>
-			<td>@member.getOralTestAchievements().size()</td>
-			<!-- TODO: Inputs für Noten passen machen und Rating nicht als Zahl anzeigen. -->
-			<td></td>
-			<td></td>
-		</tr>
-		}
-	</tbody>
-</table>
-}
+<h1>@teams.head.getProject().getName()</h1>
+<form
+	action="@controllers.routes.AdviserPageController.saveStudentsGrades().path()"
+	method="POST">
+	<input type="hidden" name="id" id="id"
+			value="@teams.head.getProject().getId()">
+	@for(team <- teams) {
+	<h3>Team #@team.getTeamNumber()</h3>
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>@Messages("adviser.allocationInfo.name")</th>
+				<th>@Messages("index.registration.form.matrnr")</th>
+				<th>@Messages("index.registration.form.email")</th>
+				<th>@Messages("index.registration.form.semester")</th>
+				<th>@Messages("adviser.allocationInfo.learningGroup")</th>
+				<th>@Messages("adviser.allocationInfo.rating")</th>
+				<th>@Messages("adviser.allocationInfo.oralDue")</th>
+				<th>@Messages("adviser.allocationInfo.gradePSE")</th>
+				<th>@Messages("adviser.allocationInfo.gradeTSE")</th>
+			</tr>
+		</thead>
+		<tbody>
+			@for(member <- team.getMembers()) {
+			<tr>
+				<td>@member.getName()</td>
+				<td>@member.getMatriculationNumber()</td>
+				<td>@member.getEmailAddress()</td>
+				<td>@member.getSemester()</td>
+				<td>@data.GeneralData.loadInstance().getCurrentSemester().getLearningGroupOf(member).getName()</td>
+				<td>@views.RatingDisplay.getRepresentationByNumber(data.GeneralData.loadInstance().getCurrentSemester().getLearningGroupOf(member).getRating(team.getProject()))</td>
+				<td>@member.getOralTestAchievements().size()</td>
+				<td><select name="@member.getId()-pseGrade"> @for(grade <-
+						data.Grade.values()) { @if(grade.equals(member.getGradePSE())) {
+						<option value="@grade.getNumber()" selected>@grade.getName()</option>
+						} else {
+						<option value="@grade.getNumber()">@grade.getName()</option> } }
+				</select></td>
+				<td><select name="@member.getId()-tseGrade"> @for(grade <-
+						data.Grade.values()) { @if(grade.equals(member.getGradeTSE())) {
+						<option value="@grade.getNumber()" selected>@grade.getName()</option>
+						} else {
+						<option value="@grade.getNumber()">@grade.getName()</option> } }
+				</select></td>
+			</tr>
+			}
+		</tbody>
+	</table>
+	<div class="form-group">
+		<div class="col-sm-offset-10 col-sm-2">
+			<button type="submit" class="btn btn-primary">@Messages("adviser.allocationInfo.setRatings")</button>
+		</div>
+	</div>
+	}
+</form>
