@@ -4,7 +4,9 @@
 
 package notificationSystem;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -13,8 +15,8 @@ import data.Allocation;
 import data.GeneralData;
 import data.Student;
 import data.Team;
-import play.libs.mailer.MailerClient;
-import play.libs.mailer.Email;
+import play.Configuration;
+import play.libs.mailer.*;
 import play.mvc.Http.Context;
 
 /************************************************************/
@@ -27,7 +29,7 @@ import play.mvc.Http.Context;
 public class Notifier {
 
     @Inject
-    MailerClient          mailerClient;
+    MailerClient          mailer;
 
     private final Context ctx;
 
@@ -46,10 +48,8 @@ public class Notifier {
      *            veröffentlichte Einteilung
      */
     public void notifyAllUsers(Allocation allocation) {
-        List<Adviser> advisers = GeneralData.loadInstance().getCurrentSemester()
-                .getAdvisers();
-        List<Student> students = GeneralData.loadInstance().getCurrentSemester()
-                .getStudents();
+        List<Adviser> advisers = GeneralData.loadInstance().getCurrentSemester().getAdvisers();
+        List<Student> students = GeneralData.loadInstance().getCurrentSemester().getStudents();
 
         advisers.forEach((adviser) -> notifyAdviser(allocation, adviser));
         students.forEach((student) -> notifyStudent(allocation, student));
@@ -65,8 +65,7 @@ public class Notifier {
      *            Der zu benachrichtigende Student
      */
     public void notifyStudent(Allocation allocation, Student student) {
-        String bodyText = ctx.messages().at("email.notifyResultsStudent",
-                student.getName(),
+        String bodyText = ctx.messages().at("email.notifyResultsStudent", student.getName(),
                 allocation.getTeam(student).getProject().getName());
         String subject = ctx.messages().at("email.subjectResults");
         this.sendEmail(subject, "TODO", student.getEmailAddress(), bodyText);
@@ -87,15 +86,13 @@ public class Notifier {
         for (int i = 0; i < advisersTeams.size(); i++) {
             teamsList += advisersTeams.get(i).toStringForNotification() + "\n";
         }
-        String bodyText = ctx.messages().at("email.notifyResultsAdviser",
-                adviser.getName(), teamsList);
+        String bodyText = ctx.messages().at("email.notifyResultsAdviser", adviser.getName(), teamsList);
         String subject = ctx.messages().at("email.subjectResults");
         this.sendEmail(subject, "TODO", adviser.getEmailAddress(), bodyText);
     }
 
     public void sendAdviserPassword(Adviser adviser, String password) {
-        String bodyText = ctx.messages().at("email.adviserPassword",
-                adviser.getName(), password);
+        String bodyText = ctx.messages().at("email.adviserPassword", adviser.getName(), password);
         String subject = ctx.messages().at("email.subjectAdviserPassword");
         this.sendEmail(subject, "TODO", adviser.getEmailAddress(), bodyText);
     }
@@ -110,10 +107,11 @@ public class Notifier {
     public void sendVerificationMail(Student student) {
     }
 
-    private void sendEmail(String subject, String mailFrom, String mailTo,
-            String bodyText) {
-        Email email = new Email().setSubject(subject).setFrom(mailFrom)
-                .addTo(mailTo).setBodyText(bodyText);
-        mailerClient.send(email);
+    private void sendEmail(String subject, String mailFrom, String mailTo, String bodyText) {
+        Email email = new Email().setSubject(subject);
+        email.setFrom(mailFrom);
+        email.addTo(mailTo);
+        email.setBodyText(bodyText);
+        mailer.send(email);
     }
 }
