@@ -51,7 +51,8 @@ public class Allocation extends ElipseModel {
      * @param parameters
      *            Die eingestellten Parameter
      */
-    public Allocation(List<Team> teams, String name, List<AllocationParameter> parameters) {
+    public Allocation(List<Team> teams, String name,
+            List<AllocationParameter> parameters) {
         this.teams = teams;
         this.name = name;
         this.parameters = parameters;
@@ -59,6 +60,23 @@ public class Allocation extends ElipseModel {
 
     public Allocation() {
         this(new ArrayList<>(), "default_name", new ArrayList<>());
+    }
+
+    public Allocation(Allocation a) {
+        teams = new ArrayList<Team>();
+        for (Team t : a.getTeams()) {
+            Team newTeam = new Team(t.getProject(), t.getMembers());
+            newTeam.save();
+            teams.add(newTeam);
+        }
+        parameters = new ArrayList<AllocationParameter>();
+        for (AllocationParameter p : a.getParameters()) {
+            AllocationParameter newParameter = new AllocationParameter(
+                    p.getName(), p.getValue());
+            newParameter.save();
+            parameters.add(newParameter);
+        }
+        name = "cloned" + a.getName();
     }
 
     public Semester getSemester() {
@@ -192,6 +210,36 @@ public class Allocation extends ElipseModel {
     }
 
     /**
+     * Gibt alle Teams von einem Projekt zurück.
+     * 
+     * @param project
+     *            Projekt, für das die Teams zurückgegeben werden.
+     * @return List der Teams von dem Projekt.
+     */
+    public List<Team> getTeamsByProject(Project project) {
+        List<Team> teamsByProject = new ArrayList<Team>();
+        for (Team t : teams) {
+            if (t.getProject().equals(project)) {
+                teamsByProject.add(t);
+            }
+        }
+        return teamsByProject;
+    }
+
+    /**
+     * Gibt eine Liste aller nicht zugeteilten Studenten zurück.
+     * 
+     * @return nicht zugeteilte Studenten.
+     */
+    public List<Student> getNotAllocatedStudents() {
+        List<Student> students = semester.getStudents();
+        for (Team t : teams) {
+            students.removeAll(t.getMembers());
+        }
+        return students;
+    }
+
+    /**
      * Diese Methode gibt alle Einteilungen zurück.
      * 
      * @return Alle Einteilungen.
@@ -210,8 +258,9 @@ public class Allocation extends ElipseModel {
      *         Einteilung diesen Namen hat.
      */
     public static Allocation getAllocation(String name) {
-        return getAllocations().stream().filter(allocation -> allocation.getName().equals(name)).findFirst()
-                .orElse(null);
+        return getAllocations().stream()
+                .filter(allocation -> allocation.getName().equals(name))
+                .findFirst().orElse(null);
     }
 
 }
