@@ -32,6 +32,8 @@ import views.Menu;
  * im Betreuerbereich aufkommen.
  */
 public class AdviserPageController extends Controller {
+	
+	private static final String INTERNAL_ERROR = "error.internalError";
 
     @Inject
     FormFactory formFactory;
@@ -64,9 +66,8 @@ public class AdviserPageController extends Controller {
         UserManagement user = new UserManagement();
         Adviser adviser = (Adviser) user.getUserProfile(ctx());
         play.twirl.api.Html content;
-        if (adviser.getProjects().contains(project)) { // Ist der Betreuer schon
-                                                       // Betreuer des
-                                                       // Projektes?
+        if (adviser.getProjects().contains(project)) {
+        	// Ist der Betreuer schon Betreuer des Projektes?
             Allocation finalAlloc = GeneralData.loadInstance().getCurrentSemester().getFinalAllocation();
             if (finalAlloc != null) { // Lade Seite, auf der der Betreuer seine
                                       // eingeteilten Teams sieht
@@ -113,6 +114,10 @@ public class AdviserPageController extends Controller {
         UserManagement user = new UserManagement();
         Adviser adviser = (Adviser) user.getUserProfile(ctx());
         DynamicForm form = formFactory.form().bindFromRequest();
+        if (form.data().isEmpty()) {
+            return badRequest(ctx().messages().at(
+            		INTERNAL_ERROR));
+        }
         int id = Integer.parseInt(form.get("id"));
         Project project = ElipseModel.getById(Project.class, id);
         if (adviser.getProjects().contains(project)) {
@@ -137,6 +142,10 @@ public class AdviserPageController extends Controller {
         Adviser adviser = (Adviser) user.getUserProfile(ctx());
         // alle daten werden aus formular ausgelesen
         DynamicForm form = formFactory.form().bindFromRequest();
+        if (form.data().isEmpty()) {
+            return badRequest(ctx().messages().at(
+            		INTERNAL_ERROR));
+        }
         String projName = form.get("name");
         String url = form.get("url");
         String institute = form.get("institute");
@@ -190,6 +199,10 @@ public class AdviserPageController extends Controller {
         UserManagement user = new UserManagement();
         Adviser adviser = (Adviser) user.getUserProfile(ctx());
         DynamicForm form = formFactory.form().bindFromRequest();
+        if (form.data().isEmpty()) {
+            return badRequest(ctx().messages().at(
+            		INTERNAL_ERROR));
+        }
         int id = Integer.parseInt(form.get("id"));
         Project project = ElipseModel.getById(Project.class, id);
         if (!adviser.getProjects().contains(project)) {
@@ -214,6 +227,10 @@ public class AdviserPageController extends Controller {
         UserManagement user = new UserManagement();
         Adviser adviser = (Adviser) user.getUserProfile(ctx());
         DynamicForm form = formFactory.form().bindFromRequest();
+        if (form.data().isEmpty()) {
+            return badRequest(ctx().messages().at(
+            		INTERNAL_ERROR));
+        }
         int id = Integer.parseInt(form.get("id"));
         Project project = ElipseModel.getById(Project.class, id);
         if (adviser.getProjects().contains(project)) {
@@ -239,6 +256,10 @@ public class AdviserPageController extends Controller {
         Adviser adviser = (Adviser) user.getUserProfile(ctx());
         // alle daten werden aus formular ausgelesen
         DynamicForm form = formFactory.form().bindFromRequest();
+        if (form.data().isEmpty()) {
+            return badRequest(ctx().messages().at(
+            		INTERNAL_ERROR));
+        }
         String idString = form.get("id");
         int id = Integer.parseInt(idString);
         Project project = ElipseModel.getById(Project.class, id);
@@ -295,8 +316,13 @@ public class AdviserPageController extends Controller {
         UserManagement user = new UserManagement();
         Adviser adviser = (Adviser) user.getUserProfile(ctx());
         DynamicForm form = formFactory.form().bindFromRequest();
+        if (form.data().isEmpty()) {
+            return badRequest(ctx().messages().at(
+            		INTERNAL_ERROR));
+        }
 
         if (form.get("passwordChange") != null) {
+            System.out.println("passwordChange1");
             String oldpw = form.get("oldPassword");
             String pw = form.get("newPassword");
             String pwrepeat = form.get("newPasswordRepeat");
@@ -304,6 +330,7 @@ public class AdviserPageController extends Controller {
             boolean matches = new BlowfishPasswordEncoder().matches(oldpw, adviser.getPassword());
 
             if (!pw.equals(pwrepeat) || !matches) {
+                System.out.println("passwordChange2");
                 // TODO error message
                 return redirect(controllers.routes.AdviserPageController.accountPage("error"));
             }

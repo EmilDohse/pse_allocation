@@ -30,6 +30,8 @@ import play.mvc.Result;
 public class AdminPropertiesController extends Controller {
 
     private static final String GENERAL_ERROR = "admin.allocation.error.generalError";
+    private static final String GEN_ERROR = "index.registration.error.genError";
+    private static final String INTERNAL_ERROR = "error.internalError";
 
     @Inject
     FormFactory                 formFactory;
@@ -57,6 +59,10 @@ public class AdminPropertiesController extends Controller {
      */
     public Result removeSemester() {
         DynamicForm form = formFactory.form().bindFromRequest();
+        if (form.data().isEmpty()) {
+            return badRequest(ctx().messages().at(
+            		INTERNAL_ERROR));
+        }
         String semesterIdString = form.get("id");
         int semesterId;
         try {
@@ -91,6 +97,10 @@ public class AdminPropertiesController extends Controller {
      */
     public Result removeSPO() {
         DynamicForm form = formFactory.form().bindFromRequest();
+        if (form.data().isEmpty()) {
+            return badRequest(ctx().messages().at(
+            		INTERNAL_ERROR));
+        }
         String spoIdString = form.get("id");
         int spoId;
         try {
@@ -111,6 +121,10 @@ public class AdminPropertiesController extends Controller {
      */
     public Result editSemester() {
         DynamicForm form = formFactory.form().bindFromRequest();
+        if (form.data().isEmpty()) {
+            return badRequest(ctx().messages().at(
+            		INTERNAL_ERROR));
+        }
         String name = form.get("name2");
         String yearString = form.get("year");
         String idString = form.get("id");
@@ -125,7 +139,7 @@ public class AdminPropertiesController extends Controller {
                 usedSPOs.add(ElipseModel.getById(SPO.class, Integer.parseInt(spoIdString)));
             } catch (NumberFormatException e) {
                 return redirect(controllers.routes.IndexPageController
-                        .registerPage(ctx().messages().at("index.registration.error.genError")));
+                        .registerPage(ctx().messages().at(GEN_ERROR)));
             }
         }
 
@@ -134,8 +148,8 @@ public class AdminPropertiesController extends Controller {
             id = Integer.parseInt(idString);
             year = Integer.parseInt(yearString);
         } catch (Exception e) {
-            // TODO error message
-            return redirect(controllers.routes.AdminPageController.propertiesPage("error"));
+            return redirect(controllers.routes.AdminPageController
+            		.propertiesPage(ctx().messages().at(GEN_ERROR)));
         }
         String generalInfo = form.get("info");
         String registrationStart = form.get("registrationStart");
@@ -183,6 +197,10 @@ public class AdminPropertiesController extends Controller {
      */
     public Result addAchievement() {
         DynamicForm form = formFactory.form().bindFromRequest();
+        if (form.data().isEmpty()) {
+            return badRequest(ctx().messages().at(
+            		INTERNAL_ERROR));
+        }
         String nameAchiev = form.get("nameAchiev");
         String idSPOString = form.get("id");
         int idSPO;
@@ -208,6 +226,10 @@ public class AdminPropertiesController extends Controller {
      */
     public Result changeSPO() {
         DynamicForm form = formFactory.form().bindFromRequest();
+        if (form.data().isEmpty()) {
+            return badRequest(ctx().messages().at(
+            		INTERNAL_ERROR));
+        }
         String nameSPO = form.get("nameSPO");
         String idString = form.get("id");
         int id;
@@ -220,7 +242,7 @@ public class AdminPropertiesController extends Controller {
         SPO spo = ElipseModel.getById(SPO.class, id);
         List<Achievement> necAchiev = spo.getNecessaryAchievements();
         List<Achievement> addAchiev = spo.getAdditionalAchievements();
-        // itterators werden kreiert da man sonst nichts entfernen pver
+        // iterators werden kreiert da man sonst nichts entfernen pver
         // hinzufügen kann
 
         // TODO glaube, dass funktioniert so nicht (überarbeiten)

@@ -34,7 +34,10 @@ import security.BlowfishPasswordEncoder;
  * oder gelöscht werden sollen.
  */
 public class GeneralAdminController extends Controller {
-
+	
+	private static final String INTERNAL_ERROR = "error.internalError";
+	private static final String GENERAL_ERROR = "admin.allocation.error.generalError";
+			
     @Inject
     FormFactory formFactory;
 
@@ -47,13 +50,22 @@ public class GeneralAdminController extends Controller {
      */
     public Result addAdviser() {
         DynamicForm form = formFactory.form().bindFromRequest();
+        if (form.data().isEmpty()) {
+            return badRequest(ctx().messages().at(
+            		INTERNAL_ERROR));
+        }
+        if (form.data().size() == 0) {
+            return badRequest(ctx().messages().at(
+                    INTERNAL_ERROR));
+        }
         String firstName = form.get("firstName");
         String lastName = form.get("lastName");
         String email = form.get("email");
         String password = form.get("password");
         String encPassword = new BlowfishPasswordEncoder().encode(password);
         // TODO password per email?
-        Adviser adviser = new Adviser(email, encPassword, email, firstName, lastName);
+        Adviser adviser = new Adviser(email, encPassword, email, firstName,
+                lastName);
         adviser.save();
         return redirect(controllers.routes.AdminPageController.adviserPage(""));
 
@@ -68,6 +80,10 @@ public class GeneralAdminController extends Controller {
      */
     public Result removeAdviser() {
         DynamicForm form = formFactory.form().bindFromRequest();
+        if (form.data().isEmpty()) {
+            return badRequest(ctx().messages().at(
+            		INTERNAL_ERROR));
+        }
         int adviserId = Integer.parseInt(form.get("id"));
         ElipseModel.getById(Adviser.class, adviserId).delete();
         return redirect(controllers.routes.AdminPageController.adviserPage(""));
@@ -81,8 +97,11 @@ public class GeneralAdminController extends Controller {
      * @return Die Seite, die als Antwort verschickt wird.
      */
     public Result addAllocation() {
-
         DynamicForm form = formFactory.form().bindFromRequest();
+        if (form.data().isEmpty()) {
+            return badRequest(ctx().messages().at(
+            		INTERNAL_ERROR));
+        }
         String name = form.get("name");
         String preferedSizeString = form.get("preferedTeamSize");
         String minSizeString = form.get("minTeamSize");
@@ -96,14 +115,16 @@ public class GeneralAdminController extends Controller {
             maxSize = Integer.parseInt(maxSizeString);
         } catch (NumberFormatException e) {
             return redirect(controllers.routes.AdminPageController
-                    .allocationPage(ctx().messages().at("admin.allocation.error.generalError")));
+                    .allocationPage(ctx().messages().at(
+                    		GENERAL_ERROR)));
         }
         List<AllocationParameter> allocParam;
         try {
             allocParam = createParameters(minSize, maxSize, preferedSize, form);
         } catch (NumberFormatException e) {
             return redirect(controllers.routes.AdminPageController
-                    .allocationPage(ctx().messages().at("admin.allocation.error.generalError")));
+                    .allocationPage(ctx().messages().at(
+                    		GENERAL_ERROR)));
         }
         AllocationQueue queue = AllocationQueue.getInstance();
         Semester semester = GeneralData.loadInstance().getCurrentSemester();
@@ -111,19 +132,23 @@ public class GeneralAdminController extends Controller {
         List<LearningGroup> learningGroups = semester.getLearningGroups();
         List<Project> projects = semester.getProjects();
         // configuration wird erstellt und hinzugefügt
-        Configuration configuration = new Configuration(name, students, learningGroups, projects, allocParam);
+        Configuration configuration = new Configuration(name, students,
+                learningGroups, projects, allocParam);
         queue.addToQueue(configuration);
-        return redirect(controllers.routes.AdminPageController.allocationPage(""));
+        return redirect(controllers.routes.AdminPageController
+                .allocationPage(""));
     }
 
-    private List<AllocationParameter> createParameters(int minSize, int maxSize, int preferedSize, DynamicForm form)
+    private List<AllocationParameter> createParameters(int minSize,
+            int maxSize, int preferedSize, DynamicForm form)
             throws NumberFormatException {
         // Liste der Parameter wird erstellt
         List<AllocationParameter> result = new ArrayList<>(); // die
         result.add(new AllocationParameter("minSize", minSize));
         result.add(new AllocationParameter("maxSize", maxSize));
         result.add(new AllocationParameter("prefSize", preferedSize));
-        for (Criterion criterion : AllocationQueue.getInstance().getAllocator().getAllCriteria()) {
+        for (Criterion criterion : AllocationQueue.getInstance().getAllocator()
+                .getAllCriteria()) {
             int value = Integer.parseInt(form.get(criterion.getName()));
             result.add(new AllocationParameter(criterion.getName(), value));
         }
@@ -139,10 +164,15 @@ public class GeneralAdminController extends Controller {
      */
     public Result removeAllocationFromQueue() {
         DynamicForm form = formFactory.form().bindFromRequest();
+        if (form.data().isEmpty()) {
+            return badRequest(ctx().messages().at(
+            		INTERNAL_ERROR));
+        }
         String configName = form.get("queue");
         AllocationQueue allocationQueue = AllocationQueue.getInstance();
         allocationQueue.cancelAllocation(configName);
-        return redirect(controllers.routes.AdminPageController.allocationPage(""));
+        return redirect(controllers.routes.AdminPageController
+                .allocationPage(""));
     }
 
     /**
@@ -154,6 +184,10 @@ public class GeneralAdminController extends Controller {
      */
     public Result addStudent() {
         DynamicForm form = formFactory.form().bindFromRequest();
+        if (form.data().isEmpty()) {
+            return badRequest(ctx().messages().at(
+            		INTERNAL_ERROR));
+        }
         String firstName = form.get("firstName");
         String lastName = form.get("lastName");
         String matNrString = form.get("matrnr");
@@ -169,17 +203,21 @@ public class GeneralAdminController extends Controller {
             semester = Integer.parseInt(semesterString);
         } catch (NumberFormatException e) {
             return redirect(controllers.routes.AdminPageController
-                    .studentEditPage(ctx().messages().at("admin.allocation.error.generalError")));
+                    .studentEditPage(ctx().messages().at(
+                    		GENERAL_ERROR)));
         }
         // der username eines studenten ist seine matNr
-        Student student = new Student(matNrString, password, email, firstName, lastName, matNr, spo,
-                spo.getNecessaryAchievements(), new ArrayList<>(), semester);
+        Student student = new Student(matNrString, password, email, firstName,
+                lastName, matNr, spo, spo.getNecessaryAchievements(),
+                new ArrayList<>(), semester);
         student.save();
-        Semester currentSemester = GeneralData.loadInstance().getCurrentSemester();
+        Semester currentSemester = GeneralData.loadInstance()
+                .getCurrentSemester();
         currentSemester.doTransaction(() -> {
             currentSemester.addStudent(student);
         });
-        return redirect(controllers.routes.AdminPageController.studentEditPage(""));
+        return redirect(controllers.routes.AdminPageController
+                .studentEditPage(""));
     }
 
     /**
@@ -190,21 +228,28 @@ public class GeneralAdminController extends Controller {
      * @return Die Seite, die als Antwort verschickt wird.
      */
     public Result removeStudent() {
-        // TODO javascript wanung vor löschen
+        // TODO javascript warnung vor löschen
         DynamicForm form = formFactory.form().bindFromRequest();
+        if (form.data().isEmpty()) {
+            return badRequest(ctx().messages().at(
+            		INTERNAL_ERROR));
+        }
         String matNrString = form.get("matrnr2");
         int matNr;
         try {
             matNr = Integer.parseInt(matNrString);
         } catch (NumberFormatException e) {
             return redirect(controllers.routes.AdminPageController
-                    .studentEditPage(ctx().messages().at("admin.allocation.error.generalError")));
+                    .studentEditPage(ctx().messages().at(
+                    		GENERAL_ERROR)));
         }
         Student student = Student.getStudent(matNr);
-        Semester currentSemester = GeneralData.loadInstance().getCurrentSemester();
+        Semester currentSemester = GeneralData.loadInstance()
+                .getCurrentSemester();
         currentSemester.doTransaction(() -> {
             currentSemester.removeStudent(student);
         });
-        return redirect(controllers.routes.AdminPageController.studentEditPage(""));
+        return redirect(controllers.routes.AdminPageController
+                .studentEditPage(""));
     }
 }

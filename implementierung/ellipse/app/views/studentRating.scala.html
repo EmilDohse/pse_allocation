@@ -1,6 +1,6 @@
 @* * Diese Seite zeigt die Tabelle zum bewerten dem Studenten an. * Als
 Parameter wird die Liste an Projekten und eine Fehlermeldung übergeben.
-*@ @(projects:List[data.Project], error: String) @if(!error.isEmpty()){
+*@ @(student: data.Student, projects:List[data.Project], error: String) @if(!error.isEmpty()){
 <div class="alert alert-danger" role="alert">@error</div>
 }
 <h1>@Messages("student.sidebar.rating")</h1>
@@ -36,9 +36,12 @@ Parameter wird die Liste an Projekten und eine Fehlermeldung übergeben.
 						</div>
 					</div>
 				</div></td>
-				<!-- TODO: Current Value anzeigen -->
 			@for(rating <- views.RatingDisplay.values()) {
-				<td><input type="radio" name="@project.getId()" value="@rating.getNumber()"></td>
+				@if(data.GeneralData.loadInstance().getCurrentSemester().getLearningGroupOf(student).getRating(project) == rating.getNumber()) {
+					<td><input type="radio" checked name="@project.getId()" value="@rating.getNumber()"></td>
+				} else {
+					<td><input type="radio" name="@project.getId()" value="@rating.getNumber()"></td>
+				}
 			}
 		</tr>
 		}

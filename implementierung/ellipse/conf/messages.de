@@ -27,10 +27,12 @@ index.registration.form.passedAchievements = Bestandene Teilleistungen
 index.registration.form.dueAchievements = Ausstehende Teilleistungen
 index.registration.form.necessaryAchievements = Benötigte Teilleistungen
 index.registration.form.additionalAchievements = Zusätzliche Teilleistungen
-index.registration.form.trueData = Alle Angaben wurden wahrheitsgemäß ausgefüllt.
+index.registration.form.trueData = Alle Angaben wurden wahrheitsgemäß ausgefüllt
 index.registration.form.register = Registrieren
-index.registration.error.matNrExists = Es gibt bereits einen Account mit dieser Matrikelnummer. 
-index.registration.error.genError = Bitte überprüfen Sie die Eingabe.
+index.registration.error.matNrExists = Es gibt bereits einen Account mit dieser Matrikelnummer 
+index.registration.error.genError = Bitte überprüfen Sie die Eingabe
+index.registration.error.minMax = Die Mindestgröße muss kleiner oder gleich der Maximalgröße sein
+index.registration.error.passwordUnequal = Die eingegebenen Passwörter stimmen nicht überein
 
 
 student.title = Elipse - Studentenportal
@@ -60,6 +62,7 @@ student.account.newPassword = Neues Passwort
 student.account.newPasswordRepeat = Neues Passwort wiederholen
 student.account.sendNewVerificationLink = Neuen Verifikations-Code schicken.
 student.error.noAllocationYet = Bisher existieren noch keine fertig berechneten Einteilungen.
+student.changeData.changeData = Daten ändern
 
 adviser.sidebar.account = Account
 adviser.leaveProject = Projekt verlassen
@@ -163,10 +166,16 @@ admin.properties.winterSemester = Wintersemester
 admin.properties.summerSemester = Sommersemester
 admin.properties.removeSemester = Semester löschen
 admin.properties.maxGroupSize = Maximale Lerngruppengröße
-admin.error.noSemester = Kein Semester vorhanden. Erstellen Sie bitte eines in den Einstellungen.
+admin.edit.moveToSameTeam = Der Studierende ist bereits in diesem Team
+admin.edit.noStudentSelected = Sie müssen einen Studierenden auswählen, den Sie verschieben möchten
+admin.edit.noFinalAllocation = Sie haben noch keine finale Einteilung zum veröffentlichen ausgewählt
+admin.edit.removeFinalAllocation = Sie können die finale Einteilung nicht löschen
+admin.error.noSemester = Kein Semester vorhanden. Erstellen Sie bitte eines in den Einstellungen
 
 importer.FileNotFound = Datei konnte nicht gefunden werden
 importer.IOException = Fehler beim Lesen der Datei
 importer.wrongFileFormat = Die angegebene Datei hat nicht das erwartete Format
 importer.alreadyExisting = Die importierte Datei existiert schon
 importer.notEmpty = Das angegebene Semester hat schon registrierte Studenten
+
+error.internalError = Unerwarteter, interner Serverfehler

@@ -5,13 +5,17 @@
 package controllers;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.google.inject.Inject;
 
+import data.Achievement;
+import data.ElipseModel;
 import data.GeneralData;
 import data.LearningGroup;
 import data.Project;
 import data.Rating;
+import data.SPO;
 import data.Semester;
 import data.Student;
 import data.User;
@@ -37,6 +41,111 @@ public class StudentPageController extends Controller {
     FormFactory formFactory;
 
     /**
+     * Auf diese Seite wird der Student beim anmelden weitergeleitet, um zu
+     * checken, ob der Student im aktuellen Semester drin ist oder nicht. Fall
+     * er im aktuellen Semester ist, wird er ins Studentenportal weitergeleitet,
+     * ansonsten muss er erst ein Formular für die Datenaktualisierung
+     * ausfüllen.
+     * 
+     * @return Die Seite auf die er weitergeleitet wird.
+     */
+    public Result checkStudent() {
+        Student student = (Student) new UserManagement().getUserProfile(ctx());
+        if (GeneralData.loadInstance().getCurrentSemester().getStudents()
+                .contains(student)) {
+            return redirect(
+                    controllers.routes.StudentPageController.learningGroupPage(
+                            ctx().messages().at("error.internalError")));
+        } else {
+            return redirect(controllers.routes.StudentPageController
+                    .changeFormPage(""));
+        }
+    }
+
+    /**
+     * Diese Seite stellt das Formular dar, das ein Student ausfüllen muss, wenn
+     * er zwar einen Account hat, aber nicht im aktuellen PSE-Semester ist. Hier
+     * darf er dann seine Studierendendaten aktualisieren.
+     * 
+     * @param error
+     *            Fehlermeldung, die angezeigt werden soll
+     * @return Die Seite, die angezeigt wird.
+     */
+    public Result changeFormPage(String error) {
+        play.twirl.api.Html content = views.html.studentChangeData.render(
+                GeneralData.loadInstance().getCurrentSemester().getSpos(),
+                error);
+        Menu menu = new Menu();
+        return ok(views.html.student.render(menu, content));
+    }
+
+    /**
+     * Hier wird das Formular aus {@code changeFormPage} ausgewertet und er wird
+     * wenn alles korrekt ist in das Studentenportal weitergeleitet wird.
+     * 
+     * @return die Seite, die angezeigt wird.
+     */
+    public Result changeData() {
+        DynamicForm form = formFactory.form().bindFromRequest();
+        if (form.data().size() == 0) {
+            return badRequest("Expceting some data");
+        } else {
+            // die felder werden ausgelesen
+            String semesterString = form.get("semester");
+            String spoIdString = form.get("spo");
+            int spoId;
+            int semester = -1;
+            try {
+                semester = Integer.parseInt(semesterString);
+                spoId = Integer.parseInt(spoIdString);
+                SPO spo = ElipseModel.getById(SPO.class, spoId);
+                boolean trueData = false;
+
+                if (form.get("trueData") != null) {
+                    // wenn der student angekreuzt hat das seine Angaben der
+                    // Wahrheit entsprechen
+                    trueData = true;
+                }
+                List<Achievement> completedAchievements = new ArrayList<>();
+                List<Achievement> nonCompletedAchievements = new ArrayList<>();
+                try {
+                    completedAchievements = MultiselectList
+                            .createAchievementList(form, "completed-"
+                                    + spoIdString + "-multiselect");
+                } catch (NumberFormatException e) {
+                    return redirect(controllers.routes.IndexPageController
+                            .registerPage(ctx().messages()
+                                    .at("error.internalError")));
+                }
+                try {
+                    nonCompletedAchievements = MultiselectList
+                            .createAchievementList(form,
+                                    "due-" + spoIdString + "-multiselect");
+                } catch (NumberFormatException e) {
+                    return redirect(controllers.routes.IndexPageController
+                            .registerPage(ctx().messages()
+                                    .at("error.internalError")));
+                }
+
+                // TODO: Daten ändern im Studenten (bekommt man heraus über das
+                // UserManagement) und Student zum aktuellen Semester
+                // hinzufügen???
+
+                return redirect(controllers.routes.IndexPageController
+                        .registerPage(ctx().messages()
+                                .at("index.registration.error.genError")));
+
+            } catch (NumberFormatException e) {
+                return redirect(controllers.routes.IndexPageController
+                        .registerPage(ctx().messages()
+                                .at("index.registration.error.genError")));
+
+            }
+        }
+
+    }
+
+    /**
      * Diese Methode gibt die Seite zurück, auf der der Student sieht in welcher
      * Lerngruppe er ist, oder wenn er in keiner aktuell ist, eine erstellen
      * oder einer beitreten kann.
@@ -49,7 +158,8 @@ public class StudentPageController extends Controller {
         assert userProfile instanceof Student;
         Student student = (Student) userProfile;
         play.twirl.api.Html content = views.html.studentLearningGroup
-                .render(GeneralData.loadInstance().getCurrentSemester().getLearningGroupOf(student), error);
+                .render(GeneralData.loadInstance().getCurrentSemester()
+                        .getLearningGroupOf(student), error);
         Menu menu = new StudentMenu(ctx(), ctx().request().path());
         return ok(views.html.student.render(menu, content));
     }
@@ -61,8 +171,10 @@ public class StudentPageController extends Controller {
      * @return Die Seite, die als Antwort verschickt wird.
      */
     public Result ratingPage(String error) {
-        play.twirl.api.Html content = views.html.studentRating
-                .render(GeneralData.loadInstance().getCurrentSemester().getProjects(), error);
+        Student student = (Student) new UserManagement().getUserProfile(ctx());
+        play.twirl.api.Html content = views.html.studentRating.render(student,
+                GeneralData.loadInstance().getCurrentSemester().getProjects(),
+                error);
         Menu menu = new StudentMenu(ctx(), ctx().request().path());
         return ok(views.html.student.render(menu, content));
     }
@@ -75,8 +187,8 @@ public class StudentPageController extends Controller {
      * @return Die Seite, die als Antwort verschickt wird.
      */
     public Result resultsPage(String error) {
-        // TODO überprüft man no final allocation wirklich über ob es null ist?
-        if (GeneralData.loadInstance().getCurrentSemester().getFinalAllocation() == null) {
+        if (GeneralData.loadInstance().getCurrentSemester()
+                .getFinalAllocation() == null) {
             play.twirl.api.Html content = views.html.noAllocationYet.render();
             Menu menu = new StudentMenu(ctx(), ctx().request().path());
             return ok(views.html.student.render(menu, content));
@@ -87,7 +199,8 @@ public class StudentPageController extends Controller {
         assert userProfile instanceof Student;
         Student student = (Student) userProfile;
         play.twirl.api.Html content = views.html.studentResult
-                .render(GeneralData.loadInstance().getCurrentSemester().getFinalAllocation().getTeam(student), error);
+                .render(GeneralData.loadInstance().getCurrentSemester()
+                        .getFinalAllocation().getTeam(student), error);
         Menu menu = new StudentMenu(ctx(), ctx().request().path());
         return ok(views.html.student.render(menu, content));
     }
@@ -105,17 +218,23 @@ public class StudentPageController extends Controller {
         assert userProfile instanceof Student;
         Student student = (Student) userProfile;
         DynamicForm form = formFactory.form().bindFromRequest();
-        LearningGroup lg = GeneralData.loadInstance().getCurrentSemester().getLearningGroupOf(student);
-        ArrayList<Rating> ratings = new ArrayList<>();
+        LearningGroup lg = GeneralData.loadInstance().getCurrentSemester()
+                .getLearningGroupOf(student);
         lg.doTransaction(() -> {
-            for (Project project : GeneralData.loadInstance().getCurrentSemester().getProjects()) {
-                Rating rating = new Rating(Integer.parseInt(form.get(Integer.toString(project.getId()))), project);
+            ArrayList<Rating> ratings = new ArrayList<>();
+            for (Project project : GeneralData.loadInstance()
+                    .getCurrentSemester().getProjects()) {
+                Rating rating = new Rating(
+                        Integer.parseInt(
+                                form.get(Integer.toString(project.getId()))),
+                        project);
                 // holt sich das rating des studenten aus dem formular
                 ratings.add(rating);
             }
             lg.setRatings(ratings);
         });
-        return redirect(controllers.routes.StudentPageController.learningGroupPage(""));
+        return redirect(
+                controllers.routes.StudentPageController.learningGroupPage(""));
     }
 
     /**
@@ -135,12 +254,21 @@ public class StudentPageController extends Controller {
         String password = form.get("learningGroupPassword");
         // TODO stimmt hier der rückgabewert in html
         Semester semester = GeneralData.loadInstance().getCurrentSemester();
-        LearningGroup learningGroup = LearningGroup.getLearningGroup(name, semester);
+        LearningGroup learningGroup = LearningGroup.getLearningGroup(name,
+                semester);
         if (learningGroup != null) {
             return redirect(controllers.routes.StudentPageController
-                    .learningGroupPage(ctx().messages().at("student .learningGroup.error.existsAllready")));
+                    .learningGroupPage(ctx().messages().at(
+                            "student .learningGroup.error.existsAllready")));
+        }
+        if (!semester.getLearningGroupOf(student).isPrivate()) {
+            // TODO error
+        }
+        if (name.matches("\\d*")) {
+            // TODO error
         }
         LearningGroup lg = new LearningGroup(name, password, student, false);
+        lg.save();
         // Lösche die private Lerngruppe
         semester.getLearningGroupOf(student).delete();
         semester.refresh();
@@ -149,7 +277,8 @@ public class StudentPageController extends Controller {
             // die alte lerngruppe behalten
             semester.addLearningGroup(lg);
         });
-        return redirect(controllers.routes.StudentPageController.learningGroupPage(""));
+        return redirect(
+                controllers.routes.StudentPageController.learningGroupPage(""));
     }
 
     /**
@@ -163,24 +292,30 @@ public class StudentPageController extends Controller {
         User userProfile = user.getUserProfile(ctx());
         assert userProfile instanceof Student;
         Student student = (Student) userProfile;
-        LearningGroup lg = GeneralData.loadInstance().getCurrentSemester().getLearningGroupOf(student);
+        LearningGroup lg = GeneralData.loadInstance().getCurrentSemester()
+                .getLearningGroupOf(student);
+        if (lg.isPrivate()) {
+            // TODO error
+        }
         if (lg.getMembers().size() == 1) {
             // Leeres Team löschen
             lg.delete();
-            // Hier wird der student wieder in seine privat Lerngruppe
-            // eingefügt
-            LearningGroup lgNew = new LearningGroup("private" + student.getUserName(), "", student, true);
-            lgNew.save();
-            Semester semester = GeneralData.loadInstance().getCurrentSemester();
-            semester.doTransaction(() -> {
-                semester.addLearningGroup(lgNew);
-            });
-            return redirect(controllers.routes.StudentPageController.learningGroupPage(""));
         }
+        // Hier wird der student wieder in seine privat Lerngruppe
+        // eingefügt
+        LearningGroup lgNew = new LearningGroup(student.getUserName(), "",
+                student, true);
+        lgNew.save();
+        Semester semester = GeneralData.loadInstance().getCurrentSemester();
+        semester.doTransaction(() -> {
+            semester.addLearningGroup(lgNew);
+        });
+
         lg.doTransaction(() -> {
             lg.removeMember(student);
         });
-        return redirect(controllers.routes.StudentPageController.learningGroupPage(""));
+        return redirect(
+                controllers.routes.StudentPageController.learningGroupPage(""));
 
     }
 
@@ -200,12 +335,22 @@ public class StudentPageController extends Controller {
         DynamicForm form = formFactory.form().bindFromRequest();
         String name = form.get("learningGroupname");
         String pw = form.get("learningGroupPassword");
-        LearningGroup lgOld = GeneralData.loadInstance().getCurrentSemester().getLearningGroupOf(student);
-        LearningGroup lgNew = LearningGroup.getLearningGroup(name, GeneralData.loadInstance().getCurrentSemester());
+        LearningGroup lgOld = GeneralData.loadInstance().getCurrentSemester()
+                .getLearningGroupOf(student);
+        LearningGroup lgNew = LearningGroup.getLearningGroup(name,
+                GeneralData.loadInstance().getCurrentSemester());
         // Wenn die Lerngruppe bereits voll ist, wird ein Fehler zurückgegeben
-        if (lgNew.getMembers().size() >= GeneralData.loadInstance().getCurrentSemester().getMaxGroupSize()) {
+        if (lgNew.getMembers().size() >= GeneralData.loadInstance()
+                .getCurrentSemester().getMaxGroupSize()) {
             return redirect(controllers.routes.StudentPageController
-                    .learningGroupPage(ctx().messages().at("student .learningGroup.error.learningGroupFull")));
+                    .learningGroupPage(ctx().messages().at(
+                            "student .learningGroup.error.learningGroupFull")));
+        }
+        if (!lgOld.isPrivate()) {
+            // TODO error
+        }
+        if (lgNew.isPrivate()) {
+            // TODO error
         }
 
         if (lgNew.getPassword().equals(pw)) {
@@ -213,10 +358,12 @@ public class StudentPageController extends Controller {
             lgNew.doTransaction(() -> {
                 lgNew.addMember(student);
             });
-            return redirect(controllers.routes.StudentPageController.learningGroupPage(""));
+            return redirect(controllers.routes.StudentPageController
+                    .learningGroupPage(""));
         } else {
             return redirect(controllers.routes.StudentPageController
-                    .learningGroupPage(ctx().messages().at("student .learningGroup.error.wrongPW")));
+                    .learningGroupPage(ctx().messages()
+                            .at("student .learningGroup.error.wrongPW")));
         }
     }
 
@@ -231,7 +378,8 @@ public class StudentPageController extends Controller {
         User userProfile = user.getUserProfile(ctx());
         assert userProfile instanceof Student;
         Student student = (Student) userProfile;
-        play.twirl.api.Html content = views.html.studentAccount.render(student, error);
+        play.twirl.api.Html content = views.html.studentAccount.render(student,
+                error);
         Menu menu = new StudentMenu(ctx(), ctx().request().path());
         return ok(views.html.student.render(menu, content));
     }
@@ -250,11 +398,17 @@ public class StudentPageController extends Controller {
         DynamicForm form = formFactory.form().bindFromRequest();
 
         if (form.get("passwordChange") != null) {
+            String oldpw = form.get("oldPassword");
             String pw = form.get("newPassword");
             String pwrepeat = form.get("newPasswordRepeat");
-            if (!pw.equals(pwrepeat)) {
+
+            boolean matches = new BlowfishPasswordEncoder().matches(oldpw,
+                    student.getPassword());
+
+            if (!pw.equals(pwrepeat) || !matches) {
                 // TODO error message
-                return redirect(controllers.routes.StudentPageController.accountPage("error"));
+                return redirect(controllers.routes.StudentPageController
+                        .accountPage("error"));
             }
             String pwEnc = new BlowfishPasswordEncoder().encode(pw);
             student.doTransaction(() -> {
@@ -268,7 +422,8 @@ public class StudentPageController extends Controller {
             });
             // TODO hier verifikation
         }
-        return redirect(controllers.routes.StudentPageController.accountPage(""));
+        return redirect(
+                controllers.routes.StudentPageController.accountPage(""));
     }
 
     /**
@@ -279,6 +434,7 @@ public class StudentPageController extends Controller {
      */
     public Result sendNewVerificationLink() {
         // TODO: Verifkationscode neu erstellen und senden
-        return redirect(controllers.routes.StudentPageController.accountPage(""));
+        return redirect(
+                controllers.routes.StudentPageController.accountPage(""));
     }
 }
