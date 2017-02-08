@@ -41,6 +41,9 @@ public abstract class ElipseModel extends Model {
      */
     @Override
     public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
         if (obj.getClass().equals(this.getClass())) {
             return this.id == ((ElipseModel) obj).getId();
         } else {

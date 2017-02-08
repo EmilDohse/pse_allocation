@@ -63,20 +63,29 @@ public class Allocation extends ElipseModel {
     }
 
     public Allocation(Allocation a) {
-        teams = new ArrayList<Team>();
+        this();
+        // this.save();
+        // Teams klonen
         for (Team t : a.getTeams()) {
-            Team newTeam = new Team(t.getProject(), t.getMembers());
-            newTeam.save();
-            teams.add(newTeam);
+            Team newTeam = new Team();
+            newTeam.setProject(t.getProject());
+            newTeam.setMembers(t.getMembers());
+            newTeam.setTeamNumber(t.getTeamNumber());
+            /*
+             * newTeam.doTransaction(() -> { newTeam.setProject(t.getProject());
+             * newTeam.setMembers(t.getMembers()); newTeam.setAllocation(this);
+             * newTeam.setTeamNumber(t.getTeamNumber()); });
+             */
+            this.teams.add(newTeam);
         }
-        parameters = new ArrayList<AllocationParameter>();
+        // Parameter klonen
         for (AllocationParameter p : a.getParameters()) {
             AllocationParameter newParameter = new AllocationParameter(
                     p.getName(), p.getValue());
-            newParameter.save();
-            parameters.add(newParameter);
+            this.parameters.add(newParameter);
         }
-        name = "cloned" + a.getName();
+        this.name = "cloned" + a.getName();
+        this.semester = a.getSemester();
     }
 
     public Semester getSemester() {

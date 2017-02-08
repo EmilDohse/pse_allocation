@@ -14,6 +14,7 @@ import data.ElipseModel;
 import data.GeneralData;
 import data.Grade;
 import data.Project;
+import data.Semester;
 import data.Student;
 import data.Team;
 import play.data.DynamicForm;
@@ -73,8 +74,8 @@ public class AdviserPageController extends Controller {
                     .getCurrentSemester().getFinalAllocation();
             if (finalAlloc != null) { // Lade Seite, auf der der Betreuer seine
                                       // eingeteilten Teams sieht
-                content = views.html.adviserAllocationInfo
-                        .render(finalAlloc.getTeamsByProject(project));
+                content = views.html.adviserAllocationInfo.render(finalAlloc
+                        .getTeamsByProject(project));
             } else { // Lade Seite zum editieren der Projekteinstellungen
                 content = views.html.projectEdit.render(project, true,
                         Adviser.getAdvisers());
@@ -97,10 +98,13 @@ public class AdviserPageController extends Controller {
     public Result addProject() {
         UserManagement user = new UserManagement();
         Adviser adviser = (Adviser) user.getUserProfile(ctx());
-        Project project = new Project(
-                "new Project" + adviser.getFirstName() + adviser.getLastName(),
-                adviser);
+        Project project = new Project("new Project" + adviser.getFirstName()
+                + adviser.getLastName(), adviser);
         project.save();
+        Semester semester = GeneralData.loadInstance().getCurrentSemester();
+        semester.doTransaction(() -> {
+            semester.addProject(project);
+        });
         return redirect(controllers.routes.AdviserPageController
                 .projectsPage(project.getId()));
     }
@@ -158,16 +162,16 @@ public class AdviserPageController extends Controller {
         boolean isAdviser = adviser.getProjects().contains(project);
         if (!isAdviser) {
             // TODO fehlermeldung?
-            return redirect(
-                    controllers.routes.AdviserPageController.projectsPage(id));
+            return redirect(controllers.routes.AdviserPageController
+                    .projectsPage(id));
         }
         try {
             numberOfTeams = Integer.parseInt(numberOfTeamsString);
             minSize = Integer.parseInt(minSizeString);
             maxSize = Integer.parseInt(maxSizeString);
         } catch (NumberFormatException e) {
-            return redirect(
-                    controllers.routes.AdviserPageController.projectsPage(id));
+            return redirect(controllers.routes.AdviserPageController
+                    .projectsPage(id));
         }
 
         project.doTransaction(() -> {
@@ -204,6 +208,8 @@ public class AdviserPageController extends Controller {
             project.doTransaction(() -> {
                 project.addAdviser(adviser);
             });
+        } else {
+            // TODO error
         }
         return redirect(controllers.routes.AdviserPageController
                 .projectsPage(project.getId()));
@@ -218,8 +224,6 @@ public class AdviserPageController extends Controller {
      * @return die Seite, die als Antwort verschickt wird.
      */
     public Result leaveProject() {
-        // TODO wenn es nicht in ordnung ist das ein projekt ohne beteruer
-        // existiert hier einbauen
         UserManagement user = new UserManagement();
         Adviser adviser = (Adviser) user.getUserProfile(ctx());
         DynamicForm form = formFactory.form().bindFromRequest();
@@ -229,6 +233,8 @@ public class AdviserPageController extends Controller {
             project.doTransaction(() -> {
                 project.removeAdviser(adviser);
             });
+        } else {
+            // TODO error
         }
         return redirect(controllers.routes.AdviserPageController
                 .projectsPage(project.getId()));
@@ -253,22 +259,25 @@ public class AdviserPageController extends Controller {
         boolean isAdviser = adviser.getProjects().contains(project);
         if (!isAdviser) {
             // TODO fehlermeldung?
-            return redirect(
-                    controllers.routes.AdviserPageController.projectsPage(id));
+            return redirect(controllers.routes.AdviserPageController
+                    .projectsPage(id));
         }
         // Dies nur ausführen, falls Betreuer wirklich zum Projekt gehört
         Allocation finalAlloc = GeneralData.loadInstance().getCurrentSemester()
                 .getFinalAllocation();
+        if (finalAlloc == null) {
+            // TODO error
+        }
         List<Team> teams = finalAlloc.getTeamsByProject(project);
         for (Team team : teams) {
             for (Student student : team.getMembers()) {
                 int pseGrade;
                 int tseGrade;
                 try {
-                    pseGrade = Integer
-                            .parseInt(form.get(student.getId() + "-pseGrade"));
-                    tseGrade = Integer
-                            .parseInt(form.get(student.getId() + "-tseGrade"));
+                    pseGrade = Integer.parseInt(form.get(student.getId()
+                            + "-pseGrade"));
+                    tseGrade = Integer.parseInt(form.get(student.getId()
+                            + "-tseGrade"));
                 } catch (NumberFormatException e) {
                     return redirect(controllers.routes.AdviserPageController
                             .projectsPage(id));
@@ -279,8 +288,8 @@ public class AdviserPageController extends Controller {
                 });
             }
         }
-        return redirect(
-                controllers.routes.AdviserPageController.projectsPage(id));
+        return redirect(controllers.routes.AdviserPageController
+                .projectsPage(id));
     }
 
     /**
@@ -327,7 +336,7 @@ public class AdviserPageController extends Controller {
             });
             // TODO hier verifikation
         }
-        return redirect(
-                controllers.routes.AdviserPageController.accountPage(""));
+        return redirect(controllers.routes.AdviserPageController
+                .accountPage(""));
     }
 }
