@@ -131,7 +131,8 @@ public class GurobiAllocator extends AbstractAllocator {
         synchronized (this) {
             if (null == this.model) {
                 // TODO Nachricht in message Datei einfügen
-                Allocation failure = nullObject("allocation.calculateBeforeInit");
+                Allocation failure = nullObject(
+                        "allocation.calculateBeforeInit");
                 failure.save();
                 return;
             }
@@ -158,10 +159,12 @@ public class GurobiAllocator extends AbstractAllocator {
         }
 
         // Erstelle Einteilung
-        Allocation allocation = new Allocation(currentConfiguration.getTeams(), currentConfiguration.getName(),
+        Allocation allocation = new Allocation(currentConfiguration.getTeams(),
+                currentConfiguration.getName(),
                 currentConfiguration.getParameters());
         allocation.doTransaction(() -> {
-            allocation.setSemester(GeneralData.loadInstance().getCurrentSemester());
+            allocation.setSemester(
+                    GeneralData.loadInstance().getCurrentSemester());
         });
 
     }
@@ -183,7 +186,8 @@ public class GurobiAllocator extends AbstractAllocator {
      */
     @Override
     public List<GurobiCriterion> getAllCriteria() {
-        Iterator<GurobiCriterion> iter = ServiceLoader.load(GurobiCriterion.class).iterator();
+        Iterator<GurobiCriterion> iter = ServiceLoader
+                .load(GurobiCriterion.class).iterator();
         ArrayList<GurobiCriterion> criteria = new ArrayList<GurobiCriterion>();
         while (iter.hasNext()) {
             criteria.add(iter.next());
@@ -237,11 +241,12 @@ public class GurobiAllocator extends AbstractAllocator {
 
     private void createBaseMatrix() throws GRBException {
         // Erstelle Basismatrix B
-        this.basicMatrix = new GRBVar[currentConfiguration.getStudents().size()][currentConfiguration.getTeams().size()
-                + 1];
+        this.basicMatrix = new GRBVar[currentConfiguration.getStudents()
+                .size()][currentConfiguration.getTeams().size() + 1];
         for (int i = 0; i < currentConfiguration.getStudents().size(); i++) {
             for (int j = 0; j <= currentConfiguration.getTeams().size(); j++) {
-                this.basicMatrix[i][j] = model.addVar(0, 1, 0, GRB.BINARY, NULL);
+                this.basicMatrix[i][j] = model.addVar(0, 1, 0, GRB.BINARY,
+                        NULL);
             }
         }
     }
@@ -262,15 +267,20 @@ public class GurobiAllocator extends AbstractAllocator {
     private void createTeamSizeConstraint() throws GRBException {
         createTeamsizeVariable();
         // Bestimme die vom Admin eingestellte min- und max-Größe
-        List<AllocationParameter> parameters = currentConfiguration.getParameters();
+        List<AllocationParameter> parameters = currentConfiguration
+                .getParameters();
         double minAdminSize;
         double maxAdminSize;
         // TODO Besser die Standardwerte für min und max size benutzen oder ein
         // Fehler werfen?
-        minAdminSize = parameters.stream().filter(parameter -> parameter.getName().equals(MIN_SIZE)).findFirst()
-                .orElse(new AllocationParameter(MIN_SIZE, 0)).getValue();
-        maxAdminSize = parameters.stream().filter(parameter -> parameter.getName().equals(MAX_SIZE)).findFirst()
-                .orElse(new AllocationParameter(MAX_SIZE, 1)).getValue();
+        minAdminSize = parameters.stream()
+                .filter(parameter -> parameter.getName().equals(MIN_SIZE))
+                .findFirst().orElse(new AllocationParameter(MIN_SIZE, 0))
+                .getValue();
+        maxAdminSize = parameters.stream()
+                .filter(parameter -> parameter.getName().equals(MAX_SIZE))
+                .findFirst().orElse(new AllocationParameter(MAX_SIZE, 1))
+                .getValue();
 
         // Teamgröße zwischen min und max, oder 0
         for (int i = 0; i < currentConfiguration.getTeams().size(); i++) {
@@ -279,15 +289,20 @@ public class GurobiAllocator extends AbstractAllocator {
             GRBLinExpr secondConstraintRightSide = new GRBLinExpr();
             GRBLinExpr thirdConstraintRightSide = new GRBLinExpr();
 
-            secondConstraintRightSide.addTerm(getMaxSize(currentConfiguration.getTeams().get(i), maxAdminSize),
-                    correctTeamSize);
+            secondConstraintRightSide
+                    .addTerm(getMaxSize(currentConfiguration.getTeams().get(i),
+                            maxAdminSize), correctTeamSize);
 
-            thirdConstraintRightSide.addTerm(getMinSize(currentConfiguration.getTeams().get(i), minAdminSize),
-                    correctTeamSize);
+            thirdConstraintRightSide
+                    .addTerm(getMinSize(currentConfiguration.getTeams().get(i),
+                            minAdminSize), correctTeamSize);
 
-            model.addConstr(correctTeamSize, GRB.LESS_EQUAL, this.teamSizes[i], NULL);
-            model.addConstr(this.teamSizes[i], GRB.LESS_EQUAL, secondConstraintRightSide, NULL);
-            model.addConstr(this.teamSizes[i], GRB.GREATER_EQUAL, thirdConstraintRightSide, NULL);
+            model.addConstr(correctTeamSize, GRB.LESS_EQUAL, this.teamSizes[i],
+                    NULL);
+            model.addConstr(this.teamSizes[i], GRB.LESS_EQUAL,
+                    secondConstraintRightSide, NULL);
+            model.addConstr(this.teamSizes[i], GRB.GREATER_EQUAL,
+                    thirdConstraintRightSide, NULL);
         }
 
     }
@@ -297,9 +312,11 @@ public class GurobiAllocator extends AbstractAllocator {
         this.teamSizes = new GRBVar[currentConfiguration.getTeams().size()];
 
         for (int i = 0; i < currentConfiguration.getTeams().size(); i++) {
-            teamSizes[i] = model.addVar(0, Double.MAX_VALUE, 0, GRB.INTEGER, NULL);
+            teamSizes[i] = model.addVar(0, Double.MAX_VALUE, 0, GRB.INTEGER,
+                    NULL);
             GRBLinExpr teamSum = new GRBLinExpr();
-            for (int j = 0; j < currentConfiguration.getStudents().size(); j++) {
+            for (int j = 0; j < currentConfiguration.getStudents()
+                    .size(); j++) {
                 teamSum.addTerm(1, this.basicMatrix[j][i]);
             }
             model.addConstr(teamSizes[i], GRB.EQUAL, teamSum, NULL);
@@ -318,8 +335,11 @@ public class GurobiAllocator extends AbstractAllocator {
             double weight;
             // TODO Ist die Abfrage auf null nötig? Kann das überhaupt
             // passieren?
-            AllocationParameter param = currentConfiguration.getParameters().stream()
-                    .filter(parameter -> parameter.getName().equals(criterion.getName())).findFirst().orElse(null);
+            AllocationParameter param = currentConfiguration.getParameters()
+                    .stream()
+                    .filter(parameter -> parameter.getName()
+                            .equals(criterion.getName()))
+                    .findFirst().orElse(null);
             if (null != param) {
                 weight = param.getValue();
                 if (weight != 0) {
@@ -333,30 +353,29 @@ public class GurobiAllocator extends AbstractAllocator {
     private void createTeams() {
         // erstelle Teams
         for (int i = 0; i < currentConfiguration.getTeams().size(); i++) {
-            for (int j = 0; j < currentConfiguration.getStudents().size(); j++) {
+            for (int j = 0; j < currentConfiguration.getStudents()
+                    .size(); j++) {
                 double result;
                 try {
                     result = this.basicMatrix[j][i].get(DoubleAttr.X);
                 } catch (GRBException e) {
-                    Allocation failure = nullObject("allocation.gurobiException");
+                    Allocation failure = nullObject(
+                            "allocation.gurobiException");
                     failure.save();
                     return;
                 }
                 if (result == 1) {
                     Team team = currentConfiguration.getTeams().get(i);
                     Student student = currentConfiguration.getStudents().get(j);
-                    team.doTransaction(() -> {
-                        team.addMember(student);
-                    });
-
+                    team.addMember(student);
                 }
             }
         }
     }
 
     private Allocation nullObject(String errorMessage) {
-        Allocation failedAllocation = new Allocation(new ArrayList<Team>(), errorMessage,
-                new ArrayList<AllocationParameter>());
+        Allocation failedAllocation = new Allocation(new ArrayList<Team>(),
+                errorMessage, new ArrayList<AllocationParameter>());
         System.out.println("ERROR " + errorMessage);
         return failedAllocation;
     }
