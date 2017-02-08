@@ -1,0 +1,122 @@
+@* * Diese Seite zeigt die Registrierungsseite an. * Dafür wird die
+Liste aller SPOs benötigt. * Eine Fehlermeldung kann zusätzlich
+übergeben werden. *@ @(spos: List[data.SPO], error: String)
+@if(!error.isEmpty()){
+<div class="alert alert-danger" role="alert">@error</div>
+}
+<script type="text/javascript"
+	src='@routes.Assets.versioned("javascripts/bootstrap-multiselect.js")'></script>
+<link rel="stylesheet"
+	href='@routes.Assets.versioned("stylesheets/bootstrap-multiselect.css")'
+	type="text/css" />
+
+<h1>@Messages("index.sidebar.registration")</h1>
+<form action="@controllers.routes.IndexPageController.changeData().path()"
+	method="POST" class="form-horizontal">
+
+	<h3>
+		<small>@Messages("index.registration.form.studyData")</small>
+	</h3>
+
+	<div class="form-group">
+		<label class="control-label col-sm-2" for="semester">@Messages("index.registration.form.semester")</label>
+		<div class="col-sm-3">
+			<input type="number" class="form-control" id="semester"
+				name="semester">
+		</div>
+	</div>
+	<script type="text/javascript">
+		$(function() {
+			showAchievementToSpo();
+		});
+		function showAchievementToSpo() {
+			$('.achievement-selection').hide();
+			$('#' + $('#spo').val()).show();
+		}
+	</script>
+	<div class="form-group">
+		<label class="control-label col-sm-2" for="spo">@Messages("index.registration.form.spo")</label>
+		<div class="col-sm-3">
+			<select class="form-control" name="spo" id="spo"
+				onchange="showAchievementToSpo();"> @for(spo <- spos) {
+				<option value="@spo.getId()">@spo.getName()</option> }
+			</select>
+		</div>
+	</div>
+
+	@for(spo <- spos) {
+	<div id="@spo.getId()" class="achievement-selection">
+		<script type="text/javascript">
+			$(document).ready(
+					function() {
+						$('#completed-achievements-selection-@spo.getId()')
+								.multiselect({
+									enableClickableOptGroups : true,
+									maxHeight : 300,
+									numberDisplayed : 6
+								});
+					});
+		</script>
+		<div class="form-group">
+			<label class="control-label col-sm-2"
+				for="completed-achievements-selection-@spo.getId()">@Messages("index.registration.form.passedAchievements")</label>
+			<select id="completed-achievements-selection-@spo.getId()"
+				name="completed-@spo.getId()-multiselect[]" class="form-control"
+				multiple="multiple">
+				<optgroup
+					label='@Messages("index.registration.form.necessaryAchievements")'>
+					@for(nAchievement <- spo.getNecessaryAchievements()) {
+					<option value="@nAchievement.getId()">@nAchievement.getName()</option>
+					}
+				</optgroup>
+				<optgroup
+					label='@Messages("index.registration.form.additionalAchievements")'>
+					@for(aAchievement <- spo.getAdditionalAchievements()) {
+					<option value="@aAchievement.getId()">@aAchievement.getName()</option>
+					}
+				</optgroup>
+			</select>
+		</div>
+		<script type="text/javascript">
+			$(document).ready(function() {
+				$('#due-achievements-selection-@spo.getId()').multiselect({
+					enableClickableOptGroups : true,
+					maxHeight : 300,
+					numberDisplayed : 6
+				});
+			});
+		</script>
+		<div class="form-group">
+			<label class="control-label col-sm-2"
+				for="due-achievements-selection-@spo.getId()">@Messages("index.registration.form.dueAchievements")</label>
+			<select id="due-achievements-selection-@spo.getId()"
+				name="due-@spo.getId()-multiselect[]" class="form-control" multiple="multiple">
+				<optgroup
+					label='@Messages("index.registration.form.necessaryAchievements")'>
+					@for(nAchievement <- spo.getNecessaryAchievements()) {
+					<option value="@nAchievement.getId()">@nAchievement.getName()</option>
+					}
+				</optgroup>
+				<optgroup
+					label='@Messages("index.registration.form.additionalAchievements")'>
+					@for(aAchievement <- spo.getAdditionalAchievements()) {
+					<option value="@aAchievement.getId()">@aAchievement.getName()</option>
+					}
+				</optgroup>
+			</select>
+		</div>
+	</div>
+	}
+	<div class="form-group col-sm-offset-2">
+		<div class="checkbox">
+			<label><input type="checkbox" name="trueData"
+				value="trueData">@Messages("index.registration.form.trueData")</label>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<div class="col-sm-offset-2 col-sm-10">
+			<button type="submit" class="btn btn-default">@Messages("index.registration.form.register")</button>
+		</div>
+	</div>
+</form>
