@@ -14,6 +14,7 @@ import data.Project;
 import data.Rating;
 import data.Semester;
 import data.Student;
+import data.User;
 import play.data.DynamicForm;
 import play.data.FormFactory;
 import play.mvc.Controller;
@@ -44,8 +45,9 @@ public class StudentPageController extends Controller {
      */
     public Result learningGroupPage(String error) {
         UserManagement user = new UserManagement();
-        assert (user.getUserProfile(ctx()) instanceof Student);
-        Student student = (Student) user.getUserProfile(ctx());
+        User userProfile = user.getUserProfile(ctx());
+        assert userProfile instanceof Student;
+        Student student = (Student) userProfile;
         play.twirl.api.Html content = views.html.studentLearningGroup
                 .render(GeneralData.loadInstance().getCurrentSemester().getLearningGroupOf(student), error);
         Menu menu = new StudentMenu(ctx(), ctx().request().path());
@@ -81,8 +83,9 @@ public class StudentPageController extends Controller {
 
         }
         UserManagement user = new UserManagement();
-        assert (user.getUserProfile(ctx()) instanceof Student);
-        Student student = (Student) user.getUserProfile(ctx());
+        User userProfile = user.getUserProfile(ctx());
+        assert userProfile instanceof Student;
+        Student student = (Student) userProfile;
         play.twirl.api.Html content = views.html.studentResult
                 .render(GeneralData.loadInstance().getCurrentSemester().getFinalAllocation().getTeam(student), error);
         Menu menu = new StudentMenu(ctx(), ctx().request().path());
@@ -98,8 +101,9 @@ public class StudentPageController extends Controller {
      */
     public Result rate() {
         UserManagement user = new UserManagement();
-        assert (user.getUserProfile(ctx()) instanceof Student);
-        Student student = (Student) user.getUserProfile(ctx());
+        User userProfile = user.getUserProfile(ctx());
+        assert userProfile instanceof Student;
+        Student student = (Student) userProfile;
         DynamicForm form = formFactory.form().bindFromRequest();
         LearningGroup lg = GeneralData.loadInstance().getCurrentSemester().getLearningGroupOf(student);
         ArrayList<Rating> ratings = new ArrayList<>();
@@ -123,24 +127,26 @@ public class StudentPageController extends Controller {
      */
     public Result createLearningGroup() {
         UserManagement user = new UserManagement();
-        assert (user.getUserProfile(ctx()) instanceof Student);
-        Student student = (Student) user.getUserProfile(ctx());
+        User userProfile = user.getUserProfile(ctx());
+        assert userProfile instanceof Student;
+        Student student = (Student) userProfile;
         DynamicForm form = formFactory.form().bindFromRequest();
         String name = form.get("learningGroupname");
         String password = form.get("learningGroupPassword");
         // TODO stimmt hier der rückgabewert in html
-        if (!(LearningGroup.getLearningGroup(name, GeneralData.loadInstance().getCurrentSemester()) == null)) {
+        Semester semester = GeneralData.loadInstance().getCurrentSemester();
+        LearningGroup learningGroup = LearningGroup.getLearningGroup(name, semester);
+        if (learningGroup != null) {
             return redirect(controllers.routes.StudentPageController
                     .learningGroupPage(ctx().messages().at("student .learningGroup.error.existsAllready")));
         }
         LearningGroup lg = new LearningGroup(name, password, student, false);
-        Semester semester = GeneralData.loadInstance().getCurrentSemester();
+        // Lösche die private Lerngruppe
+        semester.getLearningGroupOf(student).delete();
+        semester.refresh();
         semester.doTransaction(() -> {
-            // Lösche die private Lerngruppe
-            semester.getLearningGroupOf(student).delete();
             // TODO falls man die alten bewertungen wieder will muss man hier
             // die alte lerngruppe behalten
-            // TODO Muss lg extra gespeichert werden?
             semester.addLearningGroup(lg);
         });
         return redirect(controllers.routes.StudentPageController.learningGroupPage(""));
@@ -154,8 +160,9 @@ public class StudentPageController extends Controller {
      */
     public Result leaveLearningGroup() {
         UserManagement user = new UserManagement();
-        assert (user.getUserProfile(ctx()) instanceof Student);
-        Student student = (Student) user.getUserProfile(ctx());
+        User userProfile = user.getUserProfile(ctx());
+        assert userProfile instanceof Student;
+        Student student = (Student) userProfile;
         LearningGroup lg = GeneralData.loadInstance().getCurrentSemester().getLearningGroupOf(student);
         if (lg.getMembers().size() == 1) {
             // Leeres Team löschen
@@ -164,6 +171,10 @@ public class StudentPageController extends Controller {
             // eingefügt
             LearningGroup lgNew = new LearningGroup("private" + student.getUserName(), "", student, true);
             lgNew.save();
+            Semester semester = GeneralData.loadInstance().getCurrentSemester();
+            semester.doTransaction(() -> {
+                semester.addLearningGroup(lgNew);
+            });
             return redirect(controllers.routes.StudentPageController.learningGroupPage(""));
         }
         lg.doTransaction(() -> {
@@ -183,8 +194,9 @@ public class StudentPageController extends Controller {
      */
     public Result joinLearningGroup() {
         UserManagement user = new UserManagement();
-        assert (user.getUserProfile(ctx()) instanceof Student);
-        Student student = (Student) user.getUserProfile(ctx());
+        User userProfile = user.getUserProfile(ctx());
+        assert userProfile instanceof Student;
+        Student student = (Student) userProfile;
         DynamicForm form = formFactory.form().bindFromRequest();
         String name = form.get("learningGroupname");
         String pw = form.get("learningGroupPassword");
@@ -216,8 +228,9 @@ public class StudentPageController extends Controller {
      */
     public Result accountPage(String error) {
         UserManagement user = new UserManagement();
-        assert (user.getUserProfile(ctx()) instanceof Student);
-        Student student = (Student) user.getUserProfile(ctx());
+        User userProfile = user.getUserProfile(ctx());
+        assert userProfile instanceof Student;
+        Student student = (Student) userProfile;
         play.twirl.api.Html content = views.html.studentAccount.render(student, error);
         Menu menu = new StudentMenu(ctx(), ctx().request().path());
         return ok(views.html.student.render(menu, content));
@@ -231,8 +244,9 @@ public class StudentPageController extends Controller {
      */
     public Result editAccount() {
         UserManagement user = new UserManagement();
-        assert (user.getUserProfile(ctx()) instanceof Student);
-        Student student = (Student) user.getUserProfile(ctx());
+        User userProfile = user.getUserProfile(ctx());
+        assert userProfile instanceof Student;
+        Student student = (Student) userProfile;
         DynamicForm form = formFactory.form().bindFromRequest();
 
         if (form.get("passwordChange") != null) {

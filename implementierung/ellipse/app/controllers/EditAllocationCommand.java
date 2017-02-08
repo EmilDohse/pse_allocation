@@ -6,18 +6,19 @@ package controllers;
 
 /************************************************************/
 /**
- * Die abstrakte Oberklasse aller Kommandos, die in eine Veränderung einer Einteilung durch den Administrator dartstellen.
+ * Die abstrakte Oberklasse aller Kommandos, die in eine Veränderung einer
+ * Einteilung durch den Administrator dartstellen.
  */
-public abstract class EditAllocationCommand {
+public interface EditAllocationCommand {
 
-	/**
-	 * Führt das Kommando aus. 
-	 */
-	public abstract void execute();
+    /**
+     * Führt das Kommando aus.
+     */
+    public void execute();
 
-	/**
-	 * Macht die Ausführung des Kommandos rückgängig. Kann nur ausgeführt werde, wenn das Kommando zuvor ausgeführt wurde.
-	 */
-	public void undo() {
-	}
+    /**
+     * Macht die Ausführung des Kommandos rückgängig. Kann nur ausgeführt werde,
+     * wenn das Kommando zuvor ausgeführt wurde.
+     */
+    public void undo();
 }

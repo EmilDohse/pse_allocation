@@ -17,7 +17,7 @@ import data.Team;
  * Konkretes Kommando zum verschieben eines Studierenden von seinem aktuellen
  * Team in ein neues.
  */
-public class MoveStudentCommand extends EditAllocationCommand {
+public class MoveStudentCommand implements EditAllocationCommand {
 
     private Allocation         allocation;
     private List<Student>      students;
@@ -34,8 +34,7 @@ public class MoveStudentCommand extends EditAllocationCommand {
      * @param newTeam
      *            Neues Team, in das der Studierende eingeteilt wird.
      */
-    public MoveStudentCommand(Allocation allocation, List<Student> students,
-            Team newTeam) {
+    public MoveStudentCommand(Allocation allocation, List<Student> students, Team newTeam) {
         super();
         this.allocation = allocation;
         this.students = students;
@@ -48,7 +47,7 @@ public class MoveStudentCommand extends EditAllocationCommand {
     @Override
     public void execute() {
 
-        oldTeams = new HashMap<Student, Team>();
+        oldTeams = new HashMap<>();
         for (Student s : students) {
             Team t = allocation.getTeam(s);
             oldTeams.put(s, t);

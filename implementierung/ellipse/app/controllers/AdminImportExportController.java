@@ -43,8 +43,6 @@ public class AdminImportExportController extends Controller {
         FilePart<File> importData = body.getFile("file");
 
         if (importData != null) {
-            String fileName = importData.getFilename();
-            String contentType = importData.getContentType();
             File file = importData.getFile();
             importExport.Importer importer = new Importer();
             try {// TODO wenn wir wollen können wir hier das file übergeben
@@ -73,9 +71,14 @@ public class AdminImportExportController extends Controller {
      */
     public Result exportAllocation() {
         importExport.Importer importer = new Importer();
-        File file = new File("/imExport/exportAllocation.csv");
-        importer.exportAllocation(file.getAbsolutePath(),
-                new Allocation(new ArrayList<>(), "hallo", new ArrayList<>()));
+        File file = new File("exportAllocation.csv");
+        try {
+            importer.exportAllocation(file, new Allocation(new ArrayList<>(),
+                    "hallo", new ArrayList<>()));
+        } catch (ImporterException e) {
+            return redirect(controllers.routes.AdminPageController
+                    .exportImportPage(ctx().messages().at(e.getMessage())));
+        }
         return ok(file); // TODO auswahl der einteilungen
 
     }
@@ -92,8 +95,6 @@ public class AdminImportExportController extends Controller {
         FilePart<File> importData = body.getFile("file");
 
         if (importData != null) {
-            String fileName = importData.getFilename();
-            String contentType = importData.getContentType();
             File file = importData.getFile();
             importExport.Importer importer = new Importer();
             try {// TODO wenn wir wollen können wir hier das file übergeben
@@ -145,8 +146,6 @@ public class AdminImportExportController extends Controller {
         FilePart<File> importData = body.getFile("file");
 
         if (importData != null) {
-            String fileName = importData.getFilename();
-            String contentType = importData.getContentType();
             File file = importData.getFile();
             importExport.Importer importer = new Importer();
             try {// TODO wenn wir wollen können wir hier das file übergeben
@@ -200,8 +199,6 @@ public class AdminImportExportController extends Controller {
         FilePart<File> importData = body.getFile("file");
 
         if (importData != null) {
-            String fileName = importData.getFilename();
-            String contentType = importData.getContentType();
             File file = importData.getFile();
             importExport.Importer importer = new Importer();
             try {// TODO wenn wir wollen können wir hier das file übergeben
@@ -254,8 +251,6 @@ public class AdminImportExportController extends Controller {
         FilePart<File> importData = body.getFile("file");
 
         if (importData != null) {
-            String fileName = importData.getFilename();
-            String contentType = importData.getContentType();
             File file = importData.getFile();
             importExport.Importer importer = new Importer();
             try {// TODO wenn wir wollen können wir hier das file übergeben
