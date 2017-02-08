@@ -33,13 +33,13 @@ public class UserManagement {
         return profile.get().getUser();
     }
 
-    public User addStudentRoleToOldStudent(Context ctx) {
+    public void addStudentRoleToOldStudent(Context ctx) {
         PlayWebContext webContext = new PlayWebContext(ctx,
                 ConfigSingleton.getConfig().getSessionStore());
         ProfileManager<UserProfile> profileManager = new ProfileManager<UserProfile>(
                 webContext);
         Optional<UserProfile> profile = profileManager.get(true);
-        profile.get().addRole("ROLE_STUDENT_OLD");
-        return profile.get().getUser();
+        profile.get().addRole("ROLE_STUDENT");
+        profileManager.save(true, profile.get(), false);
     }
 }

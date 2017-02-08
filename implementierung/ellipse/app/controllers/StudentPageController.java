@@ -72,7 +72,7 @@ public class StudentPageController extends Controller {
             String semesterString = form.get("semester");
             String spoIdString = form.get("spo");
             int spoId;
-            int semester = -1;
+            int semester;
             try {
                 semester = Integer.parseInt(semesterString);
                 spoId = Integer.parseInt(spoIdString);
@@ -84,8 +84,8 @@ public class StudentPageController extends Controller {
                     // Wahrheit entsprechen
                     trueData = true;
                 }
-                List<Achievement> completedAchievements = new ArrayList<>();
-                List<Achievement> nonCompletedAchievements = new ArrayList<>();
+                List<Achievement> completedAchievements;
+                List<Achievement> nonCompletedAchievements;
                 try {
                     completedAchievements = MultiselectList
                             .createAchievementList(form, "completed-"
@@ -104,13 +104,28 @@ public class StudentPageController extends Controller {
                             .changeFormPage(ctx().messages()
                                     .at("error.internalError")));
                 }
-
-                // TODO: Daten ändern im Studenten (bekommt man heraus über das
-                // UserManagement) und Student zum aktuellen Semester
-                // hinzufügen??? und im UserManagement addRole... ausführen
-                // redirect umändern zu learningGroupPage
-                return redirect(controllers.routes.IndexPageController
-                        .registerPage(ctx().messages()
+                if (trueData) {
+                    UserManagement management = new UserManagement();
+                    Student student = (Student) management
+                            .getUserProfile(ctx());
+                    student.doTransaction(() -> {
+                        student.setSPO(spo);
+                        student.setSemester(semester);
+                        student.setCompletedAchievements(completedAchievements);
+                        student.setOralTestAchievements(
+                                nonCompletedAchievements);
+                    });
+                    Semester currentSemester = GeneralData.loadInstance()
+                            .getCurrentSemester();
+                    currentSemester.doTransaction(() -> {
+                        currentSemester.addStudent(student);
+                    });
+                    management.addStudentRoleToOldStudent(ctx());
+                    return redirect(controllers.routes.StudentPageController
+                            .learningGroupPage(""));
+                }
+                return redirect(controllers.routes.StudentPageController
+                        .changeFormPage(ctx().messages()
                                 .at("index.registration.error.genError")));
 
             } catch (NumberFormatException e) {
