@@ -164,10 +164,16 @@ admin.properties.winterSemester = Wintersemester
 admin.properties.summerSemester = Sommersemester
 admin.properties.removeSemester = Semester löschen
 admin.properties.maxGroupSize = Maximale Lerngruppengröße
-admin.error.noSemester = Kein Semester vorhanden. Erstellen Sie bitte eines in den Einstellungen.
+admin.edit.moveToSameTeam = Der Studierende ist bereits in diesem Team
+admin.edit.noStudentSelected = Sie müssen einen Studierenden auswählen, den Sie verschieben möchten
+admin.edit.noFinalAllocation = Sie haben noch keine finale Einteilung zum veröffentlichen ausgewählt
+admin.edit.removeFinalAllocation = Sie können die finale Einteilung nicht löschen
+admin.error.noSemester = Kein Semester vorhanden. Erstellen Sie bitte eines in den Einstellungen
 
 importer.FileNotFound = Datei konnte nicht gefunden werden
 importer.IOException = Fehler beim Lesen der Datei
 importer.wrongFileFormat = Die angegebene Datei hat nicht das erwartete Format
 importer.alreadyExisting = Die importierte Datei existiert schon
 importer.notEmpty = Das angegebene Semester hat schon registrierte Studenten
+
+error.internalError = Unerwarteter, interner Serverfehler
