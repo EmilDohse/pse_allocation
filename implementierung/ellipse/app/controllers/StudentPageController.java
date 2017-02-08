@@ -5,13 +5,17 @@
 package controllers;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.google.inject.Inject;
 
+import data.Achievement;
+import data.ElipseModel;
 import data.GeneralData;
 import data.LearningGroup;
 import data.Project;
 import data.Rating;
+import data.SPO;
 import data.Semester;
 import data.Student;
 import data.User;
@@ -37,23 +41,108 @@ public class StudentPageController extends Controller {
     FormFactory formFactory;
 
     /**
+     * Auf diese Seite wird der Student beim anmelden weitergeleitet, um zu
+     * checken, ob der Student im aktuellen Semester drin ist oder nicht. Fall
+     * er im aktuellen Semester ist, wird er ins Studentenportal weitergeleitet,
+     * ansonsten muss er erst ein Formular für die Datenaktualisierung
+     * ausfüllen.
      * 
-     * @return
+     * @return Die Seite auf die er weitergeleitet wird.
      */
     public Result checkStudent() {
-        // TODO checken ob alter student oder neuer und passend weiterleiten
-        //
-        return null;
+        Student student = (Student) new UserManagement().getUserProfile(ctx());
+        if (GeneralData.loadInstance().getCurrentSemester().getStudents()
+                .contains(student)) {
+            return redirect(
+                    controllers.routes.StudentPageController.learningGroupPage(
+                            ctx().messages().at("error.internalError")));
+        } else {
+            return redirect(controllers.routes.StudentPageController
+                    .changeFormPage(""));
+        }
     }
 
+    /**
+     * Diese Seite stellt das Formular dar, das ein Student ausfüllen muss, wenn
+     * er zwar einen Account hat, aber nicht im aktuellen PSE-Semester ist. Hier
+     * darf er dann seine Studierendendaten aktualisieren.
+     * 
+     * @param error
+     *            Fehlermeldung, die angezeigt werden soll
+     * @return Die Seite, die angezeigt wird.
+     */
     public Result changeFormPage(String error) {
-        // TODO form anzeigen
-        return null;
+        play.twirl.api.Html content = views.html.studentChangeData.render(
+                GeneralData.loadInstance().getCurrentSemester().getSpos(),
+                error);
+        Menu menu = new Menu();
+        return ok(views.html.student.render(menu, content));
     }
 
+    /**
+     * Hier wird das Formular aus {@code changeFormPage} ausgewertet und er wird
+     * wenn alles korrekt ist in das Studentenportal weitergeleitet wird.
+     * 
+     * @return die Seite, die angezeigt wird.
+     */
     public Result changeData() {
-        // TODO form einlesen und daten speichern und weiterleiten
-        return null;
+        DynamicForm form = formFactory.form().bindFromRequest();
+        if (form.data().size() == 0) {
+            return badRequest("Expceting some data");
+        } else {
+            // die felder werden ausgelesen
+            String semesterString = form.get("semester");
+            String spoIdString = form.get("spo");
+            int spoId;
+            int semester = -1;
+            try {
+                semester = Integer.parseInt(semesterString);
+                spoId = Integer.parseInt(spoIdString);
+                SPO spo = ElipseModel.getById(SPO.class, spoId);
+                boolean trueData = false;
+
+                if (form.get("trueData") != null) {
+                    // wenn der student angekreuzt hat das seine Angaben der
+                    // Wahrheit entsprechen
+                    trueData = true;
+                }
+                List<Achievement> completedAchievements = new ArrayList<>();
+                List<Achievement> nonCompletedAchievements = new ArrayList<>();
+                try {
+                    completedAchievements = MultiselectList
+                            .createAchievementList(form, "completed-"
+                                    + spoIdString + "-multiselect");
+                } catch (NumberFormatException e) {
+                    return redirect(controllers.routes.IndexPageController
+                            .registerPage(ctx().messages()
+                                    .at("error.internalError")));
+                }
+                try {
+                    nonCompletedAchievements = MultiselectList
+                            .createAchievementList(form,
+                                    "due-" + spoIdString + "-multiselect");
+                } catch (NumberFormatException e) {
+                    return redirect(controllers.routes.IndexPageController
+                            .registerPage(ctx().messages()
+                                    .at("error.internalError")));
+                }
+
+                // TODO: Daten ändern im Studenten (bekommt man heraus über das
+                // UserManagement) und Student zum aktuellen Semester
+                // hinzufügen???
+
+                return redirect(controllers.routes.IndexPageController
+                        .registerPage(ctx().messages()
+                                .at("index.registration.error.genError")));
+
+            } catch (NumberFormatException e) {
+                return redirect(controllers.routes.IndexPageController
+                        .registerPage(ctx().messages()
+                                .at("index.registration.error.genError")));
+
+            }
+        }
+
     }
 
     /**
