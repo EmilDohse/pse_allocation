@@ -1,22 +1,36 @@
 @* * Diese Seite zeigt die ImportExport Ansicht dem Admin an. *
-Zusätzlich kann eine Fehlermeldung übergeben werden. *@ @(error: String)
-@if(!error.isEmpty()){
+Zusätzlich kann eine Fehlermeldung übergeben werden und eine Liste an
+allen SPOs und Einteilungen. *@ @(spos: List[data.SPO], allocations:
+List[data.Allocation], error: String) @if(!error.isEmpty()){
 <div class="alert alert-danger" role="alert">@error</div>
 }
+<script type="text/javascript"
+	src='@routes.Assets.versioned("javascripts/bootstrap-multiselect.js")'></script>
+<link rel="stylesheet"
+	href='@routes.Assets.versioned("stylesheets/bootstrap-multiselect.css")'
+	type="text/css" />
 <h1>@Messages("admin.sidebar.exportImport")</h1>
-<h3>@Messages("admin.eximport.import")</h3>
-<form
-	action="@controllers.routes.AdminImportExportController.importAllocation().path()"
-	method="POST" class="form-inline" enctype="multipart/form-data">
-	<div class="form-group">
-		<label class="control-label col-sm-2" for="file">@Messages("admin.eximport.chooseFile")</label>
-		<div class="col-sm-3">
-			<input type="file" class="form-control" name="file" id="file">
+<div class="col-sm-12">
+	<h3>@Messages("admin.eximport.import")</h3>
+	<form
+		action="@controllers.routes.AdminImportExportController.importGeneral().path()"
+		method="POST" class="form-horizontal" enctype="multipart/form-data">
+		<div class="form-group">
+			<label class="control-label col-sm-2" for="file">@Messages("admin.eximport.chooseFile")</label>
+			<div class="col-sm-3">
+				<input type="file" class="form-control" name="file" id="file">
+			</div>
 		</div>
-	</div>
-	<button type="submit" class="btn btn-default">@Messages("admin.eximport.importAllocation")</button>
-</form>
-<form
+		<div class="form-group col-sm-offset-2 col-sm-10">
+			<button type="submit" name="allocation" class="btn btn-default">@Messages("admin.eximport.importAllocation")</button>
+			<button type="submit" name="spo" class="btn btn-default">@Messages("admin.eximport.importSPO")</button>
+			<button type="submit" name="students" class="btn btn-default">@Messages("admin.eximport.importStudents")</button>
+			<button type="submit" name="projects" class="btn btn-default">@Messages("admin.eximport.importProjects")</button>
+		</div>
+	</form>
+</div>
+@*
+<!--<form
 	action="@controllers.routes.AdminImportExportController.importCMSData().path()"
 	method="POST" class="form-inline" enctype="multipart/form-data">
 	<div class="form-group">
@@ -26,7 +40,8 @@ Zusätzlich kann eine Fehlermeldung übergeben werden. *@ @(error: String)
 		</div>
 	</div>
 	<button type="submit" class="btn btn-default">@Messages("admin.eximport.importCMSData")</button>
-</form>
+</form>-->
+<!--
 <form
 	action="@controllers.routes.AdminImportExportController.importSPO().path()"
 	method="POST" class="form-inline" enctype="multipart/form-data">
@@ -59,40 +74,80 @@ Zusätzlich kann eine Fehlermeldung übergeben werden. *@ @(error: String)
 		</div>
 	</div>
 	<button type="submit" class="btn btn-default">@Messages("admin.eximport.importProjects")</button>
-</form>
-<h3>@Messages("admin.eximport.export")</h3>
-<form
-	action="@controllers.routes.AdminImportExportController.exportAllocation().path()"
-	method="POST" class="form-inline">
-	<div class="col-sm-10">
-		<button type="submit" class="btn btn-default">@Messages("admin.eximport.exportAllocation")</button>
+</form> -->
+*@
+<div class="col-sm-12">
+	<h3>@Messages("admin.eximport.export")</h3>
+	<div class="col-sm-12">
+		<form
+			action="@controllers.routes.AdminImportExportController.exportAllocation().path()"
+			method="POST" class="form-horizontal">
+			<script type="text/javascript">
+				$(document).ready(function() {
+					$('#allocation-selection').multiselect({
+						maxHeight : 300,
+						numberDisplayed : 6
+					});
+				});
+			</script>
+			<div class="form-group">
+				<select id="allocation-selection" name="allocation-selection"
+					class="form-control"> @for(allocation <- allocations) {
+					<option value="@allocation.getId()">@allocation.getName()</option>
+					}
+				</select>
+			</div>
+			<div class="col-sm-10">
+				<button type="submit" class="btn btn-default">@Messages("admin.eximport.exportAllocation")</button>
+			</div>
+		</form>
 	</div>
-</form>
-<form
+	<!--<form
 	action="@controllers.routes.AdminImportExportController.exportCMSData().path()"
 	method="POST" class="form-inline">
 	<div class="col-sm-10">
 		<button type="submit" class="btn btn-default">@Messages("admin.eximport.exportCMSData")</button>
 	</div>
-</form>
-<form
-	action="@controllers.routes.AdminImportExportController.exportSPO().path()"
-	method="POST" class="form-inline">
-	<div class="col-sm-10">
-		<button type="submit" class="btn btn-default">@Messages("admin.eximport.exportSPO")</button>
+</form>-->
+	<div class="col-sm-12">
+		<form
+			action="@controllers.routes.AdminImportExportController.exportSPO().path()"
+			method="POST" class="form-horizontal">
+			<script type="text/javascript">
+				$(document).ready(function() {
+					$('#spo-selection').multiselect({
+						maxHeight : 300,
+						numberDisplayed : 6
+					});
+				});
+			</script>
+			<div class="form-group">
+				<select id="spo-selection" name="spo-selection" class="form-control">
+					@for(spo <- spos) {
+					<option value="@spo.getId()">@spo.getName()</option> }
+				</select>
+			</div>
+			<div class="col-sm-10">
+				<button type="submit" class="btn btn-default">@Messages("admin.eximport.exportSPO")</button>
+			</div>
+		</form>
 	</div>
-</form>
-<form
-	action="@controllers.routes.AdminImportExportController.exportStudents().path()"
-	method="POST" class="form-inline">
-	<div class="col-sm-10">
-		<button type="submit" class="btn btn-default">@Messages("admin.eximport.exportStudents")</button>
+	<div class="col-sm-12">
+		<form
+			action="@controllers.routes.AdminImportExportController.exportStudents().path()"
+			method="POST" class="form-horizontal">
+			<div class="col-sm-10">
+				<button type="submit" class="btn btn-default">@Messages("admin.eximport.exportStudents")</button>
+			</div>
+		</form>
 	</div>
-</form>
-<form
-	action="@controllers.routes.AdminImportExportController.exportProjects().path()"
-	method="POST" class="form-inline">
-	<div class="col-sm-10">
-		<button type="submit" class="btn btn-default">@Messages("admin.eximport.exportProjects")</button>
+	<div class="col-sm-12">
+		<form
+			action="@controllers.routes.AdminImportExportController.exportProjects().path()"
+			method="POST" class="form-horizontal">
+			<div class="col-sm-10">
+				<button type="submit" class="btn btn-default">@Messages("admin.eximport.exportProjects")</button>
+			</div>
+		</form>
 	</div>
-</form>
+</div>

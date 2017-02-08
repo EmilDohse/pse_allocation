@@ -10,10 +10,12 @@ import java.util.ArrayList;
 import com.google.inject.Inject;
 
 import data.Allocation;
+import data.ElipseModel;
 import data.GeneralData;
 import data.SPO;
 import exception.ImporterException;
 import importExport.Importer;
+import play.data.DynamicForm;
 import play.data.FormFactory;
 import play.mvc.Controller;
 import play.mvc.Http.MultipartFormData;
@@ -29,6 +31,23 @@ public class AdminImportExportController extends Controller {
 
     @Inject
     FormFactory formFactory;
+
+    public Result importGeneral() {
+        DynamicForm form = formFactory.form().bindFromRequest();
+        if (form.get("allocation") != null) {
+            return importAllocation();
+        } else if (form.get("spo") != null) {
+            return importSPO();
+        } else if (form.get("students") != null) {
+            return importStudents();
+        } else if (form.get("projects") != null) {
+            return importProjects();
+        } else {
+            // TODO: Internal Error oder so
+            return redirect(controllers.routes.AdminPageController
+                    .exportImportPage("buttons-dont-work"));
+        }
+    }
 
     /**
      * Diese Methode importiert eine Einteilung, sodass sie in der
@@ -72,14 +91,24 @@ public class AdminImportExportController extends Controller {
     public Result exportAllocation() {
         importExport.Importer importer = new Importer();
         File file = new File("exportAllocation.csv");
+        DynamicForm form = formFactory.form().bindFromRequest();
+        String allocationIdString = form.get("allocation-selection");
+        int allocationId;
         try {
-            importer.exportAllocation(file, new Allocation(new ArrayList<>(),
-                    "hallo", new ArrayList<>()));
+            allocationId = Integer.parseInt(allocationIdString);
+        } catch (NumberFormatException e) {
+            return redirect(controllers.routes.AdminPageController
+                    .exportImportPage("error"));
+            // TODO Fehlermeldung
+        }
+        try {
+            importer.exportAllocation(file,
+                    ElipseModel.getById(Allocation.class, allocationId));
         } catch (ImporterException e) {
             return redirect(controllers.routes.AdminPageController
                     .exportImportPage(ctx().messages().at(e.getMessage())));
         }
-        return ok(file); // TODO auswahl der einteilungen
+        return ok(file).withHeader(CONTENT_DISPOSITION, "attachment");
 
     }
 
@@ -123,15 +152,25 @@ public class AdminImportExportController extends Controller {
     public Result exportSPO() {
         importExport.Importer importer = new Importer();
         File file = new File("exportSPO.csv");
+        DynamicForm form = formFactory.form().bindFromRequest();
+        String spoIdString = form.get("spo-selection");
+        int spoId;
         try {
-            importer.exportSPO(file, new SPO("haool"));
+            spoId = Integer.parseInt(spoIdString);
+        } catch (NumberFormatException e) {
+            return redirect(controllers.routes.AdminPageController
+                    .exportImportPage("error"));
+            // TODO Fehlermeldung
+        }
+        try {
+            importer.exportSPO(file, ElipseModel.getById(SPO.class, spoId));
             // TODO spo auswahl
         } catch (ImporterException e) {
             return redirect(controllers.routes.AdminPageController
                     .exportImportPage(ctx().messages().at(e.getMessage())));
         }
 
-        return ok(file);
+        return ok(file).withHeader(CONTENT_DISPOSITION, "attachment");
     }
 
     /**
@@ -183,7 +222,7 @@ public class AdminImportExportController extends Controller {
             return redirect(controllers.routes.AdminPageController
                     .exportImportPage(ctx().messages().at(e.getMessage())));
         }
-        return ok(file);
+        return ok(file).withHeader(CONTENT_DISPOSITION, "attachment");
     }
 
     /**
@@ -236,7 +275,7 @@ public class AdminImportExportController extends Controller {
                     .exportImportPage(ctx().messages().at(e.getMessage())));
         }
 
-        return ok(file);
+        return ok(file).withHeader(CONTENT_DISPOSITION, "attachment");
     }
 
     /**
@@ -287,6 +326,6 @@ public class AdminImportExportController extends Controller {
                     .exportImportPage(ctx().messages().at(e.getMessage())));
         }
 
-        return ok(file);
+        return ok(file).withHeader(CONTENT_DISPOSITION, "attachment");
     }
 }
