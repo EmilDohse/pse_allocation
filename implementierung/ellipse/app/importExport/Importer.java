@@ -14,10 +14,12 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import data.Achievement;
 import data.Adviser;
 import data.Allocation;
+import data.GeneralData;
 import data.Grade;
 import data.LearningGroup;
 import data.Project;
@@ -43,9 +45,120 @@ public class Importer {
      * @param semester
      *            Semester, dem die Einteilung hinzugefügt werden soll.
      */
-    public void importAllocation(String file, Semester semester)
+    public void importAllocation(File file, Semester semester)
             throws ImporterException {
 
+        Allocation importedAllocation = new Allocation();
+        ArrayList<Team> importedTeams = new ArrayList<>();
+
+        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+            String[] wantedHeader = { "Projekt", "Teamnummer", "Mitglieder" };
+            String header = br.readLine();
+            String[] headerSplit = header.split(";");
+
+            // Prüfe ob Kopfzeile die korrekte Länge hat
+            if (wantedHeader.length != headerSplit.length) {
+                throw new ImporterException("importer.wrongFileFormat");
+            }
+
+            // Prüfe, ob Kopfzeile die korrekten Inhalte hat
+            for (int i = 0; i < wantedHeader.length; i++) {
+                if (!wantedHeader[i].equals(headerSplit[i])) {
+                    throw new ImporterException("importer.wrongFileFormat");
+                }
+            }
+            String line = new String();
+            while ((line = br.readLine()) != null) {
+                Team currentTeam = new Team();
+                String[] lineSplit = line.split(";");
+
+                // Prüfe, ob Zeile die korrekte Länge
+                if (lineSplit.length != headerSplit.length) {
+                    throw new ImporterException("importer.wrongFileFormat");
+                }
+
+                // Prüfe, ob das Projekt existiert
+                Project project = getProjectByName(semester, lineSplit[0]);
+                if (project == null) {
+                    throw new ImporterException("importer.wrongFileFormat");
+                } else {
+                    currentTeam.setProject(project);
+                }
+
+                int teamNr;
+                try {
+                    teamNr = Integer.parseInt(lineSplit[1]);
+                } catch (NumberFormatException e) {
+                    throw new ImporterException("importer.wrongFileFormat");
+                }
+
+                // Prüfe ob Teamnummer größer 0 und kleinergleich der maximal
+                // Anzahl Teams ist
+                if (teamNr <= 0 || teamNr > project.getNumberOfTeams()) {
+                    throw new ImporterException("importer.wrongFileFormat");
+                }
+
+                // Prüfe, ob Teamnummer schon existiert
+                if (duplicateTeamNumber(teamNr, importedTeams, project)) {
+                    throw new ImporterException("importer.wrongFileFormat");
+                } else {
+                    currentTeam.setTeamNumber(teamNr);
+                }
+
+                String[] studentsSplit = lineSplit[2].split(",");
+
+                // Parse Matrikelnummer
+                int[] matNrs = new int[studentsSplit.length];
+
+                // Prüfe, ob es sich wirklich um Integers handelt
+                for (int i = 0; i < matNrs.length; i++) {
+                    try {
+                        matNrs[i] = Integer.parseInt(studentsSplit[i]);
+                    } catch (NumberFormatException e) {
+                        throw new ImporterException("importer.wrongFileFormat");
+                    }
+                }
+
+                // Prüfe, ob die Studenten bereits existieren
+                for (int i = 0; i < matNrs.length; i++) {
+                    Student currentStudent = Student.getStudent(matNrs[i]);
+                    if (currentStudent == null) {
+                        throw new ImporterException("importer.wrongFileFormat");
+                    } else {
+                        currentTeam.addMember(currentStudent);
+                    }
+                }
+
+                currentTeam.setAllocation(importedAllocation);
+                importedTeams.add(currentTeam);
+                importedAllocation.doTransaction(() -> {
+                    importedAllocation.setTeams(importedTeams);
+                    importedAllocation.setName("importierte Einteilung");
+                    importedAllocation.setParameters(new ArrayList<>());
+                    importedAllocation.setSemester(
+                            GeneralData.loadInstance().getCurrentSemester());
+                });
+            }
+        } catch (FileNotFoundException e) {
+            throw new ImporterException("importer.FileNotFound");
+        } catch (IOException e) {
+            throw new ImporterException("importer.IOException");
+        }
+
+    }
+
+    private boolean duplicateTeamNumber(int teamNr,
+            ArrayList<Team> importedTeams, Project project) {
+        List<Team> wantedTeams = importedTeams.stream()
+                .filter(team -> team.getProject().equals(project))
+                .collect(Collectors.toList());
+        boolean duplicate = false;
+        for (int i = 0; i < wantedTeams.size(); i++) {
+            if (teamNr == wantedTeams.get(i).getTeamNumber()) {
+                duplicate = true;
+            }
+        }
+        return duplicate;
     }
 
     /**
@@ -65,6 +178,7 @@ public class Importer {
 
             // Schreibe Kopfzeile
             String header = "Projekt;Teamnummer;Mitglieder";
+            header = header.substring(0, header.length());
             bw.write(header);
             bw.newLine();
 

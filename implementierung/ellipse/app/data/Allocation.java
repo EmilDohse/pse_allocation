@@ -63,8 +63,10 @@ public class Allocation extends ElipseModel {
     }
 
     public Allocation(Allocation a) {
+        // Hier wird kein Save aufgerufen sondern nur außerhalb auf dem
+        // geklonten Objekt, da sonst nicht korrekt gespeichert wird
         this();
-        // this.save();
+
         // Teams klonen
         for (Team t : a.getTeams()) {
             Team newTeam = new Team();

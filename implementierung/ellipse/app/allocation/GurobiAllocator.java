@@ -367,6 +367,8 @@ public class GurobiAllocator extends AbstractAllocator {
                 if (result == 1) {
                     Team team = currentConfiguration.getTeams().get(i);
                     Student student = currentConfiguration.getStudents().get(j);
+                    // Hier keine Transaction, da sonst nicht richtig
+                    // gespeichert wird.
                     team.addMember(student);
                 }
             }
