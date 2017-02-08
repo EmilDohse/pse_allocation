@@ -69,13 +69,11 @@ public class Allocation extends ElipseModel {
         for (Team t : a.getTeams()) {
             Team newTeam = new Team();
             newTeam.setProject(t.getProject());
-            newTeam.setMembers(t.getMembers());
+            // newTeam.setMembers(t.getMembers());
             newTeam.setTeamNumber(t.getTeamNumber());
-            /*
-             * newTeam.doTransaction(() -> { newTeam.setProject(t.getProject());
-             * newTeam.setMembers(t.getMembers()); newTeam.setAllocation(this);
-             * newTeam.setTeamNumber(t.getTeamNumber()); });
-             */
+            for (Student member : t.getMembers()) {
+                newTeam.addMember(member);
+            }
             this.teams.add(newTeam);
         }
         // Parameter klonen
