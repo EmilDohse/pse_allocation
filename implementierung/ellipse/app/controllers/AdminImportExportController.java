@@ -43,24 +43,19 @@ public class AdminImportExportController extends Controller {
         FilePart<File> importData = body.getFile("file");
 
         if (importData != null) {
-            String fileName = importData.getFilename();
-            String contentType = importData.getContentType();
             File file = importData.getFile();
             importExport.Importer importer = new Importer();
             try {// TODO wenn wir wollen können wir hier das file übergeben
                  // (api änderung)
-                importer.importAllocation(file.getAbsolutePath(),
-                        GeneralData.loadInstance().getCurrentSemester());
-                return redirect(controllers.routes.AdminPageController
-                        .exportImportPage(""));
+                importer.importAllocation(file.getAbsolutePath(), GeneralData.loadInstance().getCurrentSemester());
+                return redirect(controllers.routes.AdminPageController.exportImportPage(""));
             } catch (ImporterException e) {
-                return redirect(controllers.routes.AdminPageController
-                        .exportImportPage(ctx().messages().at(e.getMessage())));
+                return redirect(
+                        controllers.routes.AdminPageController.exportImportPage(ctx().messages().at(e.getMessage())));
             }
         }
         // TODO error message
-        return redirect(controllers.routes.AdminPageController
-                .exportImportPage("error"));
+        return redirect(controllers.routes.AdminPageController.exportImportPage("error"));
 
     }
 
@@ -92,23 +87,19 @@ public class AdminImportExportController extends Controller {
         FilePart<File> importData = body.getFile("file");
 
         if (importData != null) {
-            String fileName = importData.getFilename();
-            String contentType = importData.getContentType();
             File file = importData.getFile();
             importExport.Importer importer = new Importer();
             try {// TODO wenn wir wollen können wir hier das file übergeben
                  // (api änderung)
                 importer.importSPO(file);
-                return redirect(controllers.routes.AdminPageController
-                        .exportImportPage(""));
+                return redirect(controllers.routes.AdminPageController.exportImportPage(""));
             } catch (ImporterException e) {
-                return redirect(controllers.routes.AdminPageController
-                        .exportImportPage(ctx().messages().at(e.getMessage())));
+                return redirect(
+                        controllers.routes.AdminPageController.exportImportPage(ctx().messages().at(e.getMessage())));
             }
         }
         // TODO error message
-        return redirect(controllers.routes.AdminPageController
-                .exportImportPage("error"));
+        return redirect(controllers.routes.AdminPageController.exportImportPage("error"));
 
     }
 
@@ -126,8 +117,8 @@ public class AdminImportExportController extends Controller {
             importer.exportSPO(file, new SPO("haool"));
             // TODO spo auswahl
         } catch (ImporterException e) {
-            return redirect(controllers.routes.AdminPageController
-                    .exportImportPage(ctx().messages().at(e.getMessage())));
+            return redirect(
+                    controllers.routes.AdminPageController.exportImportPage(ctx().messages().at(e.getMessage())));
         }
 
         return ok(file);
@@ -145,25 +136,20 @@ public class AdminImportExportController extends Controller {
         FilePart<File> importData = body.getFile("file");
 
         if (importData != null) {
-            String fileName = importData.getFilename();
-            String contentType = importData.getContentType();
             File file = importData.getFile();
             importExport.Importer importer = new Importer();
             try {// TODO wenn wir wollen können wir hier das file übergeben
                  // (api änderung)
-                importer.importProjects(file,
-                        GeneralData.loadInstance().getCurrentSemester());
-                return redirect(controllers.routes.AdminPageController
-                        .exportImportPage(""));
+                importer.importProjects(file, GeneralData.loadInstance().getCurrentSemester());
+                return redirect(controllers.routes.AdminPageController.exportImportPage(""));
 
             } catch (ImporterException e) {
-                return redirect(controllers.routes.AdminPageController
-                        .exportImportPage(ctx().messages().at(e.getMessage())));
+                return redirect(
+                        controllers.routes.AdminPageController.exportImportPage(ctx().messages().at(e.getMessage())));
             }
         }
         // TODO error message
-        return redirect(controllers.routes.AdminPageController
-                .exportImportPage("error"));
+        return redirect(controllers.routes.AdminPageController.exportImportPage("error"));
     }
 
     /**
@@ -178,11 +164,10 @@ public class AdminImportExportController extends Controller {
         File file = new File("exportProjects.csv");
 
         try {
-            importer.exportProjects(file,
-                    GeneralData.loadInstance().getCurrentSemester());
+            importer.exportProjects(file, GeneralData.loadInstance().getCurrentSemester());
         } catch (ImporterException e) {
-            return redirect(controllers.routes.AdminPageController
-                    .exportImportPage(ctx().messages().at(e.getMessage())));
+            return redirect(
+                    controllers.routes.AdminPageController.exportImportPage(ctx().messages().at(e.getMessage())));
         }
         return ok(file);
     }
@@ -200,24 +185,19 @@ public class AdminImportExportController extends Controller {
         FilePart<File> importData = body.getFile("file");
 
         if (importData != null) {
-            String fileName = importData.getFilename();
-            String contentType = importData.getContentType();
             File file = importData.getFile();
             importExport.Importer importer = new Importer();
             try {// TODO wenn wir wollen können wir hier das file übergeben
                  // (api änderung)
-                importer.importCMSData(file.getAbsolutePath(),
-                        GeneralData.loadInstance().getCurrentSemester());
-                return redirect(controllers.routes.AdminPageController
-                        .exportImportPage(""));
+                importer.importCMSData(file.getAbsolutePath(), GeneralData.loadInstance().getCurrentSemester());
+                return redirect(controllers.routes.AdminPageController.exportImportPage(""));
             } catch (ImporterException e) {
-                return redirect(controllers.routes.AdminPageController
-                        .exportImportPage(ctx().messages().at(e.getMessage())));
+                return redirect(
+                        controllers.routes.AdminPageController.exportImportPage(ctx().messages().at(e.getMessage())));
             }
         }
         // TODO error message
-        return redirect(controllers.routes.AdminPageController
-                .exportImportPage("error"));
+        return redirect(controllers.routes.AdminPageController.exportImportPage("error"));
     }
 
     /**
@@ -232,11 +212,10 @@ public class AdminImportExportController extends Controller {
         importExport.Importer importer = new Importer();
         File file = new File("exportCMS.csv");
         try {
-            importer.exportCMSData(file.getAbsolutePath(),
-                    GeneralData.loadInstance().getCurrentSemester());
+            importer.exportCMSData(file.getAbsolutePath(), GeneralData.loadInstance().getCurrentSemester());
         } catch (ImporterException e) {
-            return redirect(controllers.routes.AdminPageController
-                    .exportImportPage(ctx().messages().at(e.getMessage())));
+            return redirect(
+                    controllers.routes.AdminPageController.exportImportPage(ctx().messages().at(e.getMessage())));
         }
 
         return ok(file);
@@ -254,24 +233,19 @@ public class AdminImportExportController extends Controller {
         FilePart<File> importData = body.getFile("file");
 
         if (importData != null) {
-            String fileName = importData.getFilename();
-            String contentType = importData.getContentType();
             File file = importData.getFile();
             importExport.Importer importer = new Importer();
             try {// TODO wenn wir wollen können wir hier das file übergeben
                  // (api änderung)
-                importer.importStudents(file,
-                        GeneralData.loadInstance().getCurrentSemester());
-                return redirect(controllers.routes.AdminPageController
-                        .exportImportPage(""));
+                importer.importStudents(file, GeneralData.loadInstance().getCurrentSemester());
+                return redirect(controllers.routes.AdminPageController.exportImportPage(""));
             } catch (ImporterException e) {
-                return redirect(controllers.routes.AdminPageController
-                        .exportImportPage(ctx().messages().at(e.getMessage())));
+                return redirect(
+                        controllers.routes.AdminPageController.exportImportPage(ctx().messages().at(e.getMessage())));
             }
         }
         // TODO error message
-        return redirect(controllers.routes.AdminPageController
-                .exportImportPage("error"));
+        return redirect(controllers.routes.AdminPageController.exportImportPage("error"));
     }
 
     /**
@@ -285,11 +259,10 @@ public class AdminImportExportController extends Controller {
         importExport.Importer importer = new Importer();
         File file = new File("exportStudents.csv");
         try {
-            importer.exportStudents(file,
-                    GeneralData.loadInstance().getCurrentSemester());
+            importer.exportStudents(file, GeneralData.loadInstance().getCurrentSemester());
         } catch (ImporterException e) {
-            return redirect(controllers.routes.AdminPageController
-                    .exportImportPage(ctx().messages().at(e.getMessage())));
+            return redirect(
+                    controllers.routes.AdminPageController.exportImportPage(ctx().messages().at(e.getMessage())));
         }
 
         return ok(file);
