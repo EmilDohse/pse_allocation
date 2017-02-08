@@ -130,27 +130,25 @@ public class AdminEditAllocationController extends Controller {
 
         List<Student> students = new ArrayList<Student>();
         for (int id : ids) {
-            students.add(ElipseModel.getById(Student.class, id));
+            Student s = ElipseModel.getById(Student.class, id);
+            students.add(s);
+            if (allocation.getTeam(s).equals(newTeam)) {
+                // TODO error
+                return redirect(controllers.routes.AdminPageController
+                        .resultsPage("error"));
+            }
+        }
+
+        if (students.size() == 0) {
+            // TODO error
+            return redirect(controllers.routes.AdminPageController
+                    .resultsPage("error"));
         }
 
         MoveStudentCommand command = new MoveStudentCommand(allocation,
                 students, newTeam);
         command.execute();
         undoStack.push(command);
-
-        /*
-         * List<Team> teams = allocation.getTeams(); int countMarked = 0;
-         * Student selectedStudent = new Student(); // hier leer initialisiert
-         * da // sonst warnung aufrtitt (er // wird jedoch sicher //
-         * initialisiert) for (Team tempTeam : teams) { List<Student> students =
-         * tempTeam.getMembers(); for (Student student : students) { if (null !=
-         * form.get(Integer.toString(student.getId()))) { countMarked++;
-         * selectedStudent = student; } } } if (countMarked == 1) {
-         * MoveStudentCommand command = new MoveStudentCommand(allocation,
-         * selectedStudent, newTeam); command.execute();
-         * undoStack.push(command); } else { // error bennennen
-         * controllers.routes.AdminPageController.resultsPage("error"); }
-         */
 
         return redirect(controllers.routes.AdminPageController.resultsPage(""));
     }
@@ -164,6 +162,7 @@ public class AdminEditAllocationController extends Controller {
      * @return Die Seite, die als Antwort verschickt wird.
      */
     public Result publishAllocation() {
+        // TODO popup warnung
         // TODO email benachrichtigung
         DynamicForm form = formFactory.form().bindFromRequest();
         String allocationIdString = form.get("allocationID");
@@ -171,12 +170,18 @@ public class AdminEditAllocationController extends Controller {
         try {
             allocationId = Integer.parseInt(allocationIdString);
         } catch (NumberFormatException e) {
+            // TODO error
             return redirect(controllers.routes.AdminPageController
                     .resultsPage("error"));
         }
         Allocation allocation = ElipseModel.getById(Allocation.class,
                 allocationId);
         Semester semester = GeneralData.loadInstance().getCurrentSemester();
+        if (semester.getFinalAllocation() != null) {
+            // TODO error
+            return redirect(controllers.routes.AdminPageController
+                    .resultsPage("error"));
+        }
         semester.doTransaction(() -> {
             semester.setFinalAllocation(allocation);
         });
@@ -204,9 +209,8 @@ public class AdminEditAllocationController extends Controller {
         }
         Allocation allocation = ElipseModel.getById(Allocation.class,
                 allocationId);
-        // TODO: Alles clonen, nicht shallow copy
-        Allocation clonedAllocation = new Allocation(allocation.getTeams(),
-                "cloned" + allocation.getName(), allocation.getParameters());
+
+        Allocation clonedAllocation = new Allocation(allocation);
         clonedAllocation.save();
         Semester semester = GeneralData.loadInstance().getCurrentSemester();
         semester.doTransaction(() -> {
@@ -234,6 +238,12 @@ public class AdminEditAllocationController extends Controller {
         }
         Allocation allocation = ElipseModel.getById(Allocation.class,
                 allocationId);
+        if (GeneralData.loadInstance().getCurrentSemester()
+                .getFinalAllocation().equals(allocation)) {
+            // TODO error
+            return redirect(controllers.routes.AdminPageController
+                    .resultsPage("error"));
+        }
         allocation.delete();
         return redirect(controllers.routes.AdminPageController.resultsPage(""));
     }
