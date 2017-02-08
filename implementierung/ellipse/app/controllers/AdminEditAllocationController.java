@@ -38,6 +38,7 @@ public class AdminEditAllocationController extends Controller {
     private static Deque<EditAllocationCommand> undoStack     = new ArrayDeque<>();
 
     private static final String                 ALLOCATION_ID = "allocationID";
+    private static final String INTERNAL_ERROR = "error.internalError";
 
     /**
      * Diese Methode editiert die Einteilung.
@@ -46,9 +47,9 @@ public class AdminEditAllocationController extends Controller {
      */
     public Result editAllocation() {
         DynamicForm form = formFactory.form().bindFromRequest();
-        if (form.data().size() == 0) {
-            return badRequest(ctx().messages().at(
-                    "admin.error.internalError"));
+        if (form.data().isEmpty()) {
+        return badRequest(ctx().messages().at(
+                    INTERNAL_ERROR));
         }
         String[] selectedIdsString = MultiselectList.getValueArray(form,
                 "selected-students");
@@ -59,7 +60,7 @@ public class AdminEditAllocationController extends Controller {
             } catch (NumberFormatException e) {
                 return redirect(controllers.routes.AdminPageController
                         .resultsPage(ctx().messages().at(
-                                "error.internalError")));
+                                INTERNAL_ERROR)));
             }
         }
         if (form.get("move") != null) {
@@ -69,7 +70,7 @@ public class AdminEditAllocationController extends Controller {
         } else {
             return redirect(controllers.routes.AdminPageController
                     .resultsPage(ctx().messages().at(
-                            "error.internalError")));
+                            INTERNAL_ERROR)));
         }
     }
 
@@ -89,7 +90,7 @@ public class AdminEditAllocationController extends Controller {
         } catch (NumberFormatException e) {
             return redirect(controllers.routes.AdminPageController
                     .resultsPage(ctx().messages().at(
-                            "error.internalError")));
+                            INTERNAL_ERROR)));
         }
         Allocation allocation = ElipseModel.getById(Allocation.class,
                 allocationId);
@@ -97,7 +98,7 @@ public class AdminEditAllocationController extends Controller {
         if (ids.size() != 2) {
             return redirect(controllers.routes.AdminPageController
                     .resultsPage(ctx().messages().at(
-                            "error.internalError")));
+                            INTERNAL_ERROR)));
         }
 
         Student firstStudent = ElipseModel.getById(Student.class, ids.get(0));
@@ -129,7 +130,7 @@ public class AdminEditAllocationController extends Controller {
         } catch (NumberFormatException e) {
             return redirect(controllers.routes.AdminPageController
                     .resultsPage(ctx().messages().at(
-                            "error.internalError")));
+                            INTERNAL_ERROR)));
         }
 
         Team newTeam = ElipseModel.getById(Team.class, teamId);
@@ -173,9 +174,9 @@ public class AdminEditAllocationController extends Controller {
         // TODO popup warnung
         // TODO email benachrichtigung
         DynamicForm form = formFactory.form().bindFromRequest();
-        if (form.data().size() == 0) {
+        if (form.data().isEmpty()) {
             return badRequest(ctx().messages().at(
-                    "error.internalError"));
+                    INTERNAL_ERROR));
         }
         String allocationIdString = form.get(ALLOCATION_ID);
         int allocationId;
@@ -184,7 +185,7 @@ public class AdminEditAllocationController extends Controller {
         } catch (NumberFormatException e) {
             return redirect(controllers.routes.AdminPageController
                     .resultsPage(ctx().messages().at(
-                            "error.internalError")));
+                            INTERNAL_ERROR)));
         }
         Allocation allocation = ElipseModel.getById(Allocation.class,
                 allocationId);
@@ -211,9 +212,9 @@ public class AdminEditAllocationController extends Controller {
      */
     public Result duplicateAllocation() {
         DynamicForm form = formFactory.form().bindFromRequest();
-        if (form.data().size() == 0) {
+        if (form.data().isEmpty()) {
             return badRequest(ctx().messages().at(
-                    "admin.error.internalError"));
+                    INTERNAL_ERROR));
         }
         String allocationIdString = form.get(ALLOCATION_ID);
         int allocationId;
@@ -222,7 +223,7 @@ public class AdminEditAllocationController extends Controller {
         } catch (NumberFormatException e) {
             return redirect(controllers.routes.AdminPageController
                     .resultsPage(ctx().messages().at(
-                            "error.internalError")));
+                            INTERNAL_ERROR)));
         }
         Allocation allocation = ElipseModel.getById(Allocation.class,
                 allocationId);
@@ -245,9 +246,9 @@ public class AdminEditAllocationController extends Controller {
      */
     public Result removeAllocation() {
         DynamicForm form = formFactory.form().bindFromRequest();
-        if (form.data().size() == 0) {
+        if (form.data().isEmpty()) {
             return badRequest(ctx().messages().at(
-                    "admin.error.internalError"));
+                    INTERNAL_ERROR));
         }
         String allocationIdString = form.get(ALLOCATION_ID);
         int allocationId;
@@ -256,7 +257,7 @@ public class AdminEditAllocationController extends Controller {
         } catch (NumberFormatException e) {
             return redirect(controllers.routes.AdminPageController
                     .resultsPage(ctx().messages().at(
-                            "error.internalError")));
+                            INTERNAL_ERROR)));
         }
         Allocation allocation = ElipseModel.getById(Allocation.class,
                 allocationId);
@@ -282,7 +283,7 @@ public class AdminEditAllocationController extends Controller {
         	//TODO Button ausgrauen
             return redirect(controllers.routes.AdminPageController
                     .resultsPage(ctx().messages().at(
-                            "error.internalError")));
+                            INTERNAL_ERROR)));
         }
         undoStack.pop().undo();
         return redirect(controllers.routes.AdminPageController.resultsPage(""));
