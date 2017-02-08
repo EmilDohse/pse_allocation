@@ -171,7 +171,8 @@ public class StudentPageController extends Controller {
      * @return Die Seite, die als Antwort verschickt wird.
      */
     public Result ratingPage(String error) {
-        play.twirl.api.Html content = views.html.studentRating.render(
+        Student student = (Student) new UserManagement().getUserProfile(ctx());
+        play.twirl.api.Html content = views.html.studentRating.render(student,
                 GeneralData.loadInstance().getCurrentSemester().getProjects(),
                 error);
         Menu menu = new StudentMenu(ctx(), ctx().request().path());
