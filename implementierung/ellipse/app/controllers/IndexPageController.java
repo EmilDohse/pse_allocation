@@ -103,10 +103,26 @@ public class IndexPageController extends Controller {
                     // Wahrheit entsprechen
                     trueData = true;
                 }
-                List<Achievement> completedAchievments = createCompletedAchievements(
-                        form, spoIdString);
-                List<Achievement> notCompletedAchievments = createNotCompletedAchievements(
-                        form, spoIdString);
+                List<Achievement> completedAchievements = new ArrayList<>();
+                List<Achievement> nonCompletedAchievements = new ArrayList<>();
+                try {
+                    completedAchievements = MultiselectList
+                            .createAchievementList(form, "completed-"
+                                    + spoIdString + "-multiselect");
+                } catch (NumberFormatException e) {
+                    return redirect(controllers.routes.IndexPageController
+                            .registerPage(ctx().messages()
+                                    .at("error.internalError")));
+                }
+                try {
+                    nonCompletedAchievements = MultiselectList
+                            .createAchievementList(form,
+                                    "due-" + spoIdString + "-multiselect");
+                } catch (NumberFormatException e) {
+                    return redirect(controllers.routes.IndexPageController
+                            .registerPage(ctx().messages()
+                                    .at("error.internalError")));
+                }
 
                 if (password.equals(pwRepeat) && trueData) {
                     // wenn der student bestätigt hat das seine angaben richtig
@@ -117,7 +133,7 @@ public class IndexPageController extends Controller {
                                 .encode(password);
                         Student student = new Student(matNrString, encPassword,
                                 email, firstName, lastName, matNr, spo,
-                                completedAchievments, notCompletedAchievments,
+                                completedAchievements, nonCompletedAchievements,
                                 semester);
                         student.save();
                         // TODO get student data from view
@@ -142,51 +158,17 @@ public class IndexPageController extends Controller {
 
                 // TODO braucht man hmehr als nur eine gererelle fehlermeldung?
                 return redirect(controllers.routes.IndexPageController
-                        .registerPage(ctx().messages().at(
-                                "index.registration.error.genError")));
+                        .registerPage(ctx().messages()
+                                .at("index.registration.error.genError")));
 
             } catch (NumberFormatException e) {
                 return redirect(controllers.routes.IndexPageController
-                        .registerPage(ctx().messages().at(
-                                "index.registration.error.genError")));
+                        .registerPage(ctx().messages()
+                                .at("index.registration.error.genError")));
 
             }
         }
 
-    }
-
-    private List<Achievement> createCompletedAchievements(DynamicForm form,
-            String spoIdString) {
-        List<Achievement> completedAchievements = new ArrayList<>();
-        String completedAchievmentIdString = form.get("completed-"
-                + spoIdString + "-multiselect[0]");
-        int completdeAchievmentId;
-        for (int i = 0; completedAchievmentIdString != null; completedAchievmentIdString = form
-                .get("completed-" + spoIdString + "-multiselect["
-                        + Integer.toString(++i) + "]")) {
-            completdeAchievmentId = Integer
-                    .parseInt(completedAchievmentIdString);
-            completedAchievements.add(ElipseModel.getById(Achievement.class,
-                    completdeAchievmentId));
-        }
-        return completedAchievements;
-    }
-
-    private List<Achievement> createNotCompletedAchievements(DynamicForm form,
-            String spoIdString) {
-        List<Achievement> notCompletedAchievements = new ArrayList<>();
-        String notCompletedAchievmentIdString = form.get("due-" + spoIdString
-                + "-multiselect[0]");
-        int notCompletedachievmentId;
-        for (int i = 0; notCompletedAchievmentIdString != null; notCompletedAchievmentIdString = form
-                .get("due-" + spoIdString + "-multiselect["
-                        + Integer.toString(++i) + "]")) {
-            notCompletedachievmentId = Integer
-                    .parseInt(notCompletedAchievmentIdString);
-            notCompletedAchievements.add(ElipseModel.getById(Achievement.class,
-                    notCompletedachievmentId));
-        }
-        return notCompletedAchievements;
     }
 
     /**
