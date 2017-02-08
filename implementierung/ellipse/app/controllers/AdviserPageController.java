@@ -297,6 +297,7 @@ public class AdviserPageController extends Controller {
         DynamicForm form = formFactory.form().bindFromRequest();
 
         if (form.get("passwordChange") != null) {
+            System.out.println("passwordChange1");
             String oldpw = form.get("oldPassword");
             String pw = form.get("newPassword");
             String pwrepeat = form.get("newPasswordRepeat");
@@ -304,6 +305,7 @@ public class AdviserPageController extends Controller {
             boolean matches = new BlowfishPasswordEncoder().matches(oldpw, adviser.getPassword());
 
             if (!pw.equals(pwrepeat) || !matches) {
+                System.out.println("passwordChange2");
                 // TODO error message
                 return redirect(controllers.routes.AdviserPageController.accountPage("error"));
             }
