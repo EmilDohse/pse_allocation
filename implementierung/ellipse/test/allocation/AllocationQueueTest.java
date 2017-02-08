@@ -1,7 +1,7 @@
 package allocation;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertNotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,7 +74,7 @@ public class AllocationQueueTest {
      */
     @Test
     public void testSingelton() {
-        assertTrue(allocQueue != null);
+        assertNotNull(allocQueue);
     }
 
     /**
@@ -85,7 +85,7 @@ public class AllocationQueueTest {
     @Test
     public void testAddToQueue() {
         allocQueue.addToQueue(configOne);
-        assertTrue(allocQueue.getQueue().size() == 1);
+        assertEquals(1, allocQueue.getQueue().size());
 
     }
 
@@ -99,9 +99,9 @@ public class AllocationQueueTest {
         allocQueue.addToQueue(configOne);
         allocQueue.addToQueue(configTwo);
         List<Configuration> list = allocQueue.getQueue();
-        assertTrue(list.get(0).getName().equals("test 1"));
-        assertTrue(list.get(1).getName().equals("test 2"));
-        assertTrue(list.size() == 2);
+        assertEquals("test 1", list.get(0).getName());
+        assertEquals("test 2", list.get(1).getName());
+        assertEquals(2, list.size());
     }
 
     /**
@@ -134,7 +134,7 @@ public class AllocationQueueTest {
         List<Configuration> list = allocQueue.getQueue();
         allocQueue.cancelAllocation(list.get(1).getName());
         list = allocQueue.getQueue();
-        assertTrue(list.get(0).getName().equals("test 1"));
-        assertTrue(list.size() == 1);
+        assertEquals("test 1", list.get(0).getName());
+        assertEquals(1, list.size());
     }
 }

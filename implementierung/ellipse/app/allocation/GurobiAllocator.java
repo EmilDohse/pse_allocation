@@ -13,6 +13,7 @@ import java.util.ServiceLoader;
 import data.Allocation;
 import data.AllocationParameter;
 import data.GeneralData;
+import data.Student;
 import data.Team;
 import gurobi.GRB;
 import gurobi.GRB.DoubleAttr;
@@ -114,7 +115,7 @@ public class GurobiAllocator extends AbstractAllocator {
             currentConfiguration = configuration;
             try {
                 env = new GRBEnv();
-                model = makeModel(currentConfiguration, env);
+                makeModel();
             } catch (GRBException e) {
                 Allocation failure = nullObject("allocation.gurobiException");
                 failure.save();
@@ -127,49 +128,30 @@ public class GurobiAllocator extends AbstractAllocator {
      */
     @Override
     public void calculate() {
-        if (null == this.model) {
-            System.out.println("Calculate was called before init. This is prohibited.");
-            assert false;// calculate() wurde vor init() aufgerufen: Das darf
-                         // nicht sein! TODO
-            return;
+        synchronized (this) {
+            if (null == this.model) {
+                // TODO Nachricht in message Datei einfügen
+                Allocation failure = nullObject("allocation.calculateBeforeInit");
+                failure.save();
+                return;
+            }
         }
         // Hier wird die eigentliche Berechnung durchgeführt
         try {
             this.model.optimize();
         } catch (GRBException e) {
-            System.out.println("1");
             Allocation failure = nullObject("allocation.gurobiException");
             failure.save();
             return;
-        } catch (NoSuchElementException e) {
-            System.out.println("2");
-            Allocation failure = nullObject("allocation.parameterNotFound");
-            failure.save();
-            return;
         }
-        // erstelle Teams
-        for (int i = 0; i < currentConfiguration.getTeams().size(); i++) {
-            for (int j = 0; j < currentConfiguration.getStudents().size(); j++) {
-                double result;
-                try {
-                    result = this.basicMatrix[j][i].get(DoubleAttr.X);
-                } catch (GRBException e) {
-                    System.out.println("3");
-                    Allocation failure = nullObject("allocation.gurobiException");
-                    failure.save();
-                    return;
-                }
-                if (result == 1) {
-                    currentConfiguration.getTeams().get(i).addMember(currentConfiguration.getStudents().get(j));
-                }
-            }
-        }
+
+        createTeams();
+
         // Mache Environment und Model ungültig
         try {
             this.model.dispose();
             env.dispose();
         } catch (GRBException e) {
-            System.out.println("4");
             Allocation failure = nullObject("allocation.gurobiException");
             failure.save();
             return;
@@ -209,96 +191,14 @@ public class GurobiAllocator extends AbstractAllocator {
         return criteria;
     }
 
-    private GRBModel makeModel(Configuration configuration, GRBEnv env) throws GRBException, NoSuchElementException {
-        GRBModel model = new GRBModel(env);
-
-        // Erstelle Basismatrix B
-        this.basicMatrix = new GRBVar[configuration.getStudents().size()][configuration.getTeams().size() + 1];
-        for (int i = 0; i < configuration.getStudents().size(); i++) {
-            for (int j = 0; j <= configuration.getTeams().size(); j++) {
-                this.basicMatrix[i][j] = model.addVar(0, 1, 0, GRB.BINARY, NULL);
-            }
-        }
-
-        // Erzeuge Basisconstraint
-        // Genau 1 Team pro Student
-
-        for (int i = 0; i < configuration.getStudents().size(); i++) {
-            GRBLinExpr teamsPerStudent = new GRBLinExpr();
-            for (int j = 0; j <= configuration.getTeams().size(); j++) {
-                teamsPerStudent.addTerm(1, this.basicMatrix[i][j]);
-            }
-            model.addConstr(teamsPerStudent, GRB.EQUAL, 1, NULL);
-        }
-
-        // Erzeuge Teamgröße-Variablen
-
-        this.teamSizes = new GRBVar[configuration.getTeams().size()];
-
-        for (int i = 0; i < configuration.getTeams().size(); i++) {
-            teamSizes[i] = model.addVar(0, Double.MAX_VALUE, 0, GRB.INTEGER, NULL);
-            GRBLinExpr teamSum = new GRBLinExpr();
-            for (int j = 0; j < configuration.getStudents().size(); j++) {
-                teamSum.addTerm(1, this.basicMatrix[j][i]);
-            }
-            model.addConstr(teamSizes[i], GRB.EQUAL, teamSum, NULL);
-        }
-
-        // Bestimme die vom Admin eingestellte min- und max-Größe
-        List<AllocationParameter> parameters = configuration.getParameters();
-        double minAdminSize;
-        double maxAdminSize;
-        minAdminSize = parameters.stream().filter(parameter -> parameter.getName().equals(MIN_SIZE)).findFirst().get()
-                .getValue();
-        maxAdminSize = parameters.stream().filter(parameter -> parameter.getName().equals(MAX_SIZE)).findFirst().get()
-                .getValue();
-
-        // Teamgröße zwischen min und max, oder 0
-        for (int i = 0; i < configuration.getTeams().size(); i++) {
-            GRBVar correctTeamSize = model.addVar(0, 1, 0, GRB.BINARY, NULL);
-
-            GRBLinExpr secondConstraintRightSide = new GRBLinExpr();
-            GRBLinExpr thirdConstraintRightSide = new GRBLinExpr();
-
-            secondConstraintRightSide.addTerm(getMaxSize(configuration.getTeams().get(i), maxAdminSize),
-                    correctTeamSize);
-
-            thirdConstraintRightSide.addTerm(getMinSize(configuration.getTeams().get(i), minAdminSize),
-                    correctTeamSize);
-
-            model.addConstr(correctTeamSize, GRB.LESS_EQUAL, this.teamSizes[i], NULL);
-            model.addConstr(this.teamSizes[i], GRB.LESS_EQUAL, secondConstraintRightSide, NULL);
-            model.addConstr(this.teamSizes[i], GRB.GREATER_EQUAL, thirdConstraintRightSide, NULL);
-        }
-
-        this.model = model;
-
-        // Initialisiere Optimierungsterm
-        this.optTerm = new GRBLinExpr();
-
-        // füge Kriterien hinzu
-        List<GurobiCriterion> criteria = getAllCriteria();
-        for (GurobiCriterion criterion : criteria) {
-
-            // Finde den vom Admin eingegebenen Parameter
-            double weight;
-            // TODO Ist die Abfrage auf null nötig? Kann das überhaupt
-            // passieren?
-            AllocationParameter param = configuration.getParameters().stream()
-                    .filter(parameter -> parameter.getName().equals(criterion.getName())).findFirst().orElse(null);
-            if (null != param) {
-                weight = param.getValue();
-                if (weight != 0) {
-                    criterion.useCriteria(configuration, this, weight);
-                }
-            }
-
-        }
-
+    private void makeModel() throws GRBException, NoSuchElementException {
+        model = new GRBModel(env);
+        createBaseMatrix();
+        createBasicConstraint();
+        createTeamSizeConstraint();
+        createOptimisationTerm();
         // Stelle Modell auf Maximierung ein
         model.setObjective(this.optTerm, GRB.MAXIMIZE);
-
-        return model;
     }
 
     /**
@@ -335,10 +235,129 @@ public class GurobiAllocator extends AbstractAllocator {
         }
     }
 
+    private void createBaseMatrix() throws GRBException {
+        // Erstelle Basismatrix B
+        this.basicMatrix = new GRBVar[currentConfiguration.getStudents().size()][currentConfiguration.getTeams().size()
+                + 1];
+        for (int i = 0; i < currentConfiguration.getStudents().size(); i++) {
+            for (int j = 0; j <= currentConfiguration.getTeams().size(); j++) {
+                this.basicMatrix[i][j] = model.addVar(0, 1, 0, GRB.BINARY, NULL);
+            }
+        }
+    }
+
+    private void createBasicConstraint() throws GRBException {
+        // Erzeuge Basisconstraint
+        // Genau 1 Team pro Student
+        for (int i = 0; i < currentConfiguration.getStudents().size(); i++) {
+            GRBLinExpr teamsPerStudent = new GRBLinExpr();
+            for (int j = 0; j <= currentConfiguration.getTeams().size(); j++) {
+                teamsPerStudent.addTerm(1, this.basicMatrix[i][j]);
+            }
+            model.addConstr(teamsPerStudent, GRB.EQUAL, 1, NULL);
+        }
+
+    }
+
+    private void createTeamSizeConstraint() throws GRBException {
+        createTeamsizeVariable();
+        // Bestimme die vom Admin eingestellte min- und max-Größe
+        List<AllocationParameter> parameters = currentConfiguration.getParameters();
+        double minAdminSize;
+        double maxAdminSize;
+        // TODO Besser die Standardwerte für min und max size benutzen oder ein
+        // Fehler werfen?
+        minAdminSize = parameters.stream().filter(parameter -> parameter.getName().equals(MIN_SIZE)).findFirst()
+                .orElse(new AllocationParameter(MIN_SIZE, 0)).getValue();
+        maxAdminSize = parameters.stream().filter(parameter -> parameter.getName().equals(MAX_SIZE)).findFirst()
+                .orElse(new AllocationParameter(MAX_SIZE, 1)).getValue();
+
+        // Teamgröße zwischen min und max, oder 0
+        for (int i = 0; i < currentConfiguration.getTeams().size(); i++) {
+            GRBVar correctTeamSize = model.addVar(0, 1, 0, GRB.BINARY, NULL);
+
+            GRBLinExpr secondConstraintRightSide = new GRBLinExpr();
+            GRBLinExpr thirdConstraintRightSide = new GRBLinExpr();
+
+            secondConstraintRightSide.addTerm(getMaxSize(currentConfiguration.getTeams().get(i), maxAdminSize),
+                    correctTeamSize);
+
+            thirdConstraintRightSide.addTerm(getMinSize(currentConfiguration.getTeams().get(i), minAdminSize),
+                    correctTeamSize);
+
+            model.addConstr(correctTeamSize, GRB.LESS_EQUAL, this.teamSizes[i], NULL);
+            model.addConstr(this.teamSizes[i], GRB.LESS_EQUAL, secondConstraintRightSide, NULL);
+            model.addConstr(this.teamSizes[i], GRB.GREATER_EQUAL, thirdConstraintRightSide, NULL);
+        }
+
+    }
+
+    private void createTeamsizeVariable() throws GRBException {
+        // Erzeuge Teamgröße-Variablen
+        this.teamSizes = new GRBVar[currentConfiguration.getTeams().size()];
+
+        for (int i = 0; i < currentConfiguration.getTeams().size(); i++) {
+            teamSizes[i] = model.addVar(0, Double.MAX_VALUE, 0, GRB.INTEGER, NULL);
+            GRBLinExpr teamSum = new GRBLinExpr();
+            for (int j = 0; j < currentConfiguration.getStudents().size(); j++) {
+                teamSum.addTerm(1, this.basicMatrix[j][i]);
+            }
+            model.addConstr(teamSizes[i], GRB.EQUAL, teamSum, NULL);
+        }
+    }
+
+    private void createOptimisationTerm() throws GRBException {
+        // Initialisiere Optimierungsterm
+        this.optTerm = new GRBLinExpr();
+
+        // Füge Kriterien hinzu
+        List<GurobiCriterion> criteria = getAllCriteria();
+        for (GurobiCriterion criterion : criteria) {
+
+            // Finde den vom Admin eingegebenen Parameter
+            double weight;
+            // TODO Ist die Abfrage auf null nötig? Kann das überhaupt
+            // passieren?
+            AllocationParameter param = currentConfiguration.getParameters().stream()
+                    .filter(parameter -> parameter.getName().equals(criterion.getName())).findFirst().orElse(null);
+            if (null != param) {
+                weight = param.getValue();
+                if (weight != 0) {
+                    criterion.useCriteria(currentConfiguration, this, weight);
+                }
+            }
+
+        }
+    }
+
+    private void createTeams() {
+        // erstelle Teams
+        for (int i = 0; i < currentConfiguration.getTeams().size(); i++) {
+            for (int j = 0; j < currentConfiguration.getStudents().size(); j++) {
+                double result;
+                try {
+                    result = this.basicMatrix[j][i].get(DoubleAttr.X);
+                } catch (GRBException e) {
+                    Allocation failure = nullObject("allocation.gurobiException");
+                    failure.save();
+                    return;
+                }
+                if (result == 1) {
+                    Team team = currentConfiguration.getTeams().get(i);
+                    Student student = currentConfiguration.getStudents().get(j);
+                    team.doTransaction(() -> {
+                        team.addMember(student);
+                    });
+
+                }
+            }
+        }
+    }
+
     private Allocation nullObject(String errorMessage) {
         Allocation failedAllocation = new Allocation(new ArrayList<Team>(), errorMessage,
                 new ArrayList<AllocationParameter>());
-        System.out.println("ERROR");
+        System.out.println("ERROR " + errorMessage);
         return failedAllocation;
     }
 }

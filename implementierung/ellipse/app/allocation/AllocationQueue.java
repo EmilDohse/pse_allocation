@@ -162,6 +162,9 @@ public class AllocationQueue {
     public void clear() {
         synchronized (this.runnable) {
             configurationQueue.clear();
+            if (currentlyCalculatedConfiguration != null) {
+                cancelAllocation(currentlyCalculatedConfiguration.getName());
+            }
             currentlyCalculatedConfiguration = null;
         }
     }
