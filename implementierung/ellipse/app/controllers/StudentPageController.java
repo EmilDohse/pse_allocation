@@ -37,6 +37,10 @@ import views.StudentMenu;
  */
 public class StudentPageController extends Controller {
 
+    private static final String INTERNAL_ERROR = "error.internalError";
+    private static final String GEN_ERROR      = "index.registration.error.genError";
+    private static final String ALREADY_IN_OTHER_GROUP = "student.learningGroup.error.alreadyInOtherGroup";
+
     @Inject
     FormFactory formFactory;
 
@@ -65,8 +69,8 @@ public class StudentPageController extends Controller {
      */
     public Result changeData() {
         DynamicForm form = formFactory.form().bindFromRequest();
-        if (form.data().size() == 0) {
-            return badRequest("Expceting some data");
+        if (form.data().isEmpty()) {
+            return badRequest(ctx().messages().at(INTERNAL_ERROR));
         } else {
             // die felder werden ausgelesen
             String semesterString = form.get("semester");
@@ -93,7 +97,7 @@ public class StudentPageController extends Controller {
                 } catch (NumberFormatException e) {
                     return redirect(controllers.routes.StudentPageController
                             .changeFormPage(ctx().messages()
-                                    .at("error.internalError")));
+                                    .at(INTERNAL_ERROR)));
                 }
                 try {
                     nonCompletedAchievements = MultiselectList
@@ -102,7 +106,7 @@ public class StudentPageController extends Controller {
                 } catch (NumberFormatException e) {
                     return redirect(controllers.routes.StudentPageController
                             .changeFormPage(ctx().messages()
-                                    .at("error.internalError")));
+                                    .at(INTERNAL_ERROR)));
                 }
                 if (trueData) {
                     UserManagement management = new UserManagement();
@@ -126,12 +130,12 @@ public class StudentPageController extends Controller {
                 }
                 return redirect(controllers.routes.StudentPageController
                         .changeFormPage(ctx().messages()
-                                .at("index.registration.error.genError")));
+                                .at(GEN_ERROR)));
 
             } catch (NumberFormatException e) {
                 return redirect(controllers.routes.StudentPageController
                         .changeFormPage(ctx().messages()
-                                .at("index.registration.error.genError")));
+                                .at(GEN_ERROR)));
 
             }
         }
@@ -211,6 +215,9 @@ public class StudentPageController extends Controller {
         assert userProfile instanceof Student;
         Student student = (Student) userProfile;
         DynamicForm form = formFactory.form().bindFromRequest();
+        if (form.data().isEmpty()) {
+            return badRequest(ctx().messages().at(INTERNAL_ERROR));
+        }
         LearningGroup lg = GeneralData.loadInstance().getCurrentSemester()
                 .getLearningGroupOf(student);
         lg.doTransaction(() -> {
@@ -242,23 +249,31 @@ public class StudentPageController extends Controller {
         User userProfile = user.getUserProfile(ctx());
         assert userProfile instanceof Student;
         Student student = (Student) userProfile;
+        Semester semester = GeneralData.loadInstance().getCurrentSemester();
+        if (!semester.getLearningGroupOf(student).isPrivate()) {
+            return redirect(controllers.routes.StudentPageController
+                    .learningGroupPage(ctx().messages().at(
+                            ALREADY_IN_OTHER_GROUP)));
+        }
         DynamicForm form = formFactory.form().bindFromRequest();
+        if (form.data().isEmpty()) {
+            return badRequest(ctx().messages().at(INTERNAL_ERROR));
+        }
         String name = form.get("learningGroupname");
+        if (name.matches("\\d*")) {
+            // Wenn Name leer ist oder nur aus Ziffern besteht
+            return redirect(controllers.routes.StudentPageController
+                    .learningGroupPage(ctx().messages()
+                            .at("student.learningGroup.error.nameFormat")));
+        }
         String password = form.get("learningGroupPassword");
         // TODO stimmt hier der rückgabewert in html
-        Semester semester = GeneralData.loadInstance().getCurrentSemester();
         LearningGroup learningGroup = LearningGroup.getLearningGroup(name,
                 semester);
         if (learningGroup != null) {
             return redirect(controllers.routes.StudentPageController
                     .learningGroupPage(ctx().messages().at(
-                            "student .learningGroup.error.existsAllready")));
-        }
-        if (!semester.getLearningGroupOf(student).isPrivate()) {
-            // TODO error
-        }
-        if (name.matches("\\d*")) {
-            // TODO error
+                            "student.learningGroup.error.existsAlready")));
         }
         LearningGroup lg = new LearningGroup(name, password, student, false);
         lg.save();
@@ -288,7 +303,9 @@ public class StudentPageController extends Controller {
         LearningGroup lg = GeneralData.loadInstance().getCurrentSemester()
                 .getLearningGroupOf(student);
         if (lg.isPrivate()) {
-            // TODO error
+            return redirect(controllers.routes.StudentPageController
+                    .learningGroupPage(ctx().messages().at(
+                            "student.learningGroup.error.noLearningGroup")));
         }
         if (lg.getMembers().size() == 1) {
             // Leeres Team löschen
@@ -326,6 +343,9 @@ public class StudentPageController extends Controller {
         assert userProfile instanceof Student;
         Student student = (Student) userProfile;
         DynamicForm form = formFactory.form().bindFromRequest();
+        if (form.data().isEmpty()) {
+            return badRequest(ctx().messages().at(INTERNAL_ERROR));
+        }
         String name = form.get("learningGroupname");
         String pw = form.get("learningGroupPassword");
         LearningGroup lgOld = GeneralData.loadInstance().getCurrentSemester()
@@ -340,10 +360,14 @@ public class StudentPageController extends Controller {
                             "student .learningGroup.error.learningGroupFull")));
         }
         if (!lgOld.isPrivate()) {
-            // TODO error
+            return redirect(controllers.routes.StudentPageController
+                    .learningGroupPage(ctx().messages().at(
+                            ALREADY_IN_OTHER_GROUP)));
         }
         if (lgNew.isPrivate()) {
-            // TODO error
+            return redirect(controllers.routes.StudentPageController
+                    .learningGroupPage(ctx().messages()
+                            .at("student.learningGroup.error.joinProhibited")));
         }
 
         if (lgNew.getPassword().equals(pw)) {
@@ -356,7 +380,7 @@ public class StudentPageController extends Controller {
         } else {
             return redirect(controllers.routes.StudentPageController
                     .learningGroupPage(ctx().messages()
-                            .at("student .learningGroup.error.wrongPW")));
+                            .at("student.learningGroup.error.wrongPW")));
         }
     }
 
@@ -389,7 +413,9 @@ public class StudentPageController extends Controller {
         assert userProfile instanceof Student;
         Student student = (Student) userProfile;
         DynamicForm form = formFactory.form().bindFromRequest();
-
+        if (form.data().isEmpty()) {
+            return badRequest(ctx().messages().at(INTERNAL_ERROR));
+        }
         if (form.get("passwordChange") != null) {
             String oldpw = form.get("oldPassword");
             String pw = form.get("newPassword");
@@ -398,10 +424,13 @@ public class StudentPageController extends Controller {
             boolean matches = new BlowfishPasswordEncoder().matches(oldpw,
                     student.getPassword());
 
-            if (!pw.equals(pwrepeat) || !matches) {
-                // TODO error message
+            if (!matches) {
                 return redirect(controllers.routes.StudentPageController
-                        .accountPage("error"));
+                        .accountPage("student.account.error.pwsDontMatch"));
+            }
+            if (!pw.equals(pwrepeat)) {
+                return redirect(controllers.routes.StudentPageController
+                        .accountPage("student.account.error.wrongPW"));
             }
             String pwEnc = new BlowfishPasswordEncoder().encode(pw);
             student.doTransaction(() -> {
