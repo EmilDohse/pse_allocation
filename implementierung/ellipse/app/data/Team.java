@@ -93,10 +93,6 @@ public class Team extends ElipseModel /* implements Comparable<Team> */ {
      *            Der Studierende, der dem Team hinzugefügt wird.
      */
     public void addMember(Student member) {
-        if (members == null) {
-            members = new ArrayList<Student>();
-        }
-
         members.add(member);
     }
 
@@ -107,10 +103,6 @@ public class Team extends ElipseModel /* implements Comparable<Team> */ {
      *            Der Studierende, der aus dem Team entfernt wird.
      */
     public void removeMember(Student member) {
-        if (members == null) {
-            members = new ArrayList<Student>();
-        }
-
         if (members.contains(member)) {
             members.remove(member);
         } else {
