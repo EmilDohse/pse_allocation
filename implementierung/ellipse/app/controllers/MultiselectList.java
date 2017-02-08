@@ -16,6 +16,12 @@ import play.data.DynamicForm;
 public class MultiselectList {
 
     /**
+     * Utility Klasse braucht keinen public Konstruktor
+     */
+    private MultiselectList() {
+    }
+
+    /**
      * Diese Mehode gibt alle Multiselect-Values in Array-Form zurück. Als Name
      * muss der name-Tag des select-Elementes mitgegeben werden, jedoch ohne die
      * "[]" am Ende eines multiselect-Elementes.

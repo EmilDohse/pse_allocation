@@ -13,7 +13,6 @@ import data.ElipseModel;
 import data.GeneralData;
 import data.Project;
 import data.Semester;
-import notificationSystem.Notifier;
 import play.data.DynamicForm;
 import play.data.FormFactory;
 import play.mvc.Controller;
@@ -27,10 +26,8 @@ import play.mvc.Result;
  */
 public class AdminProjectController extends Controller {
 
-    private Notifier notifier;
-
     @Inject
-    FormFactory      formFactory;
+    FormFactory formFactory;
 
     /**
      * Diese Methode fügt ein neues Projekt in das System ein und leitet den
@@ -60,7 +57,6 @@ public class AdminProjectController extends Controller {
      */
     public Result removeProject() {
         DynamicForm form = formFactory.form().bindFromRequest();
-        String projName = form.get("name");
         Project project = ElipseModel.getById(Project.class, Integer.parseInt(form.get("id")));
         // TODO hier eine warnmeldung ausgeben ob das projekt wirklich gelöscht
         // werden soll
@@ -107,8 +103,8 @@ public class AdminProjectController extends Controller {
             try {
                 adviserId = Integer.parseInt(adviserIdString);
             } catch (NumberFormatException e) {
-                return redirect(controllers.routes.IndexPageController.registerPage(ctx().messages().at(
-                        "index.registration.error.genError")));
+                return redirect(controllers.routes.IndexPageController
+                        .registerPage(ctx().messages().at("index.registration.error.genError")));
             }
             advisers.add(ElipseModel.getById(Adviser.class, adviserId));
         }
