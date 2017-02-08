@@ -181,7 +181,7 @@ public class AdminEditAllocationController extends Controller {
     public Result publishAllocation() {
         // TODO email benachrichtigung
         DynamicForm form = formFactory.form().bindFromRequest();
-        String allocationIdString = form.get("allocationId");
+        String allocationIdString = form.get("allocationID");
         int allocationId;
         try {
             allocationId = Integer.parseInt(allocationIdString);
@@ -209,7 +209,7 @@ public class AdminEditAllocationController extends Controller {
      */
     public Result duplicateAllocation() {
         DynamicForm form = formFactory.form().bindFromRequest();
-        String allocationIdString = form.get("allocationId");
+        String allocationIdString = form.get("allocationID");
         int allocationId;
         try {
             allocationId = Integer.parseInt(allocationIdString);
@@ -219,6 +219,7 @@ public class AdminEditAllocationController extends Controller {
         }
         Allocation allocation = ElipseModel.getById(Allocation.class,
                 allocationId);
+        // TODO: Alles clonen, nicht shallow copy
         Allocation clonedAllocation = new Allocation(allocation.getTeams(),
                 "cloned" + allocation.getName(), allocation.getParameters());
         clonedAllocation.save();
@@ -238,7 +239,7 @@ public class AdminEditAllocationController extends Controller {
      */
     public Result removeAllocation() {
         DynamicForm form = formFactory.form().bindFromRequest();
-        String allocationIdString = form.get("allocationId");
+        String allocationIdString = form.get("allocationID");
         int allocationId;
         try {
             allocationId = Integer.parseInt(allocationIdString);
@@ -248,12 +249,6 @@ public class AdminEditAllocationController extends Controller {
         }
         Allocation allocation = ElipseModel.getById(Allocation.class,
                 allocationId);
-        // TODO ist unnötig
-        /*
-         * Semester semester = GeneralData.loadInstance().getCurrentSemester();
-         * semester.doTransaction(() -> { semester.removeAllocation(allocation);
-         * });
-         */
         allocation.delete();
         return redirect(controllers.routes.AdminPageController.resultsPage(""));
     }
