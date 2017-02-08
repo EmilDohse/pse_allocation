@@ -32,178 +32,168 @@ import views.Menu;
  */
 public class IndexPageController extends Controller {
 
-    @Inject
-    FormFactory formFactory;
+	private static final String INTERNAL_ERROR = "error.internalError";
 
-    /**
-     * Diese Methode gibt die Startseite zurück. Auf dieser Seite können sich
-     * Administrator, Betreuer und Studenten anmelden oder aktuelle
-     * Informationen einsehen.
-     * 
-     * @return Die Seite, die als Antwort verschickt wird.
-     */
-    public Result indexPage(String error) {
-        play.twirl.api.Html content = views.html.indexInformation.render(
-                GeneralData.loadInstance().getCurrentSemester().getInfoText(),
-                error);
-        Menu menu = new IndexMenu(ctx(), ctx().request().path());
-        return ok(views.html.index.render(menu, content));
-    }
+	@Inject
+	FormFactory formFactory;
 
-    /**
-     * Diese Methode gibt die Seite zurück, auf der sich ein Student
-     * registrieren kann.
-     * 
-     * @return Die Seite, die als Antwort verschickt wird.
-     */
-    public Result registerPage(String error) {
-        play.twirl.api.Html content = views.html.indexRegistration.render(
-                GeneralData.loadInstance().getCurrentSemester().getSpos(),
-                error);
-        Menu menu = new IndexMenu(ctx(), ctx().request().path());
-        return ok(views.html.index.render(menu, content));
-    }
+	/**
+	 * Diese Methode gibt die Startseite zurück. Auf dieser Seite können sich
+	 * Administrator, Betreuer und Studenten anmelden oder aktuelle
+	 * Informationen einsehen.
+	 * 
+	 * @return Die Seite, die als Antwort verschickt wird.
+	 */
+	public Result indexPage(String error) {
+		play.twirl.api.Html content = views.html.indexInformation
+				.render(GeneralData.loadInstance().getCurrentSemester().getInfoText(), error);
+		Menu menu = new IndexMenu(ctx(), ctx().request().path());
+		return ok(views.html.index.render(menu, content));
+	}
 
-    /**
-     * Diese Methode registriert einen Studenten und fügt diesen in die
-     * Datenbank ein, sofern alle notwendigen Teillestungen als bestanden
-     * angegeben wurden.
-     * 
-     * @return Die Seite, die als Antwort verschickt wird.
-     */
-    public Result register() {
+	/**
+	 * Diese Methode gibt die Seite zurück, auf der sich ein Student
+	 * registrieren kann.
+	 * 
+	 * @return Die Seite, die als Antwort verschickt wird.
+	 */
+	public Result registerPage(String error) {
+		play.twirl.api.Html content = views.html.indexRegistration
+				.render(GeneralData.loadInstance().getCurrentSemester().getSpos(), error);
+		Menu menu = new IndexMenu(ctx(), ctx().request().path());
+		return ok(views.html.index.render(menu, content));
+	}
 
-        DynamicForm form = formFactory.form().bindFromRequest();
-        if (form.data().size() == 0) {
-            return badRequest("Expceting some data");
-        } else {
-            // die felder werden ausgelesen
-            String firstName = form.get("firstName");
-            String lastName = form.get("lastName");
-            String email = form.get("email");
-            String password = form.get("pw");
-            String pwRepeat = form.get("rpw");
-            String matNrString = "";
-            String semesterString = form.get("semester");
-            String spoIdString = form.get("spo");
-            int spoId;
-            int semester = -1;
-            int matNr = -1;
-            try {
-                // die matrikelnummer wird geparst
-                matNrString = form.get("matrnr");
-                matNr = Integer.parseInt(matNrString);
-                semester = Integer.parseInt(semesterString);
-                spoId = Integer.parseInt(spoIdString);
-                SPO spo = ElipseModel.getById(SPO.class, spoId);
-                boolean trueData = false;
+	/**
+	 * Diese Methode registriert einen Studenten und fügt diesen in die
+	 * Datenbank ein, sofern alle notwendigen Teillestungen als bestanden
+	 * angegeben wurden.
+	 * 
+	 * @return Die Seite, die als Antwort verschickt wird.
+	 */
+	public Result register() {
+		DynamicForm form = formFactory.form().bindFromRequest();
+		if (form.data().isEmpty()) {
+			return badRequest(ctx().messages().at(INTERNAL_ERROR));
+		}
+		// die felder werden ausgelesen
+		String firstName = form.get("firstName");
+		String lastName = form.get("lastName");
+		String email = form.get("email");
+		String password = form.get("pw");
+		String pwRepeat = form.get("rpw");
+		String matNrString = "";
+		String semesterString = form.get("semester");
+		String spoIdString = form.get("spo");
+		int spoId;
+		int semester = -1;
+		int matNr = -1;
+		try {
+			// die matrikelnummer wird geparst
+			matNrString = form.get("matrnr");
+			matNr = Integer.parseInt(matNrString);
+			semester = Integer.parseInt(semesterString);
+			spoId = Integer.parseInt(spoIdString);
+			SPO spo = ElipseModel.getById(SPO.class, spoId);
+			boolean trueData = false;
 
-                if (form.get("trueData") != null) {
-                    // wenn der student angekreuzt hat das seine Angaben der
-                    // Wahrheit entsprechen
-                    trueData = true;
-                }
-                List<Achievement> completedAchievements = new ArrayList<>();
-                List<Achievement> nonCompletedAchievements = new ArrayList<>();
-                try {
-                    completedAchievements = MultiselectList
-                            .createAchievementList(form, "completed-"
-                                    + spoIdString + "-multiselect");
-                } catch (NumberFormatException e) {
+			if (form.get("trueData") != null) {
+				// wenn der student angekreuzt hat das seine Angaben der
+				// Wahrheit entsprechen
+				trueData = true;
+			}
+			List<Achievement> completedAchievements = new ArrayList<>();
+			List<Achievement> nonCompletedAchievements = new ArrayList<>();
+			try {
+				completedAchievements = MultiselectList.createAchievementList(form,
+						"completed-" + spoIdString + "-multiselect");
+			} catch (NumberFormatException e) {
+				return redirect(
+						controllers.routes.IndexPageController.registerPage(ctx().messages().at(INTERNAL_ERROR)));
+			}
+			try {
+				nonCompletedAchievements = MultiselectList.createAchievementList(form,
+						"due-" + spoIdString + "-multiselect");
+			} catch (NumberFormatException e) {
+				return redirect(controllers.routes.IndexPageController
+                        .registerPage(ctx().messages().at(INTERNAL_ERROR)));
+			}
+
+			if (password.equals(pwRepeat) && trueData) {
+				// wenn der student bestätigt hat das seine angaben richtig
+				// sind und die passwörter übereinstimmen wird ein neuer
+				// student hinzugefügt
+				if (Student.getStudent(matNr) == null) {
+					String encPassword = new BlowfishPasswordEncoder().encode(password);
+					Student student = new Student(matNrString, encPassword, email, firstName, lastName, matNr, spo,
+							completedAchievements, nonCompletedAchievements, semester);
+					student.save();
+					// TODO get student data from view
+					Semester currentSemester = GeneralData.loadInstance().getCurrentSemester();
+					currentSemester.doTransaction(() -> {
+						currentSemester.addStudent(student);
+					});
                     return redirect(controllers.routes.IndexPageController
-                            .registerPage(ctx().messages()
-                                    .at("error.internalError")));
-                }
-                try {
-                    nonCompletedAchievements = MultiselectList
-                            .createAchievementList(form,
-                                    "due-" + spoIdString + "-multiselect");
-                } catch (NumberFormatException e) {
-                    return redirect(controllers.routes.IndexPageController
-                            .registerPage(ctx().messages()
-                                    .at("error.internalError")));
-                }
+                            .indexPage(""));
+					// TODO falls nötig noch emial verification einleiten
+				} else {
 
-                if (password.equals(pwRepeat) && trueData) {
-                    // wenn der student bestätigt hat das seine angaben richtig
-                    // sind und die passwörter übereinstimmen wird ein neuer
-                    // student hinzugefügt
-                    if (Student.getStudent(matNr) == null) {
-                        String encPassword = new BlowfishPasswordEncoder()
-                                .encode(password);
-                        Student student = new Student(matNrString, encPassword,
-                                email, firstName, lastName, matNr, spo,
-                                completedAchievements, nonCompletedAchievements,
-                                semester);
-                        student.save();
-                        // TODO get student data from view
-                        Semester currentSemester = GeneralData.loadInstance()
-                                .getCurrentSemester();
-                        currentSemester.doTransaction(() -> {
-                            currentSemester.addStudent(student);
-                        });
-                        return redirect(controllers.routes.IndexPageController
-                                .indexPage("error"));
-                        // TODO falls nötig noch emial verification einleiten
-                    } else {
-
-                        // falls bereits ein studnent mit dieser matrikelnumer
-                        // im system existiert kann sich der student nicht
-                        // registrieren
-                        return redirect(controllers.routes.IndexPageController
-                                .registerPage(ctx().messages().at(
-                                        "index.registration.error.matNrExists")));
-                    }
-                }
-
-                // TODO braucht man hmehr als nur eine gererelle fehlermeldung?
+					// falls bereits ein studnent mit dieser matrikelnumer
+					// im system existiert kann sich der student nicht
+					// registrieren
+					return redirect(controllers.routes.IndexPageController
+							.registerPage(ctx().messages().at("index.registration.error.matNrExists")));
+				}
+			}
+            else {
                 return redirect(controllers.routes.IndexPageController
-                        .registerPage(ctx().messages()
-                                .at("index.registration.error.genError")));
-
-            } catch (NumberFormatException e) {
-                return redirect(controllers.routes.IndexPageController
-                        .registerPage(ctx().messages()
-                                .at("index.registration.error.genError")));
+                        .registerPage(ctx().messages().at(
+                                "index.registration.error.passwordUnequal")));
 
             }
-        }
 
-    }
+		} catch (NumberFormatException e) {
+			return redirect(controllers.routes.IndexPageController
+                    .registerPage(ctx().messages()
+                            .at("index.registration.error.genError")));
 
-    /**
-     * Diese Methode gibt die Seite zurück, die ein Passwort-Rücksetz-Formular
-     * für Studenten und Betreuer anzeigt.
-     * 
-     * @return Die Seite, die als Antwort verschickt wird.
-     */
-    public Result passwordResetPage(String error) {
-        // TODO
-        return null;
-    }
+		}
 
-    /**
-     * Diese Methode schickt eine E-Mail anhand der Daten aus dem
-     * Passwort-Rücksetz-Formular an den Studenten oder den Betreuer, welche ein
-     * neues Passwort enthält.
-     * 
-     * @return Die Seite, die als Antwort verschickt wird.
-     */
-    public Result passwordReset() {
-        // TODO
-        return null;
-    }
+	}
 
-    /**
-     * Diese Methode gibt die Seite zurück, welche einen Studenten verifiziert.
-     * Dies funktioniert, indem der Student eine Mail mit einen Link auf diese
-     * Seite erhält, welche noch einen Code als Parameter übergibt. Anhand
-     * dieses Parameters wird der Student verifiziert.
-     * 
-     * @return Die Seite, die als Antwort verschickt wird.
-     */
-    public Result verificationPage(String code) {
-        // TODO
-        return null;
-    }
+	/**
+	 * Diese Methode gibt die Seite zurück, die ein Passwort-Rücksetz-Formular
+	 * für Studenten und Betreuer anzeigt.
+	 * 
+	 * @return Die Seite, die als Antwort verschickt wird.
+	 */
+	public Result passwordResetPage(String error) {
+		// TODO
+		return null;
+	}
+
+	/**
+	 * Diese Methode schickt eine E-Mail anhand der Daten aus dem
+	 * Passwort-Rücksetz-Formular an den Studenten oder den Betreuer, welche ein
+	 * neues Passwort enthält.
+	 * 
+	 * @return Die Seite, die als Antwort verschickt wird.
+	 */
+	public Result passwordReset() {
+		// TODO
+		return null;
+	}
+
+	/**
+	 * Diese Methode gibt die Seite zurück, welche einen Studenten verifiziert.
+	 * Dies funktioniert, indem der Student eine Mail mit einen Link auf diese
+	 * Seite erhält, welche noch einen Code als Parameter übergibt. Anhand
+	 * dieses Parameters wird der Student verifiziert.
+	 * 
+	 * @return Die Seite, die als Antwort verschickt wird.
+	 */
+	public Result verificationPage(String code) {
+		// TODO
+		return null;
+	}
 }
