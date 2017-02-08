@@ -11,6 +11,7 @@ import org.pac4j.core.exception.HttpAction;
 
 import data.Administrator;
 import data.Adviser;
+import data.GeneralData;
 import data.Student;
 import data.User;
 
@@ -43,7 +44,8 @@ public class UserAuthenticator
                 }
             }
         }
-        for (User u : Student.getStudents()) {
+        for (User u : GeneralData.loadInstance().getCurrentSemester()
+                .getStudents()) {
             if (credentials.getUsername().equals(u.getUserName())) {
                 if (encoder.matches(credentials.getPassword(),
                         u.getPassword())) {
@@ -52,6 +54,22 @@ public class UserAuthenticator
                     credentials.setUserProfile(profile);
                     context.setSessionAttribute(Pac4jConstants.REQUESTED_URL,
                             "/student");
+                    return;
+                } else {
+                    throw new BadCredentialsException("Bad credentials for: "
+                            + credentials.getUsername());
+                }
+            }
+        }
+        for (User u : Student.getStudents()) {
+            if (credentials.getUsername().equals(u.getUserName())) {
+                if (encoder.matches(credentials.getPassword(),
+                        u.getPassword())) {
+                    UserProfile profile = new UserProfile(u);
+                    profile.addRole("ROLE_STUDENT_OLD");
+                    credentials.setUserProfile(profile);
+                    context.setSessionAttribute(Pac4jConstants.REQUESTED_URL,
+                            "/changeForm");
                     return;
                 } else {
                     throw new BadCredentialsException("Bad credentials for: "

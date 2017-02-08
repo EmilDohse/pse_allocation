@@ -56,6 +56,8 @@ public class SecurityModule extends AbstractModule {
                 new RequireAnyRoleAuthorizer<UserProfile>("ROLE_ADVISER"));
         config.addAuthorizer("student",
                 new RequireAnyRoleAuthorizer<UserProfile>("ROLE_STUDENT"));
+        config.addAuthorizer("studentOld",
+                new RequireAnyRoleAuthorizer<UserProfile>("ROLE_STUDENT_OLD"));
         config.setHttpActionAdapter(new DefaultHttpActionAdapter());
         bind(Config.class).toInstance(config);
 
