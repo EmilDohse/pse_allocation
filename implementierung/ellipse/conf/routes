@@ -89,15 +89,16 @@ POST 	/admin/duplicateAllocation	controllers.AdminEditAllocationController.dupli
 POST 	/admin/removeAllocation		controllers.AdminEditAllocationController.removeAllocation()
 POST 	/admin/undoAllocationEdit	controllers.AdminEditAllocationController.undoAllocationEdit()
 
-POST 	/admin/importAllocation		controllers.AdminImportExportController.importAllocation()
+POST	/admin/import				controllers.AdminImportExportController.importGeneral()
+#POST 	/admin/importAllocation		controllers.AdminImportExportController.importAllocation()
 POST 	/admin/exportAllocation		controllers.AdminImportExportController.exportAllocation()
-POST 	/admin/importSPO			controllers.AdminImportExportController.importSPO()
+#POST 	/admin/importSPO			controllers.AdminImportExportController.importSPO()
 POST 	/admin/exportSPO			controllers.AdminImportExportController.exportSPO()
-POST 	/admin/importProjects		controllers.AdminImportExportController.importProjects()
+#POST 	/admin/importProjects		controllers.AdminImportExportController.importProjects()
 POST 	/admin/exportProjects		controllers.AdminImportExportController.exportProjects()
-POST 	/admin/importCMSData		controllers.AdminImportExportController.importCMSData()
+#POST 	/admin/importCMSData		controllers.AdminImportExportController.importCMSData()
 POST 	/admin/exportCMSData		controllers.AdminImportExportController.exportCMSData()
-POST 	/admin/importStudents		controllers.AdminImportExportController.importStudents()  
+#POST 	/admin/importStudents		controllers.AdminImportExportController.importStudents()  
 POST 	/admin/exportStudents		controllers.AdminImportExportController.exportStudents()
 
 # Map static resources from the /public folder to the /assets URL path

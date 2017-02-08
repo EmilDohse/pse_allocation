@@ -9,3 +9,5 @@ target
 /.sbtserver
 gurobi.jar
 /lib/*
+/bin/
+main.db
