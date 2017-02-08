@@ -37,6 +37,26 @@ public class StudentPageController extends Controller {
     FormFactory formFactory;
 
     /**
+     * 
+     * @return
+     */
+    public Result checkStudent() {
+        // TODO checken ob alter student oder neuer und passend weiterleiten
+        //
+        return null;
+    }
+
+    public Result changeFormPage(String error) {
+        // TODO form anzeigen
+        return null;
+    }
+
+    public Result changeData() {
+        // TODO form einlesen und daten speichern und weiterleiten
+        return null;
+    }
+
+    /**
      * Diese Methode gibt die Seite zurück, auf der der Student sieht in welcher
      * Lerngruppe er ist, oder wenn er in keiner aktuell ist, eine erstellen
      * oder einer beitreten kann.
@@ -48,8 +68,8 @@ public class StudentPageController extends Controller {
         User userProfile = user.getUserProfile(ctx());
         assert userProfile instanceof Student;
         Student student = (Student) userProfile;
-        play.twirl.api.Html content = views.html.studentLearningGroup.render(
-                GeneralData.loadInstance().getCurrentSemester()
+        play.twirl.api.Html content = views.html.studentLearningGroup
+                .render(GeneralData.loadInstance().getCurrentSemester()
                         .getLearningGroupOf(student), error);
         Menu menu = new StudentMenu(ctx(), ctx().request().path());
         return ok(views.html.student.render(menu, content));
@@ -88,8 +108,8 @@ public class StudentPageController extends Controller {
         User userProfile = user.getUserProfile(ctx());
         assert userProfile instanceof Student;
         Student student = (Student) userProfile;
-        play.twirl.api.Html content = views.html.studentResult.render(
-                GeneralData.loadInstance().getCurrentSemester()
+        play.twirl.api.Html content = views.html.studentResult
+                .render(GeneralData.loadInstance().getCurrentSemester()
                         .getFinalAllocation().getTeam(student), error);
         Menu menu = new StudentMenu(ctx(), ctx().request().path());
         return ok(views.html.student.render(menu, content));
@@ -114,15 +134,17 @@ public class StudentPageController extends Controller {
             ArrayList<Rating> ratings = new ArrayList<>();
             for (Project project : GeneralData.loadInstance()
                     .getCurrentSemester().getProjects()) {
-                Rating rating = new Rating(Integer.parseInt(form.get(Integer
-                        .toString(project.getId()))), project);
+                Rating rating = new Rating(
+                        Integer.parseInt(
+                                form.get(Integer.toString(project.getId()))),
+                        project);
                 // holt sich das rating des studenten aus dem formular
                 ratings.add(rating);
             }
             lg.setRatings(ratings);
         });
-        return redirect(controllers.routes.StudentPageController
-                .learningGroupPage(""));
+        return redirect(
+                controllers.routes.StudentPageController.learningGroupPage(""));
     }
 
     /**
@@ -165,8 +187,8 @@ public class StudentPageController extends Controller {
             // die alte lerngruppe behalten
             semester.addLearningGroup(lg);
         });
-        return redirect(controllers.routes.StudentPageController
-                .learningGroupPage(""));
+        return redirect(
+                controllers.routes.StudentPageController.learningGroupPage(""));
     }
 
     /**
@@ -202,8 +224,8 @@ public class StudentPageController extends Controller {
         lg.doTransaction(() -> {
             lg.removeMember(student);
         });
-        return redirect(controllers.routes.StudentPageController
-                .learningGroupPage(""));
+        return redirect(
+                controllers.routes.StudentPageController.learningGroupPage(""));
 
     }
 
@@ -225,8 +247,8 @@ public class StudentPageController extends Controller {
         String pw = form.get("learningGroupPassword");
         LearningGroup lgOld = GeneralData.loadInstance().getCurrentSemester()
                 .getLearningGroupOf(student);
-        LearningGroup lgNew = LearningGroup.getLearningGroup(name, GeneralData
-                .loadInstance().getCurrentSemester());
+        LearningGroup lgNew = LearningGroup.getLearningGroup(name,
+                GeneralData.loadInstance().getCurrentSemester());
         // Wenn die Lerngruppe bereits voll ist, wird ein Fehler zurückgegeben
         if (lgNew.getMembers().size() >= GeneralData.loadInstance()
                 .getCurrentSemester().getMaxGroupSize()) {
@@ -250,8 +272,8 @@ public class StudentPageController extends Controller {
                     .learningGroupPage(""));
         } else {
             return redirect(controllers.routes.StudentPageController
-                    .learningGroupPage(ctx().messages().at(
-                            "student .learningGroup.error.wrongPW")));
+                    .learningGroupPage(ctx().messages()
+                            .at("student .learningGroup.error.wrongPW")));
         }
     }
 
@@ -286,9 +308,14 @@ public class StudentPageController extends Controller {
         DynamicForm form = formFactory.form().bindFromRequest();
 
         if (form.get("passwordChange") != null) {
+            String oldpw = form.get("oldPassword");
             String pw = form.get("newPassword");
             String pwrepeat = form.get("newPasswordRepeat");
-            if (!pw.equals(pwrepeat)) {
+
+            boolean matches = new BlowfishPasswordEncoder().matches(oldpw,
+                    student.getPassword());
+
+            if (!pw.equals(pwrepeat) || !matches) {
                 // TODO error message
                 return redirect(controllers.routes.StudentPageController
                         .accountPage("error"));
@@ -305,8 +332,8 @@ public class StudentPageController extends Controller {
             });
             // TODO hier verifikation
         }
-        return redirect(controllers.routes.StudentPageController
-                .accountPage(""));
+        return redirect(
+                controllers.routes.StudentPageController.accountPage(""));
     }
 
     /**
@@ -317,7 +344,7 @@ public class StudentPageController extends Controller {
      */
     public Result sendNewVerificationLink() {
         // TODO: Verifkationscode neu erstellen und senden
-        return redirect(controllers.routes.StudentPageController
-                .accountPage(""));
+        return redirect(
+                controllers.routes.StudentPageController.accountPage(""));
     }
 }

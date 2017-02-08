@@ -60,6 +60,7 @@ student.account.newPassword = Neues Passwort
 student.account.newPasswordRepeat = Neues Passwort wiederholen
 student.account.sendNewVerificationLink = Neuen Verifikations-Code schicken.
 student.error.noAllocationYet = Bisher existieren noch keine fertig berechneten Einteilungen.
+student.changeData.changeData = Daten ändern
 
 adviser.sidebar.account = Account
 adviser.leaveProject = Projekt verlassen
