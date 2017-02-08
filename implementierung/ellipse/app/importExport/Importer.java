@@ -25,6 +25,7 @@ import data.Rating;
 import data.SPO;
 import data.Semester;
 import data.Student;
+import data.Team;
 import exception.ImporterException;
 import security.BlowfishPasswordEncoder;
 
@@ -54,8 +55,36 @@ public class Importer {
      *            Der Ausgabepfad.
      * @param allocation
      *            Die Einteilung, die exportiert werden soll.
+     * @throws ImporterException
+     *             wird vom Controller behandelt.
      */
-    public void exportAllocation(String file, Allocation allocation) {
+    public void exportAllocation(File file, Allocation allocation)
+            throws ImporterException {
+        try (BufferedWriter bw = new BufferedWriter(
+                new OutputStreamWriter(new FileOutputStream(file), "utf-8"))) {
+
+            // Schreibe Kopfzeile
+            String header = "Projekt;Teamnummer;Mitglieder";
+            bw.write(header);
+            bw.newLine();
+
+            // Erstelle Zeile pro Team und schreibe diese
+            for (Team team : allocation.getTeams()) {
+                String line = new String();
+                line += team.getProject().getName() + ";";
+                line += team.getTeamNumber() + ";";
+                for (Student member : team.getMembers()) {
+                    line += member.getMatriculationNumber() + ",";
+                }
+                line = line.substring(0, line.length() - 1);
+                bw.write(line);
+                bw.newLine();
+            }
+        } catch (FileNotFoundException e) {
+            throw new ImporterException("");
+        } catch (IOException e) {
+            throw new ImporterException("");
+        }
     }
 
     /**

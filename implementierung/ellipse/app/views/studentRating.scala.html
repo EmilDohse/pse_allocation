@@ -11,11 +11,9 @@ Parameter wird die Liste an Projekten und eine Fehlermeldung übergeben.
 	<thead>
 		<tr>
 			<th>@Messages("student.rating.projectname")</th>
-			<th>--</th>
-			<th>-</th>
-			<th>0</th>
-			<th>+</th>
-			<th>++</th>
+			@for(rating <- views.RatingDisplay.values()) {
+				<th>@rating.getRepresentation()</th>
+			}
 		</tr>
 	</thead>
 	<tbody>
@@ -39,11 +37,9 @@ Parameter wird die Liste an Projekten und eine Fehlermeldung übergeben.
 					</div>
 				</div></td>
 				<!-- TODO: Current Value anzeigen -->
-			<td><input type="radio" name="@project.getId()" value="2"></td>
-			<td><input type="radio" name="@project.getId()" value="4"></td>
-			<td><input type="radio" name="@project.getId()" value="6"></td>
-			<td><input type="radio" name="@project.getId()" value="8"></td>
-			<td><input type="radio" name="@project.getId()" value="10"></td>
+			@for(rating <- views.RatingDisplay.values()) {
+				<td><input type="radio" name="@project.getId()" value="@rating.getNumber()"></td>
+			}
 		</tr>
 		}
 	</tbody>
