@@ -5,6 +5,7 @@
 package controllers;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.google.inject.Inject;
 
@@ -14,7 +15,6 @@ import data.GeneralData;
 import data.SPO;
 import data.Semester;
 import data.Student;
-import notificationSystem.Notifier;
 import play.data.DynamicForm;
 import play.data.FormFactory;
 import play.mvc.Controller;
@@ -32,13 +32,8 @@ import views.Menu;
  */
 public class IndexPageController extends Controller {
 
-    /**
-     * 
-     */
-    private Notifier notifier;
-
     @Inject
-    FormFactory      formFactory;
+    FormFactory formFactory;
 
     /**
      * Diese Methode gibt die Startseite zurück. Auf dieser Seite können sich
@@ -102,32 +97,12 @@ public class IndexPageController extends Controller {
                 boolean trueData = false;
 
                 if (form.get("trueData") != null) {
-                    // wenn der student angekreuzt hat das seine angaben der
-                    // wahrheit entsprechen
+                    // wenn der student angekreuzt hat das seine Angaben der
+                    // Wahrheit entsprechen
                     trueData = true;
                 }
-                ArrayList<Achievement> completedAchievments = new ArrayList<>();
-                ArrayList<Achievement> notCompletedAchievments = new ArrayList<>();
-                String completedAchievmentIdString = form.get("completed-" + spoIdString + "-multiselect[0]");
-                int i = 0;
-                int completdeAchievmentId;
-                while (completedAchievmentIdString != null) {
-                    completdeAchievmentId = Integer.parseInt(completedAchievmentIdString);
-                    completedAchievments.add(ElipseModel.getById(Achievement.class, completdeAchievmentId));
-                    i++;
-                    completedAchievmentIdString = form
-                            .get("completed-" + spoIdString + "-multiselect[" + Integer.toString(i) + "]");
-                }
-                String notCompletedAchievmentIdString = form.get("due-" + spoIdString + "-multiselect[0]");
-                i = 0;
-                int notCompletedachievmentId;
-                while (notCompletedAchievmentIdString != null) {
-                    notCompletedachievmentId = Integer.parseInt(notCompletedAchievmentIdString);
-                    notCompletedAchievments.add(ElipseModel.getById(Achievement.class, notCompletedachievmentId));
-                    i++;
-                    notCompletedAchievmentIdString = form
-                            .get("due-" + spoIdString + "-multiselect[" + Integer.toString(i) + "]");
-                }
+                List<Achievement> completedAchievments = createCompletedAchievements(form, spoIdString);
+                List<Achievement> notCompletedAchievments = createNotCompletedAchievements(form, spoIdString);
 
                 if (password.equals(pwRepeat) && trueData) {
                     // wenn der student bestätigt hat das seine angaben richtig
@@ -165,6 +140,30 @@ public class IndexPageController extends Controller {
             }
         }
 
+    }
+
+    private List<Achievement> createCompletedAchievements(DynamicForm form, String spoIdString) {
+        List<Achievement> completedAchievements = new ArrayList<>();
+        String completedAchievmentIdString = form.get("completed-" + spoIdString + "-multiselect[0]");
+        int completdeAchievmentId;
+        for (int i = 0; completedAchievmentIdString != null; completedAchievmentIdString = form
+                .get("completed-" + spoIdString + "-multiselect[" + Integer.toString(++i) + "]")) {
+            completdeAchievmentId = Integer.parseInt(completedAchievmentIdString);
+            completedAchievements.add(ElipseModel.getById(Achievement.class, completdeAchievmentId));
+        }
+        return completedAchievements;
+    }
+
+    private List<Achievement> createNotCompletedAchievements(DynamicForm form, String spoIdString) {
+        List<Achievement> notCompletedAchievements = new ArrayList<>();
+        String notCompletedAchievmentIdString = form.get("due-" + spoIdString + "-multiselect[0]");
+        int notCompletedachievmentId;
+        for (int i = 0; notCompletedAchievmentIdString != null; notCompletedAchievmentIdString = form
+                .get("due-" + spoIdString + "-multiselect[" + Integer.toString(++i) + "]")) {
+            notCompletedachievmentId = Integer.parseInt(notCompletedAchievmentIdString);
+            notCompletedAchievements.add(ElipseModel.getById(Achievement.class, notCompletedachievmentId));
+        }
+        return notCompletedAchievements;
     }
 
     /**

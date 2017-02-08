@@ -20,7 +20,7 @@ List[qualityCriteria.QualityCriterion], error: String)
 	</script>
 	<ul class="nav nav-tabs" role="tablist" id="allocation-tabs">
 		@for(allocation <- allocations) {
-		<li role="presentation"><a href="#@allocation.getName()"
+		<li role="presentation"><a href="#allocation-@allocation.getId()"
 			aria-controls="@allocation.getName()" role="tab" data-toggle="tab">@allocation.getName()</a></li>
 		}
 		<li role="presentation"><a href="#comparison"
@@ -31,7 +31,7 @@ List[qualityCriteria.QualityCriterion], error: String)
 	<div class="tab-content">
 		@for(allocation <- allocations) {
 		<!-- Einteilungseditierungsseite -->
-		<div role="tabpanel" class="tab-pane" id="@allocation.getName()">
+		<div role="tabpanel" class="tab-pane" id="allocation-@allocation.getId()">
 			<div class="row">
 				<form method="POST"
 					action="@controllers.routes.AdminEditAllocationController.editAllocation().path()">
@@ -84,6 +84,17 @@ List[qualityCriteria.QualityCriterion], error: String)
 					</div>
 				</form>
 				<div class="col-sm-6 col-md-6">
+					<form
+						action="@controllers.routes.AdminEditAllocationController.undoAllocationEdit().path()"
+						method="POST">
+						<input type="hidden" name="allocationID"
+							value="@allocation.getId()">
+						<div class="form-group">
+							<div class="col-sm-10">
+								<button type="submit" name="remove" class="btn btn-default">@Messages("admin.results.undoChange")</button>
+							</div>
+						</div>
+					</form>
 					<form
 						action="@controllers.routes.AdminEditAllocationController.removeAllocation().path()"
 						method="POST">

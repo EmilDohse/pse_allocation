@@ -1,0 +1,36 @@
+@(teams: List[data.Team])
+<h1>teams[0].getProject().getName()</h1>
+@for(team <- teams) {
+<h3>Team #@team.getTeamNumber()</h3>
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th>@Messages("adviser.allocationInfo.name")</th>
+			<th>@Messages("index.registration.form.matrnr")</th>
+			<th>@Messages("index.registration.form.email")</th>
+			<th>@Messages("index.registration.form.semester")</th>
+			<th>@Messages("adviser.allocationInfo.learningGroup")</th>
+			<th>@Messages("adviser.allocationInfo.rating")</th>
+			<th>@Messages("adviser.allocationInfo.oralDue")</th>
+			<th>@Messages("adviser.allocationInfo.gradePSE")</th>
+			<th>@Messages("adviser.allocationInfo.gradeTSE")</th>
+		</tr>
+	</thead>
+	<tbody>
+		@for(member <- team.getMembers()) {
+		<tr>
+			<td>@member.getName()</td>
+			<td>@member.getMatriculationNumber()</td>
+			<td>@member.getEmailAddress()</td>
+			<td>@member.getSemester()</td>
+			<td>@data.GeneralData.loadInstance().getCurrentSemester().getLearningGroupOf(member).getName()</td>
+			<td>@data.GeneralData.loadInstance().getCurrentSemester().getLearningGroupOf(member).getRating(team.getProject())</td>
+			<td>@member.getOralTestAchievements().size()</td>
+			<!-- TODO: Inputs für Noten passen machen und Rating nicht als Zahl anzeigen. -->
+			<td></td>
+			<td></td>
+		</tr>
+		}
+	</tbody>
+</table>
+}
