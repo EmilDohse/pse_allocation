@@ -5,7 +5,6 @@
 package controllers;
 
 import java.io.File;
-import java.util.ArrayList;
 
 import com.google.inject.Inject;
 
@@ -66,7 +65,7 @@ public class AdminImportExportController extends Controller {
             importExport.Importer importer = new Importer();
             try {// TODO wenn wir wollen können wir hier das file übergeben
                  // (api änderung)
-                importer.importAllocation(file.getAbsolutePath(),
+                importer.importAllocation(file,
                         GeneralData.loadInstance().getCurrentSemester());
                 return redirect(controllers.routes.AdminPageController
                         .exportImportPage(""));
