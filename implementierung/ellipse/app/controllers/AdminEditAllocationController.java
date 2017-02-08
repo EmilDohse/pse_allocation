@@ -49,7 +49,7 @@ public class AdminEditAllocationController extends Controller {
             try {
                 selectedIds.add(Integer.parseInt(s));
             } catch (NumberFormatException e) {
-                // TODO errror benennen
+                // TODO error benennen
                 return redirect(controllers.routes.AdminPageController
                         .resultsPage("ids-wrong"));
             }
@@ -83,8 +83,6 @@ public class AdminEditAllocationController extends Controller {
             return redirect(controllers.routes.AdminPageController
                     .resultsPage("allo-id-wrong"));
         }
-        // über alle teams der allocation wird itteriert und geprüft ob zwei
-        // studierende markiert wurden, dann diese beiden getauscht
         Allocation allocation = ElipseModel.getById(Allocation.class,
                 allocationId);
 
@@ -100,19 +98,6 @@ public class AdminEditAllocationController extends Controller {
                 firstStudent, secondStudent);
         command.execute();
         undoStack.push(command);
-
-        /*
-         * List<Team> teams = allocation.getTeams(); int countMarked = 0;
-         * Stack<Student> selectedStudent = new Stack<>(); for (Team tempTeam :
-         * teams) { List<Student> students = tempTeam.getMembers(); for (Student
-         * student : students) { if (null !=
-         * form.get(Integer.toString(student.getId()))) { countMarked++;
-         * selectedStudent.push(student); } } } if (countMarked == 2) {
-         * SwapStudentCommand command = new SwapStudentCommand(allocation,
-         * selectedStudent.pop(), selectedStudent.pop()); command.execute();
-         * undoStack.push(command); } else { // error bennennen
-         * controllers.routes.AdminPageController.resultsPage("error"); }
-         */
 
         return redirect(controllers.routes.AdminPageController.resultsPage(""));
     }

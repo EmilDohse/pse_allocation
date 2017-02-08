@@ -4,7 +4,9 @@
 
 package controllers;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import data.Allocation;
 import data.Student;
@@ -17,10 +19,10 @@ import data.Team;
  */
 public class MoveStudentCommand extends EditAllocationCommand {
 
-    private Allocation    allocation;
-    private List<Student> students;
-    private Team          newTeam;
-    private Team          oldTeam;
+    private Allocation         allocation;
+    private List<Student>      students;
+    private Team               newTeam;
+    private Map<Student, Team> oldTeams;
 
     /**
      * Erzeugt ein neues Kommando zum verschieben eines Studierenden.
@@ -32,7 +34,8 @@ public class MoveStudentCommand extends EditAllocationCommand {
      * @param newTeam
      *            Neues Team, in das der Studierende eingeteilt wird.
      */
-    public MoveStudentCommand(Allocation allocation, List<Student> students, Team newTeam) {
+    public MoveStudentCommand(Allocation allocation, List<Student> students,
+            Team newTeam) {
         super();
         this.allocation = allocation;
         this.students = students;
@@ -45,12 +48,14 @@ public class MoveStudentCommand extends EditAllocationCommand {
     @Override
     public void execute() {
 
+        oldTeams = new HashMap<Student, Team>();
         for (Student s : students) {
-            oldTeam = allocation.getTeam(s);
+            Team t = allocation.getTeam(s);
+            oldTeams.put(s, t);
             // TODO hier eine warnung werfen falls die teamgröße überschritten
             // wird
-            oldTeam.doTransaction(() -> {
-                oldTeam.removeMember(s);
+            t.doTransaction(() -> {
+                t.removeMember(s);
             });
             newTeam.doTransaction(() -> {
                 newTeam.addMember(s);
@@ -69,8 +74,8 @@ public class MoveStudentCommand extends EditAllocationCommand {
             newTeam.doTransaction(() -> {
                 newTeam.removeMember(s);
             });
-            oldTeam.doTransaction(() -> {
-                oldTeam.addMember(s);
+            oldTeams.get(s).doTransaction(() -> {
+                oldTeams.get(s).addMember(s);
             });
         }
     }
