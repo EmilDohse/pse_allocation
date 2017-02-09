@@ -191,7 +191,12 @@ importer.FileNotFound = Datei konnte nicht gefunden werden
 importer.IOException = Fehler beim Lesen der Datei
 importer.wrongFileFormat = Die angegebene Datei hat nicht das erwartete Format
 importer.alreadyExisting = Die importierte Datei existiert schon
-importer.notEmpty = Das angegebene Semester hat schon registrierte Studenten
+importer.notEmptyStudents = Das angegebene Semester hat schon registrierte Studenten
+importer.notEmptyProjects = Das angegebene Semester enthält schon Projekte
+importer.missingProject = Eines der angegebenen Projekte existiert nicht
+importer.missingStudent = Einer der angegebenen Studenten existiert nicht
+importer.missingSPO = Eine der angegebenen SPOs existiert nicht
+importer.wrongTeamNumber = Eine der angegebenen Teamnummern kann nicht verwendet werden
 
 error.internalError = Unerwarteter, interner Serverfehler
 error.wrongInput = Bei manchen Formular-Feldern werden Ganzzahlen erwartet, jedoch was anderes angegeben.

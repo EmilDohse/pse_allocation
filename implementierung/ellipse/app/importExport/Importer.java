@@ -37,6 +37,15 @@ import security.BlowfishPasswordEncoder;
  */
 public class Importer {
 
+    private static final String WRONG_FORMAT     = "importer.wrongFileFormat";
+    private static final String FILE_NOT_FOUND   = "importer.FileNotFound";
+    private static final String IO               = "importer.IOException";
+    private static final String MISSING_PROJECT  = "importer.missingProject";
+    private static final String MISSING_STUDENT  = "importer.missingStudent";
+    private static final String MISSING_SPO      = "importer.missingSPO";
+    private static final String TEAMNR           = "importer.wrongTeamNumber";
+    private static final String ALREADY_EXISTING = "importer.alreadyExisting";
+
     /**
      * Importiert eine Einteilung.
      * 
@@ -58,13 +67,13 @@ public class Importer {
 
             // Prüfe ob Kopfzeile die korrekte Länge hat
             if (wantedHeader.length != headerSplit.length) {
-                throw new ImporterException("importer.wrongFileFormat");
+                throw new ImporterException(WRONG_FORMAT);
             }
 
             // Prüfe, ob Kopfzeile die korrekten Inhalte hat
             for (int i = 0; i < wantedHeader.length; i++) {
                 if (!wantedHeader[i].equals(headerSplit[i])) {
-                    throw new ImporterException("importer.wrongFileFormat");
+                    throw new ImporterException(WRONG_FORMAT);
                 }
             }
             String line = new String();
@@ -74,13 +83,13 @@ public class Importer {
 
                 // Prüfe, ob Zeile die korrekte Länge
                 if (lineSplit.length != headerSplit.length) {
-                    throw new ImporterException("importer.wrongFileFormat");
+                    throw new ImporterException(WRONG_FORMAT);
                 }
 
                 // Prüfe, ob das Projekt existiert
                 Project project = getProjectByName(semester, lineSplit[0]);
                 if (project == null) {
-                    throw new ImporterException("importer.wrongFileFormat");
+                    throw new ImporterException(MISSING_PROJECT);
                 } else {
                     currentTeam.setProject(project);
                 }
@@ -89,18 +98,18 @@ public class Importer {
                 try {
                     teamNr = Integer.parseInt(lineSplit[1]);
                 } catch (NumberFormatException e) {
-                    throw new ImporterException("importer.wrongFileFormat");
+                    throw new ImporterException(WRONG_FORMAT);
                 }
 
                 // Prüfe ob Teamnummer größer 0 und kleinergleich der maximal
                 // Anzahl Teams ist
                 if (teamNr <= 0 || teamNr > project.getNumberOfTeams()) {
-                    throw new ImporterException("importer.wrongFileFormat");
+                    throw new ImporterException(TEAMNR);
                 }
 
                 // Prüfe, ob Teamnummer schon existiert
                 if (duplicateTeamNumber(teamNr, importedTeams, project)) {
-                    throw new ImporterException("importer.wrongFileFormat");
+                    throw new ImporterException(TEAMNR);
                 } else {
                     currentTeam.setTeamNumber(teamNr);
                 }
@@ -115,7 +124,7 @@ public class Importer {
                     try {
                         matNrs[i] = Integer.parseInt(studentsSplit[i]);
                     } catch (NumberFormatException e) {
-                        throw new ImporterException("importer.wrongFileFormat");
+                        throw new ImporterException(WRONG_FORMAT);
                     }
                 }
 
@@ -123,7 +132,7 @@ public class Importer {
                 for (int i = 0; i < matNrs.length; i++) {
                     Student currentStudent = Student.getStudent(matNrs[i]);
                     if (currentStudent == null) {
-                        throw new ImporterException("importer.wrongFileFormat");
+                        throw new ImporterException(MISSING_STUDENT);
                     } else {
                         currentTeam.addMember(currentStudent);
                     }
@@ -140,16 +149,16 @@ public class Importer {
                 });
             }
         } catch (FileNotFoundException e) {
-            throw new ImporterException("importer.FileNotFound");
+            throw new ImporterException(FILE_NOT_FOUND);
         } catch (IOException e) {
-            throw new ImporterException("importer.IOException");
+            throw new ImporterException(IO);
         }
 
     }
 
-    private boolean duplicateTeamNumber(int teamNr,
-            ArrayList<Team> importedTeams, Project project) {
-        List<Team> wantedTeams = importedTeams.stream()
+    private boolean duplicateTeamNumber(int teamNr, ArrayList<Team> teams,
+            Project project) {
+        List<Team> wantedTeams = teams.stream()
                 .filter(team -> team.getProject().equals(project))
                 .collect(Collectors.toList());
         boolean duplicate = false;
@@ -195,9 +204,9 @@ public class Importer {
                 bw.newLine();
             }
         } catch (FileNotFoundException e) {
-            throw new ImporterException("");
+            throw new ImporterException(FILE_NOT_FOUND);
         } catch (IOException e) {
-            throw new ImporterException("");
+            throw new ImporterException(IO);
         }
     }
 
@@ -209,6 +218,7 @@ public class Importer {
      * @param semester
      *            Das Semester, bei dem die Daten aktualisiert.
      */
+    @Deprecated
     public void importCMSData(String file, Semester semester)
             throws ImporterException {
     }
@@ -222,6 +232,7 @@ public class Importer {
      *            Semester, aus dem die Noten der Studenten exportiert werden
      *            sollen.
      */
+    @Deprecated
     public void exportCMSData(String file, Semester semester)
             throws ImporterException {
 
@@ -248,98 +259,89 @@ public class Importer {
             boolean thirdColumn = headerSplit[2]
                     .equals("Necessary Achievements");
 
-            if (headerLength && firstColumn && secondColumn && thirdColumn) {
-
-                // Lese die Zeile, in der die SPO steht
-                String line = br.readLine();
-
-                // Teile die Zeile in Attribute auf
-                String[] lineSplit = line.split(";");
-
-                // Prüfe, ob die Zeile die korrekte Form hat und ob die SPO noch
-                // nicht existiert
-                if (lineSplit.length == 3) {
-                    SPO spo = SPO.getSPO(lineSplit[0]);
-                    if (spo == null) {
-                        boolean additionalIsNotEmpty = (lineSplit[1]
-                                .length() != 0);
-                        boolean necessaryIsNotEmpty = (lineSplit[2]
-                                .length() != 0);
-                        if (additionalIsNotEmpty && necessaryIsNotEmpty) {
-
-                            // Erstelle die neue SPO
-                            SPO importedSpo = new SPO();
-                            importedSpo.doTransaction(() -> {
-                                importedSpo.setName(lineSplit[0]);
-                            });
-                            List<Achievement> additionalAchievements = new ArrayList<Achievement>();
-                            List<Achievement> necessaryAchievements = new ArrayList<Achievement>();
-
-                            // Teile die zusätzlichen Teilleistungen weiter auf
-                            String[] additionalSplit = lineSplit[1].split(",");
-                            for (int i = 0; i < additionalSplit.length; i++) {
-
-                                // Prüfe, ob die aktuelle Teilleistung schon
-                                // existiert, wenn nicht lege sie an
-                                Achievement currentAchievement = Achievement
-                                        .getAchievement(additionalSplit[i]);
-                                if (currentAchievement != null) {
-                                    additionalAchievements
-                                            .add(currentAchievement);
-                                } else {
-                                    Achievement newAchievement = new Achievement();
-                                    String name = additionalSplit[i];
-                                    newAchievement.doTransaction(() -> {
-                                        newAchievement.setName(name);
-                                    });
-                                    additionalAchievements.add(newAchievement);
-                                }
-                            }
-
-                            // Selbes Vorgehen für notwendige Teilleistungen
-                            String[] necessarySplit = lineSplit[2].split(",");
-                            for (int i = 0; i < necessarySplit.length; i++) {
-                                Achievement currentAchievement = Achievement
-                                        .getAchievement(necessarySplit[i]);
-                                if (currentAchievement != null) {
-                                    necessaryAchievements
-                                            .add(currentAchievement);
-                                } else {
-                                    Achievement newAchievement = new Achievement();
-                                    String name = necessarySplit[i];
-                                    newAchievement.doTransaction(() -> {
-                                        newAchievement.setName(name);
-                                    });
-                                    necessaryAchievements.add(newAchievement);
-                                }
-                            }
-                            importedSpo.doTransaction(() -> {
-                                importedSpo.setAdditionalAchievements(
-                                        additionalAchievements);
-                                importedSpo.setNecessaryAchievements(
-                                        necessaryAchievements);
-                            });
-                        } else {
-                            throw new ImporterException(
-                                    "importer.wrongFileFormat");
-                        }
-                    } else {
-                        throw new ImporterException("importer.alreadyExisting");
-                    }
-                } else {
-                    throw new ImporterException("importer.wrongFileFormat");
-                }
-            } else
-
-            {
-                throw new ImporterException("importer.wrongFileFormat");
+            if (!(headerLength && firstColumn && secondColumn && thirdColumn)) {
+                throw new ImporterException(WRONG_FORMAT);
             }
 
+            // Lese die Zeile, in der die SPO steht
+            String line = br.readLine();
+
+            // Teile die Zeile in Attribute auf
+            String[] lineSplit = line.split(";");
+
+            // Prüfe, ob die Zeile die korrekte Form hat und ob die SPO noch
+            // nicht existiert
+            if (lineSplit.length != 3) {
+                throw new ImporterException(WRONG_FORMAT);
+            }
+
+            SPO spo = SPO.getSPO(lineSplit[0]);
+            if (spo != null) {
+                throw new ImporterException(ALREADY_EXISTING);
+            }
+
+            boolean additionalIsNotEmpty = (lineSplit[1].length() != 0);
+            boolean necessaryIsNotEmpty = (lineSplit[2].length() != 0);
+
+            // Prüfe, ob die zu importierende SPO notwendige und zusätzliche
+            // Teilleistungen enthält
+            if (!(additionalIsNotEmpty && necessaryIsNotEmpty)) {
+                throw new ImporterException(WRONG_FORMAT);
+            }
+
+            // Erstelle die neue SPO
+            SPO importedSpo = new SPO();
+            importedSpo.doTransaction(() -> {
+                importedSpo.setName(lineSplit[0]);
+            });
+            List<Achievement> additionalAchievements = new ArrayList<Achievement>();
+            List<Achievement> necessaryAchievements = new ArrayList<Achievement>();
+
+            // Teile die zusätzlichen Teilleistungen weiter auf
+            String[] additionalSplit = lineSplit[1].split(",");
+            for (int i = 0; i < additionalSplit.length; i++) {
+
+                // Prüfe, ob die aktuelle Teilleistung schon
+                // existiert, wenn nicht lege sie an
+                Achievement currentAchievement = Achievement
+                        .getAchievement(additionalSplit[i]);
+                if (currentAchievement != null) {
+                    additionalAchievements.add(currentAchievement);
+                } else {
+                    Achievement newAchievement = new Achievement();
+                    String name = additionalSplit[i];
+                    newAchievement.doTransaction(() -> {
+                        newAchievement.setName(name);
+                    });
+                    additionalAchievements.add(newAchievement);
+                }
+            }
+
+            // Selbes Vorgehen für notwendige Teilleistungen
+            String[] necessarySplit = lineSplit[2].split(",");
+            for (int i = 0; i < necessarySplit.length; i++) {
+                Achievement currentAchievement = Achievement
+                        .getAchievement(necessarySplit[i]);
+                if (currentAchievement != null) {
+                    necessaryAchievements.add(currentAchievement);
+                } else {
+                    Achievement newAchievement = new Achievement();
+                    String name = necessarySplit[i];
+                    newAchievement.doTransaction(() -> {
+                        newAchievement.setName(name);
+                    });
+                    necessaryAchievements.add(newAchievement);
+                }
+            }
+            importedSpo.doTransaction(() -> {
+                importedSpo.setAdditionalAchievements(additionalAchievements);
+                importedSpo.setNecessaryAchievements(necessaryAchievements);
+            });
         } catch (FileNotFoundException e) {
-            throw new ImporterException("importer.FileNotFound");
+            throw new ImporterException(FILE_NOT_FOUND);
 
         } catch (IOException e) {
-            throw new ImporterException("importer.IOException");
+            throw new ImporterException(IO);
         }
     }
 
@@ -382,7 +384,7 @@ public class Importer {
             // write line
             writer.write(output);
         } catch (IOException e) {
-            throw new ImporterException("importer.IOException");
+            throw new ImporterException(IO);
         }
 
     }
@@ -567,9 +569,7 @@ public class Importer {
                 currentGroup.setRatings(ratings);
                 currentGroup.save();
             }
-        } catch (
-
-        IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -592,7 +592,7 @@ public class Importer {
             throws ImporterException {
         // Prüfe ob die Studentenliste leer ist
         if (!(semester.getStudents().size() == 0)) {
-            throw new ImporterException("importer.notEmpty");
+            throw new ImporterException("importer.notEmptyStudents");
         }
         ArrayList<Student> students = new ArrayList<>();
         ArrayList<LearningGroup> learningGroups = new ArrayList<>();
@@ -610,7 +610,7 @@ public class Importer {
 
             // Prüfe ob Header die korrekte Spaltenanzahl hat
             if (!(headerSplit.length == wantedColumns)) {
-                throw new ImporterException("importer.wrongFileFormat");
+                throw new ImporterException(WRONG_FORMAT);
             }
 
             // Prüfe ob Header korrekte Namen hat
@@ -621,7 +621,7 @@ public class Importer {
                 }
             }
             if (!correctHeader) {
-                throw new ImporterException("importer.wrongFileFormat");
+                throw new ImporterException(WRONG_FORMAT);
             }
 
             // Prüfe, ob alle Projekte schon im Semester existieren
@@ -633,7 +633,7 @@ public class Importer {
                 }
             }
             if (!projectsExist) {
-                throw new ImporterException("importer.wrongFileFormat");
+                throw new ImporterException(MISSING_PROJECT);
             }
 
             // Ab hier beginnt das eigentliche Importieren
@@ -641,7 +641,7 @@ public class Importer {
             while ((line = br.readLine()) != null) {
                 String[] lineSplit = line.split(";");
                 if (lineSplit.length != wantedColumns) {
-                    throw new ImporterException("importer.wrongFileFormat");
+                    throw new ImporterException(WRONG_FORMAT);
                 }
                 // Prüfe, ob zulässige Eingabe gemacht worden
                 // sind
@@ -655,13 +655,13 @@ public class Importer {
                         ratings[i] = Integer.parseInt(lineSplit[11 + i]) + 1;
                     }
                 } catch (NumberFormatException e) {
-                    throw new ImporterException("importer.wrongFileFormat");
+                    throw new ImporterException(WRONG_FORMAT);
                 }
 
                 // Prüfe, ob die angegebene SPO existiert
                 SPO spo = SPO.getSPO(lineSplit[7]);
                 if (spo == null) {
-                    throw new ImporterException("importer.wrongFileFormat");
+                    throw new ImporterException(MISSING_SPO);
                 }
 
                 ArrayList<Achievement> completedAchievements = new ArrayList<>();
@@ -681,7 +681,7 @@ public class Importer {
                         .size(); i++) {
                     if (!completedAchievements
                             .contains(spo.getNecessaryAchievements().get(i))) {
-                        throw new ImporterException("importer.wrongFileFormat");
+                        throw new ImporterException(WRONG_FORMAT);
                     }
                 }
                 String firstName = lineSplit[1];
@@ -755,9 +755,9 @@ public class Importer {
                 });
             }
         } catch (FileNotFoundException e) {
-            throw new ImporterException("importer.FileNotFound");
+            throw new ImporterException(FILE_NOT_FOUND);
         } catch (IOException e) {
-            throw new ImporterException("importer.IOException");
+            throw new ImporterException(IO);
         }
     }
 
@@ -830,9 +830,9 @@ public class Importer {
             }
 
         } catch (FileNotFoundException e) {
-            throw new ImporterException("importer.FileNotFound");
+            throw new ImporterException(FILE_NOT_FOUND);
         } catch (IOException e) {
-            throw new ImporterException("importer.IOException");
+            throw new ImporterException(IO);
         }
     }
 
@@ -851,7 +851,7 @@ public class Importer {
 
         // Prüfe, ob die Projektliste des Smeesters noch leer ist
         if (!semester.getProjects().isEmpty()) {
-            throw new ImporterException("importer.notEmpty");
+            throw new ImporterException("importer.notEmptyProjects");
         }
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             String header = br.readLine();
@@ -861,14 +861,13 @@ public class Importer {
 
             // Prüfe, ob Header die gewünschte Länge hat
             if (headerSplit.length != wantedHeader.length) {
-                throw new ImporterException("importer.wrongFileFormat");
+                throw new ImporterException(WRONG_FORMAT);
             }
 
             // Prüfe, ob Header die richtigen Spalten enthält
-            // TODO Warum Fehler, wenn Größe statt Size
             for (int i = 1; i < headerSplit.length; i++) {
                 if (!(headerSplit[i].equals(wantedHeader[i]))) {
-                    throw new ImporterException("importer.wrongFileFormat");
+                    throw new ImporterException(WRONG_FORMAT);
                 }
             }
             String line = new String();
@@ -877,7 +876,7 @@ public class Importer {
             while ((line = br.readLine()) != null) {
                 String[] lineSplit = line.split(";");
                 if (lineSplit.length != wantedHeader.length) {
-                    throw new ImporterException("importer.wrongFileFormat");
+                    throw new ImporterException(WRONG_FORMAT);
                 }
 
                 // Erzeuge die einzelnen Attribute
@@ -893,18 +892,18 @@ public class Importer {
                     minSize = Integer.parseInt(lineSplit[3]);
                     maxSize = Integer.parseInt(lineSplit[4]);
                 } catch (NumberFormatException e) {
-                    throw new ImporterException("importer.wrongFileFormat");
+                    throw new ImporterException(WRONG_FORMAT);
                 }
 
                 // Prüfe ob die Zahlenwerte sinnvoll sind
                 if (numberOfTeams < 1 || minSize > maxSize) {
-                    throw new ImporterException("importer.wrongFileFormat");
+                    throw new ImporterException(WRONG_FORMAT);
                 }
                 if (minSize < -1) {
-                    throw new ImporterException("importer.wrongFileFormat");
+                    throw new ImporterException(WRONG_FORMAT);
                 }
                 if (!(maxSize > 0 || maxSize == -1)) {
-                    throw new ImporterException("importer.wrongFileFormat");
+                    throw new ImporterException(WRONG_FORMAT);
                 }
                 Project importedProject = new Project();
                 importedProject.doTransaction(() -> {
@@ -925,9 +924,9 @@ public class Importer {
             });
 
         } catch (FileNotFoundException e) {
-            throw new ImporterException("importer.FileNotFound");
+            throw new ImporterException(FILE_NOT_FOUND);
         } catch (IOException e) {
-            throw new ImporterException("importer.IOException");
+            throw new ImporterException(IO);
         }
     }
 
@@ -963,9 +962,9 @@ public class Importer {
                 bw.newLine();
             }
         } catch (FileNotFoundException e) {
-            throw new ImporterException("importer.FileNotFound");
+            throw new ImporterException(FILE_NOT_FOUND);
         } catch (IOException e) {
-            throw new ImporterException("importer.IOException");
+            throw new ImporterException(IO);
         }
     }
 
@@ -977,15 +976,13 @@ public class Importer {
             Achievement currentAchievement = Achievement
                     .getAchievement(split[i]);
             if (currentAchievement == null) {
-                System.out.println("nullPointer");
-                throw new ImporterException("importer.wrongFileFormat");
+                throw new ImporterException(WRONG_FORMAT);
             }
             // Prüfe, ob die Teilleistungen in der SPO existieren
             if (!((spo.getNecessaryAchievements().contains(currentAchievement))
                     || spo.getAdditionalAchievements()
                             .contains(currentAchievement))) {
-                System.out.println(currentAchievement.getName() + " notFound");
-                throw new ImporterException("importer.wrongFileFormat");
+                throw new ImporterException(WRONG_FORMAT);
             }
             achievements.add(currentAchievement);
         }
