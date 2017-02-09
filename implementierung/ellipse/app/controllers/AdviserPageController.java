@@ -346,7 +346,6 @@ public class AdviserPageController extends Controller {
                     adviser.getPassword());
 
             if (!pw.equals(pwrepeat) || !matches) {
-                System.out.println("passwordChange2");
                 flash("error",
                         ctx().messages().at("adviser.account.error.passwords"));
                 return redirect(

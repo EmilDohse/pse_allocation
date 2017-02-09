@@ -12,6 +12,7 @@ import com.google.inject.Inject;
 import allocation.AllocationQueue;
 import allocation.Configuration;
 import allocation.Criterion;
+import data.Administrator;
 import data.Adviser;
 import data.AllocationParameter;
 import data.ElipseModel;
@@ -26,6 +27,7 @@ import play.data.FormFactory;
 import play.mvc.Controller;
 import play.mvc.Result;
 import security.BlowfishPasswordEncoder;
+import security.UserManagement;
 
 /************************************************************/
 /**
@@ -264,5 +266,42 @@ public class GeneralAdminController extends Controller {
         student.delete();
         return redirect(
                 controllers.routes.AdminPageController.studentEditPage());
+    }
+
+    /**
+     * Diese Methode editiert die Daten des Administrators, welche er auf der
+     * Account-Seite geändert hat.
+     * 
+     * @return die Seite, die als Antwort verschickt wird.
+     */
+    public Result editAccount() {
+        UserManagement user = new UserManagement();
+        Administrator admin = (Administrator) user.getUserProfile(ctx());
+        DynamicForm form = formFactory.form().bindFromRequest();
+        if (form.data().isEmpty()) {
+            return badRequest(ctx().messages().at(INTERNAL_ERROR));
+        }
+
+        if (form.get("passwordChange") != null) {
+            System.out.println("passwordChange1");
+            String oldpw = form.get("oldPassword");
+            String pw = form.get("newPassword");
+            String pwrepeat = form.get("newPasswordRepeat");
+
+            boolean matches = new BlowfishPasswordEncoder().matches(oldpw,
+                    admin.getPassword());
+
+            if (!pw.equals(pwrepeat) || !matches) {
+                flash("error",
+                        ctx().messages().at("admin.account.error.passwords"));
+                return redirect(
+                        controllers.routes.AdminPageController.accountPage());
+            }
+            String pwEnc = new BlowfishPasswordEncoder().encode(pw);
+            admin.doTransaction(() -> {
+                admin.setPassword(pwEnc);
+            });
+        }
+        return redirect(controllers.routes.AdminPageController.accountPage());
     }
 }

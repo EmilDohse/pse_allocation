@@ -18,6 +18,7 @@ import data.Semester;
 import play.mvc.Controller;
 import play.mvc.Result;
 import views.AdminMenu;
+import views.AdviserMenu;
 import views.Menu;
 
 /************************************************************/
@@ -187,6 +188,18 @@ public class AdminPageController extends Controller {
         Project project = ElipseModel.getById(Project.class, id);
         play.twirl.api.Html content = views.html.projectEdit.render(project,
                 false, Adviser.getAdvisers());
+        Menu menu = new AdminMenu(ctx(), ctx().request().path());
+        return ok(views.html.admin.render(menu, content));
+    }
+
+    /**
+     * Diese Methode gibt die Seite zurück, auf der der Administrator sein
+     * Passwort ändern kann.
+     * 
+     * @return die Seite, die als Antwort verschickt wird.
+     */
+    public Result accountPage() {
+        play.twirl.api.Html content = views.html.adminAccount.render();
         Menu menu = new AdminMenu(ctx(), ctx().request().path());
         return ok(views.html.admin.render(menu, content));
     }

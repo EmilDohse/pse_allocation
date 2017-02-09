@@ -42,5 +42,7 @@ public class AdminMenu extends Menu {
                         .path());
         addItem(context.messages().at("admin.sidebar.properties"),
                 controllers.routes.AdminPageController.propertiesPage().path());
+        addItem(context.messages().at("admin.sidebar.account"),
+                controllers.routes.AdminPageController.accountPage().path());
     }
 }
