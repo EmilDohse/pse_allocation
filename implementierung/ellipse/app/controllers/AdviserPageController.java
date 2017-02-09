@@ -318,7 +318,6 @@ public class AdviserPageController extends Controller {
      */
     public Result accountPage() {
         play.twirl.api.Html content = views.html.adviserAccount.render();
-        // TODO muss hier noch ein param mitgegeben werden?
         Menu menu = new AdviserMenu(ctx(), ctx().request().path());
         return ok(views.html.adviser.render(menu, content));
     }

@@ -15,6 +15,10 @@ wird eine Fehlermeldung übergeben. *@ @()
 			<button type="submit" name="emailChange" class="btn btn-primary">@Messages("adviser.account.emailChange")</button>
 		</div>
 	</div>
+</form>
+<form
+	action="@controllers.routes.AdviserPageController.editAccount().path()"
+	method="POST" class="form-horizontal">
 	<div class="form-group">
 		<label class="control-label col-sm-2" for="oldPassword">@Messages("adviser.account.oldPassword")</label>
 		<div class="col-sm-3">
