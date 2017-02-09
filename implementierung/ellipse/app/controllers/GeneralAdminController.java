@@ -212,6 +212,11 @@ public class GeneralAdminController extends Controller {
         l.doTransaction(() -> {
             l.addMember(student);
             l.setPrivate(true);
+            // Ratings initialisieren
+            for (Project p : GeneralData.loadInstance().getCurrentSemester()
+                    .getProjects()) {
+                l.rate(p, 3);
+            }
         });
         Semester currentSemester = GeneralData.loadInstance()
                 .getCurrentSemester();
