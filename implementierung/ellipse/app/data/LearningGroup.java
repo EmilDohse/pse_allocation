@@ -56,20 +56,33 @@ public class LearningGroup extends ElipseModel {
     private boolean       isPrivate;
 
     public LearningGroup() {
-        this("default_name", "1234");
-    }
-
-    public LearningGroup(String name, String password) {
-        this.name = name;
-        this.password = password;
+        this.name = "default_name";
+        this.password = "1234";
         this.members = new ArrayList<Student>();
         this.ratings = new ArrayList<Rating>();
     }
 
+    public LearningGroup(String name, String password) {
+        this();
+        this.name = name;
+        this.password = password;
+    }
+
+    /**
+     * NICHT VERWENDEN!!! wirft NullPointer
+     * 
+     * @param name
+     * @param password
+     * @param member
+     * @param isPrivate
+     */
+    @Deprecated
     public LearningGroup(String name, String password, Student member,
             boolean isPrivate) {
-        this(name, password);
-        members.add(member); // TODO wirft NullPointer
+        this();
+        this.name = name;
+        this.password = password;
+        this.members.add(member); // TODO wirft NullPointer
         this.isPrivate = isPrivate;
     }
 
