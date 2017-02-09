@@ -1,9 +1,6 @@
 @* * Diese Seite zeigt die Accountseite dem Studenten an. * Als
 Parameter wird der Student und eine Fehlermeldung übergeben. *@
-@(project:data.Student) 
-@if(flash.containsKey("error")) {
-<div class="alert alert-danger" role="alert">@flash.get("error")</div>
-} 
+@(project:data.Student)  
 <h1>@Messages("student.sidebar.account")</h1>
 <form
 	action="@controllers.routes.StudentPageController.editAccount().path()"

@@ -2,9 +2,7 @@
 ein Formular zum erstellen oder beitreten einer Lerngruppe. * Als
 Parameter wird eine Lerngruppe übergeben und eine Fehlermeldung. *@
 @(learningGroup:data.LearningGroup)
-@if(flash.containsKey("error")) {
-<div class="alert alert-danger" role="alert">@flash.get("error")</div>
-} 
+
 <h1>@Messages("student.sidebar.learningGroup")</h1>
 @if(!learningGroup.isPrivate()) {
 
@@ -25,18 +23,30 @@ Parameter wird eine Lerngruppe übergeben und eine Fehlermeldung. *@
 <form
 	action="@controllers.routes.StudentPageController.leaveLearningGroup().path()"
 	method="POST">
-	<button type=submit class="btn btn-default">@Messages("student.learningGroup.leave")</button>
+	<button type=submit class="btn btn-primary">@Messages("student.learningGroup.leave")</button>
 </form>
 } else {
-<!-- TODO: Refaktorisieren des Formulars, und irgendwie hinbekommen, dass das Formular an zwei controllermethoden gesendet werden kann. -->
-<form>
-	<p>
-		@Messages("student.learningGroup.name") <br> <input type=text
-			name="learningGroupname" value=""> <br>
-	<p>
-		@Messages("student.learningGroup.password")<br> <input
-			name="learningGroupPassword" value=""> <br> <input
-			type=submit value=@Messages( "student.learningGroup.create")>
-		<input type=submit value=@Messages( "student.learningGroup.join")>
+<form action="@controllers.routes.StudentPageController.setLearningGroup().path()"
+	method="POST" class="form-horizontal">
+	<div class="form-group">
+		<label class="control-label col-sm-2" for="learningGroupname">@Messages("student.learningGroup.name")</label>
+		<div class="col-sm-3">
+			<input type=text name="learningGroupname" id="learningGroupname"
+				class="form-control">
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="control-label col-sm-2" for="learningGroupPassword">@Messages("student.learningGroup.password")</label>
+		<div class="col-sm-3">
+			<input name="learningGroupPassword" id="learningGroupPassword"
+				class="form-control">
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="col-sm-offset-2 col-sm-10">
+			<button type="submit" name="create" class="btn btn-primary">@Messages( "student.learningGroup.create")</button>
+			<button type="submit" name="join" class="btn btn-primary">@Messages( "student.learningGroup.join")</button>
+		</div>
+	</div>
 </form>
 }

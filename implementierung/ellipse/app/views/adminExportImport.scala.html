@@ -1,9 +1,7 @@
 @* * Diese Seite zeigt die ImportExport Ansicht dem Admin an. *
 Zusätzlich kann eine Fehlermeldung übergeben werden und eine Liste an
 allen SPOs und Einteilungen. *@ @(spos: List[data.SPO], allocations:
-List[data.Allocation]) @if(flash.containsKey("error")) {
-<div class="alert alert-danger" role="alert">@flash.get("error")</div>
-} 
+List[data.Allocation])
 <script type="text/javascript"
 	src='@routes.Assets.versioned("javascripts/bootstrap-multiselect.js")'></script>
 <link rel="stylesheet"

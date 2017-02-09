@@ -1,8 +1,5 @@
 @* * Diese Seite zeigt dem Betreuer seine Account Seite an. * Zusätzlich
 wird eine Fehlermeldung übergeben. *@ @()
-@if(flash.containsKey("error")) {
-<div class="alert alert-danger" role="alert">@flash.get("error")</div>
-}
 <h1>@Messages("adviser.sidebar.account")</h1>
 <form
 	action="@controllers.routes.AdviserPageController.editAccount().path()"
