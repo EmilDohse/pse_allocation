@@ -51,9 +51,8 @@ public class GeneralAdminController extends Controller {
     public Result addAdviser() {
         DynamicForm form = formFactory.form().bindFromRequest();
         if (form.data().isEmpty()) {
-            return badRequest(ctx().messages().at(
-            INTERNAL_ERROR));
-	}
+            return badRequest(ctx().messages().at(INTERNAL_ERROR));
+        }
         String firstName = form.get("firstName");
         String lastName = form.get("lastName");
         String email = form.get("email");
@@ -194,19 +193,19 @@ public class GeneralAdminController extends Controller {
             semester = Integer.parseInt(semesterString);
             spoId = Integer.parseInt(spoIdString);
         } catch (NumberFormatException e) {
-flash("error", ctx().messages().at("error.wrongInput"));
+            flash("error", ctx().messages().at("error.wrongInput"));
             return redirect(
                     controllers.routes.AdminPageController.studentEditPage());
         }
-	if (Student.getStudent(matNr) != null) {
+        if (Student.getStudent(matNr) != null) {
             // TODO error
         }
         // der username eines studenten ist seine matNr
         SPO spo = ElipseModel.getById(SPO.class, spoId);
         BlowfishPasswordEncoder b = new BlowfishPasswordEncoder();
         Student student = new Student(matNrString, b.encode(password), email,
-                firstName, lastName, matNr, spo,
-                spo.getNecessaryAchievements(), new ArrayList<>(), semester);
+                firstName, lastName, matNr, spo, spo.getNecessaryAchievements(),
+                new ArrayList<>(), semester);
         student.save();
         LearningGroup l = new LearningGroup(student.getUserName(), "");
         l.save();
@@ -258,7 +257,7 @@ flash("error", ctx().messages().at("error.wrongInput"));
             }
         }
         student.delete();
-        return redirect(controllers.routes.AdminPageController
-                .studentEditPage(""));
+        return redirect(
+                controllers.routes.AdminPageController.studentEditPage());
     }
 }
