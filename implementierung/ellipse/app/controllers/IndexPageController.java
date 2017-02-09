@@ -15,6 +15,8 @@ import data.GeneralData;
 import data.SPO;
 import data.Semester;
 import data.Student;
+import data.LearningGroup;
+import data.Project;
 import play.data.DynamicForm;
 import play.data.FormFactory;
 import play.mvc.Controller;
@@ -105,6 +107,7 @@ public class IndexPageController extends Controller {
             }
             List<Achievement> completedAchievements = new ArrayList<>();
             List<Achievement> nonCompletedAchievements = new ArrayList<>();
+            // TODO doppeltes try
             try {
                 completedAchievements = MultiselectList.createAchievementList(
                         form, "completed-" + spoIdString + "-multiselect");
@@ -113,6 +116,7 @@ public class IndexPageController extends Controller {
                 return redirect(
                         controllers.routes.IndexPageController.registerPage());
             }
+            // TODO doppeltes try
             try {
                 nonCompletedAchievements = MultiselectList
                         .createAchievementList(form,
@@ -135,11 +139,24 @@ public class IndexPageController extends Controller {
                             completedAchievements, nonCompletedAchievements,
                             semester);
                     student.save();
+                    LearningGroup l = new LearningGroup(student.getUserName(),
+                            "");
+                    l.save();
+                    l.doTransaction(() -> {
+                        l.addMember(student);
+                        l.setPrivate(true);
+                        // Ratings initialisieren
+                        for (Project p : GeneralData.loadInstance()
+                                .getCurrentSemester().getProjects()) {
+                            l.rate(p, 3);
+                        }
+                    });
                     // TODO get student data from view
                     Semester currentSemester = GeneralData.loadInstance()
                             .getCurrentSemester();
                     currentSemester.doTransaction(() -> {
                         currentSemester.addStudent(student);
+                        currentSemester.addLearningGroup(l);
                     });
                     return redirect(
                             controllers.routes.IndexPageController.indexPage());
