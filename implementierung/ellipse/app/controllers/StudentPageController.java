@@ -275,11 +275,19 @@ public class StudentPageController extends Controller {
             return redirect(controllers.routes.StudentPageController
                     .learningGroupPage());
         }
-        // TODO: Keinen deprecated Konstruktor mehr verwenden
-        LearningGroup lg = new LearningGroup(name, password, student, false);
+        LearningGroup oldLg = semester.getLearningGroupOf(student);
+        LearningGroup lg = new LearningGroup(name, password);
         lg.save();
+        lg.doTransaction(() -> {
+            lg.addMember(student);
+            lg.setPrivate(false);
+            // Ratings kopieren
+            for (Rating r : oldLg.getRatings()) {
+                lg.rate(r.getProject(), r.getRating());
+            }
+        });
         // Lösche die private Lerngruppe
-        semester.getLearningGroupOf(student).delete();
+        oldLg.delete();
         semester.refresh();
         semester.doTransaction(() -> {
             // TODO falls man die alten bewertungen wieder will muss man hier
@@ -313,10 +321,6 @@ public class StudentPageController extends Controller {
         lg.doTransaction(() -> {
             lg.removeMember(student);
         });
-        if (lg.getMembers().size() == 1) {
-            // Leeres Team löschen
-            lg.delete();
-        }
         // Hier wird der student wieder in seine privat Lerngruppe
         // eingefügt
         // LearningGroup lgNew = new LearningGroup(student.getUserName(), "",
@@ -326,7 +330,15 @@ public class StudentPageController extends Controller {
         lgNew.doTransaction(() -> {
             lgNew.addMember(student);
             lgNew.setPrivate(true);
+            // Ratings kopieren
+            for (Rating r : lg.getRatings()) {
+                lgNew.rate(r.getProject(), r.getRating());
+            }
         });
+        if (lg.getMembers().size() == 0) {
+            // Leeres Team löschen
+            lg.delete();
+        }
         Semester semester = GeneralData.loadInstance().getCurrentSemester();
         semester.doTransaction(() -> {
             semester.addLearningGroup(lgNew);
