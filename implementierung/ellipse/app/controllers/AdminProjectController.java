@@ -25,11 +25,11 @@ import play.mvc.Result;
  * abgeschickt werden.
  */
 public class AdminProjectController extends Controller {
-	
-	private static final String INTERNAL_ERROR = "error.internalError";
+
+    private static final String INTERNAL_ERROR = "error.internalError";
 
     @Inject
-    FormFactory formFactory;
+    FormFactory                 formFactory;
 
     /**
      * Diese Methode fügt ein neues Projekt in das System ein und leitet den
@@ -40,8 +40,7 @@ public class AdminProjectController extends Controller {
     public Result addProject() {
         DynamicForm form = formFactory.form().bindFromRequest();
         if (form.data().isEmpty()) {
-            return badRequest(ctx().messages().at(
-            		INTERNAL_ERROR));
+            return badRequest(ctx().messages().at(INTERNAL_ERROR));
         }
         String projName = form.get("name");
         Project project = new Project(projName, "", "", "");
@@ -50,7 +49,8 @@ public class AdminProjectController extends Controller {
         semester.doTransaction(() -> {
             semester.addProject(project);
         });
-        return redirect(controllers.routes.AdminPageController.projectEditPage(project.getId()));
+        return redirect(controllers.routes.AdminPageController
+                .projectEditPage(project.getId()));
 
     }
 
@@ -64,15 +64,15 @@ public class AdminProjectController extends Controller {
     public Result removeProject() {
         DynamicForm form = formFactory.form().bindFromRequest();
         if (form.data().isEmpty()) {
-            return badRequest(ctx().messages().at(
-            		INTERNAL_ERROR));
+            return badRequest(ctx().messages().at(INTERNAL_ERROR));
         }
-        Project project = ElipseModel.getById(Project.class, Integer.parseInt(form.get("id")));
+        Project project = ElipseModel.getById(Project.class,
+                Integer.parseInt(form.get("id")));
         // TODO hier eine warnmeldung ausgeben ob das projekt wirklich gelöscht
         // werden soll
         project.delete();
 
-        return redirect(controllers.routes.AdminPageController.projectPage(""));
+        return redirect(controllers.routes.AdminPageController.projectPage());
     }
 
     /**
@@ -87,8 +87,7 @@ public class AdminProjectController extends Controller {
         // die projektdaten werden aus dem formular ausgelesen
         DynamicForm form = formFactory.form().bindFromRequest();
         if (form.data().isEmpty()) {
-            return badRequest(ctx().messages().at(
-            		INTERNAL_ERROR));
+            return badRequest(ctx().messages().at(INTERNAL_ERROR));
         }
         String projName = form.get("name");
         String url = form.get("url");
@@ -108,23 +107,29 @@ public class AdminProjectController extends Controller {
             minSize = Integer.parseInt(minSizeString);
             maxSize = Integer.parseInt(maxSizeString);
         } catch (NumberFormatException e) {
-            return redirect(controllers.routes.AdminPageController.projectEditPage(project.getId()));
+            flash("error", ctx().messages().at("error.wrongInput"));
+            return redirect(controllers.routes.AdminPageController
+                    .projectEditPage(project.getId()));
         }
         ArrayList<Adviser> advisers = new ArrayList<>();
-        String[] adviserIds = MultiselectList.getValueArray(form, "adviser-multiselect");
+        String[] adviserIds = MultiselectList.getValueArray(form,
+                "adviser-multiselect");
         for (String adviserIdString : adviserIds) {
             int adviserId;
             try {
                 adviserId = Integer.parseInt(adviserIdString);
             } catch (NumberFormatException e) {
-                return redirect(controllers.routes.IndexPageController
-                        .registerPage(ctx().messages().at("index.registration.error.genError")));
+                flash("error", ctx().messages().at(INTERNAL_ERROR));
+                return redirect(controllers.routes.AdminPageController
+                        .projectEditPage(project.getId()));
             }
             advisers.add(ElipseModel.getById(Adviser.class, adviserId));
         }
         if (minSize > maxSize) {
-        	return redirect(controllers.routes.IndexPageController
-                    .registerPage(ctx().messages().at("index.registration.error.minMax")));
+            flash("error",
+                    ctx().messages().at("index.registration.error.minMax"));
+            return redirect(controllers.routes.AdminPageController
+                    .projectEditPage(project.getId()));
         }
 
         // und dem projekt hinzugefügt
@@ -139,6 +144,6 @@ public class AdminProjectController extends Controller {
             project.setProjectURL(url);
         });
 
-        return redirect(controllers.routes.AdminPageController.projectPage(""));
+        return redirect(controllers.routes.AdminPageController.projectPage());
     }
 }

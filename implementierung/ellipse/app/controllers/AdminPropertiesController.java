@@ -29,8 +29,8 @@ import play.mvc.Result;
  */
 public class AdminPropertiesController extends Controller {
 
-    private static final String GENERAL_ERROR = "admin.allocation.error.generalError";
-    private static final String GEN_ERROR = "index.registration.error.genError";
+    private static final String GENERAL_ERROR  = "admin.allocation.error.generalError";
+    private static final String GEN_ERROR      = "index.registration.error.genError";
     private static final String INTERNAL_ERROR = "error.internalError";
 
     @Inject
@@ -44,10 +44,12 @@ public class AdminPropertiesController extends Controller {
      * @return Die Seite, die als Antwort verschickt wird.
      */
     public Result addSemester() {
-        Semester semester = new Semester("newSemester", true, Calendar.getInstance().get(Calendar.YEAR));
+        Semester semester = new Semester("newSemester", true,
+                Calendar.getInstance().get(Calendar.YEAR));
         // TODO fügt neues semester als wintersemester im aktuellen jahr ein
         semester.save();
-        return redirect(controllers.routes.AdminPageController.propertiesPage(""));
+        return redirect(
+                controllers.routes.AdminPageController.propertiesPage());
     }
 
     /**
@@ -60,19 +62,21 @@ public class AdminPropertiesController extends Controller {
     public Result removeSemester() {
         DynamicForm form = formFactory.form().bindFromRequest();
         if (form.data().isEmpty()) {
-            return badRequest(ctx().messages().at(
-            		INTERNAL_ERROR));
+            return badRequest(ctx().messages().at(INTERNAL_ERROR));
         }
         String semesterIdString = form.get("id");
         int semesterId;
         try {
             semesterId = Integer.parseInt(semesterIdString);
         } catch (NumberFormatException e) {
-            return redirect(controllers.routes.AdminPageController.propertiesPage(ctx().messages().at(GENERAL_ERROR)));
+            flash("error", ctx().messages().at(INTERNAL_ERROR));
+            return redirect(
+                    controllers.routes.AdminPageController.propertiesPage());
         }
         Semester semster = ElipseModel.getById(Semester.class, semesterId);
         semster.delete();
-        return redirect(controllers.routes.AdminPageController.propertiesPage(""));
+        return redirect(
+                controllers.routes.AdminPageController.propertiesPage());
     }
 
     /**
@@ -85,7 +89,8 @@ public class AdminPropertiesController extends Controller {
     public Result addSPO() {
         SPO spo = new SPO("newSPO");
         spo.save();
-        return redirect(controllers.routes.AdminPageController.propertiesPage(""));
+        return redirect(
+                controllers.routes.AdminPageController.propertiesPage());
     }
 
     /**
@@ -98,18 +103,20 @@ public class AdminPropertiesController extends Controller {
     public Result removeSPO() {
         DynamicForm form = formFactory.form().bindFromRequest();
         if (form.data().isEmpty()) {
-            return badRequest(ctx().messages().at(
-            		INTERNAL_ERROR));
+            return badRequest(ctx().messages().at(INTERNAL_ERROR));
         }
         String spoIdString = form.get("id");
         int spoId;
         try {
             spoId = Integer.parseInt(spoIdString);
         } catch (NumberFormatException e) {
-            return redirect(controllers.routes.AdminPageController.propertiesPage(ctx().messages().at(GENERAL_ERROR)));
+            flash("error", ctx().messages().at(INTERNAL_ERROR));
+            return redirect(
+                    controllers.routes.AdminPageController.propertiesPage());
         }
         ElipseModel.getById(SPO.class, spoId).delete();
-        return redirect(controllers.routes.AdminPageController.propertiesPage(""));
+        return redirect(
+                controllers.routes.AdminPageController.propertiesPage());
     }
 
     /**
@@ -122,8 +129,7 @@ public class AdminPropertiesController extends Controller {
     public Result editSemester() {
         DynamicForm form = formFactory.form().bindFromRequest();
         if (form.data().isEmpty()) {
-            return badRequest(ctx().messages().at(
-            		INTERNAL_ERROR));
+            return badRequest(ctx().messages().at(INTERNAL_ERROR));
         }
         String name = form.get("name2");
         String yearString = form.get("year");
@@ -133,13 +139,16 @@ public class AdminPropertiesController extends Controller {
         int id;
         int year;
         ArrayList<SPO> usedSPOs = new ArrayList<>();
-        String[] spoIdStrings = MultiselectList.getValueArray(form, "spo-multiselect-" + idString);
+        String[] spoIdStrings = MultiselectList.getValueArray(form,
+                "spo-multiselect-" + idString);
         for (String spoIdString : spoIdStrings) {
             try {
-                usedSPOs.add(ElipseModel.getById(SPO.class, Integer.parseInt(spoIdString)));
+                usedSPOs.add(ElipseModel.getById(SPO.class,
+                        Integer.parseInt(spoIdString)));
             } catch (NumberFormatException e) {
-                return redirect(controllers.routes.IndexPageController
-                        .registerPage(ctx().messages().at(GEN_ERROR)));
+                flash("error", ctx().messages().at(INTERNAL_ERROR));
+                return redirect(controllers.routes.AdminPageController
+                        .propertiesPage());
             }
         }
 
@@ -148,8 +157,9 @@ public class AdminPropertiesController extends Controller {
             id = Integer.parseInt(idString);
             year = Integer.parseInt(yearString);
         } catch (Exception e) {
-            return redirect(controllers.routes.AdminPageController
-            		.propertiesPage(ctx().messages().at(GEN_ERROR)));
+            flash("error", ctx().messages().at(GEN_ERROR));
+            return redirect(
+                    controllers.routes.AdminPageController.propertiesPage());
         }
         String generalInfo = form.get("info");
         String registrationStart = form.get("registrationStart");
@@ -159,11 +169,14 @@ public class AdminPropertiesController extends Controller {
         java.util.Date endDate;
         String semesterActive = form.get("semester-active");
         try {
-            SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
+            SimpleDateFormat format = new SimpleDateFormat(
+                    "dd.MM.yyyy HH:mm:ss");
             startDate = format.parse(registrationStart);
             endDate = format.parse(registrationEnd);
         } catch (ParseException e) {
-            return redirect(controllers.routes.AdminPageController.propertiesPage(ctx().messages().at(GENERAL_ERROR)));
+            flash("error", ctx().messages().at(GEN_ERROR));
+            return redirect(
+                    controllers.routes.AdminPageController.propertiesPage());
         }
         Semester semester = ElipseModel.getById(Semester.class, id);
         semester.doTransaction(() -> {
@@ -184,7 +197,8 @@ public class AdminPropertiesController extends Controller {
             });
         }
 
-        return redirect(controllers.routes.AdminPageController.propertiesPage(""));
+        return redirect(
+                controllers.routes.AdminPageController.propertiesPage());
     }
 
     /**
@@ -198,8 +212,7 @@ public class AdminPropertiesController extends Controller {
     public Result addAchievement() {
         DynamicForm form = formFactory.form().bindFromRequest();
         if (form.data().isEmpty()) {
-            return badRequest(ctx().messages().at(
-            		INTERNAL_ERROR));
+            return badRequest(ctx().messages().at(INTERNAL_ERROR));
         }
         String nameAchiev = form.get("nameAchiev");
         String idSPOString = form.get("id");
@@ -207,7 +220,9 @@ public class AdminPropertiesController extends Controller {
         try {
             idSPO = Integer.parseInt(idSPOString);
         } catch (NumberFormatException e) {
-            return redirect(controllers.routes.AdminPageController.propertiesPage(ctx().messages().at(GENERAL_ERROR)));
+            flash("error", ctx().messages().at(INTERNAL_ERROR));
+            return redirect(
+                    controllers.routes.AdminPageController.propertiesPage());
         }
         SPO spo = ElipseModel.getById(SPO.class, idSPO);
         Achievement achievement = new Achievement(nameAchiev);
@@ -215,7 +230,8 @@ public class AdminPropertiesController extends Controller {
         spo.doTransaction(() -> {
             spo.addNecessaryAchievement(achievement);
         });
-        return redirect(controllers.routes.AdminPageController.propertiesPage(""));
+        return redirect(
+                controllers.routes.AdminPageController.propertiesPage());
     }
 
     /**
@@ -227,8 +243,7 @@ public class AdminPropertiesController extends Controller {
     public Result changeSPO() {
         DynamicForm form = formFactory.form().bindFromRequest();
         if (form.data().isEmpty()) {
-            return badRequest(ctx().messages().at(
-            		INTERNAL_ERROR));
+            return badRequest(ctx().messages().at(INTERNAL_ERROR));
         }
         String nameSPO = form.get("nameSPO");
         String idString = form.get("id");
@@ -237,7 +252,9 @@ public class AdminPropertiesController extends Controller {
         try {
             id = Integer.parseInt(idString);
         } catch (NumberFormatException e) {
-            return redirect(controllers.routes.AdminPageController.propertiesPage(ctx().messages().at(GENERAL_ERROR)));
+            flash("error", ctx().messages().at(INTERNAL_ERROR));
+            return redirect(
+                    controllers.routes.AdminPageController.propertiesPage());
         }
         SPO spo = ElipseModel.getById(SPO.class, id);
         List<Achievement> necAchiev = spo.getNecessaryAchievements();
@@ -251,9 +268,11 @@ public class AdminPropertiesController extends Controller {
             // für alle neccesary und additional achievments wird geprüft ob sie
             // gelöscht werden müssen oder in die andere liste müssen
             Achievement achiev = necAchievments.next();
-            if (form.get("delete-" + Integer.toString(achiev.getId())) != null) {
+            if (form.get(
+                    "delete-" + Integer.toString(achiev.getId())) != null) {
                 necAchievments.remove();
-            } else if (form.get("necessary-" + Integer.toString(achiev.getId())) == null) {
+            } else if (form.get(
+                    "necessary-" + Integer.toString(achiev.getId())) == null) {
                 spo.addAdditionalAchievement(achiev);
                 necAchievments.remove();
             }
@@ -263,10 +282,12 @@ public class AdminPropertiesController extends Controller {
         java.util.Iterator<Achievement> addAchievments = addAchiev.iterator();
         while (addAchievments.hasNext()) {
             Achievement achiev = addAchievments.next();
-            if (form.get("delete-" + Integer.toString(achiev.getId())) != null) {
+            if (form.get(
+                    "delete-" + Integer.toString(achiev.getId())) != null) {
                 addAchievments.remove();
 
-            } else if (form.get("necessary-" + Integer.toString(achiev.getId())) != null) {
+            } else if (form.get(
+                    "necessary-" + Integer.toString(achiev.getId())) != null) {
                 spo.addNecessaryAchievement(achiev);
                 addAchievments.remove();
             }
@@ -276,6 +297,7 @@ public class AdminPropertiesController extends Controller {
         spo.doTransaction(() -> {
             spo.setName(nameSPO);
         });
-        return redirect(controllers.routes.AdminPageController.propertiesPage(""));
+        return redirect(
+                controllers.routes.AdminPageController.propertiesPage());
     }
 }

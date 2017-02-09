@@ -1,9 +1,10 @@
 @* * Diese Seite zeigt ein Formular zum löschen/hinzufügen von Studenten
 dem Admin an. * Dafür wird eine Liste an SPOs benötigt. * Zusätzlich
 kann eine Fehlermeldung übergeben werden. *@
-@(spos:List[data.SPO],error: String) @if(!error.isEmpty()){
-<div class="alert alert-danger" role="alert">@error</div>
-}
+@(spos:List[data.SPO]) 
+@if(flash.containsKey("error")) {
+<div class="alert alert-danger" role="alert">@flash.get("error")</div>
+} 
 <h1>@Messages("admin.sidebar.studentEdit")</h1>
 <form
 	action="@controllers.routes.GeneralAdminController.addStudent().path()"

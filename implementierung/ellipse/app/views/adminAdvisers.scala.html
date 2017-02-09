@@ -1,10 +1,10 @@
 @* * Diese Seite zeigt die Betruer dem Admin an. * Dafür wird eine Liste
 an Betreuer übergeben. * Zusätlich gibt es noch einen Parameter für eine
-Fehlermeldung. *@ @(advisers: List[data.Adviser],error: String)
+Fehlermeldung. *@ @(advisers: List[data.Adviser])
 
-@if(!error.isEmpty()){
-<div class="alert alert-danger" role="alert">@error</div>
-}
+@if(flash.containsKey("error")) {
+<div class="alert alert-danger" role="alert">@flash.get("error")</div>
+} 
 <h1>@Messages("admin.sidebar.adviser")</h1>
 <table class="table table-striped">
 	<thead>

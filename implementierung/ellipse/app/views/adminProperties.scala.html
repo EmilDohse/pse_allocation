@@ -1,9 +1,10 @@
 @* * Diese Seite zeigt die Einstellungsseite dem Admin an. * Dafür wird
 eine Liste an Semestern und SPOs benötigt * Zusätzlich kann eine
 Fehlermeldung übergeben werden. *@ @(activeSemester: data.Semester, semesters: List[data.Semester],
-spos: List[data.SPO], error: String) @if(!error.isEmpty()){
-<div class="alert alert-danger" role="alert">@error</div>
-}
+spos: List[data.SPO])
+@if(flash.containsKey("error")) {
+<div class="alert alert-danger" role="alert">@flash.get("error")</div>
+} 
 <link
 	href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css"
 	rel="stylesheet">

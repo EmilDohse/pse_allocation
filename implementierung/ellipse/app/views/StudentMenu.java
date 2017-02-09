@@ -27,15 +27,13 @@ public class StudentMenu extends Menu {
 
     private final void addItems(Context context) {
         addItem(context.messages().at("student.sidebar.learningGroup"),
-                controllers.routes.StudentPageController.learningGroupPage("")
+                controllers.routes.StudentPageController.learningGroupPage()
                         .path());
         addItem(context.messages().at("student.sidebar.rating"),
-                controllers.routes.StudentPageController.ratingPage("").path());
+                controllers.routes.StudentPageController.ratingPage().path());
         addItem(context.messages().at("student.sidebar.results"),
-                controllers.routes.StudentPageController.resultsPage("")
-                        .path());
+                controllers.routes.StudentPageController.resultsPage().path());
         addItem(context.messages().at("student.sidebar.account"),
-                controllers.routes.StudentPageController.accountPage("")
-                        .path());
+                controllers.routes.StudentPageController.accountPage().path());
     }
 }

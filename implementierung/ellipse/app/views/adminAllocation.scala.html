@@ -2,9 +2,9 @@
 Dafür wird eine AllocationQueue benötigt und die Liste an verfügbaren *
 Einteilungs-Kriterien. Zusätzlich kann eine Fehlermeldung übergeben
 werden. *@ @(allocQueue: allocation.AllocationQueue, criteria:
-List[allocation.Criterion],error: String) @if(!error.isEmpty()){
-<div class="alert alert-danger" role="alert">@error</div>
-}
+List[allocation.Criterion]) @if(flash.containsKey("error")) {
+<div class="alert alert-danger" role="alert">@flash.get("error")</div>
+} 
 <script type="text/javascript"
 	src='@routes.Assets.versioned("javascripts/bootstrap-slider.min.js")'></script>
 <link rel="stylesheet"

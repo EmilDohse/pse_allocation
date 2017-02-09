@@ -35,10 +35,10 @@ public class AdminEditAllocationController extends Controller {
      * Commando Stack. Static, weil Play nicht garantiert, dass es nur einen
      * Controller gibt.
      */
-    private static Deque<EditAllocationCommand> undoStack     = new ArrayDeque<>();
+    private static Deque<EditAllocationCommand> undoStack      = new ArrayDeque<>();
 
-    private static final String                 ALLOCATION_ID = "allocationID";
-    private static final String INTERNAL_ERROR = "error.internalError";
+    private static final String                 ALLOCATION_ID  = "allocationID";
+    private static final String                 INTERNAL_ERROR = "error.internalError";
 
     /**
      * Diese Methode editiert die Einteilung.
@@ -48,8 +48,7 @@ public class AdminEditAllocationController extends Controller {
     public Result editAllocation() {
         DynamicForm form = formFactory.form().bindFromRequest();
         if (form.data().isEmpty()) {
-        return badRequest(ctx().messages().at(
-                    INTERNAL_ERROR));
+            return badRequest(ctx().messages().at(INTERNAL_ERROR));
         }
         String[] selectedIdsString = MultiselectList.getValueArray(form,
                 "selected-students");
@@ -58,9 +57,9 @@ public class AdminEditAllocationController extends Controller {
             try {
                 selectedIds.add(Integer.parseInt(s));
             } catch (NumberFormatException e) {
-                return redirect(controllers.routes.AdminPageController
-                        .resultsPage(ctx().messages().at(
-                                INTERNAL_ERROR)));
+                flash("error", ctx().messages().at(INTERNAL_ERROR));
+                return redirect(
+                        controllers.routes.AdminPageController.resultsPage());
             }
         }
         if (form.get("move") != null) {
@@ -68,9 +67,9 @@ public class AdminEditAllocationController extends Controller {
         } else if (form.get("exchange") != null) {
             return swapStudents(form, selectedIds);
         } else {
-            return redirect(controllers.routes.AdminPageController
-                    .resultsPage(ctx().messages().at(
-                            INTERNAL_ERROR)));
+            flash("error", ctx().messages().at(INTERNAL_ERROR));
+            return redirect(
+                    controllers.routes.AdminPageController.resultsPage());
         }
     }
 
@@ -88,17 +87,17 @@ public class AdminEditAllocationController extends Controller {
         try {
             allocationId = Integer.parseInt(allocationIdString);
         } catch (NumberFormatException e) {
-            return redirect(controllers.routes.AdminPageController
-                    .resultsPage(ctx().messages().at(
-                            INTERNAL_ERROR)));
+            flash("error", ctx().messages().at(INTERNAL_ERROR));
+            return redirect(
+                    controllers.routes.AdminPageController.resultsPage());
         }
         Allocation allocation = ElipseModel.getById(Allocation.class,
                 allocationId);
 
         if (ids.size() != 2) {
-            return redirect(controllers.routes.AdminPageController
-                    .resultsPage(ctx().messages().at(
-                            INTERNAL_ERROR)));
+            flash("error", ctx().messages().at(INTERNAL_ERROR));
+            return redirect(
+                    controllers.routes.AdminPageController.resultsPage());
         }
 
         Student firstStudent = ElipseModel.getById(Student.class, ids.get(0));
@@ -108,7 +107,7 @@ public class AdminEditAllocationController extends Controller {
         command.execute();
         undoStack.push(command);
 
-        return redirect(controllers.routes.AdminPageController.resultsPage(""));
+        return redirect(controllers.routes.AdminPageController.resultsPage());
     }
 
     /**
@@ -128,9 +127,9 @@ public class AdminEditAllocationController extends Controller {
             teamId = Integer.parseInt(teamIdString);
             allocationId = Integer.parseInt(allocationIdString);
         } catch (NumberFormatException e) {
-            return redirect(controllers.routes.AdminPageController
-                    .resultsPage(ctx().messages().at(
-                            INTERNAL_ERROR)));
+            flash("error", ctx().messages().at(INTERNAL_ERROR));
+            return redirect(
+                    controllers.routes.AdminPageController.resultsPage());
         }
 
         Team newTeam = ElipseModel.getById(Team.class, teamId);
@@ -142,16 +141,17 @@ public class AdminEditAllocationController extends Controller {
             Student s = ElipseModel.getById(Student.class, id);
             students.add(s);
             if (allocation.getTeam(s).equals(newTeam)) {
-                return redirect(controllers.routes.AdminPageController
-                        .resultsPage(ctx().messages().at(
-                                "admin.edit.moveToSameTeam")));
+                flash("error",
+                        ctx().messages().at("admin.edit.moveToSameTeam"));
+                return redirect(
+                        controllers.routes.AdminPageController.resultsPage());
             }
         }
 
         if (students.isEmpty()) {
-            return redirect(controllers.routes.AdminPageController
-                    .resultsPage(ctx().messages().at(
-                            "admin.edit.noStudentSelected")));
+            flash("error", ctx().messages().at("admin.edit.noStudentSelected"));
+            return redirect(
+                    controllers.routes.AdminPageController.resultsPage());
         }
 
         MoveStudentCommand command = new MoveStudentCommand(allocation,
@@ -159,7 +159,7 @@ public class AdminEditAllocationController extends Controller {
         command.execute();
         undoStack.push(command);
 
-        return redirect(controllers.routes.AdminPageController.resultsPage(""));
+        return redirect(controllers.routes.AdminPageController.resultsPage());
     }
 
     /**
@@ -175,30 +175,29 @@ public class AdminEditAllocationController extends Controller {
         // TODO email benachrichtigung
         DynamicForm form = formFactory.form().bindFromRequest();
         if (form.data().isEmpty()) {
-            return badRequest(ctx().messages().at(
-                    INTERNAL_ERROR));
+            return badRequest(ctx().messages().at(INTERNAL_ERROR));
         }
         String allocationIdString = form.get(ALLOCATION_ID);
         int allocationId;
         try {
             allocationId = Integer.parseInt(allocationIdString);
         } catch (NumberFormatException e) {
-            return redirect(controllers.routes.AdminPageController
-                    .resultsPage(ctx().messages().at(
-                            INTERNAL_ERROR)));
+            flash("error", ctx().messages().at(INTERNAL_ERROR));
+            return redirect(
+                    controllers.routes.AdminPageController.resultsPage());
         }
         Allocation allocation = ElipseModel.getById(Allocation.class,
                 allocationId);
         Semester semester = GeneralData.loadInstance().getCurrentSemester();
         if (semester.getFinalAllocation() != null) {
-            return redirect(controllers.routes.AdminPageController
-                    .resultsPage(ctx().messages().at(
-                            "admin.edit.noFinalAllocation")));
+            flash("error", ctx().messages().at("admin.edit.noFinalAllocation"));
+            return redirect(
+                    controllers.routes.AdminPageController.resultsPage());
         }
         semester.doTransaction(() -> {
             semester.setFinalAllocation(allocation);
         });
-        return redirect(controllers.routes.AdminPageController.resultsPage(""));
+        return redirect(controllers.routes.AdminPageController.resultsPage());
     }
 
     /**
@@ -213,17 +212,16 @@ public class AdminEditAllocationController extends Controller {
     public Result duplicateAllocation() {
         DynamicForm form = formFactory.form().bindFromRequest();
         if (form.data().isEmpty()) {
-            return badRequest(ctx().messages().at(
-                    INTERNAL_ERROR));
+            return badRequest(ctx().messages().at(INTERNAL_ERROR));
         }
         String allocationIdString = form.get(ALLOCATION_ID);
         int allocationId;
         try {
             allocationId = Integer.parseInt(allocationIdString);
         } catch (NumberFormatException e) {
-            return redirect(controllers.routes.AdminPageController
-                    .resultsPage(ctx().messages().at(
-                            INTERNAL_ERROR)));
+            flash("error", ctx().messages().at(INTERNAL_ERROR));
+            return redirect(
+                    controllers.routes.AdminPageController.resultsPage());
         }
         Allocation allocation = ElipseModel.getById(Allocation.class,
                 allocationId);
@@ -234,7 +232,7 @@ public class AdminEditAllocationController extends Controller {
         semester.doTransaction(() -> {
             semester.addAllocation(clonedAllocation);
         });
-        return redirect(controllers.routes.AdminPageController.resultsPage(""));
+        return redirect(controllers.routes.AdminPageController.resultsPage());
     }
 
     /**
@@ -247,28 +245,28 @@ public class AdminEditAllocationController extends Controller {
     public Result removeAllocation() {
         DynamicForm form = formFactory.form().bindFromRequest();
         if (form.data().isEmpty()) {
-            return badRequest(ctx().messages().at(
-                    INTERNAL_ERROR));
+            return badRequest(ctx().messages().at(INTERNAL_ERROR));
         }
         String allocationIdString = form.get(ALLOCATION_ID);
         int allocationId;
         try {
             allocationId = Integer.parseInt(allocationIdString);
         } catch (NumberFormatException e) {
-            return redirect(controllers.routes.AdminPageController
-                    .resultsPage(ctx().messages().at(
-                            INTERNAL_ERROR)));
+            flash("error", ctx().messages().at(INTERNAL_ERROR));
+            return redirect(
+                    controllers.routes.AdminPageController.resultsPage());
         }
         Allocation allocation = ElipseModel.getById(Allocation.class,
                 allocationId);
         if (allocation.equals(GeneralData.loadInstance().getCurrentSemester()
                 .getFinalAllocation())) {
-            return redirect(controllers.routes.AdminPageController
-                    .resultsPage(ctx().messages().at(
-                            "admin.edit.removeFinalAllocation")));
+            flash("error",
+                    ctx().messages().at("admin.edit.removeFinalAllocation"));
+            return redirect(
+                    controllers.routes.AdminPageController.resultsPage());
         }
         allocation.delete();
-        return redirect(controllers.routes.AdminPageController.resultsPage(""));
+        return redirect(controllers.routes.AdminPageController.resultsPage());
     }
 
     /**
@@ -280,12 +278,12 @@ public class AdminEditAllocationController extends Controller {
      */
     public Result undoAllocationEdit() {
         if (undoStack.isEmpty()) {
-        	//TODO Button ausgrauen
-            return redirect(controllers.routes.AdminPageController
-                    .resultsPage(ctx().messages().at(
-                            INTERNAL_ERROR)));
+            // TODO Button ausgrauen
+            flash("error", ctx().messages().at(INTERNAL_ERROR));
+            return redirect(
+                    controllers.routes.AdminPageController.resultsPage());
         }
         undoStack.pop().undo();
-        return redirect(controllers.routes.AdminPageController.resultsPage(""));
+        return redirect(controllers.routes.AdminPageController.resultsPage());
     }
 }

@@ -79,7 +79,8 @@ adviser.account.pwChange = Passwort ändern
 adviser.account.emailChange = E-Mail ändern
 adviser.account.oldPassword = Altes Passwort
 adviser.account.newPassword = Neues Passwort
-adviser.account.newPasswordRepeat = Neues Passwort wiederholen-
+adviser.account.newPasswordRepeat = Neues Passwort wiederholen
+adviser.account.error.passwords = Die Passworteingabe ist falsch
 adviser.allocationInfo.name = Name
 adviser.allocationInfo.learningGroup = Lerngruppe
 adviser.allocationInfo.rating = Bewertung
@@ -178,6 +179,7 @@ admin.edit.noFinalAllocation = Sie haben noch keine finale Einteilung zum veröf
 admin.edit.removeFinalAllocation = Sie können die finale Einteilung nicht löschen
 admin.error.noSemester = Kein Semester vorhanden. Erstellen Sie bitte eines in den Einstellungen
 
+importer.noData = Keine Datei wurde angegeben
 importer.FileNotFound = Datei konnte nicht gefunden werden
 importer.IOException = Fehler beim Lesen der Datei
 importer.wrongFileFormat = Die angegebene Datei hat nicht das erwartete Format
@@ -185,3 +187,4 @@ importer.alreadyExisting = Die importierte Datei existiert schon
 importer.notEmpty = Das angegebene Semester hat schon registrierte Studenten
 
 error.internalError = Unerwarteter, interner Serverfehler
+error.wrongInput = Bei manchen Formular-Feldern werden Ganzzahlen erwartet, jedoch was anderes angegeben.

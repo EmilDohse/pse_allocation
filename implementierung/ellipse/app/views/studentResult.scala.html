@@ -1,8 +1,8 @@
 @* * Diese Seite zeigt das Ergebnis dem Studenten an. * Als Parameter
-wird das Projekt und eine Fehlermeldung übergeben. *@ @(team:data.Team,
-error: String) @if(!error.isEmpty()){
-<div class="alert alert-danger" role="alert">@error</div>
-}
+wird das Projekt und eine Fehlermeldung übergeben. *@ @(team:data.Team) 
+@if(flash.containsKey("error")) {
+<div class="alert alert-danger" role="alert">@flash.get("error")</div>
+} 
 <h1>@Messages("student.sidebar.results")</h1>
 <h3>@team.getProject().getName()</h3>
 <p>
