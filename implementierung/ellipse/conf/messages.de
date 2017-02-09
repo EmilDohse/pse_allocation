@@ -35,6 +35,10 @@ index.registration.error.genError = Bitte überprüfen Sie die Eingabe
 index.registration.error.minMax = Die Mindestgröße muss kleiner oder gleich der Maximalgröße sein
 index.registration.error.passwordUnequal = Die eingegebenen Passwörter stimmen nicht überein
 index.pwReset = Passwort zurücksetzen
+index.pwReset.userNotFound = Ein Benutzer mit dieser E-Mail-Adresse existiert nicht
+index.pwReset.mailSent = Ein Bestätigungscode wurde ihnen per Mail zugeschickt. Klicken sie auf den Link in der Mail, um ihr Passwort-Zurücksetzen zu bestätigen.
+index.pwReset.success = Das Passwort-Zurücksetzen war erfolgreich! Sie können sich nun mit ihrem neuen Passwort anmelden.
+index.pwReset.error = Das Passwort zurücksetzen ist fehlgeschlagen, bitte versuchen sie es erneut. Beachten sie, das sie den Link in der Mail innerhalb von einer Stunde klicken müssen
 index.verify.success = Das Verifizieren Ihrer E-Mail-Adresse war erfolgreich!
 index.verify.error = Der Verifizirungscode ist falsch oder zu alt, bitte lassen sie sich einen neuen zuschicken (in den Account-Einstellungen)
 

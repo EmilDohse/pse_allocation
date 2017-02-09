@@ -7,14 +7,19 @@ package controllers;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.pac4j.core.context.Pac4jConstants;
+import org.pac4j.core.exception.BadCredentialsException;
+
 import com.google.inject.Inject;
 
 import data.Achievement;
+import data.Adviser;
 import data.ElipseModel;
 import data.GeneralData;
 import data.SPO;
 import data.Semester;
 import data.Student;
+import data.User;
 import data.LearningGroup;
 import data.Project;
 import play.data.DynamicForm;
@@ -22,7 +27,9 @@ import play.data.FormFactory;
 import play.mvc.Controller;
 import play.mvc.Result;
 import security.BlowfishPasswordEncoder;
-import security.Verifier;
+import security.EmailVerifier;
+import security.PasswordResetter;
+import security.UserProfile;
 import views.IndexMenu;
 import views.Menu;
 
@@ -209,9 +216,58 @@ public class IndexPageController extends Controller {
      * 
      * @return Die Seite, die als Antwort verschickt wird.
      */
-    public Result passwordReset() {
-        // TODO
-        return null;
+    public Result passwordResetForm() {
+        DynamicForm form = formFactory.form().bindFromRequest();
+        if (form.data().isEmpty()) {
+            return badRequest(ctx().messages().at(INTERNAL_ERROR));
+        }
+        // die felder werden ausgelesen
+        String email = form.get("email");
+        String password = form.get("password");
+        String pwRepeat = form.get("pwRepeat");
+        if (!password.equals(pwRepeat)) {
+            flash("error", ctx().messages()
+                    .at("index.registration.error.passwordUnequal"));
+            return redirect(
+                    controllers.routes.IndexPageController.passwordResetPage());
+        }
+        // Get User anhand der E-Mail
+        User user = null;
+        ArrayList<User> allUsers = new ArrayList<>(Adviser.getAdvisers());
+        allUsers.addAll(Student.getStudents());
+        for (User u : allUsers) {
+            if (u.getEmailAddress().equalsIgnoreCase(email)) {
+                user = u;
+                break;
+            }
+        }
+        if (user == null) {
+            flash("error", ctx().messages().at("index.pwReset.userNotFound"));
+            return redirect(
+                    controllers.routes.IndexPageController.passwordResetPage());
+        }
+        String encPw = new BlowfishPasswordEncoder().encode(password);
+        String code = PasswordResetter.getInstance().initializeReset(user,
+                encPw);
+        // TODO: E-Mail verschicken.
+        flash("info", ctx().messages().at("index.pwReset.mailSent"));
+        return redirect(controllers.routes.IndexPageController.indexPage());
+    }
+
+    /**
+     * Resettet das Passwort
+     * 
+     * @param code
+     *            der Code der zum Passwort-Reset nötig ist.
+     * @return Die Seite, die angezeigt werden soll.
+     */
+    public Result resetPassword(String code) {
+        if (PasswordResetter.getInstance().finalizeReset(code)) {
+            flash("info", ctx().messages().at("index.pwReset.success"));
+        } else {
+            flash("error", ctx().messages().at("index.pwReset.error"));
+        }
+        return redirect(controllers.routes.IndexPageController.indexPage());
     }
 
     /**
@@ -223,7 +279,7 @@ public class IndexPageController extends Controller {
      * @return Die Seite, die als Antwort verschickt wird.
      */
     public Result verificationPage(String code) {
-        if (Verifier.getInstance().verify(code)) {
+        if (EmailVerifier.getInstance().verify(code)) {
             flash("info", ctx().messages().at("index.verify.success"));
         } else {
             flash("error", ctx().messages().at("index.verify.error"));
