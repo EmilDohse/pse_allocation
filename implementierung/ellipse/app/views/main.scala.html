@@ -54,8 +54,17 @@ Html)
 
 			<div class="col-sm-9 col-md-10 main">
 				@if(flash.containsKey("error")) {
-				<div class="alert alert-danger" role="alert">@flash.get("error")</div>
-				} @content
+				<div class="row">
+					<div class="col-sx-12 col-sm-6">
+						<div class="alert alert-danger" role="alert">@flash.get("error")</div>
+					</div>
+				</div>
+				}
+				<div class="row"> 
+					<div class="col-lg-9">
+						@content
+					</div>	
+				</div>
 			</div>
 		</div>
 	</div>
