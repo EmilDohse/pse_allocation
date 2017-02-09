@@ -40,6 +40,11 @@ public class GeneralData extends ElipseModel {
      * @return Das aktuelle Semester.
      */
     public Semester getCurrentSemester() {
+        if (currentSemester == null) {
+            Semester semester = new Semester();
+            semester.setId(-1);
+            return semester;
+        }
         return currentSemester;
     }
 
@@ -59,7 +64,8 @@ public class GeneralData extends ElipseModel {
     public static GeneralData loadInstance() {
         GeneralData instance;
         try {
-            instance = ElipseModel.getAll(GeneralData.class).stream().findFirst().get();
+            instance = ElipseModel.getAll(GeneralData.class).stream()
+                    .findFirst().get();
         } catch (NoSuchElementException e) {
             // If no GeneralData is in Database create one
             GeneralData data = new GeneralData();
