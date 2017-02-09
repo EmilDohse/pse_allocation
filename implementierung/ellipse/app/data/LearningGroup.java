@@ -163,7 +163,7 @@ public class LearningGroup extends ElipseModel {
             }
         }
 
-        // TODO throws
+        // 0 als default
         return 0;
     }
 

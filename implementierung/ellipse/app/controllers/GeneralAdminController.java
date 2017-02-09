@@ -51,8 +51,9 @@ public class GeneralAdminController extends Controller {
     public Result addAdviser() {
         DynamicForm form = formFactory.form().bindFromRequest();
         if (form.data().isEmpty()) {
-            return badRequest(ctx().messages().at(INTERNAL_ERROR));
-        }
+            return badRequest(ctx().messages().at(
+            INTERNAL_ERROR));
+	}
         String firstName = form.get("firstName");
         String lastName = form.get("lastName");
         String email = form.get("email");
@@ -186,24 +187,37 @@ public class GeneralAdminController extends Controller {
         String semesterString = form.get("semester");
         int matNr;
         int semester;
-        String spoName = form.get("spo");
-        SPO spo = SPO.getSPO(spoName);
+        String spoIdString = form.get("spo");
+        int spoId;
         try {
             matNr = Integer.parseInt(matNrString);
             semester = Integer.parseInt(semesterString);
+            spoId = Integer.parseInt(spoIdString);
         } catch (NumberFormatException e) {
-            flash("error", ctx().messages().at("error.wrongInput"));
+flash("error", ctx().messages().at("error.wrongInput"));
             return redirect(
                     controllers.routes.AdminPageController.studentEditPage());
         }
+	if (Student.getStudent(matNr) != null) {
+            // TODO error
+        }
         // der username eines studenten ist seine matNr
-        Student student = new Student(matNrString, password, email, firstName,
-                lastName, matNr, spo, spo.getNecessaryAchievements(),
-                new ArrayList<>(), semester);
+        SPO spo = ElipseModel.getById(SPO.class, spoId);
+        BlowfishPasswordEncoder b = new BlowfishPasswordEncoder();
+        Student student = new Student(matNrString, b.encode(password), email,
+                firstName, lastName, matNr, spo,
+                spo.getNecessaryAchievements(), new ArrayList<>(), semester);
         student.save();
+        LearningGroup l = new LearningGroup(student.getUserName(), "");
+        l.save();
+        l.doTransaction(() -> {
+            l.addMember(student);
+            l.setPrivate(true);
+        });
         Semester currentSemester = GeneralData.loadInstance()
                 .getCurrentSemester();
         currentSemester.doTransaction(() -> {
+            currentSemester.addLearningGroup(l);
             currentSemester.addStudent(student);
         });
         return redirect(
@@ -233,12 +247,18 @@ public class GeneralAdminController extends Controller {
                     controllers.routes.AdminPageController.studentEditPage());
         }
         Student student = Student.getStudent(matNr);
-        Semester currentSemester = GeneralData.loadInstance()
-                .getCurrentSemester();
-        currentSemester.doTransaction(() -> {
-            currentSemester.removeStudent(student);
-        });
-        return redirect(
-                controllers.routes.AdminPageController.studentEditPage());
+        if (student == null) {
+            // TODO error
+        }
+        for (LearningGroup l : LearningGroup.getLearningGroups()) {
+            if (l.getMembers().contains(student)) {
+                if (l.getMembers().size() == 1) {
+                    l.delete();
+                }
+            }
+        }
+        student.delete();
+        return redirect(controllers.routes.AdminPageController
+                .studentEditPage(""));
     }
 }
