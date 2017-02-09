@@ -18,6 +18,7 @@ import com.avaje.ebean.EbeanServerFactory;
 import com.avaje.ebean.config.ServerConfig;
 
 import data.Allocation;
+import data.GeneralData;
 import data.SPO;
 import data.Semester;
 import exception.ImporterException;
@@ -134,6 +135,10 @@ public class ImporterTest {
     public void testImportAllocation() {
         Semester semester = new Semester("test", false, 1970);
         semester.setInfoText("Hi");
+        GeneralData data = GeneralData.loadInstance();
+        data.doTransaction(() -> {
+            data.setCurrentSemester(semester);
+        });
         try {
             importerExporter.importSPO(new File("spo2008.csv"));
             importerExporter.importProjects(new File("Projekte.csv"), semester);
