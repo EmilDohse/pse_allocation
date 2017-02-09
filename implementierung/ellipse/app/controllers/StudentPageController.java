@@ -135,7 +135,6 @@ public class StudentPageController extends Controller {
                 flash("error", ctx().messages().at(GEN_ERROR));
                 return redirect(controllers.routes.StudentPageController
                         .changeFormPage());
-
             }
         }
 
@@ -233,6 +232,25 @@ public class StudentPageController extends Controller {
         });
         return redirect(
                 controllers.routes.StudentPageController.learningGroupPage());
+    }
+
+    /**
+     * Diese Methode wird aufgerufen, wenn der Student einer Lerngruppe
+     * beitreten oder eine erstellen will.
+     * 
+     * @return Die Seite, die als Antwort verschickt wird
+     */
+    public Result setLearningGroup() {
+        DynamicForm form = formFactory.form().bindFromRequest();
+        if (form.get("create") != null) {
+            return createLearningGroup();
+        } else if (form.get("join") != null) {
+            return joinLearningGroup();
+        } else {
+            flash("error", ctx().messages().at(INTERNAL_ERROR));
+            return redirect(controllers.routes.StudentPageController
+                    .learningGroupPage());
+        }
     }
 
     /**

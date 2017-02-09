@@ -34,6 +34,11 @@ public class AdminImportExportController extends Controller {
     @Inject
     FormFactory                 formFactory;
 
+    /**
+     * Diese Methode importiert eine Datei aus einem Formular.
+     * 
+     * @return Die Seite, die angezeigt werden soll.
+     */
     public Result importGeneral() {
         DynamicForm form = formFactory.form().bindFromRequest();
         if (form.get("allocation") != null) {
