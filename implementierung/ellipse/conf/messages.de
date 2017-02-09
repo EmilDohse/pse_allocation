@@ -13,6 +13,7 @@ index.password = Passwort
 index.login = Anmelden
 index.sidebar.information = Allgemeine Informationen
 index.sidebar.registration = Registrierung
+index.sidebar.pwReset = Passwort zurücksetzen
 index.registration.form.personalData = Persönliche Daten
 index.registration.form.firstName = Vorname
 index.registration.form.lastName = Nachname
@@ -33,7 +34,9 @@ index.registration.error.matNrExists = Es gibt bereits einen Account mit dieser 
 index.registration.error.genError = Bitte überprüfen Sie die Eingabe
 index.registration.error.minMax = Die Mindestgröße muss kleiner oder gleich der Maximalgröße sein
 index.registration.error.passwordUnequal = Die eingegebenen Passwörter stimmen nicht überein
-
+index.pwReset = Passwort zurücksetzen
+index.verify.success = Das Verifizieren Ihrer E-Mail-Adresse war erfolgreich!
+index.verify.error = Der Verifizirungscode ist falsch oder zu alt, bitte lassen sie sich einen neuen zuschicken (in den Account-Einstellungen)
 
 student.title = Elipse - Studentenportal
 student.sidebar.learningGroup = Lerngruppe
@@ -69,6 +72,7 @@ student.account.newPasswordRepeat = Neues Passwort wiederholen
 student.account.sendNewVerificationLink = Neuen Verifikations-Code schicken.
 student.error.noAllocationYet = Bisher existieren noch keine fertig berechneten Einteilungen.
 student.changeData.changeData = Daten ändern
+student.info.notVerifiedEmail = Bitte verifizieren sie ihre E-Mail-Adresse indem sie den Link in ihrer Aktivierungsmail klicken. In den Account-Einstellungen können sie sich notfalls einen neuen Link zuschicken lassen.
 
 adviser.sidebar.account = Account
 adviser.leaveProject = Projekt verlassen

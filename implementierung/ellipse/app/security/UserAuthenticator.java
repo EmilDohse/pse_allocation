@@ -60,7 +60,7 @@ public class UserAuthenticator
                 }
             }
         }
-        for (User u : GeneralData.loadInstance().getCurrentSemester()
+        for (Student u : GeneralData.loadInstance().getCurrentSemester()
                 .getStudents()) {
             if (credentials.getUsername().equals(u.getUserName())) {
                 if (encoder.matches(credentials.getPassword(),
@@ -68,6 +68,12 @@ public class UserAuthenticator
                     UserProfile profile = new UserProfile(u);
                     profile.addRole("ROLE_STUDENT");
                     credentials.setUserProfile(profile);
+                    if (!u.isEmailVerified()) {
+                        PlayWebContext playContext = (PlayWebContext) context;
+                        Context ctx = playContext.getJavaContext();
+                        ctx.flash().put("info", ctx.messages()
+                                .at("student.info.notVerifiedEmail"));
+                    }
                     context.setSessionAttribute(Pac4jConstants.REQUESTED_URL,
                             "/student");
                     return;

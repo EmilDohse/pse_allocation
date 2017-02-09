@@ -44,7 +44,7 @@ public class Verifier {
      */
     private static final int          CODE_LENGTH = 20;
 
-    private HashMap<Student, String>  savedCodes;
+    private HashMap<String, Student>  savedCodes;
     /**
      * Stores the time, when the last code for an student was generated.
      */
@@ -61,8 +61,8 @@ public class Verifier {
      * ACHTUNG: Diese Methode funktioniert nur einmalig, falls der Code korrekt
      * war und true zurückgegeben wird. Daraufhin ist für den Verifikator der
      * Prozess für diesen Studenten abgeschlossen und alle seine
-     * Verifikatordaten zerstört. ACHTUNG: Ändert auch bei Erfolg nicht den
-     * Zustand des Studenten.
+     * Verifikatordaten zerstört. ACHTUNG: Ändert bei Erfolg das Flag des
+     * Studenten.
      * 
      * @param student
      *            Der Student, dessen E-Mail-Adresse verifiziert werden soll.
@@ -71,18 +71,22 @@ public class Verifier {
      * 
      * @return true wenn die Verifikation positiv war, false sonst.
      */
-    public boolean verify(Student student, String code) {
+    public boolean verify(String code) {
         if (code == null) {
             return false;
         } else {
-            if (savedCodes.get(student).equals(code)) {
+            Student student = savedCodes.get(code);
+            if (student != null) {
                 Instant codeGenInstant = timestamps.get(student);
                 Instant currentInstant = Instant.now();
                 Duration diff = Duration.between(codeGenInstant,
                         currentInstant);
                 if (diff.toHours() < DAY_IN_H) {
-                    savedCodes.remove(student);
+                    savedCodes.remove(code);
                     timestamps.remove(student);
+                    student.doTransaction(() -> {
+                        student.setIsEmailVerified(true);
+                    });
                     return true;
                 }
             }
@@ -115,7 +119,7 @@ public class Verifier {
         }
         String result = builder.toString();
         // Speichert code und die aktuelle Zeit
-        savedCodes.put(student, result);
+        savedCodes.put(result, student);
         timestamps.put(student, Instant.now());
         return result;
     }

@@ -22,6 +22,7 @@ import play.data.FormFactory;
 import play.mvc.Controller;
 import play.mvc.Result;
 import security.BlowfishPasswordEncoder;
+import security.Verifier;
 import views.IndexMenu;
 import views.Menu;
 
@@ -196,8 +197,9 @@ public class IndexPageController extends Controller {
      * @return Die Seite, die als Antwort verschickt wird.
      */
     public Result passwordResetPage() {
-        // TODO
-        return null;
+        play.twirl.api.Html content = views.html.indexPasswordReset.render();
+        Menu menu = new IndexMenu(ctx(), ctx().request().path());
+        return ok(views.html.index.render(menu, content));
     }
 
     /**
@@ -221,7 +223,11 @@ public class IndexPageController extends Controller {
      * @return Die Seite, die als Antwort verschickt wird.
      */
     public Result verificationPage(String code) {
-        // TODO
-        return null;
+        if (Verifier.getInstance().verify(code)) {
+            flash("info", ctx().messages().at("index.verify.success"));
+        } else {
+            flash("error", ctx().messages().at("index.verify.error"));
+        }
+        return redirect(controllers.routes.IndexPageController.indexPage());
     }
 }
