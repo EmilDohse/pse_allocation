@@ -218,17 +218,12 @@ public class StudentPageController extends Controller {
         LearningGroup lg = GeneralData.loadInstance().getCurrentSemester()
                 .getLearningGroupOf(student);
         lg.doTransaction(() -> {
-            ArrayList<Rating> ratings = new ArrayList<>();
             for (Project project : GeneralData.loadInstance()
                     .getCurrentSemester().getProjects()) {
-                Rating rating = new Rating(
-                        Integer.parseInt(
-                                form.get(Integer.toString(project.getId()))),
-                        project);
+                lg.rate(project, Integer
+                        .parseInt(form.get(Integer.toString(project.getId()))));
                 // holt sich das rating des studenten aus dem formular
-                ratings.add(rating);
             }
-            lg.setRatings(ratings);
         });
         return redirect(
                 controllers.routes.StudentPageController.learningGroupPage());
@@ -323,6 +318,8 @@ public class StudentPageController extends Controller {
      * @return Die Seite, die als Antwort verschickt wird.
      */
     public Result leaveLearningGroup() {
+        // TODO wirft manchmal PersistenceException
+        // Student hat dann keine Lerngruppe mehr
         UserManagement user = new UserManagement();
         User userProfile = user.getUserProfile(ctx());
         assert userProfile instanceof Student;
@@ -339,10 +336,8 @@ public class StudentPageController extends Controller {
         lg.doTransaction(() -> {
             lg.removeMember(student);
         });
-        // Hier wird der student wieder in seine privat Lerngruppe
+        // Hier wird der student wieder in seine private Lerngruppe
         // eingefügt
-        // LearningGroup lgNew = new LearningGroup(student.getUserName(), "",
-        // student, true);
         LearningGroup lgNew = new LearningGroup(student.getUserName(), "");
         lgNew.save();
         lgNew.doTransaction(() -> {
@@ -353,6 +348,7 @@ public class StudentPageController extends Controller {
                 lgNew.rate(r.getProject(), r.getRating());
             }
         });
+        lg.refresh();
         if (lg.getMembers().size() == 0) {
             // Leeres Team löschen
             lg.delete();
