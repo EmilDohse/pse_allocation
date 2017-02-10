@@ -1,7 +1,7 @@
 @* * Diese Seite zeigt die Einstellungsseite dem Admin an. * Dafür wird
 eine Liste an Semestern und SPOs benötigt * Zusätzlich kann eine
-Fehlermeldung übergeben werden. *@ @(activeSemester: data.Semester, semesters: List[data.Semester],
-spos: List[data.SPO])
+Fehlermeldung übergeben werden. *@ @(activeSemester: data.Semester,
+semesters: List[data.Semester], spos: List[data.SPO])
 <link
 	href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css"
 	rel="stylesheet">
@@ -13,256 +13,264 @@ spos: List[data.SPO])
 	href='@routes.Assets.versioned("stylesheets/bootstrap-multiselect.css")'
 	type="text/css" />
 <h1>@Messages("admin.sidebar.properties")</h1>
-<div>
-	<h3>@Messages("admin.properties.SPO")</h3>
-	<!-- Nav tabs -->
-	<script type="text/javascript">
-		$(function() {
-			$('#spo-tabs a:first').tab('show');
-		});
-		$('#spo-tabs .tablink').click(function(e) {
-			e.preventDefault();
-			$(this).tab('show');
-		})
-	</script>
-	<ul class="nav nav-tabs" role="tablist" id="spo-tabs">
-		@for(spo <- spos) {
-		<li role="presentation"><a href="#spo-@spo.getId()"
-			aria-controls="@spo.getName()" role="tab" data-toggle="tab"
-			class="tablink">@spo.getName()</a></li> }
-		<li role="presentation"><a
-			href="@controllers.routes.AdminPropertiesController.addSPO().path()"
-			aria-controls="add">+</a></li>
-	</ul>
+<div class="panel panel-primary">
+	<div class="panel-heading">
+		<h3 class="panel-title">@Messages("admin.properties.SPO")</h3>
+	</div>
+	<div class="panel-body">
+		<!-- Nav tabs -->
+		<script type="text/javascript">
+			$(function() {
+				$('#spo-tabs a:first').tab('show');
+			});
+			$('#spo-tabs .tablink').click(function(e) {
+				e.preventDefault();
+				$(this).tab('show');
+			})
+		</script>
+		<ul class="nav nav-tabs" role="tablist" id="spo-tabs">
+			@for(spo <- spos) {
+			<li role="presentation"><a href="#spo-@spo.getId()"
+				aria-controls="@spo.getName()" role="tab" data-toggle="tab"
+				class="tablink">@spo.getName()</a></li> }
+			<li role="presentation"><a
+				href="@controllers.routes.AdminPropertiesController.addSPO().path()"
+				aria-controls="add">+</a></li>
+		</ul>
 
-<!-- TODO: Layout -->
-	<!-- Tab panes -->
-	<div class="tab-content">
-		@for(spo <- spos) {
-		<div role="tabpanel" class="tab-pane" id="spo-@spo.getId()">
-			<form
-				action="@controllers.routes.AdminPropertiesController.changeSPO().path()"
-				method="POST" class="form-inline">
-				<input type="hidden" name="id" value="@spo.getId()">
-				<div class="form-group">
-					<label class="control-label col-sm-2" for="name">@Messages("admin.properties.name")</label>
-					<div class="col-sm-3">
-						<input type="text" class="form-control" name="nameSPO"
-							id="nameSPO" value="@spo.getName()">
+		<!-- TODO: Layout -->
+		<!-- Tab panes -->
+		<div class="tab-content">
+			@for(spo <- spos) {
+			<div role="tabpanel" class="tab-pane" id="spo-@spo.getId()">
+				<form
+					action="@controllers.routes.AdminPropertiesController.changeSPO().path()"
+					method="POST" class="form-inline">
+					<input type="hidden" name="id" value="@spo.getId()">
+					<div class="form-group">
+						<label class="control-label col-sm-2" for="name">@Messages("admin.properties.name")</label>
+						<div class="col-sm-3">
+							<input type="text" class="form-control" name="nameSPO"
+								id="nameSPO" value="@spo.getName()">
+						</div>
 					</div>
-				</div>
-				<table class="table table-striped">
-					<thead>
-						<tr>
-							<th>@Messages("admin.properties.remove")</th>
-							<th>@Messages("admin.properties.achievement")</th>
-							<th>@Messages("admin.properties.necessary")</th>
-						</tr>
-					</thead>
-					<tbody>
-						@for(achievement <- spo.getNecessaryAchievements()) {
-						<tr>
-							<td><input type="checkbox"
-								name="delete-@achievement.getId()"
-								id="delete-@achievement.getId()"></td>
-							<td>@achievement.getName()</td>
-							<td><input type="checkbox" checked data-toggle="toggle"
-								data-on='@Messages("admin.properties.yes")'
-								data-off='@Messages("admin.properties.no")'
-								data-onstyle="success" data-offstyle="danger"
-								name="necessary-@achievement.getId()"
-								id="necessary-@achievement.getId()"></td>
-						</tr>
-						} @for(achievement <- spo.getAdditionalAchievements()) {
-						<tr>
-							<td><input type="checkbox"
-								name="delete-@achievement.getId()"
-								id="delete-@achievement.getId()"></td>
-							<td>@achievement.getName()</td>
-							<td><input type="checkbox" data-toggle="toggle"
-								data-on='@Messages("admin.properties.yes")'
-								data-off='@Messages("admin.properties.no")'
-								data-onstyle="success" data-offstyle="danger"
-								name="necessary-@achievement.getId()"
-								id="necessary-@achievement.getId()"></td>
-						</tr>
-						}
-					</tbody>
-				</table>
-				<div class="form-group">
-					<div class="col-sm-10">
-						<button type="submit" class="btn btn-primary">@Messages("admin.properties.saveSPO")</button>
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th>@Messages("admin.properties.remove")</th>
+								<th>@Messages("admin.properties.achievement")</th>
+								<th>@Messages("admin.properties.necessary")</th>
+							</tr>
+						</thead>
+						<tbody>
+							@for(achievement <- spo.getNecessaryAchievements()) {
+							<tr>
+								<td><input type="checkbox"
+									name="delete-@achievement.getId()"
+									id="delete-@achievement.getId()"></td>
+								<td>@achievement.getName()</td>
+								<td><input type="checkbox" checked data-toggle="toggle"
+									data-on='@Messages("admin.properties.yes")'
+									data-off='@Messages("admin.properties.no")'
+									data-onstyle="success" data-offstyle="danger"
+									name="necessary-@achievement.getId()"
+									id="necessary-@achievement.getId()"></td>
+							</tr>
+							} @for(achievement <- spo.getAdditionalAchievements()) {
+							<tr>
+								<td><input type="checkbox"
+									name="delete-@achievement.getId()"
+									id="delete-@achievement.getId()"></td>
+								<td>@achievement.getName()</td>
+								<td><input type="checkbox" data-toggle="toggle"
+									data-on='@Messages("admin.properties.yes")'
+									data-off='@Messages("admin.properties.no")'
+									data-onstyle="success" data-offstyle="danger"
+									name="necessary-@achievement.getId()"
+									id="necessary-@achievement.getId()"></td>
+							</tr>
+							}
+						</tbody>
+					</table>
+					<div class="form-group">
+						<div class="col-sm-10">
+							<button type="submit" class="btn btn-primary">@Messages("admin.properties.saveSPO")</button>
+						</div>
 					</div>
-				</div>
-			</form>
-			<form
-				action="@controllers.routes.AdminPropertiesController.addAchievement().path()"
-				method="POST" class="form-inline">
-				<input type="hidden" name="id" value="@spo.getId()">
-				<div class="form-group">
-					<label for="name">@Messages("admin.properties.achievementName")</label>
-					<input type="text" class="form-control" name="nameAchiev"
-						id="nameAchiev">
-				</div>
+				</form>
+				<form
+					action="@controllers.routes.AdminPropertiesController.addAchievement().path()"
+					method="POST" class="form-inline">
+					<input type="hidden" name="id" value="@spo.getId()">
+					<div class="form-group">
+						<label for="name">@Messages("admin.properties.achievementName")</label>
+						<input type="text" class="form-control" name="nameAchiev"
+							id="nameAchiev">
+					</div>
 
-				<div class="form-group">
-					<button type="submit" class="btn btn-primary">@Messages("admin.properties.addAchievement")</button>
-				</div>
-			</form>
-			<form
-				action="@controllers.routes.AdminPropertiesController.removeSPO().path()"
-				method="POST" class="form-inline">
-				<input type="hidden" name="id" value="@spo.getId()">
-				<div class="form-group">
-					<button type="submit" class="btn btn-warning">@Messages("admin.properties.removeSPO")</button>
-				</div>
-			</form>
+					<div class="form-group">
+						<button type="submit" class="btn btn-primary">@Messages("admin.properties.addAchievement")</button>
+					</div>
+				</form>
+				<form
+					action="@controllers.routes.AdminPropertiesController.removeSPO().path()"
+					method="POST" class="form-inline">
+					<input type="hidden" name="id" value="@spo.getId()">
+					<div class="form-group">
+						<button type="submit" class="btn btn-danger">@Messages("admin.properties.removeSPO")</button>
+					</div>
+				</form>
+			</div>
+			}
 		</div>
-		}
 	</div>
 </div>
-<div>
-	<h3>@Messages("admin.properties.semester")</h3>
-	<!-- Nav tabs -->
-	<script type="text/javascript">
-		$(function() {
-			$('#semester-tabs a:first').tab('show');
-		});
-		$('#semester-tabs .tablink').click(function(e) {
-			e.preventDefault();
-			$(this).tab('show');
-		})
-	</script>
-	<ul class="nav nav-tabs" role="tablist" id="semester-tabs">
-		@for(semester <- semesters) {
-		<li role="presentation"><a href="#semester-@semester.getId()"
-			aria-controls="@semester.getName()" role="tab" data-toggle="tab"
-			class="tablink">@semester.getName()</a></li> }
-		<li role="presentation"><a
-			href="@controllers.routes.AdminPropertiesController.addSemester().path()"
-			aria-controls="add">+</a></li>
-	</ul>
+<div class="panel panel-primary">
+	<div class="panel-heading">
+		<h3 class="panel-title">@Messages("admin.properties.semester")</h3>
+	</div>
+	<div class="panel-body">
+		<!-- Nav tabs -->
+		<script type="text/javascript">
+			$(function() {
+				$('#semester-tabs a:first').tab('show');
+			});
+			$('#semester-tabs .tablink').click(function(e) {
+				e.preventDefault();
+				$(this).tab('show');
+			})
+		</script>
+		<ul class="nav nav-tabs" role="tablist" id="semester-tabs">
+			@for(semester <- semesters) {
+			<li role="presentation"><a href="#semester-@semester.getId()"
+				aria-controls="@semester.getName()" role="tab" data-toggle="tab"
+				class="tablink">@semester.getName()</a></li> }
+			<li role="presentation"><a
+				href="@controllers.routes.AdminPropertiesController.addSemester().path()"
+				aria-controls="add">+</a></li>
+		</ul>
 
-	<!-- Tab panes -->
-	<div class="tab-content">
-		@for(semester <- semesters) {
-		<div role="tabpanel" class="tab-pane" id="semester-@semester.getId()">
-			<!-- Add current values to form -->
-			<form
-				action="@controllers.routes.AdminPropertiesController.editSemester().path()"
-				method="POST" class="form-horizontal">
-				<input type="hidden" name="id" value="@semester.getId()">
+		<!-- Tab panes -->
+		<div class="tab-content">
+			@for(semester <- semesters) {
+			<div role="tabpanel" class="tab-pane" id="semester-@semester.getId()">
+				<!-- Add current values to form -->
+				<form
+					action="@controllers.routes.AdminPropertiesController.editSemester().path()"
+					method="POST" class="form-horizontal">
+					<input type="hidden" name="id" value="@semester.getId()">
 
-				<div class="form-group">
-					<label class="control-label col-sm-2" for="name">@Messages("admin.properties.name")</label>
-					<div class="col-sm-3">
-						<input type="text" class="form-control" name="name2" id="name2"
-							value="@semester.getName()">
+					<div class="form-group">
+						<label class="control-label col-sm-2" for="name">@Messages("admin.properties.name")</label>
+						<div class="col-sm-3">
+							<input type="text" class="form-control" name="name2" id="name2"
+								value="@semester.getName()">
+						</div>
 					</div>
-				</div>
 
-				<div class="form-group">
-					<label class="control-label col-sm-2" for="name">@Messages("admin.properties.year")</label>
-					<div class="col-sm-3">
-						<input type="number" class="form-control" name="year" id="year"
-							value="@semester.getYear()">
+					<div class="form-group">
+						<label class="control-label col-sm-2" for="name">@Messages("admin.properties.year")</label>
+						<div class="col-sm-3">
+							<input type="number" class="form-control" name="year" id="year"
+								value="@semester.getYear()">
+						</div>
 					</div>
-				</div>
 
-				<div class="form-group">
-					<div class="col-sm-offset-2 checkbox">
-						<input type="checkbox"
-							@if(semester.isWintersemester()) {checked} data-toggle="toggle"
-							data-on='@Messages("admin.properties.winterSemester")'
-							data-off='@Messages("admin.properties.summerSemester")'
-							data-onstyle="success" data-offstyle="danger" data-width="200"
-							name="wintersemester" id="wintersemester">
+					<div class="form-group">
+						<div class="col-sm-offset-2 checkbox">
+							<input type="checkbox"
+								@if(semester.isWintersemester()) {checked} data-toggle="toggle"
+								data-on='@Messages("admin.properties.winterSemester")'
+								data-off='@Messages("admin.properties.summerSemester")'
+								data-onstyle="success" data-offstyle="danger" data-width="200"
+								name="wintersemester" id="wintersemester">
+						</div>
 					</div>
-				</div>
 
-				<div class="form-group">
-					<label class="control-label col-sm-2" for="description">@Messages("admin.properties.generalInfo")</label>
-					<div class="col-sm-8">
-						<textarea rows="8" class="form-control" name="info" id="info">@semester.getInfoText()</textarea>
+					<div class="form-group">
+						<label class="control-label col-sm-2" for="description">@Messages("admin.properties.generalInfo")</label>
+						<div class="col-sm-8">
+							<textarea rows="8" class="form-control" name="info" id="info">@semester.getInfoText()</textarea>
+						</div>
 					</div>
-				</div>
-				<div class="form-group">
-					<label class="control-label col-sm-2" for="maxGroupSize">@Messages("admin.properties.maxGroupSize")</label>
-					<div class="col-sm-3">
-						<input type="number" class="form-control" name="maxGroupSize"
-							id="maxGroupSize" value="@semester.getMaxGroupSize()">
+					<div class="form-group">
+						<label class="control-label col-sm-2" for="maxGroupSize">@Messages("admin.properties.maxGroupSize")</label>
+						<div class="col-sm-3">
+							<input type="number" class="form-control" name="maxGroupSize"
+								id="maxGroupSize" value="@semester.getMaxGroupSize()">
+						</div>
 					</div>
-				</div>
-				<div class="form-group">
-					<label class="control-label col-sm-2" for="registrationStart">@Messages("admin.properties.registrationStart")</label>
-					<div class="col-sm-3">
-						<input type="text" class="form-control" name="registrationStart"
-							id="registrationStart"
-							value='@{val format = new java.text.SimpleDateFormat(
+					<div class="form-group">
+						<label class="control-label col-sm-2" for="registrationStart">@Messages("admin.properties.registrationStart")</label>
+						<div class="col-sm-3">
+							<input type="text" class="form-control" name="registrationStart"
+								id="registrationStart"
+								value='@{val format = new java.text.SimpleDateFormat(
                     "dd.MM.yyyy HH:mm:ss");if(semester.getRegistrationStart() != null) {format.format(semester.getRegistrationStart());}
                     else{format.format(new java.util.Date());}}'>
+						</div>
 					</div>
-				</div>
 
-				<div class="form-group">
-					<label class="control-label col-sm-2" for="registrationEnd">@Messages("admin.properties.registrationEnd")</label>
-					<div class="col-sm-3">
-						<input type="text" class="form-control" name="registrationEnd"
-							id="registrationEnd"
-							value='@{val format = new java.text.SimpleDateFormat(
+					<div class="form-group">
+						<label class="control-label col-sm-2" for="registrationEnd">@Messages("admin.properties.registrationEnd")</label>
+						<div class="col-sm-3">
+							<input type="text" class="form-control" name="registrationEnd"
+								id="registrationEnd"
+								value='@{val format = new java.text.SimpleDateFormat(
                     "dd.MM.yyyy HH:mm:ss");if(semester.getRegistrationEnd() != null) {format.format(semester.getRegistrationEnd());}
                     else{format.format(new java.util.Date());}}'>
+						</div>
 					</div>
-				</div>
 
-				<script type="text/javascript">
-					$(document).ready(function() {
-						$('#availabe-spo-@semester.getId()').multiselect({
-							maxHeight : 300,
-							numberDisplayed : 6,
-							disableIfEmpty : true
+					<script type="text/javascript">
+						$(document).ready(function() {
+							$('#availabe-spo-@semester.getId()').multiselect({
+								maxHeight : 300,
+								numberDisplayed : 6,
+								disableIfEmpty : true
+							});
 						});
-					});
-				</script>
-				<div class="form-group">
-					<label class="control-label col-sm-2" for="availabe-spo-@semester.getId()">@Messages("admin.properties.availableSPOs")</label>
-					<select id="availabe-spo-@semester.getId()" name="spo-multiselect-@semester.getId()[]"
-						class="form-control" multiple="multiple">
-						@for(spo <-spos) { 
+					</script>
+					<div class="form-group">
+						<label class="control-label col-sm-2"
+							for="availabe-spo-@semester.getId()">@Messages("admin.properties.availableSPOs")</label>
+						<select id="availabe-spo-@semester.getId()"
+							name="spo-multiselect-@semester.getId()[]" class="form-control"
+							multiple="multiple"> @for(spo <-spos) {
 							@if(semester.getSpos().contains(spo)) {
-								<option value="@spo.getId()" selected="selected">@spo.getName()</option> 
+							<option value="@spo.getId()" selected="selected">@spo.getName()</option>
 							} else {
-								<option value="@spo.getId()">@spo.getName()</option>
-							} 
-						}
-					</select>
-				</div>
-				<div class="form-group col-sm-offset-2">
-					<div class="checkbox">
-						<label class="control-label col-sm-2" for="semester-active">@Messages("admin.properties.semester")</label><input
-							type="checkbox" @if(semester.equals(activeSemester)) {checked} data-toggle="toggle"
-							data-on='@Messages("admin.properties.activ")'
-							data-off='@Messages("admin.properties.inactiv")'
-							data-onstyle="success" data-offstyle="danger" data-width="100"
-							name="semester-active" id="semester-active" class="form-control">
+							<option value="@spo.getId()">@spo.getName()</option> } }
+						</select>
 					</div>
-				</div>
+					<div class="form-group col-sm-offset-2">
+						<div class="checkbox">
+							<label class="control-label col-sm-2" for="semester-active">@Messages("admin.properties.semester")</label><input
+								type="checkbox"
+								@if(semester.equals(activeSemester)) {checked} data-toggle="toggle"
+								data-on='@Messages("admin.properties.activ")'
+								data-off='@Messages("admin.properties.inactiv")'
+								data-onstyle="success" data-offstyle="danger" data-width="100"
+								name="semester-active" id="semester-active" class="form-control">
+						</div>
+					</div>
 
-				<div class="form-group">
-					<div class="col-sm-offset-2 col-sm-10">
-						<button type="submit" class="btn btn-primary">@Messages("admin.properties.saveProperties")</button>
+					<div class="form-group">
+						<div class="col-sm-offset-2 col-sm-10">
+							<button type="submit" class="btn btn-primary">@Messages("admin.properties.saveProperties")</button>
+						</div>
 					</div>
-				</div>
-			</form>
-			<form
-				action="@controllers.routes.AdminPropertiesController.removeSemester().path()"
-				method="POST" class="form-inline">
-				<input type="hidden" name="id" value="@semester.getId()">
-				<div class="form-group">
-					<button type="submit" class="btn btn-danger">@Messages("admin.properties.removeSemester")</button>
-				</div>
-			</form>
+				</form>
+				<form
+					action="@controllers.routes.AdminPropertiesController.removeSemester().path()"
+					method="POST" class="form-inline">
+					<input type="hidden" name="id" value="@semester.getId()">
+					<div class="form-group">
+						<button type="submit" class="btn btn-danger">@Messages("admin.properties.removeSemester")</button>
+					</div>
+				</form>
+			</div>
+			}
 		</div>
-		}
 	</div>
 </div>
