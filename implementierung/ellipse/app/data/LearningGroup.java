@@ -253,7 +253,7 @@ public class LearningGroup extends ElipseModel {
         if (members.contains(student)) {
             members.remove(student);
         } else {
-            // TODO throws
+            // TODO throws warum überhaupt was werfen???
         }
     }
 
@@ -286,7 +286,8 @@ public class LearningGroup extends ElipseModel {
      * @return Die spezifische Lerngruppe. Null falls keine passende gefunden
      *         wird.
      */
-    public static LearningGroup getLearningGroup(String name, Semester semester) {
+    public static LearningGroup getLearningGroup(String name,
+            Semester semester) {
         return semester.getLearningGroups().stream()
                 .filter(group -> group.getName().equals(name)).findFirst()
                 .orElse(null);
