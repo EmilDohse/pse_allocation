@@ -43,8 +43,6 @@ public class StudentHappiness implements QualityCriterion {
             }
         }
 
-        // TODO sicher, das man hier durch die gesamtzahl der studenten teilt
-        // und nicht nur durch die anzahl der zugeteilten
         double relativeHappiness = (sumOfRatings / (double) GeneralData
                 .loadInstance().getCurrentSemester().getStudents().size())
                 / 5.0;
