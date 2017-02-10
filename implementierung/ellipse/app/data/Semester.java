@@ -17,6 +17,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
+import exception.DataException;
+
 /************************************************************/
 /**
  * Diese Klasse repräsentiert ein Semseter.
@@ -283,8 +285,14 @@ public class Semester extends ElipseModel implements Comparable<Semester> {
      * @param learningGroups
      *            Die Lerngruppen, die dem Semester übergeben werden.
      */
-    public void setLearningGroups(List<LearningGroup> learningGroups) {
-        learningGroups.forEach(lg -> lg.setSemester(this));
+    public void setLearningGroups(List<LearningGroup> learningGroups)
+            throws DataException {
+        // TODO warum wird hier die Exception nicht weiter gethrowt?
+        // learningGroups.forEach(lg -> lg.setSemester(this));
+
+        for (LearningGroup lg : learningGroups) {
+            lg.setSemester(this);
+        }
         this.learningGroups = learningGroups;
     }
 
@@ -303,8 +311,11 @@ public class Semester extends ElipseModel implements Comparable<Semester> {
      * 
      * @param learningGroup
      *            Lerngruppe, die hinzugefügt wird.
+     * @throws DataException
+     *             Wird vom Controller behandelt.
      */
-    public void addLearningGroup(LearningGroup learningGroup) {
+    public void addLearningGroup(LearningGroup learningGroup)
+            throws DataException {
         learningGroup.setSemester(this);
         learningGroups.add(learningGroup);
     }
@@ -424,8 +435,9 @@ public class Semester extends ElipseModel implements Comparable<Semester> {
      *         Namen hat.
      */
     public static Semester getSemester(String semesterName) {
-        return getSemesters().stream().filter(semester -> semester.getName().equals(semesterName)).findFirst()
-                .orElse(null);
+        return getSemesters().stream()
+                .filter(semester -> semester.getName().equals(semesterName))
+                .findFirst().orElse(null);
     }
 
     /**
@@ -504,8 +516,9 @@ public class Semester extends ElipseModel implements Comparable<Semester> {
      *         Semester in keiner Lerngruppe ist.
      */
     public LearningGroup getLearningGroupOf(Student student) {
-        return learningGroups.stream().filter(learningGroup -> learningGroup.getMembers().contains(student)).findFirst()
-                .orElse(null);
+        return learningGroups.stream().filter(
+                learningGroup -> learningGroup.getMembers().contains(student))
+                .findFirst().orElse(null);
     }
 
     @Override

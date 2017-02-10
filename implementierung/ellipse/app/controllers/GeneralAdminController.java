@@ -22,6 +22,7 @@ import data.Project;
 import data.SPO;
 import data.Semester;
 import data.Student;
+import exception.DataException;
 import play.data.DynamicForm;
 import play.data.FormFactory;
 import play.mvc.Controller;
@@ -212,23 +213,28 @@ public class GeneralAdminController extends Controller {
                 firstName, lastName, matNr, spo, spo.getNecessaryAchievements(),
                 new ArrayList<>(), semester);
         student.save();
-        LearningGroup l = new LearningGroup(student.getUserName(), "");
-        l.save();
-        l.doTransaction(() -> {
-            l.addMember(student);
-            l.setPrivate(true);
-            // Ratings initialisieren
-            for (Project p : GeneralData.loadInstance().getCurrentSemester()
-                    .getProjects()) {
-                l.rate(p, 3);
-            }
-        });
-        Semester currentSemester = GeneralData.loadInstance()
-                .getCurrentSemester();
-        currentSemester.doTransaction(() -> {
-            currentSemester.addLearningGroup(l);
-            currentSemester.addStudent(student);
-        });
+        LearningGroup l;
+        try {
+            l = new LearningGroup(student.getUserName(), "");
+            l.save();
+            l.doTransaction(() -> {
+                l.addMember(student);
+                l.setPrivate(true);
+                // Ratings initialisieren
+                for (Project p : GeneralData.loadInstance().getCurrentSemester()
+                        .getProjects()) {
+                    l.rate(p, 3);
+                }
+            });
+            Semester currentSemester = GeneralData.loadInstance()
+                    .getCurrentSemester();
+            currentSemester.doTransaction(() -> {
+                currentSemester.addLearningGroup(l);
+                currentSemester.addStudent(student);
+            });
+        } catch (DataException e) {
+            // TODO Redirect incl. Errormessage
+        }
         return redirect(
                 controllers.routes.AdminPageController.studentEditPage());
     }

@@ -12,6 +12,7 @@ import data.Project;
 import data.Semester;
 import data.Student;
 import data.Team;
+import exception.DataException;
 
 /************************************************************/
 /**
@@ -37,8 +38,13 @@ public class StudentHappiness implements QualityCriterion {
                 Semester semester = GeneralData.loadInstance()
                         .getCurrentSemester();
                 Project project = t.getProject();
-                double rating = semester.getLearningGroupOf(student)
-                        .getRating(project);
+                double rating = 0;
+                try {
+                    rating = semester.getLearningGroupOf(student)
+                            .getRating(project);
+                } catch (DataException e) {
+                    // TODO Hier nichts tun, da nicht möglich?
+                }
                 sumOfRatings += rating;
             }
         }

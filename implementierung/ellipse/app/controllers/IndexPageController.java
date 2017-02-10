@@ -20,6 +20,7 @@ import data.SPO;
 import data.Semester;
 import data.Student;
 import data.User;
+import exception.DataException;
 import data.LearningGroup;
 import data.Project;
 import play.data.DynamicForm;
@@ -151,24 +152,29 @@ public class IndexPageController extends Controller {
                         firstName, lastName, matNr, spo, completedAchievements,
                         nonCompletedAchievements, semester);
                 student.save();
-                LearningGroup l = new LearningGroup(student.getUserName(), "");
-                l.save();
-                l.doTransaction(() -> {
-                    l.addMember(student);
-                    l.setPrivate(true);
-                    // Ratings initialisieren
-                    for (Project p : GeneralData.loadInstance()
-                            .getCurrentSemester().getProjects()) {
-                        l.rate(p, 3);
-                    }
-                });
-                // TODO get student data from view ???
-                Semester currentSemester = GeneralData.loadInstance()
-                        .getCurrentSemester();
-                currentSemester.doTransaction(() -> {
-                    currentSemester.addStudent(student);
-                    currentSemester.addLearningGroup(l);
-                });
+                try {
+                    LearningGroup l = new LearningGroup(student.getUserName(), "");
+                    l.save();
+                    l.doTransaction(() -> {
+                        l.addMember(student);
+                        l.setPrivate(true);
+                        // Ratings initialisieren
+                        for (Project p : GeneralData.loadInstance()
+                                .getCurrentSemester().getProjects()) {
+                            l.rate(p, 3);
+                        }
+                    });
+                    // TODO get student data from view ???
+                    Semester currentSemester = GeneralData.loadInstance()
+                            .getCurrentSemester();
+                    currentSemester.doTransaction(() -> {
+                        currentSemester.addStudent(student);
+                        currentSemester.addLearningGroup(l);
+                    });
+                } catch (DataException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
                 return redirect(
                         controllers.routes.IndexPageController.indexPage());
                 // TODO falls nötig noch emial verification einleiten
