@@ -29,7 +29,6 @@ import data.Semester;
 import data.Student;
 import data.Team;
 import exception.ImporterException;
-import security.BlowfishPasswordEncoder;
 
 /************************************************************/
 /**
@@ -50,9 +49,11 @@ public class Importer {
      * Importiert eine Einteilung.
      * 
      * @param file
-     *            Pfad zu einer .csv Datei.
+     *            Die Datei, aus der importiert wird..
      * @param semester
      *            Semester, dem die Einteilung hinzugefügt werden soll.
+     * @throws ImporterException
+     *             Wird vom Controller behandelt.
      */
     public void importAllocation(File file, Semester semester)
             throws ImporterException {
@@ -156,25 +157,11 @@ public class Importer {
 
     }
 
-    private boolean duplicateTeamNumber(int teamNr, ArrayList<Team> teams,
-            Project project) {
-        List<Team> wantedTeams = teams.stream()
-                .filter(team -> team.getProject().equals(project))
-                .collect(Collectors.toList());
-        boolean duplicate = false;
-        for (int i = 0; i < wantedTeams.size(); i++) {
-            if (teamNr == wantedTeams.get(i).getTeamNumber()) {
-                duplicate = true;
-            }
-        }
-        return duplicate;
-    }
-
     /**
      * Exportiert eine Einteilung.
      * 
      * @param file
-     *            Der Ausgabepfad.
+     *            Die Ausgabedatei.
      * @param allocation
      *            Die Einteilung, die exportiert werden soll.
      * @throws ImporterException
@@ -243,6 +230,8 @@ public class Importer {
      * 
      * @param file
      *            Pfad zu einer .csv Datei.
+     * @throws ImporterException
+     *             Wird vom Controller behandelt.
      */
     public void importSPO(File file) throws ImporterException {
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
@@ -352,6 +341,8 @@ public class Importer {
      *            Der Ausgabepfad.
      * @param spo
      *            Die SPO, die exportiert werden soll.
+     * @throws ImporterException
+     *             Wird vom Controller behandelt.
      */
     public void exportSPO(File file, SPO spo) throws ImporterException {
         try (BufferedWriter writer = new BufferedWriter(
@@ -658,6 +649,11 @@ public class Importer {
                     throw new ImporterException(WRONG_FORMAT);
                 }
 
+                // Prüfe, ob der Student schon im der Datenbank existiert
+                if (Student.getStudent(matNr) != null) {
+                    throw new ImporterException(ALREADY_EXISTING);
+                }
+
                 // Prüfe, ob die angegebene SPO existiert
                 SPO spo = SPO.getSPO(lineSplit[7]);
                 if (spo == null) {
@@ -690,9 +686,9 @@ public class Importer {
                 String password = lineSplit[4];
                 // Erzeuge den Studenten
                 Student importedStudent = new Student(new String() + matNr,
-                        new BlowfishPasswordEncoder().encode(password), email,
-                        firstName, lastName, matNr, spo, completedAchievements,
-                        oralTestAchievements, semesterNumber);
+                        password, email, firstName, lastName, matNr, spo,
+                        completedAchievements, oralTestAchievements,
+                        semesterNumber);
                 importedStudent.doTransaction(() -> {
                     importedStudent.setRegisteredPSE(false);
                     importedStudent.setRegisteredTSE(false);
@@ -765,7 +761,7 @@ public class Importer {
      * Exportiert Liste aller registrierten Studenten in einem Semester.
      * 
      * @param file
-     *            Der Ausgabepfad.
+     *            Die Ausgabedatei.
      * @param semester
      *            Das Semester, dessen Studenten exportiert werden sollen.
      * @throws ImporterException
@@ -774,8 +770,8 @@ public class Importer {
     public void exportStudents(File file, Semester semester)
             throws ImporterException {
         try (BufferedWriter bw = new BufferedWriter(
-                new OutputStreamWriter(new FileOutputStream(file)))) {
-            String header = "MatNr;Vorname;Nachname;E-Mail;Passwort;Lerngruppe;LerngruppePasswort;"
+                new OutputStreamWriter(new FileOutputStream(file), "utf-8"))) {
+            String header = "MatNr;Vorname;Nachname;E-Mail;Passwort;Lerngruppenname;LerngruppePasswort;"
                     + "SPO;Fachsemester;Bestandene Teilleistungen;Noch ausstehende Teilleistungen;";
             for (Project project : semester.getProjects()) {
                 header += project.getName() + ";";
@@ -820,7 +816,7 @@ public class Importer {
                 }
 
                 for (Project project : semester.getProjects()) {
-                    double rating = semester.getLearningGroupOf(student)
+                    int rating = semester.getLearningGroupOf(student)
                             .getRating(project);
                     output += rating + ";";
                 }
@@ -943,7 +939,7 @@ public class Importer {
     public void exportProjects(File file, Semester semester)
             throws ImporterException {
         try (BufferedWriter bw = new BufferedWriter(
-                new OutputStreamWriter(new FileOutputStream(file)))) {
+                new OutputStreamWriter(new FileOutputStream(file), "utf-8"))) {
             String header = "Name;Institut;Anzahl Teams;Min. Size;Max. Size;Projekt URL;Projektinfo";
             bw.write(header);
             bw.newLine();
@@ -958,6 +954,38 @@ public class Importer {
                 line += project.getProjectURL() + ";";
                 line += project.getProjectInfo();
 
+                bw.write(line);
+                bw.newLine();
+            }
+        } catch (FileNotFoundException e) {
+            throw new ImporterException(FILE_NOT_FOUND);
+        } catch (IOException e) {
+            throw new ImporterException(IO);
+        }
+    }
+
+    /**
+     * Exportiert die Noten von PSE/TSE eines Semesters.
+     * 
+     * @param file
+     *            Die Ausgabedatei.
+     * @param semester
+     *            Das Semester, aus dem exportiert werden soll.
+     * @throws ImporterException
+     *             Wird vom Controller behandelt.
+     */
+    public void exportGrades(File file, Semester semester)
+            throws ImporterException {
+        try (BufferedWriter bw = new BufferedWriter(
+                new OutputStreamWriter(new FileOutputStream(file), "utf-8"))) {
+            String header = "Matrikelnummer;Note PSE;Note TSE";
+            bw.write(header);
+            bw.newLine();
+            for (Student student : semester.getStudents()) {
+                String line = new String();
+                line += student.getMatriculationNumber() + ";";
+                line += student.getGradePSE().getName() + ";";
+                line += student.getGradeTSE().getName();
                 bw.write(line);
                 bw.newLine();
             }
@@ -998,5 +1026,19 @@ public class Importer {
             }
         }
         return project;
+    }
+
+    private boolean duplicateTeamNumber(int teamNr, ArrayList<Team> teams,
+            Project project) {
+        List<Team> wantedTeams = teams.stream()
+                .filter(team -> team.getProject().equals(project))
+                .collect(Collectors.toList());
+        boolean duplicate = false;
+        for (int i = 0; i < wantedTeams.size(); i++) {
+            if (teamNr == wantedTeams.get(i).getTeamNumber()) {
+                duplicate = true;
+            }
+        }
+        return duplicate;
     }
 }

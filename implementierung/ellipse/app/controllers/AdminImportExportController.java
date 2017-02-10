@@ -71,8 +71,7 @@ public class AdminImportExportController extends Controller {
         if (importData != null) {
             File file = importData.getFile();
             importExport.Importer importer = new Importer();
-            try {// TODO wenn wir wollen können wir hier das file übergeben
-                 // (api änderung)
+            try {
                 importer.importAllocation(file,
                         GeneralData.loadInstance().getCurrentSemester());
                 return redirect(controllers.routes.AdminPageController
@@ -313,8 +312,7 @@ public class AdminImportExportController extends Controller {
         if (importData != null) {
             File file = importData.getFile();
             importExport.Importer importer = new Importer();
-            try {// TODO wenn wir wollen können wir hier das file übergeben
-                 // (api änderung)
+            try {
                 importer.importStudents(file,
                         GeneralData.loadInstance().getCurrentSemester());
                 return redirect(controllers.routes.AdminPageController

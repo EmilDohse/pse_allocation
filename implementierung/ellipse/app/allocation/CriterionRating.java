@@ -4,11 +4,12 @@
 
 package allocation;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.NoSuchElementException;
 
-import data.GeneralData;
+import data.LearningGroup;
 import data.Project;
-import data.Semester;
 import data.Student;
 import gurobi.GRBException;
 import gurobi.GRBLinExpr;
@@ -46,20 +47,27 @@ public class CriterionRating implements GurobiCriterion {
     public void useCriteria(Configuration configuration,
             GurobiAllocator allocator, double weight)
             throws GRBException, NoSuchElementException {
+        // Erstelle Hashmap von Student auf Index in der Matrix
+        List<Student> students = configuration.getStudents();
+        HashMap<Student, Integer> studentIndex = new HashMap<>();
+        for (int i = 0; i < students.size(); i++) {
+            studentIndex.put(students.get(i), i);
+        }
+
         GRBLinExpr bonus = new GRBLinExpr();
-        for (int i = 0; i < configuration.getStudents().size(); i++) {
-            for (int j = 0; j < configuration.getTeams().size(); j++) {
+        for (LearningGroup lg : configuration.getLearningGroups()) {
+            for (int i = 0; i < configuration.getTeams().size(); i++) {
+
                 // Bestimme Bewertung des Studenten für das Projekt, zu dem das
                 // Team gehört
 
-                Semester semester = GeneralData.loadInstance()
-                        .getCurrentSemester();
-                Student student = configuration.getStudents().get(i);
-                Project project = configuration.getTeams().get(j).getProject();
-                double rating = semester.getLearningGroupOf(student)
-                        .getRating(project);
-                bonus.addTerm(weight * 2 * rating,
-                        allocator.getBasicMatrix()[i][j]);
+                Project project = configuration.getTeams().get(i).getProject();
+                double rating = lg.getRating(project);
+                for (int j = 0; j < lg.getMembers().size(); j++) {
+                    Student student = lg.getMembers().get(j);
+                    bonus.addTerm(weight * 2 * rating, allocator
+                            .getBasicMatrix()[studentIndex.get(student)][i]);
+                }
             }
         }
         allocator.getOptimizationTerm().add(bonus);

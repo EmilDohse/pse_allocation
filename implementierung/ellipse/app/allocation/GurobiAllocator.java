@@ -215,7 +215,7 @@ public class GurobiAllocator extends AbstractAllocator {
      * @return Die Teamgröße
      */
     private int getMinSize(Team team, double minAdminSize) {
-        if (team.getProject().getMinTeamSize() == -1) {
+        if (team.getProject().getMinTeamSize() == 0) {
             return (int) minAdminSize;
         } else {
             return team.getProject().getMinTeamSize();
@@ -232,7 +232,7 @@ public class GurobiAllocator extends AbstractAllocator {
      * @return Die Teamgröße
      */
     private int getMaxSize(Team team, double maxAdminSize) {
-        if (team.getProject().getMaxTeamSize() == -1) {
+        if (team.getProject().getMaxTeamSize() == 0) {
             return (int) maxAdminSize;
         } else {
             return team.getProject().getMaxTeamSize();
@@ -271,8 +271,6 @@ public class GurobiAllocator extends AbstractAllocator {
                 .getParameters();
         double minAdminSize;
         double maxAdminSize;
-        // TODO Besser die Standardwerte für min und max size benutzen oder ein
-        // Fehler werfen?
         minAdminSize = parameters.stream()
                 .filter(parameter -> parameter.getName().equals(MIN_SIZE))
                 .findFirst().orElse(new AllocationParameter(MIN_SIZE, 0))
@@ -333,8 +331,6 @@ public class GurobiAllocator extends AbstractAllocator {
 
             // Finde den vom Admin eingegebenen Parameter
             double weight;
-            // TODO Ist die Abfrage auf null nötig? Kann das überhaupt
-            // passieren?
             AllocationParameter param = currentConfiguration.getParameters()
                     .stream()
                     .filter(parameter -> parameter.getName()
