@@ -1,13 +1,20 @@
 package notificationSystem;
 
-import javax.inject.Inject;
-import javax.mail.internet.AddressException;
+import static org.junit.Assert.assertTrue;
 
+import java.io.IOException;
+
+import javax.inject.Inject;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+
+import org.apache.commons.mail.EmailException;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.jvnet.mock_javamail.Mailbox;
 
+import data.Adviser;
 import data.Allocation;
 import data.Project;
 import data.Student;
@@ -27,10 +34,10 @@ public class NotifierTest extends WithApplication {
         Mailbox.clearAll();
     }
 
-    // TODO NPE
-    @Ignore
     @Test
-    public void testNotifiyStudent() throws AddressException {
+    public void testNotifiyStudent()
+            throws EmailException, MessagingException, IOException {
+        System.out.println("1");
         Student student = new Student();
         Team team = new Team();
         Project project = new Project();
@@ -39,8 +46,60 @@ public class NotifierTest extends WithApplication {
         allocation.setStudentsTeam(student, team);
 
         notifier.notifyStudent(allocation, student);
-        Mailbox.get(student.getEmailAddress()).forEach(System.out::println);
-        // assertEquals(expected, actual););
+        
+        Message message = Mailbox
+                .get(student.getEmailAddress()).get(0);
+        // Email muss an den Student adressiert sein
+        assertTrue(message.getContent().toString()
+                .contains(student.getFirstName()));
+        assertTrue(message.getContent().toString()
+                .contains(student.getLastName()));
+    }
+
+    // TODO provoziert fast immer den Startup Fehler
+    @Ignore
+    @Test
+    public void testNotifyAdviser()
+            throws EmailException, IOException, MessagingException {
+        System.out.println("2");
+        Adviser adviser = new Adviser();
+        Student student = new Student();
+        Team team = new Team();
+        Project project = new Project();
+        project.addAdviser(adviser);
+        team.setProject(project);
+        Allocation allocation = new Allocation();
+        allocation.setStudentsTeam(student, team);
+
+        notifier.notifyAdviser(allocation, adviser);
+
+        Message message = Mailbox.get(adviser.getEmailAddress()).get(0);
+        // Email muss an den Betreuer adressiert sein
+        assertTrue(message.getContent().toString()
+                .contains(adviser.getFirstName()));
+        assertTrue(message.getContent().toString()
+                .contains(adviser.getLastName()));
+        // Enthält Team
+        assertTrue(message.getContent().toString()
+                .contains(String.valueOf(team.getTeamNumber())));
+    }
+
+    @Test
+    public void testSendAdviserPassword()
+            throws EmailException, IOException, MessagingException {
+        System.out.println("3");
+        Adviser adviser = new Adviser();
+        String password = "secret";
+        notifier.sendAdviserPassword(adviser, password);
+
+        Message message = Mailbox.get(adviser.getEmailAddress()).get(0);
+        // Email muss an den Betreuer adressiert sein
+        assertTrue(message.getContent().toString()
+                .contains(adviser.getFirstName()));
+        assertTrue(message.getContent().toString()
+                .contains(adviser.getLastName()));
+        // Enthält Team
+        assertTrue(message.getContent().toString().contains(password));
     }
 
 }
