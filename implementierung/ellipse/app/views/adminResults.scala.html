@@ -55,6 +55,29 @@ List[qualityCriteria.QualityCriterion])
 							</tbody>
 						</table>
 						}
+						
+						
+						
+						<table class="table table-striped">
+							<thead>
+								<tr>
+									<th></th>
+									<th>Nicht zugeteilte Studenten</th>
+								</tr>
+							</thead>
+							<tbody>
+								@for(student <- allocation.getNotAllocatedStudents()) {
+								<tr>
+									<td><input type="checkbox" name="selected-students[]"
+										value="@student.getId()" id="@student.getId()"></td>
+									<td>@student.getName()</td>
+								</tr>
+								}
+							</tbody>
+						</table>
+						
+						
+						
 					</div>
 					<div class="col-sm-6 col-md-6">
 
@@ -65,6 +88,13 @@ List[qualityCriteria.QualityCriterion])
 									@for(team <- allocation.getTeams()) {
 									<option value="@team.getId()">@team.getProject().getName()
 										- Team #@team.getTeamNumber()</option> }
+									
+									
+									
+									<option value="-1">Nicht zugeteilte Studenten</option>
+									
+									
+									
 								</select>
 							</div>
 						</div>
