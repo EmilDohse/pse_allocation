@@ -11,7 +11,13 @@ public enum Grade {
                                     400), FIVE_ZERO("5.0",
                                             500), UNKNOWN("unknown", 0);
 
+    /**
+     * String der Note.
+     */
     private String name;
+    /**
+     * Note als 3-stellige Zahl.
+     */
     private int    number;
 
     private Grade(String name, int number) {
@@ -19,15 +25,31 @@ public enum Grade {
         this.number = number;
     }
 
+    /**
+     * Gibt den String der Note zurück.
+     * 
+     * @return String der Note.
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Gibt die 3-stellige Zahl der Note zurück.
+     * 
+     * @return 3-stellige Zahl der Note.
+     */
     @DbEnumValue
     public int getNumber() {
         return number;
     }
 
+    /**
+     * Gibt die Note zurück, die der 3-stelligen Zahl entspricht.
+     * 
+     * @param number 3-stellige Zahl.
+     * @return Note.
+     */
     public static Grade getGradeByNumber(int number) {
         for (Grade grade : Grade.values()) {
             if (grade.getNumber() == number) {
