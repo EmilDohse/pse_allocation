@@ -6,6 +6,7 @@ package data;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -242,10 +243,10 @@ public class Allocation extends ElipseModel {
      * @return nicht zugeteilte Studenten.
      */
     public List<Student> getNotAllocatedStudents() {
-        List<Student> students = semester.getStudents();
-        for (Team t : teams) {
-            students.removeAll(t.getMembers());
-        }
+        List<Student> students = semester.getStudents().stream()
+                .filter(student -> (getTeam(student) == null))
+                .collect(Collectors.toList());
+
         return students;
     }
 
