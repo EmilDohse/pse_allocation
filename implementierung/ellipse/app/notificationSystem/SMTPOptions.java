@@ -5,14 +5,27 @@ package notificationSystem;
  */
 public class SMTPOptions {
 
-    private static String  host              = "PSE";
-    private static int     port              = 25;
-    private static boolean ssl               = false;
-    private static boolean tsl               = false;
-    private static boolean debug             = false;
-    private static int     timeout           = 60;
-    private static int     connectionTimeout = 60;
-    private static boolean mock              = false;
+    private String             host              = "PSE";
+    private int                port              = 25;
+    private boolean            ssl               = false;
+    private boolean            tsl               = false;
+    private boolean            debug             = false;
+    private int                timeout           = 60;
+    private int                connectionTimeout = 60;
+    private boolean            mock              = false;
+
+    private static SMTPOptions instance;
+
+    private SMTPOptions() {
+        // Singleton
+    }
+
+    public static SMTPOptions getInstance() {
+        if (null == instance) {
+            instance = new SMTPOptions();
+        }
+        return instance;
+    }
 
     /**
      * Setter für die SMTP-Einstellung 'host'.
@@ -20,7 +33,7 @@ public class SMTPOptions {
      * @param newHost
      *            Der neue host.
      */
-    public static void changeHostTo(String newHost) {
+    public void changeHostTo(String newHost) {
         host = newHost;
     }
 
@@ -30,7 +43,7 @@ public class SMTPOptions {
      * @param newPort
      *            Der neue Port.
      */
-    public static void changePortTo(int newPort) {
+    public void changePortTo(int newPort) {
         port = newPort;
     }
 
@@ -40,7 +53,7 @@ public class SMTPOptions {
      * @param newSsl
      *            Die neue ssl-Einstellung.
      */
-    public static void changeSslTo(boolean newSsl) {
+    public void changeSslTo(boolean newSsl) {
         ssl = newSsl;
     }
 
@@ -50,7 +63,7 @@ public class SMTPOptions {
      * @param newTsl
      *            Die neue tsl-Einstellung.
      */
-    public static void changeTslTo(boolean newTsl) {
+    public void changeTslTo(boolean newTsl) {
         tsl = newTsl;
     }
 
@@ -60,7 +73,7 @@ public class SMTPOptions {
      * @param newDebug
      *            Die neue debug-Einstellung.
      */
-    public static void changeDebugTo(boolean newDebug) {
+    public void changeDebugTo(boolean newDebug) {
         debug = newDebug;
     }
 
@@ -70,7 +83,7 @@ public class SMTPOptions {
      * @param newMock
      *            Die neue mock-Einstellung.
      */
-    public static void changeMockTo(boolean newMock) {
+    public void changeMockTo(boolean newMock) {
         mock = newMock;
     }
 
@@ -80,7 +93,7 @@ public class SMTPOptions {
      * @param newTimeout
      *            Die neue timeout-Einstellung.
      */
-    public static void changeTimeoutTo(int newTimeout) {
+    public void changeTimeoutTo(int newTimeout) {
         timeout = newTimeout;
     }
 
@@ -90,7 +103,7 @@ public class SMTPOptions {
      * @param newTimeout
      *            Die neue connectionTimeout-Einstellung.
      */
-    public static void changeConnectionTimeoutTo(int newConnectionTimeout) {
+    public void changeConnectionTimeoutTo(int newConnectionTimeout) {
         connectionTimeout = newConnectionTimeout;
     }
 
@@ -99,7 +112,7 @@ public class SMTPOptions {
      * 
      * @return SMTP-Einstellung 'host'.
      */
-    public static String getHost() {
+    public String getHost() {
         return host;
     }
 
@@ -108,7 +121,7 @@ public class SMTPOptions {
      * 
      * @return SMTP-Einstellung 'port'.
      */
-    public static int getPort() {
+    public int getPort() {
         return port;
     }
 
@@ -117,7 +130,7 @@ public class SMTPOptions {
      * 
      * @return SMTP-Einstellung 'ssl'.
      */
-    public static boolean getSsl() {
+    public boolean getSsl() {
         return ssl;
     }
 
@@ -126,7 +139,7 @@ public class SMTPOptions {
      * 
      * @return SMTP-Einstellung 'tsl'.
      */
-    public static boolean getTsl() {
+    public boolean getTsl() {
         return tsl;
     }
 
@@ -135,7 +148,7 @@ public class SMTPOptions {
      * 
      * @return SMTP-Einstellung 'debug'.
      */
-    public static boolean getDebug() {
+    public boolean getDebug() {
         return debug;
     }
 
@@ -144,7 +157,7 @@ public class SMTPOptions {
      * 
      * @return SMTP-Einstellung 'mock'.
      */
-    public static boolean getMock() {
+    public boolean getMock() {
         return mock;
     }
 
@@ -153,7 +166,7 @@ public class SMTPOptions {
      * 
      * @return SMTP-Einstellung 'timeout'.
      */
-    public static int getTimeout() {
+    public int getTimeout() {
         return timeout;
     }
 
@@ -162,7 +175,7 @@ public class SMTPOptions {
      * 
      * @return SMTP-Einstellung 'connectionTimeout'.
      */
-    public static int getConnectionTimeout() {
+    public int getConnectionTimeout() {
         return connectionTimeout;
     }
 }

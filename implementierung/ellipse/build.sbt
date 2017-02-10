@@ -13,6 +13,8 @@ libraryDependencies ++= Seq(
   "org.pac4j" % "play-pac4j" % "2.6.1",
   "org.pac4j" % "pac4j-http" % "1.9.5",
   "org.xerial" % "sqlite-jdbc" % "3.15.1",
+  "org.jvnet.mock-javamail" % "mock-javamail" % "1.9" % "test",
+  "org.mockito" % "mockito-all" % "1.9.5",
   "com.typesafe.play" %% "play-mailer" % "5.0.0"
 )
 

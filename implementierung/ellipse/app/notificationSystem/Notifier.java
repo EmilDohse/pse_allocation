@@ -4,9 +4,8 @@
 
 package notificationSystem;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.Locale;
 
 import javax.inject.Inject;
 
@@ -15,9 +14,11 @@ import data.Allocation;
 import data.GeneralData;
 import data.Student;
 import data.Team;
-import play.Configuration;
-import play.libs.mailer.*;
-import play.mvc.Http.Context;
+import play.i18n.Lang;
+import play.i18n.Messages;
+import play.i18n.MessagesApi;
+import play.libs.mailer.Email;
+import play.libs.mailer.MailerClient;
 
 /************************************************************/
 /**
@@ -28,17 +29,16 @@ import play.mvc.Http.Context;
  */
 public class Notifier {
 
+    private static final String EMAIL_FROM = "noreply@kit.edu";
+
     @Inject
-    MailerClient          mailer;
+    MailerClient           mailer;
 
-    private final Context ctx;
+    @Inject
+    MessagesApi                 messagesApi;
 
-    /**
-     * Konstruktor Methode.
-     */
-    public Notifier(Context ctx) {
-        this.ctx = ctx;
-    }
+    private Messages            messages;
+
 
     /**
      * Verschickt an alle Benutzer (Betreuer und Studenten) eine E-Mail mit
@@ -48,6 +48,8 @@ public class Notifier {
      *            veröffentlichte Einteilung
      */
     public void notifyAllUsers(Allocation allocation) {
+        this.messages = new Messages(new Lang(Locale.GERMAN), messagesApi);
+
         List<Adviser> advisers = GeneralData.loadInstance().getCurrentSemester().getAdvisers();
         List<Student> students = GeneralData.loadInstance().getCurrentSemester().getStudents();
 
@@ -65,10 +67,14 @@ public class Notifier {
      *            Der zu benachrichtigende Student
      */
     public void notifyStudent(Allocation allocation, Student student) {
-        String bodyText = ctx.messages().at("email.notifyResultsStudent", student.getName(),
+        this.messages = new Messages(new Lang(Locale.GERMAN), messagesApi);
+
+        String bodyText = messages.at("email.notifyResultsStudent",
+                student.getName(),
                 allocation.getTeam(student).getProject().getName());
-        String subject = ctx.messages().at("email.subjectResults");
-        this.sendEmail(subject, "TODO", student.getEmailAddress(), bodyText);
+        String subject = messages.at("email.subjectResults");
+        this.sendEmail(subject, EMAIL_FROM, student.getEmailAddress(),
+                bodyText);
     }
 
     /**
@@ -81,20 +87,28 @@ public class Notifier {
      *            Der zu benachrichtigegnde Betreuer.
      */
     public void notifyAdviser(Allocation allocation, Adviser adviser) {
+        this.messages = new Messages(new Lang(Locale.GERMAN), messagesApi);
+
         String teamsList = "";
         List<Team> advisersTeams = allocation.getTeamsByAdviser(adviser);
         for (int i = 0; i < advisersTeams.size(); i++) {
             teamsList += advisersTeams.get(i).toStringForNotification() + "\n";
         }
-        String bodyText = ctx.messages().at("email.notifyResultsAdviser", adviser.getName(), teamsList);
-        String subject = ctx.messages().at("email.subjectResults");
-        this.sendEmail(subject, "TODO", adviser.getEmailAddress(), bodyText);
+        String bodyText = messages.at("email.notifyResultsAdviser",
+                adviser.getName(), teamsList);
+        String subject = messages.at("email.subjectResults");
+        this.sendEmail(subject, EMAIL_FROM, adviser.getEmailAddress(),
+                bodyText);
     }
 
     public void sendAdviserPassword(Adviser adviser, String password) {
-        String bodyText = ctx.messages().at("email.adviserPassword", adviser.getName(), password);
-        String subject = ctx.messages().at("email.subjectAdviserPassword");
-        this.sendEmail(subject, "TODO", adviser.getEmailAddress(), bodyText);
+        this.messages = new Messages(new Lang(Locale.GERMAN), messagesApi);
+
+        String bodyText = messages.at("email.adviserPassword",
+                adviser.getName(), password);
+        String subject = messages.at("email.subjectAdviserPassword");
+        this.sendEmail(subject, EMAIL_FROM, adviser.getEmailAddress(),
+                bodyText);
     }
 
     /**
