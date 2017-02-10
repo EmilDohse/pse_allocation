@@ -17,6 +17,7 @@ public abstract class ElipseModel extends Model {
     public static final String STRING_EMPTY_ERROR      = "general.error.noEmptyString";
     public static final String IS_NULL_ERROR           = "general.error.isNull";
     public static final int    MINIMAL_PASSWORD_LENGTH = 6;
+    public static final String MINIMAL_PASSWORD_ERROR  = "general.error.minimalPasswordLegth";
     /**
      * Eindeutige ID des Objektes.
      */
