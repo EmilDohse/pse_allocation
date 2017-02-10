@@ -52,18 +52,18 @@ public class AllocationQueue {
             @Override
             public void run() {
                 while (true) {
-                    synchronized (this) { // syncronized da
-                                          // ansonsten probleme
-                        // mit dem cancel() kommen könnten
+                    synchronized (this) { // syncronized da ansonsten probleme
+                                          // mit dem cancel() kommen könnten
                         while (configurationQueue.isEmpty()) {
                             try {
                                 wait();
                             } catch (InterruptedException e) {
-                                // TODO Auto-generated catch block
                                 e.printStackTrace();
+                                return;
                             }
                         }
-                        currentlyCalculatedConfiguration = configurationQueue.poll();
+                        currentlyCalculatedConfiguration = configurationQueue
+                                .poll();
                         allocator.init(currentlyCalculatedConfiguration);
                     }
                     allocator.calculate();
@@ -115,12 +115,14 @@ public class AllocationQueue {
      */
     public void cancelAllocation(String name) {
         synchronized (this.runnable) {
-            if (null != currentlyCalculatedConfiguration && name.equals(currentlyCalculatedConfiguration.getName())) {
+            if (null != currentlyCalculatedConfiguration && name
+                    .equals(currentlyCalculatedConfiguration.getName())) {
                 currentlyCalculatedConfiguration = null;
                 allocator.cancel();
             } else {
-                Configuration configuration = configurationQueue.stream().filter(conf -> conf.getName().equals(name))
-                        .findFirst().orElse(null);
+                Configuration configuration = configurationQueue.stream()
+                        .filter(conf -> conf.getName().equals(name)).findFirst()
+                        .orElse(null);
                 configurationQueue.remove(configuration);
             }
         }

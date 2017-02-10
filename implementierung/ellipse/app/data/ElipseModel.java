@@ -8,6 +8,8 @@ import javax.persistence.MappedSuperclass;
 import com.avaje.ebean.Ebean;
 import com.avaje.ebean.Model;
 
+import exception.DataException;
+
 @MappedSuperclass
 public abstract class ElipseModel extends Model {
 
@@ -77,7 +79,12 @@ public abstract class ElipseModel extends Model {
 
     public void doTransaction(Transaction transaction) {
         // Ebean.beginTransaction();
-        transaction.transact();
+
+        try {
+            transaction.transact();
+        } catch (DataException e) {
+            // TODO Nicht hier catchen, sondern in Controllern behandeln.
+        }
         this.save();
         // Ebean.endTransaction();
     }
