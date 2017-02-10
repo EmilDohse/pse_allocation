@@ -55,14 +55,11 @@ List[qualityCriteria.QualityCriterion])
 							</tbody>
 						</table>
 						}
-						
-						
-						
 						<table class="table table-striped">
 							<thead>
 								<tr>
 									<th></th>
-									<th>Nicht zugeteilte Studenten</th>
+									<th>@Messages("admin.results.teamNonAllocatedStudents")</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -74,13 +71,9 @@ List[qualityCriteria.QualityCriterion])
 								</tr>
 								}
 							</tbody>
-						</table>
-						
-						
-						
+						</table>		
 					</div>
 					<div class="col-sm-6 col-md-6">
-
 						<div class="form-group">
 							<label class="control-label col-sm-1" for="rpw">@Messages("admin.results.to")</label>
 							<div class="col-sm-3">
@@ -88,13 +81,7 @@ List[qualityCriteria.QualityCriterion])
 									@for(team <- allocation.getTeams()) {
 									<option value="@team.getId()">@team.getProject().getName()
 										- Team #@team.getTeamNumber()</option> }
-									
-									
-									
-									<option value="-1">Nicht zugeteilte Studenten</option>
-									
-									
-									
+									<option value="-1">@Messages("admin.results.teamNonAllocatedStudents")</option>
 								</select>
 							</div>
 						</div>
