@@ -4,12 +4,6 @@
 
 package security;
 
-import java.nio.ByteBuffer;
-import java.security.SecureRandom;
-import java.time.Duration;
-import java.time.Instant;
-import java.util.HashMap;
-
 import data.Student;
 
 /************************************************************/
@@ -30,29 +24,22 @@ import data.Student;
  * ACHTUNG: Die Codes werden in keiner Datenbank oder so gespeichert, ein
  * Programm-Neustart führt zu Verlust der Codes.
  */
-public class Verifier {
+public class EmailVerifier {
 
-    private final static Verifier     instance    = new Verifier();
+    private final static EmailVerifier         instance            = new EmailVerifier();
 
-    /**
-     * Tag hat 24 Stunden.
-     */
-    private static final int          DAY_IN_H    = 24;
+    private static final int                   VALID_CODE_DURATION = 24;
 
     /**
      * Length of the verification code.
      */
-    private static final int          CODE_LENGTH = 20;
+    private static final int                   CODE_LENGTH         = 20;
 
-    private HashMap<Student, String>  savedCodes;
-    /**
-     * Stores the time, when the last code for an student was generated.
-     */
-    private HashMap<Student, Instant> timestamps;
+    private final TimedCodeValueStore<Student> codeValueStorage;
 
-    private Verifier() {
-        savedCodes = new HashMap<>();
-        timestamps = new HashMap<>();
+    private EmailVerifier() {
+        codeValueStorage = new TimedCodeValueStore<>(VALID_CODE_DURATION,
+                CODE_LENGTH);
     }
 
     /**
@@ -61,8 +48,8 @@ public class Verifier {
      * ACHTUNG: Diese Methode funktioniert nur einmalig, falls der Code korrekt
      * war und true zurückgegeben wird. Daraufhin ist für den Verifikator der
      * Prozess für diesen Studenten abgeschlossen und alle seine
-     * Verifikatordaten zerstört. ACHTUNG: Ändert auch bei Erfolg nicht den
-     * Zustand des Studenten.
+     * Verifikatordaten zerstört. ACHTUNG: Ändert bei Erfolg das Flag des
+     * Studenten.
      * 
      * @param student
      *            Der Student, dessen E-Mail-Adresse verifiziert werden soll.
@@ -71,23 +58,16 @@ public class Verifier {
      * 
      * @return true wenn die Verifikation positiv war, false sonst.
      */
-    public boolean verify(Student student, String code) {
-        if (code == null) {
-            return false;
+    public boolean verify(String code) {
+        Student student = codeValueStorage.pop(code);
+        if (codeValueStorage.pop(code) != null) {
+            student.doTransaction(() -> {
+                student.setIsEmailVerified(true);
+            });
+            return true;
         } else {
-            if (savedCodes.get(student).equals(code)) {
-                Instant codeGenInstant = timestamps.get(student);
-                Instant currentInstant = Instant.now();
-                Duration diff = Duration.between(codeGenInstant,
-                        currentInstant);
-                if (diff.toHours() < DAY_IN_H) {
-                    savedCodes.remove(student);
-                    timestamps.remove(student);
-                    return true;
-                }
-            }
+            return false;
         }
-        return false;
     }
 
     /**
@@ -103,21 +83,7 @@ public class Verifier {
      * @return der Code, der zur Verifikation der E-Mail-Adresse benötigt wird.
      */
     public String getVerificationCode(Student student) {
-        StringBuilder builder = new StringBuilder();
-        SecureRandom random = new SecureRandom(); // Verwendet SecureRandom um
-                                                  // byte Array zu füllen,
-                                                  // welches in Int umgewandelt
-                                                  // wird.
-        for (int i = 0; i < CODE_LENGTH; i++) {
-            byte bytes[] = new byte[4];
-            random.nextBytes(bytes);
-            builder.append(Math.abs(ByteBuffer.wrap(bytes).getInt()));
-        }
-        String result = builder.toString();
-        // Speichert code und die aktuelle Zeit
-        savedCodes.put(student, result);
-        timestamps.put(student, Instant.now());
-        return result;
+        return codeValueStorage.store(student);
     }
 
     /**
@@ -126,7 +92,7 @@ public class Verifier {
      * 
      * @return die einzige Verifier-Instanz.
      */
-    public static Verifier getInstance() {
+    public static EmailVerifier getInstance() {
         return instance;
     }
 }

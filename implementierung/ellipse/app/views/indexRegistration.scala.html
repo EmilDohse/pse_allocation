@@ -1,9 +1,7 @@
 @* * Diese Seite zeigt die Registrierungsseite an. * Dafür wird die
 Liste aller SPOs benötigt. * Eine Fehlermeldung kann zusätzlich
-übergeben werden. *@ @(spos: List[data.SPO], error: String)
-@if(!error.isEmpty()){
-<div class="alert alert-danger" role="alert">@error</div>
-}
+übergeben werden. *@ @(spos: List[data.SPO])
+
 <script type="text/javascript"
 	src='@routes.Assets.versioned("javascripts/bootstrap-multiselect.js")'></script>
 <link rel="stylesheet"
@@ -136,7 +134,8 @@ Liste aller SPOs benötigt. * Eine Fehlermeldung kann zusätzlich
 			<label class="control-label col-sm-2"
 				for="due-achievements-selection-@spo.getId()">@Messages("index.registration.form.dueAchievements")</label>
 			<select id="due-achievements-selection-@spo.getId()"
-				name="due-@spo.getId()-multiselect[]" class="form-control" multiple="multiple">
+				name="due-@spo.getId()-multiselect[]" class="form-control"
+				multiple="multiple">
 				<optgroup
 					label='@Messages("index.registration.form.necessaryAchievements")'>
 					@for(nAchievement <- spo.getNecessaryAchievements()) {
@@ -162,7 +161,7 @@ Liste aller SPOs benötigt. * Eine Fehlermeldung kann zusätzlich
 
 	<div class="form-group">
 		<div class="col-sm-offset-2 col-sm-10">
-			<button type="submit" class="btn btn-default">@Messages("index.registration.form.register")</button>
+			<button type="submit" class="btn btn-primary">@Messages("index.registration.form.register")</button>
 		</div>
 	</div>
 </form>

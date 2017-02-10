@@ -21,8 +21,9 @@ Parameter wird der Inhalt der Seite übergeben. *@ @(menu: views.Menu)(content: 
 	</div>
 	<div class="form-group">
 		<div class="col-sm-12">
-			<button type="submit" class="btn btn-default">@Messages("index.login")</button>
+			<button type="submit" class="btn btn-primary btn-block">@Messages("index.login")</button>
 		</div>
 	</div>
 </form>
+<a href="@controllers.routes.IndexPageController.passwordResetPage()" class="btn btn-primary btn-block">@Messages("index.sidebar.pwReset")</a>
 }{ @content }

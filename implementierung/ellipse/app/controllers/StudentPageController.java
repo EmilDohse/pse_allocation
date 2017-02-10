@@ -53,10 +53,9 @@ public class StudentPageController extends Controller {
      *            Fehlermeldung, die angezeigt werden soll
      * @return Die Seite, die angezeigt wird.
      */
-    public Result changeFormPage(String error) {
+    public Result changeFormPage() {
         play.twirl.api.Html content = views.html.studentChangeData.render(
-                GeneralData.loadInstance().getCurrentSemester().getSpos(),
-                error);
+                GeneralData.loadInstance().getCurrentSemester().getSpos());
         Menu menu = new Menu();
         return ok(views.html.student.render(menu, content));
     }
@@ -95,16 +94,18 @@ public class StudentPageController extends Controller {
                             .createAchievementList(form, "completed-"
                                     + spoIdString + "-multiselect");
                 } catch (NumberFormatException e) {
+                    flash("error", ctx().messages().at(INTERNAL_ERROR));
                     return redirect(controllers.routes.StudentPageController
-                            .changeFormPage(ctx().messages().at(INTERNAL_ERROR)));
+                            .changeFormPage());
                 }
                 try {
                     nonCompletedAchievements = MultiselectList
-                            .createAchievementList(form, "due-" + spoIdString
-                                    + "-multiselect");
+                            .createAchievementList(form,
+                                    "due-" + spoIdString + "-multiselect");
                 } catch (NumberFormatException e) {
+                    flash("error", ctx().messages().at(INTERNAL_ERROR));
                     return redirect(controllers.routes.StudentPageController
-                            .changeFormPage(ctx().messages().at(INTERNAL_ERROR)));
+                            .changeFormPage());
                 }
                 if (trueData) {
                     UserManagement management = new UserManagement();
@@ -114,7 +115,8 @@ public class StudentPageController extends Controller {
                         student.setSPO(spo);
                         student.setSemester(semester);
                         student.setCompletedAchievements(completedAchievements);
-                        student.setOralTestAchievements(nonCompletedAchievements);
+                        student.setOralTestAchievements(
+                                nonCompletedAchievements);
                     });
                     Semester currentSemester = GeneralData.loadInstance()
                             .getCurrentSemester();
@@ -123,15 +125,16 @@ public class StudentPageController extends Controller {
                     });
                     management.addStudentRoleToOldStudent(ctx());
                     return redirect(controllers.routes.StudentPageController
-                            .learningGroupPage(""));
+                            .learningGroupPage());
                 }
+                flash("error", ctx().messages().at(GEN_ERROR));
                 return redirect(controllers.routes.StudentPageController
-                        .changeFormPage(ctx().messages().at(GEN_ERROR)));
+                        .changeFormPage());
 
             } catch (NumberFormatException e) {
+                flash("error", ctx().messages().at(GEN_ERROR));
                 return redirect(controllers.routes.StudentPageController
-                        .changeFormPage(ctx().messages().at(GEN_ERROR)));
-
+                        .changeFormPage());
             }
         }
 
@@ -144,14 +147,14 @@ public class StudentPageController extends Controller {
      * 
      * @return Die Seite, die als Antwort verschickt wird.
      */
-    public Result learningGroupPage(String error) {
+    public Result learningGroupPage() {
         UserManagement user = new UserManagement();
         User userProfile = user.getUserProfile(ctx());
         assert userProfile instanceof Student;
         Student student = (Student) userProfile;
-        play.twirl.api.Html content = views.html.studentLearningGroup.render(
-                GeneralData.loadInstance().getCurrentSemester()
-                        .getLearningGroupOf(student), error);
+        play.twirl.api.Html content = views.html.studentLearningGroup
+                .render(GeneralData.loadInstance().getCurrentSemester()
+                        .getLearningGroupOf(student));
         Menu menu = new StudentMenu(ctx(), ctx().request().path());
         return ok(views.html.student.render(menu, content));
     }
@@ -162,11 +165,10 @@ public class StudentPageController extends Controller {
      * 
      * @return Die Seite, die als Antwort verschickt wird.
      */
-    public Result ratingPage(String error) {
+    public Result ratingPage() {
         Student student = (Student) new UserManagement().getUserProfile(ctx());
         play.twirl.api.Html content = views.html.studentRating.render(student,
-                GeneralData.loadInstance().getCurrentSemester().getProjects(),
-                error);
+                GeneralData.loadInstance().getCurrentSemester().getProjects());
         Menu menu = new StudentMenu(ctx(), ctx().request().path());
         return ok(views.html.student.render(menu, content));
     }
@@ -178,7 +180,7 @@ public class StudentPageController extends Controller {
      * 
      * @return Die Seite, die als Antwort verschickt wird.
      */
-    public Result resultsPage(String error) {
+    public Result resultsPage() {
         if (GeneralData.loadInstance().getCurrentSemester()
                 .getFinalAllocation() == null) {
             play.twirl.api.Html content = views.html.noAllocationYet.render();
@@ -190,9 +192,9 @@ public class StudentPageController extends Controller {
         User userProfile = user.getUserProfile(ctx());
         assert userProfile instanceof Student;
         Student student = (Student) userProfile;
-        play.twirl.api.Html content = views.html.studentResult.render(
-                GeneralData.loadInstance().getCurrentSemester()
-                        .getFinalAllocation().getTeam(student), error);
+        play.twirl.api.Html content = views.html.studentResult
+                .render(GeneralData.loadInstance().getCurrentSemester()
+                        .getFinalAllocation().getTeam(student));
         Menu menu = new StudentMenu(ctx(), ctx().request().path());
         return ok(views.html.student.render(menu, content));
     }
@@ -219,15 +221,36 @@ public class StudentPageController extends Controller {
             ArrayList<Rating> ratings = new ArrayList<>();
             for (Project project : GeneralData.loadInstance()
                     .getCurrentSemester().getProjects()) {
-                Rating rating = new Rating(Integer.parseInt(form.get(Integer
-                        .toString(project.getId()))), project);
+                Rating rating = new Rating(
+                        Integer.parseInt(
+                                form.get(Integer.toString(project.getId()))),
+                        project);
                 // holt sich das rating des studenten aus dem formular
                 ratings.add(rating);
             }
             lg.setRatings(ratings);
         });
-        return redirect(controllers.routes.StudentPageController
-                .learningGroupPage(""));
+        return redirect(
+                controllers.routes.StudentPageController.learningGroupPage());
+    }
+
+    /**
+     * Diese Methode wird aufgerufen, wenn der Student einer Lerngruppe
+     * beitreten oder eine erstellen will.
+     * 
+     * @return Die Seite, die als Antwort verschickt wird
+     */
+    public Result setLearningGroup() {
+        DynamicForm form = formFactory.form().bindFromRequest();
+        if (form.get("create") != null) {
+            return createLearningGroup();
+        } else if (form.get("join") != null) {
+            return joinLearningGroup();
+        } else {
+            flash("error", ctx().messages().at(INTERNAL_ERROR));
+            return redirect(controllers.routes.StudentPageController
+                    .learningGroupPage());
+        }
     }
 
     /**
@@ -244,9 +267,9 @@ public class StudentPageController extends Controller {
         Student student = (Student) userProfile;
         Semester semester = GeneralData.loadInstance().getCurrentSemester();
         if (!semester.getLearningGroupOf(student).isPrivate()) {
+            flash("error", ctx().messages().at(ALREADY_IN_OTHER_GROUP));
             return redirect(controllers.routes.StudentPageController
-                    .learningGroupPage(ctx().messages().at(
-                            ALREADY_IN_OTHER_GROUP)));
+                    .learningGroupPage());
         }
         DynamicForm form = formFactory.form().bindFromRequest();
         if (form.data().isEmpty()) {
@@ -255,31 +278,42 @@ public class StudentPageController extends Controller {
         String name = form.get("learningGroupname");
         if (name.matches("\\d*")) {
             // Wenn Name leer ist oder nur aus Ziffern besteht
+            flash("error", ctx().messages()
+                    .at("student.learningGroup.error.nameFormat"));
             return redirect(controllers.routes.StudentPageController
-                    .learningGroupPage(ctx().messages().at(
-                            "student.learningGroup.error.nameFormat")));
+                    .learningGroupPage());
         }
         String password = form.get("learningGroupPassword");
         // TODO stimmt hier der rückgabewert in html
         LearningGroup learningGroup = LearningGroup.getLearningGroup(name,
                 semester);
         if (learningGroup != null) {
+            flash("error", ctx().messages()
+                    .at("student.learningGroup.error.existsAlready"));
             return redirect(controllers.routes.StudentPageController
-                    .learningGroupPage(ctx().messages().at(
-                            "student.learningGroup.error.existsAlready")));
+                    .learningGroupPage());
         }
-        LearningGroup lg = new LearningGroup(name, password, student, false);
+        LearningGroup oldLg = semester.getLearningGroupOf(student);
+        LearningGroup lg = new LearningGroup(name, password);
         lg.save();
+        lg.doTransaction(() -> {
+            lg.addMember(student);
+            lg.setPrivate(false);
+            // Ratings kopieren
+            for (Rating r : oldLg.getRatings()) {
+                lg.rate(r.getProject(), r.getRating());
+            }
+        });
         // Lösche die private Lerngruppe
-        semester.getLearningGroupOf(student).delete();
+        oldLg.delete();
         semester.refresh();
         semester.doTransaction(() -> {
             // TODO falls man die alten bewertungen wieder will muss man hier
             // die alte lerngruppe behalten
             semester.addLearningGroup(lg);
         });
-        return redirect(controllers.routes.StudentPageController
-                .learningGroupPage(""));
+        return redirect(
+                controllers.routes.StudentPageController.learningGroupPage());
     }
 
     /**
@@ -296,18 +330,15 @@ public class StudentPageController extends Controller {
         LearningGroup lg = GeneralData.loadInstance().getCurrentSemester()
                 .getLearningGroupOf(student);
         if (lg.isPrivate()) {
+            flash("error", ctx().messages()
+                    .at("student.learningGroup.error.noLearningGroup"));
             return redirect(controllers.routes.StudentPageController
-                    .learningGroupPage(ctx().messages().at(
-                            "student.learningGroup.error.noLearningGroup")));
+                    .learningGroupPage());
         }
 
         lg.doTransaction(() -> {
             lg.removeMember(student);
         });
-        if (lg.getMembers().size() == 1) {
-            // Leeres Team löschen
-            lg.delete();
-        }
         // Hier wird der student wieder in seine privat Lerngruppe
         // eingefügt
         // LearningGroup lgNew = new LearningGroup(student.getUserName(), "",
@@ -317,13 +348,21 @@ public class StudentPageController extends Controller {
         lgNew.doTransaction(() -> {
             lgNew.addMember(student);
             lgNew.setPrivate(true);
+            // Ratings kopieren
+            for (Rating r : lg.getRatings()) {
+                lgNew.rate(r.getProject(), r.getRating());
+            }
         });
+        if (lg.getMembers().size() == 0) {
+            // Leeres Team löschen
+            lg.delete();
+        }
         Semester semester = GeneralData.loadInstance().getCurrentSemester();
         semester.doTransaction(() -> {
             semester.addLearningGroup(lgNew);
         });
-        return redirect(controllers.routes.StudentPageController
-                .learningGroupPage(""));
+        return redirect(
+                controllers.routes.StudentPageController.learningGroupPage());
 
     }
 
@@ -348,24 +387,26 @@ public class StudentPageController extends Controller {
         String pw = form.get("learningGroupPassword");
         LearningGroup lgOld = GeneralData.loadInstance().getCurrentSemester()
                 .getLearningGroupOf(student);
-        LearningGroup lgNew = LearningGroup.getLearningGroup(name, GeneralData
-                .loadInstance().getCurrentSemester());
+        LearningGroup lgNew = LearningGroup.getLearningGroup(name,
+                GeneralData.loadInstance().getCurrentSemester());
         // Wenn die Lerngruppe bereits voll ist, wird ein Fehler zurückgegeben
         if (lgNew.getMembers().size() >= GeneralData.loadInstance()
                 .getCurrentSemester().getMaxGroupSize()) {
+            flash("error", ctx().messages()
+                    .at("student.learningGroup.error.learningGroupFull"));
             return redirect(controllers.routes.StudentPageController
-                    .learningGroupPage(ctx().messages().at(
-                            "student .learningGroup.error.learningGroupFull")));
+                    .learningGroupPage());
         }
         if (!lgOld.isPrivate()) {
+            flash("error", ctx().messages().at(ALREADY_IN_OTHER_GROUP));
             return redirect(controllers.routes.StudentPageController
-                    .learningGroupPage(ctx().messages().at(
-                            ALREADY_IN_OTHER_GROUP)));
+                    .learningGroupPage());
         }
         if (lgNew.isPrivate()) {
+            flash("error", ctx().messages()
+                    .at("student.learningGroup.error.joinProhibited"));
             return redirect(controllers.routes.StudentPageController
-                    .learningGroupPage(ctx().messages().at(
-                            "student.learningGroup.error.joinProhibited")));
+                    .learningGroupPage());
         }
 
         if (lgNew.getPassword().equals(pw)) {
@@ -374,11 +415,12 @@ public class StudentPageController extends Controller {
                 lgNew.addMember(student);
             });
             return redirect(controllers.routes.StudentPageController
-                    .learningGroupPage(""));
+                    .learningGroupPage());
         } else {
+            flash("error",
+                    ctx().messages().at("student.learningGroup.error.wrongPW"));
             return redirect(controllers.routes.StudentPageController
-                    .learningGroupPage(ctx().messages().at(
-                            "student.learningGroup.error.wrongPW")));
+                    .learningGroupPage());
         }
     }
 
@@ -388,13 +430,12 @@ public class StudentPageController extends Controller {
      * 
      * @return Die Seite, die als Antwort verschickt wird.
      */
-    public Result accountPage(String error) {
+    public Result accountPage() {
         UserManagement user = new UserManagement();
         User userProfile = user.getUserProfile(ctx());
         assert userProfile instanceof Student;
         Student student = (Student) userProfile;
-        play.twirl.api.Html content = views.html.studentAccount.render(student,
-                error);
+        play.twirl.api.Html content = views.html.studentAccount.render(student);
         Menu menu = new StudentMenu(ctx(), ctx().request().path());
         return ok(views.html.student.render(menu, content));
     }
@@ -423,12 +464,16 @@ public class StudentPageController extends Controller {
                     student.getPassword());
 
             if (!matches) {
-                return redirect(controllers.routes.StudentPageController
-                        .accountPage("student.account.error.pwsDontMatch"));
+                flash("error", ctx().messages()
+                        .at("student.account.error.pwsDontMatch"));
+                return redirect(
+                        controllers.routes.StudentPageController.accountPage());
             }
             if (!pw.equals(pwrepeat)) {
-                return redirect(controllers.routes.StudentPageController
-                        .accountPage("student.account.error.wrongPW"));
+                flash("error",
+                        ctx().messages().at("student.account.error.wrongPW"));
+                return redirect(
+                        controllers.routes.StudentPageController.accountPage());
             }
             String pwEnc = new BlowfishPasswordEncoder().encode(pw);
             student.doTransaction(() -> {
@@ -442,8 +487,7 @@ public class StudentPageController extends Controller {
             });
             // TODO hier verifikation
         }
-        return redirect(controllers.routes.StudentPageController
-                .accountPage(""));
+        return redirect(controllers.routes.StudentPageController.accountPage());
     }
 
     /**
@@ -454,7 +498,6 @@ public class StudentPageController extends Controller {
      */
     public Result sendNewVerificationLink() {
         // TODO: Verifkationscode neu erstellen und senden
-        return redirect(controllers.routes.StudentPageController
-                .accountPage(""));
+        return redirect(controllers.routes.StudentPageController.accountPage());
     }
 }

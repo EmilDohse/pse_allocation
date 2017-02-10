@@ -8,12 +8,14 @@ import org.pac4j.core.credentials.password.PasswordEncoder;
 import org.pac4j.core.exception.AccountNotFoundException;
 import org.pac4j.core.exception.BadCredentialsException;
 import org.pac4j.core.exception.HttpAction;
+import org.pac4j.play.PlayWebContext;
 
 import data.Administrator;
 import data.Adviser;
 import data.GeneralData;
 import data.Student;
 import data.User;
+import play.mvc.Http.Context;
 
 /**
  * Class for authenticating a user
@@ -35,8 +37,22 @@ public class UserAuthenticator
                     UserProfile profile = new UserProfile(u);
                     profile.addRole("ROLE_ADMIN");
                     credentials.setUserProfile(profile);
-                    context.setSessionAttribute(Pac4jConstants.REQUESTED_URL,
-                            "/admin");
+                    // Leite den Admin zur Passwort-Ändern-Seite, falls das
+                    // Passwort noch das Start-Passwort ist
+                    if (credentials.getPassword()
+                            .equals(Administrator.START_PASSWORD)) {
+                        PlayWebContext playContext = (PlayWebContext) context;
+                        Context ctx = playContext.getJavaContext();
+                        ctx.flash().put("error", ctx.messages()
+                                .at("admin.account.pleaseChangePassword"));
+                        context.setSessionAttribute(
+                                Pac4jConstants.REQUESTED_URL,
+                                controllers.routes.AdminPageController
+                                        .accountPage().path());
+                    } else {
+                        context.setSessionAttribute(
+                                Pac4jConstants.REQUESTED_URL, "/admin");
+                    }
                     return;
                 } else {
                     throw new BadCredentialsException("Bad credentials for: "
@@ -44,7 +60,7 @@ public class UserAuthenticator
                 }
             }
         }
-        for (User u : GeneralData.loadInstance().getCurrentSemester()
+        for (Student u : GeneralData.loadInstance().getCurrentSemester()
                 .getStudents()) {
             if (credentials.getUsername().equals(u.getUserName())) {
                 if (encoder.matches(credentials.getPassword(),
@@ -52,6 +68,12 @@ public class UserAuthenticator
                     UserProfile profile = new UserProfile(u);
                     profile.addRole("ROLE_STUDENT");
                     credentials.setUserProfile(profile);
+                    if (!u.isEmailVerified()) {
+                        PlayWebContext playContext = (PlayWebContext) context;
+                        Context ctx = playContext.getJavaContext();
+                        ctx.flash().put("info", ctx.messages()
+                                .at("student.info.notVerifiedEmail"));
+                    }
                     context.setSessionAttribute(Pac4jConstants.REQUESTED_URL,
                             "/student");
                     return;
@@ -85,7 +107,8 @@ public class UserAuthenticator
                     profile.addRole("ROLE_STUDENT_OLD");
                     credentials.setUserProfile(profile);
                     context.setSessionAttribute(Pac4jConstants.REQUESTED_URL,
-                            "/studentOld/changeForm");
+                            controllers.routes.StudentPageController
+                                    .changeFormPage().path());
                     return;
                 } else {
                     throw new BadCredentialsException("Bad credentials for: "

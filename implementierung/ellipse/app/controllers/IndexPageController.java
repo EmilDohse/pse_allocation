@@ -7,19 +7,29 @@ package controllers;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.pac4j.core.context.Pac4jConstants;
+import org.pac4j.core.exception.BadCredentialsException;
+
 import com.google.inject.Inject;
 
 import data.Achievement;
+import data.Adviser;
 import data.ElipseModel;
 import data.GeneralData;
 import data.SPO;
 import data.Semester;
 import data.Student;
+import data.User;
+import data.LearningGroup;
+import data.Project;
 import play.data.DynamicForm;
 import play.data.FormFactory;
 import play.mvc.Controller;
 import play.mvc.Result;
 import security.BlowfishPasswordEncoder;
+import security.EmailVerifier;
+import security.PasswordResetter;
+import security.UserProfile;
 import views.IndexMenu;
 import views.Menu;
 
@@ -44,10 +54,9 @@ public class IndexPageController extends Controller {
      * 
      * @return Die Seite, die als Antwort verschickt wird.
      */
-    public Result indexPage(String error) {
+    public Result indexPage() {
         play.twirl.api.Html content = views.html.indexInformation.render(
-                GeneralData.loadInstance().getCurrentSemester().getInfoText(),
-                error);
+                GeneralData.loadInstance().getCurrentSemester().getInfoText());
         Menu menu = new IndexMenu(ctx(), ctx().request().path());
         return ok(views.html.index.render(menu, content));
     }
@@ -58,10 +67,9 @@ public class IndexPageController extends Controller {
      * 
      * @return Die Seite, die als Antwort verschickt wird.
      */
-    public Result registerPage(String error) {
+    public Result registerPage() {
         play.twirl.api.Html content = views.html.indexRegistration.render(
-                GeneralData.loadInstance().getCurrentSemester().getSpos(),
-                error);
+                GeneralData.loadInstance().getCurrentSemester().getSpos());
         Menu menu = new IndexMenu(ctx(), ctx().request().path());
         return ok(views.html.index.render(menu, content));
     }
@@ -90,6 +98,7 @@ public class IndexPageController extends Controller {
         int spoId;
         int semester = -1;
         int matNr = -1;
+        // TODO: Verschachtelte try catches entfernen!!!!
         try {
             // die matrikelnummer wird geparst
             matNrString = form.get("matrnr");
@@ -106,20 +115,24 @@ public class IndexPageController extends Controller {
             }
             List<Achievement> completedAchievements = new ArrayList<>();
             List<Achievement> nonCompletedAchievements = new ArrayList<>();
+            // TODO doppeltes try
             try {
                 completedAchievements = MultiselectList.createAchievementList(
                         form, "completed-" + spoIdString + "-multiselect");
             } catch (NumberFormatException e) {
-                return redirect(controllers.routes.IndexPageController
-                        .registerPage(ctx().messages().at(INTERNAL_ERROR)));
+                flash("error", ctx().messages().at(INTERNAL_ERROR));
+                return redirect(
+                        controllers.routes.IndexPageController.registerPage());
             }
+            // TODO doppeltes try
             try {
                 nonCompletedAchievements = MultiselectList
-                        .createAchievementList(form, "due-" + spoIdString
-                                + "-multiselect");
+                        .createAchievementList(form,
+                                "due-" + spoIdString + "-multiselect");
             } catch (NumberFormatException e) {
-                return redirect(controllers.routes.IndexPageController
-                        .registerPage(ctx().messages().at(INTERNAL_ERROR)));
+                flash("error", ctx().messages().at(INTERNAL_ERROR));
+                return redirect(
+                        controllers.routes.IndexPageController.registerPage());
             }
 
             if (password.equals(pwRepeat) && trueData) {
@@ -134,35 +147,51 @@ public class IndexPageController extends Controller {
                             completedAchievements, nonCompletedAchievements,
                             semester);
                     student.save();
+                    LearningGroup l = new LearningGroup(student.getUserName(),
+                            "");
+                    l.save();
+                    l.doTransaction(() -> {
+                        l.addMember(student);
+                        l.setPrivate(true);
+                        // Ratings initialisieren
+                        for (Project p : GeneralData.loadInstance()
+                                .getCurrentSemester().getProjects()) {
+                            l.rate(p, 3);
+                        }
+                    });
                     // TODO get student data from view
                     Semester currentSemester = GeneralData.loadInstance()
                             .getCurrentSemester();
                     currentSemester.doTransaction(() -> {
                         currentSemester.addStudent(student);
+                        currentSemester.addLearningGroup(l);
                     });
-                    return redirect(controllers.routes.IndexPageController
-                            .indexPage(""));
+                    return redirect(
+                            controllers.routes.IndexPageController.indexPage());
                     // TODO falls nötig noch emial verification einleiten
                 } else {
 
                     // falls bereits ein studnent mit dieser matrikelnumer
                     // im system existiert kann sich der student nicht
                     // registrieren
+                    flash("error", ctx().messages()
+                            .at("index.registration.error.matNrExists"));
                     return redirect(controllers.routes.IndexPageController
-                            .registerPage(ctx().messages().at(
-                                    "index.registration.error.matNrExists")));
+                            .registerPage());
                 }
             } else {
-                return redirect(controllers.routes.IndexPageController
-                        .registerPage(ctx().messages().at(
-                                "index.registration.error.passwordUnequal")));
+                flash("error", ctx().messages()
+                        .at("index.registration.error.passwordUnequal"));
+                return redirect(
+                        controllers.routes.IndexPageController.registerPage());
 
             }
 
         } catch (NumberFormatException e) {
-            return redirect(controllers.routes.IndexPageController
-                    .registerPage(ctx().messages().at(
-                            "index.registration.error.genError")));
+            flash("error",
+                    ctx().messages().at("index.registration.error.genError"));
+            return redirect(
+                    controllers.routes.IndexPageController.registerPage());
 
         }
 
@@ -174,9 +203,10 @@ public class IndexPageController extends Controller {
      * 
      * @return Die Seite, die als Antwort verschickt wird.
      */
-    public Result passwordResetPage(String error) {
-        // TODO
-        return null;
+    public Result passwordResetPage() {
+        play.twirl.api.Html content = views.html.indexPasswordReset.render();
+        Menu menu = new IndexMenu(ctx(), ctx().request().path());
+        return ok(views.html.index.render(menu, content));
     }
 
     /**
@@ -186,9 +216,58 @@ public class IndexPageController extends Controller {
      * 
      * @return Die Seite, die als Antwort verschickt wird.
      */
-    public Result passwordReset() {
-        // TODO
-        return null;
+    public Result passwordResetForm() {
+        DynamicForm form = formFactory.form().bindFromRequest();
+        if (form.data().isEmpty()) {
+            return badRequest(ctx().messages().at(INTERNAL_ERROR));
+        }
+        // die felder werden ausgelesen
+        String email = form.get("email");
+        String password = form.get("password");
+        String pwRepeat = form.get("pwRepeat");
+        if (!password.equals(pwRepeat)) {
+            flash("error", ctx().messages()
+                    .at("index.registration.error.passwordUnequal"));
+            return redirect(
+                    controllers.routes.IndexPageController.passwordResetPage());
+        }
+        // Get User anhand der E-Mail
+        User user = null;
+        ArrayList<User> allUsers = new ArrayList<>(Adviser.getAdvisers());
+        allUsers.addAll(Student.getStudents());
+        for (User u : allUsers) {
+            if (u.getEmailAddress().equalsIgnoreCase(email)) {
+                user = u;
+                break;
+            }
+        }
+        if (user == null) {
+            flash("error", ctx().messages().at("index.pwReset.userNotFound"));
+            return redirect(
+                    controllers.routes.IndexPageController.passwordResetPage());
+        }
+        String encPw = new BlowfishPasswordEncoder().encode(password);
+        String code = PasswordResetter.getInstance().initializeReset(user,
+                encPw);
+        // TODO: E-Mail verschicken.
+        flash("info", ctx().messages().at("index.pwReset.mailSent"));
+        return redirect(controllers.routes.IndexPageController.indexPage());
+    }
+
+    /**
+     * Resettet das Passwort
+     * 
+     * @param code
+     *            der Code der zum Passwort-Reset nötig ist.
+     * @return Die Seite, die angezeigt werden soll.
+     */
+    public Result resetPassword(String code) {
+        if (PasswordResetter.getInstance().finalizeReset(code)) {
+            flash("info", ctx().messages().at("index.pwReset.success"));
+        } else {
+            flash("error", ctx().messages().at("index.pwReset.error"));
+        }
+        return redirect(controllers.routes.IndexPageController.indexPage());
     }
 
     /**
@@ -200,7 +279,11 @@ public class IndexPageController extends Controller {
      * @return Die Seite, die als Antwort verschickt wird.
      */
     public Result verificationPage(String code) {
-        // TODO
-        return null;
+        if (EmailVerifier.getInstance().verify(code)) {
+            flash("info", ctx().messages().at("index.verify.success"));
+        } else {
+            flash("error", ctx().messages().at("index.verify.error"));
+        }
+        return redirect(controllers.routes.IndexPageController.indexPage());
     }
 }

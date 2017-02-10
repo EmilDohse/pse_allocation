@@ -31,7 +31,6 @@ public class AdviserMenu extends Menu {
                     .projectsPage(p.getId()).path());
         }
         addItem(context.messages().at("adviser.sidebar.account"),
-                controllers.routes.AdviserPageController.accountPage("")
-                        .path());
+                controllers.routes.AdviserPageController.accountPage().path());
     }
 }

@@ -1,10 +1,7 @@
 @* * Diese Seite zeigt die Betruer dem Admin an. * Dafür wird eine Liste
 an Betreuer übergeben. * Zusätlich gibt es noch einen Parameter für eine
-Fehlermeldung. *@ @(advisers: List[data.Adviser],error: String)
+Fehlermeldung. *@ @(advisers: List[data.Adviser])
 
-@if(!error.isEmpty()){
-<div class="alert alert-danger" role="alert">@error</div>
-}
 <h1>@Messages("admin.sidebar.adviser")</h1>
 <table class="table table-striped">
 	<thead>
@@ -58,6 +55,6 @@ Fehlermeldung. *@ @(advisers: List[data.Adviser],error: String)
 	</div>
 
 	<div class="form-group">
-		<button type="submit" class="btn btn-default">@Messages("admin.advisers.form.addAdviser")</button>
+		<button type="submit" class="btn btn-primary">@Messages("admin.advisers.form.addAdviser")</button>
 	</div>
 </form>

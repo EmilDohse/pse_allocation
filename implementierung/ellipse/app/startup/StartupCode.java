@@ -20,7 +20,8 @@ public class StartupCode implements StartupInterface {
         if (Ebean.getServer(null) != null) {
             if (Administrator.getAdministrators().isEmpty()) {
                 Administrator admin = new Administrator("admin",
-                        new BlowfishPasswordEncoder().encode("admin"),
+                        new BlowfishPasswordEncoder()
+                                .encode(Administrator.START_PASSWORD),
                         "myemail@kit.edu", "Administrator", "Admin");
                 admin.save();
             }

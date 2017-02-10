@@ -27,22 +27,22 @@ public class AdminMenu extends Menu {
 
     private final void addItems(Context context) {
         addItem(context.messages().at("admin.sidebar.adviser"),
-                controllers.routes.AdminPageController.adviserPage("").path());
+                controllers.routes.AdminPageController.adviserPage().path());
         addItem(context.messages().at("admin.sidebar.projects"),
-                controllers.routes.AdminPageController.projectPage("").path());
+                controllers.routes.AdminPageController.projectPage().path());
         addItem(context.messages().at("admin.sidebar.allocation"),
-                controllers.routes.AdminPageController.allocationPage("")
-                        .path());
+                controllers.routes.AdminPageController.allocationPage().path());
         addItem(context.messages().at("admin.sidebar.results"),
-                controllers.routes.AdminPageController.resultsPage("").path());
+                controllers.routes.AdminPageController.resultsPage().path());
         addItem(context.messages().at("admin.sidebar.exportImport"),
-                controllers.routes.AdminPageController.exportImportPage("")
+                controllers.routes.AdminPageController.exportImportPage()
                         .path());
         addItem(context.messages().at("admin.sidebar.studentEdit"),
-                controllers.routes.AdminPageController.studentEditPage("")
+                controllers.routes.AdminPageController.studentEditPage()
                         .path());
         addItem(context.messages().at("admin.sidebar.properties"),
-                controllers.routes.AdminPageController.propertiesPage("")
-                        .path());
+                controllers.routes.AdminPageController.propertiesPage().path());
+        addItem(context.messages().at("admin.sidebar.account"),
+                controllers.routes.AdminPageController.accountPage().path());
     }
 }

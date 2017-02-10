@@ -1,9 +1,6 @@
 @* * Diese Seite zeigt die Projekte dem Admin an. * Dafür wird eine
 Liste an verfügbaren Projekten übergeben. * Zusätzlich kann eine
-Fehlermeldung übergeben werden. *@ @(projects: List[data.Project],
-error: String) @if(!error.isEmpty()){
-<div class="alert alert-danger" role="alert">@error</div>
-}
+Fehlermeldung übergeben werden. *@ @(projects: List[data.Project]) 
 <h1>@Messages("admin.sidebar.projects")</h1>
 <table class="table table-striped">
 	<thead>
@@ -42,6 +39,6 @@ error: String) @if(!error.isEmpty()){
 	</div>
 
 	<div class="form-group">
-		<button type="submit" name="addProject" class="btn btn-default">@Messages("admin.projects.addProject")</button>
+		<button type="submit" name="addProject" class="btn btn-primary">@Messages("admin.projects.addProject")</button>
 	</div>
 </form>

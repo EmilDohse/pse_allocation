@@ -18,6 +18,7 @@ import data.Semester;
 import play.mvc.Controller;
 import play.mvc.Result;
 import views.AdminMenu;
+import views.AdviserMenu;
 import views.Menu;
 
 /************************************************************/
@@ -35,14 +36,16 @@ public class AdminPageController extends Controller {
      * 
      * @return Die Seite, die als Antwort verschickt wird.
      */
-    public Result projectPage(String error) {
+    public Result projectPage() {
         play.twirl.api.Html content;
         if (GeneralData.loadInstance().getCurrentSemester() == null) {
-            content = views.html.adminProjects.render(new ArrayList<>(),
-                    error + "\n" + ctx().messages().at(NO_SEMESTER));
+            String error = flash("error") + "\n";
+            flash("error", error
+                    + ctx().messages().at(ctx().messages().at(NO_SEMESTER)));
+            content = views.html.adminProjects.render(new ArrayList<>());
         } else {
             content = views.html.adminProjects.render(GeneralData.loadInstance()
-                    .getCurrentSemester().getProjects(), error);
+                    .getCurrentSemester().getProjects());
         }
         Menu menu = new AdminMenu(ctx(), ctx().request().path());
         return ok(views.html.admin.render(menu, content));
@@ -55,10 +58,10 @@ public class AdminPageController extends Controller {
      * 
      * @return Die Seite, die als Antwort verschickt wird.
      */
-    public Result adviserPage(String error) {
+    public Result adviserPage() {
         play.twirl.api.Html content;
 
-        content = views.html.adminAdvisers.render(Adviser.getAdvisers(), error);
+        content = views.html.adminAdvisers.render(Adviser.getAdvisers());
 
         Menu menu = new AdminMenu(ctx(), ctx().request().path());
         return ok(views.html.admin.render(menu, content));
@@ -72,11 +75,11 @@ public class AdminPageController extends Controller {
      * 
      * @return Die Seite, die als Antwort verschickt wird.
      */
-    public Result allocationPage(String error) {
+    public Result allocationPage() {
         ArrayList<allocation.Criterion> criteria = new ArrayList<>(
                 AllocationQueue.getInstance().getAllocator().getAllCriteria());
         play.twirl.api.Html content = views.html.adminAllocation
-                .render(AllocationQueue.getInstance(), criteria, error);
+                .render(AllocationQueue.getInstance(), criteria);
         Menu menu = new AdminMenu(ctx(), ctx().request().path());
         return ok(views.html.admin.render(menu, content));
     }
@@ -87,19 +90,21 @@ public class AdminPageController extends Controller {
      * 
      * @return Die Seite, die als Antwort verschickt wird.
      */
-    public Result resultsPage(String error) {
+    public Result resultsPage() {
         ArrayList<qualityCriteria.QualityCriterion> criteria = new ArrayList<>(
                 qualityCriteria.QualityCriteriaLoader.getAllQualityCriteria());
         play.twirl.api.Html content;
         if (GeneralData.loadInstance().getCurrentSemester() == null) {
+            String error = flash("error") + "\n";
+            flash("error", error
+                    + ctx().messages().at(ctx().messages().at(NO_SEMESTER)));
             content = views.html.adminResults.render(new ArrayList<>(),
-                    criteria, error + "\n" + ctx().messages().at(NO_SEMESTER));
+                    criteria);
         } else {
             List<Allocation> allocations = GeneralData.loadInstance()
                     .getCurrentSemester().getAllocations();
             if (!allocations.isEmpty()) {
-                content = views.html.adminResults.render(allocations, criteria,
-                        error);
+                content = views.html.adminResults.render(allocations, criteria);
             } else {
                 content = views.html.noAllocationYet.render();
             }
@@ -115,10 +120,10 @@ public class AdminPageController extends Controller {
      * 
      * @return Die Seite, die als Antwort verschickt wird.
      */
-    public Result exportImportPage(String error) {
+    public Result exportImportPage() {
         play.twirl.api.Html content = views.html.adminExportImport
                 .render(SPO.getSPOs(), GeneralData.loadInstance()
-                        .getCurrentSemester().getAllocations(), error);
+                        .getCurrentSemester().getAllocations());
         Menu menu = new AdminMenu(ctx(), ctx().request().path());
         return ok(views.html.admin.render(menu, content));
     }
@@ -129,15 +134,16 @@ public class AdminPageController extends Controller {
      * 
      * @return Die Seite, die als Antwort verschickt wird.
      */
-    public Result studentEditPage(String error) {
+    public Result studentEditPage() {
         play.twirl.api.Html content;
         if (GeneralData.loadInstance().getCurrentSemester() == null) {
-            content = views.html.adminStudentEdit.render(new ArrayList<>(),
-                    error + "\n" + ctx().messages().at(NO_SEMESTER));
+            String error = flash("error") + "\n";
+            flash("error", error
+                    + ctx().messages().at(ctx().messages().at(NO_SEMESTER)));
+            content = views.html.adminStudentEdit.render(new ArrayList<>());
         } else {
             content = views.html.adminStudentEdit.render(
-                    GeneralData.loadInstance().getCurrentSemester().getSpos(),
-                    error);
+                    GeneralData.loadInstance().getCurrentSemester().getSpos());
         }
         Menu menu = new AdminMenu(ctx(), ctx().request().path());
         return ok(views.html.admin.render(menu, content));
@@ -149,10 +155,10 @@ public class AdminPageController extends Controller {
      * 
      * @return Die Seite, die als Antwort verschickt wird.
      */
-    public Result propertiesPage(String error) {
+    public Result propertiesPage() {
         play.twirl.api.Html content = views.html.adminProperties.render(
                 GeneralData.loadInstance().getCurrentSemester(),
-                Semester.getSemesters(), SPO.getSPOs(), error);
+                Semester.getSemesters(), SPO.getSPOs());
         Menu menu = new AdminMenu(ctx(), ctx().request().path());
         return ok(views.html.admin.render(menu, content));
     }
@@ -172,7 +178,7 @@ public class AdminPageController extends Controller {
             if (GeneralData.loadInstance().getCurrentSemester().getProjects()
                     .isEmpty()) {
                 return redirect(
-                        controllers.routes.AdminPageController.projectPage(""));
+                        controllers.routes.AdminPageController.projectPage());
             } else {
                 id = GeneralData.loadInstance().getCurrentSemester()
                         .getProjects().get(0).getId();
@@ -182,6 +188,18 @@ public class AdminPageController extends Controller {
         Project project = ElipseModel.getById(Project.class, id);
         play.twirl.api.Html content = views.html.projectEdit.render(project,
                 false, Adviser.getAdvisers());
+        Menu menu = new AdminMenu(ctx(), ctx().request().path());
+        return ok(views.html.admin.render(menu, content));
+    }
+
+    /**
+     * Diese Methode gibt die Seite zurück, auf der der Administrator sein
+     * Passwort ändern kann.
+     * 
+     * @return die Seite, die als Antwort verschickt wird.
+     */
+    public Result accountPage() {
+        play.twirl.api.Html content = views.html.adminAccount.render();
         Menu menu = new AdminMenu(ctx(), ctx().request().path());
         return ok(views.html.admin.render(menu, content));
     }

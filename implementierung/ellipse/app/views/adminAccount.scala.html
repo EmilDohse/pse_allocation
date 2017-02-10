@@ -1,0 +1,33 @@
+@* * Diese Seite zeigt dem Betreuer seine Account Seite an. * Zusätzlich
+wird eine Fehlermeldung übergeben. *@ @()
+<h1>@Messages("admin.sidebar.account")</h1>
+<form
+	action="@controllers.routes.GeneralAdminController.editAccount().path()"
+	method="POST" class="form-horizontal">
+	<div class="form-group">
+		<label class="control-label col-sm-2" for="oldPassword">@Messages("admin.account.oldPassword")</label>
+		<div class="col-sm-3">
+			<input class="form-control" type="password" name="oldPassword"
+				id="oldPassword">
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="control-label col-sm-2" for="newPassword">@Messages("admin.account.newPassword")</label>
+		<div class="col-sm-3">
+			<input class="form-control" type="password" name="newPassword"
+				id="newPassword">
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="control-label col-sm-2" for="newPasswordRepeat">@Messages("admin.account.newPasswordRepeat")</label>
+		<div class="col-sm-3">
+			<input class="form-control" type="password" name="newPasswordRepeat"
+				id="newPasswordRepeat">
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="col-sm-offset-2 col-sm-10">
+			<button type="submit" name="passwordChange" class="btn btn-primary">@Messages("admin.account.pwChange")</button>
+		</div>
+	</div>
+</form>

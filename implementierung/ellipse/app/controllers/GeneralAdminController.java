@@ -12,6 +12,7 @@ import com.google.inject.Inject;
 import allocation.AllocationQueue;
 import allocation.Configuration;
 import allocation.Criterion;
+import data.Administrator;
 import data.Adviser;
 import data.AllocationParameter;
 import data.ElipseModel;
@@ -26,6 +27,7 @@ import play.data.FormFactory;
 import play.mvc.Controller;
 import play.mvc.Result;
 import security.BlowfishPasswordEncoder;
+import security.UserManagement;
 
 /************************************************************/
 /**
@@ -53,9 +55,6 @@ public class GeneralAdminController extends Controller {
         if (form.data().isEmpty()) {
             return badRequest(ctx().messages().at(INTERNAL_ERROR));
         }
-        if (form.data().size() == 0) {
-            return badRequest(ctx().messages().at(INTERNAL_ERROR));
-        }
         String firstName = form.get("firstName");
         String lastName = form.get("lastName");
         String email = form.get("email");
@@ -65,7 +64,7 @@ public class GeneralAdminController extends Controller {
         Adviser adviser = new Adviser(email, encPassword, email, firstName,
                 lastName);
         adviser.save();
-        return redirect(controllers.routes.AdminPageController.adviserPage(""));
+        return redirect(controllers.routes.AdminPageController.adviserPage());
 
     }
 
@@ -83,7 +82,7 @@ public class GeneralAdminController extends Controller {
         }
         int adviserId = Integer.parseInt(form.get("id"));
         ElipseModel.getById(Adviser.class, adviserId).delete();
-        return redirect(controllers.routes.AdminPageController.adviserPage(""));
+        return redirect(controllers.routes.AdminPageController.adviserPage());
     }
 
     /**
@@ -110,15 +109,17 @@ public class GeneralAdminController extends Controller {
             minSize = Integer.parseInt(minSizeString);
             maxSize = Integer.parseInt(maxSizeString);
         } catch (NumberFormatException e) {
-            return redirect(controllers.routes.AdminPageController
-                    .allocationPage(ctx().messages().at(GENERAL_ERROR)));
+            flash("error", ctx().messages().at("error.wrongInput"));
+            return redirect(
+                    controllers.routes.AdminPageController.allocationPage());
         }
         List<AllocationParameter> allocParam;
         try {
             allocParam = createParameters(minSize, maxSize, preferedSize, form);
         } catch (NumberFormatException e) {
-            return redirect(controllers.routes.AdminPageController
-                    .allocationPage(ctx().messages().at(GENERAL_ERROR)));
+            flash("error", ctx().messages().at(INTERNAL_ERROR));
+            return redirect(
+                    controllers.routes.AdminPageController.allocationPage());
         }
         AllocationQueue queue = AllocationQueue.getInstance();
         Semester semester = GeneralData.loadInstance().getCurrentSemester();
@@ -129,13 +130,12 @@ public class GeneralAdminController extends Controller {
         Configuration configuration = new Configuration(name, students,
                 learningGroups, projects, allocParam);
         queue.addToQueue(configuration);
-        return redirect(controllers.routes.AdminPageController
-                .allocationPage(""));
+        return redirect(
+                controllers.routes.AdminPageController.allocationPage());
     }
 
-    private List<AllocationParameter> createParameters(int minSize,
-            int maxSize, int preferedSize, DynamicForm form)
-            throws NumberFormatException {
+    private List<AllocationParameter> createParameters(int minSize, int maxSize,
+            int preferedSize, DynamicForm form) throws NumberFormatException {
         // Liste der Parameter wird erstellt
         List<AllocationParameter> result = new ArrayList<>(); // die
         result.add(new AllocationParameter("minSize", minSize));
@@ -164,8 +164,8 @@ public class GeneralAdminController extends Controller {
         String configName = form.get("queue");
         AllocationQueue allocationQueue = AllocationQueue.getInstance();
         allocationQueue.cancelAllocation(configName);
-        return redirect(controllers.routes.AdminPageController
-                .allocationPage(""));
+        return redirect(
+                controllers.routes.AdminPageController.allocationPage());
     }
 
     /**
@@ -195,8 +195,9 @@ public class GeneralAdminController extends Controller {
             semester = Integer.parseInt(semesterString);
             spoId = Integer.parseInt(spoIdString);
         } catch (NumberFormatException e) {
-            return redirect(controllers.routes.AdminPageController
-                    .studentEditPage(ctx().messages().at(GENERAL_ERROR)));
+            flash("error", ctx().messages().at("error.wrongInput"));
+            return redirect(
+                    controllers.routes.AdminPageController.studentEditPage());
         }
         if (Student.getStudent(matNr) != null) {
             // TODO error
@@ -205,14 +206,19 @@ public class GeneralAdminController extends Controller {
         SPO spo = ElipseModel.getById(SPO.class, spoId);
         BlowfishPasswordEncoder b = new BlowfishPasswordEncoder();
         Student student = new Student(matNrString, b.encode(password), email,
-                firstName, lastName, matNr, spo,
-                spo.getNecessaryAchievements(), new ArrayList<>(), semester);
+                firstName, lastName, matNr, spo, spo.getNecessaryAchievements(),
+                new ArrayList<>(), semester);
         student.save();
         LearningGroup l = new LearningGroup(student.getUserName(), "");
         l.save();
         l.doTransaction(() -> {
             l.addMember(student);
             l.setPrivate(true);
+            // Ratings initialisieren
+            for (Project p : GeneralData.loadInstance().getCurrentSemester()
+                    .getProjects()) {
+                l.rate(p, 3);
+            }
         });
         Semester currentSemester = GeneralData.loadInstance()
                 .getCurrentSemester();
@@ -220,8 +226,8 @@ public class GeneralAdminController extends Controller {
             currentSemester.addLearningGroup(l);
             currentSemester.addStudent(student);
         });
-        return redirect(controllers.routes.AdminPageController
-                .studentEditPage(""));
+        return redirect(
+                controllers.routes.AdminPageController.studentEditPage());
     }
 
     /**
@@ -242,8 +248,9 @@ public class GeneralAdminController extends Controller {
         try {
             matNr = Integer.parseInt(matNrString);
         } catch (NumberFormatException e) {
-            return redirect(controllers.routes.AdminPageController
-                    .studentEditPage(ctx().messages().at(GENERAL_ERROR)));
+            flash("error", INTERNAL_ERROR);
+            return redirect(
+                    controllers.routes.AdminPageController.studentEditPage());
         }
         Student student = Student.getStudent(matNr);
         if (student == null) {
@@ -257,7 +264,44 @@ public class GeneralAdminController extends Controller {
             }
         }
         student.delete();
-        return redirect(controllers.routes.AdminPageController
-                .studentEditPage(""));
+        return redirect(
+                controllers.routes.AdminPageController.studentEditPage());
+    }
+
+    /**
+     * Diese Methode editiert die Daten des Administrators, welche er auf der
+     * Account-Seite geändert hat.
+     * 
+     * @return die Seite, die als Antwort verschickt wird.
+     */
+    public Result editAccount() {
+        UserManagement user = new UserManagement();
+        Administrator admin = (Administrator) user.getUserProfile(ctx());
+        DynamicForm form = formFactory.form().bindFromRequest();
+        if (form.data().isEmpty()) {
+            return badRequest(ctx().messages().at(INTERNAL_ERROR));
+        }
+
+        if (form.get("passwordChange") != null) {
+            System.out.println("passwordChange1");
+            String oldpw = form.get("oldPassword");
+            String pw = form.get("newPassword");
+            String pwrepeat = form.get("newPasswordRepeat");
+
+            boolean matches = new BlowfishPasswordEncoder().matches(oldpw,
+                    admin.getPassword());
+
+            if (!pw.equals(pwrepeat) || !matches) {
+                flash("error",
+                        ctx().messages().at("admin.account.error.passwords"));
+                return redirect(
+                        controllers.routes.AdminPageController.accountPage());
+            }
+            String pwEnc = new BlowfishPasswordEncoder().encode(pw);
+            admin.doTransaction(() -> {
+                admin.setPassword(pwEnc);
+            });
+        }
+        return redirect(controllers.routes.AdminPageController.accountPage());
     }
 }

@@ -10,11 +10,14 @@ import javax.persistence.Entity;
 @Entity
 public class Administrator extends User {
 
+    public static String START_PASSWORD = "admin";
+
     public Administrator() {
         super();
     }
 
-    public Administrator(String username, String password, String emailAddress, String firstName, String lastName) {
+    public Administrator(String username, String password, String emailAddress,
+            String firstName, String lastName) {
         super(username, password, emailAddress, firstName, lastName);
     }
 

@@ -27,8 +27,8 @@ public class IndexMenu extends Menu {
 
     private final void addItems(Context context) {
         addItem(context.messages().at("index.sidebar.information"),
-                controllers.routes.IndexPageController.indexPage("").path());
+                controllers.routes.IndexPageController.indexPage().path());
         addItem(context.messages().at("index.sidebar.registration"),
-                controllers.routes.IndexPageController.registerPage("").path());
+                controllers.routes.IndexPageController.registerPage().path());
     }
 }

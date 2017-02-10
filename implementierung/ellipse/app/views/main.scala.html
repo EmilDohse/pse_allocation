@@ -2,7 +2,8 @@
 * Dies erstellt die HTML Struktur und fügt passende Quellen ein. * Als
 Parameter wird der Titel, den Seitenleisteninhalt, zusätzlichen
 Seitenleisten * inhalt und den eigentlichen Inhalt der Seite übergeben.
-*@ @(title: String, menu: views.Menu)(sidebarContent: Html)(content: Html)
+*@ @(title: String, menu: views.Menu)(sidebarContent: Html)(content:
+Html)
 <!DOCTYPE html>
 <html>
 <head>
@@ -41,7 +42,8 @@ Seitenleisten * inhalt und den eigentlichen Inhalt der Seite übergeben.
 			<div class="col-sm-3 col-md-2 sidebar">
 				<div class="nav nav-sidebar">@sidebarContent</div>
 				<ul class="nav nav-sidebar">
-					@displaySidebarItem(item: views.MenuItem) = { @if(item.isActive()) {
+					@displaySidebarItem(item: views.MenuItem) = { 
+					@if(item.isActive()) {
 					<li class="active"><a href='@item.getLink()'>@item.getMenuText()</a></li>
 					} else {
 					<li><a href='@item.getLink()'>@item.getMenuText()</a></li> } }
@@ -50,7 +52,30 @@ Seitenleisten * inhalt und den eigentlichen Inhalt der Seite übergeben.
 				</ul>
 			</div>
 
-			<div class="col-sm-9 col-md-10 main">@content</div>
+			<div class="col-sm-9 col-md-10 main">
+				@if(flash.containsKey("error")) {
+				<div class="row">
+					<div class="col-sx-12 col-sm-6">
+						<div class="alert alert-danger" role="alert">@flash.get("error")</div>
+					</div>
+				</div>
+				}
+				@if(flash.containsKey("info")) {
+				<div class="row">
+					<div class="col-sx-12 col-sm-6">
+						<div class="alert alert-info alert-dismissible" role="alert">
+							<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							@flash.get("info")
+						</div>
+					</div>
+				</div>
+				}
+				<div class="row"> 
+					<div class="col-lg-9">
+						@content
+					</div>	
+				</div>
+			</div>
 		</div>
 	</div>
 </body>
