@@ -43,6 +43,7 @@ public class SPO extends ElipseModel implements Comparable<SPO> {
     }
 
     public SPO(String name) {
+        super();
         this.name = name;
         necessaryAchievements = new ArrayList<Achievement>();
         additionalAchievements = new ArrayList<Achievement>();

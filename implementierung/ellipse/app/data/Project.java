@@ -69,6 +69,7 @@ public class Project extends ElipseModel /* implements Comparable<Project> */ {
 
     public Project(String name, String projectInfo, String institut,
             String url) {
+        super();
         this.name = name;
         this.projectInfo = projectInfo;
         this.institute = institut;

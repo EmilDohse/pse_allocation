@@ -27,6 +27,7 @@ public class Achievement extends ElipseModel implements Comparable<Achievement> 
     }
 
     public Achievement(String name) {
+        super();
         this.name = name;
     }
 

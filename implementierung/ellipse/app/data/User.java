@@ -46,6 +46,7 @@ public abstract class User extends ElipseModel implements Comparable<User> {
 
     public User(String username, String password, String emailAddress,
             String firstName, String lastName) {
+        super();
         this.username = username;
         this.password = password;
         this.emailAddress = emailAddress;

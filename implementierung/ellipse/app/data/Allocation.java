@@ -53,6 +53,7 @@ public class Allocation extends ElipseModel {
      */
     public Allocation(List<Team> teams, String name,
             List<AllocationParameter> parameters) {
+        super();
         this.teams = teams;
         this.name = name;
         this.parameters = parameters;

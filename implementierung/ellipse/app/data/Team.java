@@ -41,10 +41,12 @@ public class Team extends ElipseModel /* implements Comparable<Team> */ {
     private List<Student> members;
 
     public Team() {
+        super();
         members = new ArrayList<Student>();
     }
 
     public Team(Project project, List<Student> members) {
+        this();
         this.project = project;
         this.members = members;
     }

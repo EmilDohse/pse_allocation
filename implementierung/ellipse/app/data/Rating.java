@@ -34,6 +34,7 @@ public class Rating extends ElipseModel {
     }
 
     public Rating(int rating, Project project) {
+        super();
         this.rating = rating;
         this.project = project;
     }

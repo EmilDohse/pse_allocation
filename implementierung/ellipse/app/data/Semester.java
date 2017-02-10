@@ -92,6 +92,7 @@ public class Semester extends ElipseModel implements Comparable<Semester> {
     }
 
     public Semester(String name, boolean wintersemester, int year) {
+        super();
         this.name = name;
         this.wintersemester = wintersemester;
         this.year = year;
