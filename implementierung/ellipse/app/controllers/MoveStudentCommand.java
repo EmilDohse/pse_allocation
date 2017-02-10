@@ -34,7 +34,8 @@ public class MoveStudentCommand implements EditAllocationCommand {
      * @param newTeam
      *            Neues Team, in das der Studierende eingeteilt wird.
      */
-    public MoveStudentCommand(Allocation allocation, List<Student> students, Team newTeam) {
+    public MoveStudentCommand(Allocation allocation, List<Student> students,
+            Team newTeam) {
         super();
         this.allocation = allocation;
         this.students = students;
@@ -53,12 +54,16 @@ public class MoveStudentCommand implements EditAllocationCommand {
             oldTeams.put(s, t);
             // TODO hier eine warnung werfen falls die teamgröße überschritten
             // wird
-            t.doTransaction(() -> {
-                t.removeMember(s);
-            });
-            newTeam.doTransaction(() -> {
-                newTeam.addMember(s);
-            });
+            if (t != null) {
+                t.doTransaction(() -> {
+                    t.removeMember(s);
+                });
+            }
+            if (newTeam != null) {
+                newTeam.doTransaction(() -> {
+                    newTeam.addMember(s);
+                });
+            }
         }
     }
 
@@ -70,12 +75,16 @@ public class MoveStudentCommand implements EditAllocationCommand {
         for (Student s : students) {
             // TODO hier eine warnung werfen falls die teamgröße überschritten
             // wird
-            newTeam.doTransaction(() -> {
-                newTeam.removeMember(s);
-            });
-            oldTeams.get(s).doTransaction(() -> {
-                oldTeams.get(s).addMember(s);
-            });
+            if (newTeam != null) {
+                newTeam.doTransaction(() -> {
+                    newTeam.removeMember(s);
+                });
+            }
+            if (oldTeams.get(s) != null) {
+                oldTeams.get(s).doTransaction(() -> {
+                    oldTeams.get(s).addMember(s);
+                });
+            }
         }
     }
 }

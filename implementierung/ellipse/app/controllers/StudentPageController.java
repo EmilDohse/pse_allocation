@@ -275,7 +275,7 @@ public class StudentPageController extends Controller {
                     .learningGroupPage());
         }
         String password = form.get("learningGroupPassword");
-        // TODO stimmt hier der rückgabewert in html
+        String encPassword = new BlowfishPasswordEncoder().encode(password);
         LearningGroup learningGroup = LearningGroup.getLearningGroup(name,
                 semester);
         if (learningGroup != null) {
@@ -285,7 +285,7 @@ public class StudentPageController extends Controller {
                     .learningGroupPage());
         }
         LearningGroup oldLg = semester.getLearningGroupOf(student);
-        LearningGroup lg = new LearningGroup(name, password);
+        LearningGroup lg = new LearningGroup(name, encPassword);
         lg.save();
         lg.doTransaction(() -> {
             lg.addMember(student);
@@ -401,7 +401,7 @@ public class StudentPageController extends Controller {
                     .learningGroupPage());
         }
 
-        if (lgNew.getPassword().equals(pw)) {
+        if (new BlowfishPasswordEncoder().matches(pw, lgNew.getPassword())) {
             lgOld.delete(); // die private lerngruppe wird gelöscht
             lgNew.doTransaction(() -> {
                 lgNew.addMember(student);

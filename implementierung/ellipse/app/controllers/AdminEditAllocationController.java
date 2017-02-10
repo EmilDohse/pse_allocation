@@ -140,12 +140,6 @@ public class AdminEditAllocationController extends Controller {
         for (int id : ids) {
             Student s = ElipseModel.getById(Student.class, id);
             students.add(s);
-            if (allocation.getTeam(s).equals(newTeam)) {
-                flash("error",
-                        ctx().messages().at("admin.edit.moveToSameTeam"));
-                return redirect(
-                        controllers.routes.AdminPageController.resultsPage());
-            }
         }
 
         if (students.isEmpty()) {

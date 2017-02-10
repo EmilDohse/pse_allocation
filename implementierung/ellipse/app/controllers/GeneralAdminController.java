@@ -200,7 +200,10 @@ public class GeneralAdminController extends Controller {
                     controllers.routes.AdminPageController.studentEditPage());
         }
         if (Student.getStudent(matNr) != null) {
-            // TODO error
+            flash("error",
+                    ctx().messages().at("admin.studentEdit.matrNrExistsError"));
+            return redirect(
+                    controllers.routes.AdminPageController.studentEditPage());
         }
         // der username eines studenten ist seine matNr
         SPO spo = ElipseModel.getById(SPO.class, spoId);
@@ -248,13 +251,16 @@ public class GeneralAdminController extends Controller {
         try {
             matNr = Integer.parseInt(matNrString);
         } catch (NumberFormatException e) {
-            flash("error", INTERNAL_ERROR);
+            flash("error", ctx().messages().at(INTERNAL_ERROR));
             return redirect(
                     controllers.routes.AdminPageController.studentEditPage());
         }
         Student student = Student.getStudent(matNr);
         if (student == null) {
-            // TODO error
+            flash("error", ctx().messages()
+                    .at("admin.studentEdit.noSuchStudentError"));
+            return redirect(
+                    controllers.routes.AdminPageController.studentEditPage());
         }
         for (LearningGroup l : LearningGroup.getLearningGroups()) {
             if (l.getMembers().contains(student)) {
