@@ -16,7 +16,6 @@ public class StartupCode implements StartupInterface {
 
     @Override
     public void onStartup() {
-        System.out.println("---- ONSTARTUP -----");
         if (Ebean.getServer(null) != null) {
             if (Administrator.getAdministrators().isEmpty()) {
                 Administrator admin = new Administrator("admin",

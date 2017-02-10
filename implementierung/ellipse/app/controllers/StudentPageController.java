@@ -79,63 +79,59 @@ public class StudentPageController extends Controller {
             try {
                 semester = Integer.parseInt(semesterString);
                 spoId = Integer.parseInt(spoIdString);
-                SPO spo = ElipseModel.getById(SPO.class, spoId);
-                boolean trueData = false;
-
-                if (form.get("trueData") != null) {
-                    // wenn der student angekreuzt hat das seine Angaben der
-                    // Wahrheit entsprechen
-                    trueData = true;
-                }
-                List<Achievement> completedAchievements;
-                List<Achievement> nonCompletedAchievements;
-                try {
-                    completedAchievements = MultiselectList
-                            .createAchievementList(form, "completed-"
-                                    + spoIdString + "-multiselect");
-                } catch (NumberFormatException e) {
-                    flash("error", ctx().messages().at(INTERNAL_ERROR));
-                    return redirect(controllers.routes.StudentPageController
-                            .changeFormPage());
-                }
-                try {
-                    nonCompletedAchievements = MultiselectList
-                            .createAchievementList(form,
-                                    "due-" + spoIdString + "-multiselect");
-                } catch (NumberFormatException e) {
-                    flash("error", ctx().messages().at(INTERNAL_ERROR));
-                    return redirect(controllers.routes.StudentPageController
-                            .changeFormPage());
-                }
-                if (trueData) {
-                    UserManagement management = new UserManagement();
-                    Student student = (Student) management
-                            .getUserProfile(ctx());
-                    student.doTransaction(() -> {
-                        student.setSPO(spo);
-                        student.setSemester(semester);
-                        student.setCompletedAchievements(completedAchievements);
-                        student.setOralTestAchievements(
-                                nonCompletedAchievements);
-                    });
-                    Semester currentSemester = GeneralData.loadInstance()
-                            .getCurrentSemester();
-                    currentSemester.doTransaction(() -> {
-                        currentSemester.addStudent(student);
-                    });
-                    management.addStudentRoleToOldStudent(ctx());
-                    return redirect(controllers.routes.StudentPageController
-                            .learningGroupPage());
-                }
-                flash("error", ctx().messages().at(GEN_ERROR));
-                return redirect(controllers.routes.StudentPageController
-                        .changeFormPage());
-
             } catch (NumberFormatException e) {
                 flash("error", ctx().messages().at(GEN_ERROR));
                 return redirect(controllers.routes.StudentPageController
                         .changeFormPage());
             }
+            SPO spo = ElipseModel.getById(SPO.class, spoId);
+            boolean trueData = false;
+
+            if (form.get("trueData") != null) {
+                // wenn der student angekreuzt hat das seine Angaben der
+                // Wahrheit entsprechen
+                trueData = true;
+            }
+            List<Achievement> completedAchievements;
+            List<Achievement> nonCompletedAchievements;
+            try {
+                completedAchievements = MultiselectList.createAchievementList(
+                        form, "completed-" + spoIdString + "-multiselect");
+            } catch (NumberFormatException e) {
+                flash("error", ctx().messages().at(INTERNAL_ERROR));
+                return redirect(controllers.routes.StudentPageController
+                        .changeFormPage());
+            }
+            try {
+                nonCompletedAchievements = MultiselectList
+                        .createAchievementList(form,
+                                "due-" + spoIdString + "-multiselect");
+            } catch (NumberFormatException e) {
+                flash("error", ctx().messages().at(INTERNAL_ERROR));
+                return redirect(controllers.routes.StudentPageController
+                        .changeFormPage());
+            }
+            if (trueData) {
+                UserManagement management = new UserManagement();
+                Student student = (Student) management.getUserProfile(ctx());
+                student.doTransaction(() -> {
+                    student.setSPO(spo);
+                    student.setSemester(semester);
+                    student.setCompletedAchievements(completedAchievements);
+                    student.setOralTestAchievements(nonCompletedAchievements);
+                });
+                Semester currentSemester = GeneralData.loadInstance()
+                        .getCurrentSemester();
+                currentSemester.doTransaction(() -> {
+                    currentSemester.addStudent(student);
+                });
+                management.addStudentRoleToOldStudent(ctx());
+                return redirect(controllers.routes.StudentPageController
+                        .learningGroupPage());
+            }
+            flash("error", ctx().messages().at(GEN_ERROR));
+            return redirect(
+                    controllers.routes.StudentPageController.changeFormPage());
         }
 
     }

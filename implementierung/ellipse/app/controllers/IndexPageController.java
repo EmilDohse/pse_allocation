@@ -98,94 +98,13 @@ public class IndexPageController extends Controller {
         int spoId;
         int semester = -1;
         int matNr = -1;
-        // TODO: Verschachtelte try catches entfernen!!!!
+        // die matrikelnummer wird geparst
+        matNrString = form.get("matrnr");
         try {
-            // die matrikelnummer wird geparst
-            matNrString = form.get("matrnr");
+
             matNr = Integer.parseInt(matNrString);
             semester = Integer.parseInt(semesterString);
             spoId = Integer.parseInt(spoIdString);
-            SPO spo = ElipseModel.getById(SPO.class, spoId);
-            boolean trueData = false;
-
-            if (form.get("trueData") != null) {
-                // wenn der student angekreuzt hat das seine Angaben der
-                // Wahrheit entsprechen
-                trueData = true;
-            }
-            List<Achievement> completedAchievements = new ArrayList<>();
-            List<Achievement> nonCompletedAchievements = new ArrayList<>();
-            // TODO doppeltes try
-            try {
-                completedAchievements = MultiselectList.createAchievementList(
-                        form, "completed-" + spoIdString + "-multiselect");
-            } catch (NumberFormatException e) {
-                flash("error", ctx().messages().at(INTERNAL_ERROR));
-                return redirect(
-                        controllers.routes.IndexPageController.registerPage());
-            }
-            // TODO doppeltes try
-            try {
-                nonCompletedAchievements = MultiselectList
-                        .createAchievementList(form,
-                                "due-" + spoIdString + "-multiselect");
-            } catch (NumberFormatException e) {
-                flash("error", ctx().messages().at(INTERNAL_ERROR));
-                return redirect(
-                        controllers.routes.IndexPageController.registerPage());
-            }
-
-            if (password.equals(pwRepeat) && trueData) {
-                // wenn der student bestätigt hat das seine angaben richtig
-                // sind und die passwörter übereinstimmen wird ein neuer
-                // student hinzugefügt
-                if (Student.getStudent(matNr) == null) {
-                    String encPassword = new BlowfishPasswordEncoder()
-                            .encode(password);
-                    Student student = new Student(matNrString, encPassword,
-                            email, firstName, lastName, matNr, spo,
-                            completedAchievements, nonCompletedAchievements,
-                            semester);
-                    student.save();
-                    LearningGroup l = new LearningGroup(student.getUserName(),
-                            "");
-                    l.save();
-                    l.doTransaction(() -> {
-                        l.addMember(student);
-                        l.setPrivate(true);
-                        // Ratings initialisieren
-                        for (Project p : GeneralData.loadInstance()
-                                .getCurrentSemester().getProjects()) {
-                            l.rate(p, 3);
-                        }
-                    });
-                    // TODO get student data from view
-                    Semester currentSemester = GeneralData.loadInstance()
-                            .getCurrentSemester();
-                    currentSemester.doTransaction(() -> {
-                        currentSemester.addStudent(student);
-                        currentSemester.addLearningGroup(l);
-                    });
-                    return redirect(
-                            controllers.routes.IndexPageController.indexPage());
-                    // TODO falls nötig noch emial verification einleiten
-                } else {
-
-                    // falls bereits ein studnent mit dieser matrikelnumer
-                    // im system existiert kann sich der student nicht
-                    // registrieren
-                    flash("error", ctx().messages()
-                            .at("index.registration.error.matNrExists"));
-                    return redirect(controllers.routes.IndexPageController
-                            .registerPage());
-                }
-            } else {
-                flash("error", ctx().messages()
-                        .at("index.registration.error.passwordUnequal"));
-                return redirect(
-                        controllers.routes.IndexPageController.registerPage());
-
-            }
 
         } catch (NumberFormatException e) {
             flash("error",
@@ -194,7 +113,82 @@ public class IndexPageController extends Controller {
                     controllers.routes.IndexPageController.registerPage());
 
         }
+        SPO spo = ElipseModel.getById(SPO.class, spoId);
+        boolean trueData = false;
 
+        if (form.get("trueData") != null) {
+            // wenn der student angekreuzt hat das seine Angaben der
+            // Wahrheit entsprechen
+            trueData = true;
+        }
+        List<Achievement> completedAchievements = new ArrayList<>();
+        List<Achievement> nonCompletedAchievements = new ArrayList<>();
+        try {
+            completedAchievements = MultiselectList.createAchievementList(form,
+                    "completed-" + spoIdString + "-multiselect");
+        } catch (NumberFormatException e) {
+            flash("error", ctx().messages().at(INTERNAL_ERROR));
+            return redirect(
+                    controllers.routes.IndexPageController.registerPage());
+        }
+        try {
+            nonCompletedAchievements = MultiselectList.createAchievementList(
+                    form, "due-" + spoIdString + "-multiselect");
+        } catch (NumberFormatException e) {
+            flash("error", ctx().messages().at(INTERNAL_ERROR));
+            return redirect(
+                    controllers.routes.IndexPageController.registerPage());
+        }
+
+        if (password.equals(pwRepeat) && trueData) {
+            // wenn der student bestätigt hat das seine angaben richtig
+            // sind und die passwörter übereinstimmen wird ein neuer
+            // student hinzugefügt
+            if (Student.getStudent(matNr) == null) {
+                String encPassword = new BlowfishPasswordEncoder()
+                        .encode(password);
+                Student student = new Student(matNrString, encPassword, email,
+                        firstName, lastName, matNr, spo, completedAchievements,
+                        nonCompletedAchievements, semester);
+                student.save();
+                LearningGroup l = new LearningGroup(student.getUserName(), "");
+                l.save();
+                l.doTransaction(() -> {
+                    l.addMember(student);
+                    l.setPrivate(true);
+                    // Ratings initialisieren
+                    for (Project p : GeneralData.loadInstance()
+                            .getCurrentSemester().getProjects()) {
+                        l.rate(p, 3);
+                    }
+                });
+                // TODO get student data from view ???
+                Semester currentSemester = GeneralData.loadInstance()
+                        .getCurrentSemester();
+                currentSemester.doTransaction(() -> {
+                    currentSemester.addStudent(student);
+                    currentSemester.addLearningGroup(l);
+                });
+                return redirect(
+                        controllers.routes.IndexPageController.indexPage());
+                // TODO falls nötig noch emial verification einleiten
+            } else {
+
+                // falls bereits ein studnent mit dieser matrikelnumer
+                // im system existiert kann sich der student nicht
+                // registrieren
+                flash("error", ctx().messages()
+                        .at("index.registration.error.matNrExists"));
+                return redirect(
+                        controllers.routes.IndexPageController.registerPage());
+            }
+        } else {
+            flash("error", ctx().messages()
+                    .at("index.registration.error.passwordUnequal"));
+            return redirect(
+                    controllers.routes.IndexPageController.registerPage());
+
+        }
     }
 
     /**
