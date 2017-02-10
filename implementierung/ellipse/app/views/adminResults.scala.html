@@ -28,7 +28,8 @@ List[qualityCriteria.QualityCriterion])
 	<div class="tab-content">
 		@for(allocation <- allocations) {
 		<!-- Einteilungseditierungsseite -->
-		<div role="tabpanel" class="tab-pane" id="allocation-@allocation.getId()">
+		<div role="tabpanel" class="tab-pane"
+			id="allocation-@allocation.getId()">
 			<div class="row">
 				<form method="POST"
 					action="@controllers.routes.AdminEditAllocationController.editAllocation().path()">
@@ -55,9 +56,25 @@ List[qualityCriteria.QualityCriterion])
 							</tbody>
 						</table>
 						}
+						<table class="table table-striped">
+							<thead>
+								<tr>
+									<th></th>
+									<th>@Messages("admin.results.teamNonAllocatedStudents")</th>
+								</tr>
+							</thead>
+							<tbody>
+								@for(student <- allocation.getNotAllocatedStudents()) {
+								<tr>
+									<td><input type="checkbox" name="selected-students[]"
+										value="@student.getId()" id="@student.getId()"></td>
+									<td>@student.getName()</td>
+								</tr>
+								}
+							</tbody>
+						</table>
 					</div>
 					<div class="col-sm-6 col-md-6">
-
 						<div class="form-group">
 							<label class="control-label col-sm-1" for="rpw">@Messages("admin.results.to")</label>
 							<div class="col-sm-3">
@@ -65,6 +82,7 @@ List[qualityCriteria.QualityCriterion])
 									@for(team <- allocation.getTeams()) {
 									<option value="@team.getId()">@team.getProject().getName()
 										- Team #@team.getTeamNumber()</option> }
+									<option value="-1">@Messages("admin.results.teamNonAllocatedStudents")</option>
 								</select>
 							</div>
 						</div>
@@ -132,27 +150,75 @@ List[qualityCriteria.QualityCriterion])
 		<!-- Vergleichstab inhalt -->
 		<div role="tabpanel" class="tab-pane" id="comparison">
 			<div class="row">
-				@for(allocation <- allocations) {
+				@for(alloc <- allocations) {
 				<div class="col-sm-6 col-md-6">
-					<h3>
-						<small>@allocation.getName()</small>
-					</h3>
-					<table class="table table-striped">
-						<thead>
-							<tr>
-								<th>@Messages("admin.results.qualityCriterion")</th>
-								<th>@Messages("admin.results.value")</th>
-							</tr>
-						</thead>
-						<tbody>
-							@for(criterion <- criteria) {
-							<tr>
-								<td>@criterion.getName(messages.lang().code())</td>
-								<td>@criterion.calculate(allocation)</td>
-							</tr>
-							}
-						</tbody>
-					</table>
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3>
+								<small>@alloc.getName()</small>
+							</h3>
+						</div>
+						<div class="panel-body">
+							<table class="table table-striped">
+								<thead>
+									<tr>
+										<th>@Messages("admin.results.qualityCriterion")</th>
+										<th>@Messages("admin.results.value")</th>
+									</tr>
+								</thead>
+								<tbody>
+									@for(criterion <- criteria) {
+									<tr>
+										<td>@criterion.getName(messages.lang().code())</td>
+										<td>@criterion.calculate(alloc)</td>
+									</tr>
+									}
+								</tbody>
+							</table>
+							<div class="panel-group" id="parameter-accordion-@alloc.getId()"
+								role="tablist" aria-multiselectable="true">
+								<div class="panel panel-default">
+									<div class="panel-heading" role="tab"
+										id="heading-@alloc.getId()">
+										<h4 class="panel-title">
+											<small><a role="button" data-toggle="collapse"
+												data-parent="#accordion" href="#collapse-@alloc.getId()"
+												aria-expanded="true" aria-controls="collapse-@alloc.getId()">
+													@Messages("admin.results.usedParameters")</a></small>
+										</h4>
+									</div>
+									<div id="collapse-@alloc.getId()"
+										class="panel-collapse collapse in" role="tabpanel"
+										aria-labelledby="heading-@alloc.getId()">
+										<div class="panel-body">
+											<table class="table table-striped">
+												<thead>
+													<tr>
+														<th>@Messages("admin.results.parameter")</th>
+														<th>@Messages("admin.results.value")</th>
+													</tr>
+												</thead>
+												<tbody>
+													@* Code ist notwendig um den lokalisierten Namen zu
+													bekommen. *@ 
+													@for(criterion <- allocation.AllocationQueue.getInstance().getAllocator().getAllCriteria()) { 
+														@for(parameter <- alloc.getParameters()) {
+															@if(parameter.getName().equals(criterion.getName())) {
+																<tr>
+																	<th>@criterion.getDisplayName(ctx().lang().code())</th>
+																	<th>@parameter.getValue()</th>
+																</tr>
+															} 
+														} 
+													}
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
 				}
 			</div>

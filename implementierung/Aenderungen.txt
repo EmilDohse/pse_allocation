@@ -1,0 +1,150 @@
+data
+	Administrator
+		Klasse hinzugefügt
+	ElipseModel
+		Klasse hinzugefügt
+	Grade
+		Enum hinzugefügt
+	Transaction
+		Interface hinzugefügt
+	Achievement
+		Konstruktoren
+			+Achievement(String)
+		Methoden
+			+compareTo(Achievement) : int
+	Adviser
+		Konstruktoren
+			+Adviser(String, String, String, String)
+		Methoden
+			-addProject(Project)
+			-removeProject(Project)
+			+getProjects(): List<Project>
+	Allocation
+		Konstruktoren
+			+Allocation(List<Team>, String, List<AllocationParameter>)
+			+Allocation(Allocation)
+		Parameter
+			+semester : Semester
+		Methoden
+			+getSemester() : Semester
+			+setSemester(Semester)
+			+getTeam(Student) : Team
+			+setStudentsTeam(Student, Team)
+			+getTeamsByAdviser(Adviser) : List<Team>
+			+getTeamsByProject(Project) : List<Project>
+			+getNotAllocatedStudents() : List<Student>
+			-clone() : Allocation
+	AllocationParameter
+		Konstruktoren
+			+AllocationParameter(String, int)
+	GeneralData
+		Parameter
+			-adminName : String
+			-adminPassword : String
+		Methoden
+			-getAdminName() : String
+			-setAdminName(String)
+			-getAdminPassword() : String
+			-setAdminPassword(String)
+			+loadInstance() : GeneralData
+	LearningGroup
+		Konstruktoren
+			+LearningGroup(String, String)
+			+LearningGroup(String, String, Student, boolean)
+		Parameter
+			+semester : Semester
+		Methoden
+			+getSemester() : Semester
+			+setSemester(Semester)
+			+addMember(Student)
+			+removeMember(Student)
+	Project
+		Konstruktoren
+			+Project(String, String, String, String)
+			+Project(String, Adviser)
+		Parameter
+			+semester : Semester
+		Methoden
+			+setSemester(Semester)
+			+getSemester() : Semester
+			+addAdviser(Adviser)
+			+removeAdviser(Adviser)
+			-getRating(Student) : int
+			-getProject(String, Semester) : Project
+	Rating
+		Konstruktoren
+			+Rating(int, Project)
+		Parameter
+			+learningGroup : LearningGroup
+		Methoden
+			+getLearningGroup() : LearningGroup
+			+setLearningGroup(LearningGroup)
+	Semester
+		Konstruktoren
+			+Semester(String, boolean, int)
+		Parameter
+			+wintersemester : boolean
+			+maxGroupSize : int
+			+year : int
+		Methoden
+			+getMaxGroupSize() : int
+			+setMaxGroupSize(int)
+			+isWintersemester() : boolean
+			+setWintersemester(boolean)
+			+getYear() : int
+			+setYear(int)
+			+addAllocation(Allocation)
+			+removeAllocation(Allocation)
+			+addProject(Project)
+			+removeProject(Project)
+			+addStudent(Student)
+			+removeStudent(Student)
+			+addLearningGroup(LearningGroup)
+			+removeLearningGroup(LearningGroup)
+			+addSPO(SPO)
+			+removeSPO(SPO)
+			+getLearningGroupOf(Student) : LearningGroup
+			+compareTo(Semester) : int
+	SPO
+		Konstruktoren
+			+SPO(String)
+		Methoden
+			+addAdditionalAchievement(Achievement)
+			+removeAdditionalAchievement(Achievement)
+			+addNecessaryAchievement(Achievement)
+			+removeNecessaryAchievement(Achievement)
+			+compareTo(SPO) : int
+			+equals(Object) : boolean
+	Student
+		Konstruktoren
+			Student(String, String, String, String, String, int, SPO, List<Achievement>, List<Achievement>, int)
+		Parameter
+			gradePSE : Grade
+			gradeTSE : Grade
+		Methoden
+			+toStringForNotification() : String
+			+registeredMoreThanOnce() : boolean
+			-getRating(Project) : int
+			-setRating(Project, int)
+			-getCurrentProject() : Project
+			-getCurrentTeam() : Team
+	Team
+		Konstruktoren
+			+Team(Project, List<Student>)
+		Parameter
+			+teamNumber : int
+			+allocation : Allocation
+		Methoden
+			+getAllocation() : Allocation
+			+setAllocation(Allocation)
+			+getTeamNumber() : int
+			+setTeamNumber(int)
+			+addMember(Student)
+			+removeMember(Student)
+			+toStringForNotification() : String
+			-getRating(Student) : int
+	User
+		Konstruktoren
+			User(String, String, String, String, String)
+		Methoden
+			+compareTo(User) : int

@@ -1,34 +1,34 @@
 Projekt;Teamnummer;Mitglieder
-3D Reconstruction Framework from Multi-View Images (3D-MuVi);1;1124453,1137884,1238364,1264488,1387552,1507583
-Android-Applikation KIT-Mensa-Speiseplan;1;1057908,1150260,1295143,1433689,1541914,1785069
-Android-Applikation KIT-Mensa-Speiseplan;2;1003391,1336575,1470725,1650725,1923889,1979769
-Android-Applikation KIT-Mensa-Speiseplan;3;1204065,1208000,1238079,1531192,1541700,1938300
-Android-Applikation KIT-Mensa-Speiseplan;4;992573,1293673,1358287,1551031,1834916,1869874
-Assistenztools für den Maschinenbau;1;923391,1306149,1395521,1422557,1591060,1864682
-ChronoCommand - An Intelligent Web-Based Work Time Tracking Tool;1;1136871,1204499,1220369,1584629,1943325,1996438
-ChronoCommand - An Intelligent Web-Based Work Time Tracking Tool;2;945068,1307101,1561476,1766798,1947185,1993734
-Crowd Control -- Entwicklung von Steuerungsmechanismen für das Crowd Computing;1;1239682,1415828,1493177,1826618,1893338,1893940
-Crowd Control -- Entwicklung von Steuerungsmechanismen für das Crowd Computing;2;1096801,1278115,1371212,1429752,1791564,1889289
-DataDealer - Middelware für die interaktive Visualisierung verteilter Sensoren in WebApps;1;1138311,1247547,1296011,1582488,1605186,1788742
-DataDealer - Middelware für die interaktive Visualisierung verteilter Sensoren in WebApps;2;1076959,1110745,1112828,1292450,1696887,1809601
-DataScientist -- benutzerorientierte Analyse großer hochdimensionaler Datenbestände;1;926676,1056056,1333120,1652209,1772277,1955345
-DataScientist -- benutzerorientierte Analyse großer hochdimensionaler Datenbestände;2;927867,1237835,1252790,1288970,1495005,1774052
-Der Microsoft Imagine Cup 2016 (nur 4er Teams);1;1009386,1019087,1278649,1432745
-Der Microsoft Imagine Cup 2016 (nur 4er Teams);2;1115979,1288515,1323482,1807606
-Der Microsoft Imagine Cup 2016 (nur 4er Teams);3;1061731,1123154,1235953,1788634
-Der WorkspaceService - Die smarte Lernumgebung am KIT basierend auf HTML5 und REST;1;950313,994188,1043511,1227725,1806396,1953388
-Distributed Camera Network 3D Calibration Suite;1;930707,1190408,1390303,1618947,1927810,1959413
-Dynamic scheduler for scientific simulations;1;1247503,1258439,1604870,1623446,1658158,1787415
-Echtzeit-Computergrafik in der Spieleentwicklung;1;1117898,1341061,1544865,1629876,1656592,1937418
-Industrie 4.0 und OPC UA;1;991914,1024025,1068739,1244843,1305788,1452292
-Interaktive Visualisierung von Real-Estate-Daten;1;988022,1310605,1598015,1750409,1752070,1897625
-Komponenten-Windkanal - Automatisches Ausmessen der Performance von Software-Komponenten;1;903151,1222998,1240791,1724258,1879521,1915752
-Medienbrowser zur inhaltsbasierten Suche in Bild- und Videodaten;1;911578,968102,1070429,1464387,1583687,1660505
-Mobile Reconnaissance Manual -interaktive Assistenz für Erkennungsaufgaben;1;1028343,1463131,1480999,1530023,1633637,1980797
-Modulares Multimedia-Werkzeug zum Testen von Videoencodern;1;980210,1114187,1192054,1712834,1805345,1844474
-Modulares Multimedia-Werkzeug zum Testen von Videoencodern;2;1378335,1469651,1506197,1597350,1730818,1793391
-Node.js Bindings for ROOT6 (auf Englisch);1;907829,1114295,1320743,1363294,1915750,1947758
-OpenID Connect for Linux (auf Englisch);1;967540,1080592,1236056,1384172,1416815,1709968
-ProfiNet-Modul für das Intrusion-Detection-System Snort;1;1216645,1450017,1529980,1588933,1627030,1861490
-RoboCorder - Aufnahme und Wiedergabe von heterogenen Sensordaten eines humanoiden Roboters;1;983692,1018651,1244009,1550534,1819313,1826004
-Webapplikation zur Verwaltung Nachbearbeitung und Analyse multispektraler Datensätze;1;1162895,1245029,1292726,1458943,1619466,1674713
+3D Reconstruction Framework from Multi-View Images (3D-MuVi);1;907829,1137884,1296011,1541914,1591060,1855997
+Android-Applikation KIT-Mensa-Speiseplan;1;949579,1452292,1531192,1541700,1652209,1943325
+Android-Applikation KIT-Mensa-Speiseplan;2;1068739,1222998,1292380,1529980,1730818,1844568
+Android-Applikation KIT-Mensa-Speiseplan;3;1096801,1124453,1190408,1320743,1340845,1970293
+Android-Applikation KIT-Mensa-Speiseplan;4;1204065,1395521,1416815,1712834,1774052,1947758
+Assistenztools für den Maschinenbau;1;927867,1117898,1238079,1369457,1432745,1980797
+ChronoCommand - An Intelligent Web-Based Work Time Tracking Tool;1;1384172,1415828,1582488,1674713,1772277,1788634
+ChronoCommand - An Intelligent Web-Based Work Time Tracking Tool;2;1236056,1305788,1644076,1791564,1861490,1997470
+Crowd Control -- Entwicklung von Steuerungsmechanismen für das Crowd Computing;1;1227725,1239682,1495005,1788742,1793391,1864682
+Crowd Control -- Entwicklung von Steuerungsmechanismen für das Crowd Computing;2;1019087,1115979,1235953,1293673,1650725,1938300
+DataDealer - Middelware für die interaktive Visualisierung verteilter Sensoren in WebApps;1;1024025,1112828,1464387,1561476,1619466,1620788
+DataDealer - Middelware für die interaktive Visualisierung verteilter Sensoren in WebApps;2;1043511,1192054,1327562,1363294,1544865,1775528
+DataScientist -- benutzerorientierte Analyse großer hochdimensionaler Datenbestände;1;927135,1070429,1341061,1378335,1530023,1605186
+DataScientist -- benutzerorientierte Analyse großer hochdimensionaler Datenbestände;2;1216645,1292726,1295143,1371212,1809601,1915752
+Der Microsoft Imagine Cup 2016 (nur 4er Teams);1;1422557,1469651,1750409,1808333
+Der Microsoft Imagine Cup 2016 (nur 4er Teams);2;991914,1061731,1211387,1806396
+Der Microsoft Imagine Cup 2016 (nur 4er Teams);3;903151,1633637,1834916,1893338
+Der WorkspaceService - Die smarte Lernumgebung am KIT basierend auf HTML5 und REST;1;930707,1138311,1162895,1306149,1584629,1923889
+Distributed Camera Network 3D Calibration Suite;1;1155102,1307101,1358287,1656592,1819313,1979769
+Dynamic scheduler for scientific simulations;1;945068,950313,1551031,1604870,1658158,1752070
+Echtzeit-Computergrafik in der Spieleentwicklung;1;1220369,1379355,1463131,1893940,1987434,1996438
+Industrie 4.0 und OPC UA;1;926676,1323482,1450017,1454446,1523702,1598015
+Interaktive Visualisierung von Real-Estate-Daten;1;1076959,1114187,1123154,1433689,1462989,1869874
+Komponenten-Windkanal - Automatisches Ausmessen der Performance von Software-Komponenten;1;1080592,1244009,1244843,1498916,1805345,1889289
+Medienbrowser zur inhaltsbasierten Suche in Bild- und Videodaten;1;1018651,1278649,1310605,1709968,1719914,1799651
+Mobile Reconnaissance Manual -interaktive Assistenz für Erkennungsaufgaben;1;1238364,1240791,1247503,1336575,1629876,1915750
+Modulares Multimedia-Werkzeug zum Testen von Videoencodern;1;1114295,1247547,1588933,1623446,1927810,1947185
+Modulares Multimedia-Werkzeug zum Testen von Videoencodern;2;967540,1150260,1237835,1278115,1422801,1480999
+Node.js Bindings for ROOT6 (auf Englisch);1;988022,1028343,1204499,1387552,1390303,1458943
+OpenID Connect for Linux (auf Englisch);1;968102,1056056,1429752,1612340,1660505,1993734
+ProfiNet-Modul für das Intrusion-Detection-System Snort;1;1261403,1288515,1740520,1785069,1844474,1897625
+RoboCorder - Aufnahme und Wiedergabe von heterogenen Sensordaten eines humanoiden Roboters;1;992573,1245029,1288970,1493177,1507583,1583687
+Webapplikation zur Verwaltung Nachbearbeitung und Analyse multispektraler Datensätze;1;911578,923391,994188,1009386,1092834,1955345
