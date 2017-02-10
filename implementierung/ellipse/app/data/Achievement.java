@@ -24,7 +24,7 @@ public class Achievement extends ElipseModel implements Comparable<Achievement> 
     @NotNull
     private String name;
 
-    public Achievement() {
+    public Achievement() throws DataException {
         this("default_name");
     }
 

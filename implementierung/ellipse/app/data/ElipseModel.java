@@ -13,9 +13,10 @@ import exception.DataException;
 @MappedSuperclass
 public abstract class ElipseModel extends Model {
 
-    public static final String LIST_EMPTY_ERROR   = "general.error.noEmptyList";
-    public static final String STRING_EMPTY_ERROR = "general.error.noEmptyString";
-    public static final String IS_NULL_ERROR      = "general.error.isNull";
+    public static final String LIST_EMPTY_ERROR        = "general.error.noEmptyList";
+    public static final String STRING_EMPTY_ERROR      = "general.error.noEmptyString";
+    public static final String IS_NULL_ERROR           = "general.error.isNull";
+    public static final int    MINIMAL_PASSWORD_LENGTH = 6;
     /**
      * Eindeutige ID des Objektes.
      */

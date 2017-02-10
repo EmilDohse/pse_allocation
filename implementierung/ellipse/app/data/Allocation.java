@@ -52,18 +52,24 @@ public class Allocation extends ElipseModel {
      * @param parameters
      *            Die eingestellten Parameter
      */
-    public Allocation(List<Team> teams, String name,
-            List<AllocationParameter> parameters) {
+    public Allocation(List<Team> teams, String name, List<AllocationParameter> parameters) {
         super();
-        this.teams = teams;
-        this.name = name;
-        this.parameters = parameters;
+        this.setTeams(teams);
+        this.setName(name);
+        this.setParameters(parameters);
     }
 
+    /**
+     * Erstellt eine neue Allocation mit dem Namen "defaut_name"
+     */
     public Allocation() {
         this(new ArrayList<>(), "default_name", new ArrayList<>());
     }
 
+    /**
+     * 
+     * @param a
+     */
     public Allocation(Allocation a) {
         // Hier wird kein Save aufgerufen sondern nur außerhalb auf dem
         // geklonten Objekt, da sonst nicht korrekt gespeichert wird
@@ -82,8 +88,7 @@ public class Allocation extends ElipseModel {
         }
         // Parameter klonen
         for (AllocationParameter p : a.getParameters()) {
-            AllocationParameter newParameter = new AllocationParameter(
-                    p.getName(), p.getValue());
+            AllocationParameter newParameter = new AllocationParameter(p.getName(), p.getValue());
             this.parameters.add(newParameter);
         }
         this.name = "cloned" + a.getName();
@@ -243,8 +248,7 @@ public class Allocation extends ElipseModel {
      * @return nicht zugeteilte Studenten.
      */
     public List<Student> getNotAllocatedStudents() {
-        List<Student> students = semester.getStudents().stream()
-                .filter(student -> (getTeam(student) == null))
+        List<Student> students = semester.getStudents().stream().filter(student -> (getTeam(student) == null))
                 .collect(Collectors.toList());
 
         return students;
@@ -269,9 +273,8 @@ public class Allocation extends ElipseModel {
      *         Einteilung diesen Namen hat.
      */
     public static Allocation getAllocation(String name) {
-        return getAllocations().stream()
-                .filter(allocation -> allocation.getName().equals(name))
-                .findFirst().orElse(null);
+        return getAllocations().stream().filter(allocation -> allocation.getName().equals(name)).findFirst()
+                .orElse(null);
     }
 
 }

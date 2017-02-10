@@ -28,6 +28,7 @@ import data.SPO;
 import data.Semester;
 import data.Student;
 import data.Team;
+import exception.DataException;
 import exception.ImporterException;
 
 /************************************************************/
@@ -55,8 +56,7 @@ public class Importer {
      * @throws ImporterException
      *             Wird vom Controller behandelt.
      */
-    public void importAllocation(File file, Semester semester)
-            throws ImporterException {
+    public void importAllocation(File file, Semester semester) throws ImporterException {
 
         Allocation importedAllocation = new Allocation();
         ArrayList<Team> importedTeams = new ArrayList<>();
@@ -145,8 +145,7 @@ public class Importer {
                     importedAllocation.setTeams(importedTeams);
                     importedAllocation.setName("importierte Einteilung");
                     importedAllocation.setParameters(new ArrayList<>());
-                    importedAllocation.setSemester(
-                            GeneralData.loadInstance().getCurrentSemester());
+                    importedAllocation.setSemester(GeneralData.loadInstance().getCurrentSemester());
                 });
             }
         } catch (FileNotFoundException e) {
@@ -167,10 +166,8 @@ public class Importer {
      * @throws ImporterException
      *             wird vom Controller behandelt.
      */
-    public void exportAllocation(File file, Allocation allocation)
-            throws ImporterException {
-        try (BufferedWriter bw = new BufferedWriter(
-                new OutputStreamWriter(new FileOutputStream(file), "utf-8"))) {
+    public void exportAllocation(File file, Allocation allocation) throws ImporterException {
+        try (BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), "utf-8"))) {
 
             // Schreibe Kopfzeile
             String header = "Projekt;Teamnummer;Mitglieder";
@@ -206,8 +203,7 @@ public class Importer {
      *            Das Semester, bei dem die Daten aktualisiert.
      */
     @Deprecated
-    public void importCMSData(String file, Semester semester)
-            throws ImporterException {
+    public void importCMSData(String file, Semester semester) throws ImporterException {
     }
 
     /**
@@ -220,8 +216,7 @@ public class Importer {
      *            sollen.
      */
     @Deprecated
-    public void exportCMSData(String file, Semester semester)
-            throws ImporterException {
+    public void exportCMSData(String file, Semester semester) throws ImporterException {
 
     }
 
@@ -243,10 +238,8 @@ public class Importer {
             // Prüfe, ob Kopzeile die richtige Länge, sowie richtige Namen hat
             boolean headerLength = (headerSplit.length == 3);
             boolean firstColumn = headerSplit[0].equals("Name");
-            boolean secondColumn = headerSplit[1]
-                    .equals("Additional Achievements");
-            boolean thirdColumn = headerSplit[2]
-                    .equals("Necessary Achievements");
+            boolean secondColumn = headerSplit[1].equals("Additional Achievements");
+            boolean thirdColumn = headerSplit[2].equals("Necessary Achievements");
 
             if (!(headerLength && firstColumn && secondColumn && thirdColumn)) {
                 throw new ImporterException(WRONG_FORMAT);
@@ -285,41 +278,50 @@ public class Importer {
             });
             List<Achievement> additionalAchievements = new ArrayList<Achievement>();
             List<Achievement> necessaryAchievements = new ArrayList<Achievement>();
-
             // Teile die zusätzlichen Teilleistungen weiter auf
             String[] additionalSplit = lineSplit[1].split(",");
             for (int i = 0; i < additionalSplit.length; i++) {
 
                 // Prüfe, ob die aktuelle Teilleistung schon
                 // existiert, wenn nicht lege sie an
-                Achievement currentAchievement = Achievement
-                        .getAchievement(additionalSplit[i]);
+                Achievement currentAchievement = Achievement.getAchievement(additionalSplit[i]);
                 if (currentAchievement != null) {
                     additionalAchievements.add(currentAchievement);
                 } else {
-                    Achievement newAchievement = new Achievement();
-                    String name = additionalSplit[i];
-                    newAchievement.doTransaction(() -> {
-                        newAchievement.setName(name);
-                    });
-                    additionalAchievements.add(newAchievement);
+                    try {
+                        Achievement newAchievement = new Achievement();
+                        String name = additionalSplit[i];
+                        newAchievement.doTransaction(() -> {
+                            newAchievement.setName(name);
+                        });
+                        additionalAchievements.add(newAchievement);
+                    } catch (DataException e) {
+                        // TODO
+                    }
+
                 }
             }
 
             // Selbes Vorgehen für notwendige Teilleistungen
             String[] necessarySplit = lineSplit[2].split(",");
             for (int i = 0; i < necessarySplit.length; i++) {
-                Achievement currentAchievement = Achievement
-                        .getAchievement(necessarySplit[i]);
+                Achievement currentAchievement = Achievement.getAchievement(necessarySplit[i]);
                 if (currentAchievement != null) {
                     necessaryAchievements.add(currentAchievement);
                 } else {
-                    Achievement newAchievement = new Achievement();
-                    String name = necessarySplit[i];
-                    newAchievement.doTransaction(() -> {
-                        newAchievement.setName(name);
-                    });
-                    necessaryAchievements.add(newAchievement);
+                    Achievement newAchievement;
+                    try {
+                        newAchievement = new Achievement();
+                        String name = necessarySplit[i];
+                        newAchievement.doTransaction(() -> {
+                            newAchievement.setName(name);
+                        });
+                        necessaryAchievements.add(newAchievement);
+                    } catch (DataException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+
                 }
             }
             importedSpo.doTransaction(() -> {
@@ -345,8 +347,7 @@ public class Importer {
      *             Wird vom Controller behandelt.
      */
     public void exportSPO(File file, SPO spo) throws ImporterException {
-        try (BufferedWriter writer = new BufferedWriter(
-                new OutputStreamWriter(new FileOutputStream(file), "utf-8"))) {
+        try (BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), "utf-8"))) {
 
             // Write Header
             writer.write("Name;Additional Achievements;Necessary Achievements");
@@ -381,191 +382,6 @@ public class Importer {
     }
 
     /**
-     * TESTMETHODE!!! NICHT VERWENDEN!! Importiert Testdaten (Studenten und
-     * Projekte)
-     * 
-     * @param studentFile
-     *            Pfad zu einer .csv Datei mit Studenten.
-     * @param projectFile
-     *            Pfad zu einer .csv Datei mit Projekten
-     */
-    @Deprecated
-    public void importTestData(String studentFile, String projectFile) {
-        Semester testSemester = new Semester("TestSemester", true, 2016);
-        ArrayList<Project> testProjects = new ArrayList<>();
-        ArrayList<Student> testStudents = new ArrayList<>();
-        ArrayList<LearningGroup> testLearningGroups = new ArrayList<>();
-        testSemester.doTransaction(() -> {
-            testSemester.setInfoText("Ich bin ein Infotext");
-            testSemester.setProjects(testProjects);
-            testSemester.setStudents(testStudents);
-            testSemester.setLearningGroups(testLearningGroups);
-
-        });
-        SPO testSPO;
-        if (SPO.getSPO("testSPO") == null) {
-            testSPO = new SPO("testSPO");
-            testSPO.save();
-            Achievement testHMorLA = new Achievement("testHMorLA");
-            Achievement testSWT = new Achievement("testSWT");
-            Achievement testAlgo = new Achievement("testAlgo");
-            testAlgo.save();
-            testSWT.save();
-            testHMorLA.save();
-            testSPO.doTransaction(() -> {
-                testSPO.addNecessaryAchievement(testHMorLA);
-                testSPO.addNecessaryAchievement(testSWT);
-                testSPO.addAdditionalAchievement(testAlgo);
-            });
-
-        } else {
-            testSPO = SPO.getSPO("testSPO");
-        }
-        testSemester.doTransaction(() -> {
-            testSemester.addSPO(testSPO);
-        });
-
-        String line = new String();
-        String splitter = ";";
-
-        Adviser dummy = new Adviser("Dummy", "dummy", "dummy@gmx.de", "Dum",
-                "My");
-        dummy.save();
-        ArrayList<Adviser> advisers = new ArrayList<>();
-        advisers.add(dummy);
-
-        try (BufferedReader br = new BufferedReader(
-                new FileReader(projectFile))) {
-            br.readLine();
-            while ((line = br.readLine()) != null && line.length() != 0) {
-
-                String[] attributes = line.split(splitter);
-                if (!attributes[0].contains("Webapplikation")) {
-                    String name = attributes[0];
-                    String institute = attributes[1];
-                    int numberOfTeams = Integer.parseInt(attributes[2]);
-                    int minSize = Integer.parseInt(attributes[3]);
-                    int maxSize = Integer.parseInt(attributes[4]);
-
-                    Project importedProject = new Project();
-                    importedProject.doTransaction(() -> {
-                        importedProject.setName(name);
-                        importedProject.setInstitute(institute);
-                        importedProject.setNumberOfTeams(numberOfTeams);
-                        importedProject.setMinTeamSize(minSize);
-                        importedProject.setMaxTeamSize(maxSize);
-                        importedProject.setAdvisers(advisers);
-                        importedProject.setProjectInfo(new String());
-                        importedProject.setProjectURL(new String());
-                    });
-                    testProjects.add(importedProject);
-                    testSemester.save();
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-            return;
-        }
-        try (BufferedReader br = new BufferedReader(
-                new FileReader(studentFile))) {
-            br.readLine();
-            while ((line = br.readLine()) != null && line.length() != 0) {
-
-                String[] attributes = line.split(splitter);
-
-                int matNr = Integer.parseInt(attributes[0]);
-                String firstName = attributes[1].split(" ")[0];
-                String lastName = attributes[1].split(" ")[1];
-                int semester = Integer.parseInt(attributes[4]);
-                ArrayList<Achievement> completedAchievements = new ArrayList<>();
-                if (attributes[5].equals("True")
-                        || attributes[6].equals("True")) {
-                    completedAchievements
-                            .add(Achievement.getAchievement("testHMorLA"));
-                }
-                if (attributes[7].equals("True")) {
-                    completedAchievements
-                            .add(Achievement.getAchievement("testSWT"));
-                }
-                if (attributes[8].equals("True")) {
-                    completedAchievements
-                            .add(Achievement.getAchievement("testAlgo"));
-                }
-
-                Student importedStudent = new Student();
-                importedStudent.doTransaction(() -> {
-                    importedStudent.setUserName(new String() + matNr);
-                    importedStudent.setPassword("123");
-                    importedStudent.setEmailAddress(new String());
-                    importedStudent.setFirstName(firstName);
-                    importedStudent.setLastName(lastName);
-
-                    importedStudent.setMatriculationNumber(matNr);
-                    importedStudent.setSPO(testSPO);
-                    importedStudent
-                            .setCompletedAchievements(completedAchievements);
-                    importedStudent.setRegisteredPSE(true);
-                    importedStudent.setRegisteredTSE(true);
-                    importedStudent.setGradePSE(Grade.UNKNOWN);
-                    importedStudent.setGradeTSE(Grade.UNKNOWN);
-                    importedStudent.setOralTestAchievements(
-                            new ArrayList<Achievement>());
-                    importedStudent.setSemester(semester);
-                    importedStudent.setEmailAddress(new String());
-                    importedStudent.setIsEmailVerified(false);
-
-                });
-                testStudents.add(importedStudent);
-
-                LearningGroup currentGroup;
-                if (attributes[2].length() != 0) {
-                    if (LearningGroup.getLearningGroup(attributes[2],
-                            testSemester) == null) {
-                        currentGroup = new LearningGroup();
-                        currentGroup.doTransaction(() -> {
-                            currentGroup.setName(attributes[2]);
-                            currentGroup.addMember(importedStudent);
-                            currentGroup.setPrivate(false);
-                            currentGroup.setPassword("123");
-                        });
-                        testLearningGroups.add(currentGroup);
-                    } else {
-                        currentGroup = LearningGroup
-                                .getLearningGroup(attributes[2], testSemester);
-                        currentGroup.doTransaction(() -> {
-                            currentGroup.addMember(importedStudent);
-                        });
-                    }
-                } else {
-                    currentGroup = new LearningGroup();
-                    currentGroup.doTransaction(() -> {
-                        currentGroup.setName("test"
-                                + importedStudent.getMatriculationNumber());
-                        currentGroup.setPrivate(true);
-                        currentGroup.addMember(importedStudent);
-                        currentGroup.setPassword("123");
-                    });
-                    testLearningGroups.add(currentGroup);
-                }
-                testSemester.save();
-
-                ArrayList<Rating> ratings = new ArrayList<>();
-                Rating currentRating;
-                for (int i = 0; i < testSemester.getProjects().size(); i++) {
-                    currentRating = new Rating(
-                            Integer.parseInt(attributes[9 + i]) + 1,
-                            testProjects.get(i));
-                    ratings.add(currentRating);
-                }
-                currentGroup.setRatings(ratings);
-                currentGroup.save();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
      * Importiert eine Liste von Studenten aus einer .csv Datei. Studenten
      * werden nur importiert, wenn noch keine Studenten für das Semester
      * registriert sind. Studenten werden nur importiert, wenn alle Projekte
@@ -579,8 +395,7 @@ public class Importer {
      * @throws ImporterException
      *             Wird vom Controller behandelt.
      */
-    public void importStudents(File file, Semester semester)
-            throws ImporterException {
+    public void importStudents(File file, Semester semester) throws ImporterException {
         // Prüfe ob die Studentenliste leer ist
         if (!(semester.getStudents().size() == 0)) {
             throw new ImporterException("importer.notEmptyStudents");
@@ -591,9 +406,8 @@ public class Importer {
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
 
             int wantedColumns = 11 + semester.getProjects().size();
-            String[] wantedHeader = { "MatNr", "Vorname", "Nachname", "E-Mail",
-                    "Passwort", "Lerngruppenname", "LerngruppePasswort", "SPO",
-                    "Fachsemester", "Bestandene Teilleistungen",
+            String[] wantedHeader = { "MatNr", "Vorname", "Nachname", "E-Mail", "Passwort", "Lerngruppenname",
+                    "LerngruppePasswort", "SPO", "Fachsemester", "Bestandene Teilleistungen",
                     "Noch ausstehende Teilleistungen" };
 
             String header = br.readLine();
@@ -673,10 +487,8 @@ public class Importer {
 
                 // Prüfe, ob alle notwendigen Teilleistungen bestanden
                 // wurden
-                for (int i = 0; i < spo.getNecessaryAchievements()
-                        .size(); i++) {
-                    if (!completedAchievements
-                            .contains(spo.getNecessaryAchievements().get(i))) {
+                for (int i = 0; i < spo.getNecessaryAchievements().size(); i++) {
+                    if (!completedAchievements.contains(spo.getNecessaryAchievements().get(i))) {
                         throw new ImporterException(WRONG_FORMAT);
                     }
                 }
@@ -685,10 +497,8 @@ public class Importer {
                 String email = lineSplit[3];
                 String password = lineSplit[4];
                 // Erzeuge den Studenten
-                Student importedStudent = new Student(new String() + matNr,
-                        password, email, firstName, lastName, matNr, spo,
-                        completedAchievements, oralTestAchievements,
-                        semesterNumber);
+                Student importedStudent = new Student(new String() + matNr, password, email, firstName, lastName, matNr,
+                        spo, completedAchievements, oralTestAchievements, semesterNumber);
                 importedStudent.doTransaction(() -> {
                     importedStudent.setRegisteredPSE(false);
                     importedStudent.setRegisteredTSE(false);
@@ -705,8 +515,7 @@ public class Importer {
                 if (lineSplit[5].length() != 0) {
                     // Erzeuge neue Gruppe mit dem gesetzten Namen, falls sie
                     // noch nicht existiert
-                    if (LearningGroup.getLearningGroup(lineSplit[5],
-                            semester) == null) {
+                    if (LearningGroup.getLearningGroup(lineSplit[5], semester) == null) {
                         currentGroup = new LearningGroup();
                         currentGroup.doTransaction(() -> {
                             currentGroup.setName(lineSplit[5]);
@@ -718,8 +527,7 @@ public class Importer {
                         // Füge der Gruppe mit dem gesetzten Namen den Studenten
                         // hinzu, falls sie schon existiert
                     } else {
-                        currentGroup = LearningGroup
-                                .getLearningGroup(lineSplit[5], semester);
+                        currentGroup = LearningGroup.getLearningGroup(lineSplit[5], semester);
                         currentGroup.doTransaction(() -> {
                             currentGroup.addMember(importedStudent);
                         });
@@ -729,8 +537,7 @@ public class Importer {
                 } else {
                     currentGroup = new LearningGroup();
                     currentGroup.doTransaction(() -> {
-                        currentGroup.setName(new String()
-                                + importedStudent.getMatriculationNumber());
+                        currentGroup.setName(new String() + importedStudent.getMatriculationNumber());
                         currentGroup.setPrivate(true);
                         currentGroup.addMember(importedStudent);
                         currentGroup.setPassword(new String());
@@ -740,8 +547,7 @@ public class Importer {
                 ArrayList<Rating> LeaningGoupRatings = new ArrayList<>();
                 Rating currentRating;
                 for (int i = 11; i < lineSplit.length; i++) {
-                    currentRating = new Rating(ratings[i - 11],
-                            getProjectByName(semester, headerSplit[i]));
+                    currentRating = new Rating(ratings[i - 11], getProjectByName(semester, headerSplit[i]));
                     currentRating.save();
                     LeaningGoupRatings.add(currentRating);
                 }
@@ -767,10 +573,8 @@ public class Importer {
      * @throws ImporterException
      *             Wird vom Controller behandelt.
      */
-    public void exportStudents(File file, Semester semester)
-            throws ImporterException {
-        try (BufferedWriter bw = new BufferedWriter(
-                new OutputStreamWriter(new FileOutputStream(file), "utf-8"))) {
+    public void exportStudents(File file, Semester semester) throws ImporterException {
+        try (BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), "utf-8"))) {
             String header = "MatNr;Vorname;Nachname;E-Mail;Passwort;Lerngruppenname;LerngruppePasswort;"
                     + "SPO;Fachsemester;Bestandene Teilleistungen;Noch ausstehende Teilleistungen;";
             for (Project project : semester.getProjects()) {
@@ -799,15 +603,13 @@ public class Importer {
                 output += student.getSPO().getName() + ";";
                 output += student.getSemester() + ";";
 
-                for (Achievement achievement : student
-                        .getCompletedAchievements()) {
+                for (Achievement achievement : student.getCompletedAchievements()) {
                     output += achievement.getName() + ",";
                 }
                 output = output.substring(0, output.length() - 1) + ";";
 
                 if (!student.getOralTestAchievements().isEmpty()) {
-                    for (Achievement achievement : student
-                            .getOralTestAchievements()) {
+                    for (Achievement achievement : student.getOralTestAchievements()) {
                         output += achievement.getName() + ",";
                     }
                     output = output.substring(0, output.length() - 1) + ";";
@@ -816,8 +618,7 @@ public class Importer {
                 }
 
                 for (Project project : semester.getProjects()) {
-                    int rating = semester.getLearningGroupOf(student)
-                            .getRating(project);
+                    int rating = semester.getLearningGroupOf(student).getRating(project);
                     output += rating + ";";
                 }
                 output.substring(0, output.length() - 1);
@@ -842,8 +643,7 @@ public class Importer {
      * @throws ImporterException
      *             Wird vom Controller behandelt.
      */
-    public void importProjects(File file, Semester semester)
-            throws ImporterException {
+    public void importProjects(File file, Semester semester) throws ImporterException {
 
         // Prüfe, ob die Projektliste des Smeesters noch leer ist
         if (!semester.getProjects().isEmpty()) {
@@ -851,8 +651,8 @@ public class Importer {
         }
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             String header = br.readLine();
-            String[] wantedHeader = { "Name", "Institut", "Anzahl Teams",
-                    "Min. Size", "Max. Size", "Projekt URL", "Projektinfo" };
+            String[] wantedHeader = { "Name", "Institut", "Anzahl Teams", "Min. Size", "Max. Size", "Projekt URL",
+                    "Projektinfo" };
             String[] headerSplit = header.split(";");
 
             // Prüfe, ob Header die gewünschte Länge hat
@@ -936,10 +736,8 @@ public class Importer {
      * @throws ImporterException
      *             wird vom Controller behandelt.
      */
-    public void exportProjects(File file, Semester semester)
-            throws ImporterException {
-        try (BufferedWriter bw = new BufferedWriter(
-                new OutputStreamWriter(new FileOutputStream(file), "utf-8"))) {
+    public void exportProjects(File file, Semester semester) throws ImporterException {
+        try (BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), "utf-8"))) {
             String header = "Name;Institut;Anzahl Teams;Min. Size;Max. Size;Projekt URL;Projektinfo";
             bw.write(header);
             bw.newLine();
@@ -974,10 +772,8 @@ public class Importer {
      * @throws ImporterException
      *             Wird vom Controller behandelt.
      */
-    public void exportGrades(File file, Semester semester)
-            throws ImporterException {
-        try (BufferedWriter bw = new BufferedWriter(
-                new OutputStreamWriter(new FileOutputStream(file), "utf-8"))) {
+    public void exportGrades(File file, Semester semester) throws ImporterException {
+        try (BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), "utf-8"))) {
             String header = "Matrikelnummer;Note PSE;Note TSE";
             bw.write(header);
             bw.newLine();
@@ -996,20 +792,17 @@ public class Importer {
         }
     }
 
-    private ArrayList<Achievement> parseAchievements(String[] split, SPO spo)
-            throws ImporterException {
+    private ArrayList<Achievement> parseAchievements(String[] split, SPO spo) throws ImporterException {
         ArrayList<Achievement> achievements = new ArrayList<>();
 
         for (int i = 0; i < split.length; i++) {
-            Achievement currentAchievement = Achievement
-                    .getAchievement(split[i]);
+            Achievement currentAchievement = Achievement.getAchievement(split[i]);
             if (currentAchievement == null) {
                 throw new ImporterException(WRONG_FORMAT);
             }
             // Prüfe, ob die Teilleistungen in der SPO existieren
             if (!((spo.getNecessaryAchievements().contains(currentAchievement))
-                    || spo.getAdditionalAchievements()
-                            .contains(currentAchievement))) {
+                    || spo.getAdditionalAchievements().contains(currentAchievement))) {
                 throw new ImporterException(WRONG_FORMAT);
             }
             achievements.add(currentAchievement);
@@ -1028,10 +821,8 @@ public class Importer {
         return project;
     }
 
-    private boolean duplicateTeamNumber(int teamNr, ArrayList<Team> teams,
-            Project project) {
-        List<Team> wantedTeams = teams.stream()
-                .filter(team -> team.getProject().equals(project))
+    private boolean duplicateTeamNumber(int teamNr, ArrayList<Team> teams, Project project) {
+        List<Team> wantedTeams = teams.stream().filter(team -> team.getProject().equals(project))
                 .collect(Collectors.toList());
         boolean duplicate = false;
         for (int i = 0; i < wantedTeams.size(); i++) {
