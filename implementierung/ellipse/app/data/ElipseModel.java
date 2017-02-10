@@ -13,11 +13,14 @@ import exception.DataException;
 @MappedSuperclass
 public abstract class ElipseModel extends Model {
 
+    public static final String LIST_EMPTY_ERROR   = "general.error.noEmptyList";
+    public static final String STRING_EMPTY_ERROR = "general.error.noEmptyString";
+    public static final String IS_NULL_ERROR      = "general.error.isNull";
     /**
      * Eindeutige ID des Objektes.
      */
     @Id
-    private int id;
+    private int                id;
 
     /**
      * Getter für die eindeutige ID des Objektes.

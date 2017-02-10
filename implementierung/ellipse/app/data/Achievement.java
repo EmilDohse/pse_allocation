@@ -9,6 +9,8 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.validation.constraints.NotNull;
 
+import exception.DataException;
+
 /************************************************************/
 /**
  * Diese Klasse stellt eine Teilleistung im Studium dar.
@@ -26,9 +28,17 @@ public class Achievement extends ElipseModel implements Comparable<Achievement> 
         this("default_name");
     }
 
-    public Achievement(String name) {
+    /**
+     * Erstellt ein neues Achievment
+     * 
+     * @param name
+     *            mit dem gegebenen namen
+     * @throws DataException
+     *             der name darf nicht leer sein
+     */
+    public Achievement(String name) throws DataException {
         super();
-        this.name = name;
+        this.setName(name);
     }
 
     /**
@@ -45,8 +55,13 @@ public class Achievement extends ElipseModel implements Comparable<Achievement> 
      * 
      * @param name
      *            Der Name der Teilleistung.
+     * @throws DataException
+     *             wenn der Name leer ist wird diese Exception geworfen
      */
-    public void setName(String name) {
+    public final void setName(String name) throws DataException {
+        if (name.length() == 0) {
+            throw new DataException("general.error.NoEmptyString");
+        }
         this.name = name;
     }
 
