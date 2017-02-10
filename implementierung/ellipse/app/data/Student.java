@@ -14,6 +14,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
+import exception.DataException;
+
 /************************************************************/
 /**
  * Diese Klasse stellt einen Studierenden dar, der am PSE teilnimmt.
@@ -72,7 +74,9 @@ public class Student extends User {
      */
     private boolean           emailVerified;
 
-    public Student() {
+    private static final int  MINIMAL_SEMESTER = 1; // TODO Genauer Wert?
+
+    public Student() throws DataException {
         this("default_username", "1234", "anonymous@kit.edu", "Max",
                 "Musterman", 0, new SPO(), new ArrayList<>(), new ArrayList<>(),
                 0);
@@ -81,13 +85,14 @@ public class Student extends User {
     public Student(String username, String password, String emailAddress,
             String firstName, String lastName, int matriculationNumber, SPO spo,
             List<Achievement> completedAchievements,
-            List<Achievement> oralTestAchievements, int semester) {
+            List<Achievement> oralTestAchievements, int semester)
+            throws DataException {
         super(username, password, emailAddress, firstName, lastName);
-        this.matriculationNumber = matriculationNumber;
-        this.spo = spo;
-        this.completedAchievements = completedAchievements;
-        this.oralTestAchievements = oralTestAchievements;
-        this.semester = semester;
+        setMatriculationNumber(matriculationNumber);
+        setSPO(spo);
+        setCompletedAchievements(completedAchievements);
+        setOralTestAchievements(oralTestAchievements);
+        setSemester(semester);
     }
 
     /**
@@ -178,13 +183,15 @@ public class Student extends User {
      * 
      * @param matriculationNumber
      *            Die Matrikelnummer des Studierenden.
+     * @throws DataException
+     *             Wird vom Controller behandelt.
      */
-    public void setMatriculationNumber(int matriculationNumber) {
-        if (matriculationNumber >= 0) {
-            this.matriculationNumber = matriculationNumber;
-        } else {
-            // TODO throws
+    public void setMatriculationNumber(int matriculationNumber)
+            throws DataException {
+        if (matriculationNumber < 0) {
+            throw new DataException("student.invalidMatNr");
         }
+        this.matriculationNumber = matriculationNumber;
     }
 
     /**
@@ -192,8 +199,13 @@ public class Student extends User {
      * 
      * @param spo
      *            Die SPO des Studierenden.
+     * @throws DataException
+     *             Wird vom Controller behandelt.
      */
-    public void setSPO(SPO spo) {
+    public void setSPO(SPO spo) throws DataException {
+        if (spo == null) {
+            throw new DataException(IS_NULL_ERROR);
+        }
         this.spo = spo;
     }
 
@@ -202,9 +214,15 @@ public class Student extends User {
      * 
      * @param completedAchievements
      *            Die vom Studierenden abgeschlossenen Teilleistungen.
+     * @throws DataException
+     *             Wird vom Controller behandelt.
      */
     public void setCompletedAchievements(
-            List<Achievement> completedAchievements) {
+            List<Achievement> completedAchievements) throws DataException {
+        if (completedAchievements == null) {
+            throw new DataException(IS_NULL_ERROR);
+        }
+        // TODO auf leere Liste prüfen?
         this.completedAchievements = completedAchievements;
     }
 
@@ -235,8 +253,13 @@ public class Student extends User {
      * 
      * @param Die
      *            Note des Studierenden fürs PSE.
+     * @throws DataException
+     *             Wird vom Controller behandelt.
      */
-    public void setGradePSE(Grade gradePSE) {
+    public void setGradePSE(Grade gradePSE) throws DataException {
+        if (gradePSE == null) {
+            throw new DataException(IS_NULL_ERROR);
+        }
         this.gradePSE = gradePSE;
     }
 
@@ -245,8 +268,13 @@ public class Student extends User {
      * 
      * @param gradeTSE
      *            Die Note des Studierenden fürs TSE.
+     * @throws DataException
+     *             Wird vom Controller behandelt.
      */
-    public void setGradeTSE(Grade gradeTSE) {
+    public void setGradeTSE(Grade gradeTSE) throws DataException {
+        if (gradeTSE == null) {
+            throw new DataException(IS_NULL_ERROR);
+        }
         this.gradeTSE = gradeTSE;
     }
 
@@ -255,8 +283,14 @@ public class Student extends User {
      * 
      * @param oralTestAchievement
      *            Die noch aussteheneden Teilleistungen des Studierenden.
+     * @throws DataException
+     *             Wird vom Controller behandelt.
      */
-    public void setOralTestAchievements(List<Achievement> oralTestAchievement) {
+    public void setOralTestAchievements(List<Achievement> oralTestAchievement)
+            throws DataException {
+        if (oralTestAchievement == null) {
+            throw new DataException(IS_NULL_ERROR);
+        }
         this.oralTestAchievements = oralTestAchievement;
     }
 
@@ -266,13 +300,14 @@ public class Student extends User {
      * 
      * @param semester
      *            Das Fachsemester des Studierenden.
+     * @throws DataException
+     *             Wird vom Controller behandelt.
      */
-    public void setSemester(int semester) {
-        if (semester >= 0) {
-            this.semester = semester;
-        } else {
-            // TODO throws
+    public void setSemester(int semester) throws DataException {
+        if (semester < MINIMAL_SEMESTER) {
+            throw new DataException("student.invalidSemester");
         }
+        this.semester = semester;
     }
 
     /**
@@ -355,6 +390,7 @@ public class Student extends User {
     // return a.getTeam(this);
     // }
 
+    // TODO kann das alles weg?
     /**
      * Diese Methode gibt zurück, ob die E-Mail-Adresse verifiziert wurde.
      * 
@@ -402,6 +438,7 @@ public class Student extends User {
     // // TODO throws
     // return null;
     // }
+    // TODO kann das alles weg?
 
     /**
      * Returns true if a student is registered in more than one semester

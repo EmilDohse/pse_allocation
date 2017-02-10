@@ -158,7 +158,7 @@ public class LearningGroup extends ElipseModel {
         if (project == null) {
             throw new DataException(IS_NULL_ERROR);
         }
-        if (rating > 5 || rating < 1) {
+        if (rating > Rating.MAXIMAL_RATING || rating < Rating.MINIMAL_RATING) {
             throw new DataException("learningGroup.invalidRating");
         }
         for (Rating r : ratings) {

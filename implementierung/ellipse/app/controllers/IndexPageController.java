@@ -7,22 +7,19 @@ package controllers;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.pac4j.core.context.Pac4jConstants;
-import org.pac4j.core.exception.BadCredentialsException;
-
 import com.google.inject.Inject;
 
 import data.Achievement;
 import data.Adviser;
 import data.ElipseModel;
 import data.GeneralData;
+import data.LearningGroup;
+import data.Project;
 import data.SPO;
 import data.Semester;
 import data.Student;
 import data.User;
 import exception.DataException;
-import data.LearningGroup;
-import data.Project;
 import play.data.DynamicForm;
 import play.data.FormFactory;
 import play.mvc.Controller;
@@ -30,7 +27,6 @@ import play.mvc.Result;
 import security.BlowfishPasswordEncoder;
 import security.EmailVerifier;
 import security.PasswordResetter;
-import security.UserProfile;
 import views.IndexMenu;
 import views.Menu;
 
@@ -153,7 +149,8 @@ public class IndexPageController extends Controller {
                         nonCompletedAchievements, semester);
                 student.save();
                 try {
-                    LearningGroup l = new LearningGroup(student.getUserName(), "");
+                    LearningGroup l = new LearningGroup(student.getUserName(),
+                            "");
                     l.save();
                     l.doTransaction(() -> {
                         l.addMember(student);
@@ -172,8 +169,7 @@ public class IndexPageController extends Controller {
                         currentSemester.addLearningGroup(l);
                     });
                 } catch (DataException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
+                    // TODO Redirect incl. Errormessage
                 }
                 return redirect(
                         controllers.routes.IndexPageController.indexPage());
