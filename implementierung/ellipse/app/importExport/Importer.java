@@ -29,7 +29,6 @@ import data.Semester;
 import data.Student;
 import data.Team;
 import exception.ImporterException;
-import security.BlowfishPasswordEncoder;
 
 /************************************************************/
 /**
@@ -658,6 +657,11 @@ public class Importer {
                     throw new ImporterException(WRONG_FORMAT);
                 }
 
+                // Prüfe, ob der Student schon im der Datenbank existiert
+                if (Student.getStudent(matNr) != null) {
+                    throw new ImporterException(ALREADY_EXISTING);
+                }
+
                 // Prüfe, ob die angegebene SPO existiert
                 SPO spo = SPO.getSPO(lineSplit[7]);
                 if (spo == null) {
@@ -690,9 +694,9 @@ public class Importer {
                 String password = lineSplit[4];
                 // Erzeuge den Studenten
                 Student importedStudent = new Student(new String() + matNr,
-                        new BlowfishPasswordEncoder().encode(password), email,
-                        firstName, lastName, matNr, spo, completedAchievements,
-                        oralTestAchievements, semesterNumber);
+                        password, email, firstName, lastName, matNr, spo,
+                        completedAchievements, oralTestAchievements,
+                        semesterNumber);
                 importedStudent.doTransaction(() -> {
                     importedStudent.setRegisteredPSE(false);
                     importedStudent.setRegisteredTSE(false);
@@ -775,7 +779,7 @@ public class Importer {
             throws ImporterException {
         try (BufferedWriter bw = new BufferedWriter(
                 new OutputStreamWriter(new FileOutputStream(file)))) {
-            String header = "MatNr;Vorname;Nachname;E-Mail;Passwort;Lerngruppe;LerngruppePasswort;"
+            String header = "MatNr;Vorname;Nachname;E-Mail;Passwort;Lerngruppenname;LerngruppePasswort;"
                     + "SPO;Fachsemester;Bestandene Teilleistungen;Noch ausstehende Teilleistungen;";
             for (Project project : semester.getProjects()) {
                 header += project.getName() + ";";
@@ -820,7 +824,7 @@ public class Importer {
                 }
 
                 for (Project project : semester.getProjects()) {
-                    double rating = semester.getLearningGroupOf(student)
+                    int rating = semester.getLearningGroupOf(student)
                             .getRating(project);
                     output += rating + ";";
                 }

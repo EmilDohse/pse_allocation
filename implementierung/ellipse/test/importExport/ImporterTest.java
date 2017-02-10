@@ -74,7 +74,7 @@ public class ImporterTest {
         }
         // Importiere Studenten
         try {
-            importerExporter.importStudents(new File("studentsNew.csv"),
+            importerExporter.importStudents(new File("exportStudents.csv"),
                     importStudentSemester);
             assertFalse(Semester.getSemester("importStudentSemester")
                     .getStudents().isEmpty());
