@@ -30,7 +30,8 @@ public class SwapStudentCommand implements EditAllocationCommand {
      * @param secondStudent
      *            Zweiter Studierender, der verschoben werden soll.
      */
-    public SwapStudentCommand(Allocation allocation, Student firstStudent, Student secondStudent) {
+    public SwapStudentCommand(Allocation allocation, Student firstStudent,
+            Student secondStudent) {
         super();
         this.allocation = allocation;
         this.firstStudent = firstStudent;
@@ -45,14 +46,18 @@ public class SwapStudentCommand implements EditAllocationCommand {
         Team firstTeam = allocation.getTeam(firstStudent);
         Team secondTeam = allocation.getTeam(secondStudent);
         // TODO hier eine warnung werfen falls die teamgröße überschritten wird
-        firstTeam.doTransaction(() -> {
-            firstTeam.removeMember(firstStudent);
-            firstTeam.addMember(secondStudent);
-        });
-        secondTeam.doTransaction(() -> {
-            secondTeam.addMember(firstStudent);
-            secondTeam.removeMember(secondStudent);
-        });
+        if (firstTeam != null) {
+            firstTeam.doTransaction(() -> {
+                firstTeam.removeMember(firstStudent);
+                firstTeam.addMember(secondStudent);
+            });
+        }
+        if (secondTeam != null) {
+            secondTeam.doTransaction(() -> {
+                secondTeam.addMember(firstStudent);
+                secondTeam.removeMember(secondStudent);
+            });
+        }
     }
 
     /**
@@ -63,11 +68,17 @@ public class SwapStudentCommand implements EditAllocationCommand {
         Team firstTeam = allocation.getTeam(firstStudent);
         Team secondTeam = allocation.getTeam(secondStudent);
         // TODO hier eine warnung werfen falls die teamgröße überschritten wird
-        firstTeam.removeMember(firstStudent);
-        secondTeam.addMember(firstStudent);
-        secondTeam.removeMember(secondStudent);
-        firstTeam.addMember(secondStudent);
-        firstTeam.save();
-        secondTeam.save();
+        if (firstTeam != null) {
+            firstTeam.doTransaction(() -> {
+                firstTeam.removeMember(firstStudent);
+                firstTeam.addMember(secondStudent);
+            });
+        }
+        if (secondTeam != null) {
+            secondTeam.doTransaction(() -> {
+                secondTeam.addMember(firstStudent);
+                secondTeam.removeMember(secondStudent);
+            });
+        }
     }
 }
