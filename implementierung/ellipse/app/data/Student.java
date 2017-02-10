@@ -73,12 +73,14 @@ public class Student extends User {
     private boolean           emailVerified;
 
     public Student() {
-        this("default_username", "1234", "anonymous@kit.edu", "Max", "Musterman", 0, new SPO(), new ArrayList<>(),
-                new ArrayList<>(), 0);
+        this("default_username", "1234", "anonymous@kit.edu", "Max",
+                "Musterman", 0, new SPO(), new ArrayList<>(), new ArrayList<>(),
+                0);
     }
 
-    public Student(String username, String password, String emailAddress, String firstName, String lastName,
-            int matriculationNumber, SPO spo, List<Achievement> completedAchievements,
+    public Student(String username, String password, String emailAddress,
+            String firstName, String lastName, int matriculationNumber, SPO spo,
+            List<Achievement> completedAchievements,
             List<Achievement> oralTestAchievements, int semester) {
         super(username, password, emailAddress, firstName, lastName);
         this.matriculationNumber = matriculationNumber;
@@ -201,7 +203,8 @@ public class Student extends User {
      * @param completedAchievements
      *            Die vom Studierenden abgeschlossenen Teilleistungen.
      */
-    public void setCompletedAchievements(List<Achievement> completedAchievements) {
+    public void setCompletedAchievements(
+            List<Achievement> completedAchievements) {
         this.completedAchievements = completedAchievements;
     }
 
@@ -235,7 +238,6 @@ public class Student extends User {
      */
     public void setGradePSE(Grade gradePSE) {
         this.gradePSE = gradePSE;
-        // TODO Enum
     }
 
     /**
@@ -246,7 +248,6 @@ public class Student extends User {
      */
     public void setGradeTSE(Grade gradeTSE) {
         this.gradeTSE = gradeTSE;
-        // TODO Enum
     }
 
     /**
@@ -284,7 +285,9 @@ public class Student extends User {
      *         hat.
      */
     public static Student getStudent(int matriculationNumber) {
-        return getStudents().stream().filter(student -> student.getMatriculationNumber() == matriculationNumber)
+        return getStudents().stream()
+                .filter(student -> student
+                        .getMatriculationNumber() == matriculationNumber)
                 .findFirst().orElse(null);
     }
 
@@ -298,7 +301,8 @@ public class Student extends User {
     }
 
     public String toStringForNotification() {
-        String toReturn = this.getFirstName() + " " + this.getLastName() + ", " + this.getSemester();
+        String toReturn = this.getFirstName() + " " + this.getLastName() + ", "
+                + this.getSemester();
         return toReturn;
     }
 
