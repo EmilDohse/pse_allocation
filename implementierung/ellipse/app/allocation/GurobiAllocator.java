@@ -215,7 +215,7 @@ public class GurobiAllocator extends AbstractAllocator {
      * @return Die Teamgröße
      */
     private int getMinSize(Team team, double minAdminSize) {
-        if (team.getProject().getMinTeamSize() == -1) {
+        if (team.getProject().getMinTeamSize() == 0) {
             return (int) minAdminSize;
         } else {
             return team.getProject().getMinTeamSize();
@@ -232,7 +232,7 @@ public class GurobiAllocator extends AbstractAllocator {
      * @return Die Teamgröße
      */
     private int getMaxSize(Team team, double maxAdminSize) {
-        if (team.getProject().getMaxTeamSize() == -1) {
+        if (team.getProject().getMaxTeamSize() == 0) {
             return (int) maxAdminSize;
         } else {
             return team.getProject().getMaxTeamSize();
