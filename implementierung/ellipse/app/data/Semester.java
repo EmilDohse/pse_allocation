@@ -225,8 +225,6 @@ public class Semester extends ElipseModel implements Comparable<Semester> {
     public void addProject(Project project) {
         project.setSemester(this);
         projects.add(project);
-        project.save();
-        this.save();
     }
 
     /**
@@ -237,8 +235,6 @@ public class Semester extends ElipseModel implements Comparable<Semester> {
      */
     public void removeProject(Project project) {
         projects.remove(project);
-        project.delete();
-        this.save();
     }
 
     /**
@@ -428,9 +424,8 @@ public class Semester extends ElipseModel implements Comparable<Semester> {
      *         Namen hat.
      */
     public static Semester getSemester(String semesterName) {
-        return getSemesters().stream()
-                .filter(semester -> semester.getName().equals(semesterName))
-                .findFirst().orElse(null);
+        return getSemesters().stream().filter(semester -> semester.getName().equals(semesterName)).findFirst()
+                .orElse(null);
     }
 
     /**
@@ -509,9 +504,8 @@ public class Semester extends ElipseModel implements Comparable<Semester> {
      *         Semester in keiner Lerngruppe ist.
      */
     public LearningGroup getLearningGroupOf(Student student) {
-        return learningGroups.stream().filter(
-                learningGroup -> learningGroup.getMembers().contains(student))
-                .findFirst().orElse(null);
+        return learningGroups.stream().filter(learningGroup -> learningGroup.getMembers().contains(student)).findFirst()
+                .orElse(null);
     }
 
     @Override
