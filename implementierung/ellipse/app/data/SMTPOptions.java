@@ -7,9 +7,14 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
+import org.keyczar.Crypter;
+import org.keyczar.exceptions.KeyczarException;
+
 /*** Singleton zum Einstellen der SMTP-Einstellungen. */
 @Entity
 public class SMTPOptions extends ElipseModel {
+
+    private static final String KEY_FILE = "conf/keyset";
 
     @NotNull
     private String             host;
@@ -110,20 +115,43 @@ public class SMTPOptions extends ElipseModel {
     /**
      * Getter für das Passwort für die Authentifizierung beim SMTP-Server.
      *
-     * @return SMTP-Einstellung 'debug'.
+     * @return Das entschlüsselte Passwort.
      */
     public String getPassword() {
-        return password;
+        // Entschlüssele Passwort
+        try {
+            Crypter crypter = new Crypter(KEY_FILE);
+            return crypter.decrypt(password);
+        } catch (KeyczarException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     /**
      * Setter für das Passwort für die Authentifizierung beim SMTP-Server.
      *
-     * @param newHost
-     *            Der neue host.
+     * @param encryptedPassword
+     *            Das verschlüsselte neue Passwort.
      */
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPassword(String encryptedPassword) {
+        this.password = encryptedPassword;
+    }
+    
+    /**
+     * Verschlüsselt das übergebene Passwort und setzt es als Attribut.
+     * 
+     * @param plainTextPassword
+     *            Das unverschlüsselte Passwort.
+     */
+    public void savePassword(String plainTextPassword) {
+        // Verschlüssel Passwort
+        try {
+            Crypter crypter = new Crypter(KEY_FILE);
+            setPassword(crypter.encrypt(plainTextPassword));
+        } catch (KeyczarException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
