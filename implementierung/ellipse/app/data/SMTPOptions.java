@@ -123,7 +123,9 @@ public class SMTPOptions extends ElipseModel {
             Crypter crypter = new Crypter(KEY_FILE);
             return crypter.decrypt(password);
         } catch (KeyczarException e) {
+            // Kann eigentlich nicht auftreten
             e.printStackTrace();
+            assert false;
             return null;
         }
     }
@@ -150,7 +152,9 @@ public class SMTPOptions extends ElipseModel {
             Crypter crypter = new Crypter(KEY_FILE);
             setPassword(crypter.encrypt(plainTextPassword));
         } catch (KeyczarException e) {
+            // Kann eigentlich nicht auftreten
             e.printStackTrace();
+            assert false;
         }
     }
 

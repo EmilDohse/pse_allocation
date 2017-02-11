@@ -9,11 +9,14 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
+
+import com.avaje.ebean.Ebean;
 
 import exception.DataException;
 
@@ -24,6 +27,8 @@ import exception.DataException;
 @Entity
 public class Allocation extends ElipseModel {
 
+    private static final String       NAME = "name";
+
     /**
      * Liste, die alle Teams enthält.
      */
@@ -33,6 +38,7 @@ public class Allocation extends ElipseModel {
      * Der Name der Einteilung.
      */
     @NotNull
+    @Column(name = NAME)
     private String                    name;
     /**
      * Parameter, mit der die Einteilung gemacht wurde.
@@ -315,9 +321,7 @@ public class Allocation extends ElipseModel {
      *         Einteilung diesen Namen hat.
      */
     public static Allocation getAllocation(String name) {
-        return getAllocations().stream()
-                .filter(allocation -> allocation.getName().equals(name))
-                .findFirst().orElse(null);
+        return Ebean.find(Allocation.class).where().eq(NAME, name).findUnique();
     }
 
 }

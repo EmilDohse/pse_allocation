@@ -19,7 +19,7 @@ import exception.DataException;
  * Klasse, die ein Project repräsentiert
  */
 @Entity
-public class Project extends ElipseModel /* implements Comparable<Project> */ {
+public class Project extends ElipseModel implements Comparable<Project> {
 
     /**
      * Der Name des Projektes.
@@ -359,19 +359,6 @@ public class Project extends ElipseModel /* implements Comparable<Project> */ {
         return ElipseModel.getAll(Project.class);
     }
 
-    // /**
-    // * Diese Methode gibt die Bewertung eines spezifischen Studenten für
-    // dieses
-    // * Projekt zurück.
-    // *
-    // * @param student
-    // * Der Student, dessen Bewertung zurückgegeben werdedn soll.
-    // * @return Die Bewertung des Studenten.
-    // */
-    // public int getRating(Student student) {
-    // return student.getLearningGroup(getSemester()).getRating(this);
-    // } //TODO Kann das weg?
-
     /**
      * Gibt das Semester zurück, in dem das Projekt angeboten wurde.
      * 
@@ -381,9 +368,9 @@ public class Project extends ElipseModel /* implements Comparable<Project> */ {
         return semester;
     }
 
-    // @Override
-    // public int compareTo(Project o) {
-    // return name.compareTo(o.getName());
-    // }
+    @Override
+    public int compareTo(Project o) {
+        return name.compareTo(o.getName());
+    }
 
 }

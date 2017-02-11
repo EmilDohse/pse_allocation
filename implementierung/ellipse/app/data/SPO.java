@@ -7,10 +7,13 @@ package data;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotNull;
+
+import com.avaje.ebean.Ebean;
 
 import exception.DataException;
 
@@ -21,10 +24,13 @@ import exception.DataException;
 @Entity
 public class SPO extends ElipseModel implements Comparable<SPO> {
 
+    private static final String NAME = "name";
+
     /**
      * Der Name der Prüfungsordnung.
      */
     @NotNull
+    @Column(name = NAME)
     private String            name;
     /**
      * Die nach dieser Prüfungsordnung benötigten Teilleistungen für die
@@ -202,8 +208,7 @@ public class SPO extends ElipseModel implements Comparable<SPO> {
      * @return Die SPO. Null falls keine SPO den übergebenen Namen hat.
      */
     public static SPO getSPO(String name) {
-        return getSPOs().stream().filter(spo -> spo.getName().equals(name))
-                .findFirst().orElse(null);
+        return Ebean.find(SPO.class).where().eq(NAME, name).findUnique();
     }
 
     // TODO Müssen compareTo und equals auch geprüft werden?
