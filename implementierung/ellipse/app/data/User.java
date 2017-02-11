@@ -6,6 +6,8 @@ package data;
 
 import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 import exception.DataException;
 import security.BlowfishPasswordEncoder;
@@ -21,6 +23,7 @@ public abstract class User extends ElipseModel implements Comparable<User> {
      * Der Anmeldename des Benutzers.
      */
     @NotNull
+    @Size(min = 1)
     private String username;
     /**
      * Das Anmeldepasswort des Benutzers.
@@ -31,16 +34,19 @@ public abstract class User extends ElipseModel implements Comparable<User> {
      * Die E-Mail-Adresse des Benutzers.
      */
     @NotNull
+    @Pattern(regexp = ".+@.+")
     private String emailAddress;
     /**
      * Vorname des Benutzers.
      */
     @NotNull
+    @Size(min = 1)
     private String firstName;
     /**
      * Nachname des Benutzers.
      */
     @NotNull
+    @Size(min = 1)
     private String lastName;
 
     public User() throws DataException {
@@ -51,11 +57,11 @@ public abstract class User extends ElipseModel implements Comparable<User> {
     public User(String username, String password, String emailAddress,
             String firstName, String lastName) throws DataException {
         super();
-        setUserName(username);
+        this.username = username;
+        this.emailAddress = emailAddress;
+        this.firstName = firstName;
+        this.lastName = lastName;
         savePassword(password);
-        setEmailAddress(emailAddress);
-        setFirstName(firstName);
-        setLastName(lastName);
     }
 
     /**
@@ -117,16 +123,8 @@ public abstract class User extends ElipseModel implements Comparable<User> {
      * 
      * @param username
      *            Der Benutzername.
-     * @throws DataException
-     *             Wird vom Controller behandelt.
      */
-    public void setUserName(String username) throws DataException {
-        if (username == null) {
-            throw new DataException(IS_NULL_ERROR);
-        }
-        if (username.isEmpty()) {
-            throw new DataException(STRING_EMPTY_ERROR);
-        }
+    public void setUserName(String username) {
         this.username = username;
     }
 
@@ -164,16 +162,8 @@ public abstract class User extends ElipseModel implements Comparable<User> {
      * 
      * @param email
      *            Die E-Mail-Adresse
-     * @throws DataException
-     *             Wird vom Controller behandelt.
      */
-    public void setEmailAddress(String email) throws DataException {
-        if (email == null) {
-            throw new DataException(IS_NULL_ERROR);
-        }
-        if (!email.contains("@")) {
-            throw new DataException("user.noValidEmail");
-        }
+    public void setEmailAddress(String email) {
         this.emailAddress = email;
     }
 
@@ -182,16 +172,8 @@ public abstract class User extends ElipseModel implements Comparable<User> {
      * 
      * @param firstName
      *            Der Vorname.
-     * @throws DataException
-     *             Wird vom Controller behandelt.
      */
-    public void setFirstName(String firstName) throws DataException {
-        if (firstName == null) {
-            throw new DataException(IS_NULL_ERROR);
-        }
-        if (firstName.isEmpty()) {
-            throw new DataException(STRING_EMPTY_ERROR);
-        }
+    public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
@@ -200,16 +182,8 @@ public abstract class User extends ElipseModel implements Comparable<User> {
      * 
      * @param lastName
      *            Der Nachname.
-     * @throws DataException
-     *             Wird vom Controller behandelt.
      */
-    public void setLastName(String lastName) throws DataException {
-        if (lastName == null) {
-            throw new DataException(IS_NULL_ERROR);
-        }
-        if (lastName.isEmpty()) {
-            throw new DataException(STRING_EMPTY_ERROR);
-        }
+    public void setLastName(String lastName) {
         this.lastName = lastName;
     }
 

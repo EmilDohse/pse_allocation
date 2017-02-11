@@ -5,7 +5,10 @@
 package data;
 
 import javax.persistence.Entity;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /************************************************************/
 /**
@@ -18,10 +21,13 @@ public class AllocationParameter extends ElipseModel {
      * Der Name des Parameters.
      */
     @NotNull
+    @Size(min = 1)
     private String name;
     /**
      * Die Gewichtung des Parameters.
      */
+    @Min(0)
+    @Max(100)
     private int    value;
 
     public AllocationParameter() {

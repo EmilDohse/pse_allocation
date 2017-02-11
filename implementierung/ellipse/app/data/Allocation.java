@@ -14,6 +14,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import exception.DataException;
 
@@ -28,20 +29,24 @@ public class Allocation extends ElipseModel {
      * Liste, die alle Teams enthält.
      */
     @OneToMany(cascade = CascadeType.ALL)
+    @NotNull
     private List<Team>                teams;
     /**
      * Der Name der Einteilung.
      */
     @NotNull
+    @Size(min = 1)
     private String                    name;
     /**
      * Parameter, mit der die Einteilung gemacht wurde.
      */
     @ManyToMany(cascade = CascadeType.ALL)
+    @NotNull
     private List<AllocationParameter> parameters;
 
     // Ebean braucht das hier
     @ManyToOne
+    @NotNull
     private Semester                  semester;
 
     /**
@@ -60,9 +65,9 @@ public class Allocation extends ElipseModel {
     public Allocation(List<Team> teams, String name,
             List<AllocationParameter> parameters) throws DataException {
         super();
-        this.setTeams(teams);
-        this.setName(name);
-        this.setParameters(parameters);
+        this.teams = teams;
+        this.name = name;
+        this.parameters = parameters;
     }
 
     /**
@@ -118,12 +123,8 @@ public class Allocation extends ElipseModel {
      * 
      * @param semester
      *            Das Semester, zu dem diese Allocation gehört.
-     * @throws DataException
      */
-    public void setSemester(Semester semester) throws DataException {
-        if (semester == null) {
-            throw new DataException(IS_NULL_ERROR);
-        }
+    public void setSemester(Semester semester) {
         this.semester = semester;
     }
 
@@ -144,11 +145,7 @@ public class Allocation extends ElipseModel {
      * @throws DataException
      *             wenn die liste null ist
      */
-    public void setParameters(List<AllocationParameter> parameters)
-            throws DataException {
-        if (parameters == null) {
-            throw new DataException(IS_NULL_ERROR);
-        }
+    public void setParameters(List<AllocationParameter> parameters) {
         this.parameters = parameters;
     }
 
@@ -166,16 +163,8 @@ public class Allocation extends ElipseModel {
      * 
      * @param name
      *            Name der Einteilung.
-     * @throws DataException
-     *             wenn der name leer oder null ist wird exception geworfen
      */
-    public final void setName(String name) throws DataException {
-        if (name == null) {
-            throw new DataException(IS_NULL_ERROR);
-        }
-        if (name.length() == 0) {
-            throw new DataException(STRING_EMPTY_ERROR);
-        }
+    public final void setName(String name) {
         this.name = name;
     }
 
@@ -193,13 +182,8 @@ public class Allocation extends ElipseModel {
      * 
      * @param teams
      *            Liste der Teams.
-     * @throws DataException
-     *             wenn die liste Null ist
      */
-    public void setTeams(List<Team> teams) throws DataException {
-        if (teams == null) {
-            throw new DataException(IS_NULL_ERROR);
-        }
+    public void setTeams(List<Team> teams) {
         this.teams = teams;
     }
 
@@ -232,13 +216,9 @@ public class Allocation extends ElipseModel {
      * @param team
      *            neues Team, in das der Student eingeteilt ist.
      * @throws DataException
-     *             wenn student oder team null sind
      */
     public void setStudentsTeam(Student student, Team team)
             throws DataException {
-        if (student == null || team == null) {
-            throw new DataException(IS_NULL_ERROR);
-        }
         Team oldTeam = getTeam(student);
         if (oldTeam != null) {
             oldTeam.removeMember(student);

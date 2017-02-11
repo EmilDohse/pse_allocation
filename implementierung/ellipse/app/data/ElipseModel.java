@@ -42,10 +42,11 @@ public abstract class ElipseModel extends Model {
      *             wenn die id negativ ist
      */
     public void setId(int id) throws DataException {
-        if (id < 0 || id == -1) {
-            throw new DataException("genaeral.error.negativNumber");
+        if (id == -1 || id > 0) {
+            this.id = id;
+            return;
         }
-        this.id = id;
+        throw new DataException("genaeral.error.negativNumber");
     }
 
     /**

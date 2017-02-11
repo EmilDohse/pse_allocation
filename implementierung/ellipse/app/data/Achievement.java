@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.persistence.Entity;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import exception.DataException;
 
@@ -23,6 +24,7 @@ public class Achievement extends ElipseModel
      * Der Name der Teilleistung.
      */
     @NotNull
+    @Size(min = 1)
     private String name;
 
     public Achievement() throws DataException {
@@ -56,16 +58,8 @@ public class Achievement extends ElipseModel
      * 
      * @param name
      *            Der Name der Teilleistung.
-     * @throws DataException
-     *             wenn der Name leer ist wird diese Exception geworfen
      */
-    public final void setName(String name) throws DataException {
-        if (name == null) {
-            throw new DataException(IS_NULL_ERROR);
-        }
-        if (name.length() == 0) {
-            throw new DataException(STRING_EMPTY_ERROR);
-        }
+    public final void setName(String name) {
         this.name = name;
     }
 

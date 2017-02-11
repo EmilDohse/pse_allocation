@@ -11,20 +11,20 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-
-import exception.DataException;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 /************************************************************/
 /**
  * Diese KLasse stellt ein Team eines Projektes dar.
  */
 @Entity
-public class Team extends ElipseModel /* implements Comparable<Team> */ {
+public class Team extends ElipseModel implements Comparable<Team> {
 
     /**
      * Nummer des Teams
      */
-    // TODO @GeneratedValue
+    @Min(1)
     private int           teamNumber;
     /**
      * Das Projekt des Teams
@@ -40,6 +40,7 @@ public class Team extends ElipseModel /* implements Comparable<Team> */ {
      * Liste der Studierenden in diesem Teams.
      */
     @ManyToMany(cascade = CascadeType.PERSIST)
+    @NotNull
     private List<Student> members;
 
     public Team() {
@@ -67,13 +68,8 @@ public class Team extends ElipseModel /* implements Comparable<Team> */ {
      * 
      * @param allocation
      *            Die Einteilung.
-     * @throws DataException
-     *             Wird vom Controller behandelt.
      */
-    public void setAllocation(Allocation allocation) throws DataException {
-        if (allocation == null) {
-            throw new DataException(IS_NULL_ERROR);
-        }
+    public void setAllocation(Allocation allocation) {
         this.allocation = allocation;
     }
 
@@ -91,13 +87,8 @@ public class Team extends ElipseModel /* implements Comparable<Team> */ {
      * 
      * @param teamNumber
      *            Die Teamnummer.
-     * @throws DataException
-     *             Wird vom Controller behandelt.
      */
-    public void setTeamNumber(int teamNumber) throws DataException {
-        if (teamNumber > project.getNumberOfTeams() || teamNumber < 1) {
-            throw new DataException("team.invalidTeamNumber");
-        }
+    public void setTeamNumber(int teamNumber) {
         this.teamNumber = teamNumber;
     }
 
@@ -106,21 +97,8 @@ public class Team extends ElipseModel /* implements Comparable<Team> */ {
      * 
      * @param members
      *            Die Mitglieder des Teams.
-     * @throws DataException
-     *             Wird vom Controller behandelt.
      */
-    public void setMembers(List<Student> members) throws DataException {
-        if (members == null) {
-            throw new DataException(IS_NULL_ERROR);
-        }
-        if (members.isEmpty()) {
-            this.members = members;
-            return;
-        }
-        if (members.size() > project.getMaxTeamSize()
-                || members.size() < project.getMinTeamSize()) {
-            throw new DataException("team.invalidTeamSize");
-        }
+    public void setMembers(List<Student> members) {
         this.members = members;
     }
 
@@ -129,15 +107,8 @@ public class Team extends ElipseModel /* implements Comparable<Team> */ {
      * 
      * @param member
      *            Der Studierende, der dem Team hinzugefügt wird.
-     * @throws DataException
-     *             Wird vom Controller behandelt.
      */
-    public void addMember(Student member) throws DataException {
-        if (member == null) {
-            throw new DataException(IS_NULL_ERROR);
-        }
-        // Hier wird nicht auf die maximale Größe geprüft, da der Admin diese
-        // Grenze überschreiten kann
+    public void addMember(Student member) {
         members.add(member);
     }
 
@@ -165,13 +136,8 @@ public class Team extends ElipseModel /* implements Comparable<Team> */ {
      * 
      * @param project
      *            Das Projekt.
-     * @throws DataException
-     *             Wird vom Controller behandelt.
      */
-    public void setProject(Project project) throws DataException {
-        if (project == null) {
-            throw new DataException(IS_NULL_ERROR);
-        }
+    public void setProject(Project project) {
         this.project = project;
     }
 
@@ -193,12 +159,10 @@ public class Team extends ElipseModel /* implements Comparable<Team> */ {
         return project.getAdvisers();
     }
 
-    //
-    // @Override
-    // public int compareTo(Team o) {
-    // return Integer.compare(teamNumber, o.getTeamNumber());
-    // }
-    // TODO Kann das weg?
+    @Override
+    public int compareTo(Team o) {
+        return Integer.compare(teamNumber, o.getTeamNumber());
+    }
 
     public String toStringForNotification() {
         String toReturn = this.getTeamNumber() + ":\n";
