@@ -13,6 +13,7 @@ import data.Allocation;
 import data.ElipseModel;
 import data.GeneralData;
 import data.Project;
+import data.SMTPOptions;
 import data.SPO;
 import data.Semester;
 import play.mvc.Controller;
@@ -158,7 +159,8 @@ public class AdminPageController extends Controller {
     public Result propertiesPage() {
         play.twirl.api.Html content = views.html.adminProperties.render(
                 GeneralData.loadInstance().getCurrentSemester(),
-                Semester.getSemesters(), SPO.getSPOs());
+                Semester.getSemesters(), SPO.getSPOs(),
+                SMTPOptions.getInstance());
         Menu menu = new AdminMenu(ctx(), ctx().request().path());
         return ok(views.html.admin.render(menu, content));
     }
