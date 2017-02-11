@@ -8,11 +8,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
+
+import com.avaje.ebean.Ebean;
 
 import exception.DataException;
 import security.BlowfishPasswordEncoder;
@@ -25,12 +28,14 @@ import security.BlowfishPasswordEncoder;
 @Entity
 public class LearningGroup extends ElipseModel {
 
+    private static final String NAME             = "name";
     private static final String DEFAULT_NAME     = "default_name";
     private static final String DEFAULT_PASSWORD = "123456";
     /**
      * Der Name der Lerngruppe.
      */
     @NotNull
+    @Column(name = NAME)
     private String              name;
     /**
      * Das nötige Passwort, um der Lerngruppe beizutreten.
@@ -365,9 +370,8 @@ public class LearningGroup extends ElipseModel {
      */
     public static LearningGroup getLearningGroup(String name,
             Semester semester) {
-        return semester.getLearningGroups().stream()
-                .filter(group -> group.getName().equals(name)).findFirst()
-                .orElse(null);
+        return Ebean.find(LearningGroup.class).where().eq(NAME, name)
+                .findUnique();
     }
 
     /**

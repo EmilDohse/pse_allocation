@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
@@ -16,6 +17,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
+
+import com.avaje.ebean.Ebean;
 
 import exception.DataException;
 
@@ -25,6 +28,8 @@ import exception.DataException;
  */
 @Entity
 public class Semester extends ElipseModel implements Comparable<Semester> {
+
+    private static final String NAME = "name";
 
     /**
      * true: Wintersemester, false: Sommersemester
@@ -42,6 +47,7 @@ public class Semester extends ElipseModel implements Comparable<Semester> {
      * Der Name des Semesters
      */
     @NotNull
+    @Column(name = NAME)
     private String              name;
     /**
      * Die für dieses Semseter verfügbaren SPOs
@@ -556,9 +562,8 @@ public class Semester extends ElipseModel implements Comparable<Semester> {
      *         Namen hat.
      */
     public static Semester getSemester(String semesterName) {
-        return getSemesters().stream()
-                .filter(semester -> semester.getName().equals(semesterName))
-                .findFirst().orElse(null);
+        return Ebean.find(Semester.class).where().eq(NAME, semesterName)
+                .findUnique();
     }
 
     /**

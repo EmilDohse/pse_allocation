@@ -351,4 +351,27 @@ public class AdminImportExportController extends Controller {
 
         return ok(file).withHeader(CONTENT_DISPOSITION, "attachment");
     }
+
+    /**
+     * Diese Methode lässt den Administrator eine csv-Datei downloaden, welche
+     * alle Noten der Studenten des aktuellen Semesters abspeichert. Der
+     * Administrator wird daraufhin auf die Import/Export-Seite zurückgeleitet.
+     * 
+     * @return Die Seite, die als Antwort verschickt wird.
+     */
+    public Result exportGrades() {
+        importExport.Importer importer = new Importer();
+        File file = new File("exportGrades.csv");
+        try {
+            importer.exportGrades(file,
+                    GeneralData.loadInstance().getCurrentSemester());
+        } catch (ImporterException e) {
+            flash("error",
+                    ctx().messages().at(ctx().messages().at(e.getMessage())));
+            return redirect(
+                    controllers.routes.AdminPageController.exportImportPage());
+        }
+
+        return ok(file).withHeader(CONTENT_DISPOSITION, "attachment");
+    }
 }

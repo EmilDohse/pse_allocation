@@ -21,6 +21,7 @@ import data.SPO;
 import data.Semester;
 import data.Student;
 import data.User;
+import deadline.StateStorage;
 import exception.DataException;
 import notificationSystem.Notifier;
 import play.data.DynamicForm;
@@ -46,9 +47,9 @@ public class IndexPageController extends Controller {
 
     @Inject
     FormFactory                 formFactory;
-    
+
     @Inject
-    Notifier notifier;
+    Notifier                    notifier;
 
     /**
      * Diese Methode gibt die Startseite zurück. Auf dieser Seite können sich
@@ -179,9 +180,8 @@ public class IndexPageController extends Controller {
                 } catch (DataException e) {
                     // TODO Redirect incl. Errormessage
                 }
-                return redirect(
-                        controllers.routes.StudentPageController
-                                .sendNewVerificationLink());
+                return redirect(controllers.routes.StudentPageController
+                        .sendNewVerificationLink());
             } else {
 
                 // falls bereits ein studnent mit dieser matrikelnumer
@@ -299,5 +299,34 @@ public class IndexPageController extends Controller {
             flash("error", ctx().messages().at("index.verify.error"));
         }
         return redirect(controllers.routes.IndexPageController.indexPage());
+    }
+
+    /**
+     * Methode, welche zum Redirect verwendet wird, wenn die Aktion (der
+     * Request) im aktuellen Zustand (s. deadline).
+     * 
+     * @param url
+     *            die url zum Redirecten
+     * @return die Seite, die angezeigt werden soll
+     */
+    public Result notAllowedInCurrentState(String url) {
+        switch (StateStorage.getInstance().getCurrentState()) {
+        case BEFORE_REGISTRATION_PHASE:
+            flash("info", ctx().messages()
+                    .at("index.beforeRegistration.actionNotAllowed"));
+            break;
+        case REGISTRATION_PHASE:
+            flash("info", ctx().messages().at("state.actionNotAllowed"));
+            break;
+        case AFTER_REGISTRATION_PHASE:
+            flash("info", ctx().messages()
+                    .at("state.afterRegistration.actionNotAllowed"));
+            break;
+        default:
+            flash("info", ctx().messages().at("state.actionNotAllowed"));
+            break;
+        }
+
+        return redirect(url);
     }
 }

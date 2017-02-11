@@ -6,8 +6,11 @@ package data;
 
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.validation.constraints.NotNull;
+
+import com.avaje.ebean.Ebean;
 
 import exception.DataException;
 
@@ -19,10 +22,13 @@ import exception.DataException;
 public class Achievement extends ElipseModel
         implements Comparable<Achievement> {
 
+    private static final String NAME = "name";
+
     /**
      * Der Name der Teilleistung.
      */
     @NotNull
+    @Column(name = NAME)
     private String name;
 
     public Achievement() throws DataException {
@@ -88,9 +94,8 @@ public class Achievement extends ElipseModel
      *         übergebenen Namen hat.
      */
     public static Achievement getAchievement(String name) {
-        return getAchievements().stream()
-                .filter(achievement -> achievement.getName().equals(name))
-                .findFirst().orElse(null);
+        return Ebean.find(Achievement.class).where().eq(NAME, name)
+                .findUnique();
     }
 
     @Override

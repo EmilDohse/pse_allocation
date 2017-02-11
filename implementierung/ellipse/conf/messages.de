@@ -1,5 +1,19 @@
 logout = Abmelden
 
+state.actionNotAllowed = Diese Aktion ist gerade nicht erlaubt.
+
+index.beforeRegistration.actionNotAllowed = Das Registrieren und der Studenten-Login ist gerade nicht erlaubt.
+index.afterRegistration.actionNotAllowed = Registrieren ist aktuell nicht mehr erlaubt.
+
+adviser.registration.actionNotAllowed = Projekte zu erstellen ist aktuell nicht erlaubt.
+adviser.afterRegistration.actionNotAllowed = Projekte zu erstellen ist aktuell nicht erlaubt.
+
+admin.beforeRegistration.actionNotAllowed = Studenten und Einteilungen zu erstellen ist aktuell nicht erlaubt.
+admin.registration.actionNotAllowed = Projekte und Einteilungen zu erstellen ist aktuell nicht erlaubt. Auch SPOs können aus dem aktiven Semester nicht mehr entfernt werden.
+admin.afterRegistration.actionNotAllowed = Projekte zu erstellen ist nicht mehr erlaubt. Auch SPOs können aus dem aktiven Semester nicht mehr entfernt werden.
+
+student.afterRegistration.actionNotAllowed = Ihre Lerngruppe kann aktuell nicht editiert werden. Die Bewertung ist inzwischen abgeschlossen, unter Einteilungsergebnisse sehen Sie Ihr Team.
+
 email.notifyResultsStudent = Hallo {0},\ndie PSE-Einteilung ist nun abgeschlossen.\nSie wurden dem Projekt {1} zugeteilt.\nWeitere Informationen zu Ihrem Projekt, Ihren Betreuern oder ihrer Gruppe erhalten Sie, wenn Sie sich einloggen.
 email.notifyResultsAdviser = Hallo {0},\ndie PSE-Einteilung ist nun abgeschlossen.\nSie betreuen die folgenden Teams:\n{1}
 email.adviserPassword =	Hallo {0},\nIhr Passwort für das PSE-Portal lautet:\{1}
@@ -107,6 +121,7 @@ adviser.sidebar.account = Account
 adviser.leaveProject = Projekt verlassen
 advsier.noProject = Es ist kein Projekt aktuell vorhanden.
 adviser.joinProject = Projekt beitreten
+adviser.addProject = Projekt erstellen
 adviser.account.newEmail = Neue E-Mail-Addresse
 adviser.account.pwChange = Passwort ändern
 adviser.account.emailChange = E-Mail ändern
@@ -188,6 +203,7 @@ admin.eximport.exportCMSData = Exportiere CMS Daten
 admin.eximport.exportSPO = Exportiere SPO
 admin.eximport.exportStudents = Exportiere Studenten
 admin.eximport.exportProjects = Exportiere Projekte
+admin.eximport.exportGrades = Exportiere Noten
 admin.properties.SPO = SPO
 admin.properties.semester = Semester
 admin.properties.generalInfo = Allgemeine Informationen
@@ -212,6 +228,18 @@ admin.properties.winterSemester = Wintersemester
 admin.properties.summerSemester = Sommersemester
 admin.properties.removeSemester = Semester löschen
 admin.properties.maxGroupSize = Maximale Lerngruppengröße
+admin.properties.SMTPServer = SMTP Server
+admin.properties.host = Host
+admin.properties.mailFrom = Absender-Adresse
+admin.properties.port = Port
+admin.properties.ssl = SSL
+admin.properties.tls = TLS
+admin.properties.debug = Debug
+admin.properties.timeout = Timeout
+admin.properties.connectionTimeOut = Verbindungs-Timeout
+admin.properties.username = Benutzername
+admin.properties.password = Passwort
+admin.properties.numberError = Bitte geben sie Zahlen ein, wenn Zahlen verlangt werden.
 admin.edit.moveToSameTeam = Der Studierende ist bereits in diesem Team
 admin.edit.noStudentSelected = Sie müssen einen Studierenden auswählen, den Sie verschieben möchten
 admin.edit.noFinalAllocation = Sie haben noch keine finale Einteilung zum veröffentlichen ausgewählt

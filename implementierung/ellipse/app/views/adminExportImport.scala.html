@@ -102,4 +102,13 @@ List[data.Allocation])
 			</div>
 		</form>
 	</div>
+	<div class="col-sm-12">
+		<form
+			action="@controllers.routes.AdminImportExportController.exportGrades().path()"
+			method="POST" class="form-horizontal">
+			<div class="col-sm-10">
+				<button type="submit" class="btn btn-primary">@Messages("admin.eximport.exportGrades")</button>
+			</div>
+		</form>
+	</div>
 </div>

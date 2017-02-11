@@ -16,6 +16,7 @@ import org.apache.commons.mail.SimpleEmail;
 import data.Adviser;
 import data.Allocation;
 import data.GeneralData;
+import data.SMTPOptions;
 import data.Student;
 import data.Team;
 import data.User;

@@ -1,27 +1,52 @@
-package notificationSystem;
+package data;
+
+import java.util.NoSuchElementException;
+
+import javax.persistence.Entity;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+
+import org.keyczar.Crypter;
+import org.keyczar.exceptions.KeyczarException;
 
 /*** Singleton zum Einstellen der SMTP-Einstellungen. */
-public class SMTPOptions {
+@Entity
+public class SMTPOptions extends ElipseModel {
 
+    private static final String KEY_FILE = "conf/keyset";
+
+    @NotNull
     private String             host;
+    @NotNull
+    @Pattern(regexp = ".+@.+")
     private String             mailFrom;
+    @Min(1)
     private int                port;
     private boolean            ssl;
-    private boolean            tsl;
+    private boolean            tls;
     private boolean            debug;
     private int                timeout;
     private int                connectionTimeout;
+    @NotNull
     private String             username;
+    @NotNull
     private String             password;
 
     private static SMTPOptions instance;
 
-    private SMTPOptions() {
+    /**
+     * !!!DO NOT USE THIS!!! GeneralData is supposed to be a Singleton.
+     * Constructor is only public due to restrictions in EBean. Use
+     * GeneralData.getInstance() instead.
+     */
+    @Deprecated
+    public SMTPOptions() {
         host = "smtp.kit.edu";
         mailFrom = "noreply@kit.edu";
         port = 25;
         ssl = false;
-        tsl = false;
+        tls = false;
         debug = false;
         timeout = 60;
         connectionTimeout = 60;
@@ -29,9 +54,22 @@ public class SMTPOptions {
         password = "admin";
     }
 
+    /**
+     * Gibt die SMTOptions Instanz zurück. Läd sie gegebenenfalls aus der
+     * Datenbank. Falls keine Instanz in der Datenbank ist, wird eine neue
+     * eingefügt.
+     * 
+     * @return Die Instanz
+     */
     public static SMTPOptions getInstance() {
         if (null == instance) {
-            instance = new SMTPOptions();
+            try {
+                instance = SMTPOptions.getAll(SMTPOptions.class).stream()
+                        .findFirst().get();
+            } catch (NoSuchElementException e) {
+                instance = new SMTPOptions();
+                instance.save();
+            }
         }
         return instance;
     }
@@ -77,20 +115,47 @@ public class SMTPOptions {
     /**
      * Getter für das Passwort für die Authentifizierung beim SMTP-Server.
      *
-     * @return SMTP-Einstellung 'debug'.
+     * @return Das entschlüsselte Passwort.
      */
     public String getPassword() {
-        return password;
+        // Entschlüssele Passwort
+        try {
+            Crypter crypter = new Crypter(KEY_FILE);
+            return crypter.decrypt(password);
+        } catch (KeyczarException e) {
+            // Kann eigentlich nicht auftreten
+            e.printStackTrace();
+            assert false;
+            return null;
+        }
     }
 
     /**
      * Setter für das Passwort für die Authentifizierung beim SMTP-Server.
      *
-     * @param newHost
-     *            Der neue host.
+     * @param encryptedPassword
+     *            Das verschlüsselte neue Passwort.
      */
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPassword(String encryptedPassword) {
+        this.password = encryptedPassword;
+    }
+    
+    /**
+     * Verschlüsselt das übergebene Passwort und setzt es als Attribut.
+     * 
+     * @param plainTextPassword
+     *            Das unverschlüsselte Passwort.
+     */
+    public void savePassword(String plainTextPassword) {
+        // Verschlüssel Passwort
+        try {
+            Crypter crypter = new Crypter(KEY_FILE);
+            setPassword(crypter.encrypt(plainTextPassword));
+        } catch (KeyczarException e) {
+            // Kann eigentlich nicht auftreten
+            e.printStackTrace();
+            assert false;
+        }
     }
 
     /**
@@ -99,7 +164,7 @@ public class SMTPOptions {
      * @param newHost
      *            Der neue host.
      */
-    public void changeHostTo(String newHost) {
+    public void setHost(String newHost) {
         host = newHost;
     }
 
@@ -109,7 +174,7 @@ public class SMTPOptions {
      * @param newPort
      *            Der neue Port.
      */
-    public void changePortTo(int newPort) {
+    public void setPort(int newPort) {
         port = newPort;
     }
 
@@ -119,18 +184,18 @@ public class SMTPOptions {
      * @param newSsl
      *            Die neue ssl-Einstellung.
      */
-    public void changeSslTo(boolean newSsl) {
+    public void setSsl(boolean newSsl) {
         ssl = newSsl;
     }
 
     /**
-     * Setter für die SMTP-Einstellung 'tsl'.
+     * Setter für die SMTP-Einstellung 'tls'.
      *
-     * @param newTsl
-     *            Die neue tsl-Einstellung.
+     * @param newTls
+     *            Die neue tls-Einstellung.
      */
-    public void changeTslTo(boolean newTsl) {
-        tsl = newTsl;
+    public void setTls(boolean newTls) {
+        tls = newTls;
     }
 
     /**
@@ -139,7 +204,7 @@ public class SMTPOptions {
      * @param newDebug
      *            Die neue debug-Einstellung.
      */
-    public void changeDebugTo(boolean newDebug) {
+    public void setDebug(boolean newDebug) {
         debug = newDebug;
     }
 
@@ -149,7 +214,7 @@ public class SMTPOptions {
      * @param newTimeout
      *            Die neue timeout-Einstellung.
      */
-    public void changeTimeoutTo(int newTimeout) {
+    public void setTimeout(int newTimeout) {
         timeout = newTimeout;
     }
 
@@ -159,7 +224,7 @@ public class SMTPOptions {
      * @param newTimeout
      *            Die neue connectionTimeout-Einstellung.
      */
-    public void changeConnectionTimeoutTo(int newConnectionTimeout) {
+    public void setConnectionTimeout(int newConnectionTimeout) {
         connectionTimeout = newConnectionTimeout;
     }
 
@@ -191,12 +256,12 @@ public class SMTPOptions {
     }
 
     /**
-     * Getter für die SMTP-Einstellung 'tsl'.
+     * Getter für die SMTP-Einstellung 'tls'.
      *
-     * @return SMTP-Einstellung 'tsl'.
+     * @return SMTP-Einstellung 'tls'.
      */
     public boolean getTls() {
-        return tsl;
+        return tls;
     }
 
     /**
@@ -207,7 +272,6 @@ public class SMTPOptions {
     public boolean getDebug() {
         return debug;
     }
-
 
     /**
      * Getter für die SMTP-Einstellung 'timeout'.
