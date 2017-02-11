@@ -11,6 +11,8 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
+import exception.DataException;
+
 public class GeneralDataTest extends DataTest {
 
     private GeneralData data;
@@ -26,14 +28,14 @@ public class GeneralDataTest extends DataTest {
     }
 
     @Test
-    public void testSetSemester() {
+    public void testSetSemester() throws DataException {
         Semester semester = new Semester();
         data.setCurrentSemester(semester);
         assertEquals(semester, data.getCurrentSemester());
     }
 
     @Test
-    public void testSetSaveAndReload() {
+    public void testSetSaveAndReload() throws DataException {
         Semester semester = new Semester();
         GeneralData testData = GeneralData.loadInstance();
         testData.doTransaction(() -> {
@@ -43,7 +45,7 @@ public class GeneralDataTest extends DataTest {
     }
 
     @Test
-    public void testWithAllocation() {
+    public void testWithAllocation() throws DataException {
         Semester s = new Semester();
         Allocation a = new Allocation();
         s.doTransaction(() -> {
@@ -58,7 +60,7 @@ public class GeneralDataTest extends DataTest {
     }
 
     @Test
-    public void testWithTeams() {
+    public void testWithTeams() throws DataException {
         Semester s = new Semester();
         Allocation a = new Allocation();
         Team t = new Team();
@@ -82,17 +84,21 @@ public class GeneralDataTest extends DataTest {
     }
 
     @Test
-    public void testWithStudent() {
+    public void testWithStudent() throws DataException {
         Student student = new Student();
         Semester s = new Semester();
         Allocation a = new Allocation();
         Team t = new Team();
         Project p = new Project();
+        p.doTransaction(() -> {
+            p.setMinTeamSize(0);
+            p.setMaxTeamSize(20);
+        });
         List<Student> students = new ArrayList<Student>();
         students.add(student);
         t.doTransaction(() -> {
-            t.setMembers(students);
             t.setProject(p);
+            t.setMembers(students);
         });
         List<Team> teams = new ArrayList<Team>();
         teams.add(t);

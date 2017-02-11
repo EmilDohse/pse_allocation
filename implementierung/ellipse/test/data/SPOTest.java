@@ -9,24 +9,26 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
+import exception.DataException;
+
 public class SPOTest extends DataTest {
-    
+
     private SPO spo;
-    
+
     @Before
-    public void beforeTest() {
+    public void beforeTest() throws DataException {
         spo = new SPO();
     }
-    
+
     @Test
-    public void testName() {
+    public void testName() throws DataException {
         String n = "testname";
         spo.setName(n);
         assertEquals(n, spo.getName());
     }
-    
+
     @Test
-    public void testNecessaryAchievements() {
+    public void testNecessaryAchievements() throws DataException {
         Achievement firstA = new Achievement();
         Achievement secondA = new Achievement();
         List<Achievement> a = new ArrayList<Achievement>();
@@ -34,19 +36,19 @@ public class SPOTest extends DataTest {
         spo.setNecessaryAchievements(a);
         assertEquals(spo.getNecessaryAchievements().size(), 1);
         assertTrue(spo.getNecessaryAchievements().contains(firstA));
-        
+
         spo.addNecessaryAchievement(secondA);
         assertEquals(spo.getNecessaryAchievements().size(), 2);
         assertTrue(spo.getNecessaryAchievements().contains(firstA));
         assertTrue(spo.getNecessaryAchievements().contains(secondA));
-        
+
         spo.removeNecessaryAchievement(firstA);
         assertEquals(spo.getNecessaryAchievements().size(), 1);
         assertTrue(spo.getNecessaryAchievements().contains(secondA));
     }
-    
+
     @Test
-    public void testAdditionalAchievements() {
+    public void testAdditionalAchievements() throws DataException {
         Achievement firstA = new Achievement();
         Achievement secondA = new Achievement();
         List<Achievement> a = new ArrayList<Achievement>();
@@ -54,16 +56,15 @@ public class SPOTest extends DataTest {
         spo.setAdditionalAchievements(a);
         assertEquals(spo.getAdditionalAchievements().size(), 1);
         assertTrue(spo.getAdditionalAchievements().contains(firstA));
-        
+
         spo.addAdditionalAchievement(secondA);
         assertEquals(spo.getAdditionalAchievements().size(), 2);
         assertTrue(spo.getAdditionalAchievements().contains(firstA));
         assertTrue(spo.getAdditionalAchievements().contains(secondA));
-        
+
         spo.removeAdditionalAchievement(firstA);
         assertEquals(spo.getAdditionalAchievements().size(), 1);
         assertTrue(spo.getAdditionalAchievements().contains(secondA));
     }
-    
-    
+
 }

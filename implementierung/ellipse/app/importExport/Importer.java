@@ -476,7 +476,7 @@ public class Importer {
                     matNr = Integer.parseInt(lineSplit[0]);
                     semesterNumber = Integer.parseInt(lineSplit[8]);
                     for (int i = 0; i < ratings.length; i++) {
-                        ratings[i] = Integer.parseInt(lineSplit[11 + i]) + 1;
+                        ratings[i] = Integer.parseInt(lineSplit[11 + i]);
                     }
                 } catch (NumberFormatException e) {
                     throw new ImporterException(WRONG_FORMAT);
@@ -519,11 +519,22 @@ public class Importer {
                 String password = lineSplit[4];
                 // Erzeuge den Studenten
                 try {
-                    Student importedStudent = new Student(new String() + matNr,
-                            password, email, firstName, lastName, matNr, spo,
-                            completedAchievements, oralTestAchievements,
-                            semesterNumber);
+                    Student importedStudent = new Student();
+                    importedStudent
+                            .setCompletedAchievements(completedAchievements);
+                    importedStudent
+                            .setOralTestAchievements(oralTestAchievements);
+                    // TODO Die beiden oben können aus irgendnem Grund nicht ins
+                    // Lambda
                     importedStudent.doTransaction(() -> {
+                        importedStudent.setUserName(new String() + matNr);
+                        importedStudent.setPassword(password);
+                        importedStudent.setFirstName(firstName);
+                        importedStudent.setLastName(lastName);
+                        importedStudent.setEmailAddress(email);
+                        importedStudent.setMatriculationNumber(matNr);
+                        importedStudent.setSPO(spo);
+                        importedStudent.setSemester(semesterNumber);
                         importedStudent.setRegisteredPSE(false);
                         importedStudent.setRegisteredTSE(false);
                         importedStudent.setIsEmailVerified(false);
@@ -588,6 +599,7 @@ public class Importer {
                 } catch (DataException e) {
                     throw new ImporterException(e.getMessage());
                 }
+                System.out.println("Line Done");
             }
         } catch (FileNotFoundException e) {
             throw new ImporterException(FILE_NOT_FOUND);

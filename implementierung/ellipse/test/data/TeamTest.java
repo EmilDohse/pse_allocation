@@ -9,6 +9,8 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
+import exception.DataException;
+
 public class TeamTest extends DataTest {
 
     private Team team;
@@ -19,18 +21,24 @@ public class TeamTest extends DataTest {
     }
 
     @Test
-    public void testProject() {
+    public void testProject() throws DataException {
         Project project = new Project();
         team.setProject(project);
         assertEquals(project, team.getProject());
     }
 
     @Test
-    public void testMembers() {
+    public void testMembers() throws DataException {
         List<Student> members = new ArrayList<Student>();
         Student firstStudent = new Student();
         Student secondStudent = new Student();
         members.add(firstStudent);
+        Project p = new Project();
+        p.doTransaction(() -> {
+            p.setMinTeamSize(0);
+            p.setMaxTeamSize(100);
+        });
+        team.setProject(p);
         team.setMembers(members);
         assertEquals(team.getMembers().size(), 1);
         assertTrue(team.getMembers().contains(firstStudent));
@@ -48,7 +56,7 @@ public class TeamTest extends DataTest {
     }
 
     @Test
-    public void testGetAdvisers() {
+    public void testGetAdvisers() throws DataException {
         List<Adviser> advisers = new ArrayList<Adviser>();
         Adviser adviser = new Adviser();
         advisers.add(adviser);
