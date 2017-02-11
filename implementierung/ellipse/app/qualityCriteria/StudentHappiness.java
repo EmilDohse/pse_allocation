@@ -5,14 +5,15 @@
 package qualityCriteria;
 
 import java.text.NumberFormat;
+import java.util.HashMap;
 
 import data.Allocation;
 import data.GeneralData;
+import data.LearningGroup;
 import data.Project;
 import data.Semester;
 import data.Student;
 import data.Team;
-import exception.DataException;
 
 /************************************************************/
 /**
@@ -31,27 +32,24 @@ public class StudentHappiness implements QualityCriterion {
     @Override
     public String calculate(Allocation allocation) {
         int sumOfRatings = 0;
-        for (int i = 0; i < allocation.getTeams().size(); i++) {
-            Team t = allocation.getTeams().get(i);
-            for (int j = 0; j < t.getMembers().size(); j++) {
-                Student student = t.getMembers().get(j);
-                Semester semester = GeneralData.loadInstance()
-                        .getCurrentSemester();
-                Project project = t.getProject();
+        Semester semester = GeneralData.loadInstance().getCurrentSemester();
+        HashMap<Student, LearningGroup> studentLG = new HashMap<>();
+        for (LearningGroup lg : semester.getLearningGroups()) {
+            for (Student student : lg.getMembers()) {
+                studentLG.put(student, lg);
+            }
+        }
+        for (Team t : allocation.getTeams()) {
+            Project project = t.getProject();
+            for (Student student : t.getMembers()) {
                 double rating = 0;
-                try {
-                    rating = semester.getLearningGroupOf(student)
-                            .getRating(project);
-                } catch (DataException e) {
-                    // TODO Hier nichts tun, da nicht möglich?
-                }
+                rating = studentLG.get(student).getRating(project);
                 sumOfRatings += rating;
             }
         }
 
-        double relativeHappiness = (sumOfRatings / (double) GeneralData
-                .loadInstance().getCurrentSemester().getStudents().size())
-                / 5.0;
+        double relativeHappiness = (sumOfRatings
+                / (double) semester.getStudents().size()) / 5.0;
         NumberFormat nf = NumberFormat.getInstance();
         nf.setMaximumFractionDigits(2);
         return nf.format(100 * relativeHappiness) + "%";

@@ -4,10 +4,13 @@
 
 package qualityCriteria;
 
+import java.util.HashMap;
+
 import data.Allocation;
 import data.GeneralData;
 import data.LearningGroup;
 import data.Semester;
+import data.Student;
 import data.Team;
 
 /************************************************************/
@@ -26,6 +29,12 @@ public class SplitLearningGroups implements QualityCriterion {
     public String calculate(Allocation allocation) {
         int numberOfSplitLearningGroups = 0;
         Semester semester = GeneralData.loadInstance().getCurrentSemester();
+        HashMap<Student, Team> studentTeam = new HashMap<>();
+        for (Team t : allocation.getTeams()) {
+            for (Student student : t.getMembers()) {
+                studentTeam.put(student, t);
+            }
+        }
 
         // Durchlaufe alle Lerngruppen
         for (LearningGroup lg : semester.getLearningGroups()) {
@@ -37,15 +46,15 @@ public class SplitLearningGroups implements QualityCriterion {
                 int i = 0;
                 Team firstTeam = null;
                 for (i = 0; i < lg.getMembers().size(); i++) {
-                    firstTeam = allocation.getTeam(lg.getMembers().get(i));
+                    firstTeam = studentTeam.get(lg.getMembers().get(i));
                     if (firstTeam != null) {
                         break;
                     }
                 }
                 if (i != lg.getMembers().size()) {
                     for (int r = i + 1; r < lg.getMembers().size(); r++) {
-                        Team currentTeam = allocation
-                                .getTeam(lg.getMembers().get(r));
+                        Team currentTeam = studentTeam
+                                .get(lg.getMembers().get(r));
                         if (currentTeam != null
                                 && !currentTeam.equals(firstTeam)) {
                             numberOfSplitLearningGroups += 1;
