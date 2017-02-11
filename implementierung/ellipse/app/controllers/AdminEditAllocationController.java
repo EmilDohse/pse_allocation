@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.Deque;
 import java.util.List;
 
+import org.apache.commons.mail.EmailException;
+
 import com.google.inject.Inject;
 
 import data.Allocation;
@@ -18,6 +20,7 @@ import data.Semester;
 import data.Student;
 import data.Team;
 import exception.DataException;
+import notificationSystem.Notifier;
 import play.data.DynamicForm;
 import play.data.FormFactory;
 import play.mvc.Controller;
@@ -32,6 +35,10 @@ public class AdminEditAllocationController extends Controller {
 
     @Inject
     FormFactory                                 formFactory;
+
+    @Inject
+    Notifier                                    notifier;
+
     /**
      * Commando Stack. Static, weil Play nicht garantiert, dass es nur einen
      * Controller gibt.
@@ -83,6 +90,7 @@ public class AdminEditAllocationController extends Controller {
      * @return Die Seite, die als Antwort verschickt wird.
      */
     public Result swapStudents(DynamicForm form, List<Integer> ids) {
+        // TODO evtl Email, wenn Einteilung final ist?
         String allocationIdString = form.get(ALLOCATION_ID);
         int allocationId;
         try {
@@ -120,6 +128,7 @@ public class AdminEditAllocationController extends Controller {
      * @return Die Seite, die als Antwort verschickt wird.
      */
     public Result moveStudents(DynamicForm form, List<Integer> ids) {
+        // TODO evtl Email, wenn Einteilung final ist?
         String teamIdString = form.get("project-selection");
         String allocationIdString = form.get(ALLOCATION_ID);
         int allocationId;
@@ -167,7 +176,6 @@ public class AdminEditAllocationController extends Controller {
      */
     public Result publishAllocation() {
         // TODO popup warnung
-        // TODO email benachrichtigung
         DynamicForm form = formFactory.form().bindFromRequest();
         if (form.data().isEmpty()) {
             return badRequest(ctx().messages().at(INTERNAL_ERROR));
@@ -192,6 +200,12 @@ public class AdminEditAllocationController extends Controller {
         semester.doTransaction(() -> {
             semester.setFinalAllocation(allocation);
         });
+        try {
+            notifier.notifyAllUsers(allocation);
+        } catch (EmailException e) {
+            // TODO
+            e.printStackTrace();
+        }
         return redirect(controllers.routes.AdminPageController.resultsPage());
     }
 

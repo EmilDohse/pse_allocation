@@ -6,6 +6,8 @@ package controllers;
 
 import java.util.List;
 
+import org.apache.commons.mail.EmailException;
+
 import com.google.inject.Inject;
 
 import data.Achievement;
@@ -19,11 +21,13 @@ import data.Semester;
 import data.Student;
 import data.User;
 import exception.DataException;
+import notificationSystem.Notifier;
 import play.data.DynamicForm;
 import play.data.FormFactory;
 import play.mvc.Controller;
 import play.mvc.Result;
 import security.BlowfishPasswordEncoder;
+import security.EmailVerifier;
 import security.UserManagement;
 import views.Menu;
 import views.StudentMenu;
@@ -43,6 +47,9 @@ public class StudentPageController extends Controller {
 
     @Inject
     FormFactory                 formFactory;
+
+    @Inject
+    Notifier                    notifier;
 
     /**
      * Diese Seite stellt das Formular dar, das ein Student ausfüllen muss, wenn
@@ -486,7 +493,8 @@ public class StudentPageController extends Controller {
             student.doTransaction(() -> {
                 student.setEmailAddress(email);
             });
-            // TODO hier verifikation
+            return redirect(controllers.routes.StudentPageController
+                    .sendNewVerificationLink());
         }
         return redirect(controllers.routes.StudentPageController.accountPage());
     }
@@ -498,7 +506,20 @@ public class StudentPageController extends Controller {
      * @return Die Seite, die als Antwort verschickt wird.
      */
     public Result sendNewVerificationLink() {
-        // TODO: Verifkationscode neu erstellen und senden
+        UserManagement user = new UserManagement();
+        User userProfile = user.getUserProfile(ctx());
+        assert userProfile instanceof Student;
+        Student student = (Student) userProfile;
+        String verificationCode = EmailVerifier.getInstance()
+                .getVerificationCode(student);
+        try {
+            notifier.sendVerificationMail(student,
+                    controllers.routes.IndexPageController
+                            .verificationPage(verificationCode).url());
+        } catch (EmailException e) {
+            e.printStackTrace();
+            // TODO
+        }
         return redirect(controllers.routes.StudentPageController.accountPage());
     }
 }
