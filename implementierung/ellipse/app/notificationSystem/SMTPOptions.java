@@ -1,23 +1,32 @@
 package notificationSystem;
 
-/**
- * Singleton zum Einstellen der SMTP-Einstellungen.
- */
+/*** Singleton zum Einstellen der SMTP-Einstellungen. */
 public class SMTPOptions {
 
-    private String             host              = "PSE";
-    private int                port              = 25;
-    private boolean            ssl               = false;
-    private boolean            tsl               = false;
-    private boolean            debug             = false;
-    private int                timeout           = 60;
-    private int                connectionTimeout = 60;
-    private boolean            mock              = false;
+    private String             host;
+    private String             mailFrom;
+    private int                port;
+    private boolean            ssl;
+    private boolean            tsl;
+    private boolean            debug;
+    private int                timeout;
+    private int                connectionTimeout;
+    private String             username;
+    private String             password;
 
     private static SMTPOptions instance;
 
     private SMTPOptions() {
-        // Singleton
+        host = "smtp.kit.edu";
+        mailFrom = "noreply@kit.edu";
+        port = 25;
+        ssl = false;
+        tsl = false;
+        debug = false;
+        timeout = 60;
+        connectionTimeout = 60;
+        username = "admin";
+        password = "admin";
     }
 
     public static SMTPOptions getInstance() {
@@ -28,8 +37,65 @@ public class SMTPOptions {
     }
 
     /**
-     * Setter für die SMTP-Einstellung 'host'.
+     * Getter für den Absender der Mails.
      * 
+     * @return
+     */
+    public String getMailFrom() {
+        return mailFrom;
+    }
+
+    /**
+     * Setter für den Absender der Mails.
+     *
+     * @param newHost
+     *            Der neue host.
+     */
+    public void setMailFrom(String mailFrom) {
+        this.mailFrom = mailFrom;
+    }
+
+    /**
+     * Getter für den Benutzernamen für die Authentifizierung beim SMTP-Server.
+     *
+     * @return SMTP-Einstellung 'debug'.
+     */
+    public String getUsername() {
+        return username;
+    }
+
+    /**
+     * Setter für den Benutzernamen für die Authentifizierung beim SMTP-Server.
+     *
+     * @param newHost
+     *            Der neue host.
+     */
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    /**
+     * Getter für das Passwort für die Authentifizierung beim SMTP-Server.
+     *
+     * @return SMTP-Einstellung 'debug'.
+     */
+    public String getPassword() {
+        return password;
+    }
+
+    /**
+     * Setter für das Passwort für die Authentifizierung beim SMTP-Server.
+     *
+     * @param newHost
+     *            Der neue host.
+     */
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    /**
+     * Setter für die SMTP-Einstellung 'host'.
+     *
      * @param newHost
      *            Der neue host.
      */
@@ -39,7 +105,7 @@ public class SMTPOptions {
 
     /**
      * Setter für die SMTP-Einstellung 'port'.
-     * 
+     *
      * @param newPort
      *            Der neue Port.
      */
@@ -49,7 +115,7 @@ public class SMTPOptions {
 
     /**
      * Setter für die SMTP-Einstellung 'ssl'.
-     * 
+     *
      * @param newSsl
      *            Die neue ssl-Einstellung.
      */
@@ -59,7 +125,7 @@ public class SMTPOptions {
 
     /**
      * Setter für die SMTP-Einstellung 'tsl'.
-     * 
+     *
      * @param newTsl
      *            Die neue tsl-Einstellung.
      */
@@ -69,7 +135,7 @@ public class SMTPOptions {
 
     /**
      * Setter für die SMTP-Einstellung 'debug'.
-     * 
+     *
      * @param newDebug
      *            Die neue debug-Einstellung.
      */
@@ -78,18 +144,8 @@ public class SMTPOptions {
     }
 
     /**
-     * Setter für die SMTP-Einstellung 'mock'.
-     * 
-     * @param newMock
-     *            Die neue mock-Einstellung.
-     */
-    public void changeMockTo(boolean newMock) {
-        mock = newMock;
-    }
-
-    /**
      * Setter für die SMTP-Einstellung 'timeout'.
-     * 
+     *
      * @param newTimeout
      *            Die neue timeout-Einstellung.
      */
@@ -99,7 +155,7 @@ public class SMTPOptions {
 
     /**
      * Setter für die SMTP-Einstellung 'connectionTimeout'.
-     * 
+     *
      * @param newTimeout
      *            Die neue connectionTimeout-Einstellung.
      */
@@ -109,7 +165,7 @@ public class SMTPOptions {
 
     /**
      * Getter für die SMTP-Einstellung 'host'.
-     * 
+     *
      * @return SMTP-Einstellung 'host'.
      */
     public String getHost() {
@@ -118,7 +174,7 @@ public class SMTPOptions {
 
     /**
      * Getter für die SMTP-Einstellung 'port'.
-     * 
+     *
      * @return SMTP-Einstellung 'port'.
      */
     public int getPort() {
@@ -127,7 +183,7 @@ public class SMTPOptions {
 
     /**
      * Getter für die SMTP-Einstellung 'ssl'.
-     * 
+     *
      * @return SMTP-Einstellung 'ssl'.
      */
     public boolean getSsl() {
@@ -136,34 +192,26 @@ public class SMTPOptions {
 
     /**
      * Getter für die SMTP-Einstellung 'tsl'.
-     * 
+     *
      * @return SMTP-Einstellung 'tsl'.
      */
-    public boolean getTsl() {
+    public boolean getTls() {
         return tsl;
     }
 
     /**
      * Getter für die SMTP-Einstellung 'debug'.
-     * 
+     *
      * @return SMTP-Einstellung 'debug'.
      */
     public boolean getDebug() {
         return debug;
     }
 
-    /**
-     * Getter für die SMTP-Einstellung 'mock'.
-     * 
-     * @return SMTP-Einstellung 'mock'.
-     */
-    public boolean getMock() {
-        return mock;
-    }
 
     /**
      * Getter für die SMTP-Einstellung 'timeout'.
-     * 
+     *
      * @return SMTP-Einstellung 'timeout'.
      */
     public int getTimeout() {
@@ -172,7 +220,7 @@ public class SMTPOptions {
 
     /**
      * Getter für die SMTP-Einstellung 'connectionTimeout'.
-     * 
+     *
      * @return SMTP-Einstellung 'connectionTimeout'.
      */
     public int getConnectionTimeout() {

@@ -9,6 +9,10 @@ import java.util.Locale;
 
 import javax.inject.Inject;
 
+import org.apache.commons.mail.Email;
+import org.apache.commons.mail.EmailException;
+import org.apache.commons.mail.SimpleEmail;
+
 import data.Adviser;
 import data.Allocation;
 import data.GeneralData;
@@ -17,28 +21,20 @@ import data.Team;
 import play.i18n.Lang;
 import play.i18n.Messages;
 import play.i18n.MessagesApi;
-import play.libs.mailer.Email;
-import play.libs.mailer.MailerClient;
 
 /************************************************************/
 /**
  * Klasse die alle Benachrichtigungen der Benutzer (Studenten und Betreuer) per
  * E-Mail übernimmt.
- * 
- * TODO: Absenederadresse überall finalisieren.
  */
 public class Notifier {
 
-    private static final String EMAIL_FROM = "noreply@kit.edu";
-
-    @Inject
-    MailerClient           mailer;
-
-    @Inject
-    MessagesApi                 messagesApi;
-
     private Messages            messages;
 
+    @Inject
+    public Notifier(MessagesApi messagesApi) {
+        this.messages = new Messages(new Lang(Locale.GERMAN), messagesApi);
+    }
 
     /**
      * Verschickt an alle Benutzer (Betreuer und Studenten) eine E-Mail mit
@@ -46,15 +42,19 @@ public class Notifier {
      * 
      * @param allocation
      *            veröffentlichte Einteilung
+     * @throws EmailException
      */
-    public void notifyAllUsers(Allocation allocation) {
-        this.messages = new Messages(new Lang(Locale.GERMAN), messagesApi);
-
-        List<Adviser> advisers = GeneralData.loadInstance().getCurrentSemester().getAdvisers();
-        List<Student> students = GeneralData.loadInstance().getCurrentSemester().getStudents();
-
-        advisers.forEach((adviser) -> notifyAdviser(allocation, adviser));
-        students.forEach((student) -> notifyStudent(allocation, student));
+    public void notifyAllUsers(Allocation allocation) throws EmailException {
+        List<Adviser> advisers = GeneralData.loadInstance().getCurrentSemester()
+                .getAdvisers();
+        List<Student> students = GeneralData.loadInstance().getCurrentSemester()
+                .getStudents();
+        for (Adviser adviser : advisers) {
+            notifyAdviser(allocation, adviser);
+        }
+        for (Student student : students) {
+            notifyStudent(allocation, student);
+        }
     }
 
     /**
@@ -65,15 +65,15 @@ public class Notifier {
      *            Die finale Einteilung
      * @param student
      *            Der zu benachrichtigende Student
+     * @throws EmailException
      */
-    public void notifyStudent(Allocation allocation, Student student) {
-        this.messages = new Messages(new Lang(Locale.GERMAN), messagesApi);
-
+    public void notifyStudent(Allocation allocation, Student student)
+            throws EmailException {
         String bodyText = messages.at("email.notifyResultsStudent",
-                student.getName(),
+                student.getFirstName() + " " + student.getLastName(),
                 allocation.getTeam(student).getProject().getName());
         String subject = messages.at("email.subjectResults");
-        this.sendEmail(subject, EMAIL_FROM, student.getEmailAddress(),
+        this.sendEmail(subject, student.getEmailAddress(),
                 bodyText);
     }
 
@@ -85,29 +85,29 @@ public class Notifier {
      *            Die finale Einteilung.
      * @param adviser
      *            Der zu benachrichtigegnde Betreuer.
+     * @throws EmailException
      */
-    public void notifyAdviser(Allocation allocation, Adviser adviser) {
-        this.messages = new Messages(new Lang(Locale.GERMAN), messagesApi);
-
+    public void notifyAdviser(Allocation allocation, Adviser adviser)
+            throws EmailException {
         String teamsList = "";
         List<Team> advisersTeams = allocation.getTeamsByAdviser(adviser);
         for (int i = 0; i < advisersTeams.size(); i++) {
             teamsList += advisersTeams.get(i).toStringForNotification() + "\n";
         }
         String bodyText = messages.at("email.notifyResultsAdviser",
-                adviser.getName(), teamsList);
+                adviser.getFirstName() + " " + adviser.getLastName(),
+                teamsList);
         String subject = messages.at("email.subjectResults");
-        this.sendEmail(subject, EMAIL_FROM, adviser.getEmailAddress(),
+        this.sendEmail(subject, adviser.getEmailAddress(),
                 bodyText);
     }
 
-    public void sendAdviserPassword(Adviser adviser, String password) {
-        this.messages = new Messages(new Lang(Locale.GERMAN), messagesApi);
-
+    public void sendAdviserPassword(Adviser adviser, String password)
+            throws EmailException {
         String bodyText = messages.at("email.adviserPassword",
                 adviser.getName(), password);
         String subject = messages.at("email.subjectAdviserPassword");
-        this.sendEmail(subject, EMAIL_FROM, adviser.getEmailAddress(),
+        this.sendEmail(subject, adviser.getEmailAddress(),
                 bodyText);
     }
 
@@ -121,11 +121,23 @@ public class Notifier {
     public void sendVerificationMail(Student student) {
     }
 
-    private void sendEmail(String subject, String mailFrom, String mailTo, String bodyText) {
-        Email email = new Email().setSubject(subject);
-        email.setFrom(mailFrom);
+    private void sendEmail(String subject, String mailTo,
+            String bodyText) throws EmailException {
+        SMTPOptions options = SMTPOptions.getInstance();
+        Email email = new SimpleEmail();
+        email.setHostName(options.getHost());
+        email.setSmtpPort(options.getPort());
+        email.setAuthentication(options.getUsername(), options.getPassword());
+        email.setSSL(options.getSsl());
+        email.setTLS(options.getTls());
+        email.setSocketTimeout(options.getTimeout());
+        email.setSocketConnectionTimeout(options.getConnectionTimeout());
+        email.setDebug(options.getDebug());
+        email.setSubject(subject);
+        email.setFrom(options.getMailFrom());
         email.addTo(mailTo);
-        email.setBodyText(bodyText);
-        mailer.send(email);
+        email.setMsg(bodyText);
+        email.send();
+
     }
 }
