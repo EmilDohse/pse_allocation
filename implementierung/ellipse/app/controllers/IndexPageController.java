@@ -7,8 +7,7 @@ package controllers;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.pac4j.core.context.Pac4jConstants;
-import org.pac4j.core.exception.BadCredentialsException;
+import org.apache.commons.mail.EmailException;
 
 import com.google.inject.Inject;
 
@@ -16,12 +15,14 @@ import data.Achievement;
 import data.Adviser;
 import data.ElipseModel;
 import data.GeneralData;
+import data.LearningGroup;
+import data.Project;
 import data.SPO;
 import data.Semester;
 import data.Student;
 import data.User;
-import data.LearningGroup;
-import data.Project;
+import exception.DataException;
+import notificationSystem.Notifier;
 import play.data.DynamicForm;
 import play.data.FormFactory;
 import play.mvc.Controller;
@@ -29,7 +30,6 @@ import play.mvc.Result;
 import security.BlowfishPasswordEncoder;
 import security.EmailVerifier;
 import security.PasswordResetter;
-import security.UserProfile;
 import views.IndexMenu;
 import views.Menu;
 
@@ -46,6 +46,9 @@ public class IndexPageController extends Controller {
 
     @Inject
     FormFactory                 formFactory;
+    
+    @Inject
+    Notifier notifier;
 
     /**
      * Diese Methode gibt die Startseite zurück. Auf dieser Seite können sich
@@ -147,31 +150,38 @@ public class IndexPageController extends Controller {
             if (Student.getStudent(matNr) == null) {
                 String encPassword = new BlowfishPasswordEncoder()
                         .encode(password);
-                Student student = new Student(matNrString, encPassword, email,
-                        firstName, lastName, matNr, spo, completedAchievements,
-                        nonCompletedAchievements, semester);
-                student.save();
-                LearningGroup l = new LearningGroup(student.getUserName(), "");
-                l.save();
-                l.doTransaction(() -> {
-                    l.addMember(student);
-                    l.setPrivate(true);
-                    // Ratings initialisieren
-                    for (Project p : GeneralData.loadInstance()
-                            .getCurrentSemester().getProjects()) {
-                        l.rate(p, 3);
-                    }
-                });
-                // TODO get student data from view ???
-                Semester currentSemester = GeneralData.loadInstance()
-                        .getCurrentSemester();
-                currentSemester.doTransaction(() -> {
-                    currentSemester.addStudent(student);
-                    currentSemester.addLearningGroup(l);
-                });
+                try {
+                    Student student = new Student(matNrString, encPassword,
+                            email, firstName, lastName, matNr, spo,
+                            completedAchievements, nonCompletedAchievements,
+                            semester);
+                    student.save();
+
+                    LearningGroup l = new LearningGroup(student.getUserName(),
+                            "");
+                    l.save();
+                    l.doTransaction(() -> {
+                        l.addMember(student);
+                        l.setPrivate(true);
+                        // Ratings initialisieren
+                        for (Project p : GeneralData.loadInstance()
+                                .getCurrentSemester().getProjects()) {
+                            l.rate(p, 3);
+                        }
+                    });
+                    // TODO get student data from view ???
+                    Semester currentSemester = GeneralData.loadInstance()
+                            .getCurrentSemester();
+                    currentSemester.doTransaction(() -> {
+                        currentSemester.addStudent(student);
+                        currentSemester.addLearningGroup(l);
+                    });
+                } catch (DataException e) {
+                    // TODO Redirect incl. Errormessage
+                }
                 return redirect(
-                        controllers.routes.IndexPageController.indexPage());
-                // TODO falls nötig noch emial verification einleiten
+                        controllers.routes.StudentPageController
+                                .sendNewVerificationLink());
             } else {
 
                 // falls bereits ein studnent mit dieser matrikelnumer
@@ -243,7 +253,17 @@ public class IndexPageController extends Controller {
         String encPw = new BlowfishPasswordEncoder().encode(password);
         String code = PasswordResetter.getInstance().initializeReset(user,
                 encPw);
-        // TODO: E-Mail verschicken.
+        String verificationCode = PasswordResetter.getInstance()
+                .initializeReset(user, password);
+        try {
+            notifier.sendVerifyNewPassowrd(user,
+                    controllers.routes.IndexPageController
+                            .resetPassword(verificationCode).url());
+        } catch (EmailException e) {
+            e.printStackTrace();
+            // TODO
+        }
+
         flash("info", ctx().messages().at("index.pwReset.mailSent"));
         return redirect(controllers.routes.IndexPageController.indexPage());
     }

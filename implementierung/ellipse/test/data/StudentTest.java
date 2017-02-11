@@ -9,31 +9,33 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
+import exception.DataException;
+
 public class StudentTest extends UserTest {
 
     private Student student;
 
     @Before
-    public void beforeTest() {
+    public void beforeTest() throws DataException {
         student = new Student();
     }
 
     @Test
-    public void testMatriculationNumber() {
+    public void testMatriculationNumber() throws DataException {
         int m = 1234567;
         student.setMatriculationNumber(m);
         assertEquals(m, student.getMatriculationNumber());
     }
 
     @Test
-    public void testSPO() {
+    public void testSPO() throws DataException {
         SPO spo = new SPO();
         student.setSPO(spo);
         assertEquals(spo, student.getSPO());
     }
 
     @Test
-    public void testCompletedAchievements() {
+    public void testCompletedAchievements() throws DataException {
         List<Achievement> achievements = new ArrayList<Achievement>();
         Achievement a = new Achievement();
         achievements.add(a);
@@ -43,7 +45,7 @@ public class StudentTest extends UserTest {
     }
 
     @Test
-    public void testOralTestAchievements() {
+    public void testOralTestAchievements() throws DataException {
         List<Achievement> achievements = new ArrayList<Achievement>();
         Achievement a = new Achievement();
         achievements.add(a);
@@ -67,21 +69,21 @@ public class StudentTest extends UserTest {
     }
 
     @Test
-    public void testGradePSE() {
+    public void testGradePSE() throws DataException {
         Grade pse = Grade.THREE_ZERO;
         student.setGradePSE(pse);
         assertEquals(pse, student.getGradePSE());
     }
 
     @Test
-    public void testGradeTSE() {
+    public void testGradeTSE() throws DataException {
         Grade tse = Grade.THREE_ZERO;
         student.setGradeTSE(tse);
         assertEquals(tse, student.getGradeTSE());
     }
 
     @Test
-    public void testSemester() {
+    public void testSemester() throws DataException {
         int s = 3;
         student.setSemester(s);
         assertEquals(s, student.getSemester());
@@ -95,7 +97,7 @@ public class StudentTest extends UserTest {
     }
 
     @Test
-    public void testRegisteredMoreThanOnce() {
+    public void testRegisteredMoreThanOnce() throws DataException {
         Semester firstS = new Semester();
         Semester secondS = new Semester();
         List<Student> empty = new ArrayList<Student>();
@@ -103,7 +105,12 @@ public class StudentTest extends UserTest {
         students.add(student);
         firstS.setStudents(students);
         firstS.save();
-        secondS.setStudents(empty);
+        try {
+            secondS.setStudents(empty);
+        } catch (DataException e) {
+            // Mit absicht leer, da die Exception durch die leere Liste geworfen
+            // wird. Hier ist das aber nützlich
+        }
         secondS.save();
         assertEquals(false, student.registeredMoreThanOnce());
 

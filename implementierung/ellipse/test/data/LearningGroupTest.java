@@ -9,17 +9,19 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
+import exception.DataException;
+
 public class LearningGroupTest extends DataTest {
 
     private LearningGroup learningGroup;
 
     @Before
-    public void beforeTest() {
+    public void beforeTest() throws DataException {
         learningGroup = new LearningGroup();
     }
 
     @Test
-    public void testName() {
+    public void testName() throws DataException {
         String n = "testname";
         learningGroup.setName(n);
         assertEquals(n, learningGroup.getName());
@@ -33,7 +35,12 @@ public class LearningGroupTest extends DataTest {
     }
 
     @Test
-    public void testMembers() {
+    public void testMembers() throws DataException {
+        Semester semester = new Semester();
+        GeneralData data = GeneralData.loadInstance();
+        data.doTransaction(() -> {
+            data.setCurrentSemester(semester);
+        });
         Student firstS = new Student();
         Student secondS = new Student();
         List<Student> members = new ArrayList<Student>();
@@ -53,7 +60,7 @@ public class LearningGroupTest extends DataTest {
     }
 
     @Test
-    public void testRatings() {
+    public void testRatings() throws DataException {
         // TODO Warum Reihenfolge beim save relevant?
         Rating rating = new Rating();
         Project firstP = new Project();
@@ -66,12 +73,12 @@ public class LearningGroupTest extends DataTest {
         assertEquals(1, learningGroup.getRatings().size());
         assertTrue(learningGroup.getRatings().contains(rating));
 
-        int firstR = 11;
+        int firstR = 4;
         learningGroup.rate(firstP, firstR);
         learningGroup.save();
         assertEquals(firstR, learningGroup.getRating(firstP));
 
-        int secondR = 42;
+        int secondR = 5;
         Project secondP = new Project();
         secondP.save();
         learningGroup.rate(secondP, secondR);

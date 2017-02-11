@@ -7,10 +7,12 @@ import java.util.List;
 
 import org.junit.Test;
 
+import exception.DataException;
+
 public class AllocationTest extends DataTest {
 
     @Test
-    public void testID() {
+    public void testID() throws DataException {
         int id = 42;
         Allocation a = new Allocation();
         a.setId(id);
@@ -18,7 +20,7 @@ public class AllocationTest extends DataTest {
     }
 
     @Test
-    public void testParameters() {
+    public void testParameters() throws DataException {
         List<AllocationParameter> para = new ArrayList<AllocationParameter>();
         Allocation a = new Allocation();
         a.setParameters(para);
@@ -26,7 +28,7 @@ public class AllocationTest extends DataTest {
     }
 
     @Test
-    public void testName() {
+    public void testName() throws DataException {
         String name = "Name";
         Allocation a = new Allocation();
         a.setName(name);
@@ -34,7 +36,7 @@ public class AllocationTest extends DataTest {
     }
 
     @Test
-    public void testTeams() {
+    public void testTeams() throws DataException {
         List<Team> teams = new ArrayList<Team>();
         // Get Team
         Student student = new Student();

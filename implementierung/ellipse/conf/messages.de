@@ -1,12 +1,20 @@
 logout = Abmelden
 
-email.notifyResultsStudent = Hallo {1},\ndie PSE-Einteilung ist nun abgeschlossen.\nSie wurden dem Projekt {2} zugeteilt.\nWeitere Informationen zu Ihrem Projekt, Ihren Betreuern oder ihrer Gruppe erhalten Sie, wenn Sie sich einloggen.
-email.notifyResultsAdviser = Hallo {1},\ndie PSE-Einteilung ist nun abgeschlossen.\nSie betreuen die folgenden Teams:\n{2}
-email.adviserPassword =	Hallo {1},\nIhr Passwort für das PSE-Portal lautet:\{2}
+email.notifyResultsStudent = Hallo {0},\ndie PSE-Einteilung ist nun abgeschlossen.\nSie wurden dem Projekt {1} zugeteilt.\nWeitere Informationen zu Ihrem Projekt, Ihren Betreuern oder ihrer Gruppe erhalten Sie, wenn Sie sich einloggen.
+email.notifyResultsAdviser = Hallo {0},\ndie PSE-Einteilung ist nun abgeschlossen.\nSie betreuen die folgenden Teams:\n{1}
+email.adviserPassword =	Hallo {0},\nIhr Passwort für das PSE-Portal lautet:\{1}
+email.studentVerify = Hallo {0},\num ihre E-Mail-Adresse für PSE zu bestätigen, klicken Sie bitte auf folgenden Link:\n\n{1}
+email.studentVerify = Hallo {0},\nihr Passwort für PSE wurde geändert, klicken Sie zum Bestätigen bitte auf folgenden Link:\n\n{1}
 email.subjectAdviserPassword = PSE-Passwort
 email.subjectResults = PSE-Einteilungsergebnisse
+email.subjectStudentVerify = PSE E-Mail Adresse bestätigen
+email.verifyNewPassword = PSE-Passwort geändert
 
-
+general.error.noEmptyList=Bitte wählen Sie etwas aus
+general.error.noEmptyString=Ein Prflichtfeld ist leer
+general.error.inNull=Ein Parrramteter ist NULL
+general.error.minimalPasswordLegth = Passwort ist zu kurz
+genaeral.error.negativNumber = Zahl darf nicht Negativ sein
 index.title = Elipse - Index
 index.username = Benutzername (Matrnr)
 index.password = Passwort
@@ -77,6 +85,23 @@ student.account.sendNewVerificationLink = Neuen Verifikations-Code schicken.
 student.error.noAllocationYet = Bisher existieren noch keine fertig berechneten Einteilungen.
 student.changeData.changeData = Daten ändern
 student.info.notVerifiedEmail = Bitte verifizieren sie ihre E-Mail-Adresse indem sie den Link in ihrer Aktivierungsmail klicken. In den Account-Einstellungen können sie sich notfalls einen neuen Link zuschicken lassen.
+student.invalidMatNr = Die Matrikelnummer kann nicht negativ sein
+
+learningGroup.invalidRating = Bewertungen müssen zwischen 1 und 5 sein
+learningGroup.ratingNotFound = Zu diesem Projekt existiert keine Bewertung
+learningGroup.toLarge = Zu viele Mitglieder
+
+project.invalidTeamSize = Die Teamgröße muss mindestens 0 sein
+
+semester.invalidGroupSize = Die Lerngruppengröße muss mindestens 1 sein
+semester.DontRemoveFinal = Die finale Einteilung kann nicht entfernt werden
+semester.noSecondFinal = Sie haben bereits eine finale Einteilung ausgewählt
+semester.dateInPast = Das Datum darf nicht in der Vergangenheit liegen
+
+user.noValidEmail = Bitte geben Sie eine valide Email-Adresse an
+
+team.invalidTeamNumber = Die Teamnummer muss zwischen 1 und der maximalen Anzahl an Team liegen
+team.invalidTeamSize = Die Teamgröße muss entweder 0 oder zwischen min und max sein
 
 adviser.sidebar.account = Account
 adviser.leaveProject = Projekt verlassen

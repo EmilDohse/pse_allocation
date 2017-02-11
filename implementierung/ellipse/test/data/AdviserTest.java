@@ -9,6 +9,8 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
+import exception.DataException;
+
 public class AdviserTest extends UserTest {
 
     @Before
@@ -16,7 +18,7 @@ public class AdviserTest extends UserTest {
     }
 
     @Test
-    public void testID() {
+    public void testID() throws DataException {
         int id = 42;
         Adviser a = new Adviser();
         a.setId(id);
@@ -24,7 +26,7 @@ public class AdviserTest extends UserTest {
     }
 
     @Test
-    public void testUserName() {
+    public void testUserName() throws DataException {
         String name = "Name";
         Adviser a = new Adviser();
         a.setUserName(name);
@@ -32,7 +34,7 @@ public class AdviserTest extends UserTest {
     }
 
     @Test
-    public void testFirstName() {
+    public void testFirstName() throws DataException {
         String name = "Name";
         Adviser a = new Adviser();
         a.setFirstName(name);
@@ -40,7 +42,7 @@ public class AdviserTest extends UserTest {
     }
 
     @Test
-    public void testLastName() {
+    public void testLastName() throws DataException {
         String name = "Name";
         Adviser a = new Adviser();
         a.setLastName(name);
@@ -48,15 +50,15 @@ public class AdviserTest extends UserTest {
     }
 
     @Test
-    public void testMailAdress() {
-        String name = "Name";
+    public void testMailAdress() throws DataException {
+        String name = "Name@elipse.de";
         Adviser a = new Adviser();
         a.setEmailAddress(name);
         assertEquals(name, a.getEmailAddress());
     }
 
     @Test
-    public void testGetTeams() {
+    public void testGetTeams() throws DataException {
         Project project = new Project();
         Project projectTwo = new Project();
         List<Adviser> advisers = new ArrayList<Adviser>();

@@ -4,8 +4,9 @@
 
 package controllers;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.commons.mail.EmailException;
 
 import com.google.inject.Inject;
 
@@ -19,11 +20,14 @@ import data.SPO;
 import data.Semester;
 import data.Student;
 import data.User;
+import exception.DataException;
+import notificationSystem.Notifier;
 import play.data.DynamicForm;
 import play.data.FormFactory;
 import play.mvc.Controller;
 import play.mvc.Result;
 import security.BlowfishPasswordEncoder;
+import security.EmailVerifier;
 import security.UserManagement;
 import views.Menu;
 import views.StudentMenu;
@@ -43,6 +47,9 @@ public class StudentPageController extends Controller {
 
     @Inject
     FormFactory                 formFactory;
+
+    @Inject
+    Notifier                    notifier;
 
     /**
      * Diese Seite stellt das Formular dar, das ein Student ausfüllen muss, wenn
@@ -285,24 +292,29 @@ public class StudentPageController extends Controller {
                     .learningGroupPage());
         }
         LearningGroup oldLg = semester.getLearningGroupOf(student);
-        LearningGroup lg = new LearningGroup(name, encPassword);
-        lg.save();
-        lg.doTransaction(() -> {
-            lg.addMember(student);
-            lg.setPrivate(false);
-            // Ratings kopieren
-            for (Rating r : oldLg.getRatings()) {
-                lg.rate(r.getProject(), r.getRating());
-            }
-        });
-        // Lösche die private Lerngruppe
-        oldLg.delete();
-        semester.refresh();
-        semester.doTransaction(() -> {
-            // TODO falls man die alten bewertungen wieder will muss man hier
-            // die alte lerngruppe behalten
-            semester.addLearningGroup(lg);
-        });
+        try {
+            LearningGroup lg = new LearningGroup(name, encPassword);
+            lg.save();
+            lg.doTransaction(() -> {
+                lg.addMember(student);
+                lg.setPrivate(false);
+                // Ratings kopieren
+                for (Rating r : oldLg.getRatings()) {
+                    lg.rate(r.getProject(), r.getRating());
+                }
+            });
+            // Lösche die private Lerngruppe
+            oldLg.delete();
+            semester.refresh();
+            semester.doTransaction(() -> {
+                // TODO falls man die alten bewertungen wieder will muss man
+                // hier
+                // die alte lerngruppe behalten
+                semester.addLearningGroup(lg);
+            });
+        } catch (DataException e) {
+            // TODO Redirect incl. Errormessage
+        }
         return redirect(
                 controllers.routes.StudentPageController.learningGroupPage());
     }
@@ -334,25 +346,29 @@ public class StudentPageController extends Controller {
         });
         // Hier wird der student wieder in seine private Lerngruppe
         // eingefügt
-        LearningGroup lgNew = new LearningGroup(student.getUserName(), "");
-        lgNew.save();
-        lgNew.doTransaction(() -> {
-            lgNew.addMember(student);
-            lgNew.setPrivate(true);
-            // Ratings kopieren
-            for (Rating r : lg.getRatings()) {
-                lgNew.rate(r.getProject(), r.getRating());
+        try {
+            LearningGroup lgNew = new LearningGroup(student.getUserName(), "");
+            lgNew.save();
+            lgNew.doTransaction(() -> {
+                lgNew.addMember(student);
+                lgNew.setPrivate(true);
+                // Ratings kopieren
+                for (Rating r : lg.getRatings()) {
+                    lgNew.rate(r.getProject(), r.getRating());
+                }
+            });
+            lg.refresh();
+            if (lg.getMembers().size() == 0) {
+                // Leeres Team löschen
+                lg.delete();
             }
-        });
-        lg.refresh();
-        if (lg.getMembers().size() == 0) {
-            // Leeres Team löschen
-            lg.delete();
+            Semester semester = GeneralData.loadInstance().getCurrentSemester();
+            semester.doTransaction(() -> {
+                semester.addLearningGroup(lgNew);
+            });
+        } catch (DataException e) {
+            // TODO Redirect incl. Errormessage
         }
-        Semester semester = GeneralData.loadInstance().getCurrentSemester();
-        semester.doTransaction(() -> {
-            semester.addLearningGroup(lgNew);
-        });
         return redirect(
                 controllers.routes.StudentPageController.learningGroupPage());
 
@@ -477,7 +493,8 @@ public class StudentPageController extends Controller {
             student.doTransaction(() -> {
                 student.setEmailAddress(email);
             });
-            // TODO hier verifikation
+            return redirect(controllers.routes.StudentPageController
+                    .sendNewVerificationLink());
         }
         return redirect(controllers.routes.StudentPageController.accountPage());
     }
@@ -489,7 +506,20 @@ public class StudentPageController extends Controller {
      * @return Die Seite, die als Antwort verschickt wird.
      */
     public Result sendNewVerificationLink() {
-        // TODO: Verifkationscode neu erstellen und senden
+        UserManagement user = new UserManagement();
+        User userProfile = user.getUserProfile(ctx());
+        assert userProfile instanceof Student;
+        Student student = (Student) userProfile;
+        String verificationCode = EmailVerifier.getInstance()
+                .getVerificationCode(student);
+        try {
+            notifier.sendVerificationMail(student,
+                    controllers.routes.IndexPageController
+                            .verificationPage(verificationCode).url());
+        } catch (EmailException e) {
+            e.printStackTrace();
+            // TODO
+        }
         return redirect(controllers.routes.StudentPageController.accountPage());
     }
 }

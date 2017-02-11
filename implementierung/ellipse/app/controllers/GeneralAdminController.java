@@ -7,6 +7,8 @@ package controllers;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.mail.EmailException;
+
 import com.google.inject.Inject;
 
 import allocation.AllocationQueue;
@@ -22,6 +24,8 @@ import data.Project;
 import data.SPO;
 import data.Semester;
 import data.Student;
+import exception.DataException;
+import notificationSystem.Notifier;
 import play.data.DynamicForm;
 import play.data.FormFactory;
 import play.mvc.Controller;
@@ -43,6 +47,9 @@ public class GeneralAdminController extends Controller {
     @Inject
     FormFactory                 formFactory;
 
+    @Inject
+    Notifier                    notifier;
+
     /**
      * Diese Methode fügt einen Betreuer mit den Daten aus dem vom Administrator
      * auszufüllenden Formular zum System hinzu. Der Administrator wird
@@ -60,10 +67,18 @@ public class GeneralAdminController extends Controller {
         String email = form.get("email");
         String password = form.get("password");
         String encPassword = new BlowfishPasswordEncoder().encode(password);
-        // TODO password per email?
-        Adviser adviser = new Adviser(email, encPassword, email, firstName,
-                lastName);
-        adviser.save();
+        try {
+            Adviser adviser = new Adviser(email, encPassword, email, firstName,
+                    lastName);
+            adviser.save();
+            notifier.sendAdviserPassword(adviser, password);
+        } catch (DataException e) {
+            // TODO: handle exception
+            e.printStackTrace();
+        } catch (EmailException e) {
+            e.printStackTrace();
+            // TODO
+        }
         return redirect(controllers.routes.AdminPageController.adviserPage());
 
     }
@@ -208,27 +223,35 @@ public class GeneralAdminController extends Controller {
         // der username eines studenten ist seine matNr
         SPO spo = ElipseModel.getById(SPO.class, spoId);
         BlowfishPasswordEncoder b = new BlowfishPasswordEncoder();
-        Student student = new Student(matNrString, b.encode(password), email,
-                firstName, lastName, matNr, spo, spo.getNecessaryAchievements(),
-                new ArrayList<>(), semester);
-        student.save();
-        LearningGroup l = new LearningGroup(student.getUserName(), "");
-        l.save();
-        l.doTransaction(() -> {
-            l.addMember(student);
-            l.setPrivate(true);
-            // Ratings initialisieren
-            for (Project p : GeneralData.loadInstance().getCurrentSemester()
-                    .getProjects()) {
-                l.rate(p, 3);
-            }
-        });
-        Semester currentSemester = GeneralData.loadInstance()
-                .getCurrentSemester();
-        currentSemester.doTransaction(() -> {
-            currentSemester.addLearningGroup(l);
-            currentSemester.addStudent(student);
-        });
+        try {
+            Student student = new Student(matNrString, b.encode(password),
+                    email, firstName, lastName, matNr, spo,
+                    spo.getNecessaryAchievements(), new ArrayList<>(),
+                    semester);
+            student.save();
+
+            LearningGroup l;
+
+            l = new LearningGroup(student.getUserName(), "");
+            l.save();
+            l.doTransaction(() -> {
+                l.addMember(student);
+                l.setPrivate(true);
+                // Ratings initialisieren
+                for (Project p : GeneralData.loadInstance().getCurrentSemester()
+                        .getProjects()) {
+                    l.rate(p, 3);
+                }
+            });
+            Semester currentSemester = GeneralData.loadInstance()
+                    .getCurrentSemester();
+            currentSemester.doTransaction(() -> {
+                currentSemester.addLearningGroup(l);
+                currentSemester.addStudent(student);
+            });
+        } catch (DataException e) {
+            // TODO Redirect incl. Errormessage
+        }
         return redirect(
                 controllers.routes.AdminPageController.studentEditPage());
     }
