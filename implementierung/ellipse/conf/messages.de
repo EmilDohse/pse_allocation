@@ -189,6 +189,7 @@ admin.eximport.exportCMSData = Exportiere CMS Daten
 admin.eximport.exportSPO = Exportiere SPO
 admin.eximport.exportStudents = Exportiere Studenten
 admin.eximport.exportProjects = Exportiere Projekte
+admin.eximport.exportGrades = Exportiere Noten
 admin.properties.SPO = SPO
 admin.properties.semester = Semester
 admin.properties.generalInfo = Allgemeine Informationen
