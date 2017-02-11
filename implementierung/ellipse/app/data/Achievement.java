@@ -16,7 +16,8 @@ import exception.DataException;
  * Diese Klasse stellt eine Teilleistung im Studium dar.
  */
 @Entity
-public class Achievement extends ElipseModel implements Comparable<Achievement> {
+public class Achievement extends ElipseModel
+        implements Comparable<Achievement> {
 
     /**
      * Der Name der Teilleistung.
@@ -59,8 +60,11 @@ public class Achievement extends ElipseModel implements Comparable<Achievement> 
      *             wenn der Name leer ist wird diese Exception geworfen
      */
     public final void setName(String name) throws DataException {
+        if (name == null) {
+            throw new DataException(IS_NULL_ERROR);
+        }
         if (name.length() == 0) {
-            throw new DataException("general.error.NoEmptyString");
+            throw new DataException(STRING_EMPTY_ERROR);
         }
         this.name = name;
     }
@@ -84,8 +88,9 @@ public class Achievement extends ElipseModel implements Comparable<Achievement> 
      *         übergebenen Namen hat.
      */
     public static Achievement getAchievement(String name) {
-        return getAchievements().stream().filter(achievement -> achievement.getName().equals(name)).findFirst()
-                .orElse(null);
+        return getAchievements().stream()
+                .filter(achievement -> achievement.getName().equals(name))
+                .findFirst().orElse(null);
     }
 
     @Override

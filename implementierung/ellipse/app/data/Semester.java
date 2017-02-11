@@ -189,7 +189,9 @@ public class Semester extends ElipseModel implements Comparable<Semester> {
         if (allocations.isEmpty()) {
             throw new DataException(LIST_EMPTY_ERROR);
         }
-        allocations.forEach(a -> a.setSemester(this));
+        for (Allocation allocation : allocations) {
+            allocation.setSemester(this);
+        }
         this.allocations = allocations;
     }
 

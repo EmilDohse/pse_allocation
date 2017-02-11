@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.persistence.Entity;
 
+import exception.DataException;
+
 /**
  * Diese Klasse stellt einen Administrator dar
  */
@@ -12,12 +14,12 @@ public class Administrator extends User {
 
     public static String START_PASSWORD = "admin";
 
-    public Administrator() {
+    public Administrator() throws DataException {
         super();
     }
 
     public Administrator(String username, String password, String emailAddress,
-            String firstName, String lastName) {
+            String firstName, String lastName) throws DataException {
         super(username, password, emailAddress, firstName, lastName);
     }
 

@@ -62,9 +62,14 @@ public class GeneralAdminController extends Controller {
         String password = form.get("password");
         String encPassword = new BlowfishPasswordEncoder().encode(password);
         // TODO password per email?
-        Adviser adviser = new Adviser(email, encPassword, email, firstName,
-                lastName);
-        adviser.save();
+        try {
+            Adviser adviser = new Adviser(email, encPassword, email, firstName,
+                    lastName);
+            adviser.save();
+        } catch (DataException e) {
+            // TODO: handle exception
+            e.printStackTrace();
+        }
         return redirect(controllers.routes.AdminPageController.adviserPage());
 
     }
@@ -209,12 +214,15 @@ public class GeneralAdminController extends Controller {
         // der username eines studenten ist seine matNr
         SPO spo = ElipseModel.getById(SPO.class, spoId);
         BlowfishPasswordEncoder b = new BlowfishPasswordEncoder();
-        Student student = new Student(matNrString, b.encode(password), email,
-                firstName, lastName, matNr, spo, spo.getNecessaryAchievements(),
-                new ArrayList<>(), semester);
-        student.save();
-        LearningGroup l;
         try {
+            Student student = new Student(matNrString, b.encode(password),
+                    email, firstName, lastName, matNr, spo,
+                    spo.getNecessaryAchievements(), new ArrayList<>(),
+                    semester);
+            student.save();
+
+            LearningGroup l;
+
             l = new LearningGroup(student.getUserName(), "");
             l.save();
             l.doTransaction(() -> {

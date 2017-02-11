@@ -144,11 +144,13 @@ public class IndexPageController extends Controller {
             if (Student.getStudent(matNr) == null) {
                 String encPassword = new BlowfishPasswordEncoder()
                         .encode(password);
-                Student student = new Student(matNrString, encPassword, email,
-                        firstName, lastName, matNr, spo, completedAchievements,
-                        nonCompletedAchievements, semester);
-                student.save();
                 try {
+                    Student student = new Student(matNrString, encPassword,
+                            email, firstName, lastName, matNr, spo,
+                            completedAchievements, nonCompletedAchievements,
+                            semester);
+                    student.save();
+
                     LearningGroup l = new LearningGroup(student.getUserName(),
                             "");
                     l.save();

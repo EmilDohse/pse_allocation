@@ -139,7 +139,9 @@ public class LearningGroup extends ElipseModel {
         if (ratings.isEmpty()) {
             throw new DataException(LIST_EMPTY_ERROR);
         }
-        ratings.forEach(r -> r.setLearningGroup(this));
+        for (Rating r : ratings) {
+            r.setLearningGroup(this);
+        }
         this.ratings = ratings;
     }
 
@@ -255,7 +257,7 @@ public class LearningGroup extends ElipseModel {
         if (name.isEmpty()) {
             throw new DataException(STRING_EMPTY_ERROR);
         }
-        if (name.length() < MINIMAL_PASSWORD_LENGTH) {
+        if (name.length() >= MINIMAL_PASSWORD_LENGTH) {
             setPassword(new BlowfishPasswordEncoder().encode(name));
         } else {
             throw new DataException(MINIMAL_PASSWORD_ERROR);
