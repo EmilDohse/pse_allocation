@@ -44,7 +44,7 @@ public abstract class User extends ElipseModel implements Comparable<User> {
     private String lastName;
 
     public User() throws DataException {
-        this("defautl_username", "123456789", "default_email@default.email",
+        this("defautl_username", "123456789", "defaultemail@default.de",
                 "default_firstName", "default_lastName");
     }
 
