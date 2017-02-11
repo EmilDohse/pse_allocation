@@ -1,0 +1,12 @@
+GET 	/register					controllers.IndexPageController.indexPage()
+POST 	/create						controllers.IndexPageController.indexPage()
+
+POST    /student/leaveLG            controllers.StudentPageController.learningGroupPage()
+POST	/student/setLearningGroup	controllers.StudentPageController.learningGroupPage()
+POST 	/student/rate				controllers.StudentPageController.ratingPage()
+
+POST 	/admin/addProject			controllers.AdminPageController.projectPage()
+POST 	/admin/removeProject		controllers.AdminPageController.projectPage()
+
+POST 	/adviser/add				controllers.AdviserPageController.projectsPage(id: Int = -1)
+POST 	/adviser/remove				controllers.AdviserPageController.projectsPage(id: Int = -1)

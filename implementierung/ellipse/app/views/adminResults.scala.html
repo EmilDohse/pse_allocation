@@ -175,20 +175,21 @@ List[qualityCriteria.QualityCriterion])
 									}
 								</tbody>
 							</table>
+							<!-- Einteilungsparameter anzeigen -->
 							<div class="panel-group" id="parameter-accordion-@alloc.getId()"
 								role="tablist" aria-multiselectable="true">
 								<div class="panel panel-default">
 									<div class="panel-heading" role="tab"
 										id="heading-@alloc.getId()">
-										<h4 class="panel-title">
-											<small><a role="button" data-toggle="collapse"
+										<h5 class="panel-title">
+											<a role="button" data-toggle="collapse"
 												data-parent="#accordion" href="#collapse-@alloc.getId()"
 												aria-expanded="true" aria-controls="collapse-@alloc.getId()">
-													@Messages("admin.results.usedParameters")</a></small>
-										</h4>
+													@Messages("admin.results.usedParameters")</a>
+										</h5>
 									</div>
 									<div id="collapse-@alloc.getId()"
-										class="panel-collapse collapse in" role="tabpanel"
+										class="panel-collapse collapse" role="tabpanel"
 										aria-labelledby="heading-@alloc.getId()">
 										<div class="panel-body">
 											<table class="table table-striped">
