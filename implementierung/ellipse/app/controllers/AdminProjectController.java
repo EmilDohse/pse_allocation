@@ -13,6 +13,7 @@ import data.ElipseModel;
 import data.GeneralData;
 import data.Project;
 import data.Semester;
+import exception.DataException;
 import play.data.DynamicForm;
 import play.data.FormFactory;
 import play.mvc.Controller;
@@ -43,14 +44,22 @@ public class AdminProjectController extends Controller {
             return badRequest(ctx().messages().at(INTERNAL_ERROR));
         }
         String projName = form.get("name");
-        Project project = new Project(projName, "", "", "");
-        project.save();
-        Semester semester = GeneralData.loadInstance().getCurrentSemester();
-        semester.doTransaction(() -> {
-            semester.addProject(project);
-        });
-        return redirect(controllers.routes.AdminPageController
-                .projectEditPage(project.getId()));
+        int projID = -1;
+        try {
+            Project project = new Project(projName, "", "", "");
+            project.save();
+            Semester semester = GeneralData.loadInstance().getCurrentSemester();
+            semester.doTransaction(() -> {
+                semester.addProject(project);
+            });
+            projID = project.getId();
+        } catch (DataException e) {
+            e.printStackTrace();
+            // TODO
+        }
+
+        return redirect(
+                controllers.routes.AdminPageController.projectEditPage(projID));
 
     }
 

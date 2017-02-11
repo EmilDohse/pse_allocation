@@ -12,6 +12,7 @@ import data.LearningGroup;
 import data.Project;
 import data.Student;
 import data.Team;
+import exception.DataException;
 
 /************************************************************/
 /**
@@ -68,7 +69,12 @@ public class Configuration {
         for (Project project : projects) {
             for (int i = 1; i <= project.getNumberOfTeams(); i++) {
                 Team team = new Team(project, new ArrayList<>());
-                team.setTeamNumber(i);
+                try {
+                    team.setTeamNumber(i);
+                } catch (DataException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
                 teams.add(team);
             }
         }

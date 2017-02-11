@@ -6,7 +6,11 @@ email.adviserPassword =	Hallo {0},\nIhr Passwort für das PSE-Portal lautet:\{1}
 email.subjectAdviserPassword = PSE-Passwort
 email.subjectResults = PSE-Einteilungsergebnisse
 
-
+general.error.noEmptyList=Bitte wählen Sie etwas aus
+general.error.noEmptyString=Ein Prflichtfeld ist leer
+general.error.inNull=Ein Parrramteter ist NULL
+general.error.minimalPasswordLegth = Passwort ist zu kurz
+genaeral.error.negativNumber = Zahl darf nicht Negativ sein
 index.title = Elipse - Index
 index.username = Benutzername (Matrnr)
 index.password = Passwort
