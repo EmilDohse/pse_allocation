@@ -93,8 +93,7 @@ public class Semester extends ElipseModel implements Comparable<Semester> {
         this("default_name", true, 1970);
     }
 
-    public Semester(String name, boolean wintersemester, int year)
-            throws DataException {
+    public Semester(String name, boolean wintersemester, int year) throws DataException {
         super();
         setName(name);
         setWintersemester(wintersemester);
@@ -181,8 +180,7 @@ public class Semester extends ElipseModel implements Comparable<Semester> {
      * @throws DataException
      *             Wird vom Controller behandelt.
      */
-    public void setAllocations(List<Allocation> allocations)
-            throws DataException {
+    public void setAllocations(List<Allocation> allocations) throws DataException {
         if (allocations == null) {
             throw new DataException(IS_NULL_ERROR);
         }
@@ -355,8 +353,7 @@ public class Semester extends ElipseModel implements Comparable<Semester> {
      * @param learningGroups
      *            Die Lerngruppen, die dem Semester übergeben werden.
      */
-    public void setLearningGroups(List<LearningGroup> learningGroups)
-            throws DataException {
+    public void setLearningGroups(List<LearningGroup> learningGroups) throws DataException {
         if (learningGroups == null) {
             throw new DataException(IS_NULL_ERROR);
         }
@@ -390,8 +387,7 @@ public class Semester extends ElipseModel implements Comparable<Semester> {
      * @throws DataException
      *             Wird vom Controller behandelt.
      */
-    public void addLearningGroup(LearningGroup learningGroup)
-            throws DataException {
+    public void addLearningGroup(LearningGroup learningGroup) throws DataException {
         if (learningGroup == null) {
             throw new DataException(IS_NULL_ERROR);
         }
@@ -535,8 +531,7 @@ public class Semester extends ElipseModel implements Comparable<Semester> {
      * @throws DataException
      *             Wird vom Controller behandelt.
      */
-    public void setFinalAllocation(Allocation finalAllocation)
-            throws DataException {
+    public void setFinalAllocation(Allocation finalAllocation) throws DataException {
         if (finalAllocation == null) {
             throw new DataException(IS_NULL_ERROR);
         }
@@ -556,9 +551,8 @@ public class Semester extends ElipseModel implements Comparable<Semester> {
      *         Namen hat.
      */
     public static Semester getSemester(String semesterName) {
-        return getSemesters().stream()
-                .filter(semester -> semester.getName().equals(semesterName))
-                .findFirst().orElse(null);
+        return getSemesters().stream().filter(semester -> semester.getName().equals(semesterName)).findFirst()
+                .orElse(null);
     }
 
     /**
@@ -654,9 +648,8 @@ public class Semester extends ElipseModel implements Comparable<Semester> {
      *         Semester in keiner Lerngruppe ist.
      */
     public LearningGroup getLearningGroupOf(Student student) {
-        return learningGroups.stream().filter(
-                learningGroup -> learningGroup.getMembers().contains(student))
-                .findFirst().orElse(null);
+        return learningGroups.stream().filter(learningGroup -> learningGroup.getMembers().contains(student)).findFirst()
+                .orElse(null);
     }
 
     @Override

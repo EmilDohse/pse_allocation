@@ -13,6 +13,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import exception.DataException;
 import security.BlowfishPasswordEncoder;
@@ -31,22 +32,27 @@ public class LearningGroup extends ElipseModel {
      * Der Name der Lerngruppe.
      */
     @NotNull
+    @Size(min = 1)
     private String              name;
     /**
      * Das nötige Passwort, um der Lerngruppe beizutreten.
      */
     @NotNull
+    @Size(min = MINIMAL_PASSWORD_LENGTH)
     private String              password;
     /**
      * Die Mitglieder der Lerngruppe.
      */
     @ManyToMany
+    @NotNull
     private List<Student>       members;
 
     /**
      * Die Projektbewertungen der Lerngruppe
      */
+
     @OneToMany(cascade = CascadeType.ALL)
+    @NotNull
     private List<Rating>        ratings;
 
     // Ebean braucht das hier
@@ -60,17 +66,17 @@ public class LearningGroup extends ElipseModel {
      */
     private boolean             isPrivate;
 
-    public LearningGroup() throws DataException {
+    public LearningGroup() {
         super();
-        setName(DEFAULT_NAME);
+        this.name = DEFAULT_NAME;
         savePassword(DEFAULT_PASSWORD);
         this.members = new ArrayList<Student>();
         this.ratings = new ArrayList<Rating>();
     }
 
-    public LearningGroup(String name, String password) throws DataException {
+    public LearningGroup(String name, String password) {
         this();
-        setName(name);
+        this.name = name;
         savePassword(password);
     }
 
@@ -81,11 +87,9 @@ public class LearningGroup extends ElipseModel {
      * @param password
      * @param member
      * @param isPrivate
-     * @throws DataException
      */
     @Deprecated
-    public LearningGroup(String name, String password, Student member,
-            boolean isPrivate) throws DataException {
+    public LearningGroup(String name, String password, Student member, boolean isPrivate) {
         this();
         this.name = name;
         this.password = password;
@@ -104,13 +108,9 @@ public class LearningGroup extends ElipseModel {
      * 
      * @param semester
      *            Das Semester, zu dem diese LearningGroup gehört.
-     * @throws DataException
-     *             wird vom Controller behandelt.
      */
-    public void setSemester(Semester semester) throws DataException {
-        if (semester == null) {
-            throw new DataException(ElipseModel.IS_NULL_ERROR);
-        }
+    public void setSemester(Semester semester) {
+
         this.semester = semester;
     }
 
@@ -129,16 +129,8 @@ public class LearningGroup extends ElipseModel {
      * 
      * @param ratings
      *            Projektbewertungen der Lerngruppe.
-     * @throws DataException
-     *             Wird vom Controller behandelt.
      */
-    public void setRatings(List<Rating> ratings) throws DataException {
-        if (ratings == null) {
-            throw new DataException(IS_NULL_ERROR);
-        }
-        if (ratings.isEmpty()) {
-            throw new DataException(LIST_EMPTY_ERROR);
-        }
+    public void setRatings(List<Rating> ratings) {
         for (Rating r : ratings) {
             r.setLearningGroup(this);
         }
@@ -153,16 +145,8 @@ public class LearningGroup extends ElipseModel {
      *            Projekt, für das die Bewertung geändert wird.
      * @param rating
      *            Bewertung des Projekts.
-     * @throws DataException
-     *             wird vom Controller behandelt.
      */
-    public void rate(Project project, int rating) throws DataException {
-        if (project == null) {
-            throw new DataException(IS_NULL_ERROR);
-        }
-        if (rating > Rating.MAXIMAL_RATING || rating < Rating.MINIMAL_RATING) {
-            throw new DataException("learningGroup.invalidRating");
-        }
+    public void rate(Project project, int rating) {
         for (Rating r : ratings) {
             if (r.getProject().equals(project)) {
                 r.setRating(rating);
@@ -229,16 +213,9 @@ public class LearningGroup extends ElipseModel {
      * 
      * @param name
      *            Name der Lerngruppe.
-     * @throws DataException
-     *             Wird vom Contrller behandelt.
      */
-    public void setName(String name) throws DataException {
-        if (name == null) {
-            throw new DataException(IS_NULL_ERROR);
-        }
-        if (name.isEmpty()) {
-            throw new DataException(STRING_EMPTY_ERROR);
-        }
+    public void setName(String name) {
+
         this.name = name;
     }
 
@@ -247,25 +224,17 @@ public class LearningGroup extends ElipseModel {
      * 
      * @param name
      *            Das Passwort im Klartext.
-     * @throws DataException
-     *             Wird vom Controller behandelt.
+     * 
      */
-    public void savePassword(String name) throws DataException {
-        if (name == null) {
-            throw new DataException(IS_NULL_ERROR);
-        }
-        if (name.isEmpty()) {
-            throw new DataException(STRING_EMPTY_ERROR);
-        }
-        if (name.length() >= MINIMAL_PASSWORD_LENGTH) {
-            setPassword(new BlowfishPasswordEncoder().encode(name));
-        } else {
-            throw new DataException(MINIMAL_PASSWORD_ERROR);
-        }
+    public void savePassword(String name) {
+        // TODO im controler auf länge prüfen
+        setPassword(new BlowfishPasswordEncoder().encode(name));
+
     }
 
     /**
-     * Setter für das Passwort.
+     * Setter für das Passwort. ACHTUNG hier wird das passwort in Klartext
+     * gespeichert - save Password verwenden - nur Public da Ebaen das braucht
      * 
      * @param password
      *            Das Passwort, um der Lerngruppe beizutreten.
@@ -279,20 +248,9 @@ public class LearningGroup extends ElipseModel {
      * 
      * @param members
      *            Die Mitglieder der Lerngruppe.
-     * @throws DataException
-     *             Wird vom Controller behandelt.
      */
-    public void setMembers(List<Student> members) throws DataException {
-        if (members == null) {
-            throw new DataException(IS_NULL_ERROR);
-        }
-        if (members.isEmpty()) {
-            throw new DataException(LIST_EMPTY_ERROR);
-        }
-        if (members.size() > GeneralData.loadInstance().getCurrentSemester()
-                .getMaxGroupSize()) {
-            throw new DataException("learningGroup.toLarge");
-        }
+    public void setMembers(List<Student> members) {
+        // TODO member anzahl im controller checken
         this.members = members;
     }
 
@@ -301,17 +259,10 @@ public class LearningGroup extends ElipseModel {
      *
      * @param student
      *            Student, der hinzugefügt wird.
-     * @throws DataException
-     *             Wird vom Controller behandelt.
      */
-    public void addMember(Student student) throws DataException {
-        if (student == null) {
-            throw new DataException(IS_NULL_ERROR);
-        }
-        if (members.size() + 1 > GeneralData.loadInstance().getCurrentSemester()
-                .getMaxGroupSize()) {
-            throw new DataException("learningGroup.toLarge");
-        }
+    public void addMember(Student student) {
+        // TODO member anzahl im controller checken
+
         // TODO Prüfen, ob Student schon in anderer Lerngruppe ist?
         members.add(student);
     }
@@ -321,13 +272,9 @@ public class LearningGroup extends ElipseModel {
      * 
      * @param student
      *            Student, der entfernt wird.
-     * @throws DataException
-     *             Wird vom Controller behandelt.
      */
-    public void removeMember(Student student) throws DataException {
-        if (student == null) {
-            throw new DataException(IS_NULL_ERROR);
-        }
+    public void removeMember(Student student) {
+
         // TODO Prüfen, ob der Student in der Lerngruppe ist?
         // TODO Prüfen, ob Lerngruppe dadurch leer ist?
         members.remove(student);
@@ -363,10 +310,8 @@ public class LearningGroup extends ElipseModel {
      * @return Die spezifische Lerngruppe. Null falls keine passende gefunden
      *         wird.
      */
-    public static LearningGroup getLearningGroup(String name,
-            Semester semester) {
-        return semester.getLearningGroups().stream()
-                .filter(group -> group.getName().equals(name)).findFirst()
+    public static LearningGroup getLearningGroup(String name, Semester semester) {
+        return semester.getLearningGroups().stream().filter(group -> group.getName().equals(name)).findFirst()
                 .orElse(null);
     }
 
