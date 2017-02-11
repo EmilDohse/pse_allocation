@@ -12,7 +12,7 @@ import exception.DataException;
 @Entity
 public class Administrator extends User {
 
-    public static String START_PASSWORD = "admin";
+    public static String START_PASSWORD = "admin123";
 
     public Administrator() throws DataException {
         super();

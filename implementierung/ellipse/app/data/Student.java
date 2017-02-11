@@ -77,9 +77,9 @@ public class Student extends User {
     private static final int  MINIMAL_SEMESTER = 1; // TODO Genauer Wert?
 
     public Student() throws DataException {
-        this("default_username", "1234", "anonymous@kit.edu", "Max",
+        this("default_username", "123456789", "anonymous@kit.edu", "Max",
                 "Musterman", 0, new SPO(), new ArrayList<>(), new ArrayList<>(),
-                0);
+                35);
     }
 
     public Student(String username, String password, String emailAddress,
