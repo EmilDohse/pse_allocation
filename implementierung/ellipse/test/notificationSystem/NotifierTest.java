@@ -19,6 +19,7 @@ import data.Allocation;
 import data.Project;
 import data.Student;
 import data.Team;
+import exception.DataException;
 import play.Play;
 import play.test.WithApplication;
 
@@ -36,8 +37,8 @@ public class NotifierTest extends WithApplication {
 
     @Test
     public void testNotifiyStudent()
-            throws EmailException, MessagingException, IOException {
-        System.out.println("1");
+            throws EmailException, MessagingException, IOException,
+            DataException {
         Student student = new Student();
         Team team = new Team();
         Project project = new Project();
@@ -60,8 +61,8 @@ public class NotifierTest extends WithApplication {
     @Ignore
     @Test
     public void testNotifyAdviser()
-            throws EmailException, IOException, MessagingException {
-        System.out.println("2");
+            throws EmailException, IOException, MessagingException,
+            DataException {
         Adviser adviser = new Adviser();
         Student student = new Student();
         Team team = new Team();
@@ -86,8 +87,8 @@ public class NotifierTest extends WithApplication {
 
     @Test
     public void testSendAdviserPassword()
-            throws EmailException, IOException, MessagingException {
-        System.out.println("3");
+            throws EmailException, IOException, MessagingException,
+            DataException {
         Adviser adviser = new Adviser();
         String password = "secret";
         notifier.sendAdviserPassword(adviser, password);
