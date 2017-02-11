@@ -16,6 +16,7 @@
 \usepackage[binary-units=true]{siunitx}
  \usepackage[autostyle=true,german=quotes]{csquotes}
  \usepackage{longtable, booktabs}
+ \newcommand{\swtLabel}[1]{\textbf{/#1\arabic*0/}}
  \begin{document}
 
 \title{Elipse -- Einteilungs Interface für das PSE}
@@ -80,7 +81,7 @@ diesem Produkt. Ein Großteil dieser wurde von uns Implementiert.
 \subsubsection{Pflichtfunktionen}
 \begin{enumerate}[label=\swtLabel{FA}]
   \item Einteilung der Studierenden zu Projekten. Hierbei werden folgende Kriterien,
-soweit möglich, berücksichtigt:
+soweit möglich und wie konfiguriert berücksichtigt:
 \begin{itemize}
   \item Wer die durch seine SPO gegebenen Voraussetzungen nicht erfüllt, wird nicht
 eingeteilt
@@ -92,8 +93,7 @@ eingeteilt
 \end{enumerate}
 \subsubsection{Wunschfunktionen}
 \begin{enumerate}[label=\swtLabel{FA}, resume]
-  \item Stapelverarbeitung von mehreren Einteilungen mit unterschiedlichen Konfigu-
-rationen
+  \item Stapelverarbeitung von mehreren Einteilungen mit unterschiedlichen Konfigurationen
 \item Folgende Kriterien fließen in die Einteilung ein:
 \begin{itemize}
   \item Wer sich zum zweiten Mal bewirbt, soll bei der Einteilung bevorzugt
@@ -146,9 +146,10 @@ und maximale Teilnehmerzahl, der Teams
   \item Hinzufügen von Berechnungen zur Stapelverarbeitung
   \item Hinzufügen wählbarer Teilleistungen zu SPOs
   \item Entfernen wählbarer Teilleistungen aus SPOs
-  \item SPOs auswählen, die Studierende bei der Anmeldung angeben können [/A130/]
-Benachrichtigen der Studierende und Projektbetreuer über die Einteilung per
-E-Mail
+  \item SPOs auswählen, die Studierende bei der Anmeldung angeben können 
+\item 
+Benachrichtigen der Studierende und Projektbetreuer über die Einteilung
+per E-Mail
 \item Erstellen von Betreueraccounts unter Angabe der Daten /D310/ bis /D340/
 \item Import von „.csv“-Dateien mit Informationen über bestandene Teilleistungen
 der Studierenden aus dem Campus Management System
