@@ -8,11 +8,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+
+import com.avaje.ebean.Ebean;
 
 import exception.DataException;
 
@@ -23,9 +26,12 @@ import exception.DataException;
 @Entity
 public class Student extends User {
 
+    private static final String MATRICULATION_NR = "matriculationNumber";
+
     /**
      * Die Matrikelnummer des Studierenden.
      */
+    @Column(name = MATRICULATION_NR)
     private int               matriculationNumber;
     /**
      * Die SPO des Studierenden
@@ -320,10 +326,8 @@ public class Student extends User {
      *         hat.
      */
     public static Student getStudent(int matriculationNumber) {
-        return getStudents().stream()
-                .filter(student -> student
-                        .getMatriculationNumber() == matriculationNumber)
-                .findFirst().orElse(null);
+        return Ebean.find(Student.class).where()
+                .eq(MATRICULATION_NR, matriculationNumber).findUnique();
     }
 
     /**
