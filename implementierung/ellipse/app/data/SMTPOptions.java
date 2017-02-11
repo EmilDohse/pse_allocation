@@ -24,7 +24,7 @@ public class SMTPOptions extends ElipseModel {
     @Min(1)
     private int                port;
     private boolean            ssl;
-    private boolean            tsl;
+    private boolean            tls;
     private boolean            debug;
     private int                timeout;
     private int                connectionTimeout;
@@ -46,7 +46,7 @@ public class SMTPOptions extends ElipseModel {
         mailFrom = "noreply@kit.edu";
         port = 25;
         ssl = false;
-        tsl = false;
+        tls = false;
         debug = false;
         timeout = 60;
         connectionTimeout = 60;
@@ -164,7 +164,7 @@ public class SMTPOptions extends ElipseModel {
      * @param newHost
      *            Der neue host.
      */
-    public void changeHostTo(String newHost) {
+    public void setHost(String newHost) {
         host = newHost;
     }
 
@@ -174,7 +174,7 @@ public class SMTPOptions extends ElipseModel {
      * @param newPort
      *            Der neue Port.
      */
-    public void changePortTo(int newPort) {
+    public void setPort(int newPort) {
         port = newPort;
     }
 
@@ -184,18 +184,18 @@ public class SMTPOptions extends ElipseModel {
      * @param newSsl
      *            Die neue ssl-Einstellung.
      */
-    public void changeSslTo(boolean newSsl) {
+    public void setSsl(boolean newSsl) {
         ssl = newSsl;
     }
 
     /**
-     * Setter für die SMTP-Einstellung 'tsl'.
+     * Setter für die SMTP-Einstellung 'tls'.
      *
-     * @param newTsl
-     *            Die neue tsl-Einstellung.
+     * @param newTls
+     *            Die neue tls-Einstellung.
      */
-    public void changeTslTo(boolean newTsl) {
-        tsl = newTsl;
+    public void setTls(boolean newTls) {
+        tls = newTls;
     }
 
     /**
@@ -204,7 +204,7 @@ public class SMTPOptions extends ElipseModel {
      * @param newDebug
      *            Die neue debug-Einstellung.
      */
-    public void changeDebugTo(boolean newDebug) {
+    public void setDebug(boolean newDebug) {
         debug = newDebug;
     }
 
@@ -214,7 +214,7 @@ public class SMTPOptions extends ElipseModel {
      * @param newTimeout
      *            Die neue timeout-Einstellung.
      */
-    public void changeTimeoutTo(int newTimeout) {
+    public void setTimeout(int newTimeout) {
         timeout = newTimeout;
     }
 
@@ -224,7 +224,7 @@ public class SMTPOptions extends ElipseModel {
      * @param newTimeout
      *            Die neue connectionTimeout-Einstellung.
      */
-    public void changeConnectionTimeoutTo(int newConnectionTimeout) {
+    public void setConnectionTimeout(int newConnectionTimeout) {
         connectionTimeout = newConnectionTimeout;
     }
 
@@ -256,12 +256,12 @@ public class SMTPOptions extends ElipseModel {
     }
 
     /**
-     * Getter für die SMTP-Einstellung 'tsl'.
+     * Getter für die SMTP-Einstellung 'tls'.
      *
-     * @return SMTP-Einstellung 'tsl'.
+     * @return SMTP-Einstellung 'tls'.
      */
     public boolean getTls() {
-        return tsl;
+        return tls;
     }
 
     /**
@@ -272,7 +272,6 @@ public class SMTPOptions extends ElipseModel {
     public boolean getDebug() {
         return debug;
     }
-
 
     /**
      * Getter für die SMTP-Einstellung 'timeout'.

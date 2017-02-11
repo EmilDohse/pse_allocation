@@ -15,6 +15,7 @@ import com.google.inject.Inject;
 import data.Achievement;
 import data.ElipseModel;
 import data.GeneralData;
+import data.SMTPOptions;
 import data.SPO;
 import data.Semester;
 import exception.DataException;
@@ -33,6 +34,7 @@ public class AdminPropertiesController extends Controller {
     private static final String GENERAL_ERROR  = "admin.allocation.error.generalError";
     private static final String GEN_ERROR      = "index.registration.error.genError";
     private static final String INTERNAL_ERROR = "error.internalError";
+    private static final String NUMBER_ERROR   = "admin.properties.numberError";
 
     @Inject
     FormFactory                 formFactory;
@@ -321,6 +323,52 @@ public class AdminPropertiesController extends Controller {
             e.printStackTrace();
             // TODO
         }
+        return redirect(
+                controllers.routes.AdminPageController.propertiesPage());
+    }
+
+    /**
+     * Diese Methode ändert die SMTP-Options, damit der Administrator einstellen
+     * kann, welcher SMTP-Server zum verschicken von Mails verwendet wird.
+     * 
+     * @return
+     */
+    public Result editSMTPOptions() {
+        DynamicForm form = formFactory.form().bindFromRequest();
+        if (form.data().isEmpty()) {
+            return badRequest(ctx().messages().at(INTERNAL_ERROR));
+        }
+        int port;
+        int connectionTimeout;
+        int timeout;
+        boolean ssl = form.get("ssl") != null;
+        boolean tls = form.get("tls") != null;
+        boolean debug = form.get("debug") != null;
+        try {
+            port = Integer.parseInt(form.get("port"));
+            connectionTimeout = Integer.parseInt(form.get("connectionTimeOut"));
+            timeout = Integer.parseInt(form.get("timeout"));
+        } catch (NumberFormatException e) {
+            flash("error", ctx().messages().at(NUMBER_ERROR));
+            return redirect(
+                    controllers.routes.AdminPageController.propertiesPage());
+        }
+
+        SMTPOptions options = SMTPOptions.getInstance();
+        options.doTransaction(() -> {
+            options.setHost(form.get("host"));
+            options.setMailFrom(form.get("mailFrom"));
+            options.setUsername(form.get("username"));
+            options.setPort(port);
+            options.setConnectionTimeout(connectionTimeout);
+            options.setTimeout(timeout);
+            options.setSsl(ssl);
+            options.setTls(tls);
+            options.setDebug(debug);
+            // TODO: savepassword aktivieren
+            // options.savePassword(form.get("password"));
+
+        });
         return redirect(
                 controllers.routes.AdminPageController.propertiesPage());
     }

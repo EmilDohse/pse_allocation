@@ -110,6 +110,21 @@ create table rating (
   foreign key (learning_group_id) references learning_group (id) on delete restrict on update restrict
 );
 
+create table smtpoptions (
+  id                            integer not null,
+  host                          varchar(255) not null,
+  mail_from                     varchar(255) not null,
+  port                          integer,
+  ssl                           integer(1),
+  tls                           integer(1),
+  debug                         integer(1),
+  timeout                       integer,
+  connection_timeout            integer,
+  username                      varchar(255) not null,
+  password                      varchar(255) not null,
+  constraint pk_smtpoptions primary key (id)
+);
+
 create table spo (
   id                            integer not null,
   name                          varchar(255) not null,
@@ -244,6 +259,8 @@ drop table if exists project;
 drop table if exists project_adviser;
 
 drop table if exists rating;
+
+drop table if exists smtpoptions;
 
 drop table if exists spo;
 

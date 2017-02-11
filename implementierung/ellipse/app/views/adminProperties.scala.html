@@ -1,7 +1,7 @@
 @* * Diese Seite zeigt die Einstellungsseite dem Admin an. * Dafür wird
 eine Liste an Semestern und SPOs benötigt * Zusätzlich kann eine
 Fehlermeldung übergeben werden. *@ @(activeSemester: data.Semester,
-semesters: List[data.Semester], spos: List[data.SPO])
+semesters: List[data.Semester], spos: List[data.SPO], smtpOptions: data.SMTPOptions)
 <link
 	href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css"
 	rel="stylesheet">
@@ -13,6 +13,7 @@ semesters: List[data.Semester], spos: List[data.SPO])
 	href='@routes.Assets.versioned("stylesheets/bootstrap-multiselect.css")'
 	type="text/css" />
 <h1>@Messages("admin.sidebar.properties")</h1>
+<!-- SPO Einstellungen -->
 <div class="panel panel-primary">
 	<div class="panel-heading">
 		<h3 class="panel-title">@Messages("admin.properties.SPO")</h3>
@@ -125,6 +126,7 @@ semesters: List[data.Semester], spos: List[data.SPO])
 		</div>
 	</div>
 </div>
+<!-- Semester Einstellungen -->
 <div class="panel panel-primary">
 	<div class="panel-heading">
 		<h3 class="panel-title">@Messages("admin.properties.semester")</h3>
@@ -272,5 +274,96 @@ semesters: List[data.Semester], spos: List[data.SPO])
 			</div>
 			}
 		</div>
+	</div>
+</div>
+<!-- SMTP-Server Einstellungen -->
+<div class="panel panel-primary">
+	<div class="panel-heading">
+		<h3 class="panel-title">@Messages("admin.properties.SMTPServer")</h3>
+	</div>
+	<div class="panel-body">
+		<form
+			action="@controllers.routes.AdminPropertiesController.editSMTPOptions().path()"
+			method="POST" class="form-horizontal">
+			<div class="form-group">
+				<label class="control-label col-sm-2" for="host">@Messages("admin.properties.host")</label>
+				<div class="col-sm-3">
+					<input type="text" class="form-control" name="host" id="host" value="@smtpOptions.getHost()">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-sm-2" for="mail">@Messages("admin.properties.mailFrom")</label>
+				<div class="col-sm-3">
+					<input type="email" class="form-control" name="mail" id="mail" value="@smtpOptions.getMailFrom()">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-sm-2" for="port">@Messages("admin.properties.port")</label>
+				<div class="col-sm-3">
+					<input type="number" class="form-control" name="port" id="port" value="@smtpOptions.getPort()">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-sm-2" for="username">@Messages("admin.properties.username")</label>
+				<div class="col-sm-3">
+					<input type="text" class="form-control" name="username"
+						id="username" value="@smtpOptions.getUsername()">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-sm-2" for="password">@Messages("admin.properties.password")</label>
+				<div class="col-sm-3">
+					<input type="password" class="form-control" name="password"
+						id="password" value="@smtpOptions.getPassword()">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-sm-2" for="timeout">@Messages("admin.properties.timeout")</label>
+				<div class="col-sm-3">
+					<input type="number" class="form-control" name="timeout"
+						id="timeout" value="@smtpOptions.getTimeout()">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-sm-2" for="connectionTimeOut">@Messages("admin.properties.connectionTimeOut")</label>
+				<div class="col-sm-3">
+					<input type="number" class="form-control" name="connectionTimeOut"
+						id="connectionTimeOut" value="@smtpOptions.getConnectionTimeout()">
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="checkbox">
+					<label class="control-label col-sm-2" for="semester-active">@Messages("admin.properties.ssl")</label><input
+						type="checkbox"
+						@if(smtpOptions.getSsl()) {checked} data-toggle="toggle"
+						data-on='@Messages("admin.properties.activ")'
+						data-off='@Messages("admin.properties.inactiv")'
+						data-onstyle="success" data-offstyle="danger" data-width="100"
+						name="ssl" id="ssl" class="form-control">
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="checkbox">
+					<label class="control-label col-sm-2" for="semester-active">@Messages("admin.properties.tls")</label><input
+						type="checkbox"
+						@if(smtpOptions.getTls()) {checked} data-toggle="toggle"
+						data-on='@Messages("admin.properties.activ")'
+						data-off='@Messages("admin.properties.inactiv")'
+						data-onstyle="success" data-offstyle="danger" data-width="100"
+						name="tls" id="tls" class="form-control">
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="checkbox">
+					<label class="control-label col-sm-2" for="semester-active">@Messages("admin.properties.debug")</label><input
+						type="checkbox"
+						@if(smtpOptions.getDebug()) {checked} data-toggle="toggle"
+						data-on='@Messages("admin.properties.activ")'
+						data-off='@Messages("admin.properties.inactiv")'
+						data-onstyle="success" data-offstyle="danger" data-width="100"
+						name="debug" id="debug" class="form-control">
+				</div>
+			</div>
+		</form>
 	</div>
 </div>
