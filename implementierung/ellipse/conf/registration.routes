@@ -1,0 +1,6 @@
+POST 	/admin/addAllocation		controllers.AdminPageController.allocationPage()
+POST 	/admin/addProject			controllers.AdminPageController.projectPage()
+POST 	/admin/removeProject		controllers.AdminPageController.projectPage()
+
+POST 	/adviser/add				controllers.AdviserPageController.projectsPage(id: Int = -1)
+POST 	/adviser/remove				controllers.AdviserPageController.projectsPage(id: Int = -1)
