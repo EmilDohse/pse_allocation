@@ -58,12 +58,9 @@ public class Allocation extends ElipseModel {
      *            Der Name der Einteilung
      * @param parameters
      *            Die eingestellten Parameter
-     * @throws DataException
-     *             wenn die listen oder der string null sind oder der name leer
-     *             ist
      */
     public Allocation(List<Team> teams, String name,
-            List<AllocationParameter> parameters) throws DataException {
+            List<AllocationParameter> parameters) {
         super();
         this.teams = teams;
         this.name = name;
@@ -73,20 +70,16 @@ public class Allocation extends ElipseModel {
     /**
      * Erstellt eine neue Allocation mit dem Namen "defaut_name"
      * 
-     * @throws DataException
-     *             siehe konstruktor mit listen und name
      */
-    public Allocation() throws DataException {
+    public Allocation() {
         this(new ArrayList<>(), "default_name", new ArrayList<>());
     }
 
     /**
      * 
      * @param a
-     * @throws DataException
-     *             siehe konstruktor mit listen und name
      */
-    public Allocation(Allocation a) throws DataException {
+    public Allocation(Allocation a) {
         // Hier wird kein Save aufgerufen sondern nur außerhalb auf dem
         // geklonten Objekt, da sonst nicht korrekt gespeichert wird
         this();

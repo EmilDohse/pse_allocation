@@ -17,7 +17,6 @@ import data.ElipseModel;
 import data.GeneralData;
 import data.SPO;
 import data.Semester;
-import exception.DataException;
 import play.data.DynamicForm;
 import play.data.FormFactory;
 import play.mvc.Controller;
@@ -45,15 +44,9 @@ public class AdminPropertiesController extends Controller {
      * @return Die Seite, die als Antwort verschickt wird.
      */
     public Result addSemester() {
-        try {
-            Semester semester = new Semester("newSemester", true,
-                    Calendar.getInstance().get(Calendar.YEAR));
-            // TODO fügt neues semester als wintersemester im aktuellen jahr ein
-            semester.save();
-        } catch (DataException e) {
-            // TODO
-            e.printStackTrace();
-        }
+        Semester semester = new Semester("newSemester", true,
+                Calendar.getInstance().get(Calendar.YEAR));
+        semester.save();
         return redirect(
                 controllers.routes.AdminPageController.propertiesPage());
     }
@@ -93,13 +86,8 @@ public class AdminPropertiesController extends Controller {
      * @return Die Seite, die als Antwort verschickt wird.
      */
     public Result addSPO() {
-        try {
-            SPO spo = new SPO("newSPO");
-            spo.save();
-        } catch (DataException e) {
-            // TODO
-            e.printStackTrace();
-        }
+        SPO spo = new SPO("newSPO");
+        spo.save();
         return redirect(
                 controllers.routes.AdminPageController.propertiesPage());
     }
@@ -237,15 +225,11 @@ public class AdminPropertiesController extends Controller {
         }
         SPO spo = ElipseModel.getById(SPO.class, idSPO);
 
-        try {
-            Achievement achievement = new Achievement(nameAchiev);
-            achievement.save();
-            spo.doTransaction(() -> {
-                spo.addNecessaryAchievement(achievement);
-            });
-        } catch (DataException e) {
-            // TODO
-        }
+        Achievement achievement = new Achievement(nameAchiev);
+        achievement.save();
+        spo.doTransaction(() -> {
+            spo.addNecessaryAchievement(achievement);
+        });
 
         return redirect(
                 controllers.routes.AdminPageController.propertiesPage());
@@ -279,48 +263,40 @@ public class AdminPropertiesController extends Controller {
         // iterators werden kreiert da man sonst nichts entfernen pver
         // hinzufügen kann
 
-        try {
-            java.util.Iterator<Achievement> necAchievments = necAchiev
-                    .iterator();
-            while (necAchievments.hasNext()) {
-                // für alle neccesary und additional achievments wird geprüft ob
-                // sie
-                // gelöscht werden müssen oder in die andere liste müssen
-                Achievement achiev = necAchievments.next();
-                if (form.get(
-                        "delete-" + Integer.toString(achiev.getId())) != null) {
-                    necAchievments.remove();
-                } else if (form.get("necessary-"
-                        + Integer.toString(achiev.getId())) == null) {
-                    spo.addAdditionalAchievement(achiev);
-                    necAchievments.remove();
-                }
-
-            }
-            // TODO glaube, dass funktioniert so nicht (überarbeiten)
-            java.util.Iterator<Achievement> addAchievments = addAchiev
-                    .iterator();
-            while (addAchievments.hasNext()) {
-                Achievement achiev = addAchievments.next();
-                if (form.get(
-                        "delete-" + Integer.toString(achiev.getId())) != null) {
-                    addAchievments.remove();
-
-                } else if (form.get("necessary-"
-                        + Integer.toString(achiev.getId())) != null) {
-                    spo.addNecessaryAchievement(achiev);
-                    addAchievments.remove();
-                }
+        java.util.Iterator<Achievement> necAchievments = necAchiev.iterator();
+        while (necAchievments.hasNext()) {
+            // für alle neccesary und additional achievments wird geprüft ob
+            // sie
+            // gelöscht werden müssen oder in die andere liste müssen
+            Achievement achiev = necAchievments.next();
+            if (form.get(
+                    "delete-" + Integer.toString(achiev.getId())) != null) {
+                necAchievments.remove();
+            } else if (form.get(
+                    "necessary-" + Integer.toString(achiev.getId())) == null) {
+                spo.addAdditionalAchievement(achiev);
+                necAchievments.remove();
             }
 
-            // name wird aktualisiert
-            spo.doTransaction(() -> {
-                spo.setName(nameSPO);
-            });
-        } catch (DataException e) {
-            e.printStackTrace();
-            // TODO
         }
+        java.util.Iterator<Achievement> addAchievments = addAchiev.iterator();
+        while (addAchievments.hasNext()) {
+            Achievement achiev = addAchievments.next();
+            if (form.get(
+                    "delete-" + Integer.toString(achiev.getId())) != null) {
+                addAchievments.remove();
+
+            } else if (form.get(
+                    "necessary-" + Integer.toString(achiev.getId())) != null) {
+                spo.addNecessaryAchievement(achiev);
+                addAchievments.remove();
+            }
+        }
+
+        // name wird aktualisiert
+        spo.doTransaction(() -> {
+            spo.setName(nameSPO);
+        });
         return redirect(
                 controllers.routes.AdminPageController.propertiesPage());
     }

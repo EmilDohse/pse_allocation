@@ -17,7 +17,6 @@ import data.Project;
 import data.Semester;
 import data.Student;
 import data.Team;
-import exception.DataException;
 import play.data.DynamicForm;
 import play.data.FormFactory;
 import play.mvc.Controller;
@@ -100,20 +99,16 @@ public class AdviserPageController extends Controller {
     public Result addProject() {
         UserManagement user = new UserManagement();
         int projID = -1;
-        try {
-            Adviser adviser = (Adviser) user.getUserProfile(ctx());
-            Project project = new Project("new Project" + adviser.getFirstName()
-                    + adviser.getLastName(), adviser);
-            project.save();
-            projID = project.getId();
-            Semester semester = GeneralData.loadInstance().getCurrentSemester();
-            semester.doTransaction(() -> {
-                semester.addProject(project);
-            });
-        } catch (DataException e) {
-            // TODO
-            e.printStackTrace();
-        }
+        Adviser adviser = (Adviser) user.getUserProfile(ctx());
+        Project project = new Project(
+                "new Project" + adviser.getFirstName() + adviser.getLastName(),
+                adviser);
+        project.save();
+        projID = project.getId();
+        Semester semester = GeneralData.loadInstance().getCurrentSemester();
+        semester.doTransaction(() -> {
+            semester.addProject(project);
+        });
         return redirect(
                 controllers.routes.AdviserPageController.projectsPage(projID));
     }

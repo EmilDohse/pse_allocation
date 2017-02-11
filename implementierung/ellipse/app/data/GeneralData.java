@@ -9,7 +9,6 @@ import java.util.NoSuchElementException;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
-import javax.validation.constraints.NotNull;
 
 import exception.DataException;
 
@@ -34,7 +33,6 @@ public class GeneralData extends ElipseModel {
      * Das momentane Semester.
      */
     @OneToOne(cascade = CascadeType.PERSIST)
-    @NotNull
     private Semester currentSemester;
 
     /**
@@ -45,14 +43,9 @@ public class GeneralData extends ElipseModel {
     public Semester getCurrentSemester() {
         if (currentSemester == null) {
             Semester semester;
-            try {
-                semester = new Semester();
-                semester.setId(-1);
-                return semester;
-            } catch (DataException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
+            semester = new Semester();
+            semester.setId(-1);
+            return semester;
         }
         return currentSemester;
     }

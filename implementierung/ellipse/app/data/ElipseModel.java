@@ -8,8 +8,6 @@ import javax.persistence.MappedSuperclass;
 import com.avaje.ebean.Ebean;
 import com.avaje.ebean.Model;
 
-import exception.DataException;
-
 @MappedSuperclass
 public abstract class ElipseModel extends Model {
 
@@ -38,15 +36,9 @@ public abstract class ElipseModel extends Model {
      * 
      * @param id
      *            Die neue eindeutige ID des Objektes.
-     * @throws DataException
-     *             wenn die id negativ ist
      */
-    public void setId(int id) throws DataException {
-        if (id == -1 || id > 0) {
-            this.id = id;
-            return;
-        }
-        throw new DataException("genaeral.error.negativNumber");
+    public void setId(int id) {
+        this.id = id;
     }
 
     /**
@@ -90,12 +82,7 @@ public abstract class ElipseModel extends Model {
 
     public void doTransaction(Transaction transaction) {
         // Ebean.beginTransaction();
-
-        try {
-            transaction.transact();
-        } catch (DataException e) {
-            // TODO Nicht hier catchen, sondern in Controllern behandeln.
-        }
+        transaction.transact();
         this.save();
         // Ebean.endTransaction();
     }

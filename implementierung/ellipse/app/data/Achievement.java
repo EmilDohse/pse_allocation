@@ -10,8 +10,6 @@ import javax.persistence.Entity;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import exception.DataException;
-
 /************************************************************/
 /**
  * Diese Klasse stellt eine Teilleistung im Studium dar.
@@ -27,7 +25,7 @@ public class Achievement extends ElipseModel
     @Size(min = 1)
     private String name;
 
-    public Achievement() throws DataException {
+    public Achievement() {
         this("default_name");
     }
 
@@ -36,12 +34,10 @@ public class Achievement extends ElipseModel
      * 
      * @param name
      *            mit dem gegebenen namen
-     * @throws DataException
-     *             der name darf nicht leer sein
      */
-    public Achievement(String name) throws DataException {
+    public Achievement(String name) {
         super();
-        this.setName(name);
+        this.name = name;
     }
 
     /**

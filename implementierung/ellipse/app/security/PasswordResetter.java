@@ -1,6 +1,7 @@
 package security;
 
 import data.User;
+import exception.DataException;
 
 /**
  * Diese Klasse übernimmt den Prozess des Passwort resettens. Dabei wird der
@@ -65,7 +66,11 @@ public class PasswordResetter {
         String pw = pwStorage.pop(pwCode);
         if (user != null && pw != null) {
             user.doTransaction(() -> {
-                user.setPassword(pw);
+                try {
+                    user.savePassword(pw);
+                } catch (DataException e) {
+                    // Kann nicht auftreten, da vorher vom Controller behandelt
+                }
             });
             return true;
         } else {

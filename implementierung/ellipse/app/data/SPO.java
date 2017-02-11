@@ -13,8 +13,6 @@ import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import exception.DataException;
-
 /************************************************************/
 /**
  * Diese Klasse stellt eine Studienprüfungsordnung dar.
@@ -128,7 +126,7 @@ public class SPO extends ElipseModel implements Comparable<SPO> {
      * @param name
      *            Der Name der SPO.
      */
-    public void setName(String name) throws DataException {
+    public void setName(String name) {
         this.name = name;
     }
 
@@ -139,7 +137,8 @@ public class SPO extends ElipseModel implements Comparable<SPO> {
      *            Die benötigten Teilleistungen.
      * 
      */
-    public void setNecessaryAchievements(List<Achievement> necessaryAchievements) {
+    public void setNecessaryAchievements(
+            List<Achievement> necessaryAchievements) {
         // Hier wird nicht auf leere Liste geprüft, da es sinnvolle Anwendungen
         // dafür gibt.
         this.necessaryAchievements = necessaryAchievements;
@@ -151,7 +150,8 @@ public class SPO extends ElipseModel implements Comparable<SPO> {
      * @param additionalAchievements
      *            Die zusätzlichen Teilleistungen.
      */
-    public void setAdditionalAchievements(List<Achievement> additionalAchievements) {
+    public void setAdditionalAchievements(
+            List<Achievement> additionalAchievements) {
         // Hier wird nicht auf leere Liste geprüft, da es sinnvolle Anwendungen
         // dafür gibt.
         this.additionalAchievements = additionalAchievements;
@@ -175,7 +175,8 @@ public class SPO extends ElipseModel implements Comparable<SPO> {
      * @return Die SPO. Null falls keine SPO den übergebenen Namen hat.
      */
     public static SPO getSPO(String name) {
-        return getSPOs().stream().filter(spo -> spo.getName().equals(name)).findFirst().orElse(null);
+        return getSPOs().stream().filter(spo -> spo.getName().equals(name))
+                .findFirst().orElse(null);
     }
 
     // TODO Müssen compareTo und equals auch geprüft werden?

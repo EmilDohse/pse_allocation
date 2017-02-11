@@ -6,12 +6,13 @@ package data;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
-
-import exception.DataException;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 /************************************************************/
 /**
- * Diese Klasse stellt eine Bewertung eines Studierenden oder einerr Lerngruppe
+ * Diese Klasse stellt eine Bewertung eines Studierenden oder einer Lerngruppe
  * für ein Projekt dar.
  */
 @Entity
@@ -23,26 +24,29 @@ public class Rating extends ElipseModel {
     /**
      * Der Wert der Bewertung.
      */
+    @Min(1)
+    @Max(5)
     private int             rating;
     /**
      * Das Projekt, dem die Bewertung gilt.
      */
     @ManyToOne
+    @NotNull
     private Project         project;
 
     // Ebean braucht das hier
     @ManyToOne
     private LearningGroup   learningGroup;
 
-    // TODO macht das Sinn?
-    public Rating() throws DataException {
-        this(1, new Project());
+    public Rating() {
+        this(1, new Project(Project.DEFAULT_NAME, Project.DEFAULT_INFO,
+                Project.DEFAULT_INSTITUTE, Project.DEFAULT_URL));
     }
 
-    public Rating(int rating, Project project) throws DataException {
+    public Rating(int rating, Project project) {
         super();
-        setRating(rating);
-        setProject(project);
+        this.rating = rating;
+        this.project = project;
     }
 
     public LearningGroup getLearningGroup() {
@@ -56,14 +60,8 @@ public class Rating extends ElipseModel {
      * 
      * @param learningGroup
      *            Die Lerngruppe, zu dem diese Bewertung gehört.
-     * @throws DataException
-     *             Wird vom Controller behandelt.
      */
-    public void setLearningGroup(LearningGroup learningGroup)
-            throws DataException {
-        if (learningGroup == null) {
-            throw new DataException(IS_NULL_ERROR);
-        }
+    public void setLearningGroup(LearningGroup learningGroup) {
         this.learningGroup = learningGroup;
     }
 
@@ -90,13 +88,8 @@ public class Rating extends ElipseModel {
      * 
      * @param rating
      *            Der Wert der Bewertung.
-     * @throws DataException
-     *             Wird vom Controller behandelt.
      */
-    public void setRating(int rating) throws DataException {
-        if (rating < MINIMAL_RATING || rating > MAXIMAL_RATING) {
-            throw new DataException("learningGroup.invalidRating");
-        }
+    public void setRating(int rating) {
         this.rating = rating;
     }
 
@@ -105,13 +98,8 @@ public class Rating extends ElipseModel {
      * 
      * @param project
      *            Das Projekt, das bewertet wird.
-     * @throws DataException
-     *             Wird vom Controller behandelt.
      */
-    public void setProject(Project project) throws DataException {
-        if (project == null) {
-            throw new DataException(IS_NULL_ERROR);
-        }
+    public void setProject(Project project) {
         this.project = project;
     }
 

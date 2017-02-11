@@ -15,7 +15,6 @@ import data.AllocationParameter;
 import data.GeneralData;
 import data.Student;
 import data.Team;
-import exception.DataException;
 import gurobi.GRB;
 import gurobi.GRB.DoubleAttr;
 import gurobi.GRBEnv;
@@ -160,20 +159,13 @@ public class GurobiAllocator extends AbstractAllocator {
         }
 
         // Erstelle Einteilung
-        Allocation allocation;
-        try {
-            allocation = new Allocation(currentConfiguration.getTeams(),
-                    currentConfiguration.getName(),
-                    currentConfiguration.getParameters());
-            allocation.doTransaction(() -> {
-                allocation.setSemester(
-                        GeneralData.loadInstance().getCurrentSemester());
-            });
-        } catch (DataException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-
+        Allocation allocation = new Allocation(currentConfiguration.getTeams(),
+                currentConfiguration.getName(),
+                currentConfiguration.getParameters());
+        allocation.doTransaction(() -> {
+            allocation.setSemester(
+                    GeneralData.loadInstance().getCurrentSemester());
+        });
     }
 
     /**
@@ -372,28 +364,15 @@ public class GurobiAllocator extends AbstractAllocator {
                     Student student = currentConfiguration.getStudents().get(j);
                     // Hier keine Transaction, da sonst nicht richtig
                     // gespeichert wird.
-                    try {
-                        team.addMember(student);
-                    } catch (DataException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    }
+                    team.addMember(student);
                 }
             }
         }
     }
 
     private Allocation nullObject(String errorMessage) {
-        Allocation failedAllocation = null; // wird hier null gesetzt da dieser
-                                            // try catch nicht scheitert und
-                                            // somit keine warnung kommt
-        try {
-            failedAllocation = new Allocation(new ArrayList<Team>(),
-                    errorMessage, new ArrayList<AllocationParameter>());
-        } catch (DataException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+        Allocation failedAllocation = new Allocation(new ArrayList<Team>(),
+                errorMessage, new ArrayList<AllocationParameter>());
         System.out.println("ERROR " + errorMessage);
         return failedAllocation;
     }

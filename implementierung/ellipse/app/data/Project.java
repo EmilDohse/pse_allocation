@@ -14,85 +14,92 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import exception.DataException;
-
 /************************************************************/
 /**
  * Klasse, die ein Project repräsentiert
  */
 @Entity
-public class Project extends ElipseModel /* implements Comparable<Project> */ {
+public class Project extends ElipseModel {
 
     /**
      * Der Name des Projektes.
      */
     @NotNull
     @Size(min = 1)
-    private String        name;
+    private String             name;
     /**
      * Die minimale Anzahl der Teilnehmer einer Gruppe für dieses Projekt.
      */
-    @Min(1)
-    private int           minTeamSize;
+    @Min(0)
+    private int                minTeamSize;
     /**
      * Die maximale Anzahl der Teilnehmer einer Gruppe für dieses Projekt.
      */
-    @Min(1)
-    private int           maxTeamSize;
+    @Min(0)
+    private int                maxTeamSize;
     /**
      * Anzahl der Teams die zu diesem Projekt zugeteilt werden.
      */
     @Min(1)
-    private int           numberOfTeams;
+    private int                numberOfTeams;
     /**
      * Die Projektbeschreibung.
      */
     @NotNull
     @Size(min = 1)
-    private String        projectInfo;
+    private String             projectInfo;
     /**
      * URL zu der Website des Projektes.
      */
     @NotNull
     @Size(min = 1)
-    private String        projectURL;
+    private String             projectURL;
     /**
      * Das Institut, welches das Projekt anbietet.
      */
     @NotNull
     @Size(min = 1)
-    private String        institute;
+    private String             institute;
     /**
      * Betreuer des Projekts
      */
     @ManyToMany
     @NotNull
-    private List<Adviser> advisers;
+    private List<Adviser>      advisers;
 
     /**
      * Danke Ebean.
      */
     @ManyToOne
-    @NotNull
-    private Semester      semester;
+    private Semester           semester;
 
+    public static final String DEFAULT_NAME      = "default_name";
+    public static final String DEFAULT_INFO      = "default_info";
+    public static final String DEFAULT_INSTITUTE = "default_institute";
+    public static final String DEFAULT_URL       = "default_url";
+
+    @Deprecated
     public Project() {
-        this("default_name", "default_info", "default_institut", "default_url");
-        // TODO hier die default werte über konstanten?
+        this.name = DEFAULT_NAME;
+        this.institute = DEFAULT_INSTITUTE;
+        this.projectInfo = DEFAULT_INFO;
+        this.projectURL = DEFAULT_URL;
+        this.advisers = new ArrayList<>();
     }
 
-    public Project(String name, String projectInfo, String institut, String url) {
+    public Project(String name, String projectInfo, String institut,
+            String url) {
         super();
         this.name = name;
         this.projectInfo = projectInfo;
         this.institute = institut;
         this.projectURL = url;
-        advisers = new ArrayList<>();
+        this.semester = GeneralData.loadInstance().getCurrentSemester();
+        this.advisers = new ArrayList<>();
     }
 
     public Project(String name, Adviser adviser) {
-        this();
-        this.name = name;
+        this(name, DEFAULT_INFO, DEFAULT_INSTITUTE, DEFAULT_URL);
         advisers.add(adviser);
     }
 
@@ -258,7 +265,7 @@ public class Project extends ElipseModel /* implements Comparable<Project> */ {
      * @param projektInfo
      *            Die Information des Projektes.
      */
-    public void setProjectInfo(String projectInfo) throws DataException {
+    public void setProjectInfo(String projectInfo) {
         this.projectInfo = projectInfo;
     }
 
@@ -268,7 +275,7 @@ public class Project extends ElipseModel /* implements Comparable<Project> */ {
      * @param projectURL
      *            Die URL des Projektes
      */
-    public void setProjectURL(String projectURL) throws DataException {
+    public void setProjectURL(String projectURL) {
         // TODO Sollen wir sogar mit NetURL auf ne echte Website prüfen?
         // Falls ja, muss der Standardkonstruktor angepasst werden
         this.projectURL = projectURL;
@@ -302,19 +309,6 @@ public class Project extends ElipseModel /* implements Comparable<Project> */ {
     public static List<Project> getProjects() {
         return ElipseModel.getAll(Project.class);
     }
-
-    // /**
-    // * Diese Methode gibt die Bewertung eines spezifischen Studenten für
-    // dieses
-    // * Projekt zurück.
-    // *
-    // * @param student
-    // * Der Student, dessen Bewertung zurückgegeben werdedn soll.
-    // * @return Die Bewertung des Studenten.
-    // */
-    // public int getRating(Student student) {
-    // return student.getLearningGroup(getSemester()).getRating(this);
-    // } //TODO Kann das weg?
 
     /**
      * Gibt das Semester zurück, in dem das Projekt angeboten wurde.

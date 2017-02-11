@@ -24,7 +24,6 @@ import play.data.DynamicForm;
 import play.data.FormFactory;
 import play.mvc.Controller;
 import play.mvc.Result;
-import security.BlowfishPasswordEncoder;
 import security.EmailVerifier;
 import security.PasswordResetter;
 import views.IndexMenu;
@@ -142,11 +141,9 @@ public class IndexPageController extends Controller {
             // sind und die passwörter übereinstimmen wird ein neuer
             // student hinzugefügt
             if (Student.getStudent(matNr) == null) {
-                String encPassword = new BlowfishPasswordEncoder()
-                        .encode(password);
                 try {
-                    Student student = new Student(matNrString, encPassword,
-                            email, firstName, lastName, matNr, spo,
+                    Student student = new Student(matNrString, password, email,
+                            firstName, lastName, matNr, spo,
                             completedAchievements, nonCompletedAchievements,
                             semester);
                     student.save();
@@ -244,9 +241,8 @@ public class IndexPageController extends Controller {
             return redirect(
                     controllers.routes.IndexPageController.passwordResetPage());
         }
-        String encPw = new BlowfishPasswordEncoder().encode(password);
         String code = PasswordResetter.getInstance().initializeReset(user,
-                encPw);
+                password);
         // TODO: E-Mail verschicken.
         flash("info", ctx().messages().at("index.pwReset.mailSent"));
         return redirect(controllers.routes.IndexPageController.indexPage());

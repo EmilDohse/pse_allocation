@@ -12,6 +12,7 @@ import data.Allocation;
 import data.ElipseModel;
 import data.GeneralData;
 import data.SPO;
+import exception.DataException;
 import exception.ImporterException;
 import importExport.Importer;
 import play.data.DynamicForm;
@@ -322,6 +323,8 @@ public class AdminImportExportController extends Controller {
                         .at(ctx().messages().at(e.getMessage())));
                 return redirect(controllers.routes.AdminPageController
                         .exportImportPage());
+            } catch (DataException e) {
+                // TODO redirect
             }
         }
         flash("error", ctx().messages().at(ctx().messages().at(NO_FILE)));

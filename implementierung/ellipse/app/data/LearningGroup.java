@@ -89,11 +89,12 @@ public class LearningGroup extends ElipseModel {
      * @param isPrivate
      */
     @Deprecated
-    public LearningGroup(String name, String password, Student member, boolean isPrivate) {
+    public LearningGroup(String name, String password, Student member,
+            boolean isPrivate) {
         this();
         this.name = name;
         this.password = password;
-        this.members.add(member); // TODO wirft NullPointer
+        this.members.add(member);
         this.isPrivate = isPrivate;
     }
 
@@ -310,8 +311,10 @@ public class LearningGroup extends ElipseModel {
      * @return Die spezifische Lerngruppe. Null falls keine passende gefunden
      *         wird.
      */
-    public static LearningGroup getLearningGroup(String name, Semester semester) {
-        return semester.getLearningGroups().stream().filter(group -> group.getName().equals(name)).findFirst()
+    public static LearningGroup getLearningGroup(String name,
+            Semester semester) {
+        return semester.getLearningGroups().stream()
+                .filter(group -> group.getName().equals(name)).findFirst()
                 .orElse(null);
     }
 
