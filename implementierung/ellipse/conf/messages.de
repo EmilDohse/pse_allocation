@@ -1,5 +1,19 @@
 logout = Abmelden
 
+state.actionNotAllowed = Diese Aktion ist gerade nicht erlaubt.
+
+index.beforeRegistration.actionNotAllowed = Das Registrieren und der Studenten-Login ist gerade nicht erlaubt.
+index.afterRegistration.actionNotAllowed = Registrieren ist aktuell nicht mehr erlaubt.
+
+adviser.registration.actionNotAllowed = Projekte zu erstellen ist aktuell nicht erlaubt.
+adviser.afterRegistration.actionNotAllowed = Projekte zu erstellen ist aktuell nicht erlaubt.
+
+admin.beforeRegistration.actionNotAllowed = Studenten und Einteilungen zu erstellen ist aktuell nicht erlaubt.
+admin.registration.actionNotAllowed = Projekte und Einteilungen zu erstellen ist aktuell nicht erlaubt. Auch SPOs können aus dem aktiven Semester nicht mehr entfernt werden.
+admin.afterRegistration.actionNotAllowed = Projekte zu erstellen ist nicht mehr erlaubt. Auch SPOs können aus dem aktiven Semester nicht mehr entfernt werden.
+
+student.afterRegistration.actionNotAllowed = Ihre Lerngruppe kann aktuell nicht editiert werden. Die Bewertung ist inzwischen abgeschlossen, unter Einteilungsergebnisse sehen Sie Ihr Team.
+
 email.notifyResultsStudent = Hallo {0},\ndie PSE-Einteilung ist nun abgeschlossen.\nSie wurden dem Projekt {1} zugeteilt.\nWeitere Informationen zu Ihrem Projekt, Ihren Betreuern oder ihrer Gruppe erhalten Sie, wenn Sie sich einloggen.
 email.notifyResultsAdviser = Hallo {0},\ndie PSE-Einteilung ist nun abgeschlossen.\nSie betreuen die folgenden Teams:\n{1}
 email.adviserPassword =	Hallo {0},\nIhr Passwort für das PSE-Portal lautet:\{1}
