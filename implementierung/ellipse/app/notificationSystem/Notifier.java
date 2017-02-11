@@ -16,8 +16,10 @@ import org.apache.commons.mail.SimpleEmail;
 import data.Adviser;
 import data.Allocation;
 import data.GeneralData;
+import data.SMTPOptions;
 import data.Student;
 import data.Team;
+import data.User;
 import play.i18n.Lang;
 import play.i18n.Messages;
 import play.i18n.MessagesApi;
@@ -70,7 +72,7 @@ public class Notifier {
     public void notifyStudent(Allocation allocation, Student student)
             throws EmailException {
         String bodyText = messages.at("email.notifyResultsStudent",
-                student.getFirstName() + " " + student.getLastName(),
+                student.getName(),
                 allocation.getTeam(student).getProject().getName());
         String subject = messages.at("email.subjectResults");
         this.sendEmail(subject, student.getEmailAddress(),
@@ -95,8 +97,7 @@ public class Notifier {
             teamsList += advisersTeams.get(i).toStringForNotification() + "\n";
         }
         String bodyText = messages.at("email.notifyResultsAdviser",
-                adviser.getFirstName() + " " + adviser.getLastName(),
-                teamsList);
+                adviser.getName(), teamsList);
         String subject = messages.at("email.subjectResults");
         this.sendEmail(subject, adviser.getEmailAddress(),
                 bodyText);
@@ -111,14 +112,30 @@ public class Notifier {
                 bodyText);
     }
 
+    public void sendVerifyNewPassowrd(User user, String verificationURL)
+            throws EmailException {
+        String bodyText = messages.at("email.verifyNewPassword",
+                user.getName(), verificationURL);
+        String subject = messages.at("email.subjectVerifyNewPassword");
+        this.sendEmail(subject, user.getEmailAddress(), bodyText);
+    }
+
     /**
      * Verschickt eine email zur Verifikation der email-Adresse an einen
      * Studenten.
      * 
      * @param student
      *            Student, der die email erhält
+     * @param verificationURL
+     *            Die URL, die auf die verificationPage geroutet wird.
+     * @throws EmailException
      */
-    public void sendVerificationMail(Student student) {
+    public void sendVerificationMail(Student student, String verificationURL)
+            throws EmailException {
+        String bodyText = messages.at("email.studentVerify",
+                student.getName(), verificationURL);
+        String subject = messages.at("email.subjectStudentVerify");
+        this.sendEmail(subject, student.getEmailAddress(), bodyText);
     }
 
     private void sendEmail(String subject, String mailTo,

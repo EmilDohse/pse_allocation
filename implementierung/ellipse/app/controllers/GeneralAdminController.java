@@ -7,6 +7,8 @@ package controllers;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.mail.EmailException;
+
 import com.google.inject.Inject;
 
 import allocation.AllocationQueue;
@@ -23,6 +25,7 @@ import data.SPO;
 import data.Semester;
 import data.Student;
 import exception.DataException;
+import notificationSystem.Notifier;
 import play.data.DynamicForm;
 import play.data.FormFactory;
 import play.mvc.Controller;
@@ -44,6 +47,9 @@ public class GeneralAdminController extends Controller {
     @Inject
     FormFactory                 formFactory;
 
+    @Inject
+    Notifier                    notifier;
+
     /**
      * Diese Methode fügt einen Betreuer mit den Daten aus dem vom Administrator
      * auszufüllenden Formular zum System hinzu. Der Administrator wird
@@ -61,14 +67,17 @@ public class GeneralAdminController extends Controller {
         String email = form.get("email");
         String password = form.get("password");
         String encPassword = new BlowfishPasswordEncoder().encode(password);
-        // TODO password per email?
         try {
             Adviser adviser = new Adviser(email, encPassword, email, firstName,
                     lastName);
             adviser.save();
+            notifier.sendAdviserPassword(adviser, password);
         } catch (DataException e) {
             // TODO: handle exception
             e.printStackTrace();
+        } catch (EmailException e) {
+            e.printStackTrace();
+            // TODO
         }
         return redirect(controllers.routes.AdminPageController.adviserPage());
 

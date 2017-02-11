@@ -3,8 +3,12 @@ logout = Abmelden
 email.notifyResultsStudent = Hallo {0},\ndie PSE-Einteilung ist nun abgeschlossen.\nSie wurden dem Projekt {1} zugeteilt.\nWeitere Informationen zu Ihrem Projekt, Ihren Betreuern oder ihrer Gruppe erhalten Sie, wenn Sie sich einloggen.
 email.notifyResultsAdviser = Hallo {0},\ndie PSE-Einteilung ist nun abgeschlossen.\nSie betreuen die folgenden Teams:\n{1}
 email.adviserPassword =	Hallo {0},\nIhr Passwort für das PSE-Portal lautet:\{1}
+email.studentVerify = Hallo {0},\num ihre E-Mail-Adresse für PSE zu bestätigen, klicken Sie bitte auf folgenden Link:\n\n{1}
+email.studentVerify = Hallo {0},\nihr Passwort für PSE wurde geändert, klicken Sie zum Bestätigen bitte auf folgenden Link:\n\n{1}
 email.subjectAdviserPassword = PSE-Passwort
 email.subjectResults = PSE-Einteilungsergebnisse
+email.subjectStudentVerify = PSE E-Mail Adresse bestätigen
+email.verifyNewPassword = PSE-Passwort geändert
 
 general.error.noEmptyList=Bitte wählen Sie etwas aus
 general.error.noEmptyString=Ein Prflichtfeld ist leer

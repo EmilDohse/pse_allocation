@@ -1,22 +1,42 @@
-package notificationSystem;
+package data;
+
+import java.util.NoSuchElementException;
+
+import javax.persistence.Entity;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 /*** Singleton zum Einstellen der SMTP-Einstellungen. */
-public class SMTPOptions {
+@Entity
+public class SMTPOptions extends ElipseModel {
 
+    @NotNull
     private String             host;
+    @NotNull
+    @Pattern(regexp = ".+@.+")
     private String             mailFrom;
+    @Min(1)
     private int                port;
     private boolean            ssl;
     private boolean            tsl;
     private boolean            debug;
     private int                timeout;
     private int                connectionTimeout;
+    @NotNull
     private String             username;
+    @NotNull
     private String             password;
 
     private static SMTPOptions instance;
 
-    private SMTPOptions() {
+    /**
+     * !!!DO NOT USE THIS!!! GeneralData is supposed to be a Singleton.
+     * Constructor is only public due to restrictions in EBean. Use
+     * GeneralData.getInstance() instead.
+     */
+    @Deprecated
+    public SMTPOptions() {
         host = "smtp.kit.edu";
         mailFrom = "noreply@kit.edu";
         port = 25;
@@ -29,9 +49,22 @@ public class SMTPOptions {
         password = "admin";
     }
 
+    /**
+     * Gibt die SMTOptions Instanz zurück. Läd sie gegebenenfalls aus der
+     * Datenbank. Falls keine Instanz in der Datenbank ist, wird eine neue
+     * eingefügt.
+     * 
+     * @return Die Instanz
+     */
     public static SMTPOptions getInstance() {
         if (null == instance) {
-            instance = new SMTPOptions();
+            try {
+                instance = SMTPOptions.getAll(SMTPOptions.class).stream()
+                        .findFirst().get();
+            } catch (NoSuchElementException e) {
+                instance = new SMTPOptions();
+                instance.save();
+            }
         }
         return instance;
     }

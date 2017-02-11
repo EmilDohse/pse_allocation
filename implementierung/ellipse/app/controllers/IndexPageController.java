@@ -7,6 +7,8 @@ package controllers;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.mail.EmailException;
+
 import com.google.inject.Inject;
 
 import data.Achievement;
@@ -20,6 +22,7 @@ import data.Semester;
 import data.Student;
 import data.User;
 import exception.DataException;
+import notificationSystem.Notifier;
 import play.data.DynamicForm;
 import play.data.FormFactory;
 import play.mvc.Controller;
@@ -43,6 +46,9 @@ public class IndexPageController extends Controller {
 
     @Inject
     FormFactory                 formFactory;
+    
+    @Inject
+    Notifier notifier;
 
     /**
      * Diese Methode gibt die Startseite zurück. Auf dieser Seite können sich
@@ -174,8 +180,8 @@ public class IndexPageController extends Controller {
                     // TODO Redirect incl. Errormessage
                 }
                 return redirect(
-                        controllers.routes.IndexPageController.indexPage());
-                // TODO falls nötig noch emial verification einleiten
+                        controllers.routes.StudentPageController
+                                .sendNewVerificationLink());
             } else {
 
                 // falls bereits ein studnent mit dieser matrikelnumer
@@ -247,7 +253,17 @@ public class IndexPageController extends Controller {
         String encPw = new BlowfishPasswordEncoder().encode(password);
         String code = PasswordResetter.getInstance().initializeReset(user,
                 encPw);
-        // TODO: E-Mail verschicken.
+        String verificationCode = PasswordResetter.getInstance()
+                .initializeReset(user, password);
+        try {
+            notifier.sendVerifyNewPassowrd(user,
+                    controllers.routes.IndexPageController
+                            .resetPassword(verificationCode).url());
+        } catch (EmailException e) {
+            e.printStackTrace();
+            // TODO
+        }
+
         flash("info", ctx().messages().at("index.pwReset.mailSent"));
         return redirect(controllers.routes.IndexPageController.indexPage());
     }
