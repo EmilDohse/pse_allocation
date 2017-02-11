@@ -13,7 +13,19 @@ import play.mvc.Http.RequestHeader;
 import play.routing.Router;
 import scala.Option;
 import scala.compat.java8.*;
+import play.mvc.Results;
+import play.mvc.EssentialAction;
+import play.libs.streams.Accumulator;
 
+/**
+ * Dieser HttpRequest Handler ist dafür da, um die Deadlines
+ * (Registrierungsstart/Registrierungsende) zu implementieren. Dabei werden
+ * verschiedene Routingtabellen verwendet, um während den verschhiedenen Phasen
+ * verschiedene URLs zu blocken.
+ * 
+ * @author daniel
+ *
+ */
 public class DeadlineHttpRequestHandler implements HttpRequestHandler {
 
     private final standard.Routes           standardRouter;
@@ -41,8 +53,14 @@ public class DeadlineHttpRequestHandler implements HttpRequestHandler {
                 .toJava(beforeRegistrationRouter
                         .handlerFor(request._underlyingHeader()));
         Handler handler;
-        handler = optionalHandler.orElse(
-                standardRouter.handlerFor(request._underlyingHeader()).get());
+        Option<Handler> scalaStandardOptionalHandler = standardRouter
+                .handlerFor(request._underlyingHeader());
+        Handler standardHandler = OptionConverters
+                .toJava(scalaStandardOptionalHandler)
+                .orElseGet(() -> EssentialAction
+                        .of(req -> Accumulator.done(Results.notFound())));
+
+        handler = optionalHandler.orElse(standardHandler);
         if (handler instanceof JavaHandler) {
             handler = ((JavaHandler) handler).withComponents(components);
         }
