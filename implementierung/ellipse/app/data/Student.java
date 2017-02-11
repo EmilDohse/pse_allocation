@@ -17,8 +17,6 @@ import javax.persistence.OneToOne;
 
 import com.avaje.ebean.Ebean;
 
-import exception.DataException;
-
 /************************************************************/
 /**
  * Diese Klasse stellt einen Studierenden dar, der am PSE teilnimmt.
@@ -27,78 +25,74 @@ import exception.DataException;
 public class Student extends User {
 
     private static final String MATRICULATION_NR = "matriculationNumber";
-
     /**
      * Die Matrikelnummer des Studierenden.
      */
     @Column(name = MATRICULATION_NR)
-    private int               matriculationNumber;
+    private int                 matriculationNumber;
     /**
      * Die SPO des Studierenden
      */
     @ManyToOne(cascade = CascadeType.PERSIST)
-    private SPO               spo;
+    private SPO                 spo;
     /**
      * Die bestandenen Teilleistungen.
      */
     @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(name = "STUDENT_ACHIEVEMENT_COMPLETED")
-    private List<Achievement> completedAchievements;
+    private List<Achievement>   completedAchievements;
     /**
      * Wahr, wenn sich der Studierende bereits im Campus Management System für
      * das PSE angemeldet hat. Falsch, sonst.
      */
-    private boolean           registeredPSE;
+    private boolean             registeredPSE;
     /**
      * Wahr, wenn sich der Studierende bereits im Campus Management System für
      * das TSE angemeldet hat. Falsch, sonst.
      */
-    private boolean           registeredTSE;
+    private boolean             registeredTSE;
     /**
      * Die PSE-Note des Studierenden.
      */
     @OneToOne(cascade = CascadeType.ALL)
-    private Grade             gradePSE;
+    private Grade               gradePSE;
     /**
      * Die TSE-Note des Studierenden.
      */
     @OneToOne(cascade = CascadeType.ALL)
-    private Grade             gradeTSE;
+    private Grade               gradeTSE;
     /**
      * Die noch ausstehenden Teilleistungen des Studierenden.
      */
     @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(name = "STUDENT_ACHIEVEMENT_ORAL")
-    private List<Achievement> oralTestAchievements;
+    private List<Achievement>   oralTestAchievements;
     /**
      * Das Fachsemester, in dem sich der Studierende zum Zeitpunkt des letzten
      * Registrierens befindet.
      */
-    private int               semester;
+    private int                 semester;
     /**
      * Wahrheitswert, ob die E-Mail-Adresse verifiziert wurde.
      */
-    private boolean           emailVerified;
+    private boolean             emailVerified;
 
-    private static final int  MINIMAL_SEMESTER = 1; // TODO Genauer Wert?
-
-    public Student() throws DataException {
-        this("default_username", "123456789", "anonymous@kit.edu", "Max",
+    public Student() {
+        this("default_username", "1234", "anonymous@kit.edu", "Max",
                 "Musterman", 0, new SPO(), new ArrayList<>(), new ArrayList<>(),
-                35);
+                0);
     }
 
     public Student(String username, String password, String emailAddress,
             String firstName, String lastName, int matriculationNumber, SPO spo,
             List<Achievement> completedAchievements,
-            List<Achievement> oralTestAchievements, int semester)
-            throws DataException {
+            List<Achievement> oralTestAchievements, int semester) {
         super(username, password, emailAddress, firstName, lastName);
-        setMatriculationNumber(matriculationNumber);
-        setSPO(spo);
-        setCompletedAchievements(completedAchievements);
-        setOralTestAchievements(oralTestAchievements);
-        setSemester(semester);
+        this.matriculationNumber = matriculationNumber;
+        this.spo = spo;
+        this.completedAchievements = completedAchievements;
+        this.oralTestAchievements = oralTestAchievements;
+        this.semester = semester;
     }
 
     /**
@@ -189,15 +183,13 @@ public class Student extends User {
      * 
      * @param matriculationNumber
      *            Die Matrikelnummer des Studierenden.
-     * @throws DataException
-     *             Wird vom Controller behandelt.
      */
-    public void setMatriculationNumber(int matriculationNumber)
-            throws DataException {
-        if (matriculationNumber < 0) {
-            throw new DataException("student.invalidMatNr");
+    public void setMatriculationNumber(int matriculationNumber) {
+        if (matriculationNumber >= 0) {
+            this.matriculationNumber = matriculationNumber;
+        } else {
+            // TODO throws
         }
-        this.matriculationNumber = matriculationNumber;
     }
 
     /**
@@ -205,13 +197,8 @@ public class Student extends User {
      * 
      * @param spo
      *            Die SPO des Studierenden.
-     * @throws DataException
-     *             Wird vom Controller behandelt.
      */
-    public void setSPO(SPO spo) throws DataException {
-        if (spo == null) {
-            throw new DataException(IS_NULL_ERROR);
-        }
+    public void setSPO(SPO spo) {
         this.spo = spo;
     }
 
@@ -220,15 +207,9 @@ public class Student extends User {
      * 
      * @param completedAchievements
      *            Die vom Studierenden abgeschlossenen Teilleistungen.
-     * @throws DataException
-     *             Wird vom Controller behandelt.
      */
     public void setCompletedAchievements(
-            List<Achievement> completedAchievements) throws DataException {
-        if (completedAchievements == null) {
-            throw new DataException(IS_NULL_ERROR);
-        }
-        // TODO auf leere Liste prüfen?
+            List<Achievement> completedAchievements) {
         this.completedAchievements = completedAchievements;
     }
 
@@ -259,13 +240,8 @@ public class Student extends User {
      * 
      * @param Die
      *            Note des Studierenden fürs PSE.
-     * @throws DataException
-     *             Wird vom Controller behandelt.
      */
-    public void setGradePSE(Grade gradePSE) throws DataException {
-        if (gradePSE == null) {
-            throw new DataException(IS_NULL_ERROR);
-        }
+    public void setGradePSE(Grade gradePSE) {
         this.gradePSE = gradePSE;
     }
 
@@ -274,13 +250,8 @@ public class Student extends User {
      * 
      * @param gradeTSE
      *            Die Note des Studierenden fürs TSE.
-     * @throws DataException
-     *             Wird vom Controller behandelt.
      */
-    public void setGradeTSE(Grade gradeTSE) throws DataException {
-        if (gradeTSE == null) {
-            throw new DataException(IS_NULL_ERROR);
-        }
+    public void setGradeTSE(Grade gradeTSE) {
         this.gradeTSE = gradeTSE;
     }
 
@@ -289,14 +260,8 @@ public class Student extends User {
      * 
      * @param oralTestAchievement
      *            Die noch aussteheneden Teilleistungen des Studierenden.
-     * @throws DataException
-     *             Wird vom Controller behandelt.
      */
-    public void setOralTestAchievements(List<Achievement> oralTestAchievement)
-            throws DataException {
-        if (oralTestAchievement == null) {
-            throw new DataException(IS_NULL_ERROR);
-        }
+    public void setOralTestAchievements(List<Achievement> oralTestAchievement) {
         this.oralTestAchievements = oralTestAchievement;
     }
 
@@ -306,14 +271,13 @@ public class Student extends User {
      * 
      * @param semester
      *            Das Fachsemester des Studierenden.
-     * @throws DataException
-     *             Wird vom Controller behandelt.
      */
-    public void setSemester(int semester) throws DataException {
-        if (semester < MINIMAL_SEMESTER) {
-            throw new DataException("student.invalidSemester");
+    public void setSemester(int semester) {
+        if (semester >= 0) {
+            this.semester = semester;
+        } else {
+            // TODO throws
         }
-        this.semester = semester;
     }
 
     /**
@@ -345,56 +309,6 @@ public class Student extends User {
         return toReturn;
     }
 
-    // /**
-    // * Diese Methode gibt die Bewertung des Studiereden zu einem bestimmten
-    // * Projekt zurück.
-    // *
-    // * @param project
-    // * Das Projekt.
-    // * @return Die Bewertung des Studierenden für das bestimmte Projekt.
-    // */
-    // public int getRating(Project project) {
-    // return project.getRating(this);
-    // }
-
-    // /**
-    // * Diese Methode gibt das Projekt zurück, dem der Studierende zugeteilt
-    // ist.
-    // *
-    // * @return Das Projekt des Studierenden.
-    // */
-    // public Project getCurrentProject() {
-    // Allocation a =
-    // GeneralData.getInstance().getCurrentSemester().getFinalAllocation();
-    // if (a == null) {
-    // // TODO throws
-    // }
-    //
-    // Team t = a.getTeam(this);
-    // if (t == null) {
-    // return null;
-    // }
-    //
-    // return t.getProject();
-    // }
-
-    // /**
-    // * Diese Methode gibt das Team, in dem der Studierende sich befindet,
-    // * zurück.
-    // *
-    // * @return Das Team des Studierenden.
-    // */
-    // public Team getCurrentTeam() {
-    // Allocation a =
-    // GeneralData.getInstance().getCurrentSemester().getFinalAllocation();
-    // if (a == null) {
-    // // TODO throws
-    // }
-    //
-    // return a.getTeam(this);
-    // }
-
-    // TODO kann das alles weg?
     /**
      * Diese Methode gibt zurück, ob die E-Mail-Adresse verifiziert wurde.
      * 
@@ -414,35 +328,6 @@ public class Student extends User {
     public void setIsEmailVerified(boolean isEmailVerified) {
         this.emailVerified = isEmailVerified;
     }
-
-    // /**
-    // * Gibt die Lerngruppe zurück, in der sich der Student aktuell befindet.
-    // *
-    // * @return Lerngruppe, in der sich der Student aktuell befindet.
-    // */
-    // public LearningGroup getCurrentLearningGroup() {
-    // return getLearningGroup(GeneralData.getInstance().getCurrentSemester());
-    // }
-
-    // /**
-    // * Gibt die Lerngruppe zurück, in der der Student im übergebenen Semester
-    // * war
-    // *
-    // * @param semester
-    // * Semester, in dem gesucht wird
-    // * @return Lerngruppe
-    // */
-    // public LearningGroup getLearningGroup(Semester semester) {
-    // List<LearningGroup> list = semester.getLearningGroups();
-    // for (LearningGroup l : list) {
-    // if (l.getMembers().contains(this)) {
-    // return l;
-    // }
-    // }
-    // // TODO throws
-    // return null;
-    // }
-    // TODO kann das alles weg?
 
     /**
      * Returns true if a student is registered in more than one semester

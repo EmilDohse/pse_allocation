@@ -7,9 +7,6 @@ package data;
 import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotNull;
 
-import exception.DataException;
-import security.BlowfishPasswordEncoder;
-
 /************************************************************/
 /**
  * Diese Klasse stellt einen Benutzer der Anwendung dar.
@@ -43,19 +40,18 @@ public abstract class User extends ElipseModel implements Comparable<User> {
     @NotNull
     private String lastName;
 
-    public User() throws DataException {
-        this("defautl_username", "123456789", "defaultemail@default.de",
-                "default_firstName", "default_lastName");
+    public User() {
+        this("defautl_username", "1234", "default_email", "default_firstName", "default_lastName");
     }
 
     public User(String username, String password, String emailAddress,
-            String firstName, String lastName) throws DataException {
+            String firstName, String lastName) {
         super();
-        setUserName(username);
-        savePassword(password);
-        setEmailAddress(emailAddress);
-        setFirstName(firstName);
-        setLastName(lastName);
+        this.username = username;
+        this.password = password;
+        this.emailAddress = emailAddress;
+        this.firstName = firstName;
+        this.lastName = lastName;
     }
 
     /**
@@ -117,22 +113,13 @@ public abstract class User extends ElipseModel implements Comparable<User> {
      * 
      * @param username
      *            Der Benutzername.
-     * @throws DataException
-     *             Wird vom Controller behandelt.
      */
-    public void setUserName(String username) throws DataException {
-        if (username == null) {
-            throw new DataException(IS_NULL_ERROR);
-        }
-        if (username.isEmpty()) {
-            throw new DataException(STRING_EMPTY_ERROR);
-        }
+    public void setUserName(String username) {
         this.username = username;
     }
 
     /**
-     * Setter für das Benutzerpasswort. Nur wegen Ebean nicht private... Sollte
-     * nicht aufgerufen werden, sondern savePassword.
+     * Setter für das Benutzerpasswort.
      * 
      * @param password
      *            Das Passwort
@@ -142,38 +129,12 @@ public abstract class User extends ElipseModel implements Comparable<User> {
     }
 
     /**
-     * Verschlüsselt und setzt das Passwort.
-     * 
-     * @param password
-     *            Das Passwort im Klartext.
-     * @throws DataException
-     *             Wird vom Controller behandelt.
-     */
-    public void savePassword(String password) throws DataException {
-        if (password == null) {
-            throw new DataException(IS_NULL_ERROR);
-        }
-        if (password.length() < MINIMAL_PASSWORD_LENGTH) {
-            throw new DataException(MINIMAL_PASSWORD_ERROR);
-        }
-        setPassword(new BlowfishPasswordEncoder().encode(password));
-    }
-
-    /**
      * Setter für die E-Mail-Addresse.
      * 
      * @param email
      *            Die E-Mail-Adresse
-     * @throws DataException
-     *             Wird vom Controller behandelt.
      */
-    public void setEmailAddress(String email) throws DataException {
-        if (email == null) {
-            throw new DataException(IS_NULL_ERROR);
-        }
-        if (!email.contains("@")) {
-            throw new DataException("user.noValidEmail");
-        }
+    public void setEmailAddress(String email) {
         this.emailAddress = email;
     }
 
@@ -182,16 +143,8 @@ public abstract class User extends ElipseModel implements Comparable<User> {
      * 
      * @param firstName
      *            Der Vorname.
-     * @throws DataException
-     *             Wird vom Controller behandelt.
      */
-    public void setFirstName(String firstName) throws DataException {
-        if (firstName == null) {
-            throw new DataException(IS_NULL_ERROR);
-        }
-        if (firstName.isEmpty()) {
-            throw new DataException(STRING_EMPTY_ERROR);
-        }
+    public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
@@ -200,16 +153,8 @@ public abstract class User extends ElipseModel implements Comparable<User> {
      * 
      * @param lastName
      *            Der Nachname.
-     * @throws DataException
-     *             Wird vom Controller behandelt.
      */
-    public void setLastName(String lastName) throws DataException {
-        if (lastName == null) {
-            throw new DataException(IS_NULL_ERROR);
-        }
-        if (lastName.isEmpty()) {
-            throw new DataException(STRING_EMPTY_ERROR);
-        }
+    public void setLastName(String lastName) {
         this.lastName = lastName;
     }
 

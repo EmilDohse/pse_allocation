@@ -9,8 +9,6 @@ import java.util.List;
 
 import javax.persistence.Entity;
 
-import exception.DataException;
-
 /************************************************************/
 /**
  * Diese Klasse stellt einen Betreuer dar.
@@ -18,12 +16,12 @@ import exception.DataException;
 @Entity
 public class Adviser extends User {
 
-    public Adviser() throws DataException {
+    public Adviser() {
         super();
     }
 
     public Adviser(String username, String password, String emailAddress,
-            String firstName, String lastName) throws DataException {
+            String firstName, String lastName) {
         super(username, password, emailAddress, firstName, lastName);
     }
 

@@ -24,7 +24,6 @@ import data.Project;
 import data.SPO;
 import data.Semester;
 import data.Student;
-import exception.DataException;
 import notificationSystem.Notifier;
 import play.data.DynamicForm;
 import play.data.FormFactory;
@@ -72,9 +71,6 @@ public class GeneralAdminController extends Controller {
                     lastName);
             adviser.save();
             notifier.sendAdviserPassword(adviser, password);
-        } catch (DataException e) {
-            // TODO: handle exception
-            e.printStackTrace();
         } catch (EmailException e) {
             e.printStackTrace();
             // TODO
@@ -223,35 +219,30 @@ public class GeneralAdminController extends Controller {
         // der username eines studenten ist seine matNr
         SPO spo = ElipseModel.getById(SPO.class, spoId);
         BlowfishPasswordEncoder b = new BlowfishPasswordEncoder();
-        try {
-            Student student = new Student(matNrString, b.encode(password),
-                    email, firstName, lastName, matNr, spo,
-                    spo.getNecessaryAchievements(), new ArrayList<>(),
-                    semester);
-            student.save();
+        Student student = new Student(matNrString, b.encode(password), email,
+                firstName, lastName, matNr, spo, spo.getNecessaryAchievements(),
+                new ArrayList<>(), semester);
+        student.save();
 
-            LearningGroup l;
+        LearningGroup l;
 
-            l = new LearningGroup(student.getUserName(), "");
-            l.save();
-            l.doTransaction(() -> {
-                l.addMember(student);
-                l.setPrivate(true);
-                // Ratings initialisieren
-                for (Project p : GeneralData.loadInstance().getCurrentSemester()
-                        .getProjects()) {
-                    l.rate(p, 3);
-                }
-            });
-            Semester currentSemester = GeneralData.loadInstance()
-                    .getCurrentSemester();
-            currentSemester.doTransaction(() -> {
-                currentSemester.addLearningGroup(l);
-                currentSemester.addStudent(student);
-            });
-        } catch (DataException e) {
-            // TODO Redirect incl. Errormessage
-        }
+        l = new LearningGroup(student.getUserName(), "");
+        l.save();
+        l.doTransaction(() -> {
+            l.addMember(student);
+            l.setPrivate(true);
+            // Ratings initialisieren
+            for (Project p : GeneralData.loadInstance().getCurrentSemester()
+                    .getProjects()) {
+                l.rate(p, 3);
+            }
+        });
+        Semester currentSemester = GeneralData.loadInstance()
+                .getCurrentSemester();
+        currentSemester.doTransaction(() -> {
+            currentSemester.addLearningGroup(l);
+            currentSemester.addStudent(student);
+        });
         return redirect(
                 controllers.routes.AdminPageController.studentEditPage());
     }
