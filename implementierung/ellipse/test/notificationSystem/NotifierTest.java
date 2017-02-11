@@ -5,15 +5,15 @@ import static org.junit.Assert.assertTrue;
 import java.io.IOException;
 
 import javax.inject.Inject;
+import javax.mail.Message;
+import javax.mail.MessagingException;
 
 import org.apache.commons.mail.EmailException;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.jvnet.mock_javamail.Mailbox;
 
-import com.sun.xml.internal.messaging.saaj.packaging.mime.MessagingException;
-
-import akka.dispatch.Mailbox;
 import data.Adviser;
 import data.Allocation;
 import data.Project;
@@ -36,8 +36,8 @@ public class NotifierTest extends WithApplication {
     }
 
     @Test
-    public void testNotifiyStudent() throws EmailException, MessagingException,
-            IOException, DataException {
+    public void testNotifiyStudent() throws EmailException, IOException,
+            DataException, MessagingException {
         Student student = new Student();
         Team team = new Team();
         Project project = new Project();
