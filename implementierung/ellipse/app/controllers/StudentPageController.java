@@ -452,9 +452,10 @@ public class StudentPageController extends Controller {
             });
         }
         if (form.get("emailChange") != null) {
+            String email;
             try {
                 StringValidator emailValidator = Forms.getEmailValidator();
-                String email = emailValidator.validate(form.get("newEmail"));
+                email = emailValidator.validate(form.get("newEmail"));
             } catch (ValidationException e) {
                 flash("error", ctx().messages().at(e.getMessage()));
                 return redirect(controllers.routes.StudentPageController.accountPage());
