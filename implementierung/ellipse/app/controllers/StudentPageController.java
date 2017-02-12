@@ -4,6 +4,7 @@
 
 package controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.mail.EmailException;
@@ -125,36 +126,43 @@ public class StudentPageController extends Controller {
                         .changeFormPage());
             }
             if (trueData) {
-                UserManagement management = new UserManagement();
-                Student student = (Student) management.getUserProfile(ctx());
-                student.doTransaction(() -> {
-                    student.setSPO(spo);
-                    student.setSemester(semester);
-                    student.setCompletedAchievements(completedAchievements);
-                    student.setOralTestAchievements(nonCompletedAchievements);
-                });
+                List<Achievement> temp = new ArrayList<>(completedAchievements);
+                temp.addAll(nonCompletedAchievements);
 
-                LearningGroup l = new LearningGroup(student.getUserName(), "");
-                l.save();
-                l.doTransaction(() -> {
-                    l.addMember(student);
-                    l.setPrivate(true);
-                    // Ratings kopieren
-                    for (Project p : GeneralData.loadInstance()
-                            .getCurrentSemester().getProjects()) {
-                        l.rate(p, 3);
-                    }
-                });
+                if (temp.containsAll(spo.getNecessaryAchievements())) {
+                    UserManagement management = new UserManagement();
+                    Student student = (Student) management
+                            .getUserProfile(ctx());
+                    student.doTransaction(() -> {
+                        student.setSPO(spo);
+                        student.setSemester(semester);
+                        student.setCompletedAchievements(completedAchievements);
+                        student.setOralTestAchievements(nonCompletedAchievements);
+                    });
 
-                Semester currentSemester = GeneralData.loadInstance()
-                        .getCurrentSemester();
-                currentSemester.doTransaction(() -> {
-                    currentSemester.addLearningGroup(l);
-                    currentSemester.addStudent(student);
-                });
-                management.addStudentRoleToOldStudent(ctx());
-                return redirect(controllers.routes.StudentPageController
-                        .learningGroupPage());
+                    LearningGroup l = new LearningGroup(student.getUserName(),
+                            "");
+                    l.save();
+                    l.doTransaction(() -> {
+                        l.addMember(student);
+                        l.setPrivate(true);
+                        // Ratings kopieren
+                        for (Project p : GeneralData.loadInstance()
+                                .getCurrentSemester().getProjects()) {
+                            l.rate(p, 3);
+                        }
+                    });
+
+                    Semester currentSemester = GeneralData.loadInstance()
+                            .getCurrentSemester();
+                    currentSemester.doTransaction(() -> {
+                        currentSemester.addLearningGroup(l);
+                        currentSemester.addStudent(student);
+                    });
+                    management.addStudentRoleToOldStudent(ctx());
+                    return redirect(controllers.routes.StudentPageController
+                            .learningGroupPage());
+                }
             }
             flash("error", ctx().messages().at(GEN_ERROR));
             return redirect(controllers.routes.StudentPageController
@@ -363,6 +371,7 @@ public class StudentPageController extends Controller {
         lg.doTransaction(() -> {
             lg.removeMember(student);
         });
+        lg.refresh();
         // Hier wird der student wieder in seine private Lerngruppe
         // eingefügt
         LearningGroup lgNew = new LearningGroup(student.getUserName(), "");
@@ -375,7 +384,6 @@ public class StudentPageController extends Controller {
                 lgNew.rate(r.getProject(), r.getRating());
             }
         });
-        lg.refresh();
         if (lg.getMembers().size() == 0) {
             // Leeres Team löschen
             lg.delete();

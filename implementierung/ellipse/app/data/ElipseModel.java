@@ -19,7 +19,7 @@ public abstract class ElipseModel extends Model {
      */
     @Id
     @Column(name = ID)
-    private int id;
+    private int                   id;
 
     /**
      * Getter für die eindeutige ID des Objektes.
@@ -81,10 +81,11 @@ public abstract class ElipseModel extends Model {
     }
 
     public void doTransaction(Transaction transaction) {
-        // Ebean.beginTransaction();
+        Ebean.beginTransaction();
         transaction.transact();
         this.save();
-        // Ebean.endTransaction();
+        Ebean.commitTransaction();
+        Ebean.endTransaction();
     }
 
 }
