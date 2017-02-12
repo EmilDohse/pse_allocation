@@ -56,7 +56,7 @@ public class GurobiAllocatorTest {
     @Ignore
     public void testCalculate() throws DataException {
         Importer ie = new Importer();
-        Semester semester = new Semester("calculateTest", false, 2015);
+        Semester semester = new Semester("calculateTest", false);
         semester.setInfoText("Hallo");
         semester.save();
         try {

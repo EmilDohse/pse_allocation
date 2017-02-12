@@ -241,6 +241,17 @@ exception
 filters
 	Filter
 		Klasse hinzugefügt
+form
+	Forms
+		Klasse hinzugefügt
+	IntValidator
+		Klasse hinzugefügt
+	StringValidator
+		Klasse hinzugefügt
+	ValidationException
+		Klasse hinzugefügt
+	Validator
+		Klasse hinzugefügt
 importExport
 	Importer
 		Methoden

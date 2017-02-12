@@ -31,6 +31,8 @@ public class UserAuthenticator
     public void validate(UsernamePasswordCredentials credentials,
             WebContext context) throws HttpAction {
         PasswordEncoder encoder = new BlowfishPasswordEncoder();
+        PlayWebContext playContext = (PlayWebContext) context;
+        Context ctx = playContext.getJavaContext();
         for (User u : Administrator.getAdministrators()) {
             if (credentials.getUsername().equals(u.getUserName())) {
                 if (encoder.matches(credentials.getPassword(),
@@ -42,8 +44,6 @@ public class UserAuthenticator
                     // Passwort noch das Start-Passwort ist
                     if (credentials.getPassword()
                             .equals(Administrator.START_PASSWORD)) {
-                        PlayWebContext playContext = (PlayWebContext) context;
-                        Context ctx = playContext.getJavaContext();
                         ctx.flash().put("error", ctx.messages()
                                 .at("admin.account.pleaseChangePassword"));
                         context.setSessionAttribute(
@@ -56,6 +56,8 @@ public class UserAuthenticator
                     }
                     return;
                 } else {
+                    ctx.flash().put("error",
+                            ctx.messages().at("user.noVlidCredentials"));
                     throw new BadCredentialsException("Bad credentials for: "
                             + credentials.getUsername());
                 }
@@ -70,8 +72,6 @@ public class UserAuthenticator
                     profile.addRole("ROLE_STUDENT");
                     credentials.setUserProfile(profile);
                     if (!u.isEmailVerified()) {
-                        PlayWebContext playContext = (PlayWebContext) context;
-                        Context ctx = playContext.getJavaContext();
                         ctx.flash().put("info", ctx.messages()
                                 .at("student.info.notVerifiedEmail"));
                     }
@@ -79,6 +79,8 @@ public class UserAuthenticator
                             "/student");
                     return;
                 } else {
+                    ctx.flash().put("error",
+                            ctx.messages().at("user.noVlidCredentials"));
                     throw new BadCredentialsException("Bad credentials for: "
                             + credentials.getUsername());
                 }
@@ -113,6 +115,8 @@ public class UserAuthenticator
                                     .changeFormPage().path());
                     return;
                 } else {
+                    ctx.flash().put("error",
+                            ctx.messages().at("user.noVlidCredentials"));
                     throw new BadCredentialsException("Bad credentials for: "
                             + credentials.getUsername());
                 }
