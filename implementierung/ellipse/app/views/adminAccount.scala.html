@@ -4,26 +4,26 @@ wird eine Fehlermeldung übergeben. *@ @()
 <!-- Acccount Ändern-Formular -->
 <form
 	action="@controllers.routes.GeneralAdminController.editAccount().path()"
-	method="POST" class="form-horizontal">
+	method="POST" class="form-horizontal" role="form" data-toggle="validator">
 	<div class="form-group">
 		<label class="control-label col-sm-2" for="oldPassword">@Messages("admin.account.oldPassword")</label>
 		<div class="col-sm-3">
 			<input class="form-control" type="password" name="oldPassword"
-				id="oldPassword">
+				id="oldPassword" required data-minlength="6">
 		</div>
 	</div>
 	<div class="form-group">
 		<label class="control-label col-sm-2" for="newPassword">@Messages("admin.account.newPassword")</label>
 		<div class="col-sm-3">
 			<input class="form-control" type="password" name="newPassword"
-				id="newPassword">
+				id="newPassword" required data-minlength="6">
 		</div>
 	</div>
 	<div class="form-group">
 		<label class="control-label col-sm-2" for="newPasswordRepeat">@Messages("admin.account.newPasswordRepeat")</label>
 		<div class="col-sm-3">
 			<input class="form-control" type="password" name="newPasswordRepeat"
-				id="newPasswordRepeat">
+				id="newPasswordRepeat" required data-minlength="6">
 		</div>
 	</div>
 	<div class="form-group">
