@@ -51,14 +51,14 @@ public class CriterionSameSemester implements GurobiCriterion {
 
             // Erstelle Variablen; bis auf "AmountOfNormalSemesterStudents" alle
             // binär
-            GRBVar AmountOfNormalSemesterStudents;
+            GRBVar amountOfNormalSemesterStudents;
             GRBVar firstAuxiliaryVariable;
             GRBVar secondAuxiliaryVariable;
             GRBVar thirdAuxiliaryVariable;
             GRBVar orResult;
             GRBVar andResult;
 
-            AmountOfNormalSemesterStudents = allocator.getModel().addVar(0,
+            amountOfNormalSemesterStudents = allocator.getModel().addVar(0,
                     Double.MAX_VALUE, 0, GRB.INTEGER, GurobiAllocator.NULL);
             firstAuxiliaryVariable = allocator.getModel().addVar(0, 1, 0,
                     GRB.BINARY, GurobiAllocator.NULL);
@@ -95,23 +95,23 @@ public class CriterionSameSemester implements GurobiCriterion {
             leftSideConstraintsOneAndTwo.addTerm(-1, firstAuxiliaryVariable);
 
             rightSideConstraintOne.addTerm(1, allocator.getTeamSizes()[j]);
-            rightSideConstraintOne.addTerm(-1, AmountOfNormalSemesterStudents);
+            rightSideConstraintOne.addTerm(-1, amountOfNormalSemesterStudents);
 
             rightSideConstraintTwo.addTerm(0.1, allocator.getTeamSizes()[j]);
-            rightSideConstraintTwo.addTerm(-1, AmountOfNormalSemesterStudents);
+            rightSideConstraintTwo.addTerm(-1, amountOfNormalSemesterStudents);
 
             leftSideConstraintsThreeAndFour.addConstant(1);
             leftSideConstraintsThreeAndFour.addTerm(-1,
                     secondAuxiliaryVariable);
 
             rightSideConstraintFour.addTerm(0.1,
-                    AmountOfNormalSemesterStudents);
+                    amountOfNormalSemesterStudents);
 
             rightSideConstraintSix.addTerm(0.1, allocator.getTeamSizes()[j]);
 
             // Übergebe dem Allocator die Constraints
 
-            allocator.getModel().addConstr(AmountOfNormalSemesterStudents,
+            allocator.getModel().addConstr(amountOfNormalSemesterStudents,
                     GRB.EQUAL, normalSemesterCount, GurobiAllocator.NULL);
             allocator.getModel().addConstr(leftSideConstraintsOneAndTwo,
                     GRB.LESS_EQUAL, rightSideConstraintOne,
@@ -120,7 +120,7 @@ public class CriterionSameSemester implements GurobiCriterion {
                     GRB.GREATER_EQUAL, rightSideConstraintTwo,
                     GurobiAllocator.NULL);
             allocator.getModel().addConstr(leftSideConstraintsThreeAndFour,
-                    GRB.LESS_EQUAL, AmountOfNormalSemesterStudents,
+                    GRB.LESS_EQUAL, amountOfNormalSemesterStudents,
                     GurobiAllocator.NULL);
             allocator.getModel().addConstr(leftSideConstraintsThreeAndFour,
                     GRB.GREATER_EQUAL, rightSideConstraintFour,
@@ -149,8 +149,7 @@ public class CriterionSameSemester implements GurobiCriterion {
      * @return 3 im WS, 4 im SS.
      */
     private int getNormalSemester(Semester semester) {
-        if (GeneralData.loadInstance().getCurrentSemester()
-                .isWintersemester()) {
+        if (semester.isWintersemester()) {
             return 3;
         } else {
             return 4;
