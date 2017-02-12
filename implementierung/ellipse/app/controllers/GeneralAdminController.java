@@ -209,23 +209,31 @@ public class GeneralAdminController extends Controller {
         if (form.data().isEmpty()) {
             return badRequest(ctx().messages().at(INTERNAL_ERROR));
         }
+        StringValidator notEmptyValidator = Forms.getNonEmptyStringValidator();
+        StringValidator emailValidator = Forms.getEmailValidator();
+        StringValidator passwordValidator = Forms.getPasswordValidator();
+
+        IntValidator intValidator = new IntValidator(0);
+
         String firstName = form.get("firstName");
         String lastName = form.get("lastName");
         String matNrString = form.get("matrnr");
         String email = form.get("email");
         String password = form.get("password");
-        String semesterString = form.get("semester");
         int matNr;
         int semester;
-        String spoIdString = form.get("spo");
         int spoId;
 
         try {
-            matNr = Integer.parseInt(matNrString);
-            semester = Integer.parseInt(semesterString);
-            spoId = Integer.parseInt(spoIdString);
-        } catch (NumberFormatException e) {
-            flash("error", ctx().messages().at("error.wrongInput"));
+            firstName = notEmptyValidator.validate(form.get("firstName"));
+            lastName = notEmptyValidator.validate(form.get("lastName"));
+            matNr = intValidator.validate(form.get("matrnr"));
+            email = emailValidator.validate(form.get("email"));
+            password = passwordValidator.validate(form.get("password"));
+            semester = intValidator.validate(form.get("semester"));
+            spoId = intValidator.validate(form.get("spo"));
+        } catch (ValidationException e) {
+            flash("error", ctx().messages().at(e.getMessage()));
             return redirect(controllers.routes.AdminPageController.studentEditPage());
         }
         if (Student.getStudent(matNr) != null) {
@@ -313,9 +321,17 @@ public class GeneralAdminController extends Controller {
         if (form.get("passwordChange") != null) {
             System.out.println("passwordChange1");
             String oldpw = form.get("oldPassword");
-            String pw = form.get("newPassword");
-            String pwrepeat = form.get("newPasswordRepeat");
+            String pw;
+            String pwrepeat;
 
+            StringValidator passwordValidator = Forms.getPasswordValidator();
+            try {
+                pw = passwordValidator.validate(form.get("oldPassword"));
+                pwrepeat = passwordValidator.validate(form.get("newPasswordRepeat"));
+            } catch (ValidationException e) {
+                flash("error", ctx().messages().at(e.getMessage()));
+                return redirect(controllers.routes.AdminPageController.accountPage());
+            }
             boolean matches = new BlowfishPasswordEncoder().matches(oldpw, admin.getPassword());
 
             if (!pw.equals(pwrepeat) || !matches) {
