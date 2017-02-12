@@ -1,3 +1,86 @@
+allocation
+	AbstractAllocator
+		Methoden
+			calculate()
+			+cancel()
+			+init(Configuration)
+	AllocationQueue
+		Parameter
+			+allocator : AbstractAllocator
+		Methoden
+			cancelAllocation(String)
+			+clear()
+			+getAllocator() : AbstractAllocator
+	Configuration
+		Konstruktoren
+			+Configuration(String, List<Student>, List<LearningGroup>, List<Project>, List<AllocationParameter>)
+		Parameter
+			-projects : List<Project>
+			+teams : List<Team>
+		Methoden
+			-getProjects() : List<Project>
+			+getTeams() : List<Team>
+	Criterion
+		Methoden
+			+getDisplayName(String) : String
+	GurobiAllocator
+		Parameter
+			+currentConfiguration : Configuration
+	GurobiCriterion
+		Methoden
+			useCriteria(Configuration, GurobiAllocator, double)
+controller
+	AdminEditAllocationController
+		Methoden
+			+editAllocation() : Result
+			moveStudents(DynamicForm, List<Integer>) : Result
+			swapStudents(DynamicForm, List<Integer>) : Result
+	AdminImportExport
+		Methoden
+			+importGeneral() : Result
+			+exportGrades() : Result
+	AdminPageController
+		Methoden
+			+accountPage() : Result
+			+notAllowedInCurrentState(String) : Result
+			projectEditPage(int) : Result
+	AdminPropertiesController
+		Methoden
+			-removeAchievement() : Result
+			+changeSPO() : Result
+			+editSMTPOptions() : Result
+	AdviserPageController
+		Methoden
+			+notAllowedInCurrentState(String) : Result
+	GeneralAdminController
+		Methoden
+			+removeAllocationFromQueue() : Result
+			+editAccounr() : Result
+	IndexPageController
+		Methoden
+			+notAllowedInCurrentState(String) : Result
+			+passwordResetForm() : Result
+			+resetPassord(String) : Result
+			-login() : Result
+			-passwordReset() : Result
+	MoveStudentCommand
+		Konstruktoren
+			+MoveStudentCommand(Allocation, List<Student>, Team)
+		Parameter
+			-oldTeam : Team
+			-student : Student
+			+oldTeams : Map<Student, Team>
+			+students : List<Student>
+	StudentPageController
+		Methoden
+			+changeData() : Result
+			+changeFormPage() : Result
+			+notAllowedInCurrentState(String) : Result
+			+sendNewVerificationLink() : Result
+			+setLearningGroup() : Result
+	SwapStudent
+		Konstruktoren
+			+SwapStudentCommand(Allocation, Student, Student)
 data
 	Administrator
 		Klasse hinzugefügt
@@ -148,3 +231,57 @@ data
 			User(String, String, String, String, String)
 		Methoden
 			+compareTo(User) : int
+deadline
+	StateStorage
+		Klasse hinzugefügt
+exception
+	DataException
+		Klasse hinzugefügt
+	ImporterException
+		Klasse hinzugefügt
+filters
+	Filter
+		Klasse hinzugefügt
+importExport
+	Importer
+		Methoden
+			-importCMSData(File, Semester)
+			-exportCMSData(File, Semester)
+			+exportGrades(File, Semester)
+notificationSystem
+	Notifier
+		Konstruktoren
+			+Notifier(MessagesApi)
+		Methoden
+			-notifyUser(Allocation, User)
+			-sendNewPassword(User)
+			sendVerificationMail(Student, String)
+			+notifyAdviser(Allocation, Adviser)
+			+notifyStudent(Allocation, Student)
+			+sendAdviserPassword(Adviser, String)
+qualityCriteria
+	QualityCriterion
+		Methoden
+			+getName(String) : String
+security
+	BlowfishPasswordEncoder
+		Klasse hinzugefügt
+	EmailVerifier
+		Klasse hinzugefügt
+	PasswordResetter
+		Klasse hinzugefügt
+	SecurityModule
+		Konstruktoren
+			+SecurityModule(Enviroment, Configuration)
+	TimedCodeValueStore
+		Klasse hinzugefügt
+	UserAuthentikator
+		Klasse hinzugefügt
+	UserManagement
+		Klasse hinzugefügt
+	UserProfile
+		Klasse hinzugefügt
+	Verifier
+		Klasse entfernt
+view
+	package hinzugefügt
