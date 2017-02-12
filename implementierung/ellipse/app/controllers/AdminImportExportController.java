@@ -28,8 +28,9 @@ import play.mvc.Result;
  */
 public class AdminImportExportController extends Controller {
 
-    private static final String INTERNAL_ERROR = "error.internalError";
-    private static final String NO_FILE        = "importer.noFile";
+    private static final String INTERNAL_ERROR    = "error.internalError";
+    private static final String NO_FILE           = "importer.noFile";
+    private static final String NOTHING_TO_EXPORT = "admin.eximport.nothingToExport ";
 
     @Inject
     FormFactory                 formFactory;
@@ -83,6 +84,7 @@ public class AdminImportExportController extends Controller {
                         .exportImportPage());
             }
         }
+
         flash("error", ctx().messages().at(ctx().messages().at(NO_FILE)));
         return redirect(
                 controllers.routes.AdminPageController.exportImportPage());
@@ -105,8 +107,8 @@ public class AdminImportExportController extends Controller {
         try {
             allocationId = Integer.parseInt(allocationIdString);
         } catch (NumberFormatException e) {
-            flash("error",
-                    ctx().messages().at(ctx().messages().at(INTERNAL_ERROR)));
+            flash("error", ctx().messages()
+                    .at(ctx().messages().at(NOTHING_TO_EXPORT)));
             return redirect(
                     controllers.routes.AdminPageController.exportImportPage());
         }
@@ -170,8 +172,8 @@ public class AdminImportExportController extends Controller {
         try {
             spoId = Integer.parseInt(spoIdString);
         } catch (NumberFormatException e) {
-            flash("error",
-                    ctx().messages().at(ctx().messages().at(INTERNAL_ERROR)));
+            flash("error", ctx().messages()
+                    .at(ctx().messages().at(NOTHING_TO_EXPORT)));
             return redirect(
                     controllers.routes.AdminPageController.exportImportPage());
         }
