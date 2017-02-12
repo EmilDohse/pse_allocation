@@ -6,8 +6,6 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.HashMap;
 
-import data.Student;
-
 /**
  * Diese Klasse speichert ein Objekt zu einem generierten Code und gibt das
  * Objekt unter Vorlage des Codes wieder heraus. Der Code wird jedoch nach einer
@@ -33,6 +31,14 @@ public class TimedCodeValueStore<V> {
      */
     private final HashMap<V, Instant> timestamps;
 
+    /**
+     * Erzeugt neuen TimeCodeValueStore.
+     * 
+     * @param validCodeDuration
+     *            Zeit, nach der der Code ungültig wird in Stunden.
+     * @param codeLength
+     *            Länge des benutzten Codes.
+     */
     public TimedCodeValueStore(int validCodeDuration, int codeLength) {
         this.validCodeDuration = validCodeDuration;
         this.codeLength = codeLength;

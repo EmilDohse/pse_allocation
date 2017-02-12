@@ -10,14 +10,12 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-import exception.DataException;
-
 public class SemesterTest extends DataTest {
 
     private Semester semester;
 
     @Before
-    public void beforeTest() throws DataException {
+    public void beforeTest() {
         semester = new Semester();
         semester.save();
     }
@@ -37,14 +35,14 @@ public class SemesterTest extends DataTest {
     }
 
     @Test
-    public void testName() throws DataException {
+    public void testName() {
         String n = "testname";
         semester.setName(n);
         assertEquals(n, semester.getName());
     }
 
     @Test
-    public void testSPOs() throws DataException {
+    public void testSPOs() {
         SPO firstSPO = new SPO();
         SPO secondSPO = new SPO();
         List<SPO> spos = new ArrayList<SPO>();
@@ -64,35 +62,35 @@ public class SemesterTest extends DataTest {
     }
 
     @Test
-    public void testInfoText() throws DataException {
+    public void testInfoText() {
         String t = "testtext";
         semester.setInfoText(t);
         assertEquals(t, semester.getInfoText());
     }
 
     @Test
-    public void testFinalAllocation() throws DataException {
+    public void testFinalAllocation() {
         Allocation a = new Allocation();
         semester.setFinalAllocation(a);
         assertEquals(a, semester.getFinalAllocation());
     }
 
     @Test
-    public void testRegistrationStart() throws DataException {
+    public void testRegistrationStart() {
         Date d = new Date();
         semester.setRegistrationStart(d);
         assertEquals(d, semester.getRegistrationStart());
     }
 
     @Test
-    public void testRegistrationEnd() throws DataException {
+    public void testRegistrationEnd() {
         Date d = new Date();
         semester.setRegistrationEnd(d);
         assertEquals(d, semester.getRegistrationEnd());
     }
 
     @Test
-    public void testLearningGroups() throws DataException {
+    public void testLearningGroups() {
         LearningGroup firstL = new LearningGroup();
         LearningGroup secondL = new LearningGroup();
         List<LearningGroup> learningGroups = new ArrayList<LearningGroup>();
@@ -112,7 +110,7 @@ public class SemesterTest extends DataTest {
     }
 
     @Test
-    public void testStudents() throws DataException {
+    public void testStudents() {
         Student firstS = new Student();
         Student secondS = new Student();
         List<Student> students = new ArrayList<Student>();
@@ -132,7 +130,7 @@ public class SemesterTest extends DataTest {
     }
 
     @Test
-    public void testProjects() throws DataException {
+    public void testProjects() {
         Project firstP = new Project();
         Project secondP = new Project();
         List<Project> projects = new ArrayList<Project>();
@@ -152,7 +150,7 @@ public class SemesterTest extends DataTest {
     }
 
     @Test
-    public void testAllocations() throws DataException {
+    public void testAllocations() {
         Allocation firstA = new Allocation();
         Allocation secondA = new Allocation();
         List<Allocation> allocations = new ArrayList<Allocation>();
@@ -172,7 +170,7 @@ public class SemesterTest extends DataTest {
     }
 
     @Test
-    public void testGetAdvisers() throws DataException {
+    public void testGetAdvisers() {
         Adviser a = new Adviser();
         List<Adviser> advisers = new ArrayList<Adviser>();
         advisers.add(a);

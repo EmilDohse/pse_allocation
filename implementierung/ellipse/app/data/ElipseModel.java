@@ -8,21 +8,14 @@ import javax.persistence.MappedSuperclass;
 import com.avaje.ebean.Ebean;
 import com.avaje.ebean.Model;
 
-import exception.DataException;
-
 @MappedSuperclass
 public abstract class ElipseModel extends Model {
 
-    public static final String LIST_EMPTY_ERROR        = "general.error.noEmptyList";
-    public static final String STRING_EMPTY_ERROR      = "general.error.noEmptyString";
-    public static final String IS_NULL_ERROR           = "general.error.isNull";
-    public static final int    MINIMAL_PASSWORD_LENGTH = 6;
-    public static final String MINIMAL_PASSWORD_ERROR  = "general.error.minimalPasswordLegth";
     /**
      * Eindeutige ID des Objektes.
      */
     @Id
-    private int                id;
+    private int id;
 
     /**
      * Getter für die eindeutige ID des Objektes.
@@ -38,10 +31,9 @@ public abstract class ElipseModel extends Model {
      * 
      * @param id
      *            Die neue eindeutige ID des Objektes.
-     * @throws DataException
-     *             wenn die id negativ ist
      */
-    public void setId(int id) throws DataException {
+
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -86,12 +78,7 @@ public abstract class ElipseModel extends Model {
 
     public void doTransaction(Transaction transaction) {
         // Ebean.beginTransaction();
-
-        try {
-            transaction.transact();
-        } catch (DataException e) {
-            // TODO Nicht hier catchen, sondern in Controllern behandeln.
-        }
+        transaction.transact();
         this.save();
         // Ebean.endTransaction();
     }

@@ -9,8 +9,6 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-import exception.DataException;
-
 public class TeamTest extends DataTest {
 
     private Team team;
@@ -21,14 +19,14 @@ public class TeamTest extends DataTest {
     }
 
     @Test
-    public void testProject() throws DataException {
+    public void testProject() {
         Project project = new Project();
         team.setProject(project);
         assertEquals(project, team.getProject());
     }
 
     @Test
-    public void testMembers() throws DataException {
+    public void testMembers() {
         List<Student> members = new ArrayList<Student>();
         Student firstStudent = new Student();
         Student secondStudent = new Student();
@@ -56,7 +54,7 @@ public class TeamTest extends DataTest {
     }
 
     @Test
-    public void testGetAdvisers() throws DataException {
+    public void testGetAdvisers() {
         List<Adviser> advisers = new ArrayList<Adviser>();
         Adviser adviser = new Adviser();
         advisers.add(adviser);
@@ -66,33 +64,4 @@ public class TeamTest extends DataTest {
         assertEquals(team.getAdvisers().size(), 1);
         assertTrue(team.getAdvisers().contains(adviser));
     }
-
-    // @Test
-    // public void testGetRating() {
-    // List<Student> students = new ArrayList<Student>();
-    // Student student = new Student();
-    // student.save();
-    // students.add(student);
-    // LearningGroup learningGroup = new LearningGroup();
-    // learningGroup.setMembers(students);
-    // learningGroup.save();
-    // Rating rating = new Rating();
-    // Project project = new Project();
-    // Semester semester = new Semester();
-    // semester.addLearningGroup(learningGroup);
-    // semester.save();
-    // project.setSemester(semester);
-    // project.save();
-    // int r = 11;
-    // rating.setProject(project);
-    // rating.setRating(r);
-    // rating.save();
-    // List<Rating> ratings = new ArrayList<Rating>();
-    // ratings.add(rating);
-    // learningGroup.setRatings(ratings);
-    // learningGroup.save();
-    // team.setProject(project);
-    // team.save();
-    // assertEquals(r, team.getRating(student));
-    // }
 }

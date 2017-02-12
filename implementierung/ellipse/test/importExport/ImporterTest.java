@@ -9,7 +9,6 @@ import java.io.File;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import com.avaje.ebean.Ebean;
@@ -43,15 +42,9 @@ public class ImporterTest {
     }
 
     @Test
-    @Ignore
-    public void testImportStudents() throws DataException, ImporterException {
+    public void testImportStudents() throws ImporterException {
         // Importiere SPO
-        try {
-            importerExporter.importSPO(new File("spo2008.csv"));
-        } catch (ImporterException e2) {
-            // Kann auftreten, falls ImportSPO vor ImportStudents ausgeführt
-            // wird, sollte aber keine Probleme machen
-        }
+        importerExporter.importSPO(new File("importSpo.csv"));
         // Lege Semester an
         Semester importStudentSemester = new Semester("importStudentSemester",
                 true, 2017);
@@ -61,64 +54,52 @@ public class ImporterTest {
             data.setCurrentSemester(importStudentSemester);
         });
         // Importiere Projekte
-        importerExporter.importProjects(new File("Projekte.csv"),
+        importerExporter.importProjects(new File("importProjects.csv"),
                 importStudentSemester);
         // Importiere Studenten
-        importerExporter.importStudents(new File("exportStudents.csv"),
+        importerExporter.importStudents(new File("importStudents.csv"),
                 importStudentSemester);
         assertFalse(Semester.getSemester("importStudentSemester").getStudents()
                 .isEmpty());
         assertFalse(Semester.getSemester("importStudentSemester")
                 .getLearningGroups().isEmpty());
-        importerExporter.exportStudents(new File("exportStudents.csv"),
+        importerExporter.exportStudents(new File("exportTestStudents.csv"),
                 Semester.getSemester("importStudentSemester"));
     }
 
     @Test
-    public void testImportProjects() throws DataException {
+    public void testImportProjects() throws ImporterException {
         Semester importProjects = new Semester("importProjects", true, 2017);
         importProjects.setInfoText("hallo");
         Ebean.save(importProjects);
-        try {
-            importerExporter.importProjects(new File("Projekte.csv"),
-                    importProjects);
-            assertFalse(Semester.getSemester("importProjects").getProjects()
-                    .isEmpty());
-            assertEquals(23, Semester.getSemester("importProjects")
-                    .getProjects().size());
-            importerExporter.exportProjects(new File("exportProjects.csv"),
-                    importProjects);
-        } catch (ImporterException e) {
-            assertTrue(false);
-        }
+        importerExporter.importProjects(new File("importProjects.csv"),
+                importProjects);
+        assertFalse(
+                Semester.getSemester("importProjects").getProjects().isEmpty());
+        assertEquals(23,
+                Semester.getSemester("importProjects").getProjects().size());
+        importerExporter.exportProjects(new File("exportTestProjects.csv"),
+                importProjects);
     }
 
     @Test
-    public void testImportSPO() {
+    public void testImportSPO() throws ImporterException {
         if (SPO.getSPO("2008") != null) {
             SPO.getSPO("2008").delete();
         }
-        try {
-            importerExporter.importSPO(new File("spo2008.csv"));
-            assertNotNull(SPO.getSPO("2008"));
-            assertFalse(
-                    SPO.getSPO("2008").getAdditionalAchievements().isEmpty());
-            assertFalse(
-                    SPO.getSPO("2008").getNecessaryAchievements().isEmpty());
-            // TODO Hier kommt BeanList deferred raus... Keine Ahnung wie man
-            // das fixt
-            // assertEquals(2, SPO.getSPO("2008").getAdditionalAchievements());
-            // assertEquals(2, SPO.getSPO("2008").getNecessaryAchievements());
-            importerExporter.exportSPO(new File("exportSpo.csv"),
-                    SPO.getSPO("2008"));
-        } catch (ImporterException e) {
-            e.printStackTrace();
-            assertTrue(false);
-        }
+        importerExporter.importSPO(new File("importSpo.csv"));
+        assertNotNull(SPO.getSPO("2008"));
+        assertFalse(SPO.getSPO("2008").getAdditionalAchievements().isEmpty());
+        assertFalse(SPO.getSPO("2008").getNecessaryAchievements().isEmpty());
+        // TODO Hier kommt BeanList deferred raus... Keine Ahnung wie man
+        // das fixt
+        // assertEquals(2, SPO.getSPO("2008").getAdditionalAchievements());
+        // assertEquals(2, SPO.getSPO("2008").getNecessaryAchievements());
+        importerExporter.exportSPO(new File("exportTestSpo.csv"),
+                SPO.getSPO("2008"));
     }
 
     @Test
-    @Ignore
     public void testImportAllocation() throws DataException, ImporterException {
         Semester semester = new Semester("test", false, 1970);
         semester.setInfoText("Hi");
@@ -126,13 +107,16 @@ public class ImporterTest {
         data.doTransaction(() -> {
             data.setCurrentSemester(semester);
         });
-        importerExporter.importSPO(new File("spo2008.csv"));
-        importerExporter.importProjects(new File("Projekte.csv"), semester);
-        importerExporter.importStudents(new File("exportStudents.csv"),
+        importerExporter.importSPO(new File("importSpo.csv"));
+        importerExporter.importProjects(new File("importProjects.csv"),
                 semester);
-        importerExporter.importAllocation(new File("exportAllocation.csv"),
+        importerExporter.importStudents(new File("importStudents.csv"),
+                semester);
+        importerExporter.importAllocation(new File("importAllocation.csv"),
                 semester);
         assertTrue(Allocation.getAllocations().size() > 0);
+        importerExporter.exportAllocation(new File("exportTestAllocation.csv"),
+                Allocation.getAllocations().get(0));
     }
 
     @After
