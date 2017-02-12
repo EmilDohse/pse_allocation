@@ -13,6 +13,8 @@ import data.ElipseModel;
 import data.GeneralData;
 import data.SPO;
 import exception.ImporterException;
+import form.IntValidator;
+import form.ValidationException;
 import importExport.Importer;
 import play.data.DynamicForm;
 import play.data.FormFactory;
@@ -52,8 +54,7 @@ public class AdminImportExportController extends Controller {
             return importProjects();
         } else {
             flash("error", ctx().messages().at(INTERNAL_ERROR));
-            return redirect(
-                    controllers.routes.AdminPageController.exportImportPage());
+            return redirect(controllers.routes.AdminPageController.exportImportPage());
         }
     }
 
@@ -73,21 +74,16 @@ public class AdminImportExportController extends Controller {
             File file = importData.getFile();
             importExport.Importer importer = new Importer();
             try {
-                importer.importAllocation(file,
-                        GeneralData.loadInstance().getCurrentSemester());
-                return redirect(controllers.routes.AdminPageController
-                        .exportImportPage());
+                importer.importAllocation(file, GeneralData.loadInstance().getCurrentSemester());
+                return redirect(controllers.routes.AdminPageController.exportImportPage());
             } catch (ImporterException e) {
-                flash("error", ctx().messages()
-                        .at(ctx().messages().at(e.getMessage())));
-                return redirect(controllers.routes.AdminPageController
-                        .exportImportPage());
+                flash("error", ctx().messages().at(ctx().messages().at(e.getMessage())));
+                return redirect(controllers.routes.AdminPageController.exportImportPage());
             }
         }
 
         flash("error", ctx().messages().at(ctx().messages().at(NO_FILE)));
-        return redirect(
-                controllers.routes.AdminPageController.exportImportPage());
+        return redirect(controllers.routes.AdminPageController.exportImportPage());
 
     }
 
@@ -102,24 +98,19 @@ public class AdminImportExportController extends Controller {
         importExport.Importer importer = new Importer();
         File file = new File("exportAllocation.csv");
         DynamicForm form = formFactory.form().bindFromRequest();
-        String allocationIdString = form.get("allocation-selection");
         int allocationId;
+        IntValidator intValidator = new IntValidator(0);
         try {
-            allocationId = Integer.parseInt(allocationIdString);
-        } catch (NumberFormatException e) {
-            flash("error", ctx().messages()
-                    .at(ctx().messages().at(NOTHING_TO_EXPORT)));
-            return redirect(
-                    controllers.routes.AdminPageController.exportImportPage());
+            allocationId = intValidator.validate(form.get("allocation-selection"));
+        } catch (ValidationException e) {
+            flash("error", ctx().messages().at(ctx().messages().at(NOTHING_TO_EXPORT)));
+            return redirect(controllers.routes.AdminPageController.exportImportPage());
         }
         try {
-            importer.exportAllocation(file,
-                    ElipseModel.getById(Allocation.class, allocationId));
+            importer.exportAllocation(file, ElipseModel.getById(Allocation.class, allocationId));
         } catch (ImporterException e) {
-            flash("error",
-                    ctx().messages().at(ctx().messages().at(e.getMessage())));
-            return redirect(
-                    controllers.routes.AdminPageController.exportImportPage());
+            flash("error", ctx().messages().at(ctx().messages().at(e.getMessage())));
+            return redirect(controllers.routes.AdminPageController.exportImportPage());
         }
         return ok(file).withHeader(CONTENT_DISPOSITION, "attachment");
 
@@ -141,18 +132,14 @@ public class AdminImportExportController extends Controller {
             importExport.Importer importer = new Importer();
             try {
                 importer.importSPO(file);
-                return redirect(controllers.routes.AdminPageController
-                        .exportImportPage());
+                return redirect(controllers.routes.AdminPageController.exportImportPage());
             } catch (ImporterException e) {
-                flash("error", ctx().messages()
-                        .at(ctx().messages().at(e.getMessage())));
-                return redirect(controllers.routes.AdminPageController
-                        .exportImportPage());
+                flash("error", ctx().messages().at(ctx().messages().at(e.getMessage())));
+                return redirect(controllers.routes.AdminPageController.exportImportPage());
             }
         }
         flash("error", ctx().messages().at(ctx().messages().at(NO_FILE)));
-        return redirect(
-                controllers.routes.AdminPageController.exportImportPage());
+        return redirect(controllers.routes.AdminPageController.exportImportPage());
 
     }
 
@@ -167,23 +154,20 @@ public class AdminImportExportController extends Controller {
         importExport.Importer importer = new Importer();
         File file = new File("exportSPO.csv");
         DynamicForm form = formFactory.form().bindFromRequest();
-        String spoIdString = form.get("spo-selection");
+
         int spoId;
         try {
-            spoId = Integer.parseInt(spoIdString);
-        } catch (NumberFormatException e) {
-            flash("error", ctx().messages()
-                    .at(ctx().messages().at(NOTHING_TO_EXPORT)));
-            return redirect(
-                    controllers.routes.AdminPageController.exportImportPage());
+            IntValidator intValidator = new IntValidator(0);
+            spoId = intValidator.validate(form.get("spo-selection"));
+        } catch (ValidationException e) {
+            flash("error", ctx().messages().at(ctx().messages().at(NOTHING_TO_EXPORT)));
+            return redirect(controllers.routes.AdminPageController.exportImportPage());
         }
         try {
             importer.exportSPO(file, ElipseModel.getById(SPO.class, spoId));
         } catch (ImporterException e) {
-            flash("error",
-                    ctx().messages().at(ctx().messages().at(e.getMessage())));
-            return redirect(
-                    controllers.routes.AdminPageController.exportImportPage());
+            flash("error", ctx().messages().at(ctx().messages().at(e.getMessage())));
+            return redirect(controllers.routes.AdminPageController.exportImportPage());
         }
 
         return ok(file).withHeader(CONTENT_DISPOSITION, "attachment");
@@ -204,21 +188,16 @@ public class AdminImportExportController extends Controller {
             File file = importData.getFile();
             importExport.Importer importer = new Importer();
             try {
-                importer.importProjects(file,
-                        GeneralData.loadInstance().getCurrentSemester());
-                return redirect(controllers.routes.AdminPageController
-                        .exportImportPage());
+                importer.importProjects(file, GeneralData.loadInstance().getCurrentSemester());
+                return redirect(controllers.routes.AdminPageController.exportImportPage());
 
             } catch (ImporterException e) {
-                flash("error", ctx().messages()
-                        .at(ctx().messages().at(e.getMessage())));
-                return redirect(controllers.routes.AdminPageController
-                        .exportImportPage());
+                flash("error", ctx().messages().at(ctx().messages().at(e.getMessage())));
+                return redirect(controllers.routes.AdminPageController.exportImportPage());
             }
         }
         flash("error", ctx().messages().at(ctx().messages().at(NO_FILE)));
-        return redirect(
-                controllers.routes.AdminPageController.exportImportPage());
+        return redirect(controllers.routes.AdminPageController.exportImportPage());
     }
 
     /**
@@ -233,13 +212,10 @@ public class AdminImportExportController extends Controller {
         File file = new File("exportProjects.csv");
 
         try {
-            importer.exportProjects(file,
-                    GeneralData.loadInstance().getCurrentSemester());
+            importer.exportProjects(file, GeneralData.loadInstance().getCurrentSemester());
         } catch (ImporterException e) {
-            flash("error",
-                    ctx().messages().at(ctx().messages().at(e.getMessage())));
-            return redirect(
-                    controllers.routes.AdminPageController.exportImportPage());
+            flash("error", ctx().messages().at(ctx().messages().at(e.getMessage())));
+            return redirect(controllers.routes.AdminPageController.exportImportPage());
         }
         return ok(file).withHeader(CONTENT_DISPOSITION, "attachment");
     }
@@ -260,20 +236,15 @@ public class AdminImportExportController extends Controller {
             File file = importData.getFile();
             importExport.Importer importer = new Importer();
             try {
-                importer.importCMSData(file.getAbsolutePath(),
-                        GeneralData.loadInstance().getCurrentSemester());
-                return redirect(controllers.routes.AdminPageController
-                        .exportImportPage());
+                importer.importCMSData(file.getAbsolutePath(), GeneralData.loadInstance().getCurrentSemester());
+                return redirect(controllers.routes.AdminPageController.exportImportPage());
             } catch (ImporterException e) {
-                flash("error", ctx().messages()
-                        .at(ctx().messages().at(e.getMessage())));
-                return redirect(controllers.routes.AdminPageController
-                        .exportImportPage());
+                flash("error", ctx().messages().at(ctx().messages().at(e.getMessage())));
+                return redirect(controllers.routes.AdminPageController.exportImportPage());
             }
         }
         flash("error", ctx().messages().at(ctx().messages().at(NO_FILE)));
-        return redirect(
-                controllers.routes.AdminPageController.exportImportPage());
+        return redirect(controllers.routes.AdminPageController.exportImportPage());
     }
 
     /**
@@ -288,13 +259,10 @@ public class AdminImportExportController extends Controller {
         importExport.Importer importer = new Importer();
         File file = new File("exportCMS.csv");
         try {
-            importer.exportCMSData(file.getAbsolutePath(),
-                    GeneralData.loadInstance().getCurrentSemester());
+            importer.exportCMSData(file.getAbsolutePath(), GeneralData.loadInstance().getCurrentSemester());
         } catch (ImporterException e) {
-            flash("error",
-                    ctx().messages().at(ctx().messages().at(e.getMessage())));
-            return redirect(
-                    controllers.routes.AdminPageController.exportImportPage());
+            flash("error", ctx().messages().at(ctx().messages().at(e.getMessage())));
+            return redirect(controllers.routes.AdminPageController.exportImportPage());
         }
 
         return ok(file).withHeader(CONTENT_DISPOSITION, "attachment");
@@ -315,20 +283,15 @@ public class AdminImportExportController extends Controller {
             File file = importData.getFile();
             importExport.Importer importer = new Importer();
             try {
-                importer.importStudents(file,
-                        GeneralData.loadInstance().getCurrentSemester());
-                return redirect(controllers.routes.AdminPageController
-                        .exportImportPage());
+                importer.importStudents(file, GeneralData.loadInstance().getCurrentSemester());
+                return redirect(controllers.routes.AdminPageController.exportImportPage());
             } catch (ImporterException e) {
-                flash("error", ctx().messages()
-                        .at(ctx().messages().at(e.getMessage())));
-                return redirect(controllers.routes.AdminPageController
-                        .exportImportPage());
+                flash("error", ctx().messages().at(ctx().messages().at(e.getMessage())));
+                return redirect(controllers.routes.AdminPageController.exportImportPage());
             }
         }
         flash("error", ctx().messages().at(ctx().messages().at(NO_FILE)));
-        return redirect(
-                controllers.routes.AdminPageController.exportImportPage());
+        return redirect(controllers.routes.AdminPageController.exportImportPage());
     }
 
     /**
@@ -342,13 +305,10 @@ public class AdminImportExportController extends Controller {
         importExport.Importer importer = new Importer();
         File file = new File("exportStudents.csv");
         try {
-            importer.exportStudents(file,
-                    GeneralData.loadInstance().getCurrentSemester());
+            importer.exportStudents(file, GeneralData.loadInstance().getCurrentSemester());
         } catch (ImporterException e) {
-            flash("error",
-                    ctx().messages().at(ctx().messages().at(e.getMessage())));
-            return redirect(
-                    controllers.routes.AdminPageController.exportImportPage());
+            flash("error", ctx().messages().at(ctx().messages().at(e.getMessage())));
+            return redirect(controllers.routes.AdminPageController.exportImportPage());
         }
 
         return ok(file).withHeader(CONTENT_DISPOSITION, "attachment");
@@ -365,13 +325,10 @@ public class AdminImportExportController extends Controller {
         importExport.Importer importer = new Importer();
         File file = new File("exportGrades.csv");
         try {
-            importer.exportGrades(file,
-                    GeneralData.loadInstance().getCurrentSemester());
+            importer.exportGrades(file, GeneralData.loadInstance().getCurrentSemester());
         } catch (ImporterException e) {
-            flash("error",
-                    ctx().messages().at(ctx().messages().at(e.getMessage())));
-            return redirect(
-                    controllers.routes.AdminPageController.exportImportPage());
+            flash("error", ctx().messages().at(ctx().messages().at(e.getMessage())));
+            return redirect(controllers.routes.AdminPageController.exportImportPage());
         }
 
         return ok(file).withHeader(CONTENT_DISPOSITION, "attachment");
