@@ -9,15 +9,15 @@ import data.GeneralData;
 
 public class StateStorage {
 
-    private static StateStorage            instance;
+    private static StateStorage      instance;
 
-    private State                          currentState;
+    private State                    currentState;
 
-    private final ScheduledExecutorService scheduler;
+    private ScheduledExecutorService scheduler;
 
     private StateStorage() {
         this.currentState = State.BEFORE_REGISTRATION_PHASE;
-        this.scheduler = Executors.newScheduledThreadPool(2);
+        this.scheduler = Executors.newSingleThreadScheduledExecutor();
         Date start = GeneralData.loadInstance().getCurrentSemester()
                 .getRegistrationStart();
         Date end = GeneralData.loadInstance().getCurrentSemester()
@@ -25,6 +25,7 @@ public class StateStorage {
         if (start != null && end != null) {
             initStateChanging(start, end);
         }
+
     }
 
     /**
@@ -39,9 +40,13 @@ public class StateStorage {
      */
     public final void initStateChanging(Date start, Date end) {
         scheduler.shutdownNow();
+        scheduler = Executors.newSingleThreadScheduledExecutor();
         Date now = new Date();
         long delayUntilRegistration = start.getTime() - now.getTime();
         long delayUntilAfterRegistration = end.getTime() - now.getTime();
+        if (delayUntilRegistration > 0) {
+            setCurrentState(State.BEFORE_REGISTRATION_PHASE);
+        }
         scheduler.schedule(new Runnable() {
 
             @Override
@@ -67,7 +72,7 @@ public class StateStorage {
         return currentState;
     }
 
-    private void setCurrentState(State newState) {
+    private synchronized void setCurrentState(State newState) {
         this.currentState = newState;
     }
 

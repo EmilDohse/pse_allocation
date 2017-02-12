@@ -3,20 +3,20 @@ Parameter wird der Inhalt der Seite übergeben. *@ @(menu: views.Menu)(content: 
 
 @main(Messages("index.title"), menu) {
 <!-- Sidebar content (loginForm) -->
-<form action="/callback" method="POST" class="form-horizontal">
+<form action="/callback" method="POST" class="form-horizontal" role="form" data-toggle="validator">
 <input type="hidden" name="client_name" value="FormClient">
 	<div class="form-group">
 		<label class="sr-only" for="login_username">@Messages("index.username")</label>
 		<div class="col-sm-12">
 			<input type="text" class="form-control" name="username"
-				id="login_username" placeholder='@Messages("index.username")'>
+				id="login_username" placeholder='@Messages("index.username")' required>
 		</div>
 	</div>
 	<div class="form-group">
 		<label class="sr-only" for="login_password">@Messages("index.password")</label>
 		<div class="col-sm-12">
 			<input type="password" class="form-control" name="password"
-				id="login_password" placeholder='@Messages("index.password")'>
+				id="login_password" placeholder='@Messages("index.password")' required data-minlength="6">
 		</div>
 	</div>
 	<div class="form-group">

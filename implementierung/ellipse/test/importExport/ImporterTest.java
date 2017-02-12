@@ -37,6 +37,15 @@ public class ImporterTest {
         config.setRegister(true);
 
         server = EbeanServerFactory.create(config);
+
+        // Init General Data. Evolutions wollen nicht funktionieren
+        GeneralData data = new GeneralData();
+        data.save();
+        Semester semester = new Semester();
+        semester.save();
+        data.setCurrentSemester(semester);
+        data.save();
+
         importerExporter = new Importer();
 
     }
@@ -47,7 +56,7 @@ public class ImporterTest {
         importerExporter.importSPO(new File("importSpo.csv"));
         // Lege Semester an
         Semester importStudentSemester = new Semester("importStudentSemester",
-                true, 2017);
+                true);
         importStudentSemester.setInfoText("Ich bin ein Infotext");
         GeneralData data = GeneralData.loadInstance();
         data.doTransaction(() -> {
@@ -69,7 +78,7 @@ public class ImporterTest {
 
     @Test
     public void testImportProjects() throws ImporterException {
-        Semester importProjects = new Semester("importProjects", true, 2017);
+        Semester importProjects = new Semester("importProjects", true);
         importProjects.setInfoText("hallo");
         Ebean.save(importProjects);
         importerExporter.importProjects(new File("importProjects.csv"),
@@ -101,7 +110,7 @@ public class ImporterTest {
 
     @Test
     public void testImportAllocation() throws DataException, ImporterException {
-        Semester semester = new Semester("test", false, 1970);
+        Semester semester = new Semester("test", false);
         semester.setInfoText("Hi");
         GeneralData data = GeneralData.loadInstance();
         data.doTransaction(() -> {

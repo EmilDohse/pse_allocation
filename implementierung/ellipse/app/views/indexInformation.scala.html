@@ -2,5 +2,7 @@
 Parameter übergeben. * Zusätzlich kann eine Fehlermeldung übergeben
 werden. *@ @(information: String) 
 
-<h1>@Messages("index.sidebar.information")</h1>
-<div class="well">@information</div>
+@if(!information.isEmpty()) {
+	<h1>@Messages("index.sidebar.information")</h1>
+	<div class="well">@information</div>
+}
