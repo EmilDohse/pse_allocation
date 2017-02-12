@@ -19,6 +19,8 @@ import data.GeneralData;
 import data.Semester;
 import data.Student;
 import data.Team;
+import form.IntValidator;
+import form.ValidationException;
 import notificationSystem.Notifier;
 import play.data.DynamicForm;
 import play.data.FormFactory;
@@ -62,9 +64,10 @@ public class AdminEditAllocationController extends Controller {
         ArrayList<Integer> selectedIds = new ArrayList<>();
         for (String s : selectedIdsString) {
             try {
-                selectedIds.add(Integer.parseInt(s));
-            } catch (NumberFormatException e) {
-                flash("error", ctx().messages().at(INTERNAL_ERROR));
+                selectedIds.add(new IntValidator(0).validate(s));
+            } catch (ValidationException e) {
+                e.printStackTrace();
+                flash("error", ctx().messages().at(e.getMessage()));
                 return redirect(
                         controllers.routes.AdminPageController.resultsPage());
             }
@@ -88,14 +91,14 @@ public class AdminEditAllocationController extends Controller {
      * 
      * @return Die Seite, die als Antwort verschickt wird.
      */
-    public Result swapStudents(DynamicForm form, List<Integer> ids) {
-        // TODO evtl Email, wenn Einteilung final ist?
+    private Result swapStudents(DynamicForm form, List<Integer> ids) {
         String allocationIdString = form.get(ALLOCATION_ID);
         int allocationId;
         try {
-            allocationId = Integer.parseInt(allocationIdString);
-        } catch (NumberFormatException e) {
-            flash("error", ctx().messages().at(INTERNAL_ERROR));
+            allocationId = new IntValidator(0).validate(allocationIdString);
+        } catch (ValidationException e) {
+            e.printStackTrace();
+            flash("error", ctx().messages().at(e.getMessage()));
             return redirect(
                     controllers.routes.AdminPageController.resultsPage());
         }
@@ -127,16 +130,16 @@ public class AdminEditAllocationController extends Controller {
      * @return Die Seite, die als Antwort verschickt wird.
      */
     public Result moveStudents(DynamicForm form, List<Integer> ids) {
-        // TODO evtl Email, wenn Einteilung final ist?
         String teamIdString = form.get("project-selection");
         String allocationIdString = form.get(ALLOCATION_ID);
         int allocationId;
         int teamId;
         try {
-            teamId = Integer.parseInt(teamIdString);
-            allocationId = Integer.parseInt(allocationIdString);
-        } catch (NumberFormatException e) {
-            flash("error", ctx().messages().at(INTERNAL_ERROR));
+            teamId = new IntValidator(0).validate(teamIdString);
+            allocationId = new IntValidator(0).validate(allocationIdString);
+        } catch (ValidationException e) {
+            e.printStackTrace();
+            flash("error", ctx().messages().at(e.getMessage()));
             return redirect(
                     controllers.routes.AdminPageController.resultsPage());
         }
@@ -179,30 +182,37 @@ public class AdminEditAllocationController extends Controller {
         if (form.data().isEmpty()) {
             return badRequest(ctx().messages().at(INTERNAL_ERROR));
         }
+
+        // Prüfe, ob es sich um eine gültige ID handelt
         String allocationIdString = form.get(ALLOCATION_ID);
         int allocationId;
         try {
-            allocationId = Integer.parseInt(allocationIdString);
-        } catch (NumberFormatException e) {
-            flash("error", ctx().messages().at(INTERNAL_ERROR));
+            allocationId = new IntValidator(0).validate(allocationIdString);
+        } catch (ValidationException e) {
+            e.printStackTrace();
+            flash("error", ctx().messages().at(e.getMessage()));
             return redirect(
                     controllers.routes.AdminPageController.resultsPage());
         }
         Allocation allocation = ElipseModel.getById(Allocation.class,
                 allocationId);
         Semester semester = GeneralData.loadInstance().getCurrentSemester();
+
+        // Prüfe, ob es schon eine finale Einteilung gibt
         if (semester.getFinalAllocation() != null) {
             flash("error", ctx().messages().at("admin.edit.noFinalAllocation"));
             return redirect(
                     controllers.routes.AdminPageController.resultsPage());
         }
+
+        // Setze finales Semester und benachrichtige alle User
         semester.doTransaction(() -> {
             semester.setFinalAllocation(allocation);
         });
         try {
             notifier.notifyAllUsers(allocation);
         } catch (EmailException e) {
-            // TODO
+            flash("error", ctx().messages().at("email.couldNotSend"));
             e.printStackTrace();
         }
         return redirect(controllers.routes.AdminPageController.resultsPage());
@@ -222,17 +232,22 @@ public class AdminEditAllocationController extends Controller {
         if (form.data().isEmpty()) {
             return badRequest(ctx().messages().at(INTERNAL_ERROR));
         }
+
+        // Prüfe, ob es sich um eine gültige Id handelt
         String allocationIdString = form.get(ALLOCATION_ID);
         int allocationId;
         try {
-            allocationId = Integer.parseInt(allocationIdString);
-        } catch (NumberFormatException e) {
-            flash("error", ctx().messages().at(INTERNAL_ERROR));
+            allocationId = new IntValidator(0).validate(allocationIdString);
+        } catch (ValidationException e) {
+            e.printStackTrace();
+            flash("error", ctx().messages().at(e.getMessage()));
             return redirect(
                     controllers.routes.AdminPageController.resultsPage());
         }
         Allocation allocation = ElipseModel.getById(Allocation.class,
                 allocationId);
+
+        // Dupliziere die Einteilung
         Allocation clonedAllocation = new Allocation(allocation);
         clonedAllocation.save();
         Semester semester = GeneralData.loadInstance().getCurrentSemester();
@@ -254,17 +269,22 @@ public class AdminEditAllocationController extends Controller {
         if (form.data().isEmpty()) {
             return badRequest(ctx().messages().at(INTERNAL_ERROR));
         }
+
+        // Prüfe auf gültige ID
         String allocationIdString = form.get(ALLOCATION_ID);
         int allocationId;
         try {
-            allocationId = Integer.parseInt(allocationIdString);
-        } catch (NumberFormatException e) {
-            flash("error", ctx().messages().at(INTERNAL_ERROR));
+            allocationId = new IntValidator(0).validate(allocationIdString);
+        } catch (ValidationException e) {
+            e.printStackTrace();
+            flash("error", ctx().messages().at(e.getMessage()));
             return redirect(
                     controllers.routes.AdminPageController.resultsPage());
         }
         Allocation allocation = ElipseModel.getById(Allocation.class,
                 allocationId);
+
+        // Prüfe, ob die Allocation die finale ist
         if (allocation.equals(GeneralData.loadInstance().getCurrentSemester()
                 .getFinalAllocation())) {
             flash("error",
@@ -272,6 +292,8 @@ public class AdminEditAllocationController extends Controller {
             return redirect(
                     controllers.routes.AdminPageController.resultsPage());
         }
+
+        // Lösche die Einteilung
         allocation.delete();
         return redirect(controllers.routes.AdminPageController.resultsPage());
     }

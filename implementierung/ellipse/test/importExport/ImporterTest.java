@@ -37,6 +37,15 @@ public class ImporterTest {
         config.setRegister(true);
 
         server = EbeanServerFactory.create(config);
+
+        // Init General Data. Evolutions wollen nicht funktionieren
+        GeneralData data = new GeneralData();
+        data.save();
+        Semester semester = new Semester();
+        semester.save();
+        data.setCurrentSemester(semester);
+        data.save();
+
         importerExporter = new Importer();
 
     }

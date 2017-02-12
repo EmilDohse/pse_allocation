@@ -22,6 +22,10 @@ import data.Semester;
 import data.Student;
 import data.User;
 import deadline.StateStorage;
+import form.Forms;
+import form.IntValidator;
+import form.StringValidator;
+import form.ValidationException;
 import notificationSystem.Notifier;
 import play.data.DynamicForm;
 import play.data.FormFactory;
@@ -91,32 +95,35 @@ public class IndexPageController extends Controller {
         if (form.data().isEmpty()) {
             return badRequest(ctx().messages().at(INTERNAL_ERROR));
         }
+
         // die felder werden ausgelesen
-        String firstName = form.get("firstName");
-        String lastName = form.get("lastName");
-        String email = form.get("email");
-        String password = form.get("pw");
-        String pwRepeat = form.get("rpw");
-        String matNrString = "";
-        String semesterString = form.get("semester");
-        String spoIdString = form.get("spo");
+        String firstName;
+        String lastName;
+        String email;
+        String password;
+        String pwRepeat;
         int spoId;
-        int semester = -1;
-        int matNr = -1;
-        // die matrikelnummer wird geparst
-        matNrString = form.get("matrnr");
+        int semester;
+        int matNr;
+
+        StringValidator notNullValidator = Forms.getNonEmptyStringValidator();
+        StringValidator passwordValidator = Forms.getPasswordValidator();
+        StringValidator emailValidator = Forms.getEmailValidator();
+
+        IntValidator minValidator = new IntValidator(0);
+
         try {
-
-            matNr = Integer.parseInt(matNrString);
-            semester = Integer.parseInt(semesterString);
-            spoId = Integer.parseInt(spoIdString);
-
-        } catch (NumberFormatException e) {
-            flash("error",
-                    ctx().messages().at("index.registration.error.genError"));
-            return redirect(controllers.routes.IndexPageController
-                    .registerPage());
-
+            firstName = notNullValidator.validate(form.get("firstName"));
+            lastName = notNullValidator.validate(form.get("lastName"));
+            email = emailValidator.validate(form.get("email"));
+            password = passwordValidator.validate(form.get("pw"));
+            pwRepeat = passwordValidator.validate(form.get("rpw"));
+            spoId = minValidator.validate(form.get("spo"));
+            matNr = minValidator.validate(form.get("mtrnr"));
+            semester = minValidator.validate(form.get("semester"));
+        } catch (ValidationException e) {
+            flash("error", ctx().messages().at(e.getMessage()));
+            return redirect(controllers.routes.IndexPageController.registerPage());
         }
         SPO spo = ElipseModel.getById(SPO.class, spoId);
         boolean trueData = false;
@@ -233,9 +240,20 @@ public class IndexPageController extends Controller {
         if (form.data().isEmpty()) {
             return badRequest(ctx().messages().at(INTERNAL_ERROR));
         }
+
+        StringValidator passwordValidator = Forms.getPasswordValidator();
+        StringValidator emailValidator = Forms.getEmailValidator();
+
         // die felder werden ausgelesen
-        String email = form.get("email");
-        String password = form.get("password");
+        String email;
+        String password;
+        try {
+            email = emailValidator.validate(form.get("email"));
+            password = passwordValidator.validate(form.get("password"));
+        } catch (ValidationException e) {
+            flash("error", ctx().messages().at(e.getMessage()));
+            return redirect(controllers.routes.IndexPageController.passwordResetPage());
+        }
         String pwRepeat = form.get("pwRepeat");
         if (!password.equals(pwRepeat)) {
             flash("error",
