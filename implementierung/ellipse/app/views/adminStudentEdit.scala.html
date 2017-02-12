@@ -5,61 +5,60 @@ kann eine Fehlermeldung übergeben werden. *@
 <h1>@Messages("admin.sidebar.studentEdit")</h1>
 <form
 	action="@controllers.routes.GeneralAdminController.addStudent().path()"
-	method="POST" class="form-horizontal">
+	method="POST" class="form-horizontal" role="form" data-toggle="validator">
 	<h3>@Messages("admin.studentEdit.addStudent")</h3>
 
 	<div class="form-group">
 		<label class="control-label col-sm-2" for="firstName">@Messages("index.registration.form.firstName")</label>
 		<div class="col-sm-3">
 			<input type="text" class="form-control" name="firstName"
-				id="firstName">
+				id="firstName" required>
 		</div>
 	</div>
 
 	<div class="form-group">
 		<label class="control-label col-sm-2" for="lastName">@Messages("index.registration.form.lastName")</label>
 		<div class="col-sm-3">
-			<input type="text" class="form-control" name="lastName" id="lastName">
+			<input type="text" class="form-control" name="lastName" id="lastName" required>
 		</div>
 	</div>
 
 	<div class="form-group">
 		<label class="control-label col-sm-2" for="matrnr">@Messages("index.registration.form.matrnr")</label>
 		<div class="col-sm-3">
-			<input type="text" class="form-control" name="matrnr" id="matrnr">
+			<input type="text" class="form-control" name="matrnr" id="matrnr" required pattern="[0-9]+">
 		</div>
 	</div>
 	<div class="form-group">
 		<label class="control-label col-sm-2" for="email">@Messages("index.registration.form.email")</label>
 		<div class="col-sm-3">
-			<input type="text" class="form-control" name="email" id="email">
+			<input type="text" class="form-control" name="email" id="email" required pattern="\S+@@\S+\.\S+">
 		</div>
 	</div>
 	<div class="form-group">
 		<label class="control-label col-sm-2" for="password">@Messages("index.registration.form.password")</label>
 		<div class="col-sm-3">
-			<input type="password" class="form-control" name="password" id="password">
+			<input type="password" class="form-control" name="password" id="password" required data-minlength="6">
 		</div>
 	</div>
-	<!-- TODO: Im Controller Repeat behandeln -->
 	<div class="form-group">
 		<label class="control-label col-sm-2" for="passwordRp">@Messages("index.registration.form.pwRepeat")</label>
 		<div class="col-sm-3">
-			<input type="password" class="form-control" name="passwordRp" id="passwordRp">
+			<input type="password" class="form-control" name="passwordRp" id="passwordRp" required data-match="#password" data-minlength="6">
 		</div>
 	</div>
 	<div class="form-group">
 		<label class="control-label col-sm-2" for="semester">@Messages("index.registration.form.semester")</label>
 		<div class="col-sm-3">
 			<input type="number" class="form-control" id="semester"
-				name="semester">
+				name="semester" required min="0">
 		</div>
 	</div>
 	<div class="form-group">
 		<label class="control-label col-sm-2" for="spo">@Messages("index.registration.form.spo")</label>
 		<div class="col-sm-3">
 			<select class="form-control" name="spo" id="spo"
-				onchange="showAchievementToSpo();"> @for(spo <- spos) {
+				onchange="showAchievementToSpo();" required> @for(spo <- spos) {
 				<option value="@spo.getId()">@spo.getName()</option> }
 			</select>
 		</div>
@@ -74,13 +73,13 @@ kann eine Fehlermeldung übergeben werden. *@
 </form>
 <form
 	action="@controllers.routes.GeneralAdminController.removeStudent().path()"
-	method="POST" class="form-horizontal">
+	method="POST" class="form-horizontal" role="form" data-toggle="validator">
 	<h3>@Messages("admin.studentEdit.removeStudent")</h3>
 
 	<div class="form-group">
 		<label class="control-label col-sm-2" for="matrnr">@Messages("index.registration.form.matrnr")</label>
 		<div class="col-sm-3">
-			<input type="text" class="form-control" name="matrnr2" id="matrnr2">
+			<input type="text" class="form-control" name="matrnr2" id="matrnr2" required pattern="[0-9]+">
 		</div>
 	</div>
 

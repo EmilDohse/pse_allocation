@@ -27,19 +27,19 @@ Parameter wird eine Lerngruppe übergeben und eine Fehlermeldung. *@
 </form>
 } else {
 <form action="@controllers.routes.StudentPageController.setLearningGroup().path()"
-	method="POST" class="form-horizontal">
+	method="POST" class="form-horizontal" role="form" data-toggle="validator">
 	<div class="form-group">
 		<label class="control-label col-sm-2" for="learningGroupname">@Messages("student.learningGroup.name")</label>
 		<div class="col-sm-3">
 			<input type=text name="learningGroupname" id="learningGroupname"
-				class="form-control">
+				class="form-control" required>
 		</div>
 	</div>
 	<div class="form-group">
 		<label class="control-label col-sm-2" for="learningGroupPassword">@Messages("student.learningGroup.password")</label>
 		<div class="col-sm-3">
 			<input name="learningGroupPassword" id="learningGroupPassword"
-				class="form-control">
+				class="form-control" required data-minlength="6">
 		</div>
 	</div>
 	<div class="form-group">
