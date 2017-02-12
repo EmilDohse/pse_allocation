@@ -23,6 +23,7 @@ email.subjectAdviserPassword = PSE-Passwort
 email.subjectResults = PSE-Einteilungsergebnisse
 email.subjectStudentVerify = PSE E-Mail Adresse bestätigen
 email.verifyNewPassword = PSE-Passwort geändert
+email.couldNotSend = E-Mail konnte nicht gesendet werden
 
 general.error.noEmptyList=Bitte wählen Sie etwas aus
 general.error.noEmptyString=Ein Pflichtfeld ist leer
@@ -113,7 +114,6 @@ semester.noSecondFinal = Sie haben bereits eine finale Einteilung ausgewählt
 semester.dateInPast = Das Datum darf nicht in der Vergangenheit liegen
 
 user.noValidEmail = Bitte geben Sie eine valide Email-Adresse an
-user.noVlidCredentials = Die Benutzername-/Passwortkombination ist ungültig
 
 team.invalidTeamNumber = Die Teamnummer muss zwischen 1 und der maximalen Anzahl an Team liegen
 team.invalidTeamSize = Die Teamgröße muss entweder 0 oder zwischen min und max sein
@@ -206,6 +206,7 @@ admin.eximport.exportSPO = Exportiere SPO
 admin.eximport.exportStudents = Exportiere Studenten
 admin.eximport.exportProjects = Exportiere Projekte
 admin.eximport.exportGrades = Exportiere Noten
+admin.eximport.nothingToExport = Es gibt nichts zu exportieren
 admin.properties.SPO = SPO
 admin.properties.semester = Semester
 admin.properties.generalInfo = Allgemeine Informationen
