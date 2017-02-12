@@ -16,6 +16,8 @@ public class SMTPOptions extends ElipseModel {
 
     private static final String KEY_FILE = "conf/keyset";
 
+    private Crypter             crypter;
+
     @NotNull
     private String             host;
     @NotNull
@@ -36,12 +38,22 @@ public class SMTPOptions extends ElipseModel {
     private static SMTPOptions instance;
 
     /**
-     * !!!DO NOT USE THIS!!! GeneralData is supposed to be a Singleton.
+     * !!!DO NOT USE THIS!!! SMTPOptions is supposed to be a Singleton.
      * Constructor is only public due to restrictions in EBean. Use
      * GeneralData.getInstance() instead.
      */
     @Deprecated
     public SMTPOptions() {
+        try {
+            crypter = new Crypter(KEY_FILE);
+            password = crypter.encrypt("admin");
+        } catch (KeyczarException e) {
+            // Kann eigentlich nicht auftreten
+            crypter = null;
+            password = "error";
+            e.printStackTrace();
+            assert false;
+        }
         host = "smtp.kit.edu";
         mailFrom = "noreply@kit.edu";
         port = 25;
@@ -51,7 +63,6 @@ public class SMTPOptions extends ElipseModel {
         timeout = 60;
         connectionTimeout = 60;
         username = "admin";
-        password = "admin";
     }
 
     /**
@@ -120,7 +131,6 @@ public class SMTPOptions extends ElipseModel {
     public String getPassword() {
         // Entschlüssele Passwort
         try {
-            Crypter crypter = new Crypter(KEY_FILE);
             return crypter.decrypt(password);
         } catch (KeyczarException e) {
             // Kann eigentlich nicht auftreten
@@ -149,7 +159,6 @@ public class SMTPOptions extends ElipseModel {
     public void savePassword(String plainTextPassword) {
         // Verschlüssel Passwort
         try {
-            Crypter crypter = new Crypter(KEY_FILE);
             setPassword(crypter.encrypt(plainTextPassword));
         } catch (KeyczarException e) {
             // Kann eigentlich nicht auftreten
