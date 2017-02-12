@@ -35,19 +35,15 @@ public class SplitLearningGroups implements QualityCriterion {
         List<LearningGroup> splitLearningGroups = new ArrayList<LearningGroup>();
         for (int i = 0; i < semester.getLearningGroups().size(); i++) {
             LearningGroup lg = semester.getLearningGroups().get(i);
-            if (lg.getMembers().size() > 1) {
-
-                for (int j = 0; j < lg.getMembers().size(); j++) {
-                    Student J = lg.getMembers().get(j);
-                    Team teamOfJ = allocation.getTeam(J);
-                    if (splitLearningGroups.contains(lg)) {
-                        break;
-                    }
-                    if (!teamOfJ.getMembers().containsAll(lg.getMembers())) {
-                        numberOfSplitLearningGroups++;
-                        splitLearningGroups.add(lg);
-                    }
+            List<Team> teamsOfLg = new ArrayList<Team>();
+            for (int j = 0; j < lg.getMembers().size(); j++) {
+                Team teamOfJ = allocation.getTeam(lg.getMembers().get(j));
+                if (teamOfJ != null && !teamsOfLg.contains(teamOfJ)) {
+                    teamsOfLg.add(teamOfJ);
                 }
+            }
+            if (teamsOfLg.size() > 1) {
+                numberOfSplitLearningGroups++;
             }
         }
         return String.valueOf(numberOfSplitLearningGroups);
