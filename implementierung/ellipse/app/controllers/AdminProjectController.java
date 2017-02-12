@@ -16,11 +16,11 @@ import data.Semester;
 import form.Forms;
 import form.IntValidator;
 import form.StringValidator;
+import form.ValidationException;
 import play.data.DynamicForm;
 import play.data.FormFactory;
 import play.mvc.Controller;
 import play.mvc.Result;
-import scala.xml.dtd.ValidationException;
 
 /************************************************************/
 /**
@@ -110,7 +110,7 @@ public class AdminProjectController extends Controller {
 
         int id;
         try {
-            id = minValidator.validate(form.get(idString));
+            id = minValidator.validate(form.get("idString"));
         } catch (ValidationException e) {
             flash("error", ctx().messages().at(e.getMessage()));
             return redirect(controllers.routes.AdminPageController.projectEditPage(-1));
@@ -120,8 +120,7 @@ public class AdminProjectController extends Controller {
             projName = notEmptyValidator.validate(form.get("name"));
             url = notEmptyValidator.validate(form.get("url"));
             institute = notEmptyValidator.validate(form.get("institute"));
-            description = notEmptyValidator.validate(form.get(description));
-
+            description = notEmptyValidator.validate(form.get("description"));
             numberOfTeams = minValidator.validate(form.get("teamCount"));
             minSize = minValidator.validate(form.get("minSize"));
             maxSize = minValidator.validate(form.get("maxSize"));

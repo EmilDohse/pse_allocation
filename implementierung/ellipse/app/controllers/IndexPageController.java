@@ -252,8 +252,8 @@ public class IndexPageController extends Controller {
             notifier.sendVerifyNewPassword(user,
                     controllers.routes.IndexPageController.resetPassword(verificationCode).url());
         } catch (EmailException e) {
+            flash("error", ctx().messages().at("email.couldNotSend"));
             e.printStackTrace();
-            // TODO
         }
 
         flash("info", ctx().messages().at("index.pwReset.mailSent"));
