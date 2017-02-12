@@ -117,8 +117,7 @@ public class Team extends ElipseModel /* implements Comparable<Team> */ {
             this.members = members;
             return;
         }
-        if (members.size() > project.getMaxTeamSize()
-                || members.size() < project.getMinTeamSize()) {
+        if (members.size() > project.getMaxTeamSize() || members.size() < project.getMinTeamSize()) {
             throw new DataException("team.invalidTeamSize");
         }
         this.members = members;

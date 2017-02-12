@@ -25,5 +25,7 @@ public class EmailVerifierTest {
         assertEquals(true, EmailVerifier.getInstance().verify(code));
 
         assertEquals(false, EmailVerifier.getInstance().verify(code));
+
+        assertEquals(false, EmailVerifier.getInstance().verify(null));
     }
 }
