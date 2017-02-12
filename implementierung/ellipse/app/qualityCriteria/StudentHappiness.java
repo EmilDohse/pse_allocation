@@ -51,8 +51,7 @@ public class StudentHappiness implements QualityCriterion {
             }
         }
 
-        double relativeHappiness = (sumOfRatings
-                / (double) semester.getStudents().size()) / 5.0;
+        double relativeHappiness = (sumOfRatings / (double) semester.getStudents().size()) / 5.0;
 
         NumberFormat nf = NumberFormat.getInstance();
         nf.setMaximumFractionDigits(2);

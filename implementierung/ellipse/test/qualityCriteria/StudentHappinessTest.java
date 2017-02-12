@@ -8,8 +8,6 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.google.inject.Inject;
-
 import data.Allocation;
 import data.LearningGroup;
 import data.Project;
