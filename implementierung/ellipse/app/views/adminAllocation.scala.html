@@ -9,6 +9,7 @@ List[allocation.Criterion])
 	href='@routes.Assets.versioned("stylesheets/bootstrap-slider.min.css")'
 	type="text/css" />
 <h1>@Messages("admin.sidebar.allocation")</h1>
+<!-- Neue Einteilung erstellen -->
 <div>
 	<h3>
 		<small>@Messages("admin.allocation.newAllocation")</small>
@@ -72,10 +73,12 @@ List[allocation.Criterion])
 		</div>
 	</form>
 </div>
+<!-- AllocationQueue Anzeige -->
 <div>
 	<h3>
 		<small>@Messages("admin.allocation.queue")</small>
 	</h3>
+	@if(!allocQueue.getQueue().isEmpty()) {
 	<form
 		action="@controllers.routes.GeneralAdminController.removeAllocationFromQueue().path()"
 		method="POST" class="form-horizontal">
@@ -91,4 +94,8 @@ List[allocation.Criterion])
 			</div>
 		</div>
 	</form>
+	} else {
+		<small>@Messages("admin.allocation.queueEmpty")</small>
+	}
+	
 </div>

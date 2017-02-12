@@ -28,11 +28,8 @@ import play.Environment;
  */
 public class SecurityModule extends AbstractModule {
 
-    private final Configuration configuration;
-
     public SecurityModule(final Environment environment,
             final Configuration configuration) {
-        this.configuration = configuration;
     }
 
     /**
@@ -64,7 +61,6 @@ public class SecurityModule extends AbstractModule {
         // Setzt die Config in ein Singelton damit das UserManagement keine
         // NullpointerException wirft, da Dependency Injection nicht immer tut
         ConfigSingleton.setConfig(config);
-
         CallbackController callbackController = new CallbackController();
         callbackController.setDefaultUrl("/");
         callbackController.setConfig(config);

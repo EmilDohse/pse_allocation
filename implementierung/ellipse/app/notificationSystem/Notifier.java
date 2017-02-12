@@ -109,7 +109,7 @@ public class Notifier {
         this.sendEmail(subject, adviser.getEmailAddress(), bodyText);
     }
 
-    public void sendVerifyNewPassowrd(User user, String verificationURL)
+    public void sendVerifyNewPassword(User user, String verificationURL)
             throws EmailException {
         String bodyText = messages.at("email.verifyNewPassword", user.getName(),
                 verificationURL);

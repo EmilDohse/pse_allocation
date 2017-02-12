@@ -77,7 +77,7 @@ public class LearningGroup extends ElipseModel {
     public LearningGroup(String name, String password) {
         this();
         this.name = name;
-        savePassword(password);
+        this.password = password;
     }
 
     /**
@@ -244,7 +244,6 @@ public class LearningGroup extends ElipseModel {
      * @param student
      *            Student, der hinzugefügt wird.
      */
-
     public void addMember(Student student) {
         members.add(student);
     }

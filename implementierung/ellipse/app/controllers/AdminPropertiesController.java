@@ -334,7 +334,7 @@ public class AdminPropertiesController extends Controller {
         SMTPOptions options = SMTPOptions.getInstance();
         options.doTransaction(() -> {
             options.setHost(form.get("host"));
-            options.setMailFrom(form.get("mailFrom"));
+            options.setMailFrom(form.get("mail"));
             options.setUsername(form.get("username"));
             options.setPort(port);
             options.setConnectionTimeout(connectionTimeout);
@@ -342,8 +342,7 @@ public class AdminPropertiesController extends Controller {
             options.setSsl(ssl);
             options.setTls(tls);
             options.setDebug(debug);
-            // TODO: savepassword aktivieren
-            // options.savePassword(form.get("password"));
+            options.savePassword(form.get("password"));
 
         });
         return redirect(
