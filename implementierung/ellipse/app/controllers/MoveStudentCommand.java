@@ -17,7 +17,7 @@ import data.Team;
  * Konkretes Kommando zum verschieben eines Studierenden von seinem aktuellen
  * Team in ein neues.
  */
-public class MoveStudentCommand implements EditAllocationCommand {
+public class MoveStudentCommand extends EditAllocationCommand {
 
     private Allocation         allocation;
     private List<Student>      students;
