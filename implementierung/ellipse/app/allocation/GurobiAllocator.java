@@ -336,8 +336,7 @@ public class GurobiAllocator extends AbstractAllocator {
                     .findFirst().orElse(null);
             if (null != param) {
                 weight = param.getValue();
-                // TODO float vergleich
-                if (weight != 0) {
+                if (Math.abs(weight) >= 1e-4) {
                     criterion.useCriteria(currentConfiguration, this, weight);
                     System.out.println(criterion.getName());
                 }
@@ -359,8 +358,7 @@ public class GurobiAllocator extends AbstractAllocator {
                     failure.save();
                     return;
                 }
-                // TODO float vergleich
-                if (result == 1) {
+                if (Math.abs(1 - result) < 1e-4) {
                     Team team = currentConfiguration.getTeams().get(i);
                     Student student = currentConfiguration.getStudents().get(j);
                     // Hier keine Transaction, da sonst nicht richtig
