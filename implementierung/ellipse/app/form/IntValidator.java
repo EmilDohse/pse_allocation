@@ -7,6 +7,14 @@ public class IntValidator implements Validator<Integer> {
 
     private String msg = "INTERNAL_ERROR";
 
+    public IntValidator() {
+        this(Integer.MIN_VALUE, Integer.MAX_VALUE);
+    }
+
+    public IntValidator(int min) {
+        this(min, Integer.MAX_VALUE);
+    }
+
     public IntValidator(int min, int max) {
         this.min = min;
         this.max = max;
