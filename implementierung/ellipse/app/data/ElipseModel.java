@@ -2,6 +2,7 @@ package data;
 
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
@@ -11,10 +12,13 @@ import com.avaje.ebean.Model;
 @MappedSuperclass
 public abstract class ElipseModel extends Model {
 
+    protected static final String ID = "id";
+
     /**
      * Eindeutige ID des Objektes.
      */
     @Id
+    @Column(name = ID)
     private int id;
 
     /**

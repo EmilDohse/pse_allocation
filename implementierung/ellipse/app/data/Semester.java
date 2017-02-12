@@ -11,6 +11,8 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -28,6 +30,10 @@ import com.avaje.ebean.Ebean;
 public class Semester extends ElipseModel implements Comparable<Semester> {
 
     private static final String NAME = "name";
+    protected static final String JOIN_TABLE_NAME = "semester_student";
+    protected static final String JOIN_CLOUMN_SEMESTER = "semester_id";
+    protected static final String JOIN_COLOUMN_STUDENT = "student_id";
+
     /**
      * true: Wintersemester, false: Sommersemester
      */
@@ -80,6 +86,7 @@ public class Semester extends ElipseModel implements Comparable<Semester> {
      * Alle Studenten, die sich für dieses Semester angemeldet haben
      */
     @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = JOIN_TABLE_NAME, joinColumns = @JoinColumn(name = JOIN_CLOUMN_SEMESTER, referencedColumnName = Semester.ID), inverseJoinColumns = @JoinColumn(name = JOIN_COLOUMN_STUDENT, referencedColumnName = Student.ID))
     private List<Student>       students;
     /**
      * Alle Projekte, die für dieses Semester registriert wurden
