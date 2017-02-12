@@ -19,7 +19,9 @@ import data.Student;
 import data.Team;
 import deadline.StateStorage;
 import form.Forms;
+import form.IntValidator;
 import form.StringValidator;
+import form.ValidationException;
 import play.data.DynamicForm;
 import play.data.FormFactory;
 import play.mvc.Controller;
@@ -159,22 +161,26 @@ public class AdviserPageController extends Controller {
         String maxSizeString = form.get("maxSize");
         String idString = form.get("id");
         StringValidator stringValidator = Forms.getNonEmptyStringValidator();
+        IntValidator intValidator = new IntValidator(0);
+        IntValidator maxSizeValidator = new IntValidator(1, Integer.MAX_VALUE);
         int id = Integer.parseInt(idString);
+        /***********************************/
         int numberOfTeams;
         int minSize;
         int maxSize;
+        try {
+
+            numberOfTeams = intValidator.validate(numberOfTeamsString);
+            minSize = intValidator.validate(minSizeString);
+            maxSize = maxSizeValidator.validate(maxSizeString);
+        } catch (ValidationException e) {
+            flash("error", ctx().messages().at(e.getMessage()));
+            return redirect(controllers.routes.AdviserPageController.projectsPage(id));
+        }
         Project project = ElipseModel.getById(Project.class, id);
         boolean isAdviser = adviser.getProjects().contains(project);
         if (!isAdviser) {
             flash("error", ctx().messages().at(INTERNAL_ERROR));
-            return redirect(controllers.routes.AdviserPageController.projectsPage(id));
-        }
-        try {
-            numberOfTeams = Integer.parseInt(numberOfTeamsString);
-            minSize = Integer.parseInt(minSizeString);
-            maxSize = Integer.parseInt(maxSizeString);
-        } catch (NumberFormatException e) {
-            flash("error", ctx().messages().at("error.wrongInput"));
             return redirect(controllers.routes.AdviserPageController.projectsPage(id));
         }
 
@@ -264,7 +270,9 @@ public class AdviserPageController extends Controller {
             return badRequest(ctx().messages().at(INTERNAL_ERROR));
         }
         String idString = form.get("id");
+        IntValidator intValidator = new IntValidator(0);
         int id = Integer.parseInt(idString);
+
         Project project = ElipseModel.getById(Project.class, id);
         boolean isAdviser = adviser.getProjects().contains(project);
         if (!isAdviser) {
