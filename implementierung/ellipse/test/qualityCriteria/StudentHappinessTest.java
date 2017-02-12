@@ -16,8 +16,9 @@ import data.Semester;
 import data.Student;
 import data.Team;
 import exception.DataException;
+import play.test.WithApplication;
 
-public class StudentHappinessTest {
+public class StudentHappinessTest extends WithApplication {
 
     Semester            semester;
     Allocation          allocation;
