@@ -29,85 +29,80 @@ import com.avaje.ebean.Ebean;
 @Entity
 public class Semester extends ElipseModel implements Comparable<Semester> {
 
-    private static final String NAME = "name";
-    protected static final String JOIN_TABLE_NAME = "semester_student";
+    private static final String   NAME                 = "name";
+    protected static final String JOIN_TABLE_NAME      = "semester_student";
     protected static final String JOIN_CLOUMN_SEMESTER = "semester_id";
     protected static final String JOIN_COLOUMN_STUDENT = "student_id";
 
     /**
      * true: Wintersemester, false: Sommersemester
      */
-    private boolean             wintersemester;
+    private boolean               wintersemester;
     /**
      * maximale größe einer lerngruppe
      */
-    private int                 maxGroupSize;
-    /**
-     * Jahr, in dem das Semester stattfindet
-     */
-    private int                 year;
+    private int                   maxGroupSize;
     /**
      * Der Name des Semesters
      */
     @NotNull
     @Column(name = NAME)
-    private String              name;
+    private String                name;
     /**
      * Die für dieses Semseter verfügbaren SPOs
      */
     @ManyToMany
-    private List<SPO>           spos;
+    private List<SPO>             spos;
     /**
      * Eine Beschreibung/Infotext des Semesters.
      */
     @NotNull
-    private String              infoText;
+    private String                infoText;
     /**
      * Die finale Einteilung der Studierenden auf die Projekte/Teams.
      */
     @OneToOne(cascade = CascadeType.ALL)
-    private Allocation          finalAllocation;
+    private Allocation            finalAllocation;
     /**
      * Der Zeitpunkt ab dem sich Studenten registrieren können.
      */
     @Temporal(TemporalType.TIME)
-    private Date                registrationStart;
+    private Date                  registrationStart;
     /**
      * Der Zeitpunkt ab dem sich Studenten nicht mehr registrieren können.
      */
     @Temporal(TemporalType.TIME)
-    private Date                registrationEnd;
+    private Date                  registrationEnd;
     /**
      * Alle Lerngruppen, die dieses Semester erstellt wurden
      */
     @OneToMany(cascade = CascadeType.ALL)
-    private List<LearningGroup> learningGroups;
+    private List<LearningGroup>   learningGroups;
     /**
      * Alle Studenten, die sich für dieses Semester angemeldet haben
      */
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = JOIN_TABLE_NAME, joinColumns = @JoinColumn(name = JOIN_CLOUMN_SEMESTER, referencedColumnName = Semester.ID), inverseJoinColumns = @JoinColumn(name = JOIN_COLOUMN_STUDENT, referencedColumnName = Student.ID))
-    private List<Student>       students;
+    private List<Student>         students;
     /**
      * Alle Projekte, die für dieses Semester registriert wurden
      */
     @OneToMany(cascade = CascadeType.ALL)
-    private List<Project>       projects;
+    private List<Project>         projects;
     /**
      * Alle Einteilungen, die für dieses Semester berechnet wurden
      */
     @OneToMany(cascade = CascadeType.ALL)
-    private List<Allocation>    allocations;
+    private List<Allocation>      allocations;
 
     public Semester() {
-        this("default_name", true, 1970);
+        this("default_name", true);
     }
 
-    public Semester(String name, boolean wintersemester, int year) {
+    public Semester(String name, boolean wintersemester) {
         super();
         this.name = name;
         this.wintersemester = wintersemester;
-        this.year = year;
         spos = new ArrayList<SPO>();
         learningGroups = new ArrayList<LearningGroup>();
         students = new ArrayList<Student>();
@@ -142,25 +137,6 @@ public class Semester extends ElipseModel implements Comparable<Semester> {
      */
     public void setWintersemester(boolean wintersemester) {
         this.wintersemester = wintersemester;
-    }
-
-    /**
-     * Getter für das Jahr
-     * 
-     * @return Jahr
-     */
-    public int getYear() {
-        return year;
-    }
-
-    /**
-     * Setter für das Jahr
-     * 
-     * @param year
-     *            Jahr
-     */
-    public void setYear(int year) {
-        this.year = year;
     }
 
     /**
@@ -516,19 +492,15 @@ public class Semester extends ElipseModel implements Comparable<Semester> {
      *         Semester in keiner Lerngruppe ist.
      */
     public LearningGroup getLearningGroupOf(Student student) {
-        return learningGroups.stream().filter(
-                learningGroup -> learningGroup.getMembers().contains(student))
-                .findFirst().orElse(null);
+        return learningGroups
+                .stream()
+                .filter(learningGroup -> learningGroup.getMembers().contains(
+                        student)).findFirst().orElse(null);
     }
 
     @Override
     public int compareTo(Semester o) {
-        int temp = Integer.compare(year, o.getYear());
-        if (temp == 0) {
-            return Boolean.compare(wintersemester, o.isWintersemester());
-        } else {
-            return temp;
-        }
+        return name.compareTo(o.getName());
     }
 
 }
