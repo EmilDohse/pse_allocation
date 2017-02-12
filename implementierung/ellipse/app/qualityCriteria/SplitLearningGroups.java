@@ -9,6 +9,7 @@ import java.util.HashMap;
 import data.Allocation;
 import data.LearningGroup;
 import data.Semester;
+import data.Student;
 import data.Team;
 
 /************************************************************/
@@ -54,10 +55,8 @@ public class SplitLearningGroups implements QualityCriterion {
                 }
                 if (i != lg.getMembers().size()) {
                     for (int r = i + 1; r < lg.getMembers().size(); r++) {
-                        Team currentTeam = studentTeam
-                                .get(lg.getMembers().get(r));
-                        if (currentTeam != null
-                                && !currentTeam.equals(firstTeam)) {
+                        Team currentTeam = studentTeam.get(lg.getMembers().get(r));
+                        if (currentTeam != null && !currentTeam.equals(firstTeam)) {
                             numberOfSplitLearningGroups += 1;
                             break;
                         }
