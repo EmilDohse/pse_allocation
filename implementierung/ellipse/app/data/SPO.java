@@ -15,8 +15,6 @@ import javax.validation.constraints.NotNull;
 
 import com.avaje.ebean.Ebean;
 
-import exception.DataException;
-
 /************************************************************/
 /**
  * Diese Klasse stellt eine Studienprüfungsordnung dar.
@@ -25,34 +23,33 @@ import exception.DataException;
 public class SPO extends ElipseModel implements Comparable<SPO> {
 
     private static final String NAME = "name";
-
     /**
      * Der Name der Prüfungsordnung.
      */
     @NotNull
     @Column(name = NAME)
-    private String            name;
+    private String              name;
     /**
      * Die nach dieser Prüfungsordnung benötigten Teilleistungen für die
      * Teilnahme am PSE.
      */
     @ManyToMany
     @JoinTable(name = "SPO_ACHIEVEMENT_NECESSARY")
-    private List<Achievement> necessaryAchievements;
+    private List<Achievement>   necessaryAchievements;
     /**
      * Die zusätzlichen Teilleistungen.
      */
     @ManyToMany
     @JoinTable(name = "SPO_ACHIEVEMENT_ADDITIONAL")
-    private List<Achievement> additionalAchievements;
+    private List<Achievement>   additionalAchievements;
 
-    public SPO() throws DataException {
+    public SPO() {
         this("default_name");
     }
 
-    public SPO(String name) throws DataException {
+    public SPO(String name) {
         super();
-        setName(name);
+        this.name = name;
         necessaryAchievements = new ArrayList<Achievement>();
         additionalAchievements = new ArrayList<Achievement>();
     }
@@ -62,14 +59,8 @@ public class SPO extends ElipseModel implements Comparable<SPO> {
      * 
      * @param achievement
      *            Teilleistung, die hinzugefügt wird.
-     * @throws DataException
-     *             Wird vom Controller behandelt.
      */
-    public void addAdditionalAchievement(Achievement achievement)
-            throws DataException {
-        if (achievement == null) {
-            throw new DataException(IS_NULL_ERROR);
-        }
+    public void addAdditionalAchievement(Achievement achievement) {
         additionalAchievements.add(achievement);
     }
 
@@ -88,14 +79,8 @@ public class SPO extends ElipseModel implements Comparable<SPO> {
      * 
      * @param achievement
      *            Teilleistung, die hinzugefügt wird.
-     * @throws DataException
-     *             Wird vom Controller behandelt.
      */
-    public void addNecessaryAchievement(Achievement achievement)
-            throws DataException {
-        if (achievement == null) {
-            throw new DataException(IS_NULL_ERROR);
-        }
+    public void addNecessaryAchievement(Achievement achievement) {
         necessaryAchievements.add(achievement);
     }
 
@@ -141,16 +126,8 @@ public class SPO extends ElipseModel implements Comparable<SPO> {
      * 
      * @param name
      *            Der Name der SPO.
-     * @throws DataException
-     *             Wird vom Controller behandelt.
      */
-    public void setName(String name) throws DataException {
-        if (name == null) {
-            throw new DataException(IS_NULL_ERROR);
-        }
-        if (name.isEmpty()) {
-            throw new DataException(STRING_EMPTY_ERROR);
-        }
+    public void setName(String name) {
         this.name = name;
     }
 
@@ -159,16 +136,9 @@ public class SPO extends ElipseModel implements Comparable<SPO> {
      * 
      * @param neccessaryAchievemens
      *            Die benötigten Teilleistungen.
-     * @throws DataException
-     *             Wird vom Controller behandelt.
      */
     public void setNecessaryAchievements(
-            List<Achievement> necessaryAchievements) throws DataException {
-        if (necessaryAchievements == null) {
-            throw new DataException(IS_NULL_ERROR);
-        }
-        // Hier wird nicht auf leere Liste geprüft, da es sinnvolle Anwendungen
-        // dafür gibt.
+            List<Achievement> necessaryAchievements) {
         this.necessaryAchievements = necessaryAchievements;
     }
 
@@ -177,16 +147,9 @@ public class SPO extends ElipseModel implements Comparable<SPO> {
      * 
      * @param additionalAchievements
      *            Die zusätzlichen Teilleistungen.
-     * @throws DataException
-     *             Wird vom Controller behandelt.
      */
     public void setAdditionalAchievements(
-            List<Achievement> additionalAchievements) throws DataException {
-        if (additionalAchievements == null) {
-            throw new DataException(IS_NULL_ERROR);
-        }
-        // Hier wird nicht auf leere Liste geprüft, da es sinnvolle Anwendungen
-        // dafür gibt.
+            List<Achievement> additionalAchievements) {
         this.additionalAchievements = additionalAchievements;
     }
 
@@ -211,7 +174,6 @@ public class SPO extends ElipseModel implements Comparable<SPO> {
         return Ebean.find(SPO.class).where().eq(NAME, name).findUnique();
     }
 
-    // TODO Müssen compareTo und equals auch geprüft werden?
     /**
      * vergleicht die beiden spos anhand ihrenr namen
      */

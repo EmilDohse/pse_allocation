@@ -38,8 +38,7 @@ public class EmailVerifier {
     private final TimedCodeValueStore<Student> codeValueStorage;
 
     private EmailVerifier() {
-        codeValueStorage = new TimedCodeValueStore<>(VALID_CODE_DURATION,
-                CODE_LENGTH);
+        codeValueStorage = new TimedCodeValueStore<>(VALID_CODE_DURATION, CODE_LENGTH);
     }
 
     /**
@@ -60,7 +59,7 @@ public class EmailVerifier {
      */
     public boolean verify(String code) {
         Student student = codeValueStorage.pop(code);
-        if (codeValueStorage.pop(code) != null) {
+        if (student != null) {
             student.doTransaction(() -> {
                 student.setIsEmailVerified(true);
             });

@@ -22,7 +22,6 @@ import data.Semester;
 import data.Student;
 import data.User;
 import deadline.StateStorage;
-import exception.DataException;
 import notificationSystem.Notifier;
 import play.data.DynamicForm;
 import play.data.FormFactory;
@@ -151,35 +150,29 @@ public class IndexPageController extends Controller {
             if (Student.getStudent(matNr) == null) {
                 String encPassword = new BlowfishPasswordEncoder()
                         .encode(password);
-                try {
-                    Student student = new Student(matNrString, encPassword,
-                            email, firstName, lastName, matNr, spo,
-                            completedAchievements, nonCompletedAchievements,
-                            semester);
-                    student.save();
+                Student student = new Student(matNrString, encPassword, email,
+                        firstName, lastName, matNr, spo, completedAchievements,
+                        nonCompletedAchievements, semester);
+                student.save();
 
-                    LearningGroup l = new LearningGroup(student.getUserName(),
-                            "");
-                    l.save();
-                    l.doTransaction(() -> {
-                        l.addMember(student);
-                        l.setPrivate(true);
-                        // Ratings initialisieren
-                        for (Project p : GeneralData.loadInstance()
-                                .getCurrentSemester().getProjects()) {
-                            l.rate(p, 3);
-                        }
-                    });
-                    // TODO get student data from view ???
-                    Semester currentSemester = GeneralData.loadInstance()
-                            .getCurrentSemester();
-                    currentSemester.doTransaction(() -> {
-                        currentSemester.addStudent(student);
-                        currentSemester.addLearningGroup(l);
-                    });
-                } catch (DataException e) {
-                    // TODO Redirect incl. Errormessage
-                }
+                LearningGroup l = new LearningGroup(student.getUserName(), "");
+                l.save();
+                l.doTransaction(() -> {
+                    l.addMember(student);
+                    l.setPrivate(true);
+                    // Ratings initialisieren
+                    for (Project p : GeneralData.loadInstance()
+                            .getCurrentSemester().getProjects()) {
+                        l.rate(p, 3);
+                    }
+                });
+                // TODO get student data from view ???
+                Semester currentSemester = GeneralData.loadInstance()
+                        .getCurrentSemester();
+                currentSemester.doTransaction(() -> {
+                    currentSemester.addStudent(student);
+                    currentSemester.addLearningGroup(l);
+                });
                 return redirect(controllers.routes.StudentPageController
                         .sendNewVerificationLink());
             } else {

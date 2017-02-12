@@ -4,11 +4,9 @@
 
 package qualityCriteria;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
 
 import data.Allocation;
-import data.GeneralData;
 import data.LearningGroup;
 import data.Semester;
 import data.Student;
@@ -32,19 +30,41 @@ public class SplitLearningGroups implements QualityCriterion {
     public String calculate(Allocation allocation) {
         int numberOfSplitLearningGroups = 0;
         Semester semester = allocation.getSemester();
-        List<LearningGroup> lgs = semester.getLearningGroups();
-        for (int i = 0; i < lgs.size(); i++) {
-            LearningGroup lg = lgs.get(i);
-            List<Team> teamsOfLg = new ArrayList<Team>();
-            for (int j = 0; j < lg.getMembers().size(); j++) {
-                Team teamOfJ = allocation.getTeam(lg.getMembers().get(j));
-                if (teamOfJ != null && !teamsOfLg.contains(teamOfJ)) {
-                    teamsOfLg.add(teamOfJ);
+
+        HashMap<Student, Team> studentTeam = new HashMap<>();
+        for (Team t : allocation.getTeams()) {
+            for (Student student : t.getMembers()) {
+                studentTeam.put(student, t);
+            }
+        }
+
+        // Durchlaufe alle Lerngruppen
+        for (LearningGroup lg : semester.getLearningGroups()) {
+
+            // Betrachte nur Lerngruppen mir mehr als einem Mitglied
+            if (lg.getMembers().size() > 1) {
+
+                // Suche erstes Team ungleich null
+                int i = 0;
+                Team firstTeam = null;
+                for (i = 0; i < lg.getMembers().size(); i++) {
+                    firstTeam = studentTeam.get(lg.getMembers().get(i));
+                    if (firstTeam != null) {
+                        break;
+                    }
+                }
+                if (i != lg.getMembers().size()) {
+                    for (int r = i + 1; r < lg.getMembers().size(); r++) {
+                        Team currentTeam = studentTeam.get(lg.getMembers().get(r));
+                        if (currentTeam != null && !currentTeam.equals(firstTeam)) {
+                            numberOfSplitLearningGroups += 1;
+                            break;
+                        }
+                    }
+
                 }
             }
-            if (teamsOfLg.size() > 1) {
-                numberOfSplitLearningGroups++;
-            }
+
         }
         return String.valueOf(numberOfSplitLearningGroups);
     }

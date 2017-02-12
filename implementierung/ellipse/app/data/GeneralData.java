@@ -9,8 +9,7 @@ import java.util.NoSuchElementException;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
-
-import exception.DataException;
+import javax.persistence.Transient;
 
 /************************************************************/
 /**
@@ -42,15 +41,9 @@ public class GeneralData extends ElipseModel {
      */
     public Semester getCurrentSemester() {
         if (currentSemester == null) {
-            Semester semester;
-            try {
-                semester = new Semester();
-                semester.setId(-1);
-                return semester;
-            } catch (DataException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
+            Semester semester = new Semester();
+            semester.setId(-1);
+            return semester;
         }
         return currentSemester;
     }
@@ -60,14 +53,8 @@ public class GeneralData extends ElipseModel {
      * 
      * @param currentSemester
      *            Das aktuelle Semester.
-     * @throws DataException
-     *             wenn currentSemester null ist
      */
-    public void setCurrentSemester(Semester currentSemester)
-            throws DataException {
-        if (currentSemester == null) {
-            throw new DataException(IS_NULL_ERROR);
-        }
+    public void setCurrentSemester(Semester currentSemester) {
         this.currentSemester = currentSemester;
     }
 

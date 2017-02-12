@@ -9,19 +9,17 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-import exception.DataException;
-
 public class LearningGroupTest extends DataTest {
 
     private LearningGroup learningGroup;
 
     @Before
-    public void beforeTest() throws DataException {
+    public void beforeTest() {
         learningGroup = new LearningGroup();
     }
 
     @Test
-    public void testName() throws DataException {
+    public void testName() {
         String n = "testname";
         learningGroup.setName(n);
         assertEquals(n, learningGroup.getName());
@@ -35,7 +33,7 @@ public class LearningGroupTest extends DataTest {
     }
 
     @Test
-    public void testMembers() throws DataException {
+    public void testMembers() {
         Semester semester = new Semester();
         GeneralData data = GeneralData.loadInstance();
         data.doTransaction(() -> {
@@ -62,7 +60,7 @@ public class LearningGroupTest extends DataTest {
     }
 
     @Test
-    public void testRatings() throws DataException {
+    public void testRatings() {
         // TODO Warum Reihenfolge beim save relevant?
         Rating rating = new Rating();
         Project firstP = new Project();
@@ -94,5 +92,22 @@ public class LearningGroupTest extends DataTest {
         boolean p = true;
         learningGroup.setPrivate(p);
         assertEquals(learningGroup.isPrivate(), p);
+    }
+
+    @Test
+    public void testGetLearningGroup() {
+        Semester one = new Semester();
+        Semester two = new Semester();
+
+        LearningGroup oneGroup = new LearningGroup("test", "test123");
+        LearningGroup twoGroup = new LearningGroup("test", "test1234");
+        one.doTransaction(() -> {
+            one.addLearningGroup(oneGroup);
+        });
+        two.doTransaction(() -> {
+            two.addLearningGroup(twoGroup);
+        });
+        assertEquals(oneGroup, LearningGroup.getLearningGroup("test", one));
+
     }
 }

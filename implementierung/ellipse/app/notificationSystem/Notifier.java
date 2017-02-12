@@ -31,7 +31,7 @@ import play.i18n.MessagesApi;
  */
 public class Notifier {
 
-    private Messages            messages;
+    private Messages messages;
 
     @Inject
     public Notifier(MessagesApi messagesApi) {
@@ -75,8 +75,7 @@ public class Notifier {
                 student.getName(),
                 allocation.getTeam(student).getProject().getName());
         String subject = messages.at("email.subjectResults");
-        this.sendEmail(subject, student.getEmailAddress(),
-                bodyText);
+        this.sendEmail(subject, student.getEmailAddress(), bodyText);
     }
 
     /**
@@ -99,8 +98,7 @@ public class Notifier {
         String bodyText = messages.at("email.notifyResultsAdviser",
                 adviser.getName(), teamsList);
         String subject = messages.at("email.subjectResults");
-        this.sendEmail(subject, adviser.getEmailAddress(),
-                bodyText);
+        this.sendEmail(subject, adviser.getEmailAddress(), bodyText);
     }
 
     public void sendAdviserPassword(Adviser adviser, String password)
@@ -108,14 +106,13 @@ public class Notifier {
         String bodyText = messages.at("email.adviserPassword",
                 adviser.getName(), password);
         String subject = messages.at("email.subjectAdviserPassword");
-        this.sendEmail(subject, adviser.getEmailAddress(),
-                bodyText);
+        this.sendEmail(subject, adviser.getEmailAddress(), bodyText);
     }
 
     public void sendVerifyNewPassowrd(User user, String verificationURL)
             throws EmailException {
-        String bodyText = messages.at("email.verifyNewPassword",
-                user.getName(), verificationURL);
+        String bodyText = messages.at("email.verifyNewPassword", user.getName(),
+                verificationURL);
         String subject = messages.at("email.subjectVerifyNewPassword");
         this.sendEmail(subject, user.getEmailAddress(), bodyText);
     }
@@ -132,14 +129,14 @@ public class Notifier {
      */
     public void sendVerificationMail(Student student, String verificationURL)
             throws EmailException {
-        String bodyText = messages.at("email.studentVerify",
-                student.getName(), verificationURL);
+        String bodyText = messages.at("email.studentVerify", student.getName(),
+                verificationURL);
         String subject = messages.at("email.subjectStudentVerify");
         this.sendEmail(subject, student.getEmailAddress(), bodyText);
     }
 
-    private void sendEmail(String subject, String mailTo,
-            String bodyText) throws EmailException {
+    private void sendEmail(String subject, String mailTo, String bodyText)
+            throws EmailException {
         SMTPOptions options = SMTPOptions.getInstance();
         Email email = new SimpleEmail();
         email.setHostName(options.getHost());
