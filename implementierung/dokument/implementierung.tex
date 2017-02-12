@@ -17,22 +17,25 @@
 \usepackage{tabularx}
 \usepackage{multirow}
 \usepackage{here}
+
 \usepackage[binary-units=true]{siunitx}
  \usepackage[autostyle=true,german=quotes]{csquotes}
  \usepackage{longtable, booktabs}
  \newcommand{\swtLabel}[1]{\textbf{/#1\arabic*0/}}
  \newlist{itemMinus}{itemize}{1 }
- \setlist[itemMinus]{label=--}
+ \setlist[itemMinus]{label=--, noitemsep,
+ before=\color{red}\normalfont\ttfamily}
   \newlist{itemPlus}{itemize}{1 }
- \setlist[itemPlus]{label=+}
+ \setlist[itemPlus]{label=+,noitemsep,before=\color{green}\normalfont\ttfamily}
   \newlist{itemPackage}{itemize}{1 }
- \setlist[itemPackage]{label=*}
+ \setlist[itemPackage]{label=*,noitemsep, before=\ttfamily\itshape}
   \newlist{itemClass}{itemize}{1 }
- \setlist[itemClass]{label=~}
+ \setlist[itemClass]{label=~,noitemsep,before=\normalfont\ttfamily}
  \newlist{itemClassSub}{itemize}{1 }
- \setlist[itemClassSub]{label=~}
+ \setlist[itemClassSub]{label=~,noitemsep,before=\normalfont}
 \newlist{itemChange}{itemize}{1 }
- \setlist[itemChange]{label=>}
+ \setlist[itemChange]{label=>,noitemsep,before=\color{blue}\normalfont\ttfamily}
+ \setlist[itemize]{label=~,before=\normalfont}
   \newcommand{\changeDescription}[1]{#1}
  \begin{document}
 
@@ -166,7 +169,8 @@ Kleinigkeiten\\
 Zur Sicherung bessere Code-Qualität (z.B. dem Vermeiden von Code-Copy-Pasting)
 und maßgeblich durch die oben beschriebenen Probleme mit verschiedenen
 verwendeten Bibliotheken  wurden Änderungen im Vergleich zum  Entrurfsdokument
-vorgenommen:
+vorgenommen. 
+Dabei werden 
 \begin{itemPackage}
 \item allocation
 \begin{itemClass}
@@ -212,7 +216,7 @@ List<AllocationParameter>)
 \end{itemPlus}
 \item Atribute
 \begin{itemPlus}
-\item +teams : List<Team>
+\item teams : List<Team>
 \end{itemPlus}
 \begin{itemMinus}
 \item -projects : List<Project>
