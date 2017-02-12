@@ -111,11 +111,7 @@ public class Project extends ElipseModel implements Comparable<Project> {
      *            Anzahl der Teams.
      */
     public void setNumberOfTeams(int numberOfTeams) {
-        if (numberOfTeams >= 0) {
-            this.numberOfTeams = numberOfTeams;
-        } else {
-            // TODO throws
-        }
+        this.numberOfTeams = numberOfTeams;
     }
 
     /**
@@ -222,11 +218,7 @@ public class Project extends ElipseModel implements Comparable<Project> {
      *            Die maximale Größe für Teams dieses Projektes.
      */
     public void setMaxTeamSize(int maxTeamSize) {
-        if (maxTeamSize >= -1) {
-            this.maxTeamSize = maxTeamSize;
-        } else {
-            // TODO throws
-        }
+        this.maxTeamSize = maxTeamSize;
     }
 
     /**
@@ -237,11 +229,7 @@ public class Project extends ElipseModel implements Comparable<Project> {
      *            Die minimale Größe für Teams dieses Projektes.
      */
     public void setMinTeamSize(int minTeamSize) {
-        if (minTeamSize >= -1) {
-            this.minTeamSize = minTeamSize;
-        } else {
-            // TODO throws
-        }
+        this.minTeamSize = minTeamSize;
     }
 
     /**
