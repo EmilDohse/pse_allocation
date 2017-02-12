@@ -16,6 +16,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 import com.avaje.ebean.Ebean;
+import com.avaje.ebean.Query;
+import com.avaje.ebean.RawSql;
+import com.avaje.ebean.RawSqlBuilder;
 
 /************************************************************/
 /**
@@ -335,18 +338,19 @@ public class Student extends User {
      * @return registered in more than one semester
      */
     public boolean registeredMoreThanOnce() {
-        int timesRegistered = 0;
-
-        for (Semester s : Semester.getSemesters()) {
-            if (s.getStudents().contains(this)) {
-                timesRegistered++;
-            }
-        }
-
-        if (timesRegistered >= 2) {
-            return true;
-        } else {
-            return false;
-        }
+        // Variante mit alle Semester aus der DB laden und durchsuchen war zu
+        // langsam.
+        String SQL = "SELECT s.semester_id " + "FROM "
+                + Semester.JOIN_TABLE_NAME + " s "
+                + "WHERE s." + Semester.JOIN_COLOUMN_STUDENT + " = "
+                + this.getId();
+        RawSql rawSql = RawSqlBuilder.parse(SQL)
+                .columnMapping("s." + Semester.JOIN_CLOUMN_SEMESTER,
+                        Semester.ID)
+                .create();
+        Query<Semester> query = Ebean.find(Semester.class);
+        query.setRawSql(rawSql);
+        List<Semester> registeredSemesters = query.findList();
+        return registeredSemesters.size() > 1;
     }
 }
