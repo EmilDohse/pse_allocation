@@ -20,6 +20,7 @@ import data.SPO;
 import data.Semester;
 import data.Student;
 import data.User;
+import deadline.StateStorage;
 import exception.DataException;
 import notificationSystem.Notifier;
 import play.data.DynamicForm;
@@ -521,5 +522,33 @@ public class StudentPageController extends Controller {
             // TODO
         }
         return redirect(controllers.routes.StudentPageController.accountPage());
+    }
+
+    /**
+     * Methode, welche zum Redirect verwendet wird, wenn die Aktion (der
+     * Request) im aktuellen Zustand (s. deadline).
+     * 
+     * @param url
+     *            die url zum Redirecten
+     * @return die Seite, die angezeigt werden soll
+     */
+    public Result notAllowedInCurrentState(String url) {
+        switch (StateStorage.getInstance().getCurrentState()) {
+        case BEFORE_REGISTRATION_PHASE:
+            flash("info", ctx().messages().at("state.actionNotAllowed"));
+            break;
+        case REGISTRATION_PHASE:
+            flash("info", ctx().messages().at("state.actionNotAllowed"));
+            break;
+        case AFTER_REGISTRATION_PHASE:
+            flash("info", ctx().messages()
+                    .at("student.afterRegistration.actionNotAllowed"));
+            break;
+        default:
+            flash("info", ctx().messages().at("state.actionNotAllowed"));
+            break;
+        }
+
+        return redirect(url);
     }
 }

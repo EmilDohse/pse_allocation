@@ -26,7 +26,9 @@ public class StudentHappiness implements QualityCriterion {
     private static final String EN_NAME = "Student happiness";
 
     /**
-     * {@inheritDoc}
+     * Diese Methode berechnet die relative Studentenhappiness.
+     * 
+     * @return Allgemeine gemittelte Studentenhappiness in Prozent.
      */
     @Override
     public String calculate(Allocation allocation) {
@@ -35,13 +37,11 @@ public class StudentHappiness implements QualityCriterion {
             Team t = allocation.getTeams().get(i);
             for (int j = 0; j < t.getMembers().size(); j++) {
                 Student student = t.getMembers().get(j);
-                Semester semester = GeneralData.loadInstance()
-                        .getCurrentSemester();
+                Semester semester = allocation.getSemester();
                 Project project = t.getProject();
                 double rating = 0;
                 try {
-                    rating = semester.getLearningGroupOf(student)
-                            .getRating(project);
+                    rating = semester.getLearningGroupOf(student).getRating(project);
                 } catch (DataException e) {
                     // TODO Hier nichts tun, da nicht möglich?
                 }
@@ -49,9 +49,8 @@ public class StudentHappiness implements QualityCriterion {
             }
         }
 
-        double relativeHappiness = (sumOfRatings / (double) GeneralData
-                .loadInstance().getCurrentSemester().getStudents().size())
-                / 5.0;
+        double relativeHappiness = (sumOfRatings
+                / (double) GeneralData.loadInstance().getCurrentSemester().getStudents().size()) / 5.0;
         NumberFormat nf = NumberFormat.getInstance();
         nf.setMaximumFractionDigits(2);
         return nf.format(100 * relativeHappiness) + "%";

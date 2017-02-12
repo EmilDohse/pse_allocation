@@ -4,8 +4,6 @@
 
 package allocation;
 
-import java.util.NoSuchElementException;
-
 import gurobi.GRB;
 import gurobi.GRBException;
 import gurobi.GRBLinExpr;
@@ -43,14 +41,14 @@ public class CriterionPreferredTeamSize implements GurobiCriterion {
     @Override
     public void useCriteria(Configuration configuration,
             GurobiAllocator allocator, double weight)
-            throws GRBException, NoSuchElementException {
+            throws GRBException {
         GRBLinExpr bonus = new GRBLinExpr();
         double prefSize;
 
         // Finde die gewünschte Teamgröße
 
         prefSize = configuration.getParameters().stream()
-                .filter(parameter -> parameter.getName().equals("prefSize"))
+                .filter(parameter -> "prefSize".equals(parameter.getName()))
                 .findFirst().get().getValue();
 
         for (int j = 0; j < configuration.getTeams().size(); j++) {
@@ -60,8 +58,8 @@ public class CriterionPreferredTeamSize implements GurobiCriterion {
             if (configuration.getTeams().get(j).getProject()
                     .getMaxTeamSize() == -1) {
                 maxSize = configuration.getParameters().stream()
-                        .filter(parameter -> parameter.getName()
-                                .equals("maxSize"))
+                        .filter(parameter -> "maxSize"
+                                .equals(parameter.getName()))
                         .findFirst().get().getValue();
             } else {
                 maxSize = configuration.getTeams().get(j).getProject()
@@ -103,7 +101,7 @@ public class CriterionPreferredTeamSize implements GurobiCriterion {
                     negationAuxiliaryVariable);
 
             rightSideSecondConstraint.multAdd(-0.1, negationIsPrefSize);
-            rightSideSecondConstraint.multAdd((maxSize + 0.1),
+            rightSideSecondConstraint.multAdd(maxSize + 0.1,
                     negationAuxiliaryVariable);
 
             allocator.getModel().addConstr(leftSideFirstConstraint,

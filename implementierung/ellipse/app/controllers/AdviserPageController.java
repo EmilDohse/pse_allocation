@@ -17,6 +17,7 @@ import data.Project;
 import data.Semester;
 import data.Student;
 import data.Team;
+import deadline.StateStorage;
 import exception.DataException;
 import play.data.DynamicForm;
 import play.data.FormFactory;
@@ -371,5 +372,34 @@ public class AdviserPageController extends Controller {
             // TODO hier verifikation
         }
         return redirect(controllers.routes.AdviserPageController.accountPage());
+    }
+
+    /**
+     * Methode, welche zum Redirect verwendet wird, wenn die Aktion (der
+     * Request) im aktuellen Zustand (s. deadline).
+     * 
+     * @param url
+     *            die url zum Redirecten
+     * @return die Seite, die angezeigt werden soll
+     */
+    public Result notAllowedInCurrentState(String url) {
+        switch (StateStorage.getInstance().getCurrentState()) {
+        case BEFORE_REGISTRATION_PHASE:
+            flash("info", ctx().messages()
+                    .at("adviser.registration.actionNotAllowed"));
+            break;
+        case REGISTRATION_PHASE:
+            flash("info", ctx().messages().at("state.actionNotAllowed"));
+            break;
+        case AFTER_REGISTRATION_PHASE:
+            flash("info", ctx().messages()
+                    .at("adviser.afterRegistration.actionNotAllowed"));
+            break;
+        default:
+            flash("info", ctx().messages().at("state.actionNotAllowed"));
+            break;
+        }
+
+        return redirect(url);
     }
 }

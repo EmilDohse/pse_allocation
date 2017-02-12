@@ -6,7 +6,6 @@ package allocation;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 import data.LearningGroup;
 import data.Project;
@@ -47,7 +46,7 @@ public class CriterionRating implements GurobiCriterion {
     @Override
     public void useCriteria(Configuration configuration,
             GurobiAllocator allocator, double weight)
-            throws GRBException, NoSuchElementException {
+            throws GRBException {
         // Erstelle Hashmap von Student auf Index in der Matrix
         List<Student> students = configuration.getStudents();
         HashMap<Student, Integer> studentIndex = new HashMap<>();

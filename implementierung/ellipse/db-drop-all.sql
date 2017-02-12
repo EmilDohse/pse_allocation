@@ -119,6 +119,9 @@ drop table if exists project_adviser;
 drop table if exists rating;
 drop sequence if exists rating_seq;
 
+drop table if exists smtpoptions;
+drop sequence if exists smtpoptions_seq;
+
 drop table if exists spo;
 drop sequence if exists spo_seq;
 
