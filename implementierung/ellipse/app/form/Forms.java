@@ -59,14 +59,21 @@ public class Forms {
     }
 
     static StringValidator getPasswordValidator() {
-        return new StringValidator(6); // TODO: Als Konstante
+        StringValidator validator = new StringValidator(6);
+        validator.setMessage("general.error.minimalPasswordLegth");
+        return validator;// TODO: Als Konstante
     }
 
     static StringValidator getEmailValidator() {
-        return new StringValidator(1, Integer.MAX_VALUE, ".+@.+");
+        StringValidator validator = new StringValidator(1, Integer.MAX_VALUE,
+                ".+@.+");
+        validator.setMessage("user.noValidEmail");
+        return validator;
     }
 
     static StringValidator getNonEmptyStringValidator() {
-        return new StringValidator(1);
+        StringValidator validator = new StringValidator(1);
+        validator.setMessage("general.error.noEmptyString");
+        return validator;
     }
 }
