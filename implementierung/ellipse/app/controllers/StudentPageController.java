@@ -268,7 +268,15 @@ public class StudentPageController extends Controller {
             flash("error", ctx().messages().at("student.learningGroup.error.nameFormat"));
             return redirect(controllers.routes.StudentPageController.learningGroupPage());
         }
-        String password = form.get("learningGroupPassword");
+        StringValidator passwordValidator = Forms.getPasswordValidator();
+
+        String password;
+        try {
+            password = passwordValidator.validate(form.get("learningGroupPassword"));
+        } catch (ValidationException e) {
+            flash("error", ctx().messages().at(e.getMessage()));
+            return redirect(controllers.routes.StudentPageController.learningGroupPage());
+        }
         String encPassword = new BlowfishPasswordEncoder().encode(password);
         LearningGroup learningGroup = LearningGroup.getLearningGroup(name, semester);
         if (learningGroup != null) {
@@ -362,7 +370,14 @@ public class StudentPageController extends Controller {
         if (form.data().isEmpty()) {
             return badRequest(ctx().messages().at(INTERNAL_ERROR));
         }
-        String name = form.get("learningGroupname");
+        StringValidator stringValidator = Forms.getNonEmptyStringValidator();
+        String name;
+        try {
+            name = stringValidator.validate(form.get("learningGroupname"));
+        } catch (ValidationException e) {
+            flash("error", ctx().messages().at(e.getMessage()));
+            return redirect(controllers.routes.StudentPageController.learningGroupPage());
+        }
         String pw = form.get("learningGroupPassword");
         LearningGroup lgOld = GeneralData.loadInstance().getCurrentSemester().getLearningGroupOf(student);
         LearningGroup lgNew = LearningGroup.getLearningGroup(name, GeneralData.loadInstance().getCurrentSemester());
