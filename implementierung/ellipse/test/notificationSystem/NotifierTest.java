@@ -9,14 +9,21 @@ import javax.mail.Message;
 import javax.mail.MessagingException;
 
 import org.apache.commons.mail.EmailException;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.jvnet.mock_javamail.Mailbox;
 
+import com.avaje.ebean.EbeanServer;
+import com.avaje.ebean.EbeanServerFactory;
+import com.avaje.ebean.config.ServerConfig;
+
 import data.Adviser;
 import data.Allocation;
+import data.GeneralData;
 import data.Project;
+import data.Semester;
 import data.Student;
 import data.Team;
 import exception.DataException;
@@ -28,11 +35,33 @@ public class NotifierTest extends WithApplication {
     @Inject
     private Notifier notifier;
 
+    private static EbeanServer server;
+
     @Before
     public void before() {
+        ServerConfig config = new ServerConfig();
+        config.setName("db");
+        config.loadTestProperties();
+        config.setDefaultServer(true);
+        config.setRegister(true);
+
+        server = EbeanServerFactory.create(config);
+        // Init General Data. Evolutions wollen nicht funktionieren
+        GeneralData data = new GeneralData();
+        data.save();
+        Semester semester = new Semester();
+        semester.save();
+        data.setCurrentSemester(semester);
+        data.save();
+
         // See github.com/playframework/play-mailer/issues/78
         notifier = Play.application().injector().instanceOf(Notifier.class);
         Mailbox.clearAll();
+    }
+
+    @After
+    public void after() {
+        server.shutdown(false, false);
     }
 
     @Test

@@ -22,6 +22,10 @@ import data.Semester;
 import data.Student;
 import data.User;
 import deadline.StateStorage;
+import form.Forms;
+import form.IntValidator;
+import form.StringValidator;
+import form.ValidationException;
 import notificationSystem.Notifier;
 import play.data.DynamicForm;
 import play.data.FormFactory;
@@ -89,32 +93,36 @@ public class IndexPageController extends Controller {
         if (form.data().isEmpty()) {
             return badRequest(ctx().messages().at(INTERNAL_ERROR));
         }
+
         // die felder werden ausgelesen
-        String firstName = form.get("firstName");
-        String lastName = form.get("lastName");
-        String email = form.get("email");
-        String password = form.get("pw");
-        String pwRepeat = form.get("rpw");
-        String matNrString = "";
-        String semesterString = form.get("semester");
-        String spoIdString = form.get("spo");
+        String firstName;
+        String lastName;
+        String email;
+        String password;
+        String pwRepeat;
         int spoId;
-        int semester = -1;
-        int matNr = -1;
-        // die matrikelnummer wird geparst
-        matNrString = form.get("matrnr");
+        int semester;
+        int matNr;
+
+        StringValidator notNullValidator = Forms.getNonEmptyStringValidator();
+        StringValidator passwordValidator = Forms.getPasswordValidator();
+        StringValidator emailValidator = Forms.getEmailValidator();
+
+        IntValidator minValidator = new IntValidator(0);
+
         try {
-
-            matNr = Integer.parseInt(matNrString);
-            semester = Integer.parseInt(semesterString);
-            spoId = Integer.parseInt(spoIdString);
-
-        } catch (NumberFormatException e) {
-            flash("error",
-                    ctx().messages().at("index.registration.error.genError"));
+            firstName = notNullValidator.validate(form.get("firstName"));
+            lastName = notNullValidator.validate(form.get("lastName"));
+            email = emailValidator.validate(form.get("email"));
+            password = passwordValidator.validate(form.get("pw"));
+            pwRepeat = passwordValidator.validate(form.get("rpw"));
+            spoId = minValidator.validate(form.get("spo"));
+            matNr = minValidator.validate(form.get("matrnr"));
+            semester = minValidator.validate(form.get("semester"));
+        } catch (ValidationException e) {
+            flash("error", ctx().messages().at(e.getMessage()));
             return redirect(
                     controllers.routes.IndexPageController.registerPage());
-
         }
         SPO spo = ElipseModel.getById(SPO.class, spoId);
         boolean trueData = false;
@@ -128,7 +136,7 @@ public class IndexPageController extends Controller {
         List<Achievement> nonCompletedAchievements = new ArrayList<>();
         try {
             completedAchievements = MultiselectList.createAchievementList(form,
-                    "completed-" + spoIdString + "-multiselect");
+                    "completed-" + Integer.toString(spoId) + "-multiselect");
         } catch (NumberFormatException e) {
             flash("error", ctx().messages().at(INTERNAL_ERROR));
             return redirect(
@@ -136,7 +144,7 @@ public class IndexPageController extends Controller {
         }
         try {
             nonCompletedAchievements = MultiselectList.createAchievementList(
-                    form, "due-" + spoIdString + "-multiselect");
+                    form, "due-" + Integer.toString(spoId) + "-multiselect");
         } catch (NumberFormatException e) {
             flash("error", ctx().messages().at(INTERNAL_ERROR));
             return redirect(
@@ -144,43 +152,53 @@ public class IndexPageController extends Controller {
         }
 
         if (password.equals(pwRepeat) && trueData) {
-            // wenn der student bestätigt hat das seine angaben richtig
-            // sind und die passwörter übereinstimmen wird ein neuer
-            // student hinzugefügt
-            if (Student.getStudent(matNr) == null) {
-                String encPassword = new BlowfishPasswordEncoder()
-                        .encode(password);
-                Student student = new Student(matNrString, encPassword, email,
-                        firstName, lastName, matNr, spo, completedAchievements,
-                        nonCompletedAchievements, semester);
-                student.save();
+            List<Achievement> temp = new ArrayList<>(completedAchievements);
+            temp.addAll(nonCompletedAchievements);
 
-                LearningGroup l = new LearningGroup(student.getUserName(), "");
-                l.save();
-                l.doTransaction(() -> {
-                    l.addMember(student);
-                    l.setPrivate(true);
-                    // Ratings initialisieren
-                    for (Project p : GeneralData.loadInstance()
-                            .getCurrentSemester().getProjects()) {
-                        l.rate(p, 3);
-                    }
-                });
-                Semester currentSemester = GeneralData.loadInstance()
-                        .getCurrentSemester();
-                currentSemester.doTransaction(() -> {
-                    currentSemester.addStudent(student);
-                    currentSemester.addLearningGroup(l);
-                });
-                return redirect(controllers.routes.StudentPageController
-                        .sendNewVerificationLink());
+            if (temp.containsAll(spo.getNecessaryAchievements())) {
+                // wenn der student bestätigt hat das seine angaben richtig
+                // sind und die passwörter übereinstimmen wird ein neuer
+                // student hinzugefügt
+                if (Student.getStudent(matNr) == null) {
+                    String encPassword = new BlowfishPasswordEncoder()
+                            .encode(password);
+                    Student student = new Student(Integer.toString(matNr),
+                            encPassword, email, firstName, lastName, matNr, spo,
+                            completedAchievements, nonCompletedAchievements,
+                            semester);
+                    student.save();
+
+                    LearningGroup l = new LearningGroup(student.getUserName(),
+                            "");
+                    l.save();
+                    l.doTransaction(() -> {
+                        l.addMember(student);
+                        l.setPrivate(true);
+                        // Ratings initialisieren
+                        for (Project p : GeneralData.loadInstance()
+                                .getCurrentSemester().getProjects()) {
+                            l.rate(p, 3);
+                        }
+                    });
+                    Semester currentSemester = GeneralData.loadInstance()
+                            .getCurrentSemester();
+                    currentSemester.doTransaction(() -> {
+                        currentSemester.addStudent(student);
+                        currentSemester.addLearningGroup(l);
+                    });
+                    return redirect(controllers.routes.StudentPageController
+                            .sendNewVerificationLink());
+                } else {
+                    // falls bereits ein studnent mit dieser matrikelnumer
+                    // im system existiert kann sich der student nicht
+                    // registrieren
+                    flash("error", ctx().messages()
+                            .at("index.registration.error.matNrExists"));
+                    return redirect(controllers.routes.IndexPageController
+                            .registerPage());
+                }
             } else {
-
-                // falls bereits ein studnent mit dieser matrikelnumer
-                // im system existiert kann sich der student nicht
-                // registrieren
-                flash("error", ctx().messages()
-                        .at("index.registration.error.matNrExists"));
+                flash("error", ctx().messages().at(INTERNAL_ERROR));
                 return redirect(
                         controllers.routes.IndexPageController.registerPage());
             }
@@ -217,9 +235,21 @@ public class IndexPageController extends Controller {
         if (form.data().isEmpty()) {
             return badRequest(ctx().messages().at(INTERNAL_ERROR));
         }
+
+        StringValidator passwordValidator = Forms.getPasswordValidator();
+        StringValidator emailValidator = Forms.getEmailValidator();
+
         // die felder werden ausgelesen
-        String email = form.get("email");
-        String password = form.get("password");
+        String email;
+        String password;
+        try {
+            email = emailValidator.validate(form.get("email"));
+            password = passwordValidator.validate(form.get("password"));
+        } catch (ValidationException e) {
+            flash("error", ctx().messages().at(e.getMessage()));
+            return redirect(
+                    controllers.routes.IndexPageController.passwordResetPage());
+        }
         String pwRepeat = form.get("pwRepeat");
         if (!password.equals(pwRepeat)) {
             flash("error", ctx().messages()
@@ -252,8 +282,8 @@ public class IndexPageController extends Controller {
                     controllers.routes.IndexPageController
                             .resetPassword(verificationCode).url());
         } catch (EmailException e) {
+            flash("error", ctx().messages().at("email.couldNotSend"));
             e.printStackTrace();
-            // TODO
         }
 
         flash("info", ctx().messages().at("index.pwReset.mailSent"));

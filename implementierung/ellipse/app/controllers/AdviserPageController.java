@@ -172,9 +172,13 @@ public class AdviserPageController extends Controller {
 
         StringValidator stringValidator = Forms.getNonEmptyStringValidator();
         IntValidator intValidator = new IntValidator(0);
-        IntValidator maxSizeValidator = new IntValidator(1, Integer.MAX_VALUE);
+        IntValidator maxSizeValidator = new IntValidator(0);
 
         int id;
+        int numberOfTeams;
+        int minSize;
+        int maxSize;
+
         try {
             id = intValidator.validate(idString);
         } catch (ValidationException e) {
@@ -182,10 +186,7 @@ public class AdviserPageController extends Controller {
             return redirect(
                     controllers.routes.AdviserPageController.projectsPage(-1));
         }
-
-        int numberOfTeams;
-        int minSize;
-        int maxSize;
+        Project project = ElipseModel.getById(Project.class, id);
         try {
 
             numberOfTeams = intValidator.validate(form.get("teamCount"));
@@ -201,7 +202,10 @@ public class AdviserPageController extends Controller {
             return redirect(
                     controllers.routes.AdviserPageController.projectsPage(id));
         }
-        Project project = ElipseModel.getById(Project.class, id);
+        if ((minSize == 0 ^ maxSize == 0) || (maxSize < minSize)) {
+            flash("error", ctx().messages().at("error.wrongInput"));
+            return redirect(controllers.routes.AdminPageController.projectEditPage(project.getId()));
+        }
         boolean isAdviser = adviser.getProjects().contains(project);
         if (!isAdviser) {
             flash("error", ctx().messages().at(INTERNAL_ERROR));

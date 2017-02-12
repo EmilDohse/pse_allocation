@@ -4,11 +4,11 @@ Parameter wird der Student und eine Fehlermeldung übergeben. *@
 <h1>@Messages("student.sidebar.account")</h1>
 <form
 	action="@controllers.routes.StudentPageController.editAccount().path()"
-	method="POST" class="form-horizontal">
+	method="POST" class="form-horizontal" role="form" data-toggle="validator">
 	<div class="form-group">
 		<label class="control-label col-sm-2" for="newEmail">@Messages("student.account.newEmail")</label>
 		<div class="col-sm-3">
-			<input type="text" id="newEmail" class="form-control" name="newEmail">
+			<input type="email" id="newEmail" class="form-control" name="newEmail" required pattern="\S+@@\S+\.\S+">
 		</div>
 	</div>
 	<div class="form-group">
@@ -19,24 +19,24 @@ Parameter wird der Student und eine Fehlermeldung übergeben. *@
 </form>
 <form
 	action="@controllers.routes.StudentPageController.editAccount().path()"
-	method="POST" class="form-horizontal">
+	method="POST" class="form-horizontal" role="form" data-toggle="validator">
 	<div class="form-group">
 		<label class="control-label col-sm-2" for="newPassword">@Messages("student.account.newPassword")</label>
 		<div class="col-sm-3">
 			<input type="password" class="form-control" name="newPassword"
-				id="newPassword">
+				id="newPassword" required data-minlength="6">
 		</div>
 	</div>
 	<div class="form-group">
 		<label class="control-label col-sm-2" for="newPasswordRepeat">@Messages("student.account.newPasswordRepeat")</label>
 		<div class="col-sm-3">
 			<input type="password" class="form-control" name="newPasswordRepeat"
-				id="newPasswordRepeat">
+				id="newPasswordRepeat" required data-match="#newPassword" data-minlength="6">
 		</div>
 	</div>
 	<div class="form-group">
 		<div class="col-sm-offset-2 col-sm-10">
-			<button type="submit" name="passwordChange" class="btn btn-primary">@Messages("student.account.pwChange")</button>
+			<button type="submit" name="passwordChange" class="btn btn-primary" required>@Messages("student.account.pwChange")</button>
 		</div>
 	</div>
 </form>

@@ -13,6 +13,10 @@ import data.ElipseModel;
 import data.GeneralData;
 import data.Project;
 import data.Semester;
+import form.Forms;
+import form.IntValidator;
+import form.StringValidator;
+import form.ValidationException;
 import play.data.DynamicForm;
 import play.data.FormFactory;
 import play.mvc.Controller;
@@ -51,8 +55,7 @@ public class AdminProjectController extends Controller {
             semester.addProject(project);
         });
         projID = project.getId();
-        return redirect(
-                controllers.routes.AdminPageController.projectEditPage(projID));
+        return redirect(controllers.routes.AdminPageController.projectEditPage(projID));
 
     }
 
@@ -68,8 +71,7 @@ public class AdminProjectController extends Controller {
         if (form.data().isEmpty()) {
             return badRequest(ctx().messages().at(INTERNAL_ERROR));
         }
-        Project project = ElipseModel.getById(Project.class,
-                Integer.parseInt(form.get("id")));
+        Project project = ElipseModel.getById(Project.class, Integer.parseInt(form.get("id")));
         // TODO hier eine warnmeldung ausgeben ob das projekt wirklich gelöscht
         // werden soll
         project.delete();
@@ -91,47 +93,61 @@ public class AdminProjectController extends Controller {
         if (form.data().isEmpty()) {
             return badRequest(ctx().messages().at(INTERNAL_ERROR));
         }
-        String projName = form.get("name");
-        String url = form.get("url");
-        String institute = form.get("institute");
-        String description = form.get("description");
-        String numberOfTeamsString = form.get("teamCount");
-        String minSizeString = form.get("minSize");
-        String maxSizeString = form.get("maxSize");
-        String idString = form.get("id");
+        StringValidator notEmptyValidator = Forms.getNonEmptyStringValidator();
+        IntValidator minValidator = new IntValidator(0);
+
+        String projName;
+        String url;
+        String institute;
+        String description;
+        String numberOfTeamsString;
+        String minSizeString;
+        String maxSizeString;
+        String idString;
         int numberOfTeams;
         int minSize;
         int maxSize;
-        int id = Integer.parseInt(idString);
+
+        int id;
+        try {
+            id = minValidator.validate(form.get("idString"));
+        } catch (ValidationException e) {
+            flash("error", ctx().messages().at(e.getMessage()));
+            return redirect(controllers.routes.AdminPageController.projectEditPage(-1));
+        }
         Project project = ElipseModel.getById(Project.class, id);
         try {
-            numberOfTeams = Integer.parseInt(numberOfTeamsString);
-            minSize = Integer.parseInt(minSizeString);
-            maxSize = Integer.parseInt(maxSizeString);
-        } catch (NumberFormatException e) {
+            projName = notEmptyValidator.validate(form.get("name"));
+            url = notEmptyValidator.validate(form.get("url"));
+            institute = notEmptyValidator.validate(form.get("institute"));
+            description = notEmptyValidator.validate(form.get("description"));
+            numberOfTeams = minValidator.validate(form.get("teamCount"));
+            minSize = minValidator.validate(form.get("minSize"));
+            maxSize = minValidator.validate(form.get("maxSize"));
+        } catch (ValidationException e) {
             flash("error", ctx().messages().at("error.wrongInput"));
-            return redirect(controllers.routes.AdminPageController
-                    .projectEditPage(project.getId()));
+            return redirect(controllers.routes.AdminPageController.projectEditPage(project.getId()));
+        }
+
+        if ((minSize == 0 ^ maxSize == 0) || (maxSize < minSize)) {
+            flash("error", ctx().messages().at("error.wrongInput"));
+            return redirect(controllers.routes.AdminPageController.projectEditPage(project.getId()));
         }
         ArrayList<Adviser> advisers = new ArrayList<>();
-        String[] adviserIds = MultiselectList.getValueArray(form,
-                "adviser-multiselect");
+        String[] adviserIds = MultiselectList.getValueArray(form, "adviser-multiselect");
         for (String adviserIdString : adviserIds) {
             int adviserId;
             try {
                 adviserId = Integer.parseInt(adviserIdString);
             } catch (NumberFormatException e) {
                 flash("error", ctx().messages().at(INTERNAL_ERROR));
-                return redirect(controllers.routes.AdminPageController
-                        .projectEditPage(project.getId()));
+                return redirect(controllers.routes.AdminPageController.projectEditPage(project.getId()));
             }
             advisers.add(ElipseModel.getById(Adviser.class, adviserId));
         }
         if (minSize > maxSize) {
-            flash("error",
-                    ctx().messages().at("index.registration.error.minMax"));
-            return redirect(controllers.routes.AdminPageController
-                    .projectEditPage(project.getId()));
+            flash("error", ctx().messages().at("index.registration.error.minMax"));
+            return redirect(controllers.routes.AdminPageController.projectEditPage(project.getId()));
         }
 
         // und dem projekt hinzugefügt
