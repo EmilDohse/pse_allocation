@@ -84,21 +84,7 @@ public class Team extends ElipseModel /* implements Comparable<Team> */ {
      * @param members
      *            Die Mitglieder des Teams.
      */
-<<<<<<< HEAD
-    public void setMembers(List<Student> members) throws DataException {
-        if (members == null) {
-            throw new DataException(IS_NULL_ERROR);
-        }
-        if (members.isEmpty()) {
-            this.members = members;
-            return;
-        }
-        if (members.size() > project.getMaxTeamSize() || members.size() < project.getMinTeamSize()) {
-            throw new DataException("team.invalidTeamSize");
-        }
-=======
     public void setMembers(List<Student> members) {
->>>>>>> 23f5fda20aba7ef430d45caeb2af40354a5a6a89
         this.members = members;
     }
 

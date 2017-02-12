@@ -90,8 +90,7 @@ public class LearningGroup extends ElipseModel {
      */
     @Deprecated
 
-    public LearningGroup(String name, String password, Student member,
-            boolean isPrivate) {
+    public LearningGroup(String name, String password, Student member, boolean isPrivate) {
         this();
         this.name = name;
         this.password = password;
@@ -244,19 +243,7 @@ public class LearningGroup extends ElipseModel {
      * @param student
      *            Student, der hinzugefügt wird.
      */
-<<<<<<< HEAD
-    public void addMember(Student student) throws DataException {
-        if (student == null) {
-            throw new DataException(IS_NULL_ERROR);
-        }
-        if (members.size() + 1 > semester.getMaxGroupSize()) {
-            throw new DataException("learningGroup.toLarge");
-        }
-        // TODO Prüfen, ob Student schon in anderer Lerngruppe ist?
-=======
-
     public void addMember(Student student) {
->>>>>>> 23f5fda20aba7ef430d45caeb2af40354a5a6a89
         members.add(student);
     }
 
@@ -308,10 +295,8 @@ public class LearningGroup extends ElipseModel {
      *         wird.
      */
 
-    public static LearningGroup getLearningGroup(String name,
-            Semester semester) {
-        return Ebean.find(LearningGroup.class).where().eq(NAME, name).where()
-                .eq(SEMESTER, semester).findUnique();
+    public static LearningGroup getLearningGroup(String name, Semester semester) {
+        return Ebean.find(LearningGroup.class).where().eq(NAME, name).where().eq(SEMESTER, semester).findUnique();
         // TODO sicher, dass das Semester beachtet wird?
 
     }
