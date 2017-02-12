@@ -1,6 +1,7 @@
 @* * Diese Seite zeigt dem Betreuer seine Account Seite an. * Zusätzlich
 wird eine Fehlermeldung übergeben. *@ @()
 <h1>@Messages("admin.sidebar.account")</h1>
+<!-- Acccount Ändern-Formular -->
 <form
 	action="@controllers.routes.GeneralAdminController.editAccount().path()"
 	method="POST" class="form-horizontal">

@@ -176,6 +176,7 @@ admin.allocation.addToQueue = Zur Berechnungsliste hinzufügen
 admin.allocation.queue = Berechnungsliste
 admin.allocation.removeFromQueue = Von Berechnungsliste entfernen
 admin.allocation.configName = Konfigurationsname
+admin.allocation.queueEmpty = Aktuell werden keine Einteilungen berechnet
 admin.allocation.error.generalError = Bitte überprüfen Sie die Eingabe
 admin.results.to = nach
 admin.results.moveMarkedStudents = markierte Personen verschieben

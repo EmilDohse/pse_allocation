@@ -3,6 +3,7 @@ an Betreuer übergeben. * Zusätlich gibt es noch einen Parameter für eine
 Fehlermeldung. *@ @(advisers: List[data.Adviser])
 
 <h1>@Messages("admin.sidebar.adviser")</h1>
+<!-- Tabelle mit Betreuern -->
 <table class="table table-striped">
 	<thead>
 		<tr>
@@ -29,6 +30,7 @@ Fehlermeldung. *@ @(advisers: List[data.Adviser])
 		}
 	</tbody>
 </table>
+<!-- Neuen Betreuer hinzufügen -->
 <form
 	action="@controllers.routes.GeneralAdminController.addAdviser().path()"
 	method="POST" class="form-inline">

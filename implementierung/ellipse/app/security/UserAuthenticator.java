@@ -10,6 +10,7 @@ import org.pac4j.core.exception.BadCredentialsException;
 import org.pac4j.core.exception.HttpAction;
 import org.pac4j.play.PlayWebContext;
 
+import ch.qos.logback.core.net.SyslogOutputStream;
 import data.Administrator;
 import data.Adviser;
 import data.GeneralData;
@@ -85,8 +86,10 @@ public class UserAuthenticator
         }
         for (User u : Adviser.getAdvisers()) {
             if (credentials.getUsername().equals(u.getUserName())) {
+                System.out.println("Username matsches");
                 if (encoder.matches(credentials.getPassword(),
                         u.getPassword())) {
+                    System.out.println("passwort stimmt");
                     UserProfile profile = new UserProfile(u);
                     profile.addRole("ROLE_ADVISER");
                     credentials.setUserProfile(profile);

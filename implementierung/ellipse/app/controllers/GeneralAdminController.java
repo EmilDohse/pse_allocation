@@ -66,9 +66,9 @@ public class GeneralAdminController extends Controller {
         String lastName = form.get("lastName");
         String email = form.get("email");
         String password = form.get("password");
-        String encPassword = new BlowfishPasswordEncoder().encode(password);
+        // String encPassword = new BlowfishPasswordEncoder().encode(password);
         try {
-            Adviser adviser = new Adviser(email, encPassword, email, firstName,
+            Adviser adviser = new Adviser(email, password, email, firstName,
                     lastName);
             adviser.save();
             notifier.sendAdviserPassword(adviser, password);
