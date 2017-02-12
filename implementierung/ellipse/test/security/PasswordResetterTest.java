@@ -1,6 +1,6 @@
 package security;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -8,8 +8,9 @@ import org.junit.Test;
 import data.Adviser;
 import data.Student;
 import exception.DataException;
+import play.test.WithApplication;
 
-public class PasswordResetterTest {
+public class PasswordResetterTest extends WithApplication {
 
     Student student;
     Adviser adviser;

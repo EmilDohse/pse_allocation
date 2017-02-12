@@ -36,14 +36,15 @@ import exception.ImporterException;
  */
 public class Importer {
 
-    private static final String WRONG_FORMAT     = "importer.wrongFileFormat";
-    private static final String FILE_NOT_FOUND   = "importer.FileNotFound";
-    private static final String IO               = "importer.IOException";
-    private static final String MISSING_PROJECT  = "importer.missingProject";
-    private static final String MISSING_STUDENT  = "importer.missingStudent";
-    private static final String MISSING_SPO      = "importer.missingSPO";
-    private static final String TEAMNR           = "importer.wrongTeamNumber";
-    private static final String ALREADY_EXISTING = "importer.alreadyExisting";
+    private static final String WRONG_FORMAT      = "importer.wrongFileFormat";
+    private static final String FILE_NOT_FOUND    = "importer.FileNotFound";
+    private static final String IO                = "importer.IOException";
+    private static final String MISSING_PROJECT   = "importer.missingProject";
+    private static final String MISSING_STUDENT   = "importer.missingStudent";
+    private static final String MISSING_SPO       = "importer.missingSPO";
+    private static final String TEAMNR            = "importer.wrongTeamNumber";
+    private static final String ALREADY_EXISTING  = "importer.alreadyExisting";
+    private static final String NOTHING_TO_EXPORT = "admin.eximport.nothingToExport ";
 
     /**
      * Importiert eine Einteilung.
@@ -63,6 +64,9 @@ public class Importer {
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             String[] wantedHeader = { "Projekt", "Teamnummer", "Mitglieder" };
             String header = br.readLine();
+            if (header == null) {
+                throw new ImporterException(FILE_NOT_FOUND);
+            }
             String[] headerSplit = header.split(";");
 
             // Prüfe ob Kopfzeile die korrekte Länge hat
@@ -237,6 +241,9 @@ public class Importer {
 
             // Lese Kopfzeile
             String header = br.readLine();
+            if (header == null) {
+                throw new ImporterException(FILE_NOT_FOUND);
+            }
             String[] headerSplit = header.split(";");
 
             // Prüfe, ob Kopzeile die richtige Länge, sowie richtige Namen hat
@@ -417,6 +424,9 @@ public class Importer {
                     "Noch ausstehende Teilleistungen" };
 
             String header = br.readLine();
+            if (header == null) {
+                throw new ImporterException(FILE_NOT_FOUND);
+            }
             String[] headerSplit = header.split(";");
 
             // Prüfe ob Header die korrekte Spaltenanzahl hat
@@ -600,6 +610,9 @@ public class Importer {
      */
     public void exportStudents(File file, Semester semester)
             throws ImporterException {
+        if (semester.getStudents().isEmpty()) {
+            throw new ImporterException(NOTHING_TO_EXPORT);
+        }
         try (BufferedWriter bw = new BufferedWriter(
                 new OutputStreamWriter(new FileOutputStream(file), "utf-8"))) {
             String header = "MatNr;Vorname;Nachname;E-Mail;Passwort;Lerngruppenname;LerngruppePasswort;"
@@ -683,6 +696,9 @@ public class Importer {
         }
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             String header = br.readLine();
+            if (header == null) {
+                throw new ImporterException(FILE_NOT_FOUND);
+            }
             String[] wantedHeader = { "Name", "Institut", "Anzahl Teams",
                     "Min. Size", "Max. Size", "Projekt URL", "Projektinfo" };
             String[] headerSplit = header.split(";");
@@ -770,6 +786,9 @@ public class Importer {
      */
     public void exportProjects(File file, Semester semester)
             throws ImporterException {
+        if (semester.getProjects().isEmpty()) {
+            throw new ImporterException(NOTHING_TO_EXPORT);
+        }
         try (BufferedWriter bw = new BufferedWriter(
                 new OutputStreamWriter(new FileOutputStream(file), "utf-8"))) {
             String header = "Name;Institut;Anzahl Teams;Min. Size;Max. Size;Projekt URL;Projektinfo";
@@ -808,6 +827,9 @@ public class Importer {
      */
     public void exportGrades(File file, Semester semester)
             throws ImporterException {
+        if (semester.getStudents().isEmpty()) {
+            throw new ImporterException(NOTHING_TO_EXPORT);
+        }
         try (BufferedWriter bw = new BufferedWriter(
                 new OutputStreamWriter(new FileOutputStream(file), "utf-8"))) {
             String header = "Matrikelnummer;Note PSE;Note TSE";
