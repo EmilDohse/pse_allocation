@@ -13,6 +13,9 @@
 \usepackage{rotating}
 \usepackage{epstopdf}
 \usepackage{pdfpages}
+\usepackage{caption, booktabs}
+\usepackage{tabularx}
+\usepackage{multirow}
 \usepackage[binary-units=true]{siunitx}
  \usepackage[autostyle=true,german=quotes]{csquotes}
  \usepackage{longtable, booktabs}
@@ -40,6 +43,40 @@ das Entwurfsdokument beantwortete  wie das Produkt strukturert sein soll, beschr
 Zu beginn der Implementierungsphase wurde ein Plan erstellt, der unser
 vorgesehenes Vorgehen beschreibt.
 \includepdf[pages={1}]{Implementierungsplan.pdf}
+\begin{table}
+\begin{tabularx}{\textwidth}{p{0.175\textwidth}|X|X|X|X|}
+ 	& 1. Woche			& 2. Woche		& 3. Woche & 4. Woche\\
+\hline \hline
+Daniel	& Views			& Views + dazugehörige Controller-Methoden + pac4j 
+(shibboleth) & Layout + Verificator
++ pac4j (shibboleth)& Weitere Tests +
+Bugfixes +
+Kleinigkeiten\\
+\hline
+Sam & Views&Views +
+dazugehörende
+Controller-
+Methoden & QualityCriteria +
+NotificationSystem & Weitere Tests +
+Bugfixes +
+Kleinigkeiten\\
+\hline
+Philipp Faller&Data&Import/Export
+IndexController&AdminController&Weitere Tests +
+Bugfixes +
+Kleinigkeiten\\
+\hline
+Emil&Allocator&Allocator&AdminController&Weitere Tests +
+Bugfixes +
+Kleinigkeiten\\
+\hline
+Lars&Data&Data (vor allem
+Ebean)&AdviserController&Weitere Tests +
+Bugfixes +
+Kleinigkeiten\\
+\hline
+\end{tabularx}
+\end{table}
 % Hierbei war der für uns \enquote{kritische Pfad} %TODO Was ist unser Criticall
 % % Path 
 % das das Datenmodell gefolgt von paralell implementierbaren Controllern die nur
