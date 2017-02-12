@@ -32,7 +32,6 @@ public class SplitLearningGroups implements QualityCriterion {
     public String calculate(Allocation allocation) {
         int numberOfSplitLearningGroups = 0;
         Semester semester = allocation.getSemester();
-        List<LearningGroup> splitLearningGroups = new ArrayList<LearningGroup>();
         for (int i = 0; i < semester.getLearningGroups().size(); i++) {
             LearningGroup lg = semester.getLearningGroups().get(i);
             List<Team> teamsOfLg = new ArrayList<Team>();
