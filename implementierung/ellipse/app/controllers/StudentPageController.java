@@ -21,7 +21,6 @@ import data.Semester;
 import data.Student;
 import data.User;
 import deadline.StateStorage;
-import exception.DataException;
 import notificationSystem.Notifier;
 import play.data.DynamicForm;
 import play.data.FormFactory;
@@ -293,29 +292,25 @@ public class StudentPageController extends Controller {
                     .learningGroupPage());
         }
         LearningGroup oldLg = semester.getLearningGroupOf(student);
-        try {
-            LearningGroup lg = new LearningGroup(name, encPassword);
-            lg.save();
-            lg.doTransaction(() -> {
-                lg.addMember(student);
-                lg.setPrivate(false);
-                // Ratings kopieren
-                for (Rating r : oldLg.getRatings()) {
-                    lg.rate(r.getProject(), r.getRating());
-                }
-            });
-            // Lösche die private Lerngruppe
-            oldLg.delete();
-            semester.refresh();
-            semester.doTransaction(() -> {
-                // TODO falls man die alten bewertungen wieder will muss man
-                // hier
-                // die alte lerngruppe behalten
-                semester.addLearningGroup(lg);
-            });
-        } catch (DataException e) {
-            // TODO Redirect incl. Errormessage
-        }
+        LearningGroup lg = new LearningGroup(name, encPassword);
+        lg.save();
+        lg.doTransaction(() -> {
+            lg.addMember(student);
+            lg.setPrivate(false);
+            // Ratings kopieren
+            for (Rating r : oldLg.getRatings()) {
+                lg.rate(r.getProject(), r.getRating());
+            }
+        });
+        // Lösche die private Lerngruppe
+        oldLg.delete();
+        semester.refresh();
+        semester.doTransaction(() -> {
+            // TODO falls man die alten bewertungen wieder will muss man
+            // hier
+            // die alte lerngruppe behalten
+            semester.addLearningGroup(lg);
+        });
         return redirect(
                 controllers.routes.StudentPageController.learningGroupPage());
     }
@@ -347,29 +342,25 @@ public class StudentPageController extends Controller {
         });
         // Hier wird der student wieder in seine private Lerngruppe
         // eingefügt
-        try {
-            LearningGroup lgNew = new LearningGroup(student.getUserName(), "");
-            lgNew.save();
-            lgNew.doTransaction(() -> {
-                lgNew.addMember(student);
-                lgNew.setPrivate(true);
-                // Ratings kopieren
-                for (Rating r : lg.getRatings()) {
-                    lgNew.rate(r.getProject(), r.getRating());
-                }
-            });
-            lg.refresh();
-            if (lg.getMembers().size() == 0) {
-                // Leeres Team löschen
-                lg.delete();
+        LearningGroup lgNew = new LearningGroup(student.getUserName(), "");
+        lgNew.save();
+        lgNew.doTransaction(() -> {
+            lgNew.addMember(student);
+            lgNew.setPrivate(true);
+            // Ratings kopieren
+            for (Rating r : lg.getRatings()) {
+                lgNew.rate(r.getProject(), r.getRating());
             }
-            Semester semester = GeneralData.loadInstance().getCurrentSemester();
-            semester.doTransaction(() -> {
-                semester.addLearningGroup(lgNew);
-            });
-        } catch (DataException e) {
-            // TODO Redirect incl. Errormessage
+        });
+        lg.refresh();
+        if (lg.getMembers().size() == 0) {
+            // Leeres Team löschen
+            lg.delete();
         }
+        Semester semester = GeneralData.loadInstance().getCurrentSemester();
+        semester.doTransaction(() -> {
+            semester.addLearningGroup(lgNew);
+        });
         return redirect(
                 controllers.routes.StudentPageController.learningGroupPage());
 

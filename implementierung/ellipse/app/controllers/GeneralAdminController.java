@@ -24,7 +24,6 @@ import data.Project;
 import data.SPO;
 import data.Semester;
 import data.Student;
-import exception.DataException;
 import notificationSystem.Notifier;
 import play.data.DynamicForm;
 import play.data.FormFactory;
@@ -72,9 +71,6 @@ public class GeneralAdminController extends Controller {
                     lastName);
             adviser.save();
             notifier.sendAdviserPassword(adviser, password);
-        } catch (DataException e) {
-            // TODO: handle exception
-            e.printStackTrace();
         } catch (EmailException e) {
             e.printStackTrace();
             // TODO
@@ -108,6 +104,7 @@ public class GeneralAdminController extends Controller {
      * @return Die Seite, die als Antwort verschickt wird.
      */
     public Result addAllocation() {
+        System.out.println("START");
         DynamicForm form = formFactory.form().bindFromRequest();
         if (form.data().isEmpty()) {
             return badRequest(ctx().messages().at(INTERNAL_ERROR));
@@ -142,9 +139,13 @@ public class GeneralAdminController extends Controller {
         List<LearningGroup> learningGroups = semester.getLearningGroups();
         List<Project> projects = semester.getProjects();
         // configuration wird erstellt und hinzugefügt
+        System.out.println("preconf");
         Configuration configuration = new Configuration(name, students,
                 learningGroups, projects, allocParam);
+        System.out.println("postconf");
+        System.out.println("preadd");
         queue.addToQueue(configuration);
+        System.out.println("postadd");
         return redirect(
                 controllers.routes.AdminPageController.allocationPage());
     }
@@ -156,11 +157,13 @@ public class GeneralAdminController extends Controller {
         result.add(new AllocationParameter("minSize", minSize));
         result.add(new AllocationParameter("maxSize", maxSize));
         result.add(new AllocationParameter("prefSize", preferedSize));
+        System.out.println("Serviceloder statrt");
         for (Criterion criterion : AllocationQueue.getInstance().getAllocator()
                 .getAllCriteria()) {
             int value = Integer.parseInt(form.get(criterion.getName()));
             result.add(new AllocationParameter(criterion.getName(), value));
         }
+        System.out.println("Serviceloder end");
         return result;
     }
 
@@ -223,35 +226,30 @@ public class GeneralAdminController extends Controller {
         // der username eines studenten ist seine matNr
         SPO spo = ElipseModel.getById(SPO.class, spoId);
         BlowfishPasswordEncoder b = new BlowfishPasswordEncoder();
-        try {
-            Student student = new Student(matNrString, b.encode(password),
-                    email, firstName, lastName, matNr, spo,
-                    spo.getNecessaryAchievements(), new ArrayList<>(),
-                    semester);
-            student.save();
+        Student student = new Student(matNrString, b.encode(password), email,
+                firstName, lastName, matNr, spo, spo.getNecessaryAchievements(),
+                new ArrayList<>(), semester);
+        student.save();
 
-            LearningGroup l;
+        LearningGroup l;
 
-            l = new LearningGroup(student.getUserName(), "");
-            l.save();
-            l.doTransaction(() -> {
-                l.addMember(student);
-                l.setPrivate(true);
-                // Ratings initialisieren
-                for (Project p : GeneralData.loadInstance().getCurrentSemester()
-                        .getProjects()) {
-                    l.rate(p, 3);
-                }
-            });
-            Semester currentSemester = GeneralData.loadInstance()
-                    .getCurrentSemester();
-            currentSemester.doTransaction(() -> {
-                currentSemester.addLearningGroup(l);
-                currentSemester.addStudent(student);
-            });
-        } catch (DataException e) {
-            // TODO Redirect incl. Errormessage
-        }
+        l = new LearningGroup(student.getUserName(), "");
+        l.save();
+        l.doTransaction(() -> {
+            l.addMember(student);
+            l.setPrivate(true);
+            // Ratings initialisieren
+            for (Project p : GeneralData.loadInstance().getCurrentSemester()
+                    .getProjects()) {
+                l.rate(p, 3);
+            }
+        });
+        Semester currentSemester = GeneralData.loadInstance()
+                .getCurrentSemester();
+        currentSemester.doTransaction(() -> {
+            currentSemester.addLearningGroup(l);
+            currentSemester.addStudent(student);
+        });
         return redirect(
                 controllers.routes.AdminPageController.studentEditPage());
     }

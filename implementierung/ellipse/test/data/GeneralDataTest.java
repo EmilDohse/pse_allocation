@@ -11,8 +11,6 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-import exception.DataException;
-
 public class GeneralDataTest extends DataTest {
 
     private GeneralData data;
@@ -28,14 +26,14 @@ public class GeneralDataTest extends DataTest {
     }
 
     @Test
-    public void testSetSemester() throws DataException {
+    public void testSetSemester() {
         Semester semester = new Semester();
         data.setCurrentSemester(semester);
         assertEquals(semester, data.getCurrentSemester());
     }
 
     @Test
-    public void testSetSaveAndReload() throws DataException {
+    public void testSetSaveAndReload() {
         Semester semester = new Semester();
         GeneralData testData = GeneralData.loadInstance();
         testData.doTransaction(() -> {
@@ -45,7 +43,7 @@ public class GeneralDataTest extends DataTest {
     }
 
     @Test
-    public void testWithAllocation() throws DataException {
+    public void testWithAllocation() {
         Semester s = new Semester();
         Allocation a = new Allocation();
         s.doTransaction(() -> {
@@ -60,7 +58,7 @@ public class GeneralDataTest extends DataTest {
     }
 
     @Test
-    public void testWithTeams() throws DataException {
+    public void testWithTeams() {
         Semester s = new Semester();
         Allocation a = new Allocation();
         Team t = new Team();
@@ -84,7 +82,7 @@ public class GeneralDataTest extends DataTest {
     }
 
     @Test
-    public void testWithStudent() throws DataException {
+    public void testWithStudent() {
         Student student = new Student();
         Semester s = new Semester();
         Allocation a = new Allocation();

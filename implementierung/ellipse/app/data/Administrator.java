@@ -4,22 +4,20 @@ import java.util.List;
 
 import javax.persistence.Entity;
 
-import exception.DataException;
-
 /**
  * Diese Klasse stellt einen Administrator dar
  */
 @Entity
 public class Administrator extends User {
 
-    public static String START_PASSWORD = "adminadmin";
+    public static String START_PASSWORD = "admin";
 
-    public Administrator() throws DataException {
+    public Administrator() {
         super();
     }
 
     public Administrator(String username, String password, String emailAddress,
-            String firstName, String lastName) throws DataException {
+            String firstName, String lastName) {
         super(username, password, emailAddress, firstName, lastName);
     }
 

@@ -20,8 +20,6 @@ import javax.validation.constraints.NotNull;
 
 import com.avaje.ebean.Ebean;
 
-import exception.DataException;
-
 /************************************************************/
 /**
  * Diese Klasse repräsentiert ein Semseter.
@@ -30,7 +28,6 @@ import exception.DataException;
 public class Semester extends ElipseModel implements Comparable<Semester> {
 
     private static final String NAME = "name";
-
     /**
      * true: Wintersemester, false: Sommersemester
      */
@@ -95,16 +92,15 @@ public class Semester extends ElipseModel implements Comparable<Semester> {
     @OneToMany(cascade = CascadeType.ALL)
     private List<Allocation>    allocations;
 
-    public Semester() throws DataException {
+    public Semester() {
         this("default_name", true, 1970);
     }
 
-    public Semester(String name, boolean wintersemester, int year)
-            throws DataException {
+    public Semester(String name, boolean wintersemester, int year) {
         super();
-        setName(name);
-        setWintersemester(wintersemester);
-        setYear(year);
+        this.name = name;
+        this.wintersemester = wintersemester;
+        this.year = year;
         spos = new ArrayList<SPO>();
         learningGroups = new ArrayList<LearningGroup>();
         students = new ArrayList<Student>();
@@ -114,27 +110,11 @@ public class Semester extends ElipseModel implements Comparable<Semester> {
         maxGroupSize = 6;
     }
 
-    /**
-     * Getter für die maximale Lerngruppengröße.
-     * 
-     * @return Die maximale Lerngruppengröße.
-     */
     public int getMaxGroupSize() {
         return maxGroupSize;
     }
 
-    /**
-     * Setter für die maximale Lerngruppengröße.
-     * 
-     * @param maxGroupSize
-     *            Die maximale Lerngruppengröße.
-     * @throws DataException
-     *             Wird vom Controller behandelt.
-     */
-    public void setMaxGroupSize(int maxGroupSize) throws DataException {
-        if (maxGroupSize < 1) {
-            throw new DataException("semester.invalidGroupSize");
-        }
+    public void setMaxGroupSize(int maxGroupSize) {
         this.maxGroupSize = maxGroupSize;
     }
 
@@ -154,7 +134,6 @@ public class Semester extends ElipseModel implements Comparable<Semester> {
      *            true: Wintersemester, false: Sommersemester
      */
     public void setWintersemester(boolean wintersemester) {
-        // TODO Kann man hier was prüfen?
         this.wintersemester = wintersemester;
     }
 
@@ -174,7 +153,6 @@ public class Semester extends ElipseModel implements Comparable<Semester> {
      *            Jahr
      */
     public void setYear(int year) {
-        // TODO Wo soll die Grenze sein?
         this.year = year;
     }
 
@@ -184,20 +162,9 @@ public class Semester extends ElipseModel implements Comparable<Semester> {
      * 
      * @param allocations
      *            Die Einteilungen.
-     * @throws DataException
-     *             Wird vom Controller behandelt.
      */
-    public void setAllocations(List<Allocation> allocations)
-            throws DataException {
-        if (allocations == null) {
-            throw new DataException(IS_NULL_ERROR);
-        }
-        if (allocations.isEmpty()) {
-            throw new DataException(LIST_EMPTY_ERROR);
-        }
-        for (Allocation allocation : allocations) {
-            allocation.setSemester(this);
-        }
+    public void setAllocations(List<Allocation> allocations) {
+        allocations.forEach(a -> a.setSemester(this));
         this.allocations = allocations;
     }
 
@@ -216,13 +183,8 @@ public class Semester extends ElipseModel implements Comparable<Semester> {
      * 
      * @param allocation
      *            Einteilung, die hinzugefügt wird.
-     * @throws DataException
-     *             Wird vom Controller behandelt.
      */
-    public void addAllocation(Allocation allocation) throws DataException {
-        if (allocation == null) {
-            throw new DataException(IS_NULL_ERROR);
-        }
+    public void addAllocation(Allocation allocation) {
         allocation.setSemester(this);
         allocations.add(allocation);
     }
@@ -232,13 +194,8 @@ public class Semester extends ElipseModel implements Comparable<Semester> {
      * 
      * @param allocation
      *            Einteilung, die entfernt wird.
-     * @throws DataException
-     *             Wird vom Controller behandelt.
      */
-    public void removeAllocation(Allocation allocation) throws DataException {
-        if (allocation.equals(getFinalAllocation())) {
-            throw new DataException("semester.DontRemoveFinal");
-        }
+    public void removeAllocation(Allocation allocation) {
         allocations.remove(allocation);
     }
 
@@ -248,21 +205,9 @@ public class Semester extends ElipseModel implements Comparable<Semester> {
      * 
      * @param projects
      *            Die Projekte, die dem Semester übergeben werden.
-     * @throws DataException
-     *             Wird vom Controller behandelt.
      */
-    public void setProjects(List<Project> projects) throws DataException {
-        if (projects == null) {
-            throw new DataException(IS_NULL_ERROR);
-        }
-        if (projects.isEmpty()) {
-            throw new DataException(LIST_EMPTY_ERROR);
-        }
-        // projects.forEach(p -> p.setSemester(this));
-        // TODO Warum geht das nicht?
-        for (Project project : projects) {
-            project.setSemester(this);
-        }
+    public void setProjects(List<Project> projects) {
+        projects.forEach(p -> p.setSemester(this));
         this.projects = projects;
     }
 
@@ -281,13 +226,8 @@ public class Semester extends ElipseModel implements Comparable<Semester> {
      * 
      * @param project
      *            Projekt, das hinzugefügt wird.
-     * @throws DataException
-     *             Wird vom Controller behandelt.
      */
-    public void addProject(Project project) throws DataException {
-        if (project == null) {
-            throw new DataException(IS_NULL_ERROR);
-        }
+    public void addProject(Project project) {
         project.setSemester(this);
         projects.add(project);
     }
@@ -307,16 +247,8 @@ public class Semester extends ElipseModel implements Comparable<Semester> {
      * 
      * @param students
      *            Studenten, die dem Semester übergeben werden.
-     * @throws DataException
-     *             Wird vom Controller behandelt.
      */
-    public void setStudents(List<Student> students) throws DataException {
-        if (students == null) {
-            throw new DataException(IS_NULL_ERROR);
-        }
-        if (students.isEmpty()) {
-            throw new DataException(LIST_EMPTY_ERROR);
-        }
+    public void setStudents(List<Student> students) {
         this.students = students;
     }
 
@@ -334,13 +266,8 @@ public class Semester extends ElipseModel implements Comparable<Semester> {
      * 
      * @param student
      *            Student, der hinzugefügt wird.
-     * @throws DataException
-     *             Wird vom Controller behandelt.
      */
-    public void addStudent(Student student) throws DataException {
-        if (student == null) {
-            throw new DataException(IS_NULL_ERROR);
-        }
+    public void addStudent(Student student) {
         students.add(student);
     }
 
@@ -361,20 +288,8 @@ public class Semester extends ElipseModel implements Comparable<Semester> {
      * @param learningGroups
      *            Die Lerngruppen, die dem Semester übergeben werden.
      */
-    public void setLearningGroups(List<LearningGroup> learningGroups)
-            throws DataException {
-        if (learningGroups == null) {
-            throw new DataException(IS_NULL_ERROR);
-        }
-        if (learningGroups.isEmpty()) {
-            throw new DataException(LIST_EMPTY_ERROR);
-        }
-        // TODO warum wird hier die Exception nicht weiter gethrowt?
-        // learningGroups.forEach(lg -> lg.setSemester(this));
-
-        for (LearningGroup lg : learningGroups) {
-            lg.setSemester(this);
-        }
+    public void setLearningGroups(List<LearningGroup> learningGroups) {
+        learningGroups.forEach(lg -> lg.setSemester(this));
         this.learningGroups = learningGroups;
     }
 
@@ -393,14 +308,8 @@ public class Semester extends ElipseModel implements Comparable<Semester> {
      * 
      * @param learningGroup
      *            Lerngruppe, die hinzugefügt wird.
-     * @throws DataException
-     *             Wird vom Controller behandelt.
      */
-    public void addLearningGroup(LearningGroup learningGroup)
-            throws DataException {
-        if (learningGroup == null) {
-            throw new DataException(IS_NULL_ERROR);
-        }
+    public void addLearningGroup(LearningGroup learningGroup) {
         learningGroup.setSemester(this);
         learningGroups.add(learningGroup);
     }
@@ -412,7 +321,6 @@ public class Semester extends ElipseModel implements Comparable<Semester> {
      *            Lerngruppe, die entfernt wird.
      */
     public void removeLearningGroup(LearningGroup learningGroup) {
-        // TODO Wird das überhaupt gebraucht?
         learningGroups.remove(learningGroup);
     }
 
@@ -421,13 +329,8 @@ public class Semester extends ElipseModel implements Comparable<Semester> {
      * 
      * @param spo
      *            SPO, die hinzugefügt wird.
-     * @throws DataException
-     *             Wird vom Controller behandelt.
      */
-    public void addSPO(SPO spo) throws DataException {
-        if (spo == null) {
-            throw new DataException(IS_NULL_ERROR);
-        }
+    public void addSPO(SPO spo) {
         spos.add(spo);
     }
 
@@ -438,8 +341,6 @@ public class Semester extends ElipseModel implements Comparable<Semester> {
      *            SPO, die entfernt wird.
      */
     public void removeSPO(SPO spo) {
-        // TODO Wo wird geprüft, ob die SPO verwendet wird?
-        // TODO Darf die SPO-Liste leer sein?
         spos.remove(spo);
     }
 
@@ -484,16 +385,8 @@ public class Semester extends ElipseModel implements Comparable<Semester> {
      * 
      * @param name
      *            Der Name des Semesters.
-     * @throws DataException
-     *             Wird vom Controller behandelt.
      */
-    public void setName(String name) throws DataException {
-        if (name == null) {
-            throw new DataException(IS_NULL_ERROR);
-        }
-        if (name.isEmpty()) {
-            throw new DataException(STRING_EMPTY_ERROR);
-        }
+    public void setName(String name) {
         this.name = name;
     }
 
@@ -502,16 +395,8 @@ public class Semester extends ElipseModel implements Comparable<Semester> {
      * 
      * @param spos
      *            Die verfügbaren SPOs des Semesters.
-     * @throws DataException
-     *             Wird vom Controller behandelt.
      */
-    public void setSpos(List<SPO> spos) throws DataException {
-        if (spos == null) {
-            throw new DataException(IS_NULL_ERROR);
-        }
-        if (spos.isEmpty()) {
-            throw new DataException(LIST_EMPTY_ERROR);
-        }
+    public void setSpos(List<SPO> spos) {
         this.spos = spos;
     }
 
@@ -520,16 +405,8 @@ public class Semester extends ElipseModel implements Comparable<Semester> {
      * 
      * @param infoText
      *            Der Infotext des Semesters.
-     * @throws DataException
-     *             Wird vom Controller behandelt.
      */
-    public void setInfoText(String infoText) throws DataException {
-        if (infoText == null) {
-            throw new DataException(IS_NULL_ERROR);
-        }
-        if (infoText.isEmpty()) {
-            throw new DataException(STRING_EMPTY_ERROR);
-        }
+    public void setInfoText(String infoText) {
         this.infoText = infoText;
     }
 
@@ -538,18 +415,8 @@ public class Semester extends ElipseModel implements Comparable<Semester> {
      * 
      * @param finalAllocation
      *            Die finale Einteilung.
-     * @throws DataException
-     *             Wird vom Controller behandelt.
      */
-    public void setFinalAllocation(Allocation finalAllocation)
-            throws DataException {
-        if (finalAllocation == null) {
-            throw new DataException(IS_NULL_ERROR);
-        }
-        if (this.finalAllocation != null) {
-            // TODO Wirklich hier abfangen?
-            throw new DataException("semester.noSecondFinal");
-        }
+    public void setFinalAllocation(Allocation finalAllocation) {
         this.finalAllocation = finalAllocation;
     }
 
@@ -599,17 +466,8 @@ public class Semester extends ElipseModel implements Comparable<Semester> {
      * 
      * @param start
      *            der Startzeitpunkt.
-     * @throws DataException
-     *             Wird vom Controller behandelt.
      */
-    public void setRegistrationStart(Date start) throws DataException {
-        if (start == null) {
-            throw new DataException(IS_NULL_ERROR);
-        }
-        if (start.before(new Date())) {
-            throw new DataException("semester.dateInPast");
-        }
-        // TODO Wo wird geprüft ob Start vor end ist?
+    public void setRegistrationStart(Date start) {
         this.registrationStart = start;
     }
 
@@ -627,16 +485,8 @@ public class Semester extends ElipseModel implements Comparable<Semester> {
      * 
      * @param start
      *            der Endzeitpunkt.
-     * @throws DataException
-     *             Wird vom Controller behandelt.
      */
-    public void setRegistrationEnd(Date end) throws DataException {
-        if (end == null) {
-            throw new DataException(IS_NULL_ERROR);
-        }
-        if (end.before(new Date())) {
-            throw new DataException("semester.dateInPast");
-        }
+    public void setRegistrationEnd(Date end) {
         this.registrationEnd = end;
     }
 

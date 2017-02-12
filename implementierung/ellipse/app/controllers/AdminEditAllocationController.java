@@ -19,7 +19,6 @@ import data.GeneralData;
 import data.Semester;
 import data.Student;
 import data.Team;
-import exception.DataException;
 import notificationSystem.Notifier;
 import play.data.DynamicForm;
 import play.data.FormFactory;
@@ -234,17 +233,12 @@ public class AdminEditAllocationController extends Controller {
         }
         Allocation allocation = ElipseModel.getById(Allocation.class,
                 allocationId);
-        try {
-            Allocation clonedAllocation = new Allocation(allocation);
-            clonedAllocation.save();
-            Semester semester = GeneralData.loadInstance().getCurrentSemester();
-            semester.doTransaction(() -> {
-                semester.addAllocation(clonedAllocation);
-            });
-        } catch (DataException e) {
-            // TODO
-            e.printStackTrace();
-        }
+        Allocation clonedAllocation = new Allocation(allocation);
+        clonedAllocation.save();
+        Semester semester = GeneralData.loadInstance().getCurrentSemester();
+        semester.doTransaction(() -> {
+            semester.addAllocation(clonedAllocation);
+        });
         return redirect(controllers.routes.AdminPageController.resultsPage());
     }
 

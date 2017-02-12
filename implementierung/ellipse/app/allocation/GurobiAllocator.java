@@ -14,7 +14,6 @@ import data.AllocationParameter;
 import data.GeneralData;
 import data.Student;
 import data.Team;
-import exception.DataException;
 import gurobi.GRB;
 import gurobi.GRB.DoubleAttr;
 import gurobi.GRBEnv;
@@ -34,11 +33,11 @@ public class GurobiAllocator extends AbstractAllocator {
     /**
      * String-Konstante für Gurobi
      */
-    public static final String  NULL     = "";
+    public static final String  NULL             = "";
 
-    private static final String MIN_SIZE = "minSize";
+    private static final String MIN_SIZE         = "minSize";
 
-    private static final String MAX_SIZE = "maxSize";
+    private static final String MAX_SIZE         = "maxSize";
 
     private static final String GUROBI_EXCEPTION = "allocation.gurobiException";
 
@@ -155,19 +154,13 @@ public class GurobiAllocator extends AbstractAllocator {
 
         // Erstelle Einteilung
         Allocation allocation;
-        try {
-            allocation = new Allocation(currentConfiguration.getTeams(),
-                    currentConfiguration.getName(),
-                    currentConfiguration.getParameters());
-            allocation.doTransaction(() -> {
-                allocation.setSemester(
-                        GeneralData.loadInstance().getCurrentSemester());
-            });
-        } catch (DataException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-
+        allocation = new Allocation(currentConfiguration.getTeams(),
+                currentConfiguration.getName(),
+                currentConfiguration.getParameters());
+        allocation.doTransaction(() -> {
+            allocation.setSemester(
+                    GeneralData.loadInstance().getCurrentSemester());
+        });
     }
 
     /**
@@ -198,9 +191,13 @@ public class GurobiAllocator extends AbstractAllocator {
 
     private void makeModel() throws GRBException {
         model = new GRBModel(env);
+        System.out.println("post new model");
         createBaseMatrix();
+        System.out.println("base matrix");
         createBasicConstraint();
+        System.out.println("basiscconstraint");
         createTeamSizeConstraint();
+        System.out.println("size");
         createOptimisationTerm();
         // Stelle Modell auf Maximierung ein
         model.setObjective(this.optTerm, GRB.MAXIMIZE);
@@ -342,6 +339,7 @@ public class GurobiAllocator extends AbstractAllocator {
                 // TODO float vergleich
                 if (weight != 0) {
                     criterion.useCriteria(currentConfiguration, this, weight);
+                    System.out.println(criterion.getName());
                 }
             }
 
@@ -357,8 +355,7 @@ public class GurobiAllocator extends AbstractAllocator {
                 try {
                     result = this.basicMatrix[j][i].get(DoubleAttr.X);
                 } catch (GRBException e) {
-                    Allocation failure = nullObject(
-                            GUROBI_EXCEPTION);
+                    Allocation failure = nullObject(GUROBI_EXCEPTION);
                     failure.save();
                     return;
                 }
@@ -368,12 +365,7 @@ public class GurobiAllocator extends AbstractAllocator {
                     Student student = currentConfiguration.getStudents().get(j);
                     // Hier keine Transaction, da sonst nicht richtig
                     // gespeichert wird.
-                    try {
-                        team.addMember(student);
-                    } catch (DataException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    }
+                    team.addMember(student);
                 }
             }
         }
@@ -383,13 +375,8 @@ public class GurobiAllocator extends AbstractAllocator {
         Allocation failedAllocation = null; // wird hier null gesetzt da dieser
                                             // try catch nicht scheitert und
                                             // somit keine warnung kommt
-        try {
-            failedAllocation = new Allocation(new ArrayList<Team>(),
-                    errorMessage, new ArrayList<AllocationParameter>());
-        } catch (DataException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+        failedAllocation = new Allocation(new ArrayList<Team>(), errorMessage,
+                new ArrayList<AllocationParameter>());
         System.out.println("ERROR " + errorMessage);
         return failedAllocation;
     }
