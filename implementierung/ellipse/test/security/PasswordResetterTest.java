@@ -6,11 +6,11 @@ import org.junit.Before;
 import org.junit.Test;
 
 import data.Adviser;
+import data.DataTest;
 import data.Student;
 import exception.DataException;
-import play.test.WithApplication;
 
-public class PasswordResetterTest extends WithApplication {
+public class PasswordResetterTest extends DataTest {
 
     Student student;
     Adviser adviser;
