@@ -1,6 +1,6 @@
 package qualityCriteria;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,17 +8,15 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.google.inject.Inject;
-
 import data.Allocation;
+import data.DataTest;
 import data.LearningGroup;
 import data.Semester;
 import data.Student;
 import data.Team;
 import exception.DataException;
-import play.test.WithApplication;
 
-public class SplitLearningGroupTest extends WithApplication {
+public class SplitLearningGroupTest extends DataTest {
 
     Semester            semester;
     Allocation          allocation;
@@ -57,7 +55,7 @@ public class SplitLearningGroupTest extends WithApplication {
         s7 = new Student();
         s7.save();
         s8 = new Student();
-
+        s8.save();
         allocation.save();
         semester.save();
     }
