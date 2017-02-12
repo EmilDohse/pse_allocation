@@ -176,6 +176,7 @@ public class SplitLearningGroupTest extends WithApplication {
         assertEquals(4, Integer.parseInt(slg.calculate(allocation)));
     }
 
+    @Test
     public void thirdCalculateTest() throws DataException {
         LearningGroup l1 = new LearningGroup();
         l1.setSemester(semester);
@@ -232,6 +233,7 @@ public class SplitLearningGroupTest extends WithApplication {
         assertEquals(1, Integer.parseInt(slg.calculate(allocation)));
     }
 
+    @Test
     public void fourthCalculateTest() throws DataException {
         LearningGroup l1 = new LearningGroup();
         l1.setSemester(semester);

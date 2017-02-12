@@ -1,6 +1,6 @@
 package qualityCriteria;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +39,6 @@ public class StudentHappinessTest {
     List<LearningGroup> learningGroups;
     List<Team>          teams;
 
-    @Inject
     @Before
     public void setup() throws DataException {
         semester = new Semester();
@@ -132,6 +131,6 @@ public class StudentHappinessTest {
         semester.save();
 
         StudentHappiness sh = new StudentHappiness();
-        assertEquals(5, Integer.parseInt(sh.calculate(allocation)));
+        assertTrue(5 - Double.parseDouble(sh.calculate(allocation)) < 0.01);
     }
 }
