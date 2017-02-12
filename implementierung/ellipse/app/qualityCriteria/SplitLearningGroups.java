@@ -7,7 +7,6 @@ package qualityCriteria;
 import java.util.HashMap;
 
 import data.Allocation;
-import data.GeneralData;
 import data.LearningGroup;
 import data.Semester;
 import data.Student;
@@ -28,7 +27,7 @@ public class SplitLearningGroups implements QualityCriterion {
     @Override
     public String calculate(Allocation allocation) {
         int numberOfSplitLearningGroups = 0;
-        Semester semester = GeneralData.loadInstance().getCurrentSemester();
+        Semester semester = allocation.getSemester();
         HashMap<Student, Team> studentTeam = new HashMap<>();
         for (Team t : allocation.getTeams()) {
             for (Student student : t.getMembers()) {

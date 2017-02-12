@@ -26,6 +26,7 @@ import com.avaje.ebean.Ebean;
 public class LearningGroup extends ElipseModel {
 
     private static final String NAME             = "name";
+    private static final String SEMESTER         = "semester";
     private static final String DEFAULT_NAME     = "default_name";
     private static final String DEFAULT_PASSWORD = "123456";
     /**
@@ -53,6 +54,7 @@ public class LearningGroup extends ElipseModel {
 
     // Ebean braucht das hier
     @ManyToOne
+    @Column(name = SEMESTER)
     private Semester            semester;
 
     /**
@@ -295,8 +297,8 @@ public class LearningGroup extends ElipseModel {
      */
     public static LearningGroup getLearningGroup(String name,
             Semester semester) {
-        return Ebean.find(LearningGroup.class).where().eq(NAME, name)
-                .findUnique();
+        return Ebean.find(LearningGroup.class).where().eq(NAME, name).where()
+                .eq(SEMESTER, semester).findUnique();
         // TODO sicher, dass das Semester beachtet wird?
     }
 

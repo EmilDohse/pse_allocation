@@ -8,7 +8,6 @@ import java.text.NumberFormat;
 import java.util.HashMap;
 
 import data.Allocation;
-import data.GeneralData;
 import data.LearningGroup;
 import data.Project;
 import data.Semester;
@@ -32,7 +31,7 @@ public class StudentHappiness implements QualityCriterion {
     @Override
     public String calculate(Allocation allocation) {
         int sumOfRatings = 0;
-        Semester semester = GeneralData.loadInstance().getCurrentSemester();
+        Semester semester = allocation.getSemester();
         HashMap<Student, LearningGroup> studentLG = new HashMap<>();
         for (LearningGroup lg : semester.getLearningGroups()) {
             for (Student student : lg.getMembers()) {
@@ -43,7 +42,8 @@ public class StudentHappiness implements QualityCriterion {
             Project project = t.getProject();
             for (Student student : t.getMembers()) {
                 double rating = 0;
-                rating = studentLG.get(student).getRating(project);
+                LearningGroup lg = studentLG.get(student);
+                rating = lg.getRating(project);
                 sumOfRatings += rating;
             }
         }

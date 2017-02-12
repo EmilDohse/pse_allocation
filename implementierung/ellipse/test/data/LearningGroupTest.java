@@ -91,4 +91,21 @@ public class LearningGroupTest extends DataTest {
         learningGroup.setPrivate(p);
         assertEquals(learningGroup.isPrivate(), p);
     }
+
+    @Test
+    public void testGetLearningGroup() {
+        Semester one = new Semester();
+        Semester two = new Semester();
+
+        LearningGroup oneGroup = new LearningGroup("test", "test123");
+        LearningGroup twoGroup = new LearningGroup("test", "test1234");
+        one.doTransaction(() -> {
+            one.addLearningGroup(oneGroup);
+        });
+        two.doTransaction(() -> {
+            two.addLearningGroup(twoGroup);
+        });
+        assertEquals(oneGroup, LearningGroup.getLearningGroup("test", one));
+
+    }
 }
