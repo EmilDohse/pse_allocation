@@ -7,7 +7,6 @@ package allocation;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.ServiceLoader;
 
 import data.Allocation;
@@ -30,7 +29,7 @@ import gurobi.GRBVar;
  * Gurobi. Weiterhin stellt er ein Basismodell und einen Optimierungsterm zur
  * Verfügung, welche von den Kriterien verwendet werden.
  */
-public class GurobiAllocator extends AbstractAllocator {
+public class GurobiAllocator implements AbstractAllocator {
 
     /**
      * String-Konstante für Gurobi
@@ -40,6 +39,8 @@ public class GurobiAllocator extends AbstractAllocator {
     private static final String MIN_SIZE = "minSize";
 
     private static final String MAX_SIZE = "maxSize";
+
+    private static final String GUROBI_EXCEPTION = "allocation.gurobiException";
 
     /**
      * Die Basismatrix (NxM), welche anzeigt, ob ein Student n in einem Team m
@@ -63,13 +64,6 @@ public class GurobiAllocator extends AbstractAllocator {
     private GRBEnv              env;
 
     private Configuration       currentConfiguration;
-
-    /**
-     * Konstruktor, der das Basismodell initialisiert.
-     */
-    public GurobiAllocator() {
-
-    }
 
     /**
      * Getter für die Basismatrix.
@@ -118,7 +112,7 @@ public class GurobiAllocator extends AbstractAllocator {
                 env = new GRBEnv();
                 makeModel();
             } catch (GRBException e) {
-                Allocation failure = nullObject("allocation.gurobiException");
+                Allocation failure = nullObject(GUROBI_EXCEPTION);
                 failure.save();
             }
         }
@@ -142,7 +136,7 @@ public class GurobiAllocator extends AbstractAllocator {
         try {
             this.model.optimize();
         } catch (GRBException e) {
-            Allocation failure = nullObject("allocation.gurobiException");
+            Allocation failure = nullObject(GUROBI_EXCEPTION);
             failure.save();
             return;
         }
@@ -154,7 +148,7 @@ public class GurobiAllocator extends AbstractAllocator {
             this.model.dispose();
             env.dispose();
         } catch (GRBException e) {
-            Allocation failure = nullObject("allocation.gurobiException");
+            Allocation failure = nullObject(GUROBI_EXCEPTION);
             failure.save();
             return;
         }
@@ -195,14 +189,14 @@ public class GurobiAllocator extends AbstractAllocator {
     public List<GurobiCriterion> getAllCriteria() {
         Iterator<GurobiCriterion> iter = ServiceLoader
                 .load(GurobiCriterion.class).iterator();
-        ArrayList<GurobiCriterion> criteria = new ArrayList<GurobiCriterion>();
+        List<GurobiCriterion> criteria = new ArrayList<>();
         while (iter.hasNext()) {
             criteria.add(iter.next());
         }
         return criteria;
     }
 
-    private void makeModel() throws GRBException, NoSuchElementException {
+    private void makeModel() throws GRBException {
         model = new GRBModel(env);
         createBaseMatrix();
         createBasicConstraint();
@@ -363,7 +357,7 @@ public class GurobiAllocator extends AbstractAllocator {
                     result = this.basicMatrix[j][i].get(DoubleAttr.X);
                 } catch (GRBException e) {
                     Allocation failure = nullObject(
-                            "allocation.gurobiException");
+                            GUROBI_EXCEPTION);
                     failure.save();
                     return;
                 }

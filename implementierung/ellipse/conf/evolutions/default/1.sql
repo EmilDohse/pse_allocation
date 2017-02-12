@@ -185,7 +185,7 @@ create table student (
   email_address                 varchar(255) not null,
   first_name                    varchar(255) not null,
   last_name                     varchar(255) not null,
-  matriculation_number          integer,
+  matriculationnumber           integer,
   spo_id                        integer,
   registered_pse                integer(1),
   registered_tse                integer(1),

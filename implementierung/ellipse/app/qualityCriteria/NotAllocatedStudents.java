@@ -7,7 +7,6 @@ package qualityCriteria;
 import java.util.List;
 
 import data.Allocation;
-import data.GeneralData;
 import data.Student;
 import data.Team;
 
@@ -21,13 +20,14 @@ public class NotAllocatedStudents implements QualityCriterion {
     private static final String EN_NAME = "Number of not assigned students";
 
     /**
-     * {@inheritDoc}
+     * Diese Methode berechnet die Anzahl der nicht zugeteilten Studenten.
+     * 
+     * @return Die Wert der Anzahl nicht zugeteilter Studenten als String.
      */
     @Override
     public String calculate(Allocation allocation) {
         List<Team> teams = allocation.getTeams();
-        List<Student> registeredStudents = GeneralData.loadInstance()
-                .getCurrentSemester().getStudents();
+        List<Student> registeredStudents = allocation.getSemester().getStudents();
 
         int notAllocatedStudents = registeredStudents.size();
         for (int i = 0; i < teams.size(); i++) {

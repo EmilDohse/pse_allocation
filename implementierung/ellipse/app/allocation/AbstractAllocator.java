@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Abstrakter Löser des Einteilungsproblems.
  */
-public abstract class AbstractAllocator {
+public interface AbstractAllocator {
 
     /**
      * Initialisiert den Allocator und bereitet die Berechnung vor.
