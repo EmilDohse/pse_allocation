@@ -40,8 +40,8 @@ public class StateStorage {
     public final void initStateChanging(Date start, Date end) {
         scheduler.shutdownNow();
         Date now = new Date();
-        long delayUntilRegistration = now.getTime() - start.getTime();
-        long delayUntilAfterRegistration = now.getTime() - end.getTime();
+        long delayUntilRegistration = start.getTime() - now.getTime();
+        long delayUntilAfterRegistration = end.getTime() - now.getTime();
         scheduler.schedule(new Runnable() {
 
             @Override

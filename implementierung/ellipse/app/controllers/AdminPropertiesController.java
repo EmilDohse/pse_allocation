@@ -21,6 +21,7 @@ import data.SMTPOptions;
 import data.SPO;
 import data.Semester;
 import data.Student;
+import deadline.StateStorage;
 import play.data.DynamicForm;
 import play.data.FormFactory;
 import play.mvc.Controller;
@@ -236,6 +237,7 @@ public class AdminPropertiesController extends Controller {
                 data.doTransaction(() -> {
                     data.setCurrentSemester(semester);
                 });
+                StateStorage.getInstance().initStateChanging(startDate, endDate);
             }
         } else {
             flash("error", ctx().messages().at(INTERNAL_ERROR));

@@ -8,8 +8,6 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.google.inject.Inject;
-
 import data.Allocation;
 import data.LearningGroup;
 import data.Project;
@@ -18,8 +16,9 @@ import data.Semester;
 import data.Student;
 import data.Team;
 import exception.DataException;
+import play.test.WithApplication;
 
-public class StudentHappinessTest {
+public class StudentHappinessTest extends WithApplication {
 
     Semester            semester;
     Allocation          allocation;
