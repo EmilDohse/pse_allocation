@@ -128,8 +128,21 @@ public class StudentPageController extends Controller {
                     student.setCompletedAchievements(completedAchievements);
                     student.setOralTestAchievements(nonCompletedAchievements);
                 });
+
+                LearningGroup l = new LearningGroup(student.getUserName(), "");
+                l.save();
+                l.doTransaction(() -> {
+                    l.addMember(student);
+                    l.setPrivate(true);
+                    // Ratings kopieren
+                    for (Project p : GeneralData.loadInstance().getCurrentSemester().getProjects()) {
+                        l.rate(p, 3);
+                    }
+                });
+
                 Semester currentSemester = GeneralData.loadInstance().getCurrentSemester();
                 currentSemester.doTransaction(() -> {
+                    currentSemester.addLearningGroup(l);
                     currentSemester.addStudent(student);
                 });
                 management.addStudentRoleToOldStudent(ctx());
@@ -268,7 +281,15 @@ public class StudentPageController extends Controller {
             flash("error", ctx().messages().at("student.learningGroup.error.nameFormat"));
             return redirect(controllers.routes.StudentPageController.learningGroupPage());
         }
-        String password = form.get("learningGroupPassword");
+        StringValidator passwordValidator = Forms.getPasswordValidator();
+
+        String password;
+        try {
+            password = passwordValidator.validate(form.get("learningGroupPassword"));
+        } catch (ValidationException e) {
+            flash("error", ctx().messages().at(e.getMessage()));
+            return redirect(controllers.routes.StudentPageController.learningGroupPage());
+        }
         String encPassword = new BlowfishPasswordEncoder().encode(password);
         LearningGroup learningGroup = LearningGroup.getLearningGroup(name, semester);
         if (learningGroup != null) {
@@ -362,7 +383,14 @@ public class StudentPageController extends Controller {
         if (form.data().isEmpty()) {
             return badRequest(ctx().messages().at(INTERNAL_ERROR));
         }
-        String name = form.get("learningGroupname");
+        StringValidator stringValidator = Forms.getNonEmptyStringValidator();
+        String name;
+        try {
+            name = stringValidator.validate(form.get("learningGroupname"));
+        } catch (ValidationException e) {
+            flash("error", ctx().messages().at(e.getMessage()));
+            return redirect(controllers.routes.StudentPageController.learningGroupPage());
+        }
         String pw = form.get("learningGroupPassword");
         LearningGroup lgOld = GeneralData.loadInstance().getCurrentSemester().getLearningGroupOf(student);
         LearningGroup lgNew = LearningGroup.getLearningGroup(name, GeneralData.loadInstance().getCurrentSemester());
@@ -483,7 +511,9 @@ public class StudentPageController extends Controller {
         try {
             notifier.sendVerificationMail(student,
                     controllers.routes.IndexPageController.verificationPage(verificationCode).url());
+            flash("info", ctx().messages().at("student.email.verificationLinkSuccess"));
         } catch (EmailException e) {
+            flash("error", ctx().messages().at("student.email.verificationLinkFaliure"));
             e.printStackTrace();
             // TODO
         }

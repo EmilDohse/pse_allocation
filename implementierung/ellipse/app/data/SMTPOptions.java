@@ -3,6 +3,7 @@ package data;
 import java.util.NoSuchElementException;
 
 import javax.persistence.Entity;
+import javax.persistence.Transient;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -16,6 +17,7 @@ public class SMTPOptions extends ElipseModel {
 
     private static final String KEY_FILE = "conf/keyset";
 
+    @Transient
     private Crypter             crypter;
 
     @NotNull

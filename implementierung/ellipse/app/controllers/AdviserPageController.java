@@ -151,28 +151,40 @@ public class AdviserPageController extends Controller {
         if (form.data().isEmpty()) {
             return badRequest(ctx().messages().at(INTERNAL_ERROR));
         }
-        String projName = form.get("name");
-        String url = form.get("url");
-        String institute = form.get("institute");
-        String description = form.get("description");
-        String numberOfTeamsString = form.get("teamCount");
-        // 0
-        String minSizeString = form.get("minSize");
-        String maxSizeString = form.get("maxSize");
+        String projName;
+        String url;
+        String institute;
+        String description;
+        String numberOfTeamsString;
+        String minSizeString;
+        String maxSizeString;
         String idString = form.get("id");
+
         StringValidator stringValidator = Forms.getNonEmptyStringValidator();
         IntValidator intValidator = new IntValidator(0);
         IntValidator maxSizeValidator = new IntValidator(1, Integer.MAX_VALUE);
-        int id = Integer.parseInt(idString);
-        /***********************************/
+
+        int id;
+        try {
+            id = intValidator.validate(idString);
+        } catch (ValidationException e) {
+            flash("error", ctx().messages().at(e.getMessage()));
+            return redirect(controllers.routes.AdviserPageController.projectsPage(-1));
+        }
+
         int numberOfTeams;
         int minSize;
         int maxSize;
         try {
 
-            numberOfTeams = intValidator.validate(numberOfTeamsString);
-            minSize = intValidator.validate(minSizeString);
-            maxSize = maxSizeValidator.validate(maxSizeString);
+            numberOfTeams = intValidator.validate(form.get("teamCount"));
+            minSize = intValidator.validate(form.get("minSize"));
+            maxSize = maxSizeValidator.validate(form.get("maxSize"));
+
+            projName = stringValidator.validate(form.get("name"));
+            url = stringValidator.validate(form.get("url"));
+            institute = stringValidator.validate(form.get("institute"));
+            description = stringValidator.validate(form.get("description"));
         } catch (ValidationException e) {
             flash("error", ctx().messages().at(e.getMessage()));
             return redirect(controllers.routes.AdviserPageController.projectsPage(id));
@@ -241,7 +253,14 @@ public class AdviserPageController extends Controller {
         if (form.data().isEmpty()) {
             return badRequest(ctx().messages().at(INTERNAL_ERROR));
         }
-        int id = Integer.parseInt(form.get("id"));
+        IntValidator validator = new IntValidator(0);
+        int id;
+        try {
+            id = validator.validate(form.get("id"));
+        } catch (ValidationException e) {
+            flash("error", ctx().messages().at(e.getMessage()));
+            return redirect(controllers.routes.AdviserPageController.projectsPage(-1));
+        }
         Project project = ElipseModel.getById(Project.class, id);
         if (adviser.getProjects().contains(project)) {
             project.doTransaction(() -> {
@@ -271,8 +290,13 @@ public class AdviserPageController extends Controller {
         }
         String idString = form.get("id");
         IntValidator intValidator = new IntValidator(0);
-        int id = Integer.parseInt(idString);
-
+        int id;
+        try {
+            id = intValidator.validate(idString);
+        } catch (ValidationException e) {
+            flash("error", ctx().messages().at(e.getMessage()));
+            return redirect(controllers.routes.AdviserPageController.projectsPage(-1));
+        }
         Project project = ElipseModel.getById(Project.class, id);
         boolean isAdviser = adviser.getProjects().contains(project);
         if (!isAdviser) {
@@ -290,9 +314,9 @@ public class AdviserPageController extends Controller {
                 int pseGrade;
                 int tseGrade;
                 try {
-                    pseGrade = Integer.parseInt(form.get(student.getId() + "-pseGrade"));
-                    tseGrade = Integer.parseInt(form.get(student.getId() + "-tseGrade"));
-                } catch (NumberFormatException e) {
+                    pseGrade = intValidator.validate(form.get(student.getId() + "-pseGrade"));
+                    tseGrade = intValidator.validate(form.get(student.getId() + "-tseGrade"));
+                } catch (ValidationException e) {
                     return redirect(controllers.routes.AdviserPageController.projectsPage(id));
                 }
                 student.doTransaction(() -> {
@@ -331,27 +355,39 @@ public class AdviserPageController extends Controller {
         }
 
         if (form.get("passwordChange") != null) {
-            System.out.println("passwordChange1");
-            String oldpw = form.get("oldPassword");
-            String pw = form.get("newPassword");
-            String pwrepeat = form.get("newPasswordRepeat");
+            try {
+                StringValidator passwordValidator = Forms.getPasswordValidator();
 
-            boolean matches = new BlowfishPasswordEncoder().matches(oldpw, adviser.getPassword());
+                String oldpw = form.get("oldPassword");
+                String pw = passwordValidator.validate(form.get("newPassword"));
+                String pwrepeat = form.get("newPasswordRepeat");
 
-            if (!pw.equals(pwrepeat) || !matches) {
-                flash("error", ctx().messages().at("adviser.account.error.passwords"));
+                boolean matches = new BlowfishPasswordEncoder().matches(oldpw, adviser.getPassword());
+
+                if (!pw.equals(pwrepeat) || !matches) {
+                    flash("error", ctx().messages().at("adviser.account.error.passwords"));
+                    return redirect(controllers.routes.AdviserPageController.accountPage());
+                }
+                String pwEnc = new BlowfishPasswordEncoder().encode(pw);
+                adviser.doTransaction(() -> {
+                    adviser.setPassword(pwEnc);
+                });
+            } catch (ValidationException e) {
+                flash("error", ctx().messages().at(e.getMessage()));
                 return redirect(controllers.routes.AdviserPageController.accountPage());
             }
-            String pwEnc = new BlowfishPasswordEncoder().encode(pw);
-            adviser.doTransaction(() -> {
-                adviser.setPassword(pwEnc);
-            });
         }
         if (form.get("emailChange") != null) {
-            String email = form.get("newEmail");
-            adviser.doTransaction(() -> {
-                adviser.setEmailAddress(email);
-            });
+            StringValidator emailValidator = Forms.getEmailValidator();
+            try {
+                String email = emailValidator.validate(form.get("newEmail"));
+                adviser.doTransaction(() -> {
+                    adviser.setEmailAddress(email);
+                });
+            } catch (ValidationException e) {
+                flash("error", ctx().messages().at(e.getMessage()));
+                return redirect(controllers.routes.AdviserPageController.accountPage());
+            }
             // TODO hier verifikation
         }
         return redirect(controllers.routes.AdviserPageController.accountPage());
