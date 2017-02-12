@@ -2,29 +2,33 @@ package form;
 
 public class IntValidator implements Validator<Integer> {
 
-    private int     min;
-    private int     max;
-    private boolean requiered;
+    private int    min;
+    private int    max;
 
-    public IntValidator(boolean requiered, int min, int max) {
-        this.requiered = requiered;
+    private String msg = "INTERNAL_ERROR";
+
+    public IntValidator(int min, int max) {
         this.min = min;
         this.max = max;
     }
 
+    public void setMessage(String message) {
+        this.msg = message;
+    }
+
     @Override
     public Integer validate(String element) throws ValidationException {
-        if (requiered && element.isEmpty()) {
-            throw new ValidationException(""); // New Exception
+        if (element.isEmpty()) {
+            throw new ValidationException(msg);
         }
         int value;
         try {
             value = Integer.valueOf(element);
         } catch (NumberFormatException ex) {
-            throw new ValidationException(ex.getMessage());
+            throw new ValidationException(msg);
         }
         if (min > value || max < value) {
-            throw new ValidationException(""); // TODO: Fehlermeldung
+            throw new ValidationException(msg);
         }
         return value;
     }
