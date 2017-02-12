@@ -63,8 +63,7 @@ public class Allocation extends ElipseModel {
      *             wenn die listen oder der string null sind oder der name leer
      *             ist
      */
-    public Allocation(List<Team> teams, String name,
-            List<AllocationParameter> parameters) throws DataException {
+    public Allocation(List<Team> teams, String name, List<AllocationParameter> parameters) throws DataException {
         super();
         this.setTeams(teams);
         this.setName(name);
@@ -105,8 +104,7 @@ public class Allocation extends ElipseModel {
         }
         // Parameter klonen
         for (AllocationParameter p : a.getParameters()) {
-            AllocationParameter newParameter = new AllocationParameter(
-                    p.getName(), p.getValue());
+            AllocationParameter newParameter = new AllocationParameter(p.getName(), p.getValue());
             this.parameters.add(newParameter);
         }
         this.name = "cloned" + a.getName();
@@ -150,8 +148,7 @@ public class Allocation extends ElipseModel {
      * @throws DataException
      *             wenn die liste null ist
      */
-    public void setParameters(List<AllocationParameter> parameters)
-            throws DataException {
+    public void setParameters(List<AllocationParameter> parameters) throws DataException {
         if (parameters == null) {
             throw new DataException(IS_NULL_ERROR);
         }
@@ -240,8 +237,7 @@ public class Allocation extends ElipseModel {
      * @throws DataException
      *             wenn student oder team null sind
      */
-    public void setStudentsTeam(Student student, Team team)
-            throws DataException {
+    public void setStudentsTeam(Student student, Team team) throws DataException {
         if (student == null || team == null) {
             throw new DataException(IS_NULL_ERROR);
         }
@@ -295,8 +291,7 @@ public class Allocation extends ElipseModel {
      * @return nicht zugeteilte Studenten.
      */
     public List<Student> getNotAllocatedStudents() {
-        List<Student> students = semester.getStudents().stream()
-                .filter(student -> (getTeam(student) == null))
+        List<Student> students = semester.getStudents().stream().filter(student -> (getTeam(student) == null))
                 .collect(Collectors.toList());
 
         return students;

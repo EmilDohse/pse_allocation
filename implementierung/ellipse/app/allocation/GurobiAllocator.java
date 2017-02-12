@@ -29,7 +29,7 @@ import gurobi.GRBVar;
  * Gurobi. Weiterhin stellt er ein Basismodell und einen Optimierungsterm zur
  * Verfügung, welche von den Kriterien verwendet werden.
  */
-public class GurobiAllocator implements AbstractAllocator {
+public class GurobiAllocator extends AbstractAllocator {
 
     /**
      * String-Konstante für Gurobi
@@ -339,6 +339,7 @@ public class GurobiAllocator implements AbstractAllocator {
                     .findFirst().orElse(null);
             if (null != param) {
                 weight = param.getValue();
+                // TODO float vergleich
                 if (weight != 0) {
                     criterion.useCriteria(currentConfiguration, this, weight);
                 }
@@ -361,6 +362,7 @@ public class GurobiAllocator implements AbstractAllocator {
                     failure.save();
                     return;
                 }
+                // TODO float vergleich
                 if (result == 1) {
                     Team team = currentConfiguration.getTeams().get(i);
                     Student student = currentConfiguration.getStudents().get(j);

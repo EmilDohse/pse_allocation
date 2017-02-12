@@ -13,7 +13,7 @@ import data.Team;
  * Konkretes Kommando zum vertauschen der Teamzugehörigkeit von zwei
  * Studierenden.
  */
-public class SwapStudentCommand implements EditAllocationCommand {
+public class SwapStudentCommand extends EditAllocationCommand {
 
     private Allocation allocation;
     private Student    firstStudent;
