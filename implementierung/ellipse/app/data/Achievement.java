@@ -12,8 +12,6 @@ import javax.validation.constraints.NotNull;
 
 import com.avaje.ebean.Ebean;
 
-import exception.DataException;
-
 /************************************************************/
 /**
  * Diese Klasse stellt eine Teilleistung im Studium dar.
@@ -23,29 +21,20 @@ public class Achievement extends ElipseModel
         implements Comparable<Achievement> {
 
     private static final String NAME = "name";
-
     /**
      * Der Name der Teilleistung.
      */
     @NotNull
     @Column(name = NAME)
-    private String name;
+    private String              name;
 
-    public Achievement() throws DataException {
+    public Achievement() {
         this("default_name");
     }
 
-    /**
-     * Erstellt ein neues Achievment
-     * 
-     * @param name
-     *            mit dem gegebenen namen
-     * @throws DataException
-     *             der name darf nicht leer sein
-     */
-    public Achievement(String name) throws DataException {
+    public Achievement(String name) {
         super();
-        this.setName(name);
+        this.name = name;
     }
 
     /**
@@ -62,16 +51,8 @@ public class Achievement extends ElipseModel
      * 
      * @param name
      *            Der Name der Teilleistung.
-     * @throws DataException
-     *             wenn der Name leer ist wird diese Exception geworfen
      */
-    public final void setName(String name) throws DataException {
-        if (name == null) {
-            throw new DataException(IS_NULL_ERROR);
-        }
-        if (name.length() == 0) {
-            throw new DataException(STRING_EMPTY_ERROR);
-        }
+    public void setName(String name) {
         this.name = name;
     }
 
