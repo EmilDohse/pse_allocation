@@ -1,7 +1,8 @@
 @* * Diese Seite zeigt die Einstellungsseite dem Admin an. * Dafür wird
 eine Liste an Semestern und SPOs benötigt * Zusätzlich kann eine
 Fehlermeldung übergeben werden. *@ @(activeSemester: data.Semester,
-semesters: List[data.Semester], spos: List[data.SPO], smtpOptions: data.SMTPOptions)
+semesters: List[data.Semester], spos: List[data.SPO], smtpOptions:
+data.SMTPOptions)
 <link
 	href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css"
 	rel="stylesheet">
@@ -288,19 +289,22 @@ semesters: List[data.Semester], spos: List[data.SPO], smtpOptions: data.SMTPOpti
 			<div class="form-group">
 				<label class="control-label col-sm-2" for="host">@Messages("admin.properties.host")</label>
 				<div class="col-sm-3">
-					<input type="text" class="form-control" name="host" id="host" value="@smtpOptions.getHost()">
+					<input type="text" class="form-control" name="host" id="host"
+						value="@smtpOptions.getHost()">
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="control-label col-sm-2" for="mail">@Messages("admin.properties.mailFrom")</label>
 				<div class="col-sm-3">
-					<input type="email" class="form-control" name="mail" id="mail" value="@smtpOptions.getMailFrom()">
+					<input type="email" class="form-control" name="mail" id="mail"
+						value="@smtpOptions.getMailFrom()">
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="control-label col-sm-2" for="port">@Messages("admin.properties.port")</label>
 				<div class="col-sm-3">
-					<input type="number" class="form-control" name="port" id="port" value="@smtpOptions.getPort()">
+					<input type="number" class="form-control" name="port" id="port"
+						value="@smtpOptions.getPort()">
 				</div>
 			</div>
 			<div class="form-group">
@@ -363,6 +367,9 @@ semesters: List[data.Semester], spos: List[data.SPO], smtpOptions: data.SMTPOpti
 						data-onstyle="success" data-offstyle="danger" data-width="100"
 						name="debug" id="debug" class="form-control">
 				</div>
+			</div>
+			<div class="form-group">
+				<button type="submit" class="btn btn-primary">@Messages("admin.properties.changeSMTP")</button>
 			</div>
 		</form>
 	</div>

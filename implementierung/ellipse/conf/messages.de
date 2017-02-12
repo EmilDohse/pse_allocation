@@ -239,6 +239,7 @@ admin.properties.timeout = Timeout
 admin.properties.connectionTimeOut = Verbindungs-Timeout
 admin.properties.username = Benutzername
 admin.properties.password = Passwort
+admin.properties.changeSMTP = Server-Einstellungen ändern
 admin.properties.numberError = Bitte geben sie Zahlen ein, wenn Zahlen verlangt werden.
 admin.edit.moveToSameTeam = Der Studierende ist bereits in diesem Team
 admin.edit.noStudentSelected = Sie müssen einen Studierenden auswählen, den Sie verschieben möchten

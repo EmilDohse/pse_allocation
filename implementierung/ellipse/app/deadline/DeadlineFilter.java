@@ -165,7 +165,11 @@ public class DeadlineFilter extends Filter {
                 call = beforeRegistration.get(path);
                 break;
             }
-            result = Results.redirect(call);
+            if (call != null) {
+                result = Results.redirect(call);
+            } else {
+                result = res;
+            }
             return result;
         });
     }
