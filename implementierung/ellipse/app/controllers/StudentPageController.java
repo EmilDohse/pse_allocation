@@ -425,9 +425,10 @@ public class StudentPageController extends Controller {
         }
         if (form.get("passwordChange") != null) {
             String oldpw = form.get("oldPassword");
+            String pw;
             try {
                 StringValidator validator = Forms.getPasswordValidator();
-                String pw = validator.validate(form.get("newPassword"));
+                pw = validator.validate(form.get("newPassword"));
             } catch (ValidationException e) {
                 flash("error", ctx().messages().at(e.getMessage()));
                 return redirect(controllers.routes.StudentPageController.accountPage());
