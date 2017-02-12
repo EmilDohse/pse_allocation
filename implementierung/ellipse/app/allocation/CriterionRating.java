@@ -10,7 +10,6 @@ import java.util.List;
 import data.LearningGroup;
 import data.Project;
 import data.Student;
-import exception.DataException;
 import gurobi.GRBException;
 import gurobi.GRBLinExpr;
 
@@ -63,12 +62,7 @@ public class CriterionRating implements GurobiCriterion {
 
                 Project project = configuration.getTeams().get(i).getProject();
                 double rating;
-                try {
-                    rating = lg.getRating(project);
-                } catch (DataException e) {
-                    // TODO Sollte nie auftreten... Provisorisch gefixt
-                    rating = 0;
-                }
+                rating = lg.getRating(project);
                 for (int j = 0; j < lg.getMembers().size(); j++) {
                     Student student = lg.getMembers().get(j);
                     bonus.addTerm(weight * 2 * rating, allocator

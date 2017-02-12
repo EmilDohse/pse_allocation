@@ -9,26 +9,24 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-import exception.DataException;
-
 public class SPOTest extends DataTest {
 
     private SPO spo;
 
     @Before
-    public void beforeTest() throws DataException {
+    public void beforeTest() {
         spo = new SPO();
     }
 
     @Test
-    public void testName() throws DataException {
+    public void testName() {
         String n = "testname";
         spo.setName(n);
         assertEquals(n, spo.getName());
     }
 
     @Test
-    public void testNecessaryAchievements() throws DataException {
+    public void testNecessaryAchievements() {
         Achievement firstA = new Achievement();
         Achievement secondA = new Achievement();
         List<Achievement> a = new ArrayList<Achievement>();
@@ -48,7 +46,7 @@ public class SPOTest extends DataTest {
     }
 
     @Test
-    public void testAdditionalAchievements() throws DataException {
+    public void testAdditionalAchievements() {
         Achievement firstA = new Achievement();
         Achievement secondA = new Achievement();
         List<Achievement> a = new ArrayList<Achievement>();

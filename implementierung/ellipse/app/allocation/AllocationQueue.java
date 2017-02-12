@@ -77,8 +77,9 @@ public class AllocationQueue {
         synchronized (this.worker) {
             configurationQueue.add(configuration);
             this.worker.notifyAll(); // der calculator thread wird
-                                       // geweckt
+            // geweckt
         }
+
     }
 
     /**
@@ -174,4 +175,3 @@ public class AllocationQueue {
     }
 
 }
-

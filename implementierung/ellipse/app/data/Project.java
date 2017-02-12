@@ -12,8 +12,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
-import exception.DataException;
-
 /************************************************************/
 /**
  * Klasse, die ein Project repräsentiert
@@ -65,24 +63,23 @@ public class Project extends ElipseModel implements Comparable<Project> {
     @ManyToOne
     private Semester      semester;
 
-    public Project() throws DataException {
+    public Project() {
         this("default_name", "default_info", "default_institut", "default_url");
     }
 
-    public Project(String name, String projectInfo, String institut, String url)
-            throws DataException {
+    public Project(String name, String projectInfo, String institut,
+            String url) {
         super();
-        setName(name);
-        setProjectInfo(projectInfo);
-        setInstitute(institut);
-        setProjectURL(url);
+        this.name = name;
+        this.projectInfo = projectInfo;
+        this.institute = institut;
+        this.projectURL = url;
         advisers = new ArrayList<>();
     }
 
-    // TODO Was ist das für 1 Konstruktor?
-    public Project(String name, Adviser adviser) throws DataException {
+    public Project(String name, Adviser adviser) {
         this();
-        setName(name);
+        this.name = name;
         advisers.add(adviser);
     }
 
@@ -93,13 +90,8 @@ public class Project extends ElipseModel implements Comparable<Project> {
      * 
      * @param semester
      *            Das Semester, zu dem diese Projekt gehört.
-     * @throws DataException
-     *             Wird vom Controller behandelt.
      */
-    public void setSemester(Semester semester) throws DataException {
-        if (semester == null) {
-            throw new DataException(IS_NULL_ERROR);
-        }
+    public void setSemester(Semester semester) {
         this.semester = semester;
     }
 
@@ -117,14 +109,12 @@ public class Project extends ElipseModel implements Comparable<Project> {
      * 
      * @param numberOfTeams
      *            Anzahl der Teams.
-     * @throws DataException
-     *             Wird vom Controller behandelt.
      */
-    public void setNumberOfTeams(int numberOfTeams) throws DataException {
-        if (numberOfTeams < 1) {
-            throw new DataException("project.invalidTeamNumber");
-        } else {
+    public void setNumberOfTeams(int numberOfTeams) {
+        if (numberOfTeams >= 0) {
             this.numberOfTeams = numberOfTeams;
+        } else {
+            // TODO throws
         }
     }
 
@@ -142,16 +132,8 @@ public class Project extends ElipseModel implements Comparable<Project> {
      * 
      * @param advisers
      *            Betreuer des Projekts.
-     * @throws DataException
-     *             Wird vom Controller behandelt.
      */
-    public void setAdvisers(List<Adviser> advisers) throws DataException {
-        if (advisers == null) {
-            throw new DataException(IS_NULL_ERROR);
-        }
-        if (advisers.isEmpty()) {
-            throw new DataException(LIST_EMPTY_ERROR);
-        }
+    public void setAdvisers(List<Adviser> advisers) {
         this.advisers = advisers;
     }
 
@@ -160,13 +142,8 @@ public class Project extends ElipseModel implements Comparable<Project> {
      * 
      * @param adviser
      *            Betreuer der hinzugefügt wird.
-     * @throws DataException
-     *             Wird vom Controller behandelt.
      */
-    public void addAdviser(Adviser adviser) throws DataException {
-        if (adviser == null) {
-            throw new DataException(IS_NULL_ERROR);
-        }
+    public void addAdviser(Adviser adviser) {
         advisers.add(adviser);
     }
 
@@ -175,13 +152,8 @@ public class Project extends ElipseModel implements Comparable<Project> {
      * 
      * @param adviser
      *            Betreuer der entfernt wird.
-     * @throws DataException
-     *             Wird vom Controller behandelt.
      */
-    public void removeAdviser(Adviser adviser) throws DataException {
-        if (adviser == null) {
-            throw new DataException(IS_NULL_ERROR);
-        }
+    public void removeAdviser(Adviser adviser) {
         advisers.remove(adviser);
     }
 
@@ -237,16 +209,8 @@ public class Project extends ElipseModel implements Comparable<Project> {
      * 
      * @param name
      *            Der Name des Projektes.
-     * @throws DataException
-     *             Wird vom Controller behandelt.
      */
-    public void setName(String name) throws DataException {
-        if (name == null) {
-            throw new DataException(IS_NULL_ERROR);
-        }
-        if (name.isEmpty()) {
-            throw new DataException(STRING_EMPTY_ERROR);
-        }
+    public void setName(String name) {
         this.name = name;
     }
 
@@ -256,32 +220,28 @@ public class Project extends ElipseModel implements Comparable<Project> {
      * 
      * @param maxTeamSize
      *            Die maximale Größe für Teams dieses Projektes.
-     * @throws DataException
-     *             Wird vom Controller behandelt.
      */
-    public void setMaxTeamSize(int maxTeamSize) throws DataException {
-        if (maxTeamSize < 0) {
-            throw new DataException("project.invalidTeamSize");
+    public void setMaxTeamSize(int maxTeamSize) {
+        if (maxTeamSize >= -1) {
+            this.maxTeamSize = maxTeamSize;
+        } else {
+            // TODO throws
         }
-        this.maxTeamSize = maxTeamSize;
-
     }
 
-    // TODO Wo wird geprüft, ob max > min ist?
     /**
      * Setter der minimalen Größe für Teams dieses Projektes. -1 entspricht
      * keiner gesetzten Teamgröße.
      * 
      * @param minTeamSize
      *            Die minimale Größe für Teams dieses Projektes.
-     * @throws DataException
-     *             Wird vom Controller behandelt.
      */
-    public void setMinTeamSize(int minTeamSize) throws DataException {
-        if (minTeamSize < 0) {
-            throw new DataException("project.invalidTeamSize");
+    public void setMinTeamSize(int minTeamSize) {
+        if (minTeamSize >= -1) {
+            this.minTeamSize = minTeamSize;
+        } else {
+            // TODO throws
         }
-        this.minTeamSize = minTeamSize;
     }
 
     /**
@@ -289,16 +249,8 @@ public class Project extends ElipseModel implements Comparable<Project> {
      * 
      * @param projektInfo
      *            Die Information des Projektes.
-     * @throws DataException
-     *             Wird vom Controller behandelt.
      */
-    public void setProjectInfo(String projectInfo) throws DataException {
-        if (projectInfo == null) {
-            throw new DataException(IS_NULL_ERROR);
-        }
-        if (projectInfo.isEmpty()) {
-            throw new DataException(STRING_EMPTY_ERROR);
-        }
+    public void setProjectInfo(String projectInfo) {
         this.projectInfo = projectInfo;
     }
 
@@ -307,18 +259,8 @@ public class Project extends ElipseModel implements Comparable<Project> {
      * 
      * @param projectURL
      *            Die URL des Projektes.
-     * @throws DataException
-     *             Wird vom Controller behandelt.
      */
-    public void setProjectURL(String projectURL) throws DataException {
-        if (projectURL == null) {
-            throw new DataException(IS_NULL_ERROR);
-        }
-        if (projectURL.isEmpty()) {
-            throw new DataException(STRING_EMPTY_ERROR);
-        }
-        // TODO Sollen wir sogar mit NetURL auf ne echte Website prüfen?
-        // Falls ja, muss der Standardkonstruktor angepasst werden
+    public void setProjectURL(String projectURL) {
         this.projectURL = projectURL;
     }
 
@@ -337,16 +279,8 @@ public class Project extends ElipseModel implements Comparable<Project> {
      * 
      * @param institute
      *            der Name des Instituts.
-     * @throws DataException
-     *             Wird vom Controller behandelt.
      */
-    public void setInstitute(String institute) throws DataException {
-        if (institute == null) {
-            throw new DataException(IS_NULL_ERROR);
-        }
-        if (institute.isEmpty()) {
-            throw new DataException(STRING_EMPTY_ERROR);
-        }
+    public void setInstitute(String institute) {
         this.institute = institute;
     }
 
