@@ -1,6 +1,7 @@
 package qualityCriteria;
 
 import static org.junit.Assert.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,23 +12,28 @@ import org.junit.Test;
 import data.Allocation;
 import data.GeneralData;
 import data.LearningGroup;
+import data.Project;
+import data.Rating;
 import data.Semester;
 import data.Student;
 import data.Team;
 import exception.DataException;
 
-public class SplitLearningGroupsTest {
+public class StudentHappinessTest {
 
     private Semester            s;
     private Allocation          a;
     private List<Team>          teams;
     private List<LearningGroup> learningGroups;
     private GeneralData         data;
+    private Project             project;
 
     @Before
     public void setup() throws DataException {
         s = new Semester();
         a = new Allocation();
+        project = new Project();
+        s.addProject(project);
         a.setSemester(s);
         learningGroups = new ArrayList<LearningGroup>();
         teams = new ArrayList<Team>();
@@ -44,6 +50,8 @@ public class SplitLearningGroupsTest {
         members.add(firstS);
         members.add(secondS);
         lg1.setMembers(members);
+        Rating r1 = new Rating(0, project);
+        r1.setLearningGroup(lg1);
 
         LearningGroup lg2 = new LearningGroup();
         Student thirdS = new Student();
@@ -52,6 +60,8 @@ public class SplitLearningGroupsTest {
         members2.add(thirdS);
         members2.add(fourthS);
         lg2.setMembers(members2);
+        Rating r2 = new Rating(5, project);
+        r2.setLearningGroup(lg2);
 
         learningGroups.add(lg1);
         learningGroups.add(lg2);
@@ -71,19 +81,10 @@ public class SplitLearningGroupsTest {
         s.setLearningGroups(learningGroups);
     }
 
-    @Test
-    public void getNameTest() {
-        SplitLearningGroups slg = new SplitLearningGroups();
-        assertEquals("Anzahl gesplitteter Lerngruppen", slg.getName("de"));
-        assertEquals("Number of splitted learning groups", slg.getName("en"));
-        assertEquals("Number of splitted learning groups", slg.getName("test123345"));
-    }
-
     @Ignore
     @Test
-    public void calculateTest() throws DataException {
-        SplitLearningGroups slg = new SplitLearningGroups();
-        assertEquals(2, Integer.parseInt(slg.calculate(a)));
+    public void calculationTest() {
+        StudentHappiness sh = new StudentHappiness();
+        assertTrue(50.0 - Double.parseDouble(sh.calculate(a)) < 0.1);
     }
-
 }
