@@ -249,7 +249,7 @@ public class IndexPageController extends Controller {
         String verificationCode = PasswordResetter.getInstance()
                 .initializeReset(user, password);
         try {
-            notifier.sendVerifyNewPassowrd(user,
+            notifier.sendVerifyNewPassword(user,
                     controllers.routes.IndexPageController
                             .resetPassword(verificationCode).url());
         } catch (EmailException e) {
