@@ -102,6 +102,22 @@ create table rating (
 );
 create sequence rating_seq;
 
+create table smtpoptions (
+  id                            integer not null,
+  host                          varchar(255) not null,
+  mail_from                     varchar(255) not null,
+  port                          integer,
+  ssl                           boolean,
+  tls                           boolean,
+  debug                         boolean,
+  timeout                       integer,
+  connection_timeout            integer,
+  username                      varchar(255) not null,
+  password                      varchar(255) not null,
+  constraint pk_smtpoptions primary key (id)
+);
+create sequence smtpoptions_seq;
+
 create table spo (
   id                            integer not null,
   name                          varchar(255) not null,
@@ -155,7 +171,7 @@ create table student (
   email_address                 varchar(255) not null,
   first_name                    varchar(255) not null,
   last_name                     varchar(255) not null,
-  matriculation_number          integer,
+  matriculationnumber           integer,
   spo_id                        integer,
   registered_pse                boolean,
   registered_tse                boolean,

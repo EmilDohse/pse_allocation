@@ -7,7 +7,6 @@ package qualityCriteria;
 import java.util.List;
 
 import data.Allocation;
-import data.GeneralData;
 import data.Student;
 import data.Team;
 
