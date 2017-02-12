@@ -77,7 +77,7 @@ public class LearningGroup extends ElipseModel {
     public LearningGroup(String name, String password) {
         this();
         this.name = name;
-        savePassword(password);
+        this.password = password;
     }
 
     /**
@@ -90,7 +90,8 @@ public class LearningGroup extends ElipseModel {
      */
     @Deprecated
 
-    public LearningGroup(String name, String password, Student member, boolean isPrivate) {
+    public LearningGroup(String name, String password, Student member,
+            boolean isPrivate) {
         this();
         this.name = name;
         this.password = password;
@@ -295,8 +296,10 @@ public class LearningGroup extends ElipseModel {
      *         wird.
      */
 
-    public static LearningGroup getLearningGroup(String name, Semester semester) {
-        return Ebean.find(LearningGroup.class).where().eq(NAME, name).where().eq(SEMESTER, semester).findUnique();
+    public static LearningGroup getLearningGroup(String name,
+            Semester semester) {
+        return Ebean.find(LearningGroup.class).where().eq(NAME, name).where()
+                .eq(SEMESTER, semester).findUnique();
         // TODO sicher, dass das Semester beachtet wird?
 
     }

@@ -119,14 +119,8 @@ public class Configuration {
         return parameters;
     }
 
-    /**
-     * compares two configurations by name
-     * 
-     * @param o
-     *            die configuration mit der verglichen wird
-     * @return true wenn die namen übereinstimmen
-     */
-    public boolean compareTo(Object o) {
+    @Override
+    public boolean equals(Object o) {
         if (o instanceof Configuration) {
             return ((Configuration) o).getName().equals(this.getName());
         }
