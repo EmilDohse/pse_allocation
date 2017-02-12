@@ -164,18 +164,15 @@ data
 			+setLearningGroup(LearningGroup)
 	Semester
 		Konstruktoren
-			+Semester(String, boolean, int)
+			+Semester(String, boolean)
 		Parameter
 			+wintersemester : boolean
 			+maxGroupSize : int
-			+year : int
 		Methoden
 			+getMaxGroupSize() : int
 			+setMaxGroupSize(int)
 			+isWintersemester() : boolean
 			+setWintersemester(boolean)
-			+getYear() : int
-			+setYear(int)
 			+addAllocation(Allocation)
 			+removeAllocation(Allocation)
 			+addProject(Project)
@@ -232,6 +229,8 @@ data
 		Methoden
 			+compareTo(User) : int
 deadline
+	DeadLineFilter
+		Klasse hinzugefügt
 	StateStorage
 		Klasse hinzugefügt
 exception
