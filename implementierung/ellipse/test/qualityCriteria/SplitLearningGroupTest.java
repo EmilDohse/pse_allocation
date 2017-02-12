@@ -33,7 +33,6 @@ public class SplitLearningGroupTest extends WithApplication {
     List<LearningGroup> learningGroups;
     List<Team>          teams;
 
-    @Inject
     @Before
     public void setup() throws DataException {
         semester = new Semester();
@@ -63,7 +62,6 @@ public class SplitLearningGroupTest extends WithApplication {
         semester.save();
     }
 
-    @Inject
     @Test
     public void firstCalculateTest() throws DataException {
         LearningGroup l1 = new LearningGroup();
