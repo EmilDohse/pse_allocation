@@ -29,10 +29,12 @@ public class SplitLearningGroupTest {
         LearningGroup lg1 = new LearningGroup();
         lg1.setSemester(semester);
         List<Student> members1 = new ArrayList<Student>();
+        Student s7 = new Student();
         Student s1 = new Student();
         Student s2 = new Student();
         members1.add(s1);
         members1.add(s2);
+        members1.add(s7);
         lg1.setMembers(members1);
 
         LearningGroup lg2 = new LearningGroup();

@@ -8,10 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import data.Allocation;
-import data.GeneralData;
 import data.LearningGroup;
 import data.Semester;
-import data.Student;
 import data.Team;
 
 /************************************************************/
