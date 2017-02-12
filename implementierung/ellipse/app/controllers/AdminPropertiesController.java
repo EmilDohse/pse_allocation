@@ -365,8 +365,7 @@ public class AdminPropertiesController extends Controller {
             options.setSsl(ssl);
             options.setTls(tls);
             options.setDebug(debug);
-            // TODO: savepassword aktivieren
-            // options.savePassword(form.get("password"));
+            options.savePassword(form.get("password"));
 
         });
         return redirect(

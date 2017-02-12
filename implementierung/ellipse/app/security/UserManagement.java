@@ -7,7 +7,6 @@ import javax.inject.Inject;
 import org.pac4j.core.config.ConfigSingleton;
 import org.pac4j.core.profile.ProfileManager;
 import org.pac4j.play.PlayWebContext;
-import org.pac4j.play.store.PlaySessionStore;
 
 import data.User;
 import play.mvc.Http.Context;
@@ -20,9 +19,6 @@ import play.mvc.Http.Context;
  */
 public class UserManagement {
 
-    @Inject
-    protected PlaySessionStore playSessionStore;
-
     /**
      * Methode um den in dem Webkontext gespeicherten Benutzer zu bekommen.
      * 
@@ -31,8 +27,9 @@ public class UserManagement {
      * @return den angemeldeten Benutzer
      */
     public User getUserProfile(Context ctx) {
-        ConfigSingleton.getConfig().getSessionStore();
-        PlayWebContext webContext = new PlayWebContext(ctx, playSessionStore);
+        @SuppressWarnings("unchecked")
+        PlayWebContext webContext = new PlayWebContext(ctx,
+                ConfigSingleton.getConfig().getSessionStore());
         ProfileManager<UserProfile> profileManager = new ProfileManager<UserProfile>(
                 webContext);
         Optional<UserProfile> profile = profileManager.get(true);
@@ -48,7 +45,9 @@ public class UserManagement {
      *            der aktuelle Kontext
      */
     public void addStudentRoleToOldStudent(Context ctx) {
-        PlayWebContext webContext = new PlayWebContext(ctx, playSessionStore);
+        @SuppressWarnings("unchecked")
+        PlayWebContext webContext = new PlayWebContext(ctx,
+                ConfigSingleton.getConfig().getSessionStore());
         ProfileManager<UserProfile> profileManager = new ProfileManager<UserProfile>(
                 webContext);
         Optional<UserProfile> profile = profileManager.get(true);

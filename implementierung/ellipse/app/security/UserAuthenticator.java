@@ -89,7 +89,6 @@ public class UserAuthenticator
                 System.out.println("Username matsches");
                 if (encoder.matches(credentials.getPassword(),
                         u.getPassword())) {
-                    System.out.println("passwort stimmt");
                     UserProfile profile = new UserProfile(u);
                     profile.addRole("ROLE_ADVISER");
                     credentials.setUserProfile(profile);
