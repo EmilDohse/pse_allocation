@@ -23,9 +23,11 @@ public class SplitLearningGroupTest {
     @Before
     public void setup() throws DataException {
         semester = new Semester();
+        semester.setMaxGroupSize(7);
         allocation = new Allocation();
 
         LearningGroup lg1 = new LearningGroup();
+        lg1.setSemester(semester);
         List<Student> members1 = new ArrayList<Student>();
         Student s1 = new Student();
         Student s2 = new Student();
@@ -34,6 +36,7 @@ public class SplitLearningGroupTest {
         lg1.setMembers(members1);
 
         LearningGroup lg2 = new LearningGroup();
+        lg2.setSemester(semester);
         List<Student> members2 = new ArrayList<Student>();
         Student s3 = new Student();
         Student s4 = new Student();

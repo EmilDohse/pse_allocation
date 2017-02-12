@@ -41,6 +41,8 @@ public class LearningGroupTest extends DataTest {
         data.doTransaction(() -> {
             data.setCurrentSemester(semester);
         });
+        semester.setMaxGroupSize(7);
+        learningGroup.setSemester(semester);
         Student firstS = new Student();
         Student secondS = new Student();
         List<Student> members = new ArrayList<Student>();
