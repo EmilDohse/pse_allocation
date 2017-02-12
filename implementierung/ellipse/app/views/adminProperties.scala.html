@@ -47,13 +47,13 @@ data.SMTPOptions)
 			<div role="tabpanel" class="tab-pane" id="spo-@spo.getId()">
 				<form
 					action="@controllers.routes.AdminPropertiesController.changeSPO().path()"
-					method="POST" class="form-inline">
+					method="POST" class="form-inline" role="form" data-toggle="validator">
 					<input type="hidden" name="id" value="@spo.getId()">
 					<div class="form-group">
 						<label class="control-label col-sm-2" for="name">@Messages("admin.properties.name")</label>
 						<div class="col-sm-3">
 							<input type="text" class="form-control" name="nameSPO"
-								id="nameSPO" value="@spo.getName()">
+								id="nameSPO" value="@spo.getName()" required>
 						</div>
 					</div>
 					<table class="table table-striped">
@@ -102,12 +102,12 @@ data.SMTPOptions)
 				</form>
 				<form
 					action="@controllers.routes.AdminPropertiesController.addAchievement().path()"
-					method="POST" class="form-inline">
+					method="POST" class="form-inline" role="form" data-toggle="validator">
 					<input type="hidden" name="id" value="@spo.getId()">
 					<div class="form-group">
 						<label for="name">@Messages("admin.properties.achievementName")</label>
 						<input type="text" class="form-control" name="nameAchiev"
-							id="nameAchiev">
+							id="nameAchiev" required>
 					</div>
 
 					<div class="form-group">
@@ -160,14 +160,14 @@ data.SMTPOptions)
 				<!-- Add current values to form -->
 				<form
 					action="@controllers.routes.AdminPropertiesController.editSemester().path()"
-					method="POST" class="form-horizontal">
+					method="POST" class="form-horizontal" role="form" data-toggle="validator">
 					<input type="hidden" name="id" value="@semester.getId()">
 
 					<div class="form-group">
 						<label class="control-label col-sm-2" for="name">@Messages("admin.properties.name")</label>
 						<div class="col-sm-3">
 							<input type="text" class="form-control" name="name2" id="name2"
-								value="@semester.getName()">
+								value="@semester.getName()" required>
 						</div>
 					</div>
 
@@ -185,14 +185,14 @@ data.SMTPOptions)
 					<div class="form-group">
 						<label class="control-label col-sm-2" for="description">@Messages("admin.properties.generalInfo")</label>
 						<div class="col-sm-8">
-							<textarea rows="8" class="form-control" name="info" id="info">@semester.getInfoText()</textarea>
+							<textarea rows="8" class="form-control" name="info" id="info" required>@semester.getInfoText()</textarea>
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="control-label col-sm-2" for="maxGroupSize">@Messages("admin.properties.maxGroupSize")</label>
 						<div class="col-sm-3">
 							<input type="number" class="form-control" name="maxGroupSize"
-								id="maxGroupSize" value="@semester.getMaxGroupSize()">
+								id="maxGroupSize" value="@semester.getMaxGroupSize()" required>
 						</div>
 					</div>
 					<div class="form-group">
@@ -202,7 +202,7 @@ data.SMTPOptions)
 								id="registrationStart"
 								value='@{val format = new java.text.SimpleDateFormat(
                     "dd.MM.yyyy HH:mm:ss");if(semester.getRegistrationStart() != null) {format.format(semester.getRegistrationStart());}
-                    else{format.format(new java.util.Date());}}'>
+                    else{format.format(new java.util.Date());}}' required>
 						</div>
 					</div>
 
@@ -213,7 +213,7 @@ data.SMTPOptions)
 								id="registrationEnd"
 								value='@{val format = new java.text.SimpleDateFormat(
                     "dd.MM.yyyy HH:mm:ss");if(semester.getRegistrationEnd() != null) {format.format(semester.getRegistrationEnd());}
-                    else{format.format(new java.util.Date());}}'>
+                    else{format.format(new java.util.Date());}}' required> <!-- TODO: LIBRARY!!! -->
 						</div>
 					</div>
 
@@ -231,7 +231,7 @@ data.SMTPOptions)
 							for="availabe-spo-@semester.getId()">@Messages("admin.properties.availableSPOs")</label>
 						<select id="availabe-spo-@semester.getId()"
 							name="spo-multiselect-@semester.getId()[]" class="form-control"
-							multiple="multiple"> @for(spo <-spos) {
+							multiple="multiple" required> @for(spo <-spos) {
 							@if(semester.getSpos().contains(spo)) {
 							<option value="@spo.getId()" selected="selected">@spo.getName()</option>
 							} else {
@@ -277,26 +277,26 @@ data.SMTPOptions)
 	<div class="panel-body">
 		<form
 			action="@controllers.routes.AdminPropertiesController.editSMTPOptions().path()"
-			method="POST" class="form-horizontal">
+			method="POST" class="form-horizontal" role="form" data-toggle="validator">
 			<div class="form-group">
 				<label class="control-label col-sm-2" for="host">@Messages("admin.properties.host")</label>
 				<div class="col-sm-3">
 					<input type="text" class="form-control" name="host" id="host"
-						value="@smtpOptions.getHost()">
+						value="@smtpOptions.getHost()" required>
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="control-label col-sm-2" for="mail">@Messages("admin.properties.mailFrom")</label>
 				<div class="col-sm-3">
 					<input type="email" class="form-control" name="mail" id="mail"
-						value="@smtpOptions.getMailFrom()">
+						value="@smtpOptions.getMailFrom()" required>
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="control-label col-sm-2" for="port">@Messages("admin.properties.port")</label>
 				<div class="col-sm-3">
 					<input type="number" class="form-control" name="port" id="port"
-						value="@smtpOptions.getPort()">
+						value="@smtpOptions.getPort()" required min="0">
 				</div>
 			</div>
 			<div class="form-group">
@@ -317,14 +317,14 @@ data.SMTPOptions)
 				<label class="control-label col-sm-2" for="timeout">@Messages("admin.properties.timeout")</label>
 				<div class="col-sm-3">
 					<input type="number" class="form-control" name="timeout"
-						id="timeout" value="@smtpOptions.getTimeout()">
+						id="timeout" value="@smtpOptions.getTimeout()" required min="0">
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="control-label col-sm-2" for="connectionTimeOut">@Messages("admin.properties.connectionTimeOut")</label>
 				<div class="col-sm-3">
 					<input type="number" class="form-control" name="connectionTimeOut"
-						id="connectionTimeOut" value="@smtpOptions.getConnectionTimeout()">
+						id="connectionTimeOut" value="@smtpOptions.getConnectionTimeout()" required min="0">
 				</div>
 			</div>
 			<div class="form-group">

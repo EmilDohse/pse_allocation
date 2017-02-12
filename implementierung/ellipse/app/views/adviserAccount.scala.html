@@ -3,11 +3,11 @@ wird eine Fehlermeldung übergeben. *@ @()
 <h1>@Messages("adviser.sidebar.account")</h1>
 <form
 	action="@controllers.routes.AdviserPageController.editAccount().path()"
-	method="POST" class="form-horizontal">
+	method="POST" class="form-horizontal" role="form" data-toggle="validator">
 	<div class="form-group">
 		<label class="control-label col-sm-2" for="newEmail">@Messages("adviser.account.newEmail")</label>
 		<div class="col-sm-3">
-			<input class="form-control" type="text" id="newEmail" name="newEmail">
+			<input class="form-control" type="text" id="newEmail" name="newEmail" required pattern="\S+@@\S+\.\S+">
 		</div>
 	</div>
 	<div class="form-group offset-col-sm-2">
@@ -18,26 +18,26 @@ wird eine Fehlermeldung übergeben. *@ @()
 </form>
 <form
 	action="@controllers.routes.AdviserPageController.editAccount().path()"
-	method="POST" class="form-horizontal">
+	method="POST" class="form-horizontal" role="form" data-toggle="validator">
 	<div class="form-group">
 		<label class="control-label col-sm-2" for="oldPassword">@Messages("adviser.account.oldPassword")</label>
 		<div class="col-sm-3">
 			<input class="form-control" type="password" name="oldPassword"
-				id="oldPassword">
+				id="oldPassword" required data-minlength="6">
 		</div>
 	</div>
 	<div class="form-group">
 		<label class="control-label col-sm-2" for="newPassword">@Messages("adviser.account.newPassword")</label>
 		<div class="col-sm-3">
 			<input class="form-control" type="password" name="newPassword"
-				id="newPassword">
+				id="newPassword" required data-minlength="6">
 		</div>
 	</div>
 	<div class="form-group">
 		<label class="control-label col-sm-2" for="newPasswordRepeat">@Messages("adviser.account.newPasswordRepeat")</label>
 		<div class="col-sm-3">
 			<input class="form-control" type="password" name="newPasswordRepeat"
-				id="newPasswordRepeat">
+				id="newPasswordRepeat" required data-match="#newPassword" data-minlength="6">
 		</div>
 	</div>
 	<div class="form-group">

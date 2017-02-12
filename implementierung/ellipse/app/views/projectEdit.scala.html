@@ -12,11 +12,11 @@ isAdviser: Boolean, advisers: List[data.Adviser])
 @if(isAdviser) {
 <form
 	action="@controllers.routes.AdviserPageController.editProject().path()"
-	method="POST" class="form-horizontal">
+	method="POST" class="form-horizontal" role="form" data-toggle="validator">
 	} else {
 	<form
 		action="@controllers.routes.AdminProjectController.editProject().path()"
-		method="POST" class="form-horizontal">
+		method="POST" class="form-horizontal" role="form" data-toggle="validator">
 		} <input type="hidden" name="id" id="id"
 			value="@project.getId()">
 
@@ -24,7 +24,7 @@ isAdviser: Boolean, advisers: List[data.Adviser])
 			<label class="control-label col-sm-2" for="name">@Messages("admin.projects.name")</label>
 			<div class="col-sm-5">
 				<input type="text" class="form-control" name="name" id="name"
-					value="@project.getName()">
+					value="@project.getName()" required>
 			</div>
 		</div>
 
@@ -32,7 +32,7 @@ isAdviser: Boolean, advisers: List[data.Adviser])
 			<label class="control-label col-sm-2" for="url">@Messages("admin.projects.url")</label>
 			<div class="col-sm-5">
 				<input type="url" class="form-control" name="url" id="url"
-					value="@project.getProjectURL()">
+					value="@project.getProjectURL()" required>
 			</div>
 		</div>
 
@@ -40,7 +40,7 @@ isAdviser: Boolean, advisers: List[data.Adviser])
 			<label class="control-label col-sm-2" for="institute">@Messages("admin.projects.institute")</label>
 			<div class="col-sm-5">
 				<input type="text" class="form-control" name="institute"
-					value="@project.getInstitute()" id="institute">
+					value="@project.getInstitute()" id="institute" required>
 			</div>
 		</div>
 
@@ -48,7 +48,7 @@ isAdviser: Boolean, advisers: List[data.Adviser])
 			<label class="control-label col-sm-2" for="description">@Messages("admin.projects.description")</label>
 			<div class="col-sm-8">
 				<textarea rows="8" class="form-control" name="description"
-					id="description">@project.getProjectInfo()</textarea>
+					id="description" required>@project.getProjectInfo()</textarea>
 			</div>
 		</div>
 
@@ -56,15 +56,15 @@ isAdviser: Boolean, advisers: List[data.Adviser])
 			<label class="control-label col-sm-2" for="teamCount">@Messages("admin.projects.numberOfTeams")</label>
 			<div class="col-sm-1">
 				<input type="number" class="form-control" name="teamCount"
-					id="teamCount" value="@project.getNumberOfTeams()">
+					id="teamCount" value="@project.getNumberOfTeams()" required min="1">
 			</div>
 		</div>
-
+		<!-- TODO: Wert von Admin wird genommen wenn beide auf 0 sind, beide müssen 0 oder + sein -->
 		<div class="form-group">
 			<label class="control-label col-sm-2" for="minSize">@Messages("admin.projects.minSize")</label>
 			<div class="col-sm-1">
 				<input type="number" class="form-control" name="minSize"
-					id="minSize" value="@project.getMinTeamSize()">
+					id="minSize" value="@project.getMinTeamSize()" required min="0">
 			</div>
 		</div>
 
@@ -72,7 +72,7 @@ isAdviser: Boolean, advisers: List[data.Adviser])
 			<label class="control-label col-sm-2" for="maxSize">@Messages("admin.projects.maxSize")</label>
 			<div class="col-sm-1">
 				<input type="number" class="form-control" name="maxSize"
-					id="maxSize" value="@project.getMaxTeamSize()">
+					id="maxSize" value="@project.getMaxTeamSize()" min="0">
 			</div>
 		</div>
 		<script type="text/javascript">
@@ -90,7 +90,7 @@ isAdviser: Boolean, advisers: List[data.Adviser])
 				for="adviser-selection">@Messages("admin.projects.advisers")</label>
 			<select id="adviser-selection"
 				name="adviser-multiselect[]" class="form-control"
-				multiple="multiple">
+				multiple="multiple" required>
 					@for(adviser <- advisers) {
 						@if(project.getAdvisers().contains(adviser)) {
 							<option selected value="@adviser.getId()">@adviser.getName()</option>
