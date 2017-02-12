@@ -95,7 +95,7 @@ public class LearningGroup extends ElipseModel {
         this();
         this.name = name;
         this.password = password;
-        this.members.add(member); // TODO wirft NullPointer
+        this.members.add(member);
         this.isPrivate = isPrivate;
     }
 
@@ -255,15 +255,7 @@ public class LearningGroup extends ElipseModel {
      *            Student, der entfernt wird.
      */
     public void removeMember(Student student) {
-        if (members == null) {
-            members = new ArrayList<Student>();
-        }
-
-        if (members.contains(student)) {
-            members.remove(student);
-        } else {
-            // TODO throws warum überhaupt was werfen???
-        }
+        members.remove(student);
     }
 
     /**
@@ -300,8 +292,6 @@ public class LearningGroup extends ElipseModel {
             Semester semester) {
         return Ebean.find(LearningGroup.class).where().eq(NAME, name).where()
                 .eq(SEMESTER, semester).findUnique();
-        // TODO sicher, dass das Semester beachtet wird?
-
     }
 
     /**

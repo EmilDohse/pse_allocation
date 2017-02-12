@@ -1,6 +1,6 @@
 package qualityCriteria;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,6 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import data.Allocation;
+import data.DataTest;
 import data.LearningGroup;
 import data.Project;
 import data.Rating;
@@ -16,9 +17,8 @@ import data.Semester;
 import data.Student;
 import data.Team;
 import exception.DataException;
-import play.test.WithApplication;
 
-public class StudentHappinessTest extends WithApplication {
+public class StudentHappinessTest extends DataTest {
 
     Semester            semester;
     Allocation          allocation;

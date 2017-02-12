@@ -31,7 +31,6 @@ public class Adviser extends User {
      * @return Die Projekte, die der Betreuer beaufsichtigt.
      */
     public List<Project> getProjects() {
-        // TODO auf Ebean Query umbauen
         List<Project> projects = new ArrayList<Project>();
         for (Project p : Project.getProjects()) {
             if (p.getAdvisers().contains(this)) {
