@@ -22,7 +22,6 @@ public class Team extends ElipseModel /* implements Comparable<Team> */ {
     /**
      * Nummer des Teams
      */
-    // TODO @GeneratedValue
     private int           teamNumber;
     /**
      * Das Projekt des Teams
@@ -105,11 +104,7 @@ public class Team extends ElipseModel /* implements Comparable<Team> */ {
      *            Der Studierende, der aus dem Team entfernt wird.
      */
     public void removeMember(Student member) {
-        if (members.contains(member)) {
-            members.remove(member);
-        } else {
-            // TODO throws
-        }
+        members.remove(member);
     }
 
     /**

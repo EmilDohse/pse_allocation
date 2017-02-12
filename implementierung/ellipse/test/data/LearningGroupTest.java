@@ -61,7 +61,6 @@ public class LearningGroupTest extends DataTest {
 
     @Test
     public void testRatings() {
-        // TODO Warum Reihenfolge beim save relevant?
         Rating rating = new Rating();
         Project firstP = new Project();
         firstP.save();

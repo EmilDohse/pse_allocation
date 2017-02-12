@@ -518,8 +518,6 @@ public class Importer {
                 Student importedStudent = new Student();
                 importedStudent.setCompletedAchievements(completedAchievements);
                 importedStudent.setOralTestAchievements(oralTestAchievements);
-                // TODO Die beiden oben können aus irgendnem Grund nicht ins
-                // Lambda
                 importedStudent.doTransaction(() -> {
                     importedStudent.setUserName(new String() + matNr);
                     importedStudent.setPassword(password);

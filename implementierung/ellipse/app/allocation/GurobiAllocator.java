@@ -124,9 +124,7 @@ public class GurobiAllocator extends AbstractAllocator {
     public void calculate() {
         synchronized (this) {
             if (null == this.model) {
-                // TODO Nachricht in message Datei einfügen
-                Allocation failure = nullObject(
-                        "allocation.calculateBeforeInit");
+                Allocation failure = nullObject("CalculateBeforeInit");
                 failure.save();
                 return;
             }

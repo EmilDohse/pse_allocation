@@ -188,11 +188,7 @@ public class Student extends User {
      *            Die Matrikelnummer des Studierenden.
      */
     public void setMatriculationNumber(int matriculationNumber) {
-        if (matriculationNumber >= 0) {
-            this.matriculationNumber = matriculationNumber;
-        } else {
-            // TODO throws
-        }
+        this.matriculationNumber = matriculationNumber;
     }
 
     /**
@@ -276,11 +272,7 @@ public class Student extends User {
      *            Das Fachsemester des Studierenden.
      */
     public void setSemester(int semester) {
-        if (semester >= 0) {
-            this.semester = semester;
-        } else {
-            // TODO throws
-        }
+        this.semester = semester;
     }
 
     /**
@@ -341,13 +333,10 @@ public class Student extends User {
         // Variante mit alle Semester aus der DB laden und durchsuchen war zu
         // langsam.
         String SQL = "SELECT s.semester_id " + "FROM "
-                + Semester.JOIN_TABLE_NAME + " s "
-                + "WHERE s." + Semester.JOIN_COLOUMN_STUDENT + " = "
-                + this.getId();
-        RawSql rawSql = RawSqlBuilder.parse(SQL)
-                .columnMapping("s." + Semester.JOIN_CLOUMN_SEMESTER,
-                        Semester.ID)
-                .create();
+                + Semester.JOIN_TABLE_NAME + " s " + "WHERE s."
+                + Semester.JOIN_COLOUMN_STUDENT + " = " + this.getId();
+        RawSql rawSql = RawSqlBuilder.parse(SQL).columnMapping(
+                "s." + Semester.JOIN_CLOUMN_SEMESTER, Semester.ID).create();
         Query<Semester> query = Ebean.find(Semester.class);
         query.setRawSql(rawSql);
         List<Semester> registeredSemesters = query.findList();

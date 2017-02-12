@@ -52,8 +52,6 @@ public class MoveStudentCommand extends EditAllocationCommand {
         for (Student s : students) {
             Team t = allocation.getTeam(s);
             oldTeams.put(s, t);
-            // TODO hier eine warnung werfen falls die teamgröße überschritten
-            // wird
             if (t != null) {
                 t.doTransaction(() -> {
                     t.removeMember(s);
@@ -73,8 +71,6 @@ public class MoveStudentCommand extends EditAllocationCommand {
     @Override
     public void undo() {
         for (Student s : students) {
-            // TODO hier eine warnung werfen falls die teamgröße überschritten
-            // wird
             if (newTeam != null) {
                 newTeam.doTransaction(() -> {
                     newTeam.removeMember(s);

@@ -166,7 +166,6 @@ public class IndexPageController extends Controller {
                         l.rate(p, 3);
                     }
                 });
-                // TODO get student data from view ???
                 Semester currentSemester = GeneralData.loadInstance()
                         .getCurrentSemester();
                 currentSemester.doTransaction(() -> {

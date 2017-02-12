@@ -100,10 +100,6 @@ public class ImporterTest {
         assertNotNull(SPO.getSPO("2008"));
         assertFalse(SPO.getSPO("2008").getAdditionalAchievements().isEmpty());
         assertFalse(SPO.getSPO("2008").getNecessaryAchievements().isEmpty());
-        // TODO Hier kommt BeanList deferred raus... Keine Ahnung wie man
-        // das fixt
-        // assertEquals(2, SPO.getSPO("2008").getAdditionalAchievements());
-        // assertEquals(2, SPO.getSPO("2008").getNecessaryAchievements());
         importerExporter.exportSPO(new File("exportTestSpo.csv"),
                 SPO.getSPO("2008"));
     }
