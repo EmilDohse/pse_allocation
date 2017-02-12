@@ -4,10 +4,10 @@
 
 package allocation;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Queue;
-import java.util.concurrent.ArrayBlockingQueue;
 
 /************************************************************/
 /**
@@ -21,7 +21,7 @@ public class AllocationQueue {
     /**
      * Der Worker-Thread, der die Berechnungen durchführt
      */
-    private Runnable                        runnable;
+    private Thread                          worker;
     /**
      * Die intern verwendete queue.
      */
@@ -44,36 +44,11 @@ public class AllocationQueue {
      * wird.
      */
     private AllocationQueue() {
-        this.configurationQueue = new ArrayBlockingQueue<>(QUEUE_SIZE);
+        this.configurationQueue = new ArrayDeque<>(QUEUE_SIZE);
         this.allocator = new GurobiAllocator();
-
-        runnable = new Runnable() {
-
-            @Override
-            public void run() {
-                while (true) {
-                    synchronized (this) { // syncronized da ansonsten probleme
-                                          // mit dem cancel() kommen könnten
-                        while (configurationQueue.isEmpty()) {
-                            try {
-                                wait();
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                                return;
-                            }
-                        }
-                        currentlyCalculatedConfiguration = configurationQueue
-                                .poll();
-                        allocator.init(currentlyCalculatedConfiguration);
-                    }
-                    allocator.calculate();
-                    currentlyCalculatedConfiguration = null;
-                }
-            }
-
-        };
-        new Thread(runnable).start();// hier wird der thread gestartet der
-                                     // überpüft ob die liste
+        worker = new QueueWorker();
+        worker.start();
+        // hier wird der thread gestartet, der überpüft ob die liste
         // leer ist und sie gegebenenfalls abarbeitet
     }
 
@@ -99,9 +74,9 @@ public class AllocationQueue {
      *            Die Konfiguration, die zur Berechnungsqueue hinzugefügt wird.
      */
     public void addToQueue(allocation.Configuration configuration) {
-        synchronized (this.runnable) {
+        synchronized (this.worker) {
             configurationQueue.add(configuration);
-            this.runnable.notifyAll(); // der calculator thread wird
+            this.worker.notifyAll(); // der calculator thread wird
                                        // geweckt
         }
     }
@@ -114,7 +89,7 @@ public class AllocationQueue {
      *            Der Name der Konfiguration, die entfernt werden soll.
      */
     public void cancelAllocation(String name) {
-        synchronized (this.runnable) {
+        synchronized (this.worker) {
             if (null != currentlyCalculatedConfiguration && name
                     .equals(currentlyCalculatedConfiguration.getName())) {
                 currentlyCalculatedConfiguration = null;
@@ -139,7 +114,7 @@ public class AllocationQueue {
         // hier könnte QUEUE_SIZE verwendet werden da die queue jedoch meist
         // nicht voll sein wird hier nur 4
         ArrayList<allocation.Configuration> list = new ArrayList<>(4);
-        synchronized (this.runnable) {
+        synchronized (this.worker) {
             if (currentlyCalculatedConfiguration != null) {
                 list.add(currentlyCalculatedConfiguration);
             }
@@ -162,7 +137,7 @@ public class AllocationQueue {
      * Entfernt alle Elemente aus der Queue.
      */
     public void clear() {
-        synchronized (this.runnable) {
+        synchronized (this.worker) {
             configurationQueue.clear();
             if (currentlyCalculatedConfiguration != null) {
                 cancelAllocation(currentlyCalculatedConfiguration.getName());
@@ -171,4 +146,32 @@ public class AllocationQueue {
         }
     }
 
+    private class QueueWorker extends Thread {
+
+        @Override
+        public void run() {
+            while (true) {
+                synchronized (this) {
+                    // syncronized da ansonsten probleme mit dem cancel() kommen
+                    // könnten
+                    while (configurationQueue.isEmpty()) {
+                        try {
+                            wait();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                            assert false;
+                            return;
+                        }
+                    }
+                    currentlyCalculatedConfiguration = configurationQueue
+                            .poll();
+                    allocator.init(currentlyCalculatedConfiguration);
+                }
+                allocator.calculate();
+                currentlyCalculatedConfiguration = null;
+            }
+        }
+    }
+
 }
+

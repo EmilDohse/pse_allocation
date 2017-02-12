@@ -16,6 +16,7 @@ import data.Project;
 import data.SMTPOptions;
 import data.SPO;
 import data.Semester;
+import deadline.StateStorage;
 import play.mvc.Controller;
 import play.mvc.Result;
 import views.AdminMenu;
@@ -204,5 +205,35 @@ public class AdminPageController extends Controller {
         play.twirl.api.Html content = views.html.adminAccount.render();
         Menu menu = new AdminMenu(ctx(), ctx().request().path());
         return ok(views.html.admin.render(menu, content));
+    }
+
+    /**
+     * Methode, welche zum Redirect verwendet wird, wenn die Aktion (der
+     * Request) im aktuellen Zustand (s. deadline).
+     * 
+     * @param url
+     *            die url zum Redirecten
+     * @return die Seite, die angezeigt werden soll
+     */
+    public Result notAllowedInCurrentState(String url) {
+        switch (StateStorage.getInstance().getCurrentState()) {
+        case BEFORE_REGISTRATION_PHASE:
+            flash("info", ctx().messages()
+                    .at("admin.beforeRegistration.actionNotAllowed"));
+            break;
+        case REGISTRATION_PHASE:
+            flash("info",
+                    ctx().messages().at("admin.registration.actionNotAllowed"));
+            break;
+        case AFTER_REGISTRATION_PHASE:
+            flash("info", ctx().messages()
+                    .at("admin.afterRegistration.actionNotAllowed"));
+            break;
+        default:
+            flash("info", ctx().messages().at("state.actionNotAllowed"));
+            break;
+        }
+
+        return redirect(url);
     }
 }

@@ -66,8 +66,7 @@ public class CriterionPreferHigherSemester implements GurobiCriterion {
      * @return 3 im WS, 4 im SS.
      */
     private int getNormalSemester(Semester semester) {
-        if (GeneralData.loadInstance().getCurrentSemester()
-                .isWintersemester()) {
+        if (semester.isWintersemester()) {
             return 3;
         } else {
             return 4;
