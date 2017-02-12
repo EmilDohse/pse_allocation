@@ -119,11 +119,12 @@ public class IndexPageController extends Controller {
             password = passwordValidator.validate(form.get("pw"));
             pwRepeat = passwordValidator.validate(form.get("rpw"));
             spoId = minValidator.validate(form.get("spo"));
-            matNr = minValidator.validate(form.get("mtrnr"));
+            matNr = minValidator.validate(form.get("matrnr"));
             semester = minValidator.validate(form.get("semester"));
         } catch (ValidationException e) {
             flash("error", ctx().messages().at(e.getMessage()));
-            return redirect(controllers.routes.IndexPageController.registerPage());
+            return redirect(controllers.routes.IndexPageController
+                    .registerPage());
         }
         SPO spo = ElipseModel.getById(SPO.class, spoId);
         boolean trueData = false;
@@ -137,7 +138,7 @@ public class IndexPageController extends Controller {
         List<Achievement> nonCompletedAchievements = new ArrayList<>();
         try {
             completedAchievements = MultiselectList.createAchievementList(form,
-                    "completed-" + spoIdString + "-multiselect");
+                    "completed-" + Integer.toString(spoId) + "-multiselect");
         } catch (NumberFormatException e) {
             flash("error", ctx().messages().at(INTERNAL_ERROR));
             return redirect(controllers.routes.IndexPageController
@@ -145,7 +146,7 @@ public class IndexPageController extends Controller {
         }
         try {
             nonCompletedAchievements = MultiselectList.createAchievementList(
-                    form, "due-" + spoIdString + "-multiselect");
+                    form, "due-" + Integer.toString(spoId) + "-multiselect");
         } catch (NumberFormatException e) {
             flash("error", ctx().messages().at(INTERNAL_ERROR));
             return redirect(controllers.routes.IndexPageController
@@ -163,10 +164,10 @@ public class IndexPageController extends Controller {
                 if (Student.getStudent(matNr) == null) {
                     String encPassword = new BlowfishPasswordEncoder()
                             .encode(password);
-                    Student student = new Student(matNrString, encPassword,
-                            email, firstName, lastName, matNr, spo,
-                            completedAchievements, nonCompletedAchievements,
-                            semester);
+                    Student student = new Student(Integer.toString(matNr),
+                            encPassword, email, firstName, lastName, matNr,
+                            spo, completedAchievements,
+                            nonCompletedAchievements, semester);
                     student.save();
 
                     LearningGroup l = new LearningGroup(student.getUserName(),
@@ -252,7 +253,8 @@ public class IndexPageController extends Controller {
             password = passwordValidator.validate(form.get("password"));
         } catch (ValidationException e) {
             flash("error", ctx().messages().at(e.getMessage()));
-            return redirect(controllers.routes.IndexPageController.passwordResetPage());
+            return redirect(controllers.routes.IndexPageController
+                    .passwordResetPage());
         }
         String pwRepeat = form.get("pwRepeat");
         if (!password.equals(pwRepeat)) {
