@@ -9,7 +9,6 @@ import java.util.NoSuchElementException;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
-import javax.persistence.Transient;
 
 /************************************************************/
 /**
@@ -40,11 +39,7 @@ public class GeneralData extends ElipseModel {
      * @return Das aktuelle Semester.
      */
     public Semester getCurrentSemester() {
-        if (currentSemester == null) {
-            Semester semester = new Semester();
-            semester.setId(-1);
-            return semester;
-        }
+        //Ein currentSemester wird durch die DB Evolutions immer gesetzt
         return currentSemester;
     }
 
@@ -62,17 +57,9 @@ public class GeneralData extends ElipseModel {
      * Lädt die Daten aus der Datenbank
      */
     public static GeneralData loadInstance() {
-        GeneralData instance;
-        try {
-            instance = ElipseModel.getAll(GeneralData.class).stream()
+        // General Data wird durch die DB Evolutions immer angelegt
+        return ElipseModel.getAll(GeneralData.class).stream()
                     .findFirst().get();
-        } catch (NoSuchElementException e) {
-            // If no GeneralData is in Database create one
-            GeneralData data = new GeneralData();
-            data.save();
-            return data;
-        }
-        return instance;
     }
 
 }

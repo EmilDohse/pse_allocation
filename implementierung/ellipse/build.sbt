@@ -28,4 +28,5 @@ fork in run := true
 
 routesGenerator := InjectedRoutesGenerator
 
-fork in run := true
+ libraryDependencies += cache
+ libraryDependencies += evolutions
