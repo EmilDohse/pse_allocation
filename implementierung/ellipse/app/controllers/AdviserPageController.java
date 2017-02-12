@@ -151,28 +151,40 @@ public class AdviserPageController extends Controller {
         if (form.data().isEmpty()) {
             return badRequest(ctx().messages().at(INTERNAL_ERROR));
         }
-        String projName = form.get("name");
-        String url = form.get("url");
-        String institute = form.get("institute");
-        String description = form.get("description");
-        String numberOfTeamsString = form.get("teamCount");
-        // 0
-        String minSizeString = form.get("minSize");
-        String maxSizeString = form.get("maxSize");
+        String projName;
+        String url;
+        String institute;
+        String description;
+        String numberOfTeamsString;
+        String minSizeString;
+        String maxSizeString;
         String idString = form.get("id");
+
         StringValidator stringValidator = Forms.getNonEmptyStringValidator();
         IntValidator intValidator = new IntValidator(0);
         IntValidator maxSizeValidator = new IntValidator(1, Integer.MAX_VALUE);
-        int id = Integer.parseInt(idString);
-        /***********************************/
+
+        int id;
+        try {
+            id = intValidator.validate(idString);
+        } catch (ValidationException e) {
+            flash("error", ctx().messages().at(e.getMessage()));
+            return redirect(controllers.routes.AdviserPageController.projectsPage(-1));
+        }
+
         int numberOfTeams;
         int minSize;
         int maxSize;
         try {
 
-            numberOfTeams = intValidator.validate(numberOfTeamsString);
-            minSize = intValidator.validate(minSizeString);
-            maxSize = maxSizeValidator.validate(maxSizeString);
+            numberOfTeams = intValidator.validate(form.get("teamCount"));
+            minSize = intValidator.validate(form.get("minSize"));
+            maxSize = maxSizeValidator.validate(form.get("maxSize"));
+
+            projName = stringValidator.validate(form.get("name"));
+            url = stringValidator.validate(form.get("url"));
+            institute = stringValidator.validate(form.get("institute"));
+            description = stringValidator.validate(form.get("description"));
         } catch (ValidationException e) {
             flash("error", ctx().messages().at(e.getMessage()));
             return redirect(controllers.routes.AdviserPageController.projectsPage(id));
