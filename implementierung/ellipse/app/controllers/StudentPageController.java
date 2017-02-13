@@ -46,10 +46,10 @@ import views.StudentMenu;
 public class StudentPageController extends Controller {
 
     private static final String STATE_ACTION_NOT_ALLOWED = "state.actionNotAllowed";
-    private static final String ERROR = "error";
-    private static final String INTERNAL_ERROR         = "error.internalError";
-    private static final String GEN_ERROR              = "index.registration.error.genError";
-    private static final String ALREADY_IN_OTHER_GROUP = "student.learningGroup.error.alreadyInOtherGroup";
+    private static final String ERROR                    = "error";
+    private static final String INTERNAL_ERROR           = "error.internalError";
+    private static final String GEN_ERROR                = "index.registration.error.genError";
+    private static final String ALREADY_IN_OTHER_GROUP   = "student.learningGroup.error.alreadyInOtherGroup";
 
     @Inject
     FormFactory                 formFactory;
@@ -168,8 +168,8 @@ public class StudentPageController extends Controller {
                         .learningGroupPage());
             }
             flash(ERROR, ctx().messages().at(GEN_ERROR));
-            return redirect(controllers.routes.StudentPageController
-                    .changeFormPage());
+            return redirect(
+                    controllers.routes.StudentPageController.changeFormPage());
         }
 
     }
@@ -295,9 +295,8 @@ public class StudentPageController extends Controller {
         String name = form.get("learningGroupname");
         if (name.matches("\\d*")) {
             // Wenn Name leer ist oder nur aus Ziffern besteht
-            flash(ERROR,
-                    ctx().messages().at(
-                            "student.learningGroup.error.nameFormat"));
+            flash(ERROR, ctx().messages()
+                    .at("student.learningGroup.error.nameFormat"));
             return redirect(controllers.routes.StudentPageController
                     .learningGroupPage());
         }
@@ -316,9 +315,8 @@ public class StudentPageController extends Controller {
         LearningGroup learningGroup = LearningGroup.getLearningGroup(name,
                 semester);
         if (learningGroup != null) {
-            flash(ERROR,
-                    ctx().messages().at(
-                            "student.learningGroup.error.existsAlready"));
+            flash(ERROR, ctx().messages()
+                    .at("student.learningGroup.error.existsAlready"));
             return redirect(controllers.routes.StudentPageController
                     .learningGroupPage());
         }
@@ -337,9 +335,6 @@ public class StudentPageController extends Controller {
         oldLg.delete();
         semester.refresh();
         semester.doTransaction(() -> {
-            // TODO falls man die alten bewertungen wieder will muss man
-            // hier
-            // die alte lerngruppe behalten
             semester.addLearningGroup(lg);
         });
         return redirect(
@@ -353,15 +348,12 @@ public class StudentPageController extends Controller {
      * @return Die Seite, die als Antwort verschickt wird.
      */
     public Result leaveLearningGroup() {
-        // TODO wirft manchmal PersistenceException
-        // Student hat dann keine Lerngruppe mehr
         Student student = userManagement.getUserProfile(ctx());
         LearningGroup lg = GeneralData.loadInstance().getCurrentSemester()
                 .getLearningGroupOf(student);
         if (lg.isPrivate()) {
-            flash(ERROR,
-                    ctx().messages().at(
-                            "student.learningGroup.error.noLearningGroup"));
+            flash(ERROR, ctx().messages()
+                    .at("student.learningGroup.error.noLearningGroup"));
             return redirect(controllers.routes.StudentPageController
                     .learningGroupPage());
         }
@@ -426,9 +418,8 @@ public class StudentPageController extends Controller {
         // Wenn die Lerngruppe bereits voll ist, wird ein Fehler zurückgegeben
         if (lgNew.getMembers().size() >= GeneralData.loadInstance()
                 .getCurrentSemester().getMaxGroupSize()) {
-            flash(ERROR,
-                    ctx().messages().at(
-                            "student.learningGroup.error.learningGroupFull"));
+            flash(ERROR, ctx().messages()
+                    .at("student.learningGroup.error.learningGroupFull"));
             return redirect(controllers.routes.StudentPageController
                     .learningGroupPage());
         }
@@ -438,9 +429,8 @@ public class StudentPageController extends Controller {
                     .learningGroupPage());
         }
         if (lgNew.isPrivate()) {
-            flash(ERROR,
-                    ctx().messages().at(
-                            "student.learningGroup.error.joinProhibited"));
+            flash(ERROR, ctx().messages()
+                    .at("student.learningGroup.error.joinProhibited"));
             return redirect(controllers.routes.StudentPageController
                     .learningGroupPage());
         }
@@ -493,8 +483,8 @@ public class StudentPageController extends Controller {
                 pw = validator.validate(form.get("newPassword"));
             } catch (ValidationException e) {
                 flash(ERROR, ctx().messages().at(e.getMessage()));
-                return redirect(controllers.routes.StudentPageController
-                        .accountPage());
+                return redirect(
+                        controllers.routes.StudentPageController.accountPage());
             }
             String pwrepeat = form.get("newPasswordRepeat");
 
@@ -502,11 +492,10 @@ public class StudentPageController extends Controller {
                     student.getPassword());
 
             if (!matches) {
-                flash(ERROR,
-                        ctx().messages().at(
-                                "student.account.error.pwsDontMatch"));
-                return redirect(controllers.routes.StudentPageController
-                        .accountPage());
+                flash(ERROR, ctx().messages()
+                        .at("student.account.error.pwsDontMatch"));
+                return redirect(
+                        controllers.routes.StudentPageController.accountPage());
             }
             if (!pw.equals(pwrepeat)) {
                 flash(ERROR,
@@ -527,8 +516,8 @@ public class StudentPageController extends Controller {
                 email = emailValidator.validate(form.get("newEmail"));
             } catch (ValidationException e) {
                 flash(ERROR, ctx().messages().at(e.getMessage()));
-                return redirect(controllers.routes.StudentPageController
-                        .accountPage());
+                return redirect(
+                        controllers.routes.StudentPageController.accountPage());
             }
             student.doTransaction(() -> {
                 student.setEmailAddress(email);

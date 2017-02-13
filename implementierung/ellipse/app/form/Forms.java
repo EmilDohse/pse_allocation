@@ -5,6 +5,8 @@ package form;
  */
 public class Forms {
 
+    private static final int MINIMUM_PASSWORD_LENGTH = 6;
+
     /**
      * Utility Klasse sollte nicht instanziiert werden.
      */
@@ -17,9 +19,10 @@ public class Forms {
      * @return Passwort-Valifizierer.
      */
     public static StringValidator getPasswordValidator() {
-        StringValidator validator = new StringValidator(6);
+        StringValidator validator = new StringValidator(
+                MINIMUM_PASSWORD_LENGTH);
         validator.setMessage("general.error.minimalPasswordLegth");
-        return validator;// TODO: Als Konstante
+        return validator;
     }
 
     /**
