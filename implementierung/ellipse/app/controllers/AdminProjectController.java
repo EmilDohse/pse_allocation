@@ -13,10 +13,10 @@ import data.ElipseModel;
 import data.GeneralData;
 import data.Project;
 import data.Semester;
+import exception.ValidationException;
 import form.Forms;
 import form.IntValidator;
 import form.StringValidator;
-import form.ValidationException;
 import play.data.DynamicForm;
 import play.data.FormFactory;
 import play.mvc.Controller;
@@ -31,6 +31,7 @@ import play.mvc.Result;
 public class AdminProjectController extends Controller {
 
     private static final String INTERNAL_ERROR = "error.internalError";
+    private static final String ERROR          = "error";
 
     @Inject
     FormFactory                 formFactory;
@@ -100,10 +101,6 @@ public class AdminProjectController extends Controller {
         String url;
         String institute;
         String description;
-        String numberOfTeamsString;
-        String minSizeString;
-        String maxSizeString;
-        String idString;
         int numberOfTeams;
         int minSize;
         int maxSize;
@@ -112,7 +109,7 @@ public class AdminProjectController extends Controller {
         try {
             id = minValidator.validate(form.get("idString"));
         } catch (ValidationException e) {
-            flash("error", ctx().messages().at(e.getMessage()));
+            flash(ERROR, ctx().messages().at(e.getMessage()));
             return redirect(controllers.routes.AdminPageController.projectEditPage(-1));
         }
         Project project = ElipseModel.getById(Project.class, id);
@@ -125,12 +122,12 @@ public class AdminProjectController extends Controller {
             minSize = minValidator.validate(form.get("minSize"));
             maxSize = minValidator.validate(form.get("maxSize"));
         } catch (ValidationException e) {
-            flash("error", ctx().messages().at("error.wrongInput"));
+            flash(ERROR, ctx().messages().at("error.wrongInput"));
             return redirect(controllers.routes.AdminPageController.projectEditPage(project.getId()));
         }
 
         if ((minSize == 0 ^ maxSize == 0) || (maxSize < minSize)) {
-            flash("error", ctx().messages().at("error.wrongInput"));
+            flash(ERROR, ctx().messages().at("error.wrongInput"));
             return redirect(controllers.routes.AdminPageController.projectEditPage(project.getId()));
         }
         ArrayList<Adviser> advisers = new ArrayList<>();
@@ -140,14 +137,10 @@ public class AdminProjectController extends Controller {
             try {
                 adviserId = Integer.parseInt(adviserIdString);
             } catch (NumberFormatException e) {
-                flash("error", ctx().messages().at(INTERNAL_ERROR));
+                flash(ERROR, ctx().messages().at(INTERNAL_ERROR));
                 return redirect(controllers.routes.AdminPageController.projectEditPage(project.getId()));
             }
             advisers.add(ElipseModel.getById(Adviser.class, adviserId));
-        }
-        if (minSize > maxSize) {
-            flash("error", ctx().messages().at("index.registration.error.minMax"));
-            return redirect(controllers.routes.AdminPageController.projectEditPage(project.getId()));
         }
 
         // und dem projekt hinzugefügt

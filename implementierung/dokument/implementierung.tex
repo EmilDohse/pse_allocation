@@ -108,22 +108,21 @@ Kleinigkeiten\\
 Mit sechs Entwicklern in der kurzen Zeit von nur 4 Wochen, die auch noch in der
 Prüfungsphase liegt, ein Software-Produkt zu implementieren erfordert, dass die
 Entwickler effizient arbeiten können. Da sich jeder von uns bereits in der
-Entwurfsphase auf ein Gebiet spezialisiert hatte bot es sich an jedem auf seinem
+Entwurfsphase auf ein Gebiet spezialisiert hatte, bot es sich an, jedem auf seinem
 \enquote{Fachgebiet} auch die Implementierung zu übertragen. 
-Ein weiterer Grund für unser Vorgehen war, das wir den Aufwand für
+Ein weiterer Grund für unser Vorgehen war, dass wir den Aufwand für
 Web-Entwicklung und die Arbeit mir vielen Libraries und Frameworks 
 %also das implementieren der Views und deren Anbindung an die Controller und das
 % verwenden von ORM-Tools
 nicht einschätzen konnten. Daher
 wollten wir hier frühzeitig ein funktionierendes Grundgerüst schaffen.
-Genau diese herangehensweise bewährte sich, da die Arbeit mit eBean (unserem
+Genau diese Herangehensweise bewährte sich, da die Arbeit mit eBean (unserem
 ORM-Tool) und dem Play-Framework sich als weit anstrengender herausstellte als
-gedacht. Veraltete und nicht vorhandene Dokumentatonen, leer implementerte
-Methoden und den guten Ratschlag bei StackOverflow die doch
+gedacht. Veraltete und nicht vorhandene Dokumentationen, leer implementierte
+Methoden und der gute Ratschlag bei StackOverflow doch
 lieber Hibernate zu verwenden waren allgegenwärtig.
 
 
-Bei der 
 %TODO zweites Diagramm wie haben wir wirklich implementeirt
 
 %dann fairness bzw hierzu nur einen satz aber allgemeine statistiken 
@@ -143,7 +142,7 @@ NotificationSystem & Weitere Tests +
 Bugfixes +
 Kleinigkeiten\\
 \hline
-Philipp Faller&Data&Datens&Bugfixes&Bugfixes +  Email\\
+Philipp Faller&Data&Data&Bugfixes&Bugfixes +  Email\\
 \hline
 Philipp Loth&Allocator&Import/Export
 &Import/Export + Kleinigkeiten &Weitere Tests +
@@ -170,7 +169,7 @@ vorgenommen:
 \begin{itemPackage}
 \item allocation
 \begin{itemClass}
-\item Abstract Allocator
+\item AbstractAllocator
 \begin{itemClassSub}
 \item Methoden
 \begin{itemPlus}
@@ -212,10 +211,10 @@ List<AllocationParameter>)
 \end{itemPlus}
 \item Atribute
 \begin{itemPlus}
-\item +teams : List<Team>
+\item teams : List<Team>
 \end{itemPlus}
 \begin{itemMinus}
-\item -projects : List<Project>
+\item projects : List<Project>
 \end{itemMinus}
 \end{itemClassSub}
 \item Criterion
@@ -339,9 +338,12 @@ List<AllocationParameter>)
 \end{itemPlus}
 \end{itemClassSub}
 \item SwapStudent
+\item \begin{itemClassSub}
+\item Konstruktoren
 \begin{itemPlus}
 \item SwapStudentCommand(Allocation, Student, Student)
 \end{itemPlus}
+\end{itemClassSub}
 \end{itemClass}
 \item data
 \begin{itemClass}
@@ -697,7 +699,7 @@ List<Achievement>, List<Achievement>, int)
 \item \begin{itemize}
 	  \item Klasse hinzugefügt
 	\end{itemize}
-\item UserAuthentikator
+\item UserAuthenticator
 \item \begin{itemize}
 	  \item Klasse hinzugefügt
 	\end{itemize}

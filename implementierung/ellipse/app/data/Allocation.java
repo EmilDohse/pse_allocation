@@ -80,7 +80,6 @@ public class Allocation extends ElipseModel {
         for (Team t : a.getTeams()) {
             Team newTeam = new Team();
             newTeam.setProject(t.getProject());
-            // newTeam.setMembers(t.getMembers());
             newTeam.setTeamNumber(t.getTeamNumber());
             for (Student member : t.getMembers()) {
                 newTeam.addMember(member);
@@ -220,7 +219,7 @@ public class Allocation extends ElipseModel {
      * @return List der Teams, die der Adviser betreut.
      */
     public List<Team> getTeamsByAdviser(Adviser adviser) {
-        List<Team> teamsByAdviser = new ArrayList<Team>();
+        List<Team> teamsByAdviser = new ArrayList<>();
         for (Team t : teams) {
             if (t.getProject().getAdvisers().contains(adviser)) {
                 teamsByAdviser.add(t);
@@ -237,7 +236,7 @@ public class Allocation extends ElipseModel {
      * @return List der Teams von dem Projekt.
      */
     public List<Team> getTeamsByProject(Project project) {
-        List<Team> teamsByProject = new ArrayList<Team>();
+        List<Team> teamsByProject = new ArrayList<>();
         for (Team t : teams) {
             if (t.getProject().equals(project)) {
                 teamsByProject.add(t);
@@ -252,11 +251,10 @@ public class Allocation extends ElipseModel {
      * @return nicht zugeteilte Studenten.
      */
     public List<Student> getNotAllocatedStudents() {
-        List<Student> students = semester.getStudents().stream()
-                .filter(student -> (getTeam(student) == null))
+        return semester.getStudents().stream()
+                .filter(student -> getTeam(student) == null)
                 .collect(Collectors.toList());
 
-        return students;
     }
 
     /**

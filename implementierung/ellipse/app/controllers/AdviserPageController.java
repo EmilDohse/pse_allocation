@@ -18,10 +18,10 @@ import data.Semester;
 import data.Student;
 import data.Team;
 import deadline.StateStorage;
+import exception.ValidationException;
 import form.Forms;
 import form.IntValidator;
 import form.StringValidator;
-import form.ValidationException;
 import play.data.DynamicForm;
 import play.data.FormFactory;
 import play.mvc.Controller;
@@ -37,6 +37,8 @@ import views.Menu;
  * im Betreuerbereich aufkommen.
  */
 public class AdviserPageController extends Controller {
+
+    private static final String ERROR = "error";
 
     private static final String INTERNAL_ERROR = "error.internalError";
 
@@ -120,7 +122,7 @@ public class AdviserPageController extends Controller {
                 semester.addProject(project);
             });
         } else {
-            flash("error", ctx().messages().at(INTERNAL_ERROR));
+            flash(ERROR, ctx().messages().at(INTERNAL_ERROR));
         }
         return redirect(controllers.routes.AdviserPageController
                 .projectsPage(projID));
@@ -177,9 +179,6 @@ public class AdviserPageController extends Controller {
         String url;
         String institute;
         String description;
-        String numberOfTeamsString;
-        String minSizeString;
-        String maxSizeString;
         String idString = form.get("id");
 
         StringValidator stringValidator = Forms.getNonEmptyStringValidator();
@@ -194,7 +193,7 @@ public class AdviserPageController extends Controller {
         try {
             id = intValidator.validate(idString);
         } catch (ValidationException e) {
-            flash("error", ctx().messages().at(e.getMessage()));
+            flash(ERROR, ctx().messages().at(e.getMessage()));
             return redirect(controllers.routes.AdviserPageController
                     .projectsPage(-1));
         }
@@ -210,18 +209,18 @@ public class AdviserPageController extends Controller {
             institute = stringValidator.validate(form.get("institute"));
             description = stringValidator.validate(form.get("description"));
         } catch (ValidationException e) {
-            flash("error", ctx().messages().at(e.getMessage()));
+            flash(ERROR, ctx().messages().at(e.getMessage()));
             return redirect(controllers.routes.AdviserPageController
                     .projectsPage(id));
         }
         if ((minSize == 0 ^ maxSize == 0) || (maxSize < minSize)) {
-            flash("error", ctx().messages().at("error.wrongInput"));
+            flash(ERROR, ctx().messages().at("error.wrongInput"));
             return redirect(controllers.routes.AdminPageController
                     .projectEditPage(project.getId()));
         }
         boolean isAdviser = adviser.getProjects().contains(project);
         if (!isAdviser) {
-            flash("error", ctx().messages().at(INTERNAL_ERROR));
+            flash(ERROR, ctx().messages().at(INTERNAL_ERROR));
             return redirect(controllers.routes.AdviserPageController
                     .projectsPage(id));
         }
@@ -263,7 +262,7 @@ public class AdviserPageController extends Controller {
                 project.addAdviser(adviser);
             });
         } else {
-            flash("error", ctx().messages().at(INTERNAL_ERROR));
+            flash(ERROR, ctx().messages().at(INTERNAL_ERROR));
         }
         return redirect(controllers.routes.AdviserPageController
                 .projectsPage(project.getId()));
@@ -288,7 +287,7 @@ public class AdviserPageController extends Controller {
         try {
             id = validator.validate(form.get("id"));
         } catch (ValidationException e) {
-            flash("error", ctx().messages().at(e.getMessage()));
+            flash(ERROR, ctx().messages().at(e.getMessage()));
             return redirect(controllers.routes.AdviserPageController
                     .projectsPage(-1));
         }
@@ -298,7 +297,7 @@ public class AdviserPageController extends Controller {
                 project.removeAdviser(adviser);
             });
         } else {
-            flash("error", ctx().messages().at(INTERNAL_ERROR));
+            flash(ERROR, ctx().messages().at(INTERNAL_ERROR));
         }
         return redirect(controllers.routes.AdviserPageController
                 .projectsPage(project.getId()));
@@ -325,14 +324,14 @@ public class AdviserPageController extends Controller {
         try {
             id = intValidator.validate(idString);
         } catch (ValidationException e) {
-            flash("error", ctx().messages().at(e.getMessage()));
+            flash(ERROR, ctx().messages().at(e.getMessage()));
             return redirect(controllers.routes.AdviserPageController
                     .projectsPage(-1));
         }
         Project project = ElipseModel.getById(Project.class, id);
         boolean isAdviser = adviser.getProjects().contains(project);
         if (!isAdviser) {
-            flash("error", ctx().messages().at(INTERNAL_ERROR));
+            flash(ERROR, ctx().messages().at(INTERNAL_ERROR));
             return redirect(controllers.routes.AdviserPageController
                     .projectsPage(id));
         }
@@ -340,7 +339,9 @@ public class AdviserPageController extends Controller {
         Allocation finalAlloc = GeneralData.loadInstance().getCurrentSemester()
                 .getFinalAllocation();
         if (finalAlloc == null) {
-            flash("error", ctx().messages().at(INTERNAL_ERROR));
+            flash(ERROR, ctx().messages().at(INTERNAL_ERROR));
+            return redirect(
+                    controllers.routes.AdviserPageController.projectsPage(id));
         }
         List<Team> teams = finalAlloc.getTeamsByProject(project);
         for (Team team : teams) {
@@ -404,7 +405,7 @@ public class AdviserPageController extends Controller {
                         adviser.getPassword());
 
                 if (!pw.equals(pwrepeat) || !matches) {
-                    flash("error",
+                    flash(ERROR,
                             ctx().messages().at(
                                     "adviser.account.error.passwords"));
                     return redirect(controllers.routes.AdviserPageController
@@ -415,7 +416,7 @@ public class AdviserPageController extends Controller {
                     adviser.setPassword(pwEnc);
                 });
             } catch (ValidationException e) {
-                flash("error", ctx().messages().at(e.getMessage()));
+                flash(ERROR, ctx().messages().at(e.getMessage()));
                 return redirect(controllers.routes.AdviserPageController
                         .accountPage());
             }
@@ -428,7 +429,7 @@ public class AdviserPageController extends Controller {
                     adviser.setEmailAddress(email);
                 });
             } catch (ValidationException e) {
-                flash("error", ctx().messages().at(e.getMessage()));
+                flash(ERROR, ctx().messages().at(e.getMessage()));
                 return redirect(controllers.routes.AdviserPageController
                         .accountPage());
             }

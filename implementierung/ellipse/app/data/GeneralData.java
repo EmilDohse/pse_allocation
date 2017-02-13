@@ -4,8 +4,6 @@
 
 package data;
 
-import java.util.NoSuchElementException;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
@@ -18,20 +16,20 @@ import javax.persistence.OneToOne;
 public class GeneralData extends ElipseModel {
 
     /**
-     * !!!DO NOT USE THIS!!! GeneralData is supposed to be a Singleton.
-     * Constructor is only public due to restrictions in EBean. Use
-     * GeneralData.getInstance() instead.
+     * Das momentane Semester.
+     */
+    @OneToOne(cascade = CascadeType.PERSIST)
+    private Semester currentSemester;
+
+    /**
+     * @deprecated !!!DO NOT USE THIS!!! GeneralData is supposed to be a
+     *             Singleton. Constructor is only public due to restrictions in
+     *             EBean. Use GeneralData.getInstance() instead.
      */
     @Deprecated
     public GeneralData() {
         super();
     }
-
-    /**
-     * Das momentane Semester.
-     */
-    @OneToOne(cascade = CascadeType.PERSIST)
-    private Semester currentSemester;
 
     /**
      * Getter für das aktuelle Semester.

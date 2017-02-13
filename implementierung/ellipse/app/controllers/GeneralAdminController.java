@@ -24,10 +24,10 @@ import data.Project;
 import data.SPO;
 import data.Semester;
 import data.Student;
+import exception.ValidationException;
 import form.Forms;
 import form.IntValidator;
 import form.StringValidator;
-import form.ValidationException;
 import notificationSystem.Notifier;
 import play.data.DynamicForm;
 import play.data.FormFactory;
@@ -44,6 +44,11 @@ import security.UserManagement;
  */
 public class GeneralAdminController extends Controller {
 
+    private static final String PASSWORD = "password";
+    private static final String EMAIL = "email";
+    private static final String LAST_NAME = "lastName";
+    private static final String FIRST_NAME = "firstName";
+    private static final String ERROR = "error";
     private static final String INTERNAL_ERROR = "error.internalError";
     private static final String GENERAL_ERROR  = "admin.allocation.error.generalError";
 
@@ -76,16 +81,15 @@ public class GeneralAdminController extends Controller {
         String lastName;
         String email;
         String password;
-        // String encPassword = new BlowfishPasswordEncoder().encode(password);
         try {
-            firstName = notNullValidator.validate(form.get("firstName"));
-            lastName = notNullValidator.validate(form.get("lastName"));
-            email = emailVerificator.validate(form.get("email"));
-            password = passwordVerificator.validate(form.get("password"));
+            firstName = notNullValidator.validate(form.get(FIRST_NAME));
+            lastName = notNullValidator.validate(form.get(LAST_NAME));
+            email = emailVerificator.validate(form.get(EMAIL));
+            password = passwordVerificator.validate(form.get(PASSWORD));
         } catch (ValidationException e) {
-            flash("error", ctx().messages().at(e.getMessage()));
-            return redirect(
-                    controllers.routes.AdminPageController.adviserPage());
+            flash(ERROR, ctx().messages().at(e.getMessage()));
+            return redirect(controllers.routes.AdminPageController
+                    .adviserPage());
         }
         try {
             Adviser adviser = new Adviser(email,
@@ -94,7 +98,7 @@ public class GeneralAdminController extends Controller {
             adviser.save();
             notifier.sendAdviserPassword(adviser, password);
         } catch (EmailException e) {
-            flash("error", ctx().messages().at("email.couldNotSend"));
+            flash(ERROR, ctx().messages().at("email.couldNotSend"));
             e.printStackTrace();
         }
         return redirect(controllers.routes.AdminPageController.adviserPage());
@@ -143,23 +147,23 @@ public class GeneralAdminController extends Controller {
             minSize = intValidator.validate(form.get("minTeamSize"));
             maxSize = intValidator.validate(form.get("maxTeamSize"));
         } catch (ValidationException e) {
-            flash("error", ctx().messages().at(e.getMessage()));
-            return redirect(
-                    controllers.routes.AdminPageController.allocationPage());
+            flash(ERROR, ctx().messages().at(e.getMessage()));
+            return redirect(controllers.routes.AdminPageController
+                    .allocationPage());
         }
         if ((minSize > maxSize) || (preferedSize > maxSize)
                 || (preferedSize < minSize)) {
-            flash("error", ctx().messages().at(GENERAL_ERROR));
-            return redirect(
-                    controllers.routes.AdminPageController.allocationPage());
+            flash(ERROR, ctx().messages().at(GENERAL_ERROR));
+            return redirect(controllers.routes.AdminPageController
+                    .allocationPage());
         }
         List<AllocationParameter> allocParam;
         try {
             allocParam = createParameters(minSize, maxSize, preferedSize, form);
         } catch (NumberFormatException e) {
-            flash("error", ctx().messages().at(INTERNAL_ERROR));
-            return redirect(
-                    controllers.routes.AdminPageController.allocationPage());
+            flash(ERROR, ctx().messages().at(INTERNAL_ERROR));
+            return redirect(controllers.routes.AdminPageController
+                    .allocationPage());
         }
         AllocationQueue queue = AllocationQueue.getInstance();
         Semester semester = GeneralData.loadInstance().getCurrentSemester();
@@ -174,8 +178,8 @@ public class GeneralAdminController extends Controller {
                 controllers.routes.AdminPageController.allocationPage());
     }
 
-    private List<AllocationParameter> createParameters(int minSize, int maxSize,
-            int preferedSize, DynamicForm form) throws NumberFormatException {
+    private List<AllocationParameter> createParameters(int minSize,
+            int maxSize, int preferedSize, DynamicForm form) {
         // Liste der Parameter wird erstellt
         List<AllocationParameter> result = new ArrayList<>(); // die
         result.add(new AllocationParameter("minSize", minSize));
@@ -226,30 +230,30 @@ public class GeneralAdminController extends Controller {
 
         IntValidator intValidator = new IntValidator(0);
 
-        String firstName = form.get("firstName");
-        String lastName = form.get("lastName");
+        String firstName = form.get(FIRST_NAME);
+        String lastName = form.get(LAST_NAME);
         String matNrString = form.get("matrnr");
-        String email = form.get("email");
-        String password = form.get("password");
+        String email = form.get(EMAIL);
+        String password = form.get(PASSWORD);
         int matNr;
         int semester;
         int spoId;
 
         try {
-            firstName = notEmptyValidator.validate(form.get("firstName"));
-            lastName = notEmptyValidator.validate(form.get("lastName"));
+            firstName = notEmptyValidator.validate(form.get(FIRST_NAME));
+            lastName = notEmptyValidator.validate(form.get(LAST_NAME));
             matNr = intValidator.validate(form.get("matrnr"));
-            email = emailValidator.validate(form.get("email"));
-            password = passwordValidator.validate(form.get("password"));
+            email = emailValidator.validate(form.get(EMAIL));
+            password = passwordValidator.validate(form.get(PASSWORD));
             semester = intValidator.validate(form.get("semester"));
             spoId = intValidator.validate(form.get("spo"));
         } catch (ValidationException e) {
-            flash("error", ctx().messages().at(e.getMessage()));
-            return redirect(
-                    controllers.routes.AdminPageController.studentEditPage());
+            flash(ERROR, ctx().messages().at(e.getMessage()));
+            return redirect(controllers.routes.AdminPageController
+                    .studentEditPage());
         }
         if (Student.getStudent(matNr) != null) {
-            flash("error",
+            flash(ERROR,
                     ctx().messages().at("admin.studentEdit.matrNrExistsError"));
             return redirect(
                     controllers.routes.AdminPageController.studentEditPage());
@@ -303,22 +307,21 @@ public class GeneralAdminController extends Controller {
         try {
             matNr = Integer.parseInt(matNrString);
         } catch (NumberFormatException e) {
-            flash("error", ctx().messages().at(INTERNAL_ERROR));
-            return redirect(
-                    controllers.routes.AdminPageController.studentEditPage());
+            flash(ERROR, ctx().messages().at(INTERNAL_ERROR));
+            return redirect(controllers.routes.AdminPageController
+                    .studentEditPage());
         }
         Student student = Student.getStudent(matNr);
         if (student == null) {
-            flash("error", ctx().messages()
-                    .at("admin.studentEdit.noSuchStudentError"));
-            return redirect(
-                    controllers.routes.AdminPageController.studentEditPage());
+            flash(ERROR,
+                    ctx().messages().at("admin.studentEdit.noSuchStudentError"));
+            return redirect(controllers.routes.AdminPageController
+                    .studentEditPage());
         }
         for (LearningGroup l : LearningGroup.getLearningGroups()) {
-            if (l.getMembers().contains(student)) {
-                if (l.getMembers().size() == 1) {
+            if (l.getMembers().contains(student)
+                    && (l.getMembers().size() == 1)) {
                     l.delete();
-                }
             }
         }
         student.delete();
@@ -350,15 +353,15 @@ public class GeneralAdminController extends Controller {
                 pwrepeat = passwordValidator
                         .validate(form.get("newPasswordRepeat"));
             } catch (ValidationException e) {
-                flash("error", ctx().messages().at(e.getMessage()));
-                return redirect(
-                        controllers.routes.AdminPageController.accountPage());
+                flash(ERROR, ctx().messages().at(e.getMessage()));
+                return redirect(controllers.routes.AdminPageController
+                        .accountPage());
             }
             boolean matches = new BlowfishPasswordEncoder().matches(oldpw,
                     admin.getPassword());
 
             if (!pw.equals(pwrepeat) || !matches) {
-                flash("error",
+                flash(ERROR,
                         ctx().messages().at("admin.account.error.passwords"));
                 return redirect(
                         controllers.routes.AdminPageController.accountPage());

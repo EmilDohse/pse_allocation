@@ -50,8 +50,8 @@ public class SPO extends ElipseModel implements Comparable<SPO> {
     public SPO(String name) {
         super();
         this.name = name;
-        necessaryAchievements = new ArrayList<Achievement>();
-        additionalAchievements = new ArrayList<Achievement>();
+        necessaryAchievements = new ArrayList<>();
+        additionalAchievements = new ArrayList<>();
     }
 
     /**
@@ -187,10 +187,8 @@ public class SPO extends ElipseModel implements Comparable<SPO> {
      */
     @Override
     public boolean equals(Object o) {
-        if (o instanceof SPO) {
-            if (((SPO) o).getName().equals(this.name)) {
+        if (o instanceof SPO && ((SPO) o).getName().equals(this.name)) {
                 return true;
-            }
         }
         return false;
     }

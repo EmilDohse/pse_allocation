@@ -1,4 +1,4 @@
-package form;
+package exception;
 
 /**
  * Exception, die geworfen wird, wen bei der Validierung ein Fehler auftritt.

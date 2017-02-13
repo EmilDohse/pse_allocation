@@ -22,10 +22,10 @@ import data.Semester;
 import data.Student;
 import data.User;
 import deadline.StateStorage;
+import exception.ValidationException;
 import form.Forms;
 import form.IntValidator;
 import form.StringValidator;
-import form.ValidationException;
 import notificationSystem.Notifier;
 import play.data.DynamicForm;
 import play.data.FormFactory;
@@ -45,6 +45,8 @@ import views.Menu;
  * E-Mail-Verifikations-Seite.
  */
 public class IndexPageController extends Controller {
+
+    private static final String ERROR          = "error";
 
     private static final String INTERNAL_ERROR = "error.internalError";
 
@@ -75,6 +77,12 @@ public class IndexPageController extends Controller {
      * @return Die Seite, die als Antwort verschickt wird.
      */
     public Result registerPage() {
+        // Checken ob der UserAuthenticator nen error in die Session geschrieben
+        // hat. Pac4J kann nicht anders leider einen Fehler einem mitteilen.
+        if (session(ERROR) != null) {
+            flash(ERROR, session(ERROR));
+            session().remove(ERROR);
+        }
         play.twirl.api.Html content = views.html.indexRegistration.render(
                 GeneralData.loadInstance().getCurrentSemester().getSpos());
         Menu menu = new IndexMenu(ctx(), ctx().request().path());
@@ -120,7 +128,7 @@ public class IndexPageController extends Controller {
             matNr = minValidator.validate(form.get("matrnr"));
             semester = minValidator.validate(form.get("semester"));
         } catch (ValidationException e) {
-            flash("error", ctx().messages().at(e.getMessage()));
+            flash(ERROR, ctx().messages().at(e.getMessage()));
             return redirect(
                     controllers.routes.IndexPageController.registerPage());
         }
@@ -132,13 +140,13 @@ public class IndexPageController extends Controller {
             // Wahrheit entsprechen
             trueData = true;
         }
-        List<Achievement> completedAchievements = new ArrayList<>();
-        List<Achievement> nonCompletedAchievements = new ArrayList<>();
+        List<Achievement> completedAchievements;
+        List<Achievement> nonCompletedAchievements;
         try {
             completedAchievements = MultiselectList.createAchievementList(form,
                     "completed-" + Integer.toString(spoId) + "-multiselect");
         } catch (NumberFormatException e) {
-            flash("error", ctx().messages().at(INTERNAL_ERROR));
+            flash(ERROR, ctx().messages().at(INTERNAL_ERROR));
             return redirect(
                     controllers.routes.IndexPageController.registerPage());
         }
@@ -146,7 +154,7 @@ public class IndexPageController extends Controller {
             nonCompletedAchievements = MultiselectList.createAchievementList(
                     form, "due-" + Integer.toString(spoId) + "-multiselect");
         } catch (NumberFormatException e) {
-            flash("error", ctx().messages().at(INTERNAL_ERROR));
+            flash(ERROR, ctx().messages().at(INTERNAL_ERROR));
             return redirect(
                     controllers.routes.IndexPageController.registerPage());
         }
@@ -216,18 +224,18 @@ public class IndexPageController extends Controller {
                     // falls bereits ein studnent mit dieser matrikelnumer
                     // im system existiert kann sich der student nicht
                     // registrieren
-                    flash("error", ctx().messages()
+                    flash(ERROR, ctx().messages()
                             .at("index.registration.error.matNrExists"));
                     return redirect(controllers.routes.IndexPageController
                             .registerPage());
                 }
             } else {
-                flash("error", ctx().messages().at(INTERNAL_ERROR));
+                flash(ERROR, ctx().messages().at(INTERNAL_ERROR));
                 return redirect(
                         controllers.routes.IndexPageController.registerPage());
             }
         } else {
-            flash("error", ctx().messages()
+            flash(ERROR, ctx().messages()
                     .at("index.registration.error.passwordUnequal"));
             return redirect(
                     controllers.routes.IndexPageController.registerPage());
@@ -270,13 +278,13 @@ public class IndexPageController extends Controller {
             email = emailValidator.validate(form.get("email"));
             password = passwordValidator.validate(form.get("password"));
         } catch (ValidationException e) {
-            flash("error", ctx().messages().at(e.getMessage()));
+            flash(ERROR, ctx().messages().at(e.getMessage()));
             return redirect(
                     controllers.routes.IndexPageController.passwordResetPage());
         }
         String pwRepeat = form.get("pwRepeat");
         if (!password.equals(pwRepeat)) {
-            flash("error", ctx().messages()
+            flash(ERROR, ctx().messages()
                     .at("index.registration.error.passwordUnequal"));
             return redirect(
                     controllers.routes.IndexPageController.passwordResetPage());
@@ -292,21 +300,19 @@ public class IndexPageController extends Controller {
             }
         }
         if (user == null) {
-            flash("error", ctx().messages().at("index.pwReset.userNotFound"));
+            flash(ERROR, ctx().messages().at("index.pwReset.userNotFound"));
             return redirect(
                     controllers.routes.IndexPageController.passwordResetPage());
         }
         String encPw = new BlowfishPasswordEncoder().encode(password);
-        String code = PasswordResetter.getInstance().initializeReset(user,
-                encPw);
         String verificationCode = PasswordResetter.getInstance()
-                .initializeReset(user, password);
+                .initializeReset(user, encPw);
         try {
             notifier.sendVerifyNewPassword(user,
                     controllers.routes.IndexPageController
                             .resetPassword(verificationCode).url());
         } catch (EmailException e) {
-            flash("error", ctx().messages().at("email.couldNotSend"));
+            flash(ERROR, ctx().messages().at("email.couldNotSend"));
             e.printStackTrace();
         }
 
@@ -325,7 +331,7 @@ public class IndexPageController extends Controller {
         if (PasswordResetter.getInstance().finalizeReset(code)) {
             flash("info", ctx().messages().at("index.pwReset.success"));
         } else {
-            flash("error", ctx().messages().at("index.pwReset.error"));
+            flash(ERROR, ctx().messages().at("index.pwReset.error"));
         }
         return redirect(controllers.routes.IndexPageController.indexPage());
     }
@@ -342,7 +348,7 @@ public class IndexPageController extends Controller {
         if (EmailVerifier.getInstance().verify(code)) {
             flash("info", ctx().messages().at("index.verify.success"));
         } else {
-            flash("error", ctx().messages().at("index.verify.error"));
+            flash(ERROR, ctx().messages().at("index.verify.error"));
         }
         return redirect(controllers.routes.IndexPageController.indexPage());
     }

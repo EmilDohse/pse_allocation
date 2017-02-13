@@ -16,7 +16,7 @@ import data.User;
  */
 public class PasswordResetter {
 
-    private final static PasswordResetter     instance            = new PasswordResetter();
+    private static PasswordResetter           instance;
 
     private static final int                  VALID_CODE_DURATION = 1;
 
@@ -80,6 +80,9 @@ public class PasswordResetter {
      * @return die einzige Verifier-Instanz.
      */
     public static PasswordResetter getInstance() {
+        if (null == instance) {
+            instance = new PasswordResetter();
+        }
         return instance;
     }
 }
