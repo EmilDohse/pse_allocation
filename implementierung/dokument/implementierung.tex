@@ -59,8 +59,8 @@
 \section{Einleitung}
 
 Nachdem im Pflichtenheft beschrieben wurde, was das Produkt leisten soll und
-das Entwurfsdokument beantwortete  wie das Produkt strukturiert sein soll, 
-beschreibt dieses Dokument nun die Implementierung also die Umsetzung der beiden vorherigen Dokumente.
+das Entwurfsdokument beantwortete, wie das Produkt strukturiert sein soll, 
+beschreibt dieses Dokument nun die Implementierung, also die Umsetzung der beiden vorherigen Dokumente.
 
 \section{Implementierungsplan}
 Zu beginn der Implementierungsphase wurde ein Plan erstellt, der unser
@@ -115,7 +115,7 @@ Kleinigkeiten\\
 Mit sechs Entwicklern in der kurzen Zeit von nur 4 Wochen, die auch noch in der
 Prüfungsphase liegt, ein Software-Produkt zu implementieren erfordert, dass die
 Entwickler effizient arbeiten können. Da sich jeder von uns bereits in der
-Entwurfsphase auf ein Gebiet spezialisiert hatte bot es sich an jedem auf seinem
+Entwurfsphase auf ein Gebiet spezialisiert hatte, bot es sich an jedem auf seinem
 \enquote{Fachgebiet} auch die Implementierung zu übertragen. 
 Ein weiterer Grund für unser Vorgehen war, das wir den Aufwand für
 Web-Entwicklung und die Arbeit mir vielen Libraries und Frameworks 
@@ -123,14 +123,13 @@ Web-Entwicklung und die Arbeit mir vielen Libraries und Frameworks
 % verwenden von ORM-Tools
 nicht einschätzen konnten. Daher
 wollten wir hier frühzeitig ein funktionierendes Grundgerüst schaffen.
-Genau diese herangehensweise bewährte sich, da die Arbeit mit Ebean (unserem
+Genau diese Herangehensweise bewährte sich, da die Arbeit mit Ebean (unserem
 ORM-Tool) und dem Play-Framework sich als weit anstrengender herausstellte als
 gedacht. Veraltete und nicht vorhandene Dokumentatonen, leer implementerte
-Methoden und den guten Ratschlag bei StackOverflow die doch
+Methoden und der gute Ratschlag bei StackOverflow doch
 lieber Hibernate zu verwenden waren allgegenwärtig.
 
 
-Bei der 
 %TODO zweites Diagramm wie haben wir wirklich implementeirt
 
 %dann fairness bzw hierzu nur einen satz aber allgemeine statistiken 
@@ -150,7 +149,7 @@ NotificationSystem & Weitere Tests +
 Bugfixes +
 Kleinigkeiten\\
 \hline
-Philipp Faller&Data&Datens&Bugfixes&Bugfixes +  Email\\
+Philipp Faller&Data&Data&Bugfixes&Bugfixes +  Email\\
 \hline
 Philipp Loth&Allocator&Import/Export
 &Import/Export + Kleinigkeiten &Weitere Tests +
@@ -163,7 +162,7 @@ Kleinigkeiten\\
 \hline
 Lars&Data&Data (vor allem
 Ebean)&Controller + Daten &
-Controler-Bugfixes +
+Controller-Bugfixes +
 Kleinigkeiten\\
 \hline
 \end{tabularx}
@@ -172,7 +171,7 @@ Kleinigkeiten\\
 \section{Änderungen zum Entwurfsdokument}
 Zur Sicherung bessere Code-Qualität (z.B. dem Vermeiden von Code-Copy-Pasting)
 und maßgeblich durch die oben beschriebenen Probleme mit verschiedenen
-verwendeten Bibliotheken  wurden Änderungen im Vergleich zum  Entrurfsdokument
+verwendeten Bibliotheken  wurden Änderungen im Vergleich zum  Entwurfsdokument
 vorgenommen. 
 Dabei wurden die Getter, Setter und Konstruktoren der Vollständigkeit halber
 eingefügt und werden hier nicht weiter kommentiert.
@@ -180,7 +179,7 @@ eingefügt und werden hier nicht weiter kommentiert.
 \begin{itemPackage}
 \item allocation
 \begin{itemClass}
-\item Abstract Allocator
+\item AbstractAllocator
 \begin{itemClassSub}
 \item Methoden
 \begin{itemPlus}
@@ -188,7 +187,7 @@ eingefügt und werden hier nicht weiter kommentiert.
 wird diese Methode benötigt.}
 \item init(Configuration)\changeDescription{Um Race-Conditions zu vermeiden
 wurde diese Methode eingefügt. Mit ihr können \code{init()} und \code{cancel()}
-syncronised werden ohne calculate zu blockieren.}
+synchronised werden ohne calculate zu blockieren.}
 \end{itemPlus}
 \begin{itemChange}
 \item calculate() \changeDescription{Die Konfiguration wird bereits bei
@@ -269,7 +268,7 @@ der Einteilungsberechnung benötigt.}
 \begin{itemPlus}
 \item editAllocation() : Result \changeDescription{Diese Methode gibt das
 \code{DynamicForm} an die Methoden \code{moveStudents(DynamicForm, List<Integer>)} und
-\code{swapStudents(DynamicForm, List<Integer>)} weiter wenn der Administrator
+\code{swapStudents(DynamicForm, List<Integer>)} weiter, wenn der Administrator
 eine Allocation bearbeitet. }
 \end{itemPlus}
 \begin{itemChange}
@@ -287,14 +286,14 @@ eine Allocation bearbeitet. }
 \item importGeneral() : Result \changeDescription{Leitet das Drücken des
 Import-Knopfs an die Import-Methoden weiter.}
 \item exportGrades() : Result \changeDescription{Da das CMS-Format unbekannt
-ist ein allgemeiner Notenexport.}
+ist, ein allgemeiner Notenexport.}
 \end{itemPlus}
 \end{itemClassSub}
 \item AdminPageController
 \item \begin{itemClassSub}
 \item Methoden
 \begin{itemPlus}
-\item accountPage() : Result \changeDescription{Zusatzfeature, damt der
+\item accountPage() : Result \changeDescription{Zusatzfeature, damit der
 Administrator sein Passwort ändern kann.}
 \item notAllowedInCurrentState(String) : Result \changeDescription{Methode die
 zur Umsetzung von Deadlines gebraucht wird.}
@@ -407,21 +406,21 @@ existierenden Methoden \code{joinLearningGroup()} und
 \begin{itemClass}
 \item Administrator
 \begin{itemize}
-  \item Klasse hinzugefügt da er nun auch als \code{User} in der Datenbank
+  \item Klasse hinzugefügt, da er nun auch als \code{User} in der Datenbank
   liegt.
 \end{itemize}
 \item ElipseModel
 \begin{itemize}
-  \item Klasse als Oberklasse für alle Datenklassen hinzugefügt um
+  \item Klasse als Oberklasse für alle Datenklassen hinzugefügt, um
   \code{equals}-Methoden und ähnliches einheitlich zu behandeln.
 \end{itemize}
 \item Grade
 \begin{itemize}
-  \item Enum hinzugefügt um Noten darzustellen
+  \item Enum hinzugefügt, um Noten darzustellen
 \end{itemize}
 \item Transaction
 \begin{itemize}
-  \item Interface hinzugefügt um das Speichern beim durchführen von Änderungen
+  \item Interface hinzugefügt, um das Speichern beim Durchführen von Änderungen
   an Datenobjekten zu Automatisieren.
 \end{itemize}
 \item Achievement
@@ -622,7 +621,7 @@ Semester}
 \begin{itemPlus}
 \item toStringForNotification() : String \changeDescription{\code{toString()}
 zur Anzeige des Studenten für E-Mail an ihn.}
-\item registeredMoreThanOnce() : boolean \changeDescription{Überprüft ob der
+\item registeredMoreThanOnce() : boolean \changeDescription{Überprüft, ob der
 Student sich schon in einem vorherigen Semester für einen PSE-Platz beworben
 hat.}
 \end{itemPlus}
@@ -699,7 +698,7 @@ zur Anzeige des Studenten für E-Mail an ihn.}
 \begin{itemClass}
 \item ImporterException 
 \begin{itemize}
-	  \item Klasse hinzugefügt die Fehler bei Im- und Export an die Controller
+	  \item Klasse hinzugefügt, die Fehler bei Im- und Export an die Controller
 	  weitergibt.
 	\end{itemize}
 	\item ValidationException
@@ -711,7 +710,7 @@ zur Anzeige des Studenten für E-Mail an ihn.}
 \begin{itemClass}
 \item Filter
 \begin{itemize}
-	  \item Klasse hinzugefügt um nicht autorisierten Zugriff über Eingabe von URLs
+	  \item Klasse hinzugefügt, um nicht autorisierten Zugriff über Eingabe von URLs
 	  zu unterbinden.
 	\end{itemize}
 \end{itemClass}
@@ -722,13 +721,13 @@ zur Anzeige des Studenten für E-Mail an ihn.}
 \item Methoden
 \begin{itemPlus}
 \item exportGrades(File, Semester) \changeDescription{Da das Format von CMS
-nicht bekannt ist gibt es nun einen allgemeinen \code{Grades}-Export}
+nicht bekannt ist, gibt es nun einen allgemeinen \code{Grades}-Export}
 \end{itemPlus}
 \begin{itemMinus}
 \item importCMSData(File, Semester) \changeDescription{Da das Format von CMS
-nicht bekannt ist gibt es nun einen allgemeinen \code{Grades}-Export}
+nicht bekannt ist, gibt es nun einen allgemeinen \code{Grades}-Export}
 \item exportCMSData(File, Semester) \changeDescription{Da das Format von CMS
-nicht bekannt ist gibt es nun einen allgemeinen \code{Grades}-Export}
+nicht bekannt ist, gibt es nun einen allgemeinen \code{Grades}-Export}
 \end{itemMinus}
 \end{itemClassSub}
 \end{itemClass}
@@ -744,7 +743,7 @@ Einteilung}
 \item notifyStudent(Allocation, Student) \changeDescription{Methode zur
 E-Mail-Benachrichtigung eines \code{Students} bei Veröffentlichung der finalen
 Einteilung}
-\item sendAdviserPassword(Adviser, String) \changeDescription{Beim erstellen
+\item sendAdviserPassword(Adviser, String) \changeDescription{Beim Erstellen
 eines \code{Advisers} durch den Admin wird das Passwort per E-Mail an den
 Adviser gesendet.}
 \end{itemPlus}
@@ -777,7 +776,7 @@ Adviser gesendet.}
 	\end{itemize}
 \item PasswordResetter
  \begin{itemize}
-	  \item Klasse hinzugefügt um eine Passwort-Reset-E-Mail zu bearbeiten und das
+	  \item Klasse hinzugefügt, um eine Passwort-Reset-E-Mail zu bearbeiten und das
 	  Passwort eines Studenten zurückzusetzen.
 	\end{itemize}
 \item SecurityModule
@@ -795,7 +794,7 @@ Adviser gesendet.}
 	\end{itemize}
 \item UserAuthenticator
 \item \begin{itemize}
-	  \item Klasse zur autentifizierung von \code{Users}.
+	  \item Klasse zur Authentifizierung von \code{Users}.
 	\end{itemize}
 \item UserManagement
 \item \begin{itemize}
@@ -803,20 +802,20 @@ Adviser gesendet.}
 	\end{itemize}
 \item UserProfile<T>
 \item \begin{itemize}
-	  \item Klasse hinzugefügt die das Profil eines angemeldeten Nutzers
+	  \item Klasse hinzugefügt, die das Profil eines angemeldeten Nutzers
 	  repräsentiert.
 	\end{itemize}
 \end{itemClass}
 \item view
 \begin{itemize}
   \item Package hinzugefügt und \code{twirl}-Templatecode eingefügt zur
-  generierung von \code{html}-Seiten.
+  Generierung von \code{html}-Seiten.
 \end{itemize}
 \item form
 \begin{itemClass}
 \item Forms
 \begin{itemize}
-  \item Statische Klasse mit Hilfsmethoden zur generierung von häufig genutzten
+  \item Statische Klasse mit Hilfsmethoden zur Generierung von häufig genutzten
   \code{Validators}.
 \end{itemize}
 \item IntValidator
@@ -829,7 +828,7 @@ Adviser gesendet.}
 \end{itemize}
 \item Validator
 \begin{itemize}
-  \item Generisches Interface zur validierung eines Formulareingabefelds.
+  \item Generisches Interface zur Validierung eines Formulareingabefelds.
 \end{itemize}
 \end{itemClass}
 \end{itemPackage}
@@ -887,13 +886,13 @@ Das Im/Exportformat hat sich an drei Stellen geändert:
 \end{enumerate}
 
 \section{Funktionsumfang}
-Wie im Pflichtenheft beschrieben gibt es einige Muss und Wunschkriterien zu
-diesem Produkt. Ein Großteil dieser wurde von uns Implementiert.
+Wie im Pflichtenheft beschrieben, gibt es einige Muss- und Wunschkriterien zu
+diesem Produkt. Ein Großteil dieser wurde von uns implementiert.
 \subsection{Einteilungsfunktionen}
 \subsubsection{Pflichtfunktionen}
 \begin{enumerate}[label=\swtLabel{FA}]
   \item Einteilung der Studierenden zu Projekten. Hierbei werden folgende Kriterien,
-soweit möglich und wie konfiguriert berücksichtigt:
+soweit möglich und wie konfiguriert, berücksichtigt:
 \begin{itemize}
   \item Wer die durch seine SPO gegebenen Voraussetzungen nicht erfüllt, wird nicht
 eingeteilt
@@ -941,13 +940,12 @@ und des Webservers
 hinzufügen
 \item Studierende von einem Team bei einer bereits berechneten Einteilung
 entfernen
-\item Studierende zwischen Teams bei einer bereits berechneten Einteilung verschie-
-ben
+\item Studierende zwischen Teams bei einer bereits berechneten Einteilung verschieben
 \item Import von Einteilungs-, SPO- und Studierendendaten
 \item Export von Einteilungs-, SPO- und Studierendendaten
 \item Erstellung eines Projektes
 \item Ändern der Projektdetails: Name, Beschreibung, Projektbetreuer, minimale
-und maximale Teilnehmerzahl, der Teams
+und maximale Teilnehmerzahl, Anzahl der Teams
 \item Löschen eines Projektes
 \item Abmeldung
 \item Finale Wahl und Veröffentlichung einer Einteilung
