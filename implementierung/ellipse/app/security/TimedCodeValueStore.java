@@ -89,7 +89,7 @@ public class TimedCodeValueStore<V> {
                                                   // welches in Int umgewandelt
                                                   // wird.
         while (builder.length() < codeLength) {
-            byte bytes[] = new byte[4];
+            byte[] bytes = new byte[4];
             random.nextBytes(bytes);
             builder.append(Math.abs(ByteBuffer.wrap(bytes).getInt()));
         }

@@ -26,7 +26,7 @@ import data.Student;
  */
 public class EmailVerifier {
 
-    private final static EmailVerifier         instance            = new EmailVerifier();
+    private static EmailVerifier               instance;
 
     private static final int                   VALID_CODE_DURATION = 24;
 
@@ -92,6 +92,9 @@ public class EmailVerifier {
      * @return die einzige Verifier-Instanz.
      */
     public static EmailVerifier getInstance() {
+        if (null == instance) {
+            instance = new EmailVerifier();
+        }
         return instance;
     }
 }
