@@ -8,7 +8,6 @@ import org.junit.Test;
 import data.Adviser;
 import data.DataTest;
 import data.Student;
-import exception.DataException;
 
 public class PasswordResetterTest extends DataTest {
 
@@ -26,7 +25,6 @@ public class PasswordResetterTest extends DataTest {
         String code = PasswordResetter.getInstance().initializeReset(student, "testtest");
         assertEquals(true, PasswordResetter.getInstance().finalizeReset(code));
 
-        String code1 = PasswordResetter.getInstance().initializeReset(student, "testtest");
         assertEquals(false, PasswordResetter.getInstance().finalizeReset(code));
     }
 
@@ -35,7 +33,6 @@ public class PasswordResetterTest extends DataTest {
         String code = PasswordResetter.getInstance().initializeReset(adviser, "testtest");
         assertEquals(true, PasswordResetter.getInstance().finalizeReset(code));
 
-        String code1 = PasswordResetter.getInstance().initializeReset(adviser, "testtest");
         assertEquals(false, PasswordResetter.getInstance().finalizeReset(code));
     }
 

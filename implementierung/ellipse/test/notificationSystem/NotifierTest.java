@@ -26,7 +26,6 @@ import data.Project;
 import data.Semester;
 import data.Student;
 import data.Team;
-import exception.DataException;
 import play.Play;
 import play.test.WithApplication;
 
@@ -65,7 +64,7 @@ public class NotifierTest extends WithApplication {
     }
 
     @Test
-    public void testNotifiyStudent() throws EmailException, IOException, DataException, MessagingException {
+    public void testNotifiyStudent() throws EmailException, IOException, MessagingException {
         Student student = new Student();
         Team team = new Team();
         Project project = new Project();
@@ -104,7 +103,7 @@ public class NotifierTest extends WithApplication {
     }
 
     @Test
-    public void testSendAdviserPassword() throws EmailException, IOException, MessagingException, DataException {
+    public void testSendAdviserPassword() throws EmailException, IOException, MessagingException {
         Adviser adviser = new Adviser();
         adviser.setEmailAddress("adviser@email.com");
         String password = "secret";
