@@ -103,11 +103,11 @@ public class Semester extends ElipseModel implements Comparable<Semester> {
         super();
         this.name = name;
         this.wintersemester = wintersemester;
-        spos = new ArrayList<SPO>();
-        learningGroups = new ArrayList<LearningGroup>();
-        students = new ArrayList<Student>();
-        projects = new ArrayList<Project>();
-        allocations = new ArrayList<Allocation>();
+        spos = new ArrayList<>();
+        learningGroups = new ArrayList<>();
+        students = new ArrayList<>();
+        projects = new ArrayList<>();
+        allocations = new ArrayList<>();
         infoText = "";
         maxGroupSize = 6;
     }
@@ -431,7 +431,7 @@ public class Semester extends ElipseModel implements Comparable<Semester> {
      * @return Alle Betreuer des Semesters.
      */
     public List<Adviser> getAdvisers() {
-        List<Adviser> advisers = new ArrayList<Adviser>();
+        List<Adviser> advisers = new ArrayList<>();
 
         for (Project p : projects) {
             for (Adviser a : p.getAdvisers()) {

@@ -40,9 +40,9 @@ public class SMTPOptions extends ElipseModel {
     private static SMTPOptions instance;
 
     /**
-     * !!!DO NOT USE THIS!!! SMTPOptions is supposed to be a Singleton.
-     * Constructor is only public due to restrictions in EBean. Use
-     * GeneralData.getInstance() instead.
+     * @deprecated !!!DO NOT USE THIS!!! SMTPOptions is supposed to be a
+     *             Singleton. Constructor is only public due to restrictions in
+     *             EBean. Use GeneralData.getInstance() instead.
      */
     @Deprecated
     public SMTPOptions() {

@@ -70,33 +70,14 @@ public class LearningGroup extends ElipseModel {
         super();
         this.name = DEFAULT_NAME;
         setPassword(DEFAULT_PASSWORD);
-        this.members = new ArrayList<Student>();
-        this.ratings = new ArrayList<Rating>();
+        this.members = new ArrayList<>();
+        this.ratings = new ArrayList<>();
     }
 
     public LearningGroup(String name, String password) {
         this();
         this.name = name;
         this.password = password;
-    }
-
-    /**
-     * NICHT VERWENDEN!!! wirft NullPointer
-     * 
-     * @param name
-     * @param password
-     * @param member
-     * @param isPrivate
-     */
-    @Deprecated
-
-    public LearningGroup(String name, String password, Student member,
-            boolean isPrivate) {
-        this();
-        this.name = name;
-        this.password = password;
-        this.members.add(member);
-        this.isPrivate = isPrivate;
     }
 
     public Semester getSemester() {
@@ -273,8 +254,8 @@ public class LearningGroup extends ElipseModel {
      * @param isPrivate
      *            Wahr, wenn privat, sonst falsch.
      */
-    public boolean setPrivate(boolean isPrivate) {
-        return this.isPrivate = isPrivate;
+    public void setPrivate(boolean isPrivate) {
+        this.isPrivate = isPrivate;
     }
 
     /**

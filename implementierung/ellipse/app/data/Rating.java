@@ -18,7 +18,7 @@ public class Rating extends ElipseModel {
     /**
      * Der Wert der Bewertung.
      */
-    private int           rating;
+    private int           ratingValue;
     /**
      * Das Projekt, dem die Bewertung gilt.
      */
@@ -35,7 +35,7 @@ public class Rating extends ElipseModel {
 
     public Rating(int rating, Project project) {
         super();
-        this.rating = rating;
+        this.ratingValue = rating;
         this.project = project;
     }
 
@@ -61,7 +61,7 @@ public class Rating extends ElipseModel {
      * @return Der Wert der Bewertung.
      */
     public int getRating() {
-        return rating;
+        return ratingValue;
     }
 
     /**
@@ -80,7 +80,7 @@ public class Rating extends ElipseModel {
      *            Der Wert der Bewertung.
      */
     public void setRating(int rating) {
-        this.rating = rating;
+        this.ratingValue = rating;
     }
 
     /**

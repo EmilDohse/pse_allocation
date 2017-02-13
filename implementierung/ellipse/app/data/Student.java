@@ -299,9 +299,8 @@ public class Student extends User {
     }
 
     public String toStringForNotification() {
-        String toReturn = this.getFirstName() + " " + this.getLastName() + ", "
+        return this.getFirstName() + " " + this.getLastName() + ", "
                 + this.getSemester();
-        return toReturn;
     }
 
     /**
@@ -332,10 +331,10 @@ public class Student extends User {
     public boolean registeredMoreThanOnce() {
         // Variante mit alle Semester aus der DB laden und durchsuchen war zu
         // langsam.
-        String SQL = "SELECT s.semester_id " + "FROM "
+        String sql = "SELECT s.semester_id " + "FROM "
                 + Semester.JOIN_TABLE_NAME + " s " + "WHERE s."
                 + Semester.JOIN_COLOUMN_STUDENT + " = " + this.getId();
-        RawSql rawSql = RawSqlBuilder.parse(SQL).columnMapping(
+        RawSql rawSql = RawSqlBuilder.parse(sql).columnMapping(
                 "s." + Semester.JOIN_CLOUMN_SEMESTER, Semester.ID).create();
         Query<Semester> query = Ebean.find(Semester.class);
         query.setRawSql(rawSql);
