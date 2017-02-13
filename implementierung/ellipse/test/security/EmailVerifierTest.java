@@ -6,7 +6,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import data.Student;
-import exception.DataException;
 
 public class EmailVerifierTest {
 
@@ -14,7 +13,7 @@ public class EmailVerifierTest {
     Student student2;
 
     @Before
-    public void setup() throws DataException {
+    public void setup() {
         student = new Student();
         student2 = new Student();
     }

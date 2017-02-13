@@ -20,7 +20,6 @@ import data.Allocation;
 import data.GeneralData;
 import data.SPO;
 import data.Semester;
-import exception.DataException;
 import exception.ImporterException;
 
 public class ImporterTest {
@@ -55,23 +54,18 @@ public class ImporterTest {
         // Importiere SPO
         importerExporter.importSPO(new File("importSpo.csv"));
         // Lege Semester an
-        Semester importStudentSemester = new Semester("importStudentSemester",
-                true);
+        Semester importStudentSemester = new Semester("importStudentSemester", true);
         importStudentSemester.setInfoText("Ich bin ein Infotext");
         GeneralData data = GeneralData.loadInstance();
         data.doTransaction(() -> {
             data.setCurrentSemester(importStudentSemester);
         });
         // Importiere Projekte
-        importerExporter.importProjects(new File("importProjects.csv"),
-                importStudentSemester);
+        importerExporter.importProjects(new File("importProjects.csv"), importStudentSemester);
         // Importiere Studenten
-        importerExporter.importStudents(new File("importStudents.csv"),
-                importStudentSemester);
-        assertFalse(Semester.getSemester("importStudentSemester").getStudents()
-                .isEmpty());
-        assertFalse(Semester.getSemester("importStudentSemester")
-                .getLearningGroups().isEmpty());
+        importerExporter.importStudents(new File("importStudents.csv"), importStudentSemester);
+        assertFalse(Semester.getSemester("importStudentSemester").getStudents().isEmpty());
+        assertFalse(Semester.getSemester("importStudentSemester").getLearningGroups().isEmpty());
         importerExporter.exportStudents(new File("exportTestStudents.csv"),
                 Semester.getSemester("importStudentSemester"));
     }
@@ -81,14 +75,10 @@ public class ImporterTest {
         Semester importProjects = new Semester("importProjects", true);
         importProjects.setInfoText("hallo");
         Ebean.save(importProjects);
-        importerExporter.importProjects(new File("importProjects.csv"),
-                importProjects);
-        assertFalse(
-                Semester.getSemester("importProjects").getProjects().isEmpty());
-        assertEquals(23,
-                Semester.getSemester("importProjects").getProjects().size());
-        importerExporter.exportProjects(new File("exportTestProjects.csv"),
-                importProjects);
+        importerExporter.importProjects(new File("importProjects.csv"), importProjects);
+        assertFalse(Semester.getSemester("importProjects").getProjects().isEmpty());
+        assertEquals(23, Semester.getSemester("importProjects").getProjects().size());
+        importerExporter.exportProjects(new File("exportTestProjects.csv"), importProjects);
     }
 
     @Test
@@ -100,12 +90,11 @@ public class ImporterTest {
         assertNotNull(SPO.getSPO("2008"));
         assertFalse(SPO.getSPO("2008").getAdditionalAchievements().isEmpty());
         assertFalse(SPO.getSPO("2008").getNecessaryAchievements().isEmpty());
-        importerExporter.exportSPO(new File("exportTestSpo.csv"),
-                SPO.getSPO("2008"));
+        importerExporter.exportSPO(new File("exportTestSpo.csv"), SPO.getSPO("2008"));
     }
 
     @Test
-    public void testImportAllocation() throws DataException, ImporterException {
+    public void testImportAllocation() throws ImporterException {
         Semester semester = new Semester("test", false);
         semester.setInfoText("Hi");
         GeneralData data = GeneralData.loadInstance();
@@ -113,15 +102,11 @@ public class ImporterTest {
             data.setCurrentSemester(semester);
         });
         importerExporter.importSPO(new File("importSpo.csv"));
-        importerExporter.importProjects(new File("importProjects.csv"),
-                semester);
-        importerExporter.importStudents(new File("importStudents.csv"),
-                semester);
-        importerExporter.importAllocation(new File("importAllocation.csv"),
-                semester);
+        importerExporter.importProjects(new File("importProjects.csv"), semester);
+        importerExporter.importStudents(new File("importStudents.csv"), semester);
+        importerExporter.importAllocation(new File("importAllocation.csv"), semester);
         assertTrue(Allocation.getAllocations().size() > 0);
-        importerExporter.exportAllocation(new File("exportTestAllocation.csv"),
-                Allocation.getAllocations().get(0));
+        importerExporter.exportAllocation(new File("exportTestAllocation.csv"), Allocation.getAllocations().get(0));
     }
 
     @After

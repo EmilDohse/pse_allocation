@@ -10,12 +10,10 @@ import org.pac4j.core.exception.BadCredentialsException;
 import org.pac4j.core.exception.HttpAction;
 import org.pac4j.play.PlayWebContext;
 
-import ch.qos.logback.core.net.SyslogOutputStream;
 import data.Administrator;
 import data.Adviser;
 import data.GeneralData;
 import data.Student;
-import data.User;
 import play.mvc.Http.Context;
 
 /**
@@ -27,17 +25,21 @@ import play.mvc.Http.Context;
 public class UserAuthenticator
         implements Authenticator<UsernamePasswordCredentials> {
 
+    private static final String ERROR = "error";
+    private static final String BAD_CRED = "Bad credentials for: ";
+
     @Override
     public void validate(UsernamePasswordCredentials credentials,
             WebContext context) throws HttpAction {
         PasswordEncoder encoder = new BlowfishPasswordEncoder();
         PlayWebContext playContext = (PlayWebContext) context;
         Context ctx = playContext.getJavaContext();
-        for (User u : Administrator.getAdministrators()) {
-            if (credentials.getUsername().equals(u.getUserName())) {
+        for (Administrator admin : Administrator.getAdministrators()) {
+            if (credentials.getUsername().equals(admin.getUserName())) {
                 if (encoder.matches(credentials.getPassword(),
-                        u.getPassword())) {
-                    UserProfile profile = new UserProfile(u);
+                        admin.getPassword())) {
+                    UserProfile<Administrator> profile = new UserProfile<Administrator>(
+                            admin);
                     profile.addRole("ROLE_ADMIN");
                     credentials.setUserProfile(profile);
                     // Leite den Admin zur Passwort-Ändern-Seite, falls das
@@ -56,22 +58,23 @@ public class UserAuthenticator
                     }
                     return;
                 } else {
-                    ctx.flash().put("error",
+                    ctx.flash().put(ERROR,
                             ctx.messages().at("user.noVlidCredentials"));
-                    throw new BadCredentialsException("Bad credentials for: "
-                            + credentials.getUsername());
+                    throw new BadCredentialsException(
+                            BAD_CRED + credentials.getUsername());
                 }
             }
         }
-        for (Student u : GeneralData.loadInstance().getCurrentSemester()
+        for (Student student : GeneralData.loadInstance().getCurrentSemester()
                 .getStudents()) {
-            if (credentials.getUsername().equals(u.getUserName())) {
+            if (credentials.getUsername().equals(student.getUserName())) {
                 if (encoder.matches(credentials.getPassword(),
-                        u.getPassword())) {
-                    UserProfile profile = new UserProfile(u);
+                        student.getPassword())) {
+                    UserProfile<Student> profile = new UserProfile<Student>(
+                            student);
                     profile.addRole("ROLE_STUDENT");
                     credentials.setUserProfile(profile);
-                    if (!u.isEmailVerified()) {
+                    if (!student.isEmailVerified()) {
                         ctx.flash().put("info", ctx.messages()
                                 .at("student.info.notVerifiedEmail"));
                     }
@@ -79,35 +82,36 @@ public class UserAuthenticator
                             "/student");
                     return;
                 } else {
-                    ctx.flash().put("error",
+                    ctx.flash().put(ERROR,
                             ctx.messages().at("user.noVlidCredentials"));
-                    throw new BadCredentialsException("Bad credentials for: "
-                            + credentials.getUsername());
+                    throw new BadCredentialsException(
+                            BAD_CRED + credentials.getUsername());
                 }
             }
         }
-        for (User u : Adviser.getAdvisers()) {
-            if (credentials.getUsername().equals(u.getUserName())) {
-                System.out.println("Username matsches");
+        for (Adviser adviser : Adviser.getAdvisers()) {
+            if (credentials.getUsername().equals(adviser.getUserName())) {
                 if (encoder.matches(credentials.getPassword(),
-                        u.getPassword())) {
-                    UserProfile profile = new UserProfile(u);
+                        adviser.getPassword())) {
+                    UserProfile<Adviser> profile = new UserProfile<Adviser>(
+                            adviser);
                     profile.addRole("ROLE_ADVISER");
                     credentials.setUserProfile(profile);
                     context.setSessionAttribute(Pac4jConstants.REQUESTED_URL,
                             "/adviser");
                     return;
                 } else {
-                    throw new BadCredentialsException("Bad credentials for: "
-                            + credentials.getUsername());
+                    throw new BadCredentialsException(
+                            BAD_CRED + credentials.getUsername());
                 }
             }
         }
-        for (User u : Student.getStudents()) {
-            if (credentials.getUsername().equals(u.getUserName())) {
+        for (Student student : Student.getStudents()) {
+            if (credentials.getUsername().equals(student.getUserName())) {
                 if (encoder.matches(credentials.getPassword(),
-                        u.getPassword())) {
-                    UserProfile profile = new UserProfile(u);
+                        student.getPassword())) {
+                    UserProfile<Student> profile = new UserProfile<Student>(
+                            student);
                     profile.addRole("ROLE_STUDENT_OLD");
                     credentials.setUserProfile(profile);
                     context.setSessionAttribute(Pac4jConstants.REQUESTED_URL,
@@ -115,10 +119,10 @@ public class UserAuthenticator
                                     .changeFormPage().path());
                     return;
                 } else {
-                    ctx.flash().put("error",
+                    ctx.flash().put(ERROR,
                             ctx.messages().at("user.noVlidCredentials"));
-                    throw new BadCredentialsException("Bad credentials for: "
-                            + credentials.getUsername());
+                    throw new BadCredentialsException(
+                            BAD_CRED + credentials.getUsername());
                 }
             }
         }

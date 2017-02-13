@@ -8,16 +8,16 @@ import data.User;
  * Erbt von pac4j CommonProfile die akutellen Credentials und speichert den
  * aktuellen User.
  */
-public class UserProfile extends CommonProfile {
+public class UserProfile<T extends User> extends CommonProfile {
 
-    private User user;
+    private T user;
 
-    public UserProfile(User user) {
+    public UserProfile(T user) {
         super();
         this.user = user;
     }
 
-    public User getUser() {
+    public T getUser() {
         return user;
     }
 
