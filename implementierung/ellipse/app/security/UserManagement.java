@@ -4,10 +4,11 @@ import java.util.Optional;
 
 import javax.inject.Inject;
 
-import org.pac4j.core.config.ConfigSingleton;
 import org.pac4j.core.profile.ProfileManager;
 import org.pac4j.play.PlayWebContext;
+import org.pac4j.play.store.PlaySessionStore;
 
+import data.Student;
 import data.User;
 import play.mvc.Http.Context;
 
@@ -19,6 +20,8 @@ import play.mvc.Http.Context;
  */
 public class UserManagement {
 
+    @Inject
+    PlaySessionStore playSessionStore;
     /**
      * Methode um den in dem Webkontext gespeicherten Benutzer zu bekommen.
      * 
@@ -26,13 +29,12 @@ public class UserManagement {
      *            den aktuellen Webkontext
      * @return den angemeldeten Benutzer
      */
-    public User getUserProfile(Context ctx) {
-        @SuppressWarnings("unchecked")
+    public <T extends User> T getUserProfile(Context ctx) {
         PlayWebContext webContext = new PlayWebContext(ctx,
-                ConfigSingleton.getConfig().getSessionStore());
-        ProfileManager<UserProfile> profileManager = new ProfileManager<UserProfile>(
+                playSessionStore);
+        ProfileManager<UserProfile<T>> profileManager = new ProfileManager<UserProfile<T>>(
                 webContext);
-        Optional<UserProfile> profile = profileManager.get(true);
+        Optional<UserProfile<T>> profile = profileManager.get(true);
         return profile.get().getUser();
     }
 
@@ -45,12 +47,11 @@ public class UserManagement {
      *            der aktuelle Kontext
      */
     public void addStudentRoleToOldStudent(Context ctx) {
-        @SuppressWarnings("unchecked")
         PlayWebContext webContext = new PlayWebContext(ctx,
-                ConfigSingleton.getConfig().getSessionStore());
-        ProfileManager<UserProfile> profileManager = new ProfileManager<UserProfile>(
+                playSessionStore);
+        ProfileManager<UserProfile<Student>> profileManager = new ProfileManager<UserProfile<Student>>(
                 webContext);
-        Optional<UserProfile> profile = profileManager.get(true);
+        Optional<UserProfile<Student>> profile = profileManager.get(true);
         if (profile.get().getRoles().contains("ROLE_STUDENT_OLD")) {
             profile.get().addRole("ROLE_STUDENT");
             profileManager.save(true, profile.get(), false);

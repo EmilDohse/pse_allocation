@@ -7,7 +7,6 @@ package security;
 import org.pac4j.core.authorization.authorizer.RequireAnyRoleAuthorizer;
 import org.pac4j.core.client.Clients;
 import org.pac4j.core.config.Config;
-import org.pac4j.core.config.ConfigSingleton;
 import org.pac4j.http.client.indirect.FormClient;
 import org.pac4j.play.ApplicationLogoutController;
 import org.pac4j.play.CallbackController;
@@ -17,6 +16,9 @@ import org.pac4j.play.store.PlaySessionStore;
 
 import com.google.inject.AbstractModule;
 
+import data.Administrator;
+import data.Adviser;
+import data.Student;
 import play.Configuration;
 import play.Environment;
 
@@ -48,19 +50,20 @@ public class SecurityModule extends AbstractModule {
 
         Config config = new Config(clients);
         config.addAuthorizer("admin",
-                new RequireAnyRoleAuthorizer<UserProfile>("ROLE_ADMIN"));
+                new RequireAnyRoleAuthorizer<UserProfile<Administrator>>(
+                        "ROLE_ADMIN"));
         config.addAuthorizer("adviser",
-                new RequireAnyRoleAuthorizer<UserProfile>("ROLE_ADVISER"));
+                new RequireAnyRoleAuthorizer<UserProfile<Adviser>>(
+                        "ROLE_ADVISER"));
         config.addAuthorizer("student",
-                new RequireAnyRoleAuthorizer<UserProfile>("ROLE_STUDENT"));
+                new RequireAnyRoleAuthorizer<UserProfile<Student>>(
+                        "ROLE_STUDENT"));
         config.addAuthorizer("studentOld",
-                new RequireAnyRoleAuthorizer<UserProfile>("ROLE_STUDENT_OLD"));
+                new RequireAnyRoleAuthorizer<UserProfile<Student>>(
+                        "ROLE_STUDENT_OLD"));
         config.setHttpActionAdapter(new DefaultHttpActionAdapter());
         bind(Config.class).toInstance(config);
 
-        // Setzt die Config in ein Singelton damit das UserManagement keine
-        // NullpointerException wirft, da Dependency Injection nicht immer tut
-        ConfigSingleton.setConfig(config);
         CallbackController callbackController = new CallbackController();
         callbackController.setDefaultUrl("/");
         callbackController.setConfig(config);

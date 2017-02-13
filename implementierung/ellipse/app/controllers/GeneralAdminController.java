@@ -53,6 +53,9 @@ public class GeneralAdminController extends Controller {
     @Inject
     Notifier                    notifier;
 
+    @Inject
+    UserManagement              userManagement;
+
     /**
      * Diese Methode fügt einen Betreuer mit den Daten aus dem vom Administrator
      * auszufüllenden Formular zum System hinzu. Der Administrator wird
@@ -332,8 +335,7 @@ public class GeneralAdminController extends Controller {
      * @return die Seite, die als Antwort verschickt wird.
      */
     public Result editAccount() {
-        UserManagement user = new UserManagement();
-        Administrator admin = (Administrator) user.getUserProfile(ctx());
+        Administrator admin = userManagement.getUserProfile(ctx());
         DynamicForm form = formFactory.form().bindFromRequest();
         if (form.data().isEmpty()) {
             return badRequest(ctx().messages().at(INTERNAL_ERROR));
