@@ -30,3 +30,7 @@ routesGenerator := InjectedRoutesGenerator
 
  libraryDependencies += cache
  libraryDependencies += evolutions
+ 
+ jacoco.settings
+ 
+ parallelExecution in jacoco.Config := false
