@@ -45,8 +45,8 @@ public class SplitLearningGroups implements QualityCriterion {
             if (lg.getMembers().size() > 1) {
 
                 // Suche erstes Team ungleich null
-                int i = 0;
                 Team firstTeam = null;
+                int i;
                 for (i = 0; i < lg.getMembers().size(); i++) {
                     firstTeam = studentTeam.get(lg.getMembers().get(i));
                     if (firstTeam != null) {

@@ -16,6 +16,12 @@ import java.util.ServiceLoader;
 public class QualityCriteriaLoader {
 
     /**
+     * Utility Klasse sollte nicht instanziiert werden.
+     */
+    private QualityCriteriaLoader() {
+    }
+
+    /**
      * Gibt alle gütekriterien zurück.
      * 
      * @return Liste aller Gütekriterien

@@ -9,6 +9,7 @@ import exception.ValidationException;
  * @param <T>
  *            Datentyp, der validiert wird.
  */
+@FunctionalInterface
 public interface Validator<T> {
 
     /**
