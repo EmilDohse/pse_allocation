@@ -10,12 +10,15 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-public class AdviserTest extends UserTest {
+/**
+ * Diese Klasse enthält Unit-Tests zur Klasse Adviser.
+ */
+public class AdviserTest extends DataTest {
 
-    @Before
-    public void before() {
-    }
-
+    /**
+     * Diese Methode testet sowohl den setter alsauch den getter für die ID des
+     * Betreuers.
+     */
     @Test
     public void testID() {
         int id = 42;
@@ -24,6 +27,10 @@ public class AdviserTest extends UserTest {
         assertEquals(id, a.getId());
     }
 
+    /**
+     * Diese Methode testet sowohl den setter alsauch den getter für den
+     * Benutzernamen des Betreuers.
+     */
     @Test
     public void testUserName() {
         String name = "Name";
@@ -32,6 +39,10 @@ public class AdviserTest extends UserTest {
         assertEquals(name, a.getUserName());
     }
 
+    /**
+     * Diese Methode testet sowohl den setter alsauch den getter für den
+     * Vornamen des Betreuers.
+     */
     @Test
     public void testFirstName() {
         String name = "Name";
@@ -40,6 +51,10 @@ public class AdviserTest extends UserTest {
         assertEquals(name, a.getFirstName());
     }
 
+    /**
+     * Diese Methode testet sowohl den setter alsauch den getter für den
+     * Nachnamen des Betreuers.
+     */
     @Test
     public void testLastName() {
         String name = "Name";
@@ -48,6 +63,10 @@ public class AdviserTest extends UserTest {
         assertEquals(name, a.getLastName());
     }
 
+    /**
+     * Diese Methode testet sowohl den setter alsauch den getter für die
+     * EMail-Adresse des Betreuers.
+     */
     @Test
     public void testMailAdress() {
         String name = "Name@elipse.de";
@@ -56,6 +75,10 @@ public class AdviserTest extends UserTest {
         assertEquals(name, a.getEmailAddress());
     }
 
+    /**
+     * Diese Methode testet, ob man dem Betreuer erfolgreich Projekte zuordnen
+     * kann.
+     */
     @Test
     public void testGetTeams() {
         Project project = new Project();
@@ -73,6 +96,10 @@ public class AdviserTest extends UserTest {
         assertTrue(a.getProjects().size() == 2);
     }
 
+    /**
+     * Diese Methode testet die statische Methode, die alle Betreuer aus der
+     * Datenbank lädt.
+     */
     @Test
     public void testGetAdvisers() {
         for (Project p : Project.getProjects()) {

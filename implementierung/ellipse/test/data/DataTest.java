@@ -7,10 +7,17 @@ import com.avaje.ebean.EbeanServer;
 import com.avaje.ebean.EbeanServerFactory;
 import com.avaje.ebean.config.ServerConfig;
 
+/**
+ * Oberklasse für alle Daten Tests, welche Serverdaten und allgemeine Daten
+ * initialisiert.
+ */
 public class DataTest {
 
     private static EbeanServer server;
 
+    /**
+     * Initialisiert Serverdaten und allgemeine Daten.
+     */
     @BeforeClass
     public static void beforeClass() {
         ServerConfig config = new ServerConfig();
@@ -30,6 +37,9 @@ public class DataTest {
 
     }
 
+    /**
+     * Server shutdown.
+     */
     @AfterClass
     public static void afterClass() {
         server.shutdown(false, false);

@@ -4,17 +4,26 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
+/**
+ * Diese Klasse enthält Unit-Tests zur Klasse Achievement.
+ */
 public class AchievementTest extends DataTest {
 
+    /**
+     * Diese Methode testet den setter und getter für die ID des Achievements.
+     */
     @Test
     public void testID() {
         int id = 42;
         Achievement a = new Achievement();
         a.doTransaction((() -> a.setId(id)));
-        a.setId(id);
         assertEquals(id, a.getId());
     }
 
+    /**
+     * Diese Methode testet den setter und getter für den Namen des
+     * Achievements.
+     */
     @Test
     public void testName() {
         String name = "Name";
@@ -25,6 +34,11 @@ public class AchievementTest extends DataTest {
         assertEquals(name, a.getName());
     }
 
+    /**
+     * Diese Methode testet die statische Methode, die ein spezifisches
+     * Achievement aus der Datenbank zurückgibt. Außerdem wird die statisiche
+     * Methode getestet, die alle Achievements aus der Datenbank zurückgibt.
+     */
     @Test
     public void testGetAchievement() {
         // Leere die Datenbank
