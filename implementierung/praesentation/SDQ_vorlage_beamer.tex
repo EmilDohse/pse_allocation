@@ -1,0 +1,232 @@
+%% LaTeX-Beamer template for KIT design
+%% by Erik Burger, Christian Hammer
+%% title picture by Klaus Krogmann
+%%
+%% version 2.1
+%%
+%% mostly compatible to KIT corporate design v2.0
+%% http://intranet.kit.edu/gestaltungsrichtlinien.php
+%%
+%% Problems, bugs and comments to
+%% burger@kit.edu
+
+\documentclass[18pt]{beamer}
+
+%% SLIDE FORMAT
+
+% use 'beamerthemekit' for standard 4:3 ratio
+% for widescreen slides (16:9), use 'beamerthemekitwide'
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{templates/beamerthemekit}
+\usepackage{tabularx}
+%\usepackage{templates/beamerthemekitwide}
+
+%% TITLE PICTURE
+
+% if a custom picture is to be used on the title page, copy it into the 'logos'
+% directory, in the line below, replace 'mypicture' with the 
+% filename (without extension) and uncomment the following line
+% (picture proportions: 63 : 20 for standard, 169 : 40 for wide
+% *.eps format if you use latex+dvips+ps2pdf, 
+% *.jpg/*.png/*.pdf if you use pdflatex)
+
+\titleimage{controller}
+
+%% TITLE LOGO
+
+% for a custom logo on the front page, copy your file into the 'logos'
+% directory, insert the filename in the line below and uncomment it
+
+\titlelogo{ElipseLogo}
+
+% (*.eps format if you use latex+dvips+ps2pdf,
+% *.jpg/*.png/*.pdf if you use pdflatex)
+
+%% TikZ INTEGRATION
+
+% use these packages for PCM symbols and UML classes
+\usepackage{templates/tikzkit}
+% \usepackage{templates/tikzuml}
+
+% the presentation starts here
+
+\title[Elipse]{Elipse -- Einteilungs Interface für das PSE}
+\subtitle{Implementierungspräsentation}
+\author{D. Biester, E. Dohse, P. Faller, P. Loth, L. Seufert, S. Kopmann}
+
+\institute{IPD Snelting}
+
+% Bibliography
+
+\usepackage[citestyle=authoryear,bibstyle=numeric,hyperref,backend=biber]{biblatex}
+\addbibresource{templates/example.bib}
+\bibhang1em
+
+\begin{document}
+
+% change the following line to "ngerman" for German style date and logos
+\selectlanguage{ngerman}
+
+%title page
+\begin{frame}
+\titlepage
+\end{frame}
+
+\section{Überblick}
+\begin{frame}{Überblick}
+\begin{itemize}
+  \item Auszüge aus den Implementierten Funktionen
+  \item Zeitplan
+  \item Probleme bei der Implementierung
+  \item Änderungen gegenüber dem Entwurf
+  \item Statistiken
+\end{itemize}
+\end{frame}
+
+\section{Implementierte Funktionen}
+\begin{frame}{Auszüge aus den Implementierten Funktionen}
+\begin{itemize}
+  \item E-Mail-Benachrichtigung mit Konfiguration über die Webseite
+  \item Einteilungs-Warteschlange
+  \item Güte- und Einteilungskriterien könne über den Java ServiceLoader geladen werden
+  \item Undo-Funktion beim Einteilungsergebnisändern
+  \item Registrierte Studenten aus vorherigen Semester können Account behalten und müssen nur ihre Studiendaten aktualisieren.
+  \item Verifizieren der E-Mail-Adresse und Passwort Zurücksetzen-Funktion
+\end{itemize}
+\end{frame}
+
+\section{Zeitplan}
+\begin{frame}{Zeitplan}
+\begin{table}[H]
+\begin{tabularx}{\textwidth}{|l|l|X|X|X|}
+\hline
+ 	& 1. Woche			& 2. Woche		& 3. Woche & 4. Woche\\
+\hline 
+Daniel	& Views			& Views + dazu-gehörende Controller-Methoden + pac4j 
+(shibboleth) & Layout + Verificator
++ pac4j (shibboleth)& Weitere Tests +
+Bugfixes +
+Kleinigkeiten\\
+\hline
+Sam & Views&Views +
+dazu-gehörende
+Controller-
+Methoden & QualityCriteria +
+NotificationSystem & Weitere Tests +
+Bugfixes +
+Kleinigkeiten\\
+\hline
+Philipp Faller&Data&Import/Export
+IndexController&AdminController&Weitere Tests +
+Bugfixes +
+Kleinigkeiten\\
+\hline
+Philipp Loth&Allocator&Import/Export
+IndexController&AdminController&Weitere Tests +
+Bugfixes +
+Kleinigkeiten\\
+\hline
+Emil&Allocator&Allocator&AdminController&Weitere Tests +
+Bugfixes +
+Kleinigkeiten\\
+\hline
+Lars&Data&Data (vor allem
+Ebean)&AdviserController&Weitere Tests +
+Bugfixes +
+Kleinigkeiten\\
+\hline
+\end{tabularx}
+\caption{Implementierungsplan}
+\end{table}
+\end{frame}
+
+\subsection{Änderungen}
+\begin{frame}{Änderungen}
+\begin{table}[H]
+\begin{tabularx}{\textwidth}{|l|l|X|X|X|}
+\hline
+ 	& 1. Woche			& 2. Woche		& 3. Woche & 4. Woche\\
+\hline 
+Daniel	& Views			& Views + dazu-gehörende Controller-Methode & Layout + Verificator
++ pac4j&Deadlines + Bugfixes +
+Kleinigkeiten \\
+\hline
+Sam & Views&Views& QualityCriteria +
+NotificationSystem & Weitere Tests +
+Bugfixes +
+Kleinigkeiten\\
+\hline
+Philipp Faller&Data&Data&Bugfixes&Bugfixes +  Email\\
+\hline
+Philipp Loth&Allocator&Import/Export
+&Import/Export + Kleinigkeiten &Weitere Tests +
+Bugfixes +
+Form Validation\\
+\hline
+Emil&Allocator&Controller&Controller&Form Validation +
+Bugfixes +
+Kleinigkeiten\\
+\hline
+Lars&Data&Data (vor allem
+Ebean)&Controller + Daten &
+Controller-Bugfixes +
+Kleinigkeiten\\
+\hline
+\end{tabularx}
+\caption{Wirkliche Implementierung}
+\end{table}
+\end{frame}
+
+\section{Probleme bei der Implementierung}
+\begin{frame}{Probleme bei der Implementierung}
+\begin{itemize}
+  \item Fehlende oder falsche Dokumentation der verwendeten Bibliotheken und Frameworks
+  \item unerwartete Fehler durch E-Bean
+  \item Pac4J Implementierung
+\end{itemize}
+\end{frame}
+
+\section{Änderungen zum Entwurf}
+\begin{frame}{Änderungen zum Entwurf}
+\begin{itemize}
+  \item Hinzugefügte Klassen und Pakete
+  \begin{itemize}
+    \item Security-Packet (Authentifizierung und Passwort-Encryption)
+    \item Formular-Validierung
+    \item Passwort-Resetter und E-Mail-Verifizierer
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Statistiken}
+\begin{figure}
+\begin{tikzpicture}[x={(1mm,0mm)},y={(0mm,1mm)}]
+\draw[yshift=-4mm] (0,0) node{17. Jan} (30, 0) node{24. Jan} (60, 0) node{31. Jan} (90, 0) node{7. Feb} (120, 0) node{13. Feb};
+\draw[line width=20mm,orange!60] (0,0) plot [ycomb]
+coordinates {(120,70.59)};
+\draw[line width=20mm,red!60] (0,0) plot [ycomb]
+coordinates {(120,52.14) (90,52.14)};
+\draw[line width=20mm,yellow!60] (0,0) plot [ycomb]
+coordinates {(120,26.92) (90,26.92) (60,26.92)};
+\draw[line width=20mm,green!60] (0,0) plot [ycomb]
+coordinates {(120,25.48) (90,25.48) (60,25.48) (30,25.48)};
+\draw[line width=20mm,blue!60] (0,0) plot [ycomb]
+coordinates {(120,12.30) (90,12.30) (60,12.30) (30,12.30) (0,12.30)};
+\draw[yshift=-4mm](0,12.30) node{1230} (30, 25.48) node{2548} (60, 26.92) node{2692} (90, 52.14) node{5214} (120, 70.59) node{7059};
+
+\end{tikzpicture}
+\caption{LOC über die vier Wochen}
+\end{figure}
+\end{frame}
+
+\appendix
+\beginbackup
+
+\begin{frame}{Fragen}
+\printbibliography
+\end{frame}
+
+\backupend
+
+\end{document}
