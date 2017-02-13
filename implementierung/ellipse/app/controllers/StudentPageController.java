@@ -70,9 +70,8 @@ public class StudentPageController extends Controller {
      * @return Die Seite, die angezeigt wird.
      */
     public Result changeFormPage() {
-        play.twirl.api.Html content = views.html.studentChangeData
-                .render(GeneralData.loadInstance().getCurrentSemester()
-                        .getSpos());
+        play.twirl.api.Html content = views.html.studentChangeData.render(
+                GeneralData.loadInstance().getCurrentSemester().getSpos());
         Menu menu = new Menu();
         return ok(views.html.student.render(menu, content));
     }
@@ -122,8 +121,8 @@ public class StudentPageController extends Controller {
             }
             try {
                 nonCompletedAchievements = MultiselectList
-                        .createAchievementList(form, "due-" + spoIdString
-                                + "-multiselect");
+                        .createAchievementList(form,
+                                "due-" + spoIdString + "-multiselect");
             } catch (NumberFormatException e) {
                 flash(ERROR, ctx().messages().at(INTERNAL_ERROR));
                 return redirect(controllers.routes.StudentPageController
@@ -134,13 +133,13 @@ public class StudentPageController extends Controller {
                 temp.addAll(nonCompletedAchievements);
 
                 if (temp.containsAll(spo.getNecessaryAchievements())) {
-                    Student student = userManagement
-                            .getUserProfile(ctx());
+                    Student student = userManagement.getUserProfile(ctx());
                     student.doTransaction(() -> {
                         student.setSPO(spo);
                         student.setSemester(semester);
                         student.setCompletedAchievements(completedAchievements);
-                        student.setOralTestAchievements(nonCompletedAchievements);
+                        student.setOralTestAchievements(
+                                nonCompletedAchievements);
                     });
                     LearningGroup l = new LearningGroup(student.getUserName(),
                             "");
@@ -246,13 +245,13 @@ public class StudentPageController extends Controller {
         lg.doTransaction(() -> {
             for (Project project : GeneralData.loadInstance()
                     .getCurrentSemester().getProjects()) {
-                lg.rate(project, Integer.parseInt(form.get(Integer
-                        .toString(project.getId()))));
+                lg.rate(project, Integer
+                        .parseInt(form.get(Integer.toString(project.getId()))));
                 // holt sich das rating des studenten aus dem formular
             }
         });
-        return redirect(controllers.routes.StudentPageController
-                .learningGroupPage());
+        return redirect(
+                controllers.routes.StudentPageController.learningGroupPage());
     }
 
     /**
@@ -306,8 +305,8 @@ public class StudentPageController extends Controller {
 
         String password;
         try {
-            password = passwordValidator.validate(form
-                    .get("learningGroupPassword"));
+            password = passwordValidator
+                    .validate(form.get("learningGroupPassword"));
         } catch (ValidationException e) {
             flash(ERROR, ctx().messages().at(e.getMessage()));
             return redirect(controllers.routes.StudentPageController
@@ -343,8 +342,8 @@ public class StudentPageController extends Controller {
             // die alte lerngruppe behalten
             semester.addLearningGroup(lg);
         });
-        return redirect(controllers.routes.StudentPageController
-                .learningGroupPage());
+        return redirect(
+                controllers.routes.StudentPageController.learningGroupPage());
     }
 
     /**
@@ -391,8 +390,8 @@ public class StudentPageController extends Controller {
         semester.doTransaction(() -> {
             semester.addLearningGroup(lgNew);
         });
-        return redirect(controllers.routes.StudentPageController
-                .learningGroupPage());
+        return redirect(
+                controllers.routes.StudentPageController.learningGroupPage());
 
     }
 
@@ -422,8 +421,8 @@ public class StudentPageController extends Controller {
         String pw = form.get("learningGroupPassword");
         LearningGroup lgOld = GeneralData.loadInstance().getCurrentSemester()
                 .getLearningGroupOf(student);
-        LearningGroup lgNew = LearningGroup.getLearningGroup(name, GeneralData
-                .loadInstance().getCurrentSemester());
+        LearningGroup lgNew = LearningGroup.getLearningGroup(name,
+                GeneralData.loadInstance().getCurrentSemester());
         // Wenn die Lerngruppe bereits voll ist, wird ein Fehler zurückgegeben
         if (lgNew.getMembers().size() >= GeneralData.loadInstance()
                 .getCurrentSemester().getMaxGroupSize()) {
@@ -512,8 +511,8 @@ public class StudentPageController extends Controller {
             if (!pw.equals(pwrepeat)) {
                 flash(ERROR,
                         ctx().messages().at("student.account.error.wrongPW"));
-                return redirect(controllers.routes.StudentPageController
-                        .accountPage());
+                return redirect(
+                        controllers.routes.StudentPageController.accountPage());
             }
 
             String pwEnc = new BlowfishPasswordEncoder().encode(pw);
@@ -551,19 +550,23 @@ public class StudentPageController extends Controller {
         String verificationCode = EmailVerifier.getInstance()
                 .getVerificationCode(student);
         try {
-            notifier.sendVerificationMail(
-                    student,
-                    controllers.routes.IndexPageController.verificationPage(
-                            verificationCode).url());
-            flash("info",
-                    ctx().messages()
-                            .at("student.email.verificationLinkSuccess"));
+            String protocol;
+            if (request().secure()) {
+                protocol = "https://";
+            } else {
+                protocol = "http://";
+            }
+            String url = request().host()
+                    + controllers.routes.IndexPageController
+                            .verificationPage(verificationCode).url();
+            notifier.sendVerificationMail(student, protocol + url);
+            flash("info", ctx().messages()
+                    .at("student.email.verificationLinkSuccess"));
         } catch (EmailException e) {
-            flash(ERROR,
-                    ctx().messages()
-                            .at("student.email.verificationLinkFaliure"));
             e.printStackTrace();
-            // TODO
+            // EmailException
+            // wird gethrowed teilweise, obwohl Mail-Versand
+            // funktioniert hat
         }
         return redirect(controllers.routes.StudentPageController.accountPage());
     }
@@ -585,9 +588,8 @@ public class StudentPageController extends Controller {
             flash("info", ctx().messages().at(STATE_ACTION_NOT_ALLOWED));
             break;
         case AFTER_REGISTRATION_PHASE:
-            flash("info",
-                    ctx().messages().at(
-                            "student.afterRegistration.actionNotAllowed"));
+            flash("info", ctx().messages()
+                    .at("student.afterRegistration.actionNotAllowed"));
             break;
         default:
             flash("info", ctx().messages().at(STATE_ACTION_NOT_ALLOWED));

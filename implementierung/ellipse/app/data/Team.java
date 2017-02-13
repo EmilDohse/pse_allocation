@@ -17,7 +17,7 @@ import javax.persistence.ManyToOne;
  * Diese KLasse stellt ein Team eines Projektes dar.
  */
 @Entity
-public class Team extends ElipseModel /* implements Comparable<Team> */ {
+public class Team extends ElipseModel {
 
     /**
      * Nummer des Teams
@@ -134,18 +134,6 @@ public class Team extends ElipseModel /* implements Comparable<Team> */ {
     public List<Student> getMembers() {
         return members;
     }
-
-    // /**
-    // * Diese Methode gibt die Bewertung eines Studierenden zum Projekt dieses
-    // * Teams zurück.
-    // *
-    // * @param student
-    // * Der Studierende, dessen Bewertung zurückgegeben werden soll.
-    // * @return Die Bewertung des Studierenden.
-    // */
-    // public int getRating(Student student) {
-    // return student.getRating(project);
-    // }
 
     /**
      * Diese Methode gibt die Betreuer des Teams zurück.

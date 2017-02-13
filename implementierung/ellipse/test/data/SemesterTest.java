@@ -175,4 +175,26 @@ public class SemesterTest extends DataTest {
         assertEquals(semester.getAdvisers().size(), 1);
         assertTrue(semester.getAdvisers().contains(a));
     }
+
+    @Test
+    public void testGetSemesters() {
+        // clear Database
+        Semester.getSemesters().forEach(s -> {
+            if (!GeneralData.loadInstance().getCurrentSemester().equals(s)) {
+                s.delete();
+            }
+        });
+        Semester one = new Semester("one", true);
+        Semester two = new Semester("two", true);
+        one.save();
+
+        // clear standard current Semester
+        GeneralData data = GeneralData.loadInstance();
+        Semester old = data.getCurrentSemester();
+        data.doTransaction(() -> data.setCurrentSemester(one));
+        old.delete();
+        two.save();
+        assertEquals(2, Semester.getSemesters().size());
+        assertEquals(one, Semester.getSemester("one"));
+    }
 }

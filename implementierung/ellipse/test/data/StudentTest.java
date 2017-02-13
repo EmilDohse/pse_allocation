@@ -112,4 +112,16 @@ public class StudentTest extends UserTest {
 
         assertEquals(true, student.registeredMoreThanOnce());
     }
+
+    @Test
+    public void testStudents() {
+        Student.getStudents().forEach(s -> s.delete());
+        Student one = new Student();
+        Student two = new Student();
+        one.doTransaction(() -> one.setMatriculationNumber(1));
+        two.doTransaction(() -> two.setMatriculationNumber(2));
+
+        assertEquals(2, Student.getStudents().size());
+        assertEquals(one, Student.getStudent(1));
+    }
 }

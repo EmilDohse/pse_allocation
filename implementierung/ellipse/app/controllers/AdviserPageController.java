@@ -148,9 +148,15 @@ public class AdviserPageController extends Controller {
             // TODO Warnung vorm löschen
             project.delete();
         }
-        return redirect(controllers.routes.AdviserPageController
-                .projectsPage(GeneralData.loadInstance().getCurrentSemester()
-                        .getProjects().get(0).getId()));
+        if (GeneralData.loadInstance().getCurrentSemester().getProjects()
+                .isEmpty()) {
+            return redirect(controllers.routes.AdviserPageController
+                    .projectsPage(-1));
+        } else {
+            return redirect(controllers.routes.AdviserPageController
+                    .projectsPage(GeneralData.loadInstance()
+                            .getCurrentSemester().getProjects().get(0).getId()));
+        }
     }
 
     /**

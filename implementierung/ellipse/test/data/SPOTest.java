@@ -65,4 +65,14 @@ public class SPOTest extends DataTest {
         assertTrue(spo.getAdditionalAchievements().contains(secondA));
     }
 
+    @Test
+    public void testGetSPO() {
+        SPO one = new SPO("one");
+        SPO two = new SPO("two");
+        one.save();
+        two.save();
+        assertEquals(2, SPO.getSPOs().size());
+        assertEquals(one, SPO.getSPO("one"));
+    }
+
 }

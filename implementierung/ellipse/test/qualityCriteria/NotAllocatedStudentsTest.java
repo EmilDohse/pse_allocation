@@ -1,12 +1,10 @@
 package qualityCriteria;
 
 import static org.junit.Assert.assertEquals;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import data.Allocation;
@@ -14,7 +12,6 @@ import data.GeneralData;
 import data.Semester;
 import data.Student;
 import data.Team;
-import exception.DataException;
 import play.test.WithApplication;
 import qualityCriteria.NotAllocatedStudents;
 
@@ -24,13 +21,13 @@ public class NotAllocatedStudentsTest {
     private Allocation a;
 
     @Before
-    public void setup() throws DataException {
+    public void setup() {
         s = new Semester();
         a = new Allocation();
     }
 
     @Test
-    public void calculateTest() throws DataException {
+    public void calculateTest() {
 
         List<Student> allStudents = new ArrayList<Student>();
 

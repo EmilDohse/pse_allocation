@@ -78,15 +78,11 @@ public class AdminPageController extends Controller {
      * @return Die Seite, die als Antwort verschickt wird.
      */
     public Result allocationPage() {
-        System.out.println("pre get criteria");
         ArrayList<allocation.Criterion> criteria = new ArrayList<>(
                 AllocationQueue.getInstance().getAllocator().getAllCriteria());
-        System.out.println("post get criteria");
-        System.out.println("pre render");
 
         play.twirl.api.Html content = views.html.adminAllocation
                 .render(AllocationQueue.getInstance(), criteria);
-        System.out.println("post render");
 
         Menu menu = new AdminMenu(ctx(), ctx().request().path());
         return ok(views.html.admin.render(menu, content));
