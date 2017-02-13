@@ -30,3 +30,5 @@ routesGenerator := InjectedRoutesGenerator
 
  libraryDependencies += cache
  libraryDependencies += evolutions
+
+fork in run := true
