@@ -147,7 +147,7 @@ public class AdviserPageController extends Controller {
             project.delete();
         }
         if (GeneralData.loadInstance().getCurrentSemester().getProjects()
-                .size() == 0) {
+                .isEmpty()) {
             return redirect(controllers.routes.AdviserPageController
                     .projectsPage(-1));
         } else {
