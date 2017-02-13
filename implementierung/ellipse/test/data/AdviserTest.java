@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.junit.Before;
@@ -70,5 +71,24 @@ public class AdviserTest extends UserTest {
         assertTrue(a.getProjects().contains(project));
         assertTrue(a.getProjects().contains(projectTwo));
         assertTrue(a.getProjects().size() == 2);
+    }
+
+    @Test
+    public void testGetAdvisers() {
+        for (Project p : Project.getProjects()) {
+            Iterator<Adviser> iter = p.getAdvisers().iterator();
+            while (iter.hasNext()) {
+                iter.next();
+                iter.remove();
+            }
+            p.save();
+            p.delete();
+        }
+        Adviser.getAdvisers().forEach(a -> a.delete());
+        Adviser one = new Adviser();
+        Adviser two = new Adviser();
+        one.save();
+        two.save();
+        assertEquals(2, Adviser.getAdvisers().size());
     }
 }

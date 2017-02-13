@@ -58,4 +58,17 @@ public class AllocationTest extends DataTest {
         a.save();
         assertEquals(newTeam, a.getTeam(student));
     }
+
+    @Test
+    public void testGetAllocation() {
+        Allocation.getAllocations().forEach(a -> a.delete());
+        Allocation one = new Allocation(new ArrayList<>(), "one",
+                new ArrayList<>());
+        Allocation two = new Allocation(new ArrayList<>(), "two",
+                new ArrayList<>());
+        one.save();
+        two.save();
+        assertEquals(2, Allocation.getAllocations().size());
+        assertEquals(one, Allocation.getAllocation("one"));
+    }
 }

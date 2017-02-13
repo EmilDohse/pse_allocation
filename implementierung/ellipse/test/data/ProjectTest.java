@@ -100,4 +100,15 @@ public class ProjectTest extends DataTest {
         GeneralData.loadInstance().save();
         assertEquals(s, project.getSemester());
     }
+
+    @Test
+    public void testGetProjects() {
+        Project.getProjects().forEach(p -> p.delete());
+        Project one = new Project();
+        Project two = new Project();
+        one.save();
+        two.save();
+
+        assertEquals(2, Project.getProjects().size());
+    }
 }
