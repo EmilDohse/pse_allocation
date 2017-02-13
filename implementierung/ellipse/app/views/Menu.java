@@ -13,14 +13,14 @@ import java.util.Iterator;
  */
 public class Menu {
 
-    private ArrayList<MenuItem> menu;
+    private ArrayList<MenuItem> menuItems;
     private MenuItem            active;
 
     /**
      * Konstruktor zum Erstellen eines leeren Menüs.
      */
     public Menu() {
-        menu = new ArrayList<>();
+        menuItems = new ArrayList<>();
     }
 
     /**
@@ -32,9 +32,9 @@ public class Menu {
      *            die URL auf die referenziert wird.
      */
     public void addItem(String name, String url) {
-        menu.add(new MenuItem(name, url));
-        if (menu.size() == 1) {
-            setActive(menu.get(0).getLink());
+        menuItems.add(new MenuItem(name, url));
+        if (menuItems.size() == 1) {
+            setActive(menuItems.get(0).getLink());
         }
     }
 
@@ -49,7 +49,7 @@ public class Menu {
         if (active != null) {
             active.setActive(false);
         }
-        for (MenuItem item : menu) {
+        for (MenuItem item : menuItems) {
             if (item.getLink().equals(url)) {
                 item.setActive(true);
                 active = item;
@@ -63,6 +63,6 @@ public class Menu {
      * @return ein Iterator-Objekt
      */
     public Iterator<MenuItem> getIterator() {
-        return menu.iterator();
+        return menuItems.iterator();
     }
 }

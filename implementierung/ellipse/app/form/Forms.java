@@ -6,6 +6,12 @@ package form;
 public class Forms {
 
     /**
+     * Utility Klasse sollte nicht instanziiert werden.
+     */
+    private Forms() {
+    }
+
+    /**
      * Gibt einen Passwort-Valifizierer zurück.
      * 
      * @return Passwort-Valifizierer.

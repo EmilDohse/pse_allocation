@@ -90,13 +90,14 @@ public class Notifier {
      */
     public void notifyAdviser(Allocation allocation, Adviser adviser)
             throws EmailException {
-        String teamsList = "";
+        StringBuilder teamsList = new StringBuilder();
         List<Team> advisersTeams = allocation.getTeamsByAdviser(adviser);
         for (int i = 0; i < advisersTeams.size(); i++) {
-            teamsList += advisersTeams.get(i).toStringForNotification() + "\n";
+            teamsList.append(advisersTeams.get(i).toStringForNotification());
+            teamsList.append("\n");
         }
         String bodyText = messages.at("email.notifyResultsAdviser",
-                adviser.getName(), teamsList);
+                adviser.getName(), teamsList.toString());
         String subject = messages.at("email.subjectResults");
         this.sendEmail(subject, adviser.getEmailAddress(), bodyText);
     }

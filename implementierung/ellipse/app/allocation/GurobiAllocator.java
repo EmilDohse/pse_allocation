@@ -363,9 +363,8 @@ public class GurobiAllocator extends AbstractAllocator {
     }
 
     private Allocation nullObject(String errorMessage) {
-        Allocation failedAllocation = new Allocation(new ArrayList<Team>(),
+        return new Allocation(new ArrayList<Team>(),
                 errorMessage,
                 new ArrayList<AllocationParameter>());
-        return failedAllocation;
     }
 }

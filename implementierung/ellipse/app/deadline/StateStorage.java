@@ -68,7 +68,7 @@ public class StateStorage {
      * 
      * @return den aktuellen Zustand.
      */
-    public State getCurrentState() {
+    public synchronized State getCurrentState() {
         return currentState;
     }
 
