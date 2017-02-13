@@ -17,30 +17,23 @@
 \usepackage{tabularx}
 \usepackage{multirow}
 \usepackage{here}
-
 \usepackage[binary-units=true]{siunitx}
  \usepackage[autostyle=true,german=quotes]{csquotes}
  \usepackage{longtable, booktabs}
  \newcommand{\swtLabel}[1]{\textbf{/#1\arabic*0/}}
- 
- \definecolor{myGreen}{cmyk}{1,0.0,1,0}
  \newlist{itemMinus}{itemize}{1 }
- \setlist[itemMinus]{label=--, noitemsep,
- before=\color{red}\normalfont\ttfamily}
+ \setlist[itemMinus]{label=--}
   \newlist{itemPlus}{itemize}{1 }
-  
- \setlist[itemPlus]{label=+,noitemsep,before=\color{myGreen}\normalfont\ttfamily}
+ \setlist[itemPlus]{label=+}
   \newlist{itemPackage}{itemize}{1 }
- \setlist[itemPackage]{label=*,noitemsep, before=\ttfamily\itshape}
+ \setlist[itemPackage]{label=*}
   \newlist{itemClass}{itemize}{1 }
- \setlist[itemClass]{label=~,noitemsep,before=\normalfont\ttfamily}
+ \setlist[itemClass]{label=~}
  \newlist{itemClassSub}{itemize}{1 }
- \setlist[itemClassSub]{label=~,noitemsep,before=\normalfont}
+ \setlist[itemClassSub]{label=~}
 \newlist{itemChange}{itemize}{1 }
- \setlist[itemChange]{label=>,noitemsep,before=\color{blue}\normalfont\ttfamily}
- \setlist[itemize]{label=~,before=\normalfont}
-  \newcommand{\changeDescription}[1]{{\newline\color{black}\normalfont #1}}
-  \newcommand{\code}[1]{{\ttfamily #1}}
+ \setlist[itemChange]{label=>}
+  \newcommand{\changeDescription}[1]{#1}
  \begin{document}
 
 \title{Elipse -- Einteilungs Interface für das PSE}
@@ -115,22 +108,21 @@ Kleinigkeiten\\
 Mit sechs Entwicklern in der kurzen Zeit von nur 4 Wochen, die auch noch in der
 Prüfungsphase liegt, ein Software-Produkt zu implementieren erfordert, dass die
 Entwickler effizient arbeiten können. Da sich jeder von uns bereits in der
-Entwurfsphase auf ein Gebiet spezialisiert hatte bot es sich an jedem auf seinem
+Entwurfsphase auf ein Gebiet spezialisiert hatte, bot es sich an, jedem auf seinem
 \enquote{Fachgebiet} auch die Implementierung zu übertragen. 
-Ein weiterer Grund für unser Vorgehen war, das wir den Aufwand für
+Ein weiterer Grund für unser Vorgehen war, dass wir den Aufwand für
 Web-Entwicklung und die Arbeit mir vielen Libraries und Frameworks 
 %also das implementieren der Views und deren Anbindung an die Controller und das
 % verwenden von ORM-Tools
 nicht einschätzen konnten. Daher
 wollten wir hier frühzeitig ein funktionierendes Grundgerüst schaffen.
-Genau diese herangehensweise bewährte sich, da die Arbeit mit Ebean (unserem
+Genau diese Herangehensweise bewährte sich, da die Arbeit mit eBean (unserem
 ORM-Tool) und dem Play-Framework sich als weit anstrengender herausstellte als
-gedacht. Veraltete und nicht vorhandene Dokumentatonen, leer implementerte
-Methoden und den guten Ratschlag bei StackOverflow die doch
+gedacht. Veraltete und nicht vorhandene Dokumentationen, leer implementierte
+Methoden und der gute Ratschlag bei StackOverflow doch
 lieber Hibernate zu verwenden waren allgegenwärtig.
 
 
-Bei der 
 %TODO zweites Diagramm wie haben wir wirklich implementeirt
 
 %dann fairness bzw hierzu nur einen satz aber allgemeine statistiken 
@@ -150,7 +142,7 @@ NotificationSystem & Weitere Tests +
 Bugfixes +
 Kleinigkeiten\\
 \hline
-Philipp Faller&Data&Datens&Bugfixes&Bugfixes +  Email\\
+Philipp Faller&Data&Data&Bugfixes&Bugfixes +  Email\\
 \hline
 Philipp Loth&Allocator&Import/Export
 &Import/Export + Kleinigkeiten &Weitere Tests +
@@ -173,33 +165,26 @@ Kleinigkeiten\\
 Zur Sicherung bessere Code-Qualität (z.B. dem Vermeiden von Code-Copy-Pasting)
 und maßgeblich durch die oben beschriebenen Probleme mit verschiedenen
 verwendeten Bibliotheken  wurden Änderungen im Vergleich zum  Entrurfsdokument
-vorgenommen. 
-Dabei wurden die Getter, Setter und Konstruktoren der Vollständigkeit halber
-eingefügt und werden hier nicht weiter kommentiert.
-%TODO Auch atribute nicht kommentieren?
+vorgenommen:
 \begin{itemPackage}
 \item allocation
 \begin{itemClass}
-\item Abstract Allocator
+\item AbstractAllocator
 \begin{itemClassSub}
 \item Methoden
 \begin{itemPlus}
-\item cancel() \changeDescription{Um eine Einteilungsberechnung durchzuführen
-wird diese Methode benötigt.}
-\item init(Configuration)\changeDescription{Um Race-Conditions zu vermeiden
-wurde diese Methode eingefügt. Mit ihr können \code{init()} und \code{cancel()}
-syncronised werden ohne calculate zu blockieren.}
+\item cancel() 
+\item init(Configuration)
 \end{itemPlus}
 \begin{itemChange}
-\item calculate() \changeDescription{Die Konfiguration wird bereits bei
-\code{init()} übergeben.}
+\item calculate()
 \end{itemChange}
 \end{itemClassSub}
 \item AllocationQueue
 \begin{itemClassSub}
 \item Methoden
 \begin{itemPlus}
-\item clear() \changeDescription{Leert die Queue, wird in Unit-Tests verwendet.}
+\item clear()
 \item getAllocator() : AbstractAllocator
 \end{itemPlus}
 \begin{itemChange}
@@ -207,18 +192,17 @@ syncronised werden ohne calculate zu blockieren.}
 \end{itemChange}
 \item Attribute
 \begin{itemPlus}
-\item allocator : AbstractAllocator \changeDescription{Zur Realisierung des
-Strategiemusters.}
+\item allocator : AbstractAllocator
 \end{itemPlus}
 \end{itemClassSub}
 \item Configuration
 \begin{itemClassSub}
 \item Methoden
 \begin{itemPlus}
-\item getTeams() : List<Team> 
+\item getTeams() : List<Team>
 \end{itemPlus}
 \begin{itemMinus}
-\item getProjects() : List<Project> 
+\item getProjects() : List<Project>
 \end{itemMinus}
 \item Konstruktoren
 \begin{itemPlus}
@@ -227,29 +211,24 @@ List<AllocationParameter>)
 \end{itemPlus}
 \item Atribute
 \begin{itemPlus}
-\item teams : List<Team> \changeDescription{Die Teams werden bei der
-Einteilungsberechnung benötigt und aus den im Konstruktor übergebenen
-Projekten berechnet.}
+\item teams : List<Team>
 \end{itemPlus}
 \begin{itemMinus}
-\item projects : List<Project> \changeDescription{Werden implizit durch die
-Teams gespeichert.}
+\item projects : List<Project>
 \end{itemMinus}
 \end{itemClassSub}
 \item Criterion
 \begin{itemClassSub}
 \item Methoden
 \begin{itemPlus}
-\item getDisplayName(String) : String \changeDescription{Zur
-internationalisierung Benutzeroberfläche in Abgrenzung zu \code{getName()}.}
+\item getDisplayName(String) : String
 \end{itemPlus}
 \end{itemClassSub}
 \item GurobiAllocator
 \begin{itemClassSub}
 \item Parameter
 \begin{itemPlus}
-\item currentConfiguration : Configuration \changeDescription{Wird zum Abbruch
-der Einteilungsberechnung benötigt.}
+\item currentConfiguration : Configuration
 \end{itemPlus}
 \end{itemClassSub}
 \item GurobiCriterion
@@ -257,7 +236,6 @@ der Einteilungsberechnung benötigt.}
 \item Methoden
 \begin{itemChange}
 \item useCriteria(Configuration, GurobiAllocator, double)
-\changeDescription{\code{GurobiAllocator} wird von Kriterien benötigt.}
 \end{itemChange}
 \end{itemClassSub}
 \end{itemClass}
@@ -267,90 +245,69 @@ der Einteilungsberechnung benötigt.}
 \begin{itemClassSub}
 \item Methoden
 \begin{itemPlus}
-\item editAllocation() : Result \changeDescription{Diese Methode gibt das
-\code{DynamicForm} an die Methoden \code{moveStudents(DynamicForm, List<Integer>)} und
-\code{swapStudents(DynamicForm, List<Integer>)} weiter wenn der Administrator
-eine Allocation bearbeitet. }
+\item editAllocation() : Result
 \end{itemPlus}
 \begin{itemChange}
-\item moveStudents(DynamicForm, List<Integer>) : Result\changeDescription{Methode zur Weitergabe des \code{DynamicForm} an den
-\code{Command}.}
+\item moveStudents(DynamicForm, List<Integer>) : Result
 \item swapStudents(DynamicForm, List<Integer>) : Result
-\changeDescription{Methode zur Weitergabe des \code{DynamicForm} an den
-\code{Command}.}
 \end{itemChange}
 \end{itemClassSub}
 \item AdminImportExport
 \item \begin{itemClassSub}
 \item Methoden
 \begin{itemPlus}
-\item importGeneral() : Result \changeDescription{Leitet das Drücken des
-Import-Knopfs an die Import-Methoden weiter.}
-\item exportGrades() : Result \changeDescription{Da das CMS-Format unbekannt
-ist ein allgemeiner Notenexport.}
+\item importGeneral() : Result
+\item exportGrades() : Result
 \end{itemPlus}
 \end{itemClassSub}
 \item AdminPageController
 \item \begin{itemClassSub}
 \item Methoden
 \begin{itemPlus}
-\item accountPage() : Result \changeDescription{Zusatzfeature, damt der
-Administrator sein Passwort ändern kann.}
-\item notAllowedInCurrentState(String) : Result \changeDescription{Methode die
-zur Umsetzung von Deadlines gebraucht wird.}
+\item accountPage() : Result
+\item notAllowedInCurrentState(String) : Result
 \end{itemPlus}
 \begin{itemChange}
-\item projectEditPage(int) : Result \changeDescription{\code{int} für das
-Weiterleiten an ein Projekt mit der Id \code{int}. }
+\item projectEditPage(int) : Result
 \end{itemChange}
 \end{itemClassSub}
 \item AdminPropertiesController
 \item \begin{itemClassSub}
 \item Methoden
 \begin{itemPlus}
-\item changeSPO() : Result \changeDescription{Ersatz und Erweiterung für
-\code{removeAchievement()}. }
-\item editSMTPOptions() : Result \changeDescription{Wird für die Konfiguration
-des E-Mail-Servers (SMTP) verwendet.}
+\item changeSPO() : Result
+\item editSMTPOptions() : Result
 \end{itemPlus}
 \begin{itemMinus}
-\item removeAchievement() : Result \changeDescription{Wurde durch
-\code{changeSPO()} ersetzt.}
+\item removeAchievement() : Result
 \end{itemMinus}
 \end{itemClassSub}
 \item AdviserPageController
 \item \begin{itemClassSub}
 \item Methoden
 \begin{itemPlus}
-\item notAllowedInCurrentState(String) : Result \changeDescription{Methode die
-zur Umsetzung von Deadlines gebraucht wird}
+\item notAllowedInCurrentState(String) : Result
 \end{itemPlus}
 \end{itemClassSub}
 \item GeneralAdminController
 \item \begin{itemClassSub}
 \item Methoden
 \begin{itemPlus}
-\item removeAllocationFromQueue() : Result \changeDescription{Wird zum Abbruch
-der Einteilungsberechnung benötigt.}
-\item editAccount() : Result \changeDescription{Zusatzfeature, wird zum
-Bearbeiten des Adminaccounts verwendet.}
+\item removeAllocationFromQueue() : Result
+\item editAccount() : Result
 \end{itemPlus}
 \end{itemClassSub}
 \item IndexPageController
 \item \begin{itemClassSub}
 \item Methoden
 \begin{itemPlus}
-\item notAllowedInCurrentState(String) : Result \changeDescription{Methode die
-zur Umsetzung von Deadlines gebraucht wird.}
-\item passwordResetForm() : Result \changeDescription{View für Studierende, die
-ihr Passwort vergessen haben und es zurücksetzen müssen.}
-\item resetPassord(String) : Result \changeDescription{Methode zum
-Passwort-Reset von Studenten}
+\item notAllowedInCurrentState(String) : Result
+\item passwordResetForm() : Result
+\item resetPassord(String) : Result
 \end{itemPlus}
 \begin{itemMinus}
-\item login() : Result \changeDescription{Wird von \code{pac4j} übernommen.}
-\item passwordReset() : Result \changeDescription{Wurde durch
-\code{resetPassord(String)} ersetzt}
+\item login() : Result
+\item passwordReset() : Result
 \end{itemMinus}
 \end{itemClassSub}
 \item MoveStudentCommand
@@ -361,45 +318,30 @@ Passwort-Reset von Studenten}
 \end{itemPlus}
 \item Attribute
 \begin{itemPlus}
-\item oldTeams : Map<Student, Team> \changeDescription{Beim verschieben von 2
-verschiedenen Studenten aus 2 verschiedenen Teams muss gespeichert werden, in
-welchem Team die Beiden ursprünglich waren. Nur dann kann man die Änderung
-rückgängig machen.}
-\item students : List<Student> \changeDescription{Nun kann mehr als ein Student
-auf einmal verschoben werden.}
+\item oldTeams : Map<Student, Team>
+\item students : List<Student>
 \end{itemPlus}
 \begin{itemMinus}
-\item oldTeam : Team \changeDescription{Wurde durch \code{oldTeams :
-Map<Student, Team>} ersetzt}
-\item student : Student \changeDescription{Wurde durch \code{students :
-List<Student>} ersetzt }
+\item oldTeam : Team
+\item student : Student
 \end{itemMinus}
 \end{itemClassSub}
 \item StudentPageController
-\item 
-\begin{itemClassSub}
+\item \begin{itemClassSub}
 \item Methoden
 \begin{itemPlus}
-\item changeData() : Result \changeDescription{Zur Änderung der Daten eines
-Studenten, z.B. wenn er bei seiner ersten Anmeldung nicht zugeteilt wurde und
-nun in einem höheren Semester ist}
-\item changeFormPage() : Result \changeDescription{Der View für
-\code{changeData()} }
-\item notAllowedInCurrentState(String) : Result \changeDescription{Methode die
-zur Umsetzung von Deadlines gebraucht wird.}
-\item sendNewVerificationLink() : Result \changeDescription{Wenn die E-Mail bei
-der Verifikation der E-Mail-Adresse nicht ankommt kann hier eine neue E-Mail
-angefordert werden }
-\item setLearningGroup() : Result \changeDescription{Leitet an die bereits
-existierenden Methoden \code{joinLearningGroup()} und
-\code{createLearningGroup} weiter.}
+\item changeData() : Result
+\item changeFormPage() : Result
+\item notAllowedInCurrentState(String) : Result
+\item sendNewVerificationLink() : Result
+\item setLearningGroup() : Result
 \end{itemPlus}
 \end{itemClassSub}
 \item SwapStudent
-\begin{itemClassSub}
+\item \begin{itemClassSub}
 \item Konstruktoren
 \begin{itemPlus}
-\item SwapStudentCommand(Allocation, Student, Student) \changeDescription{}
+\item SwapStudentCommand(Allocation, Student, Student)
 \end{itemPlus}
 \end{itemClassSub}
 \end{itemClass}
@@ -407,29 +349,25 @@ existierenden Methoden \code{joinLearningGroup()} und
 \begin{itemClass}
 \item Administrator
 \begin{itemize}
-  \item Klasse hinzugefügt da er nun auch als \code{User} in der Datenbank
-  liegt.
+  \item Klasse hinzugefügt
 \end{itemize}
 \item ElipseModel
 \begin{itemize}
-  \item Klasse als Oberklasse für alle Datenklassen hinzugefügt um
-  \code{equals}-Methoden und ähnliches einheitlich zu behandeln.
+  \item Klasse hinzugefügt
 \end{itemize}
 \item Grade
 \begin{itemize}
-  \item Enum hinzugefügt um Noten darzustellen
+  \item Enum hinzugefügt
 \end{itemize}
 \item Transaction
 \begin{itemize}
-  \item Interface hinzugefügt um das Speichern beim durchführen von Änderungen
-  an Datenobjekten zu Automatisieren.
+  \item Interface hinzugefügt
 \end{itemize}
 \item Achievement
 \begin{itemClassSub}
 \item Methoden
 \begin{itemPlus}
-\item compareTo(Achievement) : int \changeDescription{Um \code{Achievments} zur
-Anzeige zu Sortieren }
+\item compareTo(Achievement) : int
 \end{itemPlus}
 \item Konstruktoren
 \begin{itemPlus}
@@ -443,10 +381,8 @@ Anzeige zu Sortieren }
 \item getProjects(): List<Project>
 \end{itemPlus}
 \begin{itemMinus}
-\item addProject(Project) \changeDescription{\code{Projects} werden nicht mehr
-bei \code{Advisers} gespeichert}
-\item removeProject(Project)\changeDescription{\code{Projects} werden nicht mehr
-bei \code{Advisers} gespeichert}
+\item addProject(Project)
+\item removeProject(Project)
 \end{itemMinus}
 \item Konstruktoren
 \begin{itemPlus}
@@ -466,8 +402,7 @@ bei \code{Advisers} gespeichert}
 \item getNotAllocatedStudents() : List<Student>
 \end{itemPlus}
 \begin{itemMinus}
-\item clone() : Allocation \changeDescription{Wird von Konstruktor
-\code{Allocation(Allocation)} übernommen}
+\item clone() : Allocation
 \end{itemMinus}
 \item Konstruktoren
 \begin{itemPlus}
@@ -476,7 +411,7 @@ bei \code{Advisers} gespeichert}
 \end{itemPlus}
 \item Attribute
 \begin{itemPlus}
-\item semester : Semester \changeDescription{Wird von Ebean benötigt}
+\item semester : Semester
 \end{itemPlus}
 \end{itemClassSub}
 \item AllocationParameter
@@ -490,8 +425,7 @@ bei \code{Advisers} gespeichert}
 \begin{itemClassSub}
 \item Methoden
 \begin{itemPlus}
-\item loadInstance() : GeneralData \changeDescription{Läd alle Daten aus der
-Datenbank}
+\item loadInstance() : GeneralData
 \end{itemPlus}
 \begin{itemMinus}
 \item getAdminName() : String
@@ -501,10 +435,8 @@ Datenbank}
 \end{itemMinus}
 \item Attribute 
 \begin{itemMinus}
-\item adminName : String \changeDescription{Wird nun in der Klasse
-\code{Administrator} gekapselt}
-\item adminPassword : String \changeDescription{Wird nun in der Klasse
-\code{Administrator} gekapselt}
+\item adminName : String
+\item adminPassword : String
 \end{itemMinus}
 \end{itemClassSub}
 \item LearningGroup
@@ -513,10 +445,8 @@ Datenbank}
 \begin{itemPlus}
 \item getSemester() : Semester
 \item setSemester(Semester)
-\item addMember(Student) \changeDescription{\code{Students} werden nun bei
-\code{LearningGroups} gespeichert nicht andersherum}
-\item removeMember(Student)\changeDescription{\code{Students} werden nun bei
-\code{LearningGroups} gespeichert nicht andersherum}
+\item addMember(Student)
+\item removeMember(Student)
 \end{itemPlus}
 \item Konstruktoren
 \begin{itemPlus}
@@ -525,7 +455,7 @@ Datenbank}
 \end{itemPlus}
 \item Attribute 
 \begin{itemPlus}
-\item semester : Semester \changeDescription{Durch Ebean bedingtes Attribut}
+\item semester : Semester
 \end{itemPlus}
 \end{itemClassSub}
 \item Project
@@ -544,10 +474,11 @@ Datenbank}
 \item Konstruktoren
 \begin{itemPlus}
 \item Project(String, String, String, String)
+\item Project(String, Adviser)
 \end{itemPlus}
 \item Attribute 
 \begin{itemPlus}
-\item semester : Semester \changeDescription{Durch Ebean bedingtes Attribut}
+\item semester : Semester
 \end{itemPlus}
 \end{itemClassSub}
 \item Rating
@@ -563,8 +494,7 @@ Datenbank}
 \end{itemPlus}
 \item Attribute 
 \begin{itemPlus}
-\item learningGroup : LearningGroup \changeDescription{Durch Ebean bedingtes
-Attribut}
+\item learningGroup : LearningGroup
 \end{itemPlus}
 \end{itemClassSub}
 \item Semester
@@ -586,7 +516,6 @@ Attribut}
 \item addSPO(SPO)
 \item removeSPO(SPO)
 \item getLearningGroupOf(Student) : LearningGroup
-\changeDescription{Funktion die häufig benötigt wird}
 \item compareTo(Semester) : int
 \end{itemPlus}
 \item Konstruktoren
@@ -596,8 +525,7 @@ Attribut}
 \item Attribute 
 \begin{itemPlus}
 \item wintersemester : boolean
-\item maxGroupSize : int \changeDescription{Maximale Lerngruppengröße in diesem
-Semester}
+\item maxGroupSize : int
 \end{itemPlus}
 \end{itemClassSub}
 \item SPO
@@ -620,11 +548,8 @@ Semester}
 \begin{itemClassSub}
 \item Methoden
 \begin{itemPlus}
-\item toStringForNotification() : String \changeDescription{\code{toString()}
-zur Anzeige des Studenten für E-Mail an ihn.}
-\item registeredMoreThanOnce() : boolean \changeDescription{Überprüft ob der
-Student sich schon in einem vorherigen Semester für einen PSE-Platz beworben
-hat.}
+\item toStringForNotification() : String
+\item registeredMoreThanOnce() : boolean
 \end{itemPlus}
 \begin{itemMinus}
 \item getRating(Project) : int
@@ -639,10 +564,8 @@ List<Achievement>, List<Achievement>, int)
 \end{itemPlus}
 \item Attribute 
 \begin{itemChange}
-\item gradePSE : Grade \changeDescription{Noten werden nun als \code{Grade}
-gespeichert um die Notenskala genau abzudecken}
-\item gradeTSE : Grade \changeDescription{Noten werden nun als \code{Grade}
-gespeichert um die Notenskala genau abzudecken}
+\item gradePSE : Grade
+\item gradeTSE : Grade
 \end{itemChange}
 \end{itemClassSub}
 \item Team
@@ -655,8 +578,7 @@ gespeichert um die Notenskala genau abzudecken}
 \item setTeamNumber(int)
 \item addMember(Student)
 \item removeMember(Student)
-\item toStringForNotification() : String \changeDescription{\code{toString()}
-zur Anzeige des Studenten für E-Mail an ihn.}
+\item toStringForNotification() : String
 \end{itemPlus}
 \begin{itemMinus}
 \item getRating(Student) : int
@@ -687,28 +609,29 @@ zur Anzeige des Studenten für E-Mail an ihn.}
 	\begin{itemClass}
 	\item DeadLineFilter
 	\begin{itemize}
-	  \item Klasse hinzugefügt um Zugriff auf bestimmte URLs zu unterbinden, wenn
-	  die Deadline abgelaufen ist.
+	  \item Klasse hinzugefügt
 	\end{itemize}
-	\item StateStorage 
+	\item StateStorage
 	\begin{itemize}
-	  \item Klasse hinzugefügt als Zustandsautomat für die Deadlines. 
+	  \item Klasse hinzugefügt
 	\end{itemize}
 	\end{itemClass}
 \item exception
 \begin{itemClass}
-\item ImporterException 
+\item DataException
 \begin{itemize}
-	  \item Klasse hinzugefügt die Fehler bei Im- und Export an die Controller
-	  weitergibt.
+	  \item Klasse hinzugefügt
+	\end{itemize}
+\item ImporterException
+\begin{itemize}
+	  \item Klasse hinzugefügt
 	\end{itemize}
 \end{itemClass}
 \item filters
 \begin{itemClass}
 \item Filter
 \begin{itemize}
-	  \item Klasse hinzugefügt um nicht autorisierten Zugriff über Eingabe von URLs
-	  zu unterbinden.
+	  \item Klasse hinzugefügt
 	\end{itemize}
 \end{itemClass}
 \item importExport
@@ -717,14 +640,11 @@ zur Anzeige des Studenten für E-Mail an ihn.}
 \begin{itemClassSub}
 \item Methoden
 \begin{itemPlus}
-\item exportGrades(File, Semester) \changeDescription{Da das Format von CMS
-nicht bekannt ist gibt es nun einen allgemeinen \code{Grades}-Export}
+\item exportGrades(File, Semester)
 \end{itemPlus}
 \begin{itemMinus}
-\item importCMSData(File, Semester) \changeDescription{Da das Format von CMS
-nicht bekannt ist gibt es nun einen allgemeinen \code{Grades}-Export}
-\item exportCMSData(File, Semester) \changeDescription{Da das Format von CMS
-nicht bekannt ist gibt es nun einen allgemeinen \code{Grades}-Export}
+\item importCMSData(File, Semester)
+\item exportCMSData(File, Semester)
 \end{itemMinus}
 \end{itemClassSub}
 \end{itemClass}
@@ -734,15 +654,9 @@ nicht bekannt ist gibt es nun einen allgemeinen \code{Grades}-Export}
 \begin{itemClassSub}
 \item Methoden
 \begin{itemPlus}
-\item notifyAdviser(Allocation, Adviser) \changeDescription{Methode zur
-E-Mail-Benachrichtigung eines \code{Advisers} bei Veröffentlichung der finalen
-Einteilung}
-\item notifyStudent(Allocation, Student) \changeDescription{Methode zur
-E-Mail-Benachrichtigung eines \code{Students} bei Veröffentlichung der finalen
-Einteilung}
-\item sendAdviserPassword(Adviser, String) \changeDescription{Beim erstellen
-eines \code{Advisers} durch den Admin wird das Passwort per E-Mail an den
-Adviser gesendet.}
+\item notifyAdviser(Allocation, Adviser)
+\item notifyStudent(Allocation, Student)
+\item sendAdviserPassword(Adviser, String)
 \end{itemPlus}
 \item Konstruktoren
 \begin{itemPlus}
@@ -764,17 +678,15 @@ Adviser gesendet.}
 \begin{itemClass}
 \item BlowfishPasswordEncoder
 	\begin{itemize}
-	  \item Schnittstelle zu einer Bibliothek zur Verschlüsslung von Passwörtern.
+	  \item Klasse hinzugefügt
 	\end{itemize}
 \item EmailVerifier
- \begin{itemize}
-	  \item Klasse zur Generierung, Speicherung und Validierung von
-	  Verifikationscodes, die per E-Mail versendet werden.
+\item \begin{itemize}
+	  \item Klasse hinzugefügt
 	\end{itemize}
 \item PasswordResetter
- \begin{itemize}
-	  \item Klasse hinzugefügt um eine Passwort-Reset-E-Mail zu bearbeiten und das
-	  Passwort eines Studenten zurückzusetzen.
+\item \begin{itemize}
+	  \item Klasse hinzugefügt
 	\end{itemize}
 \item SecurityModule
 \begin{itemClassSub}
@@ -785,55 +697,34 @@ Adviser gesendet.}
 \end{itemClassSub}
 \item TimedCodeValueStore
 \item \begin{itemize}
-	  \item Key-Value-Store bei der ein Code der Key ist, welcher nach einer
-	  gewissen Zeit nicht mehr akzeptiert wird. Hilfsklasse für
-	  \code{PasswordResetter} und \code{EmailVerifier}.
+	  \item Klasse hinzugefügt
 	\end{itemize}
 \item UserAuthenticator
 \item \begin{itemize}
-	  \item Klasse zur autentifizierung von \code{Users}.
+	  \item Klasse hinzugefügt
 	\end{itemize}
 \item UserManagement
 \item \begin{itemize}
-	  \item Klasse um aus der aktuellen Session den \code{User} zu bekommen.
+	  \item Klasse hinzugefügt
 	\end{itemize}
-\item UserProfile<T>
+\item UserProfile
 \item \begin{itemize}
-	  \item Klasse hinzugefügt die das Profil eines angemeldeten Nutzers
-	  repräsentiert.
+	  \item Klasse hinzugefügt
+	\end{itemize}
+\item Verifier
+\item \begin{itemize}
+	  \item Klasse hinzugefügt
 	\end{itemize}
 \end{itemClass}
 \item view
 \begin{itemize}
-  \item Package hinzugefügt und \code{twirl}-Templatecode eingefügt zur
-  generierung von \code{html}-Seiten.
+  \item Package hinzugefügt
 \end{itemize}
-\item form
-\begin{itemClass}
-\item Forms
-\begin{itemize}
-  \item Statische Klasse mit Hilfsmethoden zur generierung von häufig genutzten
-  \code{Validators}.
-\end{itemize}
-\item IntValidator
-\begin{itemize}
-  \item Validiert \code{int}-Eingabefelder.
-\end{itemize}
-\item StringValidator
-\begin{itemize}
-  \item Validiert \code{String}-Eingabefelder.
-\end{itemize}
-\item ValidationException
-\begin{itemize}
-  \item Tritt bei Fehler in der Validierung auf.
-\end{itemize}
-\item Validator
-\begin{itemize}
-  \item Generisches Interface zur validierung eines Formulareingabefelds.
-\end{itemize}
-\end{itemClass}
 \end{itemPackage}
-
+\subsection{allocation}
+\begin{itemize}
+  \item 
+\end{itemize}
 
 \section{Funktionsumfang}
 Wie im Pflichtenheft beschrieben gibt es einige Muss und Wunschkriterien zu
