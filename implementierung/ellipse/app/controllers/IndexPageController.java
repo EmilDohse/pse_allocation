@@ -46,7 +46,7 @@ import views.Menu;
  */
 public class IndexPageController extends Controller {
 
-    private static final String ERROR = "error";
+    private static final String ERROR          = "error";
 
     private static final String INTERNAL_ERROR = "error.internalError";
 
@@ -77,6 +77,12 @@ public class IndexPageController extends Controller {
      * @return Die Seite, die als Antwort verschickt wird.
      */
     public Result registerPage() {
+        // Checken ob der UserAuthenticator nen error in die Session geschrieben
+        // hat. Pac4J kann nicht anders leider einen Fehler einem mitteilen.
+        if (session(ERROR) != null) {
+            flash(ERROR, session(ERROR));
+            session().remove(ERROR);
+        }
         play.twirl.api.Html content = views.html.indexRegistration.render(
                 GeneralData.loadInstance().getCurrentSemester().getSpos());
         Menu menu = new IndexMenu(ctx(), ctx().request().path());
@@ -300,8 +306,7 @@ public class IndexPageController extends Controller {
         }
         String encPw = new BlowfishPasswordEncoder().encode(password);
         String verificationCode = PasswordResetter.getInstance()
-                .initializeReset(user,
-                encPw);
+                .initializeReset(user, encPw);
         try {
             notifier.sendVerifyNewPassword(user,
                     controllers.routes.IndexPageController
