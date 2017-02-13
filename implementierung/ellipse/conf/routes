@@ -16,6 +16,7 @@ GET		/studentOld/changeForm		controllers.StudentPageController.changeFormPage()
 POST	/studentOld/changeData		controllers.StudentPageController.changeData()
 
 GET 	/student					controllers.StudentPageController.learningGroupPage()
+GET 	/student/					controllers.StudentPageController.learningGroupPage()
 GET 	/student/group				controllers.StudentPageController.learningGroupPage()
 GET 	/student/rating				controllers.StudentPageController.ratingPage()
 GET 	/student/results			controllers.StudentPageController.resultsPage()
@@ -28,6 +29,7 @@ POST	/student/setLearningGroup	controllers.StudentPageController.setLearningGrou
 GET		/student/redirect*url		controllers.StudentPageController.notAllowedInCurrentState(url: String)
 
 GET		/adviser					controllers.AdviserPageController.projectsPage(id: Int = -1)
+GET		/adviser/					controllers.AdviserPageController.projectsPage(id: Int = -1)
 GET 	/adviser/projects/:id		controllers.AdviserPageController.projectsPage(id: Int)
 GET		/adviser/account			controllers.AdviserPageController.accountPage()
 GET 	/adviser/add				controllers.AdviserPageController.addProject()
@@ -40,6 +42,7 @@ POST 	/adviser/editAccount		controllers.AdviserPageController.editAccount()
 GET		/adviser/redirect*url		controllers.AdviserPageController.notAllowedInCurrentState(url: String)
 
 GET		/admin						controllers.AdminPageController.projectPage()
+GET		/admin/						controllers.AdminPageController.projectPage()
 GET 	/admin/projects				controllers.AdminPageController.projectPage()
 GET 	/admin/advisers				controllers.AdminPageController.adviserPage()
 GET 	/admin/allocation			controllers.AdminPageController.allocationPage()
