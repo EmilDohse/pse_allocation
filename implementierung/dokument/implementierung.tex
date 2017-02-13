@@ -161,6 +161,24 @@ Kleinigkeiten\\
 \end{tabularx}
 \caption{Wirkliche Implementierung}
 \end{table}
+
+\begin{figure}
+\begin{tikzpicture}[x={(1mm,0mm)},y={(0mm,1mm)}]
+\draw[yshift=-4mm] (0,0) node{17. Jan} (30, 0) node{24. Jan} (60, 0) node{31. Jan} (90, 0) node{7. Feb} (120, 0) node{13. Feb};
+\draw[line width=20mm,orange!60] (0,0) plot [ycomb]
+coordinates {(120,70.59)};
+\draw[line width=20mm,red!60] (0,0) plot [ycomb]
+coordinates {(120,52.14) (90,52.14)};
+\draw[line width=20mm,yellow!60] (0,0) plot [ycomb]
+coordinates {(120,26.92) (90,26.92) (60,26.92)};
+\draw[line width=20mm,green!60] (0,0) plot [ycomb]
+coordinates {(120,25.48) (90,25.48) (60,25.48) (30,25.48)};
+\draw[line width=20mm,blue!60] (0,0) plot [ycomb]
+coordinates {(120,12.30) (90,12.30) (60,12.30) (30,12.30) (0,12.30)};
+\draw[yshift=-4mm](0,12.30) node{1230} (30, 25.48) node{2548} (60, 26.92) node{2692} (90, 52.14) node{5214} (120, 70.59) node{7059};
+\end{tikzpicture}
+\caption{LOC über die vier Wochen}
+\end{figure}
 \section{Änderungen zum Entwurfsdokument}
 Zur Sicherung bessere Code-Qualität (z.B. dem Vermeiden von Code-Copy-Pasting)
 und maßgeblich durch die oben beschriebenen Probleme mit verschiedenen
