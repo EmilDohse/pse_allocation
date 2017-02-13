@@ -15,6 +15,11 @@ import data.Semester;
 import data.Student;
 import data.Team;
 
+/**
+ * Diese Klasse beinhaltet Unit-Tests für das Gütekriterium, welches die Anzahl
+ * geteilter Lerngruppen berechnet.
+ *
+ */
 public class SplitLearningGroupTest extends DataTest {
 
     Semester            semester;
@@ -30,6 +35,9 @@ public class SplitLearningGroupTest extends DataTest {
     List<LearningGroup> learningGroups;
     List<Team>          teams;
 
+    /**
+     * Setup code.
+     */
     @Before
     public void setup() {
         semester = new Semester();
@@ -59,6 +67,9 @@ public class SplitLearningGroupTest extends DataTest {
         semester.save();
     }
 
+    /**
+     * Erster Test für die korrekte Berechnung der Anzahl geteilter Lerngruppen.
+     */
     @Test
     public void firstCalculateTest() {
         LearningGroup l1 = new LearningGroup();
@@ -109,6 +120,10 @@ public class SplitLearningGroupTest extends DataTest {
         assertEquals(2, Integer.parseInt(slg.calculate(allocation)));
     }
 
+    /**
+     * Zweiter Test für die korrekte Berechnung der Aanzahl geteilter
+     * Lerngruppen.
+     */
     @Test
     public void secondCalculateTest() {
         LearningGroup l1 = new LearningGroup();
@@ -173,6 +188,10 @@ public class SplitLearningGroupTest extends DataTest {
         assertEquals(4, Integer.parseInt(slg.calculate(allocation)));
     }
 
+    /**
+     * Dritte Berechnung für die korrekte Berechnung der Anzahl geteilter
+     * Lerngruppen.
+     */
     @Test
     public void thirdCalculateTest() {
         LearningGroup l1 = new LearningGroup();
@@ -230,6 +249,10 @@ public class SplitLearningGroupTest extends DataTest {
         assertEquals(1, Integer.parseInt(slg.calculate(allocation)));
     }
 
+    /**
+     * Vierte Berechnung für die korrekte Berechnung der Anzahl geteilter
+     * Lerngruppen.
+     */
     @Test
     public void fourthCalculateTest() {
         LearningGroup l1 = new LearningGroup();
