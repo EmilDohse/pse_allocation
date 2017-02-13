@@ -107,9 +107,13 @@ public class AdviserPageController extends Controller {
         Adviser adviser = (Adviser) user.getUserProfile(ctx());
         Semester semester = GeneralData.loadInstance().getCurrentSemester();
         if (semester != null) {
-            Project project = new Project("new Project"
-                    + adviser.getFirstName() + adviser.getLastName(), adviser);
+            Project project = new Project();
             project.save();
+            project.doTransaction(() -> {
+                project.setName("new Project" + adviser.getFirstName()
+                        + adviser.getLastName());
+                project.addAdviser(adviser);
+            });
             projID = project.getId();
             semester.doTransaction(() -> {
                 semester.addProject(project);

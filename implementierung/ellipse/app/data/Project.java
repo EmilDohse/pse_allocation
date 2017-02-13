@@ -67,20 +67,13 @@ public class Project extends ElipseModel implements Comparable<Project> {
         this("default_name", "default_info", "default_institut", "default_url");
     }
 
-    public Project(String name, String projectInfo, String institut,
-            String url) {
+    public Project(String name, String projectInfo, String institut, String url) {
         super();
         this.name = name;
         this.projectInfo = projectInfo;
         this.institute = institut;
         this.projectURL = url;
         advisers = new ArrayList<>();
-    }
-
-    public Project(String name, Adviser adviser) {
-        this();
-        this.name = name;
-        advisers.add(adviser);
     }
 
     /**
