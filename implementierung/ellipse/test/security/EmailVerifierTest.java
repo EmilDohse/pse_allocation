@@ -14,7 +14,7 @@ public class EmailVerifierTest {
     Student student2;
 
     @Before
-    public void setup() throws DataException {
+    public void setup() {
         student = new Student();
         student2 = new Student();
     }

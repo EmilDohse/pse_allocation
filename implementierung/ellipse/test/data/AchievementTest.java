@@ -24,4 +24,20 @@ public class AchievementTest extends DataTest {
         });
         assertEquals(name, a.getName());
     }
+
+    @Test
+    public void testGetAchievement() {
+        // Leere die Datenbank
+        Achievement.getAchievements().forEach(a -> a.delete());
+        Achievement one = new Achievement();
+        Achievement two = new Achievement();
+        one.doTransaction(() -> {
+            one.setName("one");
+        });
+        two.doTransaction(() -> {
+            two.setName("two");
+        });
+        assertEquals(one, Achievement.getAchievement("one"));
+        assertEquals(2, Achievement.getAchievements().size());
+    }
 }

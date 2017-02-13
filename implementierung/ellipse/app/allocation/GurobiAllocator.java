@@ -189,13 +189,9 @@ public class GurobiAllocator extends AbstractAllocator {
 
     private void makeModel() throws GRBException {
         model = new GRBModel(env);
-        System.out.println("post new model");
         createBaseMatrix();
-        System.out.println("base matrix");
         createBasicConstraint();
-        System.out.println("basiscconstraint");
         createTeamSizeConstraint();
-        System.out.println("size");
         createOptimisationTerm();
         // Stelle Modell auf Maximierung ein
         model.setObjective(this.optTerm, GRB.MAXIMIZE);
@@ -336,7 +332,6 @@ public class GurobiAllocator extends AbstractAllocator {
                 weight = param.getValue();
                 if (Math.abs(weight) >= 1e-4) {
                     criterion.useCriteria(currentConfiguration, this, weight);
-                    System.out.println(criterion.getName());
                 }
             }
 
@@ -373,7 +368,6 @@ public class GurobiAllocator extends AbstractAllocator {
                                             // somit keine warnung kommt
         failedAllocation = new Allocation(new ArrayList<Team>(), errorMessage,
                 new ArrayList<AllocationParameter>());
-        System.out.println("ERROR " + errorMessage);
         return failedAllocation;
     }
 }

@@ -64,7 +64,7 @@ public class Project extends ElipseModel implements Comparable<Project> {
     private Semester      semester;
 
     public Project() {
-        this("default_name", "default_info", "default_institut", "default_url");
+        this("", "", "", "");
     }
 
     public Project(String name, String projectInfo, String institut, String url) {
