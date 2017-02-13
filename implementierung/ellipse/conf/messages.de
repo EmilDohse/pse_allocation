@@ -102,6 +102,7 @@ student.changeData.changeData = Daten ändern
 student.info.notVerifiedEmail = Bitte verifizieren sie ihre E-Mail-Adresse indem sie den Link in ihrer Aktivierungsmail klicken. In den Account-Einstellungen können sie sich notfalls einen neuen Link zuschicken lassen.
 student.invalidMatNr = Die Matrikelnummer kann nicht negativ sein
 student.email.verificationLinkSuccess = Verifikationslink erfolgreich gesendet
+student.email.verificationLinkFailure
 
 learningGroup.invalidRating = Bewertungen müssen zwischen 1 und 5 sein
 learningGroup.ratingNotFound = Zu diesem Projekt existiert keine Bewertung
@@ -121,7 +122,7 @@ team.invalidTeamSize = Die Teamgröße muss entweder 0 oder zwischen min und max
 
 adviser.sidebar.account = Account
 adviser.leaveProject = Projekt verlassen
-advsier.noProject = Es ist kein Projekt aktuell vorhanden.
+adviser.noProject = Es ist kein Projekt aktuell vorhanden.
 adviser.joinProject = Projekt beitreten
 adviser.addProject = Projekt erstellen
 adviser.account.newEmail = Neue E-Mail-Addresse
