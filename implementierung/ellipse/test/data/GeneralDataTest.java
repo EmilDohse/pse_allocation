@@ -11,20 +11,33 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * Diese Klasse beinhaltet Unit-Test für die GeneralData Klasse.
+ *
+ */
 public class GeneralDataTest extends DataTest {
 
     private GeneralData data;
 
+    /**
+     * Initialisierung GeneralData.
+     */
     @Before
     public void before() {
         data = GeneralData.loadInstance();
     }
 
+    /**
+     * Testet die getInstance Methode auf Korrektheit.
+     */
     @Test
     public void testGetInstance() {
         assertEquals(data, GeneralData.loadInstance());
     }
 
+    /**
+     * Testet setter und getter für das aktuelle Semester.
+     */
     @Test
     public void testSetSemester() {
         Semester semester = new Semester();
@@ -32,6 +45,9 @@ public class GeneralDataTest extends DataTest {
         assertEquals(semester, data.getCurrentSemester());
     }
 
+    /**
+     * Testet Speichern und Laten aus der Datenbank.
+     */
     @Test
     public void testSetSaveAndReload() {
         Semester semester = new Semester();
@@ -42,6 +58,9 @@ public class GeneralDataTest extends DataTest {
         assertEquals(semester, GeneralData.loadInstance().getCurrentSemester());
     }
 
+    /**
+     * Testet Speichern und Laden mit einer finalen Einteilung.
+     */
     @Test
     public void testWithAllocation() {
         Semester s = new Semester();
@@ -57,6 +76,9 @@ public class GeneralDataTest extends DataTest {
         assertEquals(a, s.getFinalAllocation());
     }
 
+    /**
+     * Testet Speichern und Laden mit finaler Einteilung und Teams.
+     */
     @Test
     public void testWithTeams() {
         Semester s = new Semester();
@@ -81,6 +103,9 @@ public class GeneralDataTest extends DataTest {
         assertTrue(teams.contains(t));
     }
 
+    /**
+     * Testet Speichern und Laden mit finaler Einteilung, Teams und Studenten.
+     */
     @Test
     public void testWithStudent() {
         Student student = new Student();

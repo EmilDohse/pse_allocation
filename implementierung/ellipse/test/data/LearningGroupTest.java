@@ -9,15 +9,26 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * Diese Kllasse beinhaltet Unit-Tests für die Klasse LearningGroup.
+ *
+ */
 public class LearningGroupTest extends DataTest {
 
     private LearningGroup learningGroup;
 
+    /**
+     * Initialisierung der Lerngruppe.
+     */
     @Before
     public void beforeTest() {
         learningGroup = new LearningGroup();
     }
 
+    /**
+     * Diese Methode testet sowohl getter alsauch setter für den Namen der
+     * Lerngruppe.
+     */
     @Test
     public void testName() {
         String n = "testname";
@@ -25,6 +36,10 @@ public class LearningGroupTest extends DataTest {
         assertEquals(n, learningGroup.getName());
     }
 
+    /**
+     * Diese Methode testet sowohl getter alsauch setter für das Passwort der
+     * Lerngruppe.
+     */
     @Test
     public void testPassword() {
         String p = "123456";
@@ -32,6 +47,10 @@ public class LearningGroupTest extends DataTest {
         assertEquals(p, learningGroup.getPassword());
     }
 
+    /**
+     * Diese Methode testet, ob das Hinzufügen und Entfernen von Studenten
+     * einwandfrei funktioniert.
+     */
     @Test
     public void testMembers() {
         Semester semester = new Semester();
@@ -59,6 +78,10 @@ public class LearningGroupTest extends DataTest {
         assertTrue(learningGroup.getMembers().contains(secondS));
     }
 
+    /**
+     * Diese Methode testet, ob das Setzen von Bewertungen für ein Projekt
+     * einwandfrei funktioniert.
+     */
     @Test
     public void testRatings() {
         Rating rating = new Rating();
@@ -86,6 +109,10 @@ public class LearningGroupTest extends DataTest {
         assertEquals(2, learningGroup.getRatings().size());
     }
 
+    /**
+     * Diese Methode testet sowohl getter alsauch setter für den Status der
+     * Lerngruppe.
+     */
     @Test
     public void testPrivate() {
         boolean p = true;
@@ -93,6 +120,10 @@ public class LearningGroupTest extends DataTest {
         assertEquals(learningGroup.isPrivate(), p);
     }
 
+    /**
+     * Diese Methode testet die statische Methode, mit der man eine spezifische
+     * Lerngruppe aus der Datenbank erhält.
+     */
     @Test
     public void testGetLearningGroup() {
         Semester one = new Semester();

@@ -10,16 +10,26 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * Diese Klasse beinhaltet Unit-Tests für die Klasse Semester.
+ */
 public class SemesterTest extends DataTest {
 
     private Semester semester;
 
+    /**
+     * Initialisierung des Semesters.
+     */
     @Before
     public void beforeTest() {
         semester = new Semester();
         semester.save();
     }
 
+    /**
+     * Diese Methode testet sowohl getter als auch setter für den Status
+     * 'Wintersemester' des Semesters.
+     */
     @Test
     public void testWintersemester() {
         boolean w = true;
@@ -27,6 +37,10 @@ public class SemesterTest extends DataTest {
         assertEquals(w, semester.isWintersemester());
     }
 
+    /**
+     * Diese Methode testet sowohl getter als auch setter für den Namen des
+     * Semesters.
+     */
     @Test
     public void testName() {
         String n = "testname";
@@ -34,6 +48,10 @@ public class SemesterTest extends DataTest {
         assertEquals(n, semester.getName());
     }
 
+    /**
+     * Diese Methode testet das Entfernen und Hinzufügen von SPOs zum Semester.
+     * Außerdem testet sie die getter und setter der SPOs auf Korrektheit.
+     */
     @Test
     public void testSPOs() {
         SPO firstSPO = new SPO();
@@ -54,6 +72,10 @@ public class SemesterTest extends DataTest {
         assertTrue(semester.getSpos().contains(secondSPO));
     }
 
+    /**
+     * Diese Methode testet sowohl getter als auch setter für den InfoText des
+     * Semesters.
+     */
     @Test
     public void testInfoText() {
         String t = "testtext";
@@ -61,6 +83,10 @@ public class SemesterTest extends DataTest {
         assertEquals(t, semester.getInfoText());
     }
 
+    /**
+     * Diese Methode testet sowohl getter als auch setter für die finale
+     * Einteilung des Semesters.
+     */
     @Test
     public void testFinalAllocation() {
         Allocation a = new Allocation();
@@ -68,6 +94,10 @@ public class SemesterTest extends DataTest {
         assertEquals(a, semester.getFinalAllocation());
     }
 
+    /**
+     * Diese Methode testet sowohl getter als auch setter für den Start der
+     * Registrierungsphase des Semesters.
+     */
     @Test
     public void testRegistrationStart() {
         Date d = new Date();
@@ -75,6 +105,10 @@ public class SemesterTest extends DataTest {
         assertEquals(d, semester.getRegistrationStart());
     }
 
+    /**
+     * Diese Methode testet sowohl getter als auch setter für das Ende der
+     * Registrierungsphase des Semesters.
+     */
     @Test
     public void testRegistrationEnd() {
         Date d = new Date();
@@ -82,6 +116,11 @@ public class SemesterTest extends DataTest {
         assertEquals(d, semester.getRegistrationEnd());
     }
 
+    /**
+     * Diese Methode testet das Entfernen und Hinzufügen von Lerngruppen zum
+     * Semester. Außerdem testet sie die getter und setter der Lerngruppenliste
+     * auf Korrektheit.
+     */
     @Test
     public void testLearningGroups() {
         LearningGroup firstL = new LearningGroup();
@@ -102,6 +141,11 @@ public class SemesterTest extends DataTest {
         assertTrue(semester.getLearningGroups().contains(secondL));
     }
 
+    /**
+     * Diese Methode testet das Entfernen und Hinzufügen von Studenten zum
+     * Semester. Außerdem testet sie die getter und setter der Studentenliste
+     * auf Korrektheit.
+     */
     @Test
     public void testStudents() {
         Student firstS = new Student();
@@ -122,6 +166,11 @@ public class SemesterTest extends DataTest {
         assertTrue(semester.getStudents().contains(secondS));
     }
 
+    /**
+     * Diese Methode testet das Entfernen und Hinzufügen von Projekten zum
+     * Semester. Außerdem testet sie die getter und setter der Projektliste auf
+     * Korrektheit.
+     */
     @Test
     public void testProjects() {
         Project firstP = new Project();
@@ -142,6 +191,11 @@ public class SemesterTest extends DataTest {
         assertTrue(semester.getProjects().contains(secondP));
     }
 
+    /**
+     * Diese Methode testet das Entfernen und Hinzufügen von Einteilungen zum
+     * Semester. Außerdem testet sie die getter und setter der Einteilungsliste
+     * auf Korrektheit.
+     */
     @Test
     public void testAllocations() {
         Allocation firstA = new Allocation();
@@ -162,6 +216,10 @@ public class SemesterTest extends DataTest {
         assertTrue(semester.getAllocations().contains(secondA));
     }
 
+    /**
+     * Diese Methode testet das Hinzufügen und Entfernen von Betreuern zum
+     * Semester, sowie den getter der Betreuerliste.
+     */
     @Test
     public void testGetAdvisers() {
         Adviser a = new Adviser();
@@ -176,6 +234,11 @@ public class SemesterTest extends DataTest {
         assertTrue(semester.getAdvisers().contains(a));
     }
 
+    /**
+     * Diese Methode testet die statische Methode, die alle Semester aus der
+     * Datenbank zurückgibt, sowie die Methode, die ein spezifisches Semester
+     * aus der Datenbank zurückgibt.
+     */
     @Test
     public void testGetSemesters() {
         // clear Database

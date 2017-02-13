@@ -141,7 +141,6 @@ create table semester (
   id                            integer not null,
   wintersemester                boolean,
   max_group_size                integer,
-  year                          integer,
   name                          varchar(255) not null,
   info_text                     varchar(255) not null,
   final_allocation_id           integer,

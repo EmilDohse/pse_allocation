@@ -9,15 +9,26 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * Diese Klasse beinhaltet Unit-Tests für die Klasse Project.
+ *
+ */
 public class ProjectTest extends DataTest {
 
     private Project project;
 
+    /**
+     * Das Projekt wird initialisiert.
+     */
     @Before
     public void beforeTest() {
         project = new Project();
     }
 
+    /**
+     * Diese Methode testet sowohl getter alsauch setter für den Namen des
+     * Projekts.
+     */
     @Test
     public void testName() {
         String n = "testname";
@@ -25,6 +36,10 @@ public class ProjectTest extends DataTest {
         assertEquals(n, project.getName());
     }
 
+    /**
+     * Diese Methode testet sowohl getter alsauch setter für die minimale
+     * Teamgröße des Projekts.
+     */
     @Test
     public void testMinTeamSize() {
         int s = 11;
@@ -32,6 +47,10 @@ public class ProjectTest extends DataTest {
         assertEquals(s, project.getMinTeamSize());
     }
 
+    /**
+     * Diese Methode testet sowohl getter alsauch setter für die maximale
+     * Teamgröße des Projekts.
+     */
     @Test
     public void testMaxTeamSize() {
         int s = 11;
@@ -39,6 +58,10 @@ public class ProjectTest extends DataTest {
         assertEquals(s, project.getMaxTeamSize());
     }
 
+    /**
+     * Diese Methode testet sowohl getter alsauch setter für die Anzahl an
+     * Teams.
+     */
     @Test
     public void testNumberOfTeams() {
         int s = 11;
@@ -46,6 +69,10 @@ public class ProjectTest extends DataTest {
         assertEquals(s, project.getNumberOfTeams());
     }
 
+    /**
+     * Diese Methode testet sowohl getter alsauch setter für die Information des
+     * Projekts.
+     */
     @Test
     public void testProjectInfo() {
         String n = "testinfo";
@@ -53,6 +80,10 @@ public class ProjectTest extends DataTest {
         assertEquals(n, project.getProjectInfo());
     }
 
+    /**
+     * Diese Methode testet sowohl getter alsauch setter für die URL des
+     * Projektes.
+     */
     @Test
     public void testProjectURL() {
         String n = "testurl";
@@ -60,6 +91,10 @@ public class ProjectTest extends DataTest {
         assertEquals(n, project.getProjectURL());
     }
 
+    /**
+     * Diese Methode testet sowohl getter alsauch setter für das Institut des
+     * Projekts.
+     */
     @Test
     public void testInstitut() {
         String n = "testinstitut";
@@ -67,6 +102,10 @@ public class ProjectTest extends DataTest {
         assertEquals(n, project.getInstitute());
     }
 
+    /**
+     * Diese Methode testet, ob man einwandfrei Betreuer hinzufügen und
+     * entfernen kann.
+     */
     @Test
     public void testAdvisers() {
         Adviser firstA = new Adviser();
@@ -87,6 +126,10 @@ public class ProjectTest extends DataTest {
         assertTrue(project.getAdvisers().contains(secondA));
     }
 
+    /**
+     * Diese Methode testet, ob die setter und getter für das semester
+     * einwandfrei funktionieren.
+     */
     @Test
     public void testGetSemester() {
         Semester s = new Semester();
@@ -101,6 +144,10 @@ public class ProjectTest extends DataTest {
         assertEquals(s, project.getSemester());
     }
 
+    /**
+     * Diese Methode testet, ob die statische Methode, die alle Projekte aus der
+     * Datenbank zurückgobt, einwandfrei funktioniert.
+     */
     @Test
     public void testGetProjects() {
         Project.getProjects().forEach(p -> p.delete());
