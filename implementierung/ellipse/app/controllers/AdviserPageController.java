@@ -43,6 +43,9 @@ public class AdviserPageController extends Controller {
     @Inject
     FormFactory                 formFactory;
 
+    @Inject
+    UserManagement              userManagement;
+
     /**
      * Diese Methode gibt die Seite zurück, auf der der Betreuer Projekte sieht,
      * Projekte hinzufügen, editieren oder entfernen kann. Editieren und
@@ -71,8 +74,7 @@ public class AdviserPageController extends Controller {
 
         Project project = ElipseModel.getById(Project.class, id);
 
-        UserManagement user = new UserManagement();
-        Adviser adviser = (Adviser) user.getUserProfile(ctx());
+        Adviser adviser = userManagement.getUserProfile(ctx());
         play.twirl.api.Html content;
         if (adviser.getProjects().contains(project)) {
             // Ist der Betreuer schon Betreuer des Projektes?
@@ -102,9 +104,8 @@ public class AdviserPageController extends Controller {
      * @return die Seite, die als Antwort verschickt wird.
      */
     public Result addProject() {
-        UserManagement user = new UserManagement();
         int projID = -1;
-        Adviser adviser = (Adviser) user.getUserProfile(ctx());
+        Adviser adviser = userManagement.getUserProfile(ctx());
         Project project = new Project(
                 "new Project" + adviser.getFirstName() + adviser.getLastName(),
                 adviser);
@@ -127,8 +128,7 @@ public class AdviserPageController extends Controller {
      * @return die Seite, die als Antwort verschickt wird.
      */
     public Result removeProject() {
-        UserManagement user = new UserManagement();
-        Adviser adviser = (Adviser) user.getUserProfile(ctx());
+        Adviser adviser = userManagement.getUserProfile(ctx());
         DynamicForm form = formFactory.form().bindFromRequest();
         if (form.data().isEmpty()) {
             return badRequest(ctx().messages().at(INTERNAL_ERROR));
@@ -154,8 +154,7 @@ public class AdviserPageController extends Controller {
      * @return die Seite, die als Antwort verschickt wird.
      */
     public Result editProject() {
-        UserManagement user = new UserManagement();
-        Adviser adviser = (Adviser) user.getUserProfile(ctx());
+        Adviser adviser = userManagement.getUserProfile(ctx());
         // alle daten werden aus formular ausgelesen
         DynamicForm form = formFactory.form().bindFromRequest();
         if (form.data().isEmpty()) {
@@ -238,8 +237,7 @@ public class AdviserPageController extends Controller {
      * @return die Seite, die als Antwort verschickt wird.
      */
     public Result joinProject() {
-        UserManagement user = new UserManagement();
-        Adviser adviser = (Adviser) user.getUserProfile(ctx());
+        Adviser adviser = userManagement.getUserProfile(ctx());
         DynamicForm form = formFactory.form().bindFromRequest();
         if (form.data().isEmpty()) {
             return badRequest(ctx().messages().at(INTERNAL_ERROR));
@@ -266,8 +264,7 @@ public class AdviserPageController extends Controller {
      * @return die Seite, die als Antwort verschickt wird.
      */
     public Result leaveProject() {
-        UserManagement user = new UserManagement();
-        Adviser adviser = (Adviser) user.getUserProfile(ctx());
+        Adviser adviser = userManagement.getUserProfile(ctx());
         DynamicForm form = formFactory.form().bindFromRequest();
         if (form.data().isEmpty()) {
             return badRequest(ctx().messages().at(INTERNAL_ERROR));
@@ -302,8 +299,7 @@ public class AdviserPageController extends Controller {
      * @return die Seite, die als Antwort verschickt wird.
      */
     public Result saveStudentsGrades() {
-        UserManagement user = new UserManagement();
-        Adviser adviser = (Adviser) user.getUserProfile(ctx());
+        Adviser adviser = userManagement.getUserProfile(ctx());
         // alle daten werden aus formular ausgelesen
         DynamicForm form = formFactory.form().bindFromRequest();
         if (form.data().isEmpty()) {
@@ -375,8 +371,7 @@ public class AdviserPageController extends Controller {
      * @return die Seite, die als Antwort verschickt wird.
      */
     public Result editAccount() {
-        UserManagement user = new UserManagement();
-        Adviser adviser = (Adviser) user.getUserProfile(ctx());
+        Adviser adviser = userManagement.getUserProfile(ctx());
         DynamicForm form = formFactory.form().bindFromRequest();
         if (form.data().isEmpty()) {
             return badRequest(ctx().messages().at(INTERNAL_ERROR));

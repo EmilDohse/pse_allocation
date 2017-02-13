@@ -20,7 +20,6 @@ import data.Rating;
 import data.SPO;
 import data.Semester;
 import data.Student;
-import data.User;
 import deadline.StateStorage;
 import form.Forms;
 import form.IntValidator;
@@ -55,6 +54,9 @@ public class StudentPageController extends Controller {
 
     @Inject
     Notifier                    notifier;
+
+    @Inject
+    UserManagement              userManagement;
 
     /**
      * Diese Seite stellt das Formular dar, das ein Student ausfüllen muss, wenn
@@ -130,8 +132,7 @@ public class StudentPageController extends Controller {
                 temp.addAll(nonCompletedAchievements);
 
                 if (temp.containsAll(spo.getNecessaryAchievements())) {
-                    UserManagement management = new UserManagement();
-                    Student student = (Student) management
+                    Student student = userManagement
                             .getUserProfile(ctx());
                     student.doTransaction(() -> {
                         student.setSPO(spo);
@@ -158,7 +159,7 @@ public class StudentPageController extends Controller {
                         currentSemester.addLearningGroup(l);
                         currentSemester.addStudent(student);
                     });
-                    management.addStudentRoleToOldStudent(ctx());
+                    userManagement.addStudentRoleToOldStudent(ctx());
                     return redirect(controllers.routes.StudentPageController
                             .learningGroupPage());
                 }
@@ -180,10 +181,7 @@ public class StudentPageController extends Controller {
      * @return Die Seite, die als Antwort verschickt wird.
      */
     public Result learningGroupPage() {
-        UserManagement user = new UserManagement();
-        User userProfile = user.getUserProfile(ctx());
-        assert userProfile instanceof Student;
-        Student student = (Student) userProfile;
+        Student student = userManagement.getUserProfile(ctx());
         play.twirl.api.Html content = views.html.studentLearningGroup
                 .render(GeneralData.loadInstance().getCurrentSemester()
                         .getLearningGroupOf(student));
@@ -198,7 +196,7 @@ public class StudentPageController extends Controller {
      * @return Die Seite, die als Antwort verschickt wird.
      */
     public Result ratingPage() {
-        Student student = (Student) new UserManagement().getUserProfile(ctx());
+        Student student = userManagement.getUserProfile(ctx());
         play.twirl.api.Html content = views.html.studentRating.render(student,
                 GeneralData.loadInstance().getCurrentSemester().getProjects());
         Menu menu = new StudentMenu(ctx(), ctx().request().path());
@@ -220,10 +218,7 @@ public class StudentPageController extends Controller {
             return ok(views.html.student.render(menu, content));
 
         }
-        UserManagement user = new UserManagement();
-        User userProfile = user.getUserProfile(ctx());
-        assert userProfile instanceof Student;
-        Student student = (Student) userProfile;
+        Student student = userManagement.getUserProfile(ctx());
         play.twirl.api.Html content = views.html.studentResult
                 .render(GeneralData.loadInstance().getCurrentSemester()
                         .getFinalAllocation().getTeam(student));
@@ -239,10 +234,7 @@ public class StudentPageController extends Controller {
      * @return Die Seite, die als Antwort verschickt wird.
      */
     public Result rate() {
-        UserManagement user = new UserManagement();
-        User userProfile = user.getUserProfile(ctx());
-        assert userProfile instanceof Student;
-        Student student = (Student) userProfile;
+        Student student = userManagement.getUserProfile(ctx());
         DynamicForm form = formFactory.form().bindFromRequest();
         if (form.data().isEmpty()) {
             return badRequest(ctx().messages().at(INTERNAL_ERROR));
@@ -288,10 +280,7 @@ public class StudentPageController extends Controller {
      * @return Die Seite, die als Antwort verschickt wird.
      */
     public Result createLearningGroup() {
-        UserManagement user = new UserManagement();
-        User userProfile = user.getUserProfile(ctx());
-        assert userProfile instanceof Student;
-        Student student = (Student) userProfile;
+        Student student = userManagement.getUserProfile(ctx());
         Semester semester = GeneralData.loadInstance().getCurrentSemester();
         if (!semester.getLearningGroupOf(student).isPrivate()) {
             flash("error", ctx().messages().at(ALREADY_IN_OTHER_GROUP));
@@ -365,10 +354,7 @@ public class StudentPageController extends Controller {
     public Result leaveLearningGroup() {
         // TODO wirft manchmal PersistenceException
         // Student hat dann keine Lerngruppe mehr
-        UserManagement user = new UserManagement();
-        User userProfile = user.getUserProfile(ctx());
-        assert userProfile instanceof Student;
-        Student student = (Student) userProfile;
+        Student student = userManagement.getUserProfile(ctx());
         LearningGroup lg = GeneralData.loadInstance().getCurrentSemester()
                 .getLearningGroupOf(student);
         if (lg.isPrivate()) {
@@ -417,10 +403,7 @@ public class StudentPageController extends Controller {
      * @return Die Seite, die als Antwort verschickt wird.
      */
     public Result joinLearningGroup() {
-        UserManagement user = new UserManagement();
-        User userProfile = user.getUserProfile(ctx());
-        assert userProfile instanceof Student;
-        Student student = (Student) userProfile;
+        Student student = userManagement.getUserProfile(ctx());
         DynamicForm form = formFactory.form().bindFromRequest();
         if (form.data().isEmpty()) {
             return badRequest(ctx().messages().at(INTERNAL_ERROR));
@@ -483,10 +466,7 @@ public class StudentPageController extends Controller {
      * @return Die Seite, die als Antwort verschickt wird.
      */
     public Result accountPage() {
-        UserManagement user = new UserManagement();
-        User userProfile = user.getUserProfile(ctx());
-        assert userProfile instanceof Student;
-        Student student = (Student) userProfile;
+        Student student = userManagement.getUserProfile(ctx());
         play.twirl.api.Html content = views.html.studentAccount.render(student);
         Menu menu = new StudentMenu(ctx(), ctx().request().path());
         return ok(views.html.student.render(menu, content));
@@ -499,10 +479,7 @@ public class StudentPageController extends Controller {
      * @return Die Seite, die als Antwort verschickt wird.
      */
     public Result editAccount() {
-        UserManagement user = new UserManagement();
-        User userProfile = user.getUserProfile(ctx());
-        assert userProfile instanceof Student;
-        Student student = (Student) userProfile;
+        Student student = userManagement.getUserProfile(ctx());
         DynamicForm form = formFactory.form().bindFromRequest();
         if (form.data().isEmpty()) {
             return badRequest(ctx().messages().at(INTERNAL_ERROR));
@@ -568,10 +545,7 @@ public class StudentPageController extends Controller {
      * @return Die Seite, die als Antwort verschickt wird.
      */
     public Result sendNewVerificationLink() {
-        UserManagement user = new UserManagement();
-        User userProfile = user.getUserProfile(ctx());
-        assert userProfile instanceof Student;
-        Student student = (Student) userProfile;
+        Student student = userManagement.getUserProfile(ctx());
         String verificationCode = EmailVerifier.getInstance()
                 .getVerificationCode(student);
         try {
