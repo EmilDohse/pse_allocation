@@ -167,6 +167,7 @@ admin.projects.advisers = Betreuer
 admin.projects.addProject = Projekt erstellen
 admin.projects.editProject = Projekt editieren
 admin.projects.removeProject = Projekt löschen
+admin.projects.helpText = Wenn Minimal- und Maximalwert beide null sind, wird die Entscheidung über die Größe dem Administrator überlassen. Ansonsten müssen Minimal- und Maximalwert beide größer als null sein, damit die Einabe akzeptiert wird. Für die meisten Projekte ist es am besten, wenn der Administrator über die Größe entscheidet, setzen sie die Werte nur, wenn sie wirklich eine fixe Teamgröße brauchen.
 admin.studentEdit.addStudent = Student hinzufügen
 admin.studentEdit.removeStudent = Student löschen
 admin.studentEdit.add = hinzufügen
