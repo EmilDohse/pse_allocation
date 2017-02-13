@@ -59,7 +59,7 @@
 \section{Einleitung}
 
 Nachdem im Pflichtenheft beschrieben wurde, was das Produkt leisten soll und
-das Entwurfsdokument beantwortete, wie das Produkt strukturiert sein soll, 
+das Entwurfsdokument beantwortete wie das Produkt strukturiert sein soll, 
 beschreibt dieses Dokument nun die Implementierung, also die Umsetzung der beiden vorherigen Dokumente.
 
 \section{Implementierungsplan}
@@ -113,7 +113,7 @@ Kleinigkeiten\\
 % das das Datenmodell gefolgt von paralell implementierbaren Controllern die nur
 % auf das Datenmodell zugreiffen und der Allocation. 
 Der Critical"=Path unseres Entwurfs startet, bedingt durch das Model"=View"=Controller"=Design, ganz klar beim Package \code{data} und verläuft über \code{allocator}, gefolgt von \code{controller} zu  \code{views}.
-Da wir jedoch vermuteten, dass der meiste Code bei den Controllern anfallen würde, sowie dass das Einarbeiten \enquote{Play} mit seiner \enquote{Twirl"=Template"=Engine} lange dauern würde, haben wir beschlossen, schon von Anfang an diesen beiden Baustellen zu arbeiten. 
+Da wir jedoch vermuteten, dass der meiste Code bei den Controllern anfallen würde, sowie dass das Einarbeiten in \enquote{Play} mit seiner \enquote{Twirl"=Template"=Engine} lange dauern würde, haben wir beschlossen, schon von Anfang an, an diesen beiden Baustellen zu arbeiten. 
 Außerdem hat sich jeder von uns bereits in der Entwurfsphase auf ein Gebiet spezialisiert und es bot sich somit an, jedem auf seinem \enquote{Fachgebiet} auch die Implementierung zu übertragen.
 Diese Prognose war nur teilweise richtig.
 Zwar hat tatsächlich das Package \code{controller} mit Abstand die meisten Zeilen Quellcode, jedoch haben wir den Aufwand für die Einrichtung unseres ORMs \enquote{Ebean} weit unterschätzt. 
@@ -162,10 +162,8 @@ Kleinigkeiten\\
 \caption{Wirkliche Implementierung}
 \end{table}
 \section{Änderungen zum Entwurfsdokument}
-Zur Sicherung bessere Code-Qualität (z.B. dem Vermeiden von Code-Copy-Pasting)
-und maßgeblich durch die oben beschriebenen Probleme mit verschiedenen
-verwendeten Bibliotheken  wurden Änderungen im Vergleich zum  Entwurfsdokument
-vorgenommen. 
+Zur Sicherung besserer Code-Qualität (z.B. dem Vermeiden von Code-Copy-Pasting)
+und durch Verwendung verschiedener Bibliotheken wurden Änderungen im Vergleich zum  Entwurfsdokument vorgenommen. 
 Dabei wurden die Getter, Setter und Konstruktoren der Vollständigkeit halber
 eingefügt und werden hier nicht weiter kommentiert.
 %TODO Auch atribute nicht kommentieren?
@@ -176,11 +174,11 @@ eingefügt und werden hier nicht weiter kommentiert.
 \begin{itemClassSub}
 \item Methoden
 \begin{itemPlus}
-\item cancel() \changeDescription{Um eine Einteilungsberechnung durchzuführen
+\item cancel() \changeDescription{Um eine Einteilungsberechnung abzubrechen
 wird diese Methode benötigt.}
 \item init(Configuration)\changeDescription{Um Race-Conditions zu vermeiden
 wurde diese Methode eingefügt. Mit ihr können \code{init()} und \code{cancel()}
-synchronised werden ohne calculate zu blockieren.}
+synchronisiert werden ohne calculate zu blockieren.}
 \end{itemPlus}
 \begin{itemChange}
 \item calculate() \changeDescription{Die Konfiguration wird bereits bei
