@@ -34,7 +34,7 @@ import play.mvc.Result;
  */
 public class AdminEditAllocationController extends Controller {
 
-    private static final String ERROR = "error";
+    private static final String                 ERROR          = "error";
 
     @Inject
     FormFactory                                 formFactory;
@@ -64,6 +64,8 @@ public class AdminEditAllocationController extends Controller {
         String[] selectedIdsString = MultiselectList.getValueArray(form,
                 "selected-students");
         ArrayList<Integer> selectedIds = new ArrayList<>();
+
+        // Ziehe die ausgewählten Studenten-IDs aus dem Formular
         for (String s : selectedIdsString) {
             try {
                 selectedIds.add(new IntValidator(0).validate(s));
@@ -74,6 +76,8 @@ public class AdminEditAllocationController extends Controller {
                         controllers.routes.AdminPageController.resultsPage());
             }
         }
+
+        // Prüfe, welche Aktion ausgewählt werden soll
         if (form.get("move") != null) {
             return moveStudents(form, selectedIds);
         } else if (form.get("exchange") != null) {
@@ -94,6 +98,9 @@ public class AdminEditAllocationController extends Controller {
      * @return Die Seite, die als Antwort verschickt wird.
      */
     private Result swapStudents(DynamicForm form, List<Integer> ids) {
+
+        // Ziehe die bearbeitete Einteilung aus dem Formular und lade die Seite
+        // bei einem Fehler neu
         String allocationIdString = form.get(ALLOCATION_ID);
         int allocationId;
         try {
@@ -107,12 +114,14 @@ public class AdminEditAllocationController extends Controller {
         Allocation allocation = ElipseModel.getById(Allocation.class,
                 allocationId);
 
+        // Prüfe, ob genau zwei Studenten ausgewählt wurden
         if (ids.size() != 2) {
             flash(ERROR, ctx().messages().at(INTERNAL_ERROR));
             return redirect(
                     controllers.routes.AdminPageController.resultsPage());
         }
 
+        // Tausche die Teams der Studenten und lade die Seite neu
         Student firstStudent = ElipseModel.getById(Student.class, ids.get(0));
         Student secondStudent = ElipseModel.getById(Student.class, ids.get(1));
         SwapStudentCommand command = new SwapStudentCommand(allocation,
@@ -132,6 +141,9 @@ public class AdminEditAllocationController extends Controller {
      * @return Die Seite, die als Antwort verschickt wird.
      */
     public Result moveStudents(DynamicForm form, List<Integer> ids) {
+
+        // Ziehe das Team, in das die Studenten geschoben werden sollen, sowie
+        // die zu bearbeitende Einteilung aus dem Formular
         String teamIdString = form.get("project-selection");
         String allocationIdString = form.get(ALLOCATION_ID);
         int allocationId;
@@ -146,6 +158,7 @@ public class AdminEditAllocationController extends Controller {
                     controllers.routes.AdminPageController.resultsPage());
         }
 
+        // Hole die benötigten Daten aus der Datenbank
         Team newTeam = ElipseModel.getById(Team.class, teamId);
         Allocation allocation = ElipseModel.getById(Allocation.class,
                 allocationId);
@@ -156,12 +169,14 @@ public class AdminEditAllocationController extends Controller {
             students.add(s);
         }
 
+        // Prüfe, ob Studenten ausgewählt wurden
         if (students.isEmpty()) {
             flash(ERROR, ctx().messages().at("admin.edit.noStudentSelected"));
             return redirect(
                     controllers.routes.AdminPageController.resultsPage());
         }
 
+        // Führe den Command aus
         MoveStudentCommand command = new MoveStudentCommand(allocation,
                 students, newTeam);
         command.execute();
@@ -179,7 +194,6 @@ public class AdminEditAllocationController extends Controller {
      * @return Die Seite, die als Antwort verschickt wird.
      */
     public Result publishAllocation() {
-        // TODO popup warnung
         DynamicForm form = formFactory.form().bindFromRequest();
         if (form.data().isEmpty()) {
             return badRequest(ctx().messages().at(INTERNAL_ERROR));
@@ -308,12 +322,14 @@ public class AdminEditAllocationController extends Controller {
      * @return Die Seite, die als Antwort verschickt wird.
      */
     public Result undoAllocationEdit() {
+        // Fehlermeldung, falls es nichts rückgängig zu machen gibt
         if (undoStack.isEmpty()) {
-            // TODO Button ausgrauen
             flash(ERROR, ctx().messages().at(INTERNAL_ERROR));
             return redirect(
                     controllers.routes.AdminPageController.resultsPage());
         }
+
+        // Führe den Command aus
         undoStack.pop().undo();
         return redirect(controllers.routes.AdminPageController.resultsPage());
     }
