@@ -112,23 +112,16 @@ Kleinigkeiten\\
 % % Path 
 % das das Datenmodell gefolgt von paralell implementierbaren Controllern die nur
 % auf das Datenmodell zugreiffen und der Allocation. 
-Mit sechs Entwicklern in der kurzen Zeit von nur 4 Wochen, die auch noch in der
-Prüfungsphase liegt, ein Software-Produkt zu implementieren erfordert, dass die
-Entwickler effizient arbeiten können. Da sich jeder von uns bereits in der
-Entwurfsphase auf ein Gebiet spezialisiert hatte, bot es sich an jedem auf seinem
-\enquote{Fachgebiet} auch die Implementierung zu übertragen. 
-Ein weiterer Grund für unser Vorgehen war, das wir den Aufwand für
-Web-Entwicklung und die Arbeit mir vielen Libraries und Frameworks 
-%also das implementieren der Views und deren Anbindung an die Controller und das
-% verwenden von ORM-Tools
-nicht einschätzen konnten. Daher
-wollten wir hier frühzeitig ein funktionierendes Grundgerüst schaffen.
-Genau diese Herangehensweise bewährte sich, da die Arbeit mit Ebean (unserem
-ORM-Tool) und dem Play-Framework sich als weit anstrengender herausstellte als
-gedacht. Veraltete und nicht vorhandene Dokumentatonen, leer implementerte
-Methoden und der gute Ratschlag bei StackOverflow doch
-lieber Hibernate zu verwenden waren allgegenwärtig.
-
+<<<<<<< HEAD
+Der Critical"=Path unseres Entwurfs startet, bedingt durch das Model"=View"=Controller"=Design, ganz klar beim Package \code{data} und verläuft über \code{allocator}, gefolgt von \code{controller} zu  \code{views}.
+Da wir jedoch vermuteten, dass der meiste Code bei den Controllern anfallen würde, sowie dass das Einarbeiten in die \enquote{Twirl"=Template"=Engine} lange dauern würde, haben wir beschlossen, schon von Anfang an diesen beiden Baustellen zu arbeiten. 
+Außerdem hat sich jeder von uns bereits in der Entwurfsphase auf ein Gebiet spezialisiert und es bot sich somit an, jedem auf seinem \enquote{Fachgebiet} auch die Implementierung zu übertragen.
+Diese Prognose war nur teilweise richtig.
+Zwar hat tatsächlich das Package \code{controller} mit Abstand die meisten Zeilen Quellcode, jedoch haben wir den Aufwand für die Einrichtung unseres ORMs \enquote{Ebean} weit unterschätzt. 
+Durch die häufig kryptischen Fehlermeldungen und spärliche (bis hin zu schlicht falsche) Dokumentation zog sich das Implementieren des Datenmodells bis an den Anfang der dritten Woche. 
+Da jedoch parallel dazu ständig an den anderen Paketen gearbeitet wurde, war als die Datenbank endlich funktionierte schon eine große Menge Code vorhanden, weswegen vor allem zum Schluss hin sehr schnell viel Funktionalität hinzugefügt werden konnte.
+Die Implementierung des Paket \code{allocation} verlief ausgesprochen gut und auch die \code{views} waren unproblematischer als befürchtet. 
+Insgesamt haben wir uns also bis auf die Datenbank an den Implementierungsplan halten können. Dort mussten wir jedoch starke Verzögerungen in Kauf nehmen.
 
 %TODO zweites Diagramm wie haben wir wirklich implementeirt
 
@@ -149,7 +142,11 @@ NotificationSystem & Weitere Tests +
 Bugfixes +
 Kleinigkeiten\\
 \hline
+<<<<<<< HEAD
+Philipp Faller&Data&Daten&Bugfixes&Bugfixes +  Email\\
+=======
 Philipp Faller&Data&Data&Bugfixes&Bugfixes +  Email\\
+>>>>>>> 0fea4ae10aeb185ea8a1cd0f92b6cdb87c9a246b
 \hline
 Philipp Loth&Allocator&Import/Export
 &Import/Export + Kleinigkeiten &Weitere Tests +
