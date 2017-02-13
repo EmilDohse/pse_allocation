@@ -1,5 +1,9 @@
 package form;
 
+
+/**
+ * Klasse um ein int zu validieren.
+ */
 public class IntValidator implements Validator<Integer> {
 
     private int    min;
@@ -7,19 +11,42 @@ public class IntValidator implements Validator<Integer> {
 
     private String msg = "INTERNAL_ERROR";
 
+    /**
+     * Konstruktor ohne Grenzen.
+     */
     public IntValidator() {
         this(Integer.MIN_VALUE, Integer.MAX_VALUE);
     }
 
+    /**
+     * Konstruktor mit Minimalwert.
+     * 
+     * @param min
+     *            Minimalwert.
+     */
     public IntValidator(int min) {
         this(min, Integer.MAX_VALUE);
     }
 
+    /**
+     * Konstruktor mit Minimal- und Maximalwert.
+     * 
+     * @param min
+     *            Minimalwert.
+     * @param max
+     *            Maximalwert.
+     */
     public IntValidator(int min, int max) {
         this.min = min;
         this.max = max;
     }
 
+    /**
+     * Setzt die Errormessage.
+     * 
+     * @param message
+     *            Errormessage.
+     */
     public void setMessage(String message) {
         this.msg = message;
     }
