@@ -89,7 +89,7 @@ isAdviser: Boolean, advisers: List[data.Adviser])
 		<div class="form-group">
 			<label class="control-label col-sm-2" for="adviser-selection">@Messages("admin.projects.advisers")</label>
 			<select id="adviser-selection" name="adviser-multiselect[]"
-				class="form-control" multiple="multiple" required>
+				class="form-control" multiple="multiple">
 				@for(adviser <- advisers) {
 				@if(project.getAdvisers().contains(adviser)) {
 				<option selected value="@adviser.getId()">@adviser.getName()</option>
