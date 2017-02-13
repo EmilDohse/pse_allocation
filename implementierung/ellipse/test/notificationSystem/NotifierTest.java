@@ -29,6 +29,10 @@ import data.Team;
 import play.Play;
 import play.test.WithApplication;
 
+/**
+ * Diese Klasse beinhaltet Unit-Tests für die Klasse Notifer. Außerdem wird das
+ * ganze Notification-System getestet.
+ */
 public class NotifierTest extends WithApplication {
 
     @Inject
@@ -36,6 +40,9 @@ public class NotifierTest extends WithApplication {
 
     private static EbeanServer server;
 
+    /**
+     * Setup der SMTP-Einstellungen und der allgemeinen Daten.
+     */
     @Before
     public void before() {
         ServerConfig config = new ServerConfig();
@@ -58,11 +65,22 @@ public class NotifierTest extends WithApplication {
         Mailbox.clearAll();
     }
 
+    /**
+     * Server shutdown.
+     */
     @After
     public void after() {
         server.shutdown(false, false);
     }
 
+    /**
+     * Diese Methode testet das Benachrichtigen eines Studenten über die finale
+     * Einteilung.
+     * 
+     * @throws EmailException
+     * @throws IOException
+     * @throws MessagingException
+     */
     @Test
     public void testNotifiyStudent() throws EmailException, IOException, MessagingException {
         Student student = new Student();
@@ -80,6 +98,14 @@ public class NotifierTest extends WithApplication {
         assertTrue(message.getContent().toString().contains(student.getLastName()));
     }
 
+    /**
+     * Diese Methode testet das Benachrichtigen eines Betreuers über die finale
+     * Einteilung.
+     * 
+     * @throws EmailException
+     * @throws IOException
+     * @throws MessagingException
+     */
     @Test
     @Ignore
     public void testNotifyAdviser() throws EmailException, IOException, MessagingException {
@@ -102,6 +128,13 @@ public class NotifierTest extends WithApplication {
         assertTrue(message.getContent().toString().contains(String.valueOf(team.getTeamNumber())));
     }
 
+    /**
+     * Diese Methode schickt einem Betreuer sein Passwort.
+     * 
+     * @throws EmailException
+     * @throws IOException
+     * @throws MessagingException
+     */
     @Test
     public void testSendAdviserPassword() throws EmailException, IOException, MessagingException {
         Adviser adviser = new Adviser();

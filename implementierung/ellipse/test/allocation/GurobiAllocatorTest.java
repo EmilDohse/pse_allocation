@@ -23,11 +23,17 @@ import data.Semester;
 import exception.ImporterException;
 import importExport.Importer;
 
+/**
+ * Diese Klasse beinhaltet Unit-Tests für die Klasse GurobiAllocator.
+ */
 public class GurobiAllocatorTest {
 
     private static GurobiAllocator ga;
     private static EbeanServer     server;
 
+    /**
+     * Setup Server.
+     */
     @BeforeClass
     public static void beforeClass() {
         ServerConfig config = new ServerConfig();
@@ -39,18 +45,28 @@ public class GurobiAllocatorTest {
         server = EbeanServerFactory.create(config);
     }
 
+    /**
+     * Initialisierung des GurobiAllocators.
+     */
     @Before
     public void before() {
         ga = new GurobiAllocator();
 
     }
 
+    /**
+     * Diese Methode testet den getter für die Liste aller Gurobi-Kriterien.
+     */
     @Test
     public void testServiceLoader() {
         List<GurobiCriterion> gc = ga.getAllCriteria();
         assertTrue(gc.size() == 9);
     }
 
+    /**
+     * Diese Methode testet, ob der GurobiAllocator die Berechnung zur
+     * Einteilung durchläuft.
+     */
     @Test
     @Ignore
     public void testCalculate() {
@@ -90,11 +106,17 @@ public class GurobiAllocatorTest {
         ga.calculate();
     }
 
+    /**
+     * Set GurobiAllocator to null.
+     */
     @After
     public void after() {
         ga = null;
     }
 
+    /**
+     * Server shutdown.
+     */
     @AfterClass
     public static void afterClass() {
         server.shutdown(false, false);
