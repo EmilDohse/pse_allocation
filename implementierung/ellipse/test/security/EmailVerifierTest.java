@@ -6,7 +6,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import data.Student;
-import exception.DataException;
 
 public class EmailVerifierTest {
 

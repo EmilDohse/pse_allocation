@@ -14,7 +14,6 @@ import data.LearningGroup;
 import data.Semester;
 import data.Student;
 import data.Team;
-import exception.DataException;
 
 public class SplitLearningGroupTest extends DataTest {
 

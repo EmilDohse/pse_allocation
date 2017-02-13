@@ -12,7 +12,6 @@ import data.GeneralData;
 import data.Semester;
 import data.Student;
 import data.Team;
-import exception.DataException;
 import play.test.WithApplication;
 import qualityCriteria.NotAllocatedStudents;
 

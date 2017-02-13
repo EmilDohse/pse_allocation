@@ -20,7 +20,6 @@ import com.avaje.ebean.config.ServerConfig;
 import data.AllocationParameter;
 import data.GeneralData;
 import data.Semester;
-import exception.DataException;
 import exception.ImporterException;
 import importExport.Importer;
 
@@ -54,7 +53,7 @@ public class GurobiAllocatorTest {
 
     @Test
     @Ignore
-    public void testCalculate() throws DataException {
+    public void testCalculate() {
         Importer ie = new Importer();
         Semester semester = new Semester("calculateTest", false);
         semester.setInfoText("Hallo");
@@ -85,8 +84,8 @@ public class GurobiAllocatorTest {
         para.add(new AllocationParameter("minSize", 4));
         para.add(new AllocationParameter("maxSize", 6));
         para.add(new AllocationParameter("prefSize", 5));
-        Configuration conf = new Configuration("Test", semester.getStudents(),
-                semester.getLearningGroups(), semester.getProjects(), para);
+        Configuration conf = new Configuration("Test", semester.getStudents(), semester.getLearningGroups(),
+                semester.getProjects(), para);
         ga.init(conf);
         ga.calculate();
     }

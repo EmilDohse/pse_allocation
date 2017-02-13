@@ -16,7 +16,6 @@ import data.Rating;
 import data.Semester;
 import data.Student;
 import data.Team;
-import exception.DataException;
 
 public class StudentHappinessTest extends DataTest {
 
