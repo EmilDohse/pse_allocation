@@ -71,9 +71,15 @@ public class Notifier {
      */
     public void notifyStudent(Allocation allocation, Student student)
             throws EmailException {
-        String bodyText = messages.at("email.notifyResultsStudent",
+        Team team = allocation.getTeam(student);
+        String bodyText;
+        if (null != team) {
+            bodyText = messages.at("email.notifyResultsStudent",
                 student.getName(),
-                allocation.getTeam(student).getProject().getName());
+                    team.getProject().getName());
+        } else {
+            bodyText = messages.at("email.noTeam", student.getName());
+        }
         String subject = messages.at("email.subjectResults");
         this.sendEmail(subject, student.getEmailAddress(), bodyText);
     }

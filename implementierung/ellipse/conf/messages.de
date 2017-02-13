@@ -24,6 +24,7 @@ email.subjectResults = PSE-Einteilungsergebnisse
 email.subjectStudentVerify = PSE E-Mail Adresse bestätigen
 email.verifyNewPassword = PSE-Passwort geändert
 email.couldNotSend = E-Mail konnte nicht gesendet werden
+email.noTeam = Hallo {0},\ndie PSE-Einteilung ist nun abgeschlossen.\nSie konnten leider dieses Semester keinem Project zugeteilt werden. Wir bitten um Entschuldigung.
 
 general.error.noEmptyList=Bitte wählen Sie etwas aus
 general.error.noEmptyString=Ein Pflichtfeld ist leer
