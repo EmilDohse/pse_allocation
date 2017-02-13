@@ -186,8 +186,23 @@ public class IndexPageController extends Controller {
                         currentSemester.addStudent(student);
                         currentSemester.addLearningGroup(l);
                     });
-                    return redirect(controllers.routes.StudentPageController
-                            .sendNewVerificationLink());
+                    String verificationCode = EmailVerifier.getInstance()
+                            .getVerificationCode(student);
+                    // Versuche Verifikationsmail zu schicken.
+                    try {
+                        notifier.sendVerificationMail(student, request().host()
+                                + controllers.routes.IndexPageController
+                                        .verificationPage(verificationCode)
+                                        .url());
+                        flash("info", ctx().messages()
+                                .at("student.email.verificationLinkSuccess"));
+                        redirect(controllers.routes.IndexPageController
+                                .indexPage());
+                    } catch (EmailException e) {
+                        // EmailException
+                        // wird gethrowed teilweise, obwohl Mail-Versand
+                        // funktioniert hat
+                    }
                 } else {
                     // falls bereits ein studnent mit dieser matrikelnumer
                     // im system existiert kann sich der student nicht
