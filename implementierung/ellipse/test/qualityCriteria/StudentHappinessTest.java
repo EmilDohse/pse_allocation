@@ -39,7 +39,7 @@ public class StudentHappinessTest extends DataTest {
     List<Team>          teams;
 
     @Before
-    public void setup() throws DataException {
+    public void setup() {
         semester = new Semester();
         semester.setMaxGroupSize(7);
         allocation = new Allocation();
@@ -83,7 +83,7 @@ public class StudentHappinessTest extends DataTest {
     }
 
     @Test
-    public void firstCalculateTest() throws DataException {
+    public void firstCalculateTest() {
         LearningGroup l1 = new LearningGroup();
         l1.setSemester(semester);
         List<Student> members = new ArrayList<Student>();
@@ -143,7 +143,7 @@ public class StudentHappinessTest extends DataTest {
     }
 
     @Test
-    public void secondCalculateTest() throws DataException {
+    public void secondCalculateTest() {
         Rating r1 = new Rating(5, p1);
         Rating r2 = new Rating(0, p1);
         List<Rating> ratings = new ArrayList<Rating>();
