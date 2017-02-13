@@ -508,6 +508,8 @@ public class StudentPageController extends Controller {
             student.doTransaction(() -> {
                 student.setPassword(pwEnc);
             });
+            flash("info",
+                    ctx().messages().at("admin.account.success.passwords"));
         }
         if (form.get("emailChange") != null) {
             String email;
@@ -522,6 +524,7 @@ public class StudentPageController extends Controller {
             student.doTransaction(() -> {
                 student.setEmailAddress(email);
             });
+            flash("info", ctx().messages().at("admin.account.success.email"));
             return redirect(controllers.routes.StudentPageController
                     .sendNewVerificationLink());
         }
