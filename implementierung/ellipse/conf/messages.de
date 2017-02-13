@@ -259,6 +259,7 @@ admin.account.newPassword = Neues Passwort
 admin.account.newPasswordRepeat = Neues Passwort wiederholen
 admin.account.error.passwords = Die Passworteingabe ist falsch
 admin.account.pleaseChangePassword = Bitte ändern sie aus Sicherheitsgründen ihr Passwort sofort!
+admin.account.success.passwords = Ihr Passwort wurde erfolgreich geändert.
 
 importer.noData = Keine Datei wurde angegeben
 importer.FileNotFound = Datei konnte nicht gefunden werden
