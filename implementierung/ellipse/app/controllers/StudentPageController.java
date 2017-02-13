@@ -542,9 +542,16 @@ public class StudentPageController extends Controller {
         String verificationCode = EmailVerifier.getInstance()
                 .getVerificationCode(student);
         try {
-            notifier.sendVerificationMail(student,
-                    request().host() + controllers.routes.IndexPageController
-                            .verificationPage(verificationCode).url());
+            String protocol;
+            if (request().secure()) {
+                protocol = "https://";
+            } else {
+                protocol = "http://";
+            }
+            String url = request().host()
+                    + controllers.routes.IndexPageController
+                            .verificationPage(verificationCode).url();
+            notifier.sendVerificationMail(student, protocol + url);
             flash("info", ctx().messages()
                     .at("student.email.verificationLinkSuccess"));
         } catch (EmailException e) {
