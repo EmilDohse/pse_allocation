@@ -74,9 +74,9 @@ public class AllocationQueue {
      *            Die Konfiguration, die zur Berechnungsqueue hinzugefügt wird.
      */
     public void addToQueue(allocation.Configuration configuration) {
-        synchronized (this.worker) {
+        synchronized (this.configurationQueue) {
             configurationQueue.add(configuration);
-            this.worker.notifyAll(); // der calculator thread wird
+            this.configurationQueue.notifyAll(); // der calculator thread wird
             // geweckt
         }
 
@@ -90,7 +90,7 @@ public class AllocationQueue {
      *            Der Name der Konfiguration, die entfernt werden soll.
      */
     public void cancelAllocation(String name) {
-        synchronized (this.worker) {
+        synchronized (this.configurationQueue) {
             if (null != currentlyCalculatedConfiguration && name
                     .equals(currentlyCalculatedConfiguration.getName())) {
                 currentlyCalculatedConfiguration = null;
@@ -115,7 +115,7 @@ public class AllocationQueue {
         // hier könnte QUEUE_SIZE verwendet werden da die queue jedoch meist
         // nicht voll sein wird hier nur 4
         ArrayList<allocation.Configuration> list = new ArrayList<>(4);
-        synchronized (this.worker) {
+        synchronized (this.configurationQueue) {
             if (currentlyCalculatedConfiguration != null) {
                 list.add(currentlyCalculatedConfiguration);
             }
@@ -138,7 +138,7 @@ public class AllocationQueue {
      * Entfernt alle Elemente aus der Queue.
      */
     public void clear() {
-        synchronized (this.worker) {
+        synchronized (this.configurationQueue) {
             configurationQueue.clear();
             if (currentlyCalculatedConfiguration != null) {
                 cancelAllocation(currentlyCalculatedConfiguration.getName());
@@ -152,7 +152,7 @@ public class AllocationQueue {
         @Override
         public void run() {
             while (true) {
-                synchronized (this) {
+                synchronized (AllocationQueue.this.configurationQueue) {
                     // syncronized da ansonsten probleme mit dem cancel() kommen
                     // könnten
                     while (configurationQueue.isEmpty()) {

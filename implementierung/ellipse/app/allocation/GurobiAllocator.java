@@ -368,10 +368,8 @@ public class GurobiAllocator extends AbstractAllocator {
     }
 
     private Allocation nullObject(String errorMessage) {
-        Allocation failedAllocation = null; // wird hier null gesetzt da dieser
-                                            // try catch nicht scheitert und
-                                            // somit keine warnung kommt
-        failedAllocation = new Allocation(new ArrayList<Team>(), errorMessage,
+        Allocation failedAllocation = new Allocation(new ArrayList<Team>(),
+                errorMessage,
                 new ArrayList<AllocationParameter>());
         System.out.println("ERROR " + errorMessage);
         return failedAllocation;
