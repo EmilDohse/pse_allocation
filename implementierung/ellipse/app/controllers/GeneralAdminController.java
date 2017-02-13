@@ -370,6 +370,7 @@ public class GeneralAdminController extends Controller {
                 admin.setPassword(pwEnc);
             });
         }
+        flash("info", ctx().messages().at("admin.account.success.passwords"));
         return redirect(controllers.routes.AdminPageController.accountPage());
     }
 }
