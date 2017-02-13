@@ -48,15 +48,15 @@ public class AdminProjectController extends Controller {
             return badRequest(ctx().messages().at(INTERNAL_ERROR));
         }
         String projName = form.get("name");
-        int projID = -1;
         Project project = new Project(projName, "", "", "");
         project.save();
         Semester semester = GeneralData.loadInstance().getCurrentSemester();
         semester.doTransaction(() -> {
             semester.addProject(project);
         });
-        projID = project.getId();
-        return redirect(controllers.routes.AdminPageController.projectEditPage(projID));
+        int projID = project.getId();
+        return redirect(
+                controllers.routes.AdminPageController.projectEditPage(projID));
 
     }
 
@@ -72,9 +72,8 @@ public class AdminProjectController extends Controller {
         if (form.data().isEmpty()) {
             return badRequest(ctx().messages().at(INTERNAL_ERROR));
         }
-        Project project = ElipseModel.getById(Project.class, Integer.parseInt(form.get("id")));
-        // TODO hier eine warnmeldung ausgeben ob das projekt wirklich gelöscht
-        // werden soll
+        Project project = ElipseModel.getById(Project.class,
+                Integer.parseInt(form.get("id")));
         project.delete();
 
         return redirect(controllers.routes.AdminPageController.projectPage());
@@ -110,9 +109,11 @@ public class AdminProjectController extends Controller {
             id = minValidator.validate(form.get("idString"));
         } catch (ValidationException e) {
             flash(ERROR, ctx().messages().at(e.getMessage()));
-            return redirect(controllers.routes.AdminPageController.projectEditPage(-1));
+            return redirect(
+                    controllers.routes.AdminPageController.projectEditPage(-1));
         }
         Project project = ElipseModel.getById(Project.class, id);
+        // Prüfe alle ausgelesenen Werte auf nichtleere Strings und Mindestwerte
         try {
             projName = notEmptyValidator.validate(form.get("name"));
             url = notEmptyValidator.validate(form.get("url"));
@@ -123,27 +124,34 @@ public class AdminProjectController extends Controller {
             maxSize = minValidator.validate(form.get("maxSize"));
         } catch (ValidationException e) {
             flash(ERROR, ctx().messages().at("error.wrongInput"));
-            return redirect(controllers.routes.AdminPageController.projectEditPage(project.getId()));
+            return redirect(controllers.routes.AdminPageController
+                    .projectEditPage(project.getId()));
         }
-
+        // Prüfe, dass max >= min und dass Min und Max immer gleichzeitig 0 oder
+        // nichtnull sind
         if ((minSize == 0 ^ maxSize == 0) || (maxSize < minSize)) {
             flash(ERROR, ctx().messages().at("error.wrongInput"));
-            return redirect(controllers.routes.AdminPageController.projectEditPage(project.getId()));
+            return redirect(controllers.routes.AdminPageController
+                    .projectEditPage(project.getId()));
         }
+
+        // Hole die Betreuer des Projektes aus der Datenbank
         ArrayList<Adviser> advisers = new ArrayList<>();
-        String[] adviserIds = MultiselectList.getValueArray(form, "adviser-multiselect");
+        String[] adviserIds = MultiselectList.getValueArray(form,
+                "adviser-multiselect");
         for (String adviserIdString : adviserIds) {
             int adviserId;
             try {
                 adviserId = Integer.parseInt(adviserIdString);
             } catch (NumberFormatException e) {
                 flash(ERROR, ctx().messages().at(INTERNAL_ERROR));
-                return redirect(controllers.routes.AdminPageController.projectEditPage(project.getId()));
+                return redirect(controllers.routes.AdminPageController
+                        .projectEditPage(project.getId()));
             }
             advisers.add(ElipseModel.getById(Adviser.class, adviserId));
         }
 
-        // und dem projekt hinzugefügt
+        // Füge alle ausgelesenen Daten dem Projekt hinzu
         project.doTransaction(() -> {
             project.setAdvisers(advisers);
             project.setInstitute(institute);

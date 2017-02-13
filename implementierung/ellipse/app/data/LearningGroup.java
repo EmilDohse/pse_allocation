@@ -139,7 +139,6 @@ public class LearningGroup extends ElipseModel {
         r.setRating(rating);
         ratings.add(r);
         r.setLearningGroup(this);
-        // TODO save
     }
 
     /**
