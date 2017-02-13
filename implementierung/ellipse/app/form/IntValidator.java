@@ -1,5 +1,7 @@
 package form;
 
+import exception.ValidationException;
+
 
 /**
  * Klasse um ein int zu validieren.

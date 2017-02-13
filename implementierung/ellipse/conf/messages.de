@@ -116,6 +116,7 @@ semester.noSecondFinal = Sie haben bereits eine finale Einteilung ausgewählt
 semester.dateInPast = Das Datum darf nicht in der Vergangenheit liegen
 
 user.noValidEmail = Bitte geben Sie eine valide Email-Adresse an
+user.noValidCredentials = Die Benutzername-Passwort-Kombination ist falsch oder es existiert kein Benutzer mit dem Benutzernamen.
 
 team.invalidTeamNumber = Die Teamnummer muss zwischen 1 und der maximalen Anzahl an Team liegen
 team.invalidTeamSize = Die Teamgröße muss entweder 0 oder zwischen min und max sein
