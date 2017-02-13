@@ -15,17 +15,28 @@ import data.Team;
 import play.test.WithApplication;
 import qualityCriteria.NotAllocatedStudents;
 
+/**
+ * Diese Klasse beinhaltet Unit-Test für das Gütekriterium, welches die Anzhal
+ * nicht zugeteilter Studenten berechnet.
+ */
 public class NotAllocatedStudentsTest {
 
     private Semester   s;
     private Allocation a;
 
+    /**
+     * Setup code.
+     */
     @Before
     public void setup() {
         s = new Semester();
         a = new Allocation();
     }
 
+    /**
+     * Diese Methode testet, ob das Gütekriterium die richtige Anzahl nicht
+     * zugeteilter Studenten berechnet.
+     */
     @Test
     public void calculateTest() {
 

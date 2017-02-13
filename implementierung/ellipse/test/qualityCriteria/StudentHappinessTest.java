@@ -17,6 +17,10 @@ import data.Semester;
 import data.Student;
 import data.Team;
 
+/**
+ * Diese Klasse beinhaltet Unit-Test für das Gütekriterium, das die
+ * StudierendenHappiness berechnet.
+ */
 public class StudentHappinessTest extends DataTest {
 
     Semester            semester;
@@ -37,6 +41,9 @@ public class StudentHappinessTest extends DataTest {
     List<LearningGroup> learningGroups;
     List<Team>          teams;
 
+    /**
+     * Setup code.
+     */
     @Before
     public void setup() {
         semester = new Semester();
@@ -81,6 +88,9 @@ public class StudentHappinessTest extends DataTest {
         semester.save();
     }
 
+    /**
+     * Erster Test für die korrekte Berechnung der StudierendenHappiness.
+     */
     @Test
     public void firstCalculateTest() {
         LearningGroup l1 = new LearningGroup();
@@ -141,6 +151,9 @@ public class StudentHappinessTest extends DataTest {
         assertTrue(100.0 - Double.parseDouble(result[0]) < 0.01);
     }
 
+    /**
+     * Zweiter Test für die korrekte Berechnung der StudierendenHappiness.
+     */
     @Test
     public void secondCalculateTest() {
         Rating r1 = new Rating(5, p1);

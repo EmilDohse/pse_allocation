@@ -22,11 +22,18 @@ import data.SPO;
 import data.Semester;
 import exception.ImporterException;
 
+/**
+ * Diese Klasse beinhaltet Tests für das Importieren und Exportieren von
+ * Studenten SPOs und Einteilungen.
+ */
 public class ImporterTest {
 
     private static Importer    importerExporter;
     private static EbeanServer server;
 
+    /**
+     * Setup des Servers und Initialisierung der allgemeinen Daten.
+     */
     @Before
     public void before() {
         ServerConfig config = new ServerConfig();
@@ -49,6 +56,11 @@ public class ImporterTest {
 
     }
 
+    /**
+     * Diese Methode testet das Importieren und Exportieren von Studierenden.
+     * 
+     * @throws ImporterException
+     */
     @Test
     public void testImportStudents() throws ImporterException {
         // Importiere SPO
@@ -70,6 +82,11 @@ public class ImporterTest {
                 Semester.getSemester("importStudentSemester"));
     }
 
+    /**
+     * Diese Methode testet das Importierern und Exportieren von Projekten.
+     * 
+     * @throws ImporterException
+     */
     @Test
     public void testImportProjects() throws ImporterException {
         Semester importProjects = new Semester("importProjects", true);
@@ -81,6 +98,11 @@ public class ImporterTest {
         importerExporter.exportProjects(new File("exportTestProjects.csv"), importProjects);
     }
 
+    /**
+     * Diese Methode testet das Importieren und Exportieren von SPOs.
+     * 
+     * @throws ImporterException
+     */
     @Test
     public void testImportSPO() throws ImporterException {
         if (SPO.getSPO("2008") != null) {
@@ -93,6 +115,11 @@ public class ImporterTest {
         importerExporter.exportSPO(new File("exportTestSpo.csv"), SPO.getSPO("2008"));
     }
 
+    /**
+     * Diese Methode testet das Importieren und Exportieren von Einteilungen.
+     * 
+     * @throws ImporterException
+     */
     @Test
     public void testImportAllocation() throws ImporterException {
         Semester semester = new Semester("test", false);
