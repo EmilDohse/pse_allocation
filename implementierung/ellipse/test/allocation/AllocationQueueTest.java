@@ -22,9 +22,7 @@ import data.Project;
 import data.Student;
 
 /**
- * tests zur klasse allocation queue
- * 
- * @author emil
+ * Diese Klasse beinhaltet Tests zur Klasse AllocationQueue.
  *
  */
 public class AllocationQueueTest {
@@ -34,6 +32,9 @@ public class AllocationQueueTest {
     Configuration              configTwo;
     private static EbeanServer server;
 
+    /**
+     * Server setup.
+     */
     @BeforeClass
     public static void beforeClass() {
         ServerConfig config = new ServerConfig();
@@ -45,11 +46,18 @@ public class AllocationQueueTest {
         server = EbeanServerFactory.create(config);
     }
 
+    /**
+     * Server shutdown.
+     */
     @AfterClass
     public static void afterClass() {
         server.shutdown(false, false);
     }
 
+    /**
+     * Diese Methode Initialisiert Konfigurationen, die für die anderen Tests
+     * gebraucht werden.
+     */
     @Before
     public void init() {
         allocQueue = AllocationQueue.getInstance();

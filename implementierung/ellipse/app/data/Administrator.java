@@ -10,12 +10,7 @@ import javax.persistence.Entity;
 @Entity
 public class Administrator extends User {
 
-    /**
-     * Das Startpasswort, was auotamtisch in die anfangs leere Datebank
-     * gespeichert wird. Der Admin wird beim login dann aufgefordert das
-     * Passwort zu ändern.
-     */
-    public static String START_PASSWORD = "adminadmin";
+    public static final Object START_PASSWORD = "adminadmin";
 
     public Administrator() {
         super();

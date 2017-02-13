@@ -1,5 +1,7 @@
 package form;
 
+import exception.ValidationException;
+
 
 /**
  * Klasse zum Validieren.
@@ -7,6 +9,7 @@ package form;
  * @param <T>
  *            Datentyp, der validiert wird.
  */
+@FunctionalInterface
 public interface Validator<T> {
 
     /**

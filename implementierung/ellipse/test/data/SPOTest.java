@@ -9,15 +9,24 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * Diese Klasse beinhaltet Unit-Tests für die Klasse SPO.
+ */
 public class SPOTest extends DataTest {
 
     private SPO spo;
 
+    /**
+     * Initialisierung der SPO.
+     */
     @Before
     public void beforeTest() {
         spo = new SPO();
     }
 
+    /**
+     * Diese Methode testet sowohl getter alsauch setter des Namens der SPO.
+     */
     @Test
     public void testName() {
         String n = "testname";
@@ -25,6 +34,10 @@ public class SPOTest extends DataTest {
         assertEquals(n, spo.getName());
     }
 
+    /**
+     * Diese Methode testet das Hinzufügen und Entfernen von benötigten
+     * Teilleistungen.
+     */
     @Test
     public void testNecessaryAchievements() {
         Achievement firstA = new Achievement();
@@ -45,6 +58,10 @@ public class SPOTest extends DataTest {
         assertTrue(spo.getNecessaryAchievements().contains(secondA));
     }
 
+    /**
+     * Diese Methode testet das Hinzufügen und Entfernen von zusätzlichen
+     * Teilleistungen.
+     */
     @Test
     public void testAdditionalAchievements() {
         Achievement firstA = new Achievement();
@@ -65,6 +82,10 @@ public class SPOTest extends DataTest {
         assertTrue(spo.getAdditionalAchievements().contains(secondA));
     }
 
+    /**
+     * Diese Methode testet die statischen Methoden, mit denen man entweder eine
+     * Liste aller SPOs aus der Datenbank bekommt, oder eine Spezifische SPO.
+     */
     @Test
     public void testGetSPO() {
         SPO one = new SPO("one");

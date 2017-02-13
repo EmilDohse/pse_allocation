@@ -32,7 +32,7 @@ public class UserManagement {
     public <T extends User> T getUserProfile(Context ctx) {
         PlayWebContext webContext = new PlayWebContext(ctx,
                 playSessionStore);
-        ProfileManager<UserProfile<T>> profileManager = new ProfileManager<UserProfile<T>>(
+        ProfileManager<UserProfile<T>> profileManager = new ProfileManager<>(
                 webContext);
         Optional<UserProfile<T>> profile = profileManager.get(true);
         return profile.get().getUser();
@@ -49,7 +49,7 @@ public class UserManagement {
     public void addStudentRoleToOldStudent(Context ctx) {
         PlayWebContext webContext = new PlayWebContext(ctx,
                 playSessionStore);
-        ProfileManager<UserProfile<Student>> profileManager = new ProfileManager<UserProfile<Student>>(
+        ProfileManager<UserProfile<Student>> profileManager = new ProfileManager<>(
                 webContext);
         Optional<UserProfile<Student>> profile = profileManager.get(true);
         if (profile.get().getRoles().contains("ROLE_STUDENT_OLD")) {

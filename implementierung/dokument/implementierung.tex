@@ -17,12 +17,12 @@
 \usepackage{tabularx}
 \usepackage{multirow}
 \usepackage{here}
-
+\usepackage[most]{tcolorbox}
 \usepackage[binary-units=true]{siunitx}
  \usepackage[autostyle=true,german=quotes]{csquotes}
  \usepackage{longtable, booktabs}
  \newcommand{\swtLabel}[1]{\textbf{/#1\arabic*0/}}
- 
+ \definecolor{testgrauRGB}{rgb}{0.9,0.9,0.9}
  \definecolor{myGreen}{cmyk}{1,0.0,1,0}
  \newlist{itemMinus}{itemize}{1 }
  \setlist[itemMinus]{label=--, noitemsep,
@@ -702,6 +702,10 @@ zur Anzeige des Studenten für E-Mail an ihn.}
 	  \item Klasse hinzugefügt die Fehler bei Im- und Export an die Controller
 	  weitergibt.
 	\end{itemize}
+	\item ValidationException
+\begin{itemize}
+  \item Tritt bei Fehler in der Validierung auf.
+\end{itemize}
 \end{itemClass}
 \item filters
 \begin{itemClass}
@@ -823,10 +827,6 @@ Adviser gesendet.}
 \begin{itemize}
   \item Validiert \code{String}-Eingabefelder.
 \end{itemize}
-\item ValidationException
-\begin{itemize}
-  \item Tritt bei Fehler in der Validierung auf.
-\end{itemize}
 \item Validator
 \begin{itemize}
   \item Generisches Interface zur validierung eines Formulareingabefelds.
@@ -834,6 +834,57 @@ Adviser gesendet.}
 \end{itemClass}
 \end{itemPackage}
 
+Das Im/Exportformat hat sich an drei Stellen geändert: 
+\begin{enumerate}
+  \item Zum Importieren alter Datensätze von Studierenden und deren Bewertungen:
+ \\ \begin{tcolorbox}[enhanced jigsaw, % needed to really the frame off!
+ colback=testgrauRGB, % black background
+ coltext=black, % white text
+ %halign=center, % center
+% fontupper={\Huge \bfseries}, % change the font here
+ sharp corners, % no rounded corners
+ colframe=black, % not really necessary
+ boxrule=0pt % frame off 
+ ]
+ \texttt{MatNr; Vorname; Nachname; E-mail; Passwort; Lerngruppenname;
+ LerngruppePasswort; SPO; Fachsemester; Bestandene Teilleistungen; Noch
+ ausstehende Teilleistungen; Bewertung Thema 1; ... ; Bewertung Thema N}
+  \end{tcolorbox}
+  Dabei sind die beiden Passwörter die Hash-Werte aus der Datenbank und die
+  Themen sind in der Kopfzeile durch ihren Namen gekennzeichnet. Die
+  Teilleistungen sind durch Kommata getrennt und durch ihren Namen
+  gekennzeichnet. 
+  \item Zum Im- und Export von Einteilungen: \\ \begin{tcolorbox}[enhanced
+  jigsaw,
+  % needed
+   % to really the frame off!
+ colback=testgrauRGB, % black background
+ coltext=black, % white text
+ %halign=center, % center
+% fontupper={\Huge \bfseries}, % change the font here
+ sharp corners, % no rounded corners
+ colframe=black, % not really necessary
+ boxrule=0pt % frame off 
+ ]
+ \texttt{Projekt; Teamnummer; Mitglieder}
+  \end{tcolorbox}
+  Dabei sind die Mitglieder durch Kommata getrennt und durch ihre Matrikelnummer
+  gekennzeichnet.
+  \item Zum Export von Noten: \\ \begin{tcolorbox}[enhanced
+  jigsaw,
+  % needed
+   % to really the frame off!
+ colback=testgrauRGB, % black background
+ coltext=black, % white text
+ %halign=center, % center
+% fontupper={\Huge \bfseries}, % change the font here
+ sharp corners, % no rounded corners
+ colframe=black, % not really necessary
+ boxrule=0pt % frame off 
+ ]
+ \texttt{Matrikelnummer; Note PSE; Note TSE}
+  \end{tcolorbox}
+\end{enumerate}
 
 \section{Funktionsumfang}
 Wie im Pflichtenheft beschrieben gibt es einige Muss und Wunschkriterien zu

@@ -25,6 +25,7 @@ import play.mvc.Http.Context;
 public class UserAuthenticator
         implements Authenticator<UsernamePasswordCredentials> {
 
+    private static final String USER_NO_VALID_CREDENTIALS = "user.noValidCredentials";
     private static final String ERROR    = "error";
     private static final String BAD_CRED = "Bad credentials for: ";
 
@@ -38,7 +39,7 @@ public class UserAuthenticator
             if (credentials.getUsername().equals(admin.getUserName())) {
                 if (encoder.matches(credentials.getPassword(),
                         admin.getPassword())) {
-                    UserProfile<Administrator> profile = new UserProfile<Administrator>(
+                    UserProfile<Administrator> profile = new UserProfile<>(
                             admin);
                     profile.addRole("ROLE_ADMIN");
                     credentials.setUserProfile(profile);
@@ -59,7 +60,7 @@ public class UserAuthenticator
                     return;
                 } else {
                     ctx.session().put(ERROR,
-                            ctx.messages().at("user.noValidCredentials"));
+                            ctx.messages().at(USER_NO_VALID_CREDENTIALS));
                     throw new BadCredentialsException(
                             BAD_CRED + credentials.getUsername());
                 }
@@ -70,7 +71,7 @@ public class UserAuthenticator
             if (credentials.getUsername().equals(student.getUserName())) {
                 if (encoder.matches(credentials.getPassword(),
                         student.getPassword())) {
-                    UserProfile<Student> profile = new UserProfile<Student>(
+                    UserProfile<Student> profile = new UserProfile<>(
                             student);
                     profile.addRole("ROLE_STUDENT");
                     credentials.setUserProfile(profile);
@@ -83,7 +84,7 @@ public class UserAuthenticator
                     return;
                 } else {
                     ctx.session().put(ERROR,
-                            ctx.messages().at("user.noValidCredentials"));
+                            ctx.messages().at(USER_NO_VALID_CREDENTIALS));
                     throw new BadCredentialsException(
                             BAD_CRED + credentials.getUsername());
                 }
@@ -93,7 +94,7 @@ public class UserAuthenticator
             if (credentials.getUsername().equals(adviser.getUserName())) {
                 if (encoder.matches(credentials.getPassword(),
                         adviser.getPassword())) {
-                    UserProfile<Adviser> profile = new UserProfile<Adviser>(
+                    UserProfile<Adviser> profile = new UserProfile<>(
                             adviser);
                     profile.addRole("ROLE_ADVISER");
                     credentials.setUserProfile(profile);
@@ -102,7 +103,7 @@ public class UserAuthenticator
                     return;
                 } else {
                     ctx.session().put(ERROR,
-                            ctx.messages().at("user.noValidCredentials"));
+                            ctx.messages().at(USER_NO_VALID_CREDENTIALS));
                     throw new BadCredentialsException(
                             BAD_CRED + credentials.getUsername());
                 }
@@ -112,7 +113,7 @@ public class UserAuthenticator
             if (credentials.getUsername().equals(student.getUserName())) {
                 if (encoder.matches(credentials.getPassword(),
                         student.getPassword())) {
-                    UserProfile<Student> profile = new UserProfile<Student>(
+                    UserProfile<Student> profile = new UserProfile<>(
                             student);
                     profile.addRole("ROLE_STUDENT_OLD");
                     credentials.setUserProfile(profile);
@@ -122,7 +123,7 @@ public class UserAuthenticator
                     return;
                 } else {
                     ctx.session().put(ERROR,
-                            ctx.messages().at("user.noValidCredentials"));
+                            ctx.messages().at(USER_NO_VALID_CREDENTIALS));
                     throw new BadCredentialsException(
                             BAD_CRED + credentials.getUsername());
                 }

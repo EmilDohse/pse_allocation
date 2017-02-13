@@ -31,7 +31,7 @@ public class Adviser extends User {
      * @return Die Projekte, die der Betreuer beaufsichtigt.
      */
     public List<Project> getProjects() {
-        List<Project> projects = new ArrayList<Project>();
+        List<Project> projects = new ArrayList<>();
         for (Project p : Project.getProjects()) {
             if (p.getAdvisers().contains(this)) {
                 projects.add(p);

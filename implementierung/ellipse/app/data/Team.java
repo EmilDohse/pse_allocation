@@ -41,7 +41,7 @@ public class Team extends ElipseModel {
 
     public Team() {
         super();
-        members = new ArrayList<Student>();
+        members = new ArrayList<>();
     }
 
     public Team(Project project, List<Student> members) {
@@ -144,18 +144,14 @@ public class Team extends ElipseModel {
         return project.getAdvisers();
     }
 
-    //
-    // @Override
-    // public int compareTo(Team o) {
-    // return Integer.compare(teamNumber, o.getTeamNumber());
-    // }
-
     public String toStringForNotification() {
-        String toReturn = this.getTeamNumber() + ":\n";
+        StringBuilder toReturn = new StringBuilder(this.getTeamNumber());
+        toReturn.append(":\n");
         for (int i = 0; i < this.getMembers().size(); i++) {
-            toReturn += members.get(i).toStringForNotification() + "\n";
+            toReturn.append(members.get(i).toStringForNotification());
+            toReturn.append("\n");
         }
-        return toReturn;
+        return toReturn.toString();
     }
 
 }

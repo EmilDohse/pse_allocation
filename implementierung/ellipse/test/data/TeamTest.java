@@ -9,15 +9,25 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * Diese Klasse beinhaltet Unit-Tests für die Klasse Team.
+ */
 public class TeamTest extends DataTest {
 
     private Team team;
 
+    /**
+     * Initialisierung des Teams.
+     */
     @Before
     public void beforeTest() {
         team = new Team();
     }
 
+    /**
+     * Diese Methode testet sowohl getter alsauch setter für das Projekt des
+     * Teams.
+     */
     @Test
     public void testProject() {
         Project project = new Project();
@@ -25,6 +35,11 @@ public class TeamTest extends DataTest {
         assertEquals(project, team.getProject());
     }
 
+    /**
+     * Diese Methode testet das Hinzufügen und Entfernen von Mitgliedern.
+     * Darüber hinaus werden auch die setter und getter der Mitglieder-Liste
+     * getestet.
+     */
     @Test
     public void testMembers() {
         List<Student> members = new ArrayList<Student>();
@@ -53,6 +68,10 @@ public class TeamTest extends DataTest {
         assertTrue(team.getMembers().contains(secondStudent));
     }
 
+    /**
+     * Diese Methode testet das Hinzufügen und Entfernen von Betreuern. Darüber
+     * hinaus werden auch die setter und getter der Betreuer-Liste getestet.
+     */
     @Test
     public void testGetAdvisers() {
         List<Adviser> advisers = new ArrayList<Adviser>();

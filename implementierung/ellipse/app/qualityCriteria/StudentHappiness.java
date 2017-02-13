@@ -44,9 +44,8 @@ public class StudentHappiness implements QualityCriterion {
         for (Team t : allocation.getTeams()) {
             Project project = t.getProject();
             for (Student student : t.getMembers()) {
-                double rating = 0;
                 LearningGroup lg = studentLG.get(student);
-                rating = lg.getRating(project);
+                double rating = lg.getRating(project);
                 sumOfRatings += rating;
             }
         }

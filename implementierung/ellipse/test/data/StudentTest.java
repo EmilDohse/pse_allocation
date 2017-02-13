@@ -9,15 +9,25 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-public class StudentTest extends UserTest {
+/**
+ * Diese Klasse beinhaltet Unit-Tests für die Klasse Student.
+ */
+public class StudentTest extends DataTest {
 
     private Student student;
 
+    /**
+     * Initialisiereung des Studenten.
+     */
     @Before
     public void beforeTest() {
         student = new Student();
     }
 
+    /**
+     * Diese Methode testet getter und setter für die Matrikelnummer des
+     * Studenten.
+     */
     @Test
     public void testMatriculationNumber() {
         int m = 1234567;
@@ -25,6 +35,9 @@ public class StudentTest extends UserTest {
         assertEquals(m, student.getMatriculationNumber());
     }
 
+    /**
+     * Diese Methode testet getter und setter für die SPO des Studenten.
+     */
     @Test
     public void testSPO() {
         SPO spo = new SPO();
@@ -32,6 +45,10 @@ public class StudentTest extends UserTest {
         assertEquals(spo, student.getSPO());
     }
 
+    /**
+     * Diese Methode testet das Hinzufügen und Entfernen von bestandenen
+     * Teilleistungen.
+     */
     @Test
     public void testCompletedAchievements() {
         List<Achievement> achievements = new ArrayList<Achievement>();
@@ -42,6 +59,10 @@ public class StudentTest extends UserTest {
         assertTrue(student.getCompletedAchievements().contains(a));
     }
 
+    /**
+     * Diese Methode testet das Hinzufügen und Entfernen von noch ausstehenden
+     * Teilleistungen.
+     */
     @Test
     public void testOralTestAchievements() {
         List<Achievement> achievements = new ArrayList<Achievement>();
@@ -52,6 +73,10 @@ public class StudentTest extends UserTest {
         assertTrue(student.getOralTestAchievements().contains(a));
     }
 
+    /**
+     * Diese Methode testet getter und setter für den Status 'Bei PSE
+     * registrert' auf Korrektheit.
+     */
     @Test
     public void testRegisteredPSE() {
         boolean pse = true;
@@ -59,6 +84,10 @@ public class StudentTest extends UserTest {
         assertEquals(pse, student.isRegisteredPSE());
     }
 
+    /**
+     * Diese Methode testet getter und setter für den Status 'Bei TSE
+     * registrert' auf Korrektheit.
+     */
     @Test
     public void testRegisteredTSE() {
         boolean tse = true;
@@ -66,6 +95,9 @@ public class StudentTest extends UserTest {
         assertEquals(tse, student.isRegisteredTSE());
     }
 
+    /**
+     * Diese Methode testet getter und setter für die PSE-note auf Korrektheit.
+     */
     @Test
     public void testGradePSE() {
         Grade pse = Grade.THREE_ZERO;
@@ -73,6 +105,9 @@ public class StudentTest extends UserTest {
         assertEquals(pse, student.getGradePSE());
     }
 
+    /**
+     * Diese Methode testet getter und setter für die TSE-note auf Korrektheit.
+     */
     @Test
     public void testGradeTSE() {
         Grade tse = Grade.THREE_ZERO;
@@ -80,6 +115,9 @@ public class StudentTest extends UserTest {
         assertEquals(tse, student.getGradeTSE());
     }
 
+    /**
+     * Diese Methode testet getter und setter für das Semseter des Studenten.
+     */
     @Test
     public void testSemester() {
         int s = 3;
@@ -87,6 +125,10 @@ public class StudentTest extends UserTest {
         assertEquals(s, student.getSemester());
     }
 
+    /**
+     * Diese Methode testet getter und setter für den Status 'EMail verifiziert'
+     * auf Korrektheit.
+     */
     @Test
     public void testEmailVerified() {
         boolean e = true;
@@ -94,6 +136,10 @@ public class StudentTest extends UserTest {
         assertEquals(e, student.isEmailVerified());
     }
 
+    /**
+     * Diese Methode testet ob die Methode 'registeredMoreThanOnce', welche
+     * prüft, ob ein Student sich schonmal für das PSE angemeldet hatte.
+     */
     @Test
     public void testRegisteredMoreThanOnce() {
         Semester firstS = new Semester();
@@ -113,6 +159,11 @@ public class StudentTest extends UserTest {
         assertEquals(true, student.registeredMoreThanOnce());
     }
 
+    /**
+     * Diese Methode testet die statischen Methoden, welche entweder eine Liste
+     * aller Studenten zurückgeben, oder einen spezifischen Studenten aus der
+     * Datenbank.
+     */
     @Test
     public void testStudents() {
         Student.getStudents().forEach(s -> s.delete());
