@@ -45,6 +45,8 @@ import views.StudentMenu;
  */
 public class StudentPageController extends Controller {
 
+    private static final String STATE_ACTION_NOT_ALLOWED = "state.actionNotAllowed";
+    private static final String ERROR = "error";
     private static final String INTERNAL_ERROR         = "error.internalError";
     private static final String GEN_ERROR              = "index.registration.error.genError";
     private static final String ALREADY_IN_OTHER_GROUP = "student.learningGroup.error.alreadyInOtherGroup";
@@ -96,7 +98,7 @@ public class StudentPageController extends Controller {
                 semester = validator.validate(semesterString);
                 spoId = validator.validate(spoIdString);
             } catch (ValidationException e) {
-                flash("error", ctx().messages().at(e.getMessage()));
+                flash(ERROR, ctx().messages().at(e.getMessage()));
                 return redirect(controllers.routes.StudentPageController
                         .changeFormPage());
             }
@@ -114,7 +116,7 @@ public class StudentPageController extends Controller {
                 completedAchievements = MultiselectList.createAchievementList(
                         form, "completed-" + spoIdString + "-multiselect");
             } catch (NumberFormatException e) {
-                flash("error", ctx().messages().at(INTERNAL_ERROR));
+                flash(ERROR, ctx().messages().at(INTERNAL_ERROR));
                 return redirect(controllers.routes.StudentPageController
                         .changeFormPage());
             }
@@ -123,7 +125,7 @@ public class StudentPageController extends Controller {
                         .createAchievementList(form, "due-" + spoIdString
                                 + "-multiselect");
             } catch (NumberFormatException e) {
-                flash("error", ctx().messages().at(INTERNAL_ERROR));
+                flash(ERROR, ctx().messages().at(INTERNAL_ERROR));
                 return redirect(controllers.routes.StudentPageController
                         .changeFormPage());
             }
@@ -166,7 +168,7 @@ public class StudentPageController extends Controller {
                 return redirect(controllers.routes.StudentPageController
                         .learningGroupPage());
             }
-            flash("error", ctx().messages().at(GEN_ERROR));
+            flash(ERROR, ctx().messages().at(GEN_ERROR));
             return redirect(controllers.routes.StudentPageController
                     .changeFormPage());
         }
@@ -266,7 +268,7 @@ public class StudentPageController extends Controller {
         } else if (form.get("join") != null) {
             return joinLearningGroup();
         } else {
-            flash("error", ctx().messages().at(INTERNAL_ERROR));
+            flash(ERROR, ctx().messages().at(INTERNAL_ERROR));
             return redirect(controllers.routes.StudentPageController
                     .learningGroupPage());
         }
@@ -283,7 +285,7 @@ public class StudentPageController extends Controller {
         Student student = userManagement.getUserProfile(ctx());
         Semester semester = GeneralData.loadInstance().getCurrentSemester();
         if (!semester.getLearningGroupOf(student).isPrivate()) {
-            flash("error", ctx().messages().at(ALREADY_IN_OTHER_GROUP));
+            flash(ERROR, ctx().messages().at(ALREADY_IN_OTHER_GROUP));
             return redirect(controllers.routes.StudentPageController
                     .learningGroupPage());
         }
@@ -294,7 +296,7 @@ public class StudentPageController extends Controller {
         String name = form.get("learningGroupname");
         if (name.matches("\\d*")) {
             // Wenn Name leer ist oder nur aus Ziffern besteht
-            flash("error",
+            flash(ERROR,
                     ctx().messages().at(
                             "student.learningGroup.error.nameFormat"));
             return redirect(controllers.routes.StudentPageController
@@ -307,7 +309,7 @@ public class StudentPageController extends Controller {
             password = passwordValidator.validate(form
                     .get("learningGroupPassword"));
         } catch (ValidationException e) {
-            flash("error", ctx().messages().at(e.getMessage()));
+            flash(ERROR, ctx().messages().at(e.getMessage()));
             return redirect(controllers.routes.StudentPageController
                     .learningGroupPage());
         }
@@ -315,7 +317,7 @@ public class StudentPageController extends Controller {
         LearningGroup learningGroup = LearningGroup.getLearningGroup(name,
                 semester);
         if (learningGroup != null) {
-            flash("error",
+            flash(ERROR,
                     ctx().messages().at(
                             "student.learningGroup.error.existsAlready"));
             return redirect(controllers.routes.StudentPageController
@@ -358,7 +360,7 @@ public class StudentPageController extends Controller {
         LearningGroup lg = GeneralData.loadInstance().getCurrentSemester()
                 .getLearningGroupOf(student);
         if (lg.isPrivate()) {
-            flash("error",
+            flash(ERROR,
                     ctx().messages().at(
                             "student.learningGroup.error.noLearningGroup"));
             return redirect(controllers.routes.StudentPageController
@@ -413,7 +415,7 @@ public class StudentPageController extends Controller {
         try {
             name = stringValidator.validate(form.get("learningGroupname"));
         } catch (ValidationException e) {
-            flash("error", ctx().messages().at(e.getMessage()));
+            flash(ERROR, ctx().messages().at(e.getMessage()));
             return redirect(controllers.routes.StudentPageController
                     .learningGroupPage());
         }
@@ -425,19 +427,19 @@ public class StudentPageController extends Controller {
         // Wenn die Lerngruppe bereits voll ist, wird ein Fehler zurückgegeben
         if (lgNew.getMembers().size() >= GeneralData.loadInstance()
                 .getCurrentSemester().getMaxGroupSize()) {
-            flash("error",
+            flash(ERROR,
                     ctx().messages().at(
                             "student.learningGroup.error.learningGroupFull"));
             return redirect(controllers.routes.StudentPageController
                     .learningGroupPage());
         }
         if (!lgOld.isPrivate()) {
-            flash("error", ctx().messages().at(ALREADY_IN_OTHER_GROUP));
+            flash(ERROR, ctx().messages().at(ALREADY_IN_OTHER_GROUP));
             return redirect(controllers.routes.StudentPageController
                     .learningGroupPage());
         }
         if (lgNew.isPrivate()) {
-            flash("error",
+            flash(ERROR,
                     ctx().messages().at(
                             "student.learningGroup.error.joinProhibited"));
             return redirect(controllers.routes.StudentPageController
@@ -452,7 +454,7 @@ public class StudentPageController extends Controller {
             return redirect(controllers.routes.StudentPageController
                     .learningGroupPage());
         } else {
-            flash("error",
+            flash(ERROR,
                     ctx().messages().at("student.learningGroup.error.wrongPW"));
             return redirect(controllers.routes.StudentPageController
                     .learningGroupPage());
@@ -491,7 +493,7 @@ public class StudentPageController extends Controller {
                 StringValidator validator = Forms.getPasswordValidator();
                 pw = validator.validate(form.get("newPassword"));
             } catch (ValidationException e) {
-                flash("error", ctx().messages().at(e.getMessage()));
+                flash(ERROR, ctx().messages().at(e.getMessage()));
                 return redirect(controllers.routes.StudentPageController
                         .accountPage());
             }
@@ -501,14 +503,14 @@ public class StudentPageController extends Controller {
                     student.getPassword());
 
             if (!matches) {
-                flash("error",
+                flash(ERROR,
                         ctx().messages().at(
                                 "student.account.error.pwsDontMatch"));
                 return redirect(controllers.routes.StudentPageController
                         .accountPage());
             }
             if (!pw.equals(pwrepeat)) {
-                flash("error",
+                flash(ERROR,
                         ctx().messages().at("student.account.error.wrongPW"));
                 return redirect(controllers.routes.StudentPageController
                         .accountPage());
@@ -525,7 +527,7 @@ public class StudentPageController extends Controller {
                 StringValidator emailValidator = Forms.getEmailValidator();
                 email = emailValidator.validate(form.get("newEmail"));
             } catch (ValidationException e) {
-                flash("error", ctx().messages().at(e.getMessage()));
+                flash(ERROR, ctx().messages().at(e.getMessage()));
                 return redirect(controllers.routes.StudentPageController
                         .accountPage());
             }
@@ -557,7 +559,7 @@ public class StudentPageController extends Controller {
                     ctx().messages()
                             .at("student.email.verificationLinkSuccess"));
         } catch (EmailException e) {
-            flash("error",
+            flash(ERROR,
                     ctx().messages()
                             .at("student.email.verificationLinkFaliure"));
             e.printStackTrace();
@@ -577,10 +579,10 @@ public class StudentPageController extends Controller {
     public Result notAllowedInCurrentState(String url) {
         switch (StateStorage.getInstance().getCurrentState()) {
         case BEFORE_REGISTRATION_PHASE:
-            flash("info", ctx().messages().at("state.actionNotAllowed"));
+            flash("info", ctx().messages().at(STATE_ACTION_NOT_ALLOWED));
             break;
         case REGISTRATION_PHASE:
-            flash("info", ctx().messages().at("state.actionNotAllowed"));
+            flash("info", ctx().messages().at(STATE_ACTION_NOT_ALLOWED));
             break;
         case AFTER_REGISTRATION_PHASE:
             flash("info",
@@ -588,7 +590,7 @@ public class StudentPageController extends Controller {
                             "student.afterRegistration.actionNotAllowed"));
             break;
         default:
-            flash("info", ctx().messages().at("state.actionNotAllowed"));
+            flash("info", ctx().messages().at(STATE_ACTION_NOT_ALLOWED));
             break;
         }
 

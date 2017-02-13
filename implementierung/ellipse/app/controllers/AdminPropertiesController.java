@@ -33,7 +33,7 @@ import play.mvc.Result;
  */
 public class AdminPropertiesController extends Controller {
 
-    private static final String GENERAL_ERROR  = "admin.allocation.error.generalError";
+    private static final String ERROR = "error";
     private static final String GEN_ERROR      = "index.registration.error.genError";
     private static final String INTERNAL_ERROR = "error.internalError";
     private static final String NUMBER_ERROR   = "admin.properties.numberError";
@@ -72,7 +72,7 @@ public class AdminPropertiesController extends Controller {
         try {
             semesterId = Integer.parseInt(semesterIdString);
         } catch (NumberFormatException e) {
-            flash("error", ctx().messages().at(INTERNAL_ERROR));
+            flash(ERROR, ctx().messages().at(INTERNAL_ERROR));
             return redirect(
                     controllers.routes.AdminPageController.propertiesPage());
         }
@@ -86,7 +86,7 @@ public class AdminPropertiesController extends Controller {
             }
             semester.delete();
         } else {
-            flash("error", ctx().messages().at(INTERNAL_ERROR));
+            flash(ERROR, ctx().messages().at(INTERNAL_ERROR));
         }
 
         return redirect(
@@ -124,7 +124,7 @@ public class AdminPropertiesController extends Controller {
         try {
             spoId = Integer.parseInt(spoIdString);
         } catch (NumberFormatException e) {
-            flash("error", ctx().messages().at(INTERNAL_ERROR));
+            flash(ERROR, ctx().messages().at(INTERNAL_ERROR));
             return redirect(
                     controllers.routes.AdminPageController.propertiesPage());
         }
@@ -145,7 +145,7 @@ public class AdminPropertiesController extends Controller {
             }
             spo.delete();
         } else {
-            flash("error", ctx().messages().at(INTERNAL_ERROR));
+            flash(ERROR, ctx().messages().at(INTERNAL_ERROR));
         }
         return redirect(
                 controllers.routes.AdminPageController.propertiesPage());
@@ -176,7 +176,7 @@ public class AdminPropertiesController extends Controller {
                 usedSPOs.add(ElipseModel.getById(SPO.class,
                         Integer.parseInt(spoIdString)));
             } catch (NumberFormatException e) {
-                flash("error", ctx().messages().at(INTERNAL_ERROR));
+                flash(ERROR, ctx().messages().at(INTERNAL_ERROR));
                 return redirect(controllers.routes.AdminPageController
                         .propertiesPage());
             }
@@ -186,7 +186,7 @@ public class AdminPropertiesController extends Controller {
             maxGroupSize = Integer.parseInt(maxGroupSizeString);
             id = Integer.parseInt(idString);
         } catch (Exception e) {
-            flash("error", ctx().messages().at(GEN_ERROR));
+            flash(ERROR, ctx().messages().at(GEN_ERROR));
             return redirect(
                     controllers.routes.AdminPageController.propertiesPage());
         }
@@ -203,7 +203,7 @@ public class AdminPropertiesController extends Controller {
             startDate = format.parse(registrationStart);
             endDate = format.parse(registrationEnd);
         } catch (ParseException e) {
-            flash("error", ctx().messages().at(GEN_ERROR));
+            flash(ERROR, ctx().messages().at(GEN_ERROR));
             return redirect(
                     controllers.routes.AdminPageController.propertiesPage());
         }
@@ -219,7 +219,7 @@ public class AdminPropertiesController extends Controller {
                     break;
                 }
             }
-            if (spoUsed == true) {
+            if (spoUsed) {
                 break;
             }
         }
@@ -243,7 +243,7 @@ public class AdminPropertiesController extends Controller {
                         endDate);
             }
         } else {
-            flash("error", ctx().messages().at(INTERNAL_ERROR));
+            flash(ERROR, ctx().messages().at(INTERNAL_ERROR));
         }
 
         return redirect(
@@ -269,7 +269,7 @@ public class AdminPropertiesController extends Controller {
         try {
             idSPO = Integer.parseInt(idSPOString);
         } catch (NumberFormatException e) {
-            flash("error", ctx().messages().at(INTERNAL_ERROR));
+            flash(ERROR, ctx().messages().at(INTERNAL_ERROR));
             return redirect(
                     controllers.routes.AdminPageController.propertiesPage());
         }
@@ -302,7 +302,7 @@ public class AdminPropertiesController extends Controller {
         try {
             id = Integer.parseInt(idString);
         } catch (NumberFormatException e) {
-            flash("error", ctx().messages().at(INTERNAL_ERROR));
+            flash(ERROR, ctx().messages().at(INTERNAL_ERROR));
             return redirect(
                     controllers.routes.AdminPageController.propertiesPage());
         }
@@ -373,7 +373,7 @@ public class AdminPropertiesController extends Controller {
             connectionTimeout = Integer.parseInt(form.get("connectionTimeOut"));
             timeout = Integer.parseInt(form.get("timeout"));
         } catch (NumberFormatException e) {
-            flash("error", ctx().messages().at(NUMBER_ERROR));
+            flash(ERROR, ctx().messages().at(NUMBER_ERROR));
             return redirect(
                     controllers.routes.AdminPageController.propertiesPage());
         }

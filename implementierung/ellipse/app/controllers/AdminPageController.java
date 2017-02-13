@@ -29,6 +29,7 @@ import views.Menu;
  */
 public class AdminPageController extends Controller {
 
+    private static final String ERROR = "error";
     private static final String NO_SEMESTER = "admin.error.noSemester";
 
     /**
@@ -40,8 +41,8 @@ public class AdminPageController extends Controller {
     public Result projectPage() {
         play.twirl.api.Html content;
         if (GeneralData.loadInstance().getCurrentSemester() == null) {
-            String error = flash("error") + "\n";
-            flash("error", error
+            String error = flash(ERROR) + "\n";
+            flash(ERROR, error
                     + ctx().messages().at(ctx().messages().at(NO_SEMESTER)));
             content = views.html.adminProjects.render(new ArrayList<>());
         } else {
@@ -102,8 +103,8 @@ public class AdminPageController extends Controller {
                 qualityCriteria.QualityCriteriaLoader.getAllQualityCriteria());
         play.twirl.api.Html content;
         if (GeneralData.loadInstance().getCurrentSemester() == null) {
-            String error = flash("error") + "\n";
-            flash("error", error
+            String error = flash(ERROR) + "\n";
+            flash(ERROR, error
                     + ctx().messages().at(ctx().messages().at(NO_SEMESTER)));
             content = views.html.adminResults.render(new ArrayList<>(),
                     criteria);
@@ -144,8 +145,8 @@ public class AdminPageController extends Controller {
     public Result studentEditPage() {
         play.twirl.api.Html content;
         if (GeneralData.loadInstance().getCurrentSemester() == null) {
-            String error = flash("error") + "\n";
-            flash("error", error
+            String error = flash(ERROR) + "\n";
+            flash(ERROR, error
                     + ctx().messages().at(ctx().messages().at(NO_SEMESTER)));
             content = views.html.adminStudentEdit.render(new ArrayList<>());
         } else {

@@ -34,6 +34,8 @@ import play.mvc.Result;
  */
 public class AdminEditAllocationController extends Controller {
 
+    private static final String ERROR = "error";
+
     @Inject
     FormFactory                                 formFactory;
 
@@ -67,7 +69,7 @@ public class AdminEditAllocationController extends Controller {
                 selectedIds.add(new IntValidator(0).validate(s));
             } catch (ValidationException e) {
                 e.printStackTrace();
-                flash("error", ctx().messages().at(e.getMessage()));
+                flash(ERROR, ctx().messages().at(e.getMessage()));
                 return redirect(
                         controllers.routes.AdminPageController.resultsPage());
             }
@@ -77,7 +79,7 @@ public class AdminEditAllocationController extends Controller {
         } else if (form.get("exchange") != null) {
             return swapStudents(form, selectedIds);
         } else {
-            flash("error", ctx().messages().at(INTERNAL_ERROR));
+            flash(ERROR, ctx().messages().at(INTERNAL_ERROR));
             return redirect(
                     controllers.routes.AdminPageController.resultsPage());
         }
@@ -98,7 +100,7 @@ public class AdminEditAllocationController extends Controller {
             allocationId = new IntValidator(0).validate(allocationIdString);
         } catch (ValidationException e) {
             e.printStackTrace();
-            flash("error", ctx().messages().at(e.getMessage()));
+            flash(ERROR, ctx().messages().at(e.getMessage()));
             return redirect(
                     controllers.routes.AdminPageController.resultsPage());
         }
@@ -106,7 +108,7 @@ public class AdminEditAllocationController extends Controller {
                 allocationId);
 
         if (ids.size() != 2) {
-            flash("error", ctx().messages().at(INTERNAL_ERROR));
+            flash(ERROR, ctx().messages().at(INTERNAL_ERROR));
             return redirect(
                     controllers.routes.AdminPageController.resultsPage());
         }
@@ -139,7 +141,7 @@ public class AdminEditAllocationController extends Controller {
             allocationId = new IntValidator(0).validate(allocationIdString);
         } catch (ValidationException e) {
             e.printStackTrace();
-            flash("error", ctx().messages().at(e.getMessage()));
+            flash(ERROR, ctx().messages().at(e.getMessage()));
             return redirect(
                     controllers.routes.AdminPageController.resultsPage());
         }
@@ -155,7 +157,7 @@ public class AdminEditAllocationController extends Controller {
         }
 
         if (students.isEmpty()) {
-            flash("error", ctx().messages().at("admin.edit.noStudentSelected"));
+            flash(ERROR, ctx().messages().at("admin.edit.noStudentSelected"));
             return redirect(
                     controllers.routes.AdminPageController.resultsPage());
         }
@@ -190,7 +192,7 @@ public class AdminEditAllocationController extends Controller {
             allocationId = new IntValidator(0).validate(allocationIdString);
         } catch (ValidationException e) {
             e.printStackTrace();
-            flash("error", ctx().messages().at(e.getMessage()));
+            flash(ERROR, ctx().messages().at(e.getMessage()));
             return redirect(
                     controllers.routes.AdminPageController.resultsPage());
         }
@@ -200,7 +202,7 @@ public class AdminEditAllocationController extends Controller {
 
         // Prüfe, ob es schon eine finale Einteilung gibt
         if (semester.getFinalAllocation() != null) {
-            flash("error", ctx().messages().at("admin.edit.noFinalAllocation"));
+            flash(ERROR, ctx().messages().at("admin.edit.noFinalAllocation"));
             return redirect(
                     controllers.routes.AdminPageController.resultsPage());
         }
@@ -212,7 +214,7 @@ public class AdminEditAllocationController extends Controller {
         try {
             notifier.notifyAllUsers(allocation);
         } catch (EmailException e) {
-            flash("error", ctx().messages().at("email.couldNotSend"));
+            flash(ERROR, ctx().messages().at("email.couldNotSend"));
             e.printStackTrace();
         }
         return redirect(controllers.routes.AdminPageController.resultsPage());
@@ -240,7 +242,7 @@ public class AdminEditAllocationController extends Controller {
             allocationId = new IntValidator(0).validate(allocationIdString);
         } catch (ValidationException e) {
             e.printStackTrace();
-            flash("error", ctx().messages().at(e.getMessage()));
+            flash(ERROR, ctx().messages().at(e.getMessage()));
             return redirect(
                     controllers.routes.AdminPageController.resultsPage());
         }
@@ -277,7 +279,7 @@ public class AdminEditAllocationController extends Controller {
             allocationId = new IntValidator(0).validate(allocationIdString);
         } catch (ValidationException e) {
             e.printStackTrace();
-            flash("error", ctx().messages().at(e.getMessage()));
+            flash(ERROR, ctx().messages().at(e.getMessage()));
             return redirect(
                     controllers.routes.AdminPageController.resultsPage());
         }
@@ -287,7 +289,7 @@ public class AdminEditAllocationController extends Controller {
         // Prüfe, ob die Allocation die finale ist
         if (allocation.equals(GeneralData.loadInstance().getCurrentSemester()
                 .getFinalAllocation())) {
-            flash("error",
+            flash(ERROR,
                     ctx().messages().at("admin.edit.removeFinalAllocation"));
             return redirect(
                     controllers.routes.AdminPageController.resultsPage());
@@ -308,7 +310,7 @@ public class AdminEditAllocationController extends Controller {
     public Result undoAllocationEdit() {
         if (undoStack.isEmpty()) {
             // TODO Button ausgrauen
-            flash("error", ctx().messages().at(INTERNAL_ERROR));
+            flash(ERROR, ctx().messages().at(INTERNAL_ERROR));
             return redirect(
                     controllers.routes.AdminPageController.resultsPage());
         }
