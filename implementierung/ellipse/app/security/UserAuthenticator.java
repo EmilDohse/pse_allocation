@@ -25,7 +25,7 @@ import play.mvc.Http.Context;
 public class UserAuthenticator
         implements Authenticator<UsernamePasswordCredentials> {
 
-    private static final String ERROR = "error";
+    private static final String ERROR    = "error";
     private static final String BAD_CRED = "Bad credentials for: ";
 
     @Override
@@ -58,8 +58,8 @@ public class UserAuthenticator
                     }
                     return;
                 } else {
-                    ctx.flash().put(ERROR,
-                            ctx.messages().at("user.noVlidCredentials"));
+                    ctx.session().put(ERROR,
+                            ctx.messages().at("user.noValidCredentials"));
                     throw new BadCredentialsException(
                             BAD_CRED + credentials.getUsername());
                 }
@@ -82,8 +82,8 @@ public class UserAuthenticator
                             "/student");
                     return;
                 } else {
-                    ctx.flash().put(ERROR,
-                            ctx.messages().at("user.noVlidCredentials"));
+                    ctx.session().put(ERROR,
+                            ctx.messages().at("user.noValidCredentials"));
                     throw new BadCredentialsException(
                             BAD_CRED + credentials.getUsername());
                 }
@@ -101,6 +101,8 @@ public class UserAuthenticator
                             "/adviser");
                     return;
                 } else {
+                    ctx.session().put(ERROR,
+                            ctx.messages().at("user.noValidCredentials"));
                     throw new BadCredentialsException(
                             BAD_CRED + credentials.getUsername());
                 }
@@ -119,8 +121,8 @@ public class UserAuthenticator
                                     .changeFormPage().path());
                     return;
                 } else {
-                    ctx.flash().put(ERROR,
-                            ctx.messages().at("user.noVlidCredentials"));
+                    ctx.session().put(ERROR,
+                            ctx.messages().at("user.noValidCredentials"));
                     throw new BadCredentialsException(
                             BAD_CRED + credentials.getUsername());
                 }
