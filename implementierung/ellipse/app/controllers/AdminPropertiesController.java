@@ -95,7 +95,8 @@ public class AdminPropertiesController extends Controller {
             }
             semester.delete();
         } else {
-            flash(ERROR, ctx().messages().at(INTERNAL_ERROR));
+            flash(ERROR, ctx().messages()
+                    .at("admin.properties.semesterIsActiveError"));
         }
 
         return redirect(
@@ -156,7 +157,7 @@ public class AdminPropertiesController extends Controller {
             }
             spo.delete();
         } else {
-            flash(ERROR, ctx().messages().at(INTERNAL_ERROR));
+            flash(ERROR, ctx().messages().at("admin.properties.SPOusedError"));
         }
         return redirect(
                 controllers.routes.AdminPageController.propertiesPage());

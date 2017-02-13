@@ -414,6 +414,8 @@ public class AdviserPageController extends Controller {
                 adviser.doTransaction(() -> {
                     adviser.setPassword(pwEnc);
                 });
+                flash("info",
+                        ctx().messages().at("admin.account.success.passwords"));
             } catch (ValidationException e) {
                 flash(ERROR, ctx().messages().at(e.getMessage()));
                 return redirect(
@@ -427,6 +429,8 @@ public class AdviserPageController extends Controller {
                 adviser.doTransaction(() -> {
                     adviser.setEmailAddress(email);
                 });
+                flash("info",
+                        ctx().messages().at("admin.account.success.email"));
             } catch (ValidationException e) {
                 flash(ERROR, ctx().messages().at(e.getMessage()));
                 return redirect(

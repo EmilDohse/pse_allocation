@@ -60,7 +60,6 @@ isAdviser: Boolean, advisers: List[data.Adviser])
 					id="teamCount" value="@project.getNumberOfTeams()" required min="1">
 			</div>
 		</div>
-		<!-- TODO: Wert von Admin wird genommen wenn beide auf 0 sind, beide müssen 0 oder + sein -->
 		<div class="form-group">
 			<label class="control-label col-sm-2" for="minSize">@Messages("admin.projects.minSize")</label>
 			<div class="col-sm-1">
@@ -89,7 +88,7 @@ isAdviser: Boolean, advisers: List[data.Adviser])
 		<div class="form-group">
 			<label class="control-label col-sm-2" for="adviser-selection">@Messages("admin.projects.advisers")</label>
 			<select id="adviser-selection" name="adviser-multiselect[]"
-				class="form-control" multiple="multiple" required>
+				class="form-control" multiple="multiple">
 				@for(adviser <- advisers) {
 				@if(project.getAdvisers().contains(adviser)) {
 				<option selected value="@adviser.getId()">@adviser.getName()</option>

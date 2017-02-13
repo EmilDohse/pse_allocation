@@ -59,7 +59,7 @@
 \section{Einleitung}
 
 Nachdem im Pflichtenheft beschrieben wurde, was das Produkt leisten soll und
-das Entwurfsdokument beantwortete, wie das Produkt strukturiert sein soll, 
+das Entwurfsdokument beantwortete wie das Produkt strukturiert sein soll, 
 beschreibt dieses Dokument nun die Implementierung, also die Umsetzung der beiden vorherigen Dokumente.
 
 \section{Implementierungsplan}
@@ -113,7 +113,7 @@ Kleinigkeiten\\
 % das das Datenmodell gefolgt von paralell implementierbaren Controllern die nur
 % auf das Datenmodell zugreiffen und der Allocation. 
 Der Critical"=Path unseres Entwurfs startet, bedingt durch das Model"=View"=Controller"=Design, ganz klar beim Package \code{data} und verläuft über \code{allocator}, gefolgt von \code{controller} zu  \code{views}.
-Da wir jedoch vermuteten, dass der meiste Code bei den Controllern anfallen würde, sowie dass das Einarbeiten \enquote{Play} mit seiner \enquote{Twirl"=Template"=Engine} lange dauern würde, haben wir beschlossen, schon von Anfang an diesen beiden Baustellen zu arbeiten. 
+Da wir jedoch vermuteten, dass der meiste Code bei den Controllern anfallen würde, sowie dass das Einarbeiten in \enquote{Play} mit seiner \enquote{Twirl"=Template"=Engine} lange dauern würde, haben wir beschlossen, schon von Anfang an, an diesen beiden Baustellen zu arbeiten. 
 Außerdem hat sich jeder von uns bereits in der Entwurfsphase auf ein Gebiet spezialisiert und es bot sich somit an, jedem auf seinem \enquote{Fachgebiet} auch die Implementierung zu übertragen.
 Diese Prognose war nur teilweise richtig.
 Zwar hat tatsächlich das Package \code{controller} mit Abstand die meisten Zeilen Quellcode, jedoch haben wir den Aufwand für die Einrichtung unseres ORMs \enquote{Ebean} weit unterschätzt. 
@@ -181,10 +181,8 @@ coordinates {(120,12.30) (90,12.30) (60,12.30) (30,12.30) (0,12.30)};
 \caption{LOC über die vier Wochen}
 \end{figure}
 \section{Änderungen zum Entwurfsdokument}
-Zur Sicherung bessere Code-Qualität (z.B. dem Vermeiden von Code-Copy-Pasting)
-und maßgeblich durch die oben beschriebenen Probleme mit verschiedenen
-verwendeten Bibliotheken  wurden Änderungen im Vergleich zum  Entwurfsdokument
-vorgenommen. 
+Zur Sicherung besserer Code-Qualität (z.B. dem Vermeiden von Code-Copy-Pasting)
+und durch Verwendung verschiedener Bibliotheken wurden Änderungen im Vergleich zum  Entwurfsdokument vorgenommen. 
 Dabei wurden die Getter, Setter und Konstruktoren der Vollständigkeit halber
 eingefügt und werden hier nicht weiter kommentiert.
 %TODO Auch atribute nicht kommentieren?
@@ -195,11 +193,11 @@ eingefügt und werden hier nicht weiter kommentiert.
 \begin{itemClassSub}
 \item Methoden
 \begin{itemPlus}
-\item cancel() \changeDescription{Um eine Einteilungsberechnung durchzuführen
+\item cancel() \changeDescription{Um eine Einteilungsberechnung abzubrechen
 wird diese Methode benötigt.}
 \item init(Configuration)\changeDescription{Um Race-Conditions zu vermeiden
 wurde diese Methode eingefügt. Mit ihr können \code{init()} und \code{cancel()}
-synchronised werden ohne calculate zu blockieren.}
+synchronisiert werden ohne calculate zu blockieren.}
 \end{itemPlus}
 \begin{itemChange}
 \item calculate() \changeDescription{Die Konfiguration wird bereits bei
@@ -896,15 +894,19 @@ Das Im/Exportformat hat sich an drei Stellen geändert:
  \texttt{Matrikelnummer; Note PSE; Note TSE}
   \end{tcolorbox}
 \end{enumerate}
+\setlist[itemize]{label=\textbullet}
+\section{Funktionsumfang }
+Wie im Pflichtenheft beschrieben, gibt es einige Pflicht- und Wunschfunktionen
+zu diesem Produkt. Ein Großteil dieser ist implementiert und es wurden sogar
+einige Zusatzfeatures eingefügt. Die zusätzlichen Featues sind mit einem
+$[\text{ADD}]$, die nicht implementierten mit einem $[\text{NOT}]$
+gekennzeichnet.
 
-\section{Funktionsumfang}
-Wie im Pflichtenheft beschrieben, gibt es einige Muss- und Wunschkriterien zu
-diesem Produkt. Ein Großteil dieser wurde von uns implementiert.
 \subsection{Einteilungsfunktionen}
 \subsubsection{Pflichtfunktionen}
 \begin{enumerate}[label=\swtLabel{FA}]
-  \item Einteilung der Studierenden zu Projekten. Hierbei werden folgende Kriterien,
-soweit möglich und wie konfiguriert, berücksichtigt:
+  \item Einteilung der Studierenden zu Projekten. Hierbei werden folgende
+  Kriterien, soweit möglich und wie konfiguriert, berücksichtigt:
 \begin{itemize}
   \item Wer die durch seine SPO gegebenen Voraussetzungen nicht erfüllt, wird nicht
 eingeteilt
@@ -972,15 +974,16 @@ und maximale Teilnehmerzahl, Anzahl der Teams
 \item 
 Benachrichtigen der Studierende und Projektbetreuer über die Einteilung
 per E-Mail
-\item Erstellen von Betreueraccounts unter Angabe der Daten /D310/ bis /D340/
-\item Import von „.csv“-Dateien mit Informationen über bestandene Teilleistungen
-der Studierenden aus dem Campus Management System
-\item Anzeige von Konflikten bei Teilleistungen der Studierenden nach dem Import
-vom Campus Management System-Daten
+\item Erstellen von Betreueraccounts unter Angabe der Daten Name, Vorname,
+E-Mail-Adresse und Passwort
+\item $[\text{NOT}]$ Import von „.csv“-Dateien mit Informationen über bestandene
+Teilleistungen der Studierenden aus dem Campus Management System
+\item $[\text{NOT}]$ Anzeige von Konflikten bei Teilleistungen der Studierenden
+nach dem Import vom Campus Management System-Daten
 \item Export von „.csv“-Dateien mit Noten der Studierenden
 \item Übersicht über bereits berechnete Einteilungen
-\item Warnung an den Administrator, falls er bei der manuellen Nachjustierung
-der Einteilung die bei der Konfiguration angegebenen Grenzen überschreitet
+\item $[\text{NOT}]$ Warnung an den Administrator, falls er bei der manuellen
+Nachjustierung der Einteilung die bei der Konfiguration angegebenen Grenzen überschreitet
 \end{enumerate}
 
 
@@ -1007,7 +1010,7 @@ wort
 \subsubsection{Wunschfunktionen}
 \begin{enumerate}[label=\swtLabel{FA}, resume]
   \item Anzeigen von Projektbeschreibung in Projektbewertungseingabemaske
-  \item Anmeldung über SCC-Account
+  \item $[\text{NOT}]$ Anmeldung über SCC-Account
   \item Verifikation der E-Mail-Adresse über einen Verifikationslink, der an die vom
 Studierenden angegebene E-Mail-Adresse versandt wird
 \item Anfordern eines neuen Passworts
@@ -1022,8 +1025,8 @@ Studierenden angegebene E-Mail-Adresse versandt wird
 und maximale Teilnehmerzahl, Anzahl der Teams
 \item Einsehen der Einteilung zu eigenen Projekten
 \item Einsicht, ob zugeteilte Studierende noch Nachprüfungen ausstehen haben
-\item Einsicht, ob zugeteilte Studierende schon im Campus Management System für
-PSE und TSE angemeldet sind
+\item $[\text{NOT}]$ Einsicht, ob zugeteilte Studierende schon im Campus
+Management System für PSE und TSE angemeldet sind
 \item Abmeldung
 \item Noteneintragung für Studierende der betreuten Projekte
 \item Einem Projekt als Betreuer beitreten

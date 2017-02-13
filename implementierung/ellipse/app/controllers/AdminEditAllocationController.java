@@ -72,8 +72,8 @@ public class AdminEditAllocationController extends Controller {
             } catch (ValidationException e) {
                 e.printStackTrace();
                 flash(ERROR, ctx().messages().at(e.getMessage()));
-                return redirect(
-                        controllers.routes.AdminPageController.resultsPage());
+                return redirect(controllers.routes.AdminPageController
+                        .resultsPage());
             }
         }
 
@@ -84,8 +84,8 @@ public class AdminEditAllocationController extends Controller {
             return swapStudents(form, selectedIds);
         } else {
             flash(ERROR, ctx().messages().at(INTERNAL_ERROR));
-            return redirect(
-                    controllers.routes.AdminPageController.resultsPage());
+            return redirect(controllers.routes.AdminPageController
+                    .resultsPage());
         }
     }
 
@@ -108,8 +108,8 @@ public class AdminEditAllocationController extends Controller {
         } catch (ValidationException e) {
             e.printStackTrace();
             flash(ERROR, ctx().messages().at(e.getMessage()));
-            return redirect(
-                    controllers.routes.AdminPageController.resultsPage());
+            return redirect(controllers.routes.AdminPageController
+                    .resultsPage());
         }
         Allocation allocation = ElipseModel.getById(Allocation.class,
                 allocationId);
@@ -117,8 +117,8 @@ public class AdminEditAllocationController extends Controller {
         // Prüfe, ob genau zwei Studenten ausgewählt wurden
         if (ids.size() != 2) {
             flash(ERROR, ctx().messages().at(INTERNAL_ERROR));
-            return redirect(
-                    controllers.routes.AdminPageController.resultsPage());
+            return redirect(controllers.routes.AdminPageController
+                    .resultsPage());
         }
 
         // Tausche die Teams der Studenten und lade die Seite neu
@@ -149,13 +149,13 @@ public class AdminEditAllocationController extends Controller {
         int allocationId;
         int teamId;
         try {
-            teamId = new IntValidator(0).validate(teamIdString);
+            teamId = new IntValidator().validate(teamIdString);
             allocationId = new IntValidator(0).validate(allocationIdString);
         } catch (ValidationException e) {
             e.printStackTrace();
             flash(ERROR, ctx().messages().at(e.getMessage()));
-            return redirect(
-                    controllers.routes.AdminPageController.resultsPage());
+            return redirect(controllers.routes.AdminPageController
+                    .resultsPage());
         }
 
         // Hole die benötigten Daten aus der Datenbank
@@ -172,8 +172,8 @@ public class AdminEditAllocationController extends Controller {
         // Prüfe, ob Studenten ausgewählt wurden
         if (students.isEmpty()) {
             flash(ERROR, ctx().messages().at("admin.edit.noStudentSelected"));
-            return redirect(
-                    controllers.routes.AdminPageController.resultsPage());
+            return redirect(controllers.routes.AdminPageController
+                    .resultsPage());
         }
 
         // Führe den Command aus
@@ -207,8 +207,8 @@ public class AdminEditAllocationController extends Controller {
         } catch (ValidationException e) {
             e.printStackTrace();
             flash(ERROR, ctx().messages().at(e.getMessage()));
-            return redirect(
-                    controllers.routes.AdminPageController.resultsPage());
+            return redirect(controllers.routes.AdminPageController
+                    .resultsPage());
         }
         Allocation allocation = ElipseModel.getById(Allocation.class,
                 allocationId);
@@ -217,8 +217,8 @@ public class AdminEditAllocationController extends Controller {
         // Prüfe, ob es schon eine finale Einteilung gibt
         if (semester.getFinalAllocation() != null) {
             flash(ERROR, ctx().messages().at("admin.edit.noFinalAllocation"));
-            return redirect(
-                    controllers.routes.AdminPageController.resultsPage());
+            return redirect(controllers.routes.AdminPageController
+                    .resultsPage());
         }
 
         // Setze finales Semester und benachrichtige alle User
@@ -257,8 +257,8 @@ public class AdminEditAllocationController extends Controller {
         } catch (ValidationException e) {
             e.printStackTrace();
             flash(ERROR, ctx().messages().at(e.getMessage()));
-            return redirect(
-                    controllers.routes.AdminPageController.resultsPage());
+            return redirect(controllers.routes.AdminPageController
+                    .resultsPage());
         }
         Allocation allocation = ElipseModel.getById(Allocation.class,
                 allocationId);
@@ -294,8 +294,8 @@ public class AdminEditAllocationController extends Controller {
         } catch (ValidationException e) {
             e.printStackTrace();
             flash(ERROR, ctx().messages().at(e.getMessage()));
-            return redirect(
-                    controllers.routes.AdminPageController.resultsPage());
+            return redirect(controllers.routes.AdminPageController
+                    .resultsPage());
         }
         Allocation allocation = ElipseModel.getById(Allocation.class,
                 allocationId);
@@ -303,10 +303,10 @@ public class AdminEditAllocationController extends Controller {
         // Prüfe, ob die Allocation die finale ist
         if (allocation.equals(GeneralData.loadInstance().getCurrentSemester()
                 .getFinalAllocation())) {
-            flash(ERROR,
-                    ctx().messages().at("admin.edit.removeFinalAllocation"));
-            return redirect(
-                    controllers.routes.AdminPageController.resultsPage());
+            flash(ERROR, ctx().messages()
+                    .at("admin.edit.removeFinalAllocation"));
+            return redirect(controllers.routes.AdminPageController
+                    .resultsPage());
         }
 
         // Lösche die Einteilung
@@ -325,8 +325,8 @@ public class AdminEditAllocationController extends Controller {
         // Fehlermeldung, falls es nichts rückgängig zu machen gibt
         if (undoStack.isEmpty()) {
             flash(ERROR, ctx().messages().at(INTERNAL_ERROR));
-            return redirect(
-                    controllers.routes.AdminPageController.resultsPage());
+            return redirect(controllers.routes.AdminPageController
+                    .resultsPage());
         }
 
         // Führe den Command aus

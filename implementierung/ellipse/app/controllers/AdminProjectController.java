@@ -106,7 +106,7 @@ public class AdminProjectController extends Controller {
 
         int id;
         try {
-            id = minValidator.validate(form.get("idString"));
+            id = minValidator.validate(form.get("id"));
         } catch (ValidationException e) {
             flash(ERROR, ctx().messages().at(e.getMessage()));
             return redirect(

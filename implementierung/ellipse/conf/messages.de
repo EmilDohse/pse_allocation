@@ -5,12 +5,12 @@ state.actionNotAllowed = Diese Aktion ist gerade nicht erlaubt.
 index.beforeRegistration.actionNotAllowed = Das Registrieren und der Studenten-Login ist gerade nicht erlaubt.
 index.afterRegistration.actionNotAllowed = Registrieren ist aktuell nicht mehr erlaubt.
 
-adviser.registration.actionNotAllowed = Projekte zu erstellen ist aktuell nicht erlaubt.
-adviser.afterRegistration.actionNotAllowed = Projekte zu erstellen ist aktuell nicht erlaubt.
+adviser.registration.actionNotAllowed = Projekte zu erstellen und zu löschen ist aktuell nicht erlaubt.
+adviser.afterRegistration.actionNotAllowed = Projekte zu erstellen und zu löschen ist aktuell nicht erlaubt.
 
 admin.beforeRegistration.actionNotAllowed = Studenten und Einteilungen zu erstellen ist aktuell nicht erlaubt.
-admin.registration.actionNotAllowed = Projekte und Einteilungen zu erstellen ist aktuell nicht erlaubt. Auch SPOs können aus dem aktiven Semester nicht mehr entfernt werden.
-admin.afterRegistration.actionNotAllowed = Projekte zu erstellen ist nicht mehr erlaubt. Auch SPOs können aus dem aktiven Semester nicht mehr entfernt werden.
+admin.registration.actionNotAllowed = Projekte zu erstellen und löschen und Einteilungen zu erstellen ist aktuell nicht erlaubt. Auch SPOs können aus dem aktiven Semester nicht mehr entfernt werden.
+admin.afterRegistration.actionNotAllowed = Projekte zu erstellen und zu löschen ist nicht mehr erlaubt. Auch SPOs können aus dem aktiven Semester nicht mehr entfernt werden.
 
 student.afterRegistration.actionNotAllowed = Ihre Lerngruppe kann aktuell nicht editiert werden. Die Bewertung ist inzwischen abgeschlossen, unter Einteilungsergebnisse sehen Sie Ihr Team.
 
@@ -249,6 +249,8 @@ admin.properties.username = Benutzername
 admin.properties.password = Passwort
 admin.properties.changeSMTP = Server-Einstellungen ändern
 admin.properties.numberError = Bitte geben sie Zahlen ein, wenn Zahlen verlangt werden.
+admin.properties.SPOusedError = SPOs die von Studenten verwendet werden, können nicht gelöscht werden.
+admin.properties.semesterIsActiveError = Das löschen des Semesters ist fehlgeschlagen, da das aktive Semester nicht gelöscht werden darf.
 admin.edit.moveToSameTeam = Der Studierende ist bereits in diesem Team
 admin.edit.noStudentSelected = Sie müssen einen Studierenden auswählen, den Sie verschieben möchten
 admin.edit.noFinalAllocation = Sie haben noch keine finale Einteilung zum veröffentlichen ausgewählt
@@ -260,6 +262,8 @@ admin.account.newPassword = Neues Passwort
 admin.account.newPasswordRepeat = Neues Passwort wiederholen
 admin.account.error.passwords = Die Passworteingabe ist falsch
 admin.account.pleaseChangePassword = Bitte ändern sie aus Sicherheitsgründen ihr Passwort sofort!
+admin.account.success.passwords = Ihr Passwort wurde erfolgreich geändert.
+admin.account.success.email = Ihre Email wurde erfolgreich geändert.
 
 importer.noData = Keine Datei wurde angegeben
 importer.FileNotFound = Datei konnte nicht gefunden werden
