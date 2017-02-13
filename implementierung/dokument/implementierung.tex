@@ -1011,7 +1011,107 @@ PSE und TSE angemeldet sind
 \item Ein Projekt als Projektbetreuer verlassen
 \end{enumerate}
 
+\section{Unit Tests}
 
+Insgesamt haben wir nur eine Testabdeckung von ca. 20\%. Dies ist mehreren Umständen geschuldet. 
+Zum einen ist ein großer Teil unseres Programms in direktem Zusammenhang mit dem ILP"=Modell. Schließlich ist es nicht möglich in einem Unit"=Test zu prüfen, ob eine Einteilung \enquote{gut} oder \enquote{schlecht} ist. 
+Zum anderen war es uns nicht möglich Tests für die Controller zu schreiben. Die Anweisungen aus der \enquote{Play}"=Dokumentation haben nicht funktioniert und anderweitiges Mocken der benötigten Objekte war, bedingt durch die \enquote{Play}"=API, nicht zu realisieren.
+
+Folgende Testklassen existieren:
+
+\begin{itemPackage}
+	\item allocation
+		\begin{itemClass}
+			\item AllocationQueueTest
+		\end{itemClass}
+		\begin{itemClass}
+			\item GurobiAllocatorTest
+		\end{itemClass}
+\end{itemPackage}
+\begin{itemPackage}
+	\item data
+	\begin{itemClass}
+		\item AchievementTest
+	\end{itemClass}
+	\begin{itemClass}
+		\item AdviserTest
+	\end{itemClass}
+	\begin{itemClass}
+		\item AllocationParameterTest
+	\end{itemClass}
+	\begin{itemClass}
+		\item AllocationTest
+	\end{itemClass}
+	\begin{itemClass}
+		\item DataTest
+	\end{itemClass}
+	\begin{itemClass}
+		\item GeneralDataTest
+	\end{itemClass}
+	\begin{itemClass}
+		\item LearningGroupTest
+	\end{itemClass}
+	\begin{itemClass}
+		\item ProjectTest
+	\end{itemClass}
+	\begin{itemClass}
+		\item RatingTest
+	\end{itemClass}
+	\begin{itemClass}
+		\item SemesterTest
+	\end{itemClass}
+	\begin{itemClass}
+		\item SMTPOptionsTest
+	\end{itemClass}
+	\begin{itemClass}
+		\item SPOTest
+	\end{itemClass}
+	\begin{itemClass}
+		\item StudentTest
+	\end{itemClass}
+	\begin{itemClass}
+		\item TeamTest
+	\end{itemClass}
+\end{itemPackage}
+\begin{itemPackage}
+	\item importExport
+	\begin{itemClass}
+		\item ImporterTest
+	\end{itemClass}
+\end{itemPackage}
+\begin{itemPackage}
+	\item notificationSystem
+	\begin{itemClass}
+		\item NotifierTest
+	\end{itemClass}
+\end{itemPackage}
+\begin{itemPackage}
+	\item qualityCriteria
+	\begin{itemClass}
+		\item NotAllocatedStudentsTest
+	\end{itemClass}
+	\begin{itemClass}
+		\item QualityCriteriaLoaderTester
+	\end{itemClass}
+	\begin{itemClass}
+		\item SplitLearningGroupTest
+	\end{itemClass}
+	\begin{itemClass}
+		\item StudentHappinessTest
+	\end{itemClass}
+\end{itemPackage}
+\begin{itemPackage}
+	\item security
+	\begin{itemClass}
+		\item EmailVerifierTest
+	\end{itemClass}
+	\begin{itemClass}
+		\item PasswordResetterTest
+	\end{itemClass}
+	\begin{itemClass}
+		\item TimedCodeValueStoreTest
+	\end{itemClass}
+\end{itemPackage}
 
 %Muss und wunsch
 
