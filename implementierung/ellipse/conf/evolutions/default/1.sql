@@ -99,7 +99,7 @@ create table project_adviser (
 
 create table rating (
   id                            integer not null,
-  rating                        integer,
+  rating_value                  integer,
   project_id                    integer,
   learning_group_id             integer,
   constraint pk_rating primary key (id),

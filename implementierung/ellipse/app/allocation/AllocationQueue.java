@@ -157,7 +157,7 @@ public class AllocationQueue {
                     // könnten
                     while (configurationQueue.isEmpty()) {
                         try {
-                            wait();
+                            AllocationQueue.this.configurationQueue.wait();
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                             assert false;
