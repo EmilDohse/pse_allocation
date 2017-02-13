@@ -77,12 +77,6 @@ public class IndexPageController extends Controller {
      * @return Die Seite, die als Antwort verschickt wird.
      */
     public Result registerPage() {
-        // Checken ob der UserAuthenticator nen error in die Session geschrieben
-        // hat. Pac4J kann nicht anders leider einen Fehler einem mitteilen.
-        if (session(ERROR) != null) {
-            flash(ERROR, session(ERROR));
-            session().remove(ERROR);
-        }
         play.twirl.api.Html content = views.html.indexRegistration.render(
                 GeneralData.loadInstance().getCurrentSemester().getSpos());
         Menu menu = new IndexMenu(ctx(), ctx().request().path());

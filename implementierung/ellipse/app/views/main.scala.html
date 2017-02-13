@@ -33,7 +33,8 @@ Html)
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <!-- <script
 	src='https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js'></script> -->
-	<script src='@routes.Assets.versioned("javascripts/jquery-3.1.1.min.js")'></script>
+<script
+	src='@routes.Assets.versioned("javascripts/jquery-3.1.1.min.js")'></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src='@routes.Assets.versioned("javascripts/bootstrap.min.js")'></script>
 <!-- Validator.js -->
@@ -45,12 +46,11 @@ Html)
 			<div class="col-sm-3 col-md-2 sidebar">
 				<div class="nav nav-sidebar">@sidebarContent</div>
 				<ul class="nav nav-sidebar">
-					@displaySidebarItem(item: views.MenuItem) = { 
-					@if(item.isActive()) {
-					<li class="active"><a href='@item.getLink()'>@item.getMenuText()</a></li>
+					@displaySidebarItem(item: views.MenuItem) = { @if(item.isActive()) {
+						<li class="active"><a href='@item.getLink()'>@item.getMenuText()</a></li>
 					} else {
-					<li><a href='@item.getLink()'>@item.getMenuText()</a></li> } }
-
+						<li><a href='@item.getLink()'>@item.getMenuText()</a></li> 
+					}}
 					@for(item <- menu.getIterator()) { @displaySidebarItem(item) }
 				</ul>
 			</div>
@@ -62,21 +62,30 @@ Html)
 						<div class="alert alert-danger" role="alert">@flash.get("error")</div>
 					</div>
 				</div>
-				}
+				} 
+				@if(session.get("error") != null) {
+				<div class="row">
+					<div class="col-sx-12 col-sm-6">
+						<div class="alert alert-danger" role="alert">@{var msg =
+							session.get("error"); session.remove("error"); msg}</div>
+					</div>
+				</div>
+				} 
 				@if(flash.containsKey("info")) {
 				<div class="row">
 					<div class="col-sx-12 col-sm-6">
 						<div class="alert alert-info alert-dismissible" role="alert">
-							<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							<button type="button" class="close" data-dismiss="alert"
+								aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
 							@flash.get("info")
 						</div>
 					</div>
 				</div>
 				}
-				<div class="row"> 
-					<div class="col-lg-9">
-						@content
-					</div>	
+				<div class="row">
+					<div class="col-lg-9">@content</div>
 				</div>
 			</div>
 		</div>
