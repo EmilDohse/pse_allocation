@@ -1,6 +1,7 @@
 package deadline;
 
 import java.util.HashMap;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 import java.util.function.Function;
 
@@ -147,31 +148,27 @@ public class DeadlineFilter extends Filter {
     public CompletionStage<Result> apply(
             Function<RequestHeader, CompletionStage<Result>> nextFilter,
             RequestHeader requestHeader) {
-        return nextFilter.apply(requestHeader).thenApply(res -> {
-            Result result;
-            String path = requestHeader.path();
-            Call call;
-            switch (StateStorage.getInstance().getCurrentState()) {
-            case BEFORE_REGISTRATION_PHASE:
-                call = beforeRegistration.get(path);
-                break;
-            case REGISTRATION_PHASE:
-                call = duringRegistration.get(path);
-                break;
-            case AFTER_REGISTRATION_PHASE:
-                call = afterRegistration.get(path);
-                break;
-            default:
-                call = beforeRegistration.get(path);
-                break;
-            }
-            if (call != null) {
-                result = Results.redirect(call);
-            } else {
-                result = res;
-            }
-            return result;
-        });
+        String path = requestHeader.path();
+        Call call;
+        switch (StateStorage.getInstance().getCurrentState()) {
+        case BEFORE_REGISTRATION_PHASE:
+            call = beforeRegistration.get(path);
+            break;
+        case REGISTRATION_PHASE:
+            call = duringRegistration.get(path);
+            break;
+        case AFTER_REGISTRATION_PHASE:
+            call = afterRegistration.get(path);
+            break;
+        default:
+            call = beforeRegistration.get(path);
+            break;
+        }
+        if (call != null) {
+            return CompletableFuture.completedFuture(Results.redirect(call));
+        } else {
+            return nextFilter.apply(requestHeader);
+        }
     }
 
 }

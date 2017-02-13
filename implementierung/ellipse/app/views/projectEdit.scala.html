@@ -12,13 +12,14 @@ isAdviser: Boolean, advisers: List[data.Adviser])
 @if(isAdviser) {
 <form
 	action="@controllers.routes.AdviserPageController.editProject().path()"
-	method="POST" class="form-horizontal" role="form" data-toggle="validator">
+	method="POST" class="form-horizontal" role="form"
+	data-toggle="validator">
 	} else {
 	<form
 		action="@controllers.routes.AdminProjectController.editProject().path()"
-		method="POST" class="form-horizontal" role="form" data-toggle="validator">
-		} <input type="hidden" name="id" id="id"
-			value="@project.getId()">
+		method="POST" class="form-horizontal" role="form"
+		data-toggle="validator">
+		} <input type="hidden" name="id" id="id" value="@project.getId()">
 
 		<div class="form-group">
 			<label class="control-label col-sm-2" for="name">@Messages("admin.projects.name")</label>
@@ -72,32 +73,28 @@ isAdviser: Boolean, advisers: List[data.Adviser])
 			<label class="control-label col-sm-2" for="maxSize">@Messages("admin.projects.maxSize")</label>
 			<div class="col-sm-1">
 				<input type="number" class="form-control" name="maxSize"
-					id="maxSize" value="@project.getMaxTeamSize()" min="0">
+					id="maxSize" value="@project.getMaxTeamSize()" min="0"
+					aria-describedby="helpBlock">
 			</div>
+			<span id="helpBlock" class="help-block">@Messages("admin.projects.helpText")</span>
 		</div>
 		<script type="text/javascript">
-			$(document).ready(
-					function() {
-						$('#adviser-selection')
-								.multiselect({
-									maxHeight : 300,
-									numberDisplayed : 6
-								});
-					});
+			$(document).ready(function() {
+				$('#adviser-selection').multiselect({
+					maxHeight : 300,
+					numberDisplayed : 6
+				});
+			});
 		</script>
 		<div class="form-group">
-			<label class="control-label col-sm-2"
-				for="adviser-selection">@Messages("admin.projects.advisers")</label>
-			<select id="adviser-selection"
-				name="adviser-multiselect[]" class="form-control"
-				multiple="multiple" required>
-					@for(adviser <- advisers) {
-						@if(project.getAdvisers().contains(adviser)) {
-							<option selected value="@adviser.getId()">@adviser.getName()</option>
-						} else {
-							<option value="@adviser.getId()">@adviser.getName()</option>
-						}
-					}
+			<label class="control-label col-sm-2" for="adviser-selection">@Messages("admin.projects.advisers")</label>
+			<select id="adviser-selection" name="adviser-multiselect[]"
+				class="form-control" multiple="multiple" required>
+				@for(adviser <- advisers) {
+				@if(project.getAdvisers().contains(adviser)) {
+				<option selected value="@adviser.getId()">@adviser.getName()</option>
+				} else {
+				<option value="@adviser.getId()">@adviser.getName()</option> } }
 			</select>
 		</div>
 
@@ -111,8 +108,7 @@ isAdviser: Boolean, advisers: List[data.Adviser])
 	<form
 		action="@controllers.routes.AdviserPageController.leaveProject().path()"
 		method="POST" class="form-horizontal">
-		<input type="hidden" name="id" id="id2"
-			value="@project.getId()">
+		<input type="hidden" name="id" id="id2" value="@project.getId()">
 		<div class="form-group">
 			<div class="col-sm-offset-2 col-sm-10">
 				<button type="submit" class="btn btn-warning">@Messages("adviser.leaveProject")</button>
@@ -122,8 +118,7 @@ isAdviser: Boolean, advisers: List[data.Adviser])
 	<form
 		action="@controllers.routes.AdviserPageController.removeProject().path()"
 		method="POST" class="form-horizontal">
-		<input type="hidden" name="id" id="id3"
-			value="@project.getId()">
+		<input type="hidden" name="id" id="id3" value="@project.getId()">
 		<div class="form-group">
 			<div class="col-sm-offset-2 col-sm-10">
 				<button type="submit" class="btn btn-danger">@Messages("admin.projects.removeProject")</button>
@@ -134,8 +129,7 @@ isAdviser: Boolean, advisers: List[data.Adviser])
 	<form
 		action="@controllers.routes.AdminProjectController.removeProject().path()"
 		method="POST" class="form-horizontal">
-		<input type="hidden" name="id" id="id4"
-			value="@project.getId()">
+		<input type="hidden" name="id" id="id4" value="@project.getId()">
 		<div class="form-group">
 			<div class="col-sm-offset-2 col-sm-10">
 				<button type="submit" class="btn btn-danger">@Messages("admin.projects.removeProject")</button>
