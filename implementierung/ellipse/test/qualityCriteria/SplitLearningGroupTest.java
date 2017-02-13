@@ -32,7 +32,7 @@ public class SplitLearningGroupTest extends DataTest {
     List<Team>          teams;
 
     @Before
-    public void setup() throws DataException {
+    public void setup() {
         semester = new Semester();
         semester.setMaxGroupSize(7);
         allocation = new Allocation();
@@ -61,7 +61,7 @@ public class SplitLearningGroupTest extends DataTest {
     }
 
     @Test
-    public void firstCalculateTest() throws DataException {
+    public void firstCalculateTest() {
         LearningGroup l1 = new LearningGroup();
         l1.setSemester(semester);
         List<Student> members = new ArrayList<Student>();
@@ -111,7 +111,7 @@ public class SplitLearningGroupTest extends DataTest {
     }
 
     @Test
-    public void secondCalculateTest() throws DataException {
+    public void secondCalculateTest() {
         LearningGroup l1 = new LearningGroup();
         l1.setSemester(semester);
         List<Student> members = new ArrayList<Student>();
@@ -175,7 +175,7 @@ public class SplitLearningGroupTest extends DataTest {
     }
 
     @Test
-    public void thirdCalculateTest() throws DataException {
+    public void thirdCalculateTest() {
         LearningGroup l1 = new LearningGroup();
         l1.setSemester(semester);
         List<Student> members = new ArrayList<Student>();
@@ -232,7 +232,7 @@ public class SplitLearningGroupTest extends DataTest {
     }
 
     @Test
-    public void fourthCalculateTest() throws DataException {
+    public void fourthCalculateTest() {
         LearningGroup l1 = new LearningGroup();
         l1.setSemester(semester);
         List<Student> members = new ArrayList<Student>();

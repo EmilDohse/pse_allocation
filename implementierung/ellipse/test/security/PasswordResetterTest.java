@@ -16,7 +16,7 @@ public class PasswordResetterTest extends DataTest {
     Adviser adviser;
 
     @Before
-    public void setup() throws DataException {
+    public void setup() {
         student = new Student();
         adviser = new Adviser();
     }
