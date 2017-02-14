@@ -62,6 +62,7 @@
 \usepackage[citestyle=authoryear,bibstyle=numeric,hyperref,backend=biber]{biblatex}
 \addbibresource{templates/example.bib}
 \bibhang1em
+\beamertemplatenavigationsymbolsempty
 
 \begin{document}
 
@@ -72,11 +73,10 @@
 \begin{frame}
 \titlepage
 \end{frame}
-
 \section{Überblick}
 \begin{frame}{Überblick}
 \begin{itemize}
-  \item Auszüge aus den Implementierten Funktionen
+  \item Auszüge aus den implementierten Funktionen
   \item Zeitplan
   \item Probleme bei der Implementierung
   \item Änderungen gegenüber dem Entwurf
@@ -96,85 +96,58 @@
 \end{itemize}
 \end{frame}
 
+%Sehr wilde Hacks um Layout anzupassen
+
 \section{Zeitplan}
-\begin{frame}{Zeitplan}
+\begin{frame}[plain]{Zeitplan}
 \begin{table}[H]
-\begin{tabularx}{\textwidth}{|l|l|X|X|X|}
+\begin{tabularx}{\textwidth}{l|l X X X}
 \hline
  	& 1. Woche			& 2. Woche		& 3. Woche & 4. Woche\\
 \hline 
-Daniel	& Views			& Views + dazu-gehörende Controller-Methoden + pac4j 
-(shibboleth) & Layout + Verificator
-+ pac4j (shibboleth)& Weitere Tests +
-Bugfixes +
-Kleinigkeiten\\
+Daniel	& Views			& Views \phantom{+} Controller  pac4j & Layout \phantom{++} Verificator & Tests \phantom{++} Bugfixes \\
 \hline
-Sam & Views&Views +
-dazu-gehörende
-Controller-
-Methoden & QualityCriteria +
-NotificationSystem & Weitere Tests +
-Bugfixes +
-Kleinigkeiten\\
+Sam & Views&Views \phantom{+} Controller & QualityCriteria  Notification & Tests \phantom{++} Bugfixes \\
 \hline
 Philipp Faller&Data&Import/Export
-IndexController&AdminController&Weitere Tests +
-Bugfixes +
-Kleinigkeiten\\
+Index\-Controller&Admin\-Controller&Tests \phantom{++}
+Bugfixes \\
 \hline
 Philipp Loth&Allocator&Import/Export
-IndexController&AdminController&Weitere Tests +
-Bugfixes +
-Kleinigkeiten\\
+Index\-Controller&Admin\-Controller&Tests \phantom{++}
+Bugfixes \\
 \hline
-Emil&Allocator&Allocator&AdminController&Weitere Tests +
-Bugfixes +
-Kleinigkeiten\\
+Emil&Allocator&Allocator&Admin\-Controller&Tests \phantom{++}
+Bugfixes \\
 \hline
-Lars&Data&Data (vor allem
-Ebean)&AdviserController&Weitere Tests +
-Bugfixes +
-Kleinigkeiten\\
-\hline
+Lars&Data&Data \phantom{++} (Ebean)&Adviser\-Controller&Tests \phantom{++}
+Bugfixes 
 \end{tabularx}
-\caption{Implementierungsplan}
 \end{table}
 \end{frame}
 
 \subsection{Änderungen}
-\begin{frame}{Änderungen}
+\begin{frame}[plain]{Änderungen}
 \begin{table}[H]
-\begin{tabularx}{\textwidth}{|l|l|X|X|X|}
+\begin{tabularx}{\textwidth}{l|l X X X}
 \hline
  	& 1. Woche			& 2. Woche		& 3. Woche & 4. Woche\\
 \hline 
-Daniel	& Views			& Views + dazu-gehörende Controller-Methode & Layout + Verificator
-+ pac4j&Deadlines + Bugfixes +
-Kleinigkeiten \\
+Daniel	& Views			& Views \phantom{+} Controller & Layout \phantom{+} Verificator
+\phantom{+} pac4j&Deadlines Bugfixes \\
 \hline
-Sam & Views&Views& QualityCriteria +
-NotificationSystem & Weitere Tests +
-Bugfixes +
-Kleinigkeiten\\
+Sam & Views&Views& QualityCriteria Notification & Tests \phantom{++} Bugfixes \\
 \hline
-Philipp Faller&Data&Data&Bugfixes&Bugfixes +  Email\\
+Philipp Faller&Data&Data&Bugfixes&Bugfixes \phantom{+}  Email\\
 \hline
 Philipp Loth&Allocator&Import/Export
-&Import/Export + Kleinigkeiten &Weitere Tests +
-Bugfixes +
-Form Validation\\
+&Import/Export &Tests \phantom{++} Bugfixes Form-Validation\\
 \hline
-Emil&Allocator&Controller&Controller&Form Validation +
-Bugfixes +
-Kleinigkeiten\\
+Emil&Allocator&Controller&Controller&Form-Validation Bugfixes\\
 \hline
-Lars&Data&Data (vor allem
-Ebean)&Controller + Daten &
-Controller-Bugfixes +
-Kleinigkeiten\\
-\hline
+Lars&Data&Data \phantom{++} (Ebean)&Controller \phantom{+} Daten &
+Controller \phantom{+} Bugfixes \\
 \end{tabularx}
-\caption{Wirkliche Implementierung}
 \end{table}
 \end{frame}
 
