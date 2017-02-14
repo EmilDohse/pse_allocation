@@ -10,7 +10,7 @@
 %% Problems, bugs and comments to
 %% burger@kit.edu
 
-\documentclass[18pt]{beamer}
+\documentclass[18pt, xcolor=table]{beamer}
 
 %% SLIDE FORMAT
 
@@ -126,6 +126,9 @@ Bugfixes
 \end{table}
 \end{frame}
 
+\newcommand{\mehr}{\cellcolor{white!90!green}}
+\newcommand{\weniger}{\cellcolor{white!90!red}}
+
 \subsection{Änderungen}
 \begin{frame}[plain]{Änderungen}
 \begin{table}[H]
@@ -133,20 +136,20 @@ Bugfixes
 \hline
  	& 1. Woche			& 2. Woche		& 3. Woche & 4. Woche\\
 \hline 
-Daniel	& Views			& Views \phantom{+} Controller & Layout \phantom{+} Verificator
-\phantom{+} pac4j&Deadlines Bugfixes \\
+Daniel	& Views			& \weniger Views \phantom{+} Controller & \mehr Layout \phantom{+} Verificator
+\phantom{+} pac4j&\weniger Deadlines Bugfixes \\
 \hline
-Sam & Views&Views& QualityCriteria Notification & Tests \phantom{++} Bugfixes \\
+Sam & Views&\weniger Views& QualityCriteria Notification & Tests \phantom{++} Bugfixes \\
 \hline
-Philipp Faller&Data&Data&Bugfixes&Bugfixes \phantom{+}  Email\\
+Philipp Faller&Data&\weniger Data&\weniger Bugfixes&\weniger Bugfixes\\
 \hline
-Philipp Loth&Allocator&Import/Export
-&Import/Export &Tests \phantom{++} Bugfixes Form-Validation\\
+Philipp Loth&Allocator&\weniger Import/Export
+&\weniger Import/Export &\weniger \weniger Tests \phantom{++} Bugfixes Form-Validation\\
 \hline
-Emil&Allocator&Controller&Controller&Form-Validation Bugfixes\\
+Emil&Allocator&\mehr Controller&\mehr Controller&\weniger Form-Validation Bugfixes\\
 \hline
-Lars&Data&Data \phantom{++} (Ebean)&Controller \phantom{+} Daten &
-Controller \phantom{+} Bugfixes \\
+Lars&Data&Data \phantom{++} (Ebean)&\weniger Controller \phantom{+} Daten &
+\weniger Controller \phantom{+} Bugfixes \\
 \end{tabularx}
 \end{table}
 \end{frame}
