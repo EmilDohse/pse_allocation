@@ -142,17 +142,16 @@ public class Importer {
                         currentTeam.addMember(currentStudent);
                     }
                 }
-
                 currentTeam.setAllocation(importedAllocation);
                 importedTeams.add(currentTeam);
-                importedAllocation.doTransaction(() -> {
-                    importedAllocation.setTeams(importedTeams);
-                    importedAllocation.setName("importierte Einteilung");
-                    importedAllocation.setParameters(new ArrayList<>());
-                    importedAllocation.setSemester(
-                            GeneralData.loadInstance().getCurrentSemester());
-                });
             }
+            importedAllocation.doTransaction(() -> {
+                importedAllocation.setTeams(importedTeams);
+                importedAllocation.setName("importierte Einteilung");
+                importedAllocation.setParameters(new ArrayList<>());
+                importedAllocation.setSemester(
+                        GeneralData.loadInstance().getCurrentSemester());
+            });
         } catch (FileNotFoundException e) {
             throw new ImporterException(FILE_NOT_FOUND);
         } catch (IOException e) {
@@ -287,9 +286,7 @@ public class Importer {
             // Erstelle die neue SPO
             SPO importedSpo;
             importedSpo = new SPO();
-            importedSpo.doTransaction(() -> {
-                importedSpo.setName(lineSplit[0]);
-            });
+            importedSpo.setName(lineSplit[0]);
 
             List<Achievement> additionalAchievements = new ArrayList<Achievement>();
             List<Achievement> necessaryAchievements = new ArrayList<Achievement>();
@@ -304,14 +301,10 @@ public class Importer {
                 if (currentAchievement != null) {
                     additionalAchievements.add(currentAchievement);
                 } else {
-
                     Achievement newAchievement = new Achievement();
                     String name = additionalSplit[i];
-                    newAchievement.doTransaction(() -> {
-                        newAchievement.setName(name);
-                    });
+                    newAchievement.setName(name);
                     additionalAchievements.add(newAchievement);
-
                 }
             }
 
@@ -324,16 +317,18 @@ public class Importer {
                     necessaryAchievements.add(currentAchievement);
                 } else {
                     Achievement newAchievement;
-
                     newAchievement = new Achievement();
                     String name = necessarySplit[i];
-                    newAchievement.doTransaction(() -> {
-                        newAchievement.setName(name);
-                    });
+                    newAchievement.setName(name);
                     necessaryAchievements.add(newAchievement);
-
                 }
             }
+            additionalAchievements.forEach(a -> {
+                a.save();
+            });
+            necessaryAchievements.forEach(a -> {
+                a.save();
+            });
             importedSpo.doTransaction(() -> {
                 importedSpo.setAdditionalAchievements(additionalAchievements);
                 importedSpo.setNecessaryAchievements(necessaryAchievements);
@@ -518,77 +513,72 @@ public class Importer {
                 Student importedStudent = new Student();
                 importedStudent.setCompletedAchievements(completedAchievements);
                 importedStudent.setOralTestAchievements(oralTestAchievements);
-                importedStudent.doTransaction(() -> {
-                    importedStudent.setUserName(new String() + matNr);
-                    importedStudent.setPassword(password);
-                    importedStudent.setFirstName(firstName);
-                    importedStudent.setLastName(lastName);
-                    importedStudent.setEmailAddress(email);
-                    importedStudent.setMatriculationNumber(matNr);
-                    importedStudent.setSPO(spo);
-                    importedStudent.setSemester(semesterNumber);
-                    importedStudent.setRegisteredPSE(false);
-                    importedStudent.setRegisteredTSE(false);
-                    importedStudent.setIsEmailVerified(false);
-                    importedStudent.setGradePSE(Grade.UNKNOWN);
-                    importedStudent.setGradeTSE(Grade.UNKNOWN);
-                });
+                importedStudent.setUserName(new String() + matNr);
+                importedStudent.setPassword(password);
+                importedStudent.setFirstName(firstName);
+                importedStudent.setLastName(lastName);
+                importedStudent.setEmailAddress(email);
+                importedStudent.setMatriculationNumber(matNr);
+                importedStudent.setSPO(spo);
+                importedStudent.setSemester(semesterNumber);
+                importedStudent.setRegisteredPSE(false);
+                importedStudent.setRegisteredTSE(false);
+                importedStudent.setIsEmailVerified(false);
+                importedStudent.setGradePSE(Grade.UNKNOWN);
+                importedStudent.setGradeTSE(Grade.UNKNOWN);
                 students.add(importedStudent);
-                semester.doTransaction(() -> {
-                    semester.setStudents(students);
-                });
+
                 LearningGroup currentGroup;
                 if (lineSplit[5].length() != 0) {
-                    // Erzeuge neue Gruppe mit dem gesetzten Namen, falls
-                    // sie
+                    // Erzeuge neue Gruppe mit dem gesetzten Namen, falls sie
                     // noch nicht existiert
-                    if (LearningGroup.getLearningGroup(lineSplit[5],
-                            semester) == null) {
+                    if (getGroupByName(learningGroups, lineSplit[5]) == null) {
                         currentGroup = new LearningGroup();
-                        currentGroup.doTransaction(() -> {
-                            currentGroup.setName(lineSplit[5]);
-                            currentGroup.addMember(importedStudent);
-                            currentGroup.setPrivate(false);
-                            currentGroup.setPassword(lineSplit[6]);
-                        });
+                        currentGroup.setName(lineSplit[5]);
+                        currentGroup.addMember(importedStudent);
+                        currentGroup.setPrivate(false);
+                        currentGroup.setPassword(lineSplit[6]);
                         learningGroups.add(currentGroup);
-                        // Füge der Gruppe mit dem gesetzten Namen den
-                        // Studenten
+                        // Füge der Gruppe mit dem gesetzten Namen den Studenten
                         // hinzu, falls sie schon existiert
                     } else {
-                        currentGroup = LearningGroup
-                                .getLearningGroup(lineSplit[5], semester);
-                        currentGroup.doTransaction(() -> {
-                            currentGroup.addMember(importedStudent);
-                        });
+                        currentGroup = getGroupByName(learningGroups,
+                                lineSplit[5]);
+                        currentGroup.addMember(importedStudent);
                     }
-                    // Erstelle eine private Lerngruppe, wenn keine
-                    // angegeben
+                    // Erstelle eine private Lerngruppe, wenn keine angegeben
                     // wurde
                 } else {
                     currentGroup = new LearningGroup();
-                    currentGroup.doTransaction(() -> {
-                        currentGroup.setName(new String()
-                                + importedStudent.getMatriculationNumber());
-                        currentGroup.setPrivate(true);
-                        currentGroup.addMember(importedStudent);
-                        currentGroup.setPassword(new String());
-                    });
+                    currentGroup.setName(new String()
+                            + importedStudent.getMatriculationNumber());
+                    currentGroup.setPrivate(true);
+                    currentGroup.addMember(importedStudent);
+                    currentGroup.setPassword(new String());
                     learningGroups.add(currentGroup);
                 }
-                ArrayList<Rating> LeaningGoupRatings = new ArrayList<>();
+                ArrayList<Rating> learningGoupRatings = new ArrayList<>();
                 Rating currentRating;
                 for (int i = 11; i < lineSplit.length; i++) {
                     currentRating = new Rating(ratings[i - 11],
                             getProjectByName(semester, headerSplit[i]));
-                    currentRating.save();
-                    LeaningGoupRatings.add(currentRating);
+                    learningGoupRatings.add(currentRating);
                 }
-                currentGroup.doTransaction(() -> {
-                    currentGroup.setRatings(LeaningGoupRatings);
-                    semester.setLearningGroups(learningGroups);
-                });
+                currentGroup.setRatings(learningGoupRatings);
             }
+            // Speichere alles manuell, weil Ebean...
+            students.forEach(s -> {
+                s.save();
+                System.out.println(s.getName());
+            });
+            learningGroups.forEach(lg -> {
+                lg.save();
+                System.out.println(lg.getName());
+            });
+            semester.doTransaction(() -> {
+                semester.setLearningGroups(learningGroups);
+                semester.setStudents(students);
+            });
         } catch (FileNotFoundException e) {
             throw new ImporterException(FILE_NOT_FOUND);
         } catch (IOException e) {
@@ -749,22 +739,22 @@ public class Importer {
                 }
                 Project importedProject;
                 importedProject = new Project();
-                importedProject.doTransaction(() -> {
-                    importedProject.setName(name);
-                    importedProject.setMinTeamSize(minSize);
-                    importedProject.setMaxTeamSize(maxSize);
-                    importedProject.setNumberOfTeams(numberOfTeams);
-                    importedProject.setProjectInfo(info);
-                    importedProject.setProjectURL(url);
-                    importedProject.setInstitute(institute);
-                    importedProject.setAdvisers(new ArrayList<Adviser>());
-                });
+                importedProject.setName(name);
+                importedProject.setMinTeamSize(minSize);
+                importedProject.setMaxTeamSize(maxSize);
+                importedProject.setNumberOfTeams(numberOfTeams);
+                importedProject.setProjectInfo(info);
+                importedProject.setProjectURL(url);
+                importedProject.setInstitute(institute);
+                importedProject.setAdvisers(new ArrayList<Adviser>());
                 projects.add(importedProject);
             }
+            projects.forEach(p -> {
+                p.save();
+            });
             semester.doTransaction(() -> {
                 semester.setProjects(projects);
             });
-
         } catch (FileNotFoundException e) {
             throw new ImporterException(FILE_NOT_FOUND);
         } catch (IOException e) {
@@ -892,5 +882,17 @@ public class Importer {
             }
         }
         return duplicate;
+    }
+
+    private LearningGroup getGroupByName(List<LearningGroup> groups,
+            String name) {
+        LearningGroup currentGroup = null;
+        for (LearningGroup lg : groups) {
+            if (lg.getName().equals(name)) {
+                currentGroup = lg;
+                break;
+            }
+        }
+        return currentGroup;
     }
 }
