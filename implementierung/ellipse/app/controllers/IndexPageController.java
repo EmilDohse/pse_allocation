@@ -366,13 +366,12 @@ public class IndexPageController extends Controller {
             break;
         case AFTER_REGISTRATION_PHASE:
             flash("info", ctx().messages()
-                    .at("state.afterRegistration.actionNotAllowed"));
+                    .at("index.afterRegistration.actionNotAllowed"));
             break;
         default:
             flash("info", ctx().messages().at("state.actionNotAllowed"));
             break;
         }
-
         return redirect(url);
     }
 }
