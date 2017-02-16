@@ -523,6 +523,8 @@ public class StudentPageController extends Controller {
             }
             student.doTransaction(() -> {
                 student.setEmailAddress(email);
+                student.setIsEmailVerified(false);
+                // TODO neue Verifikationsmail senden?
             });
             flash("info", ctx().messages().at("admin.account.success.email"));
             return redirect(controllers.routes.StudentPageController
