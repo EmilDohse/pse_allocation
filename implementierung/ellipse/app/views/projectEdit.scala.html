@@ -20,7 +20,7 @@ isAdviser: Boolean, advisers: List[data.Adviser])
 		method="POST" class="form-horizontal" role="form"
 		data-toggle="validator">
 		} <input type="hidden" name="id" id="id" value="@project.getId()">
-
+@helper.CSRF.formField
 		<div class="form-group">
 			<label class="control-label col-sm-2" for="name">@Messages("admin.projects.name")</label>
 			<div class="col-sm-5">
@@ -107,6 +107,7 @@ isAdviser: Boolean, advisers: List[data.Adviser])
 	<form
 		action="@controllers.routes.AdviserPageController.leaveProject().path()"
 		method="POST" class="form-horizontal">
+		@helper.CSRF.formField
 		<input type="hidden" name="id" id="id2" value="@project.getId()">
 		<div class="form-group">
 			<div class="col-sm-offset-2 col-sm-10">
@@ -117,6 +118,7 @@ isAdviser: Boolean, advisers: List[data.Adviser])
 	<form
 		action="@controllers.routes.AdviserPageController.removeProject().path()"
 		method="POST" class="form-horizontal">
+		@helper.CSRF.formField
 		<input type="hidden" name="id" id="id3" value="@project.getId()">
 		<div class="form-group">
 			<div class="col-sm-offset-2 col-sm-10">
@@ -128,6 +130,7 @@ isAdviser: Boolean, advisers: List[data.Adviser])
 	<form
 		action="@controllers.routes.AdminProjectController.removeProject().path()"
 		method="POST" class="form-horizontal">
+		@helper.CSRF.formField
 		<input type="hidden" name="id" id="id4" value="@project.getId()">
 		<div class="form-group">
 			<div class="col-sm-offset-2 col-sm-10">

@@ -6,6 +6,7 @@ wird eine Fehlermeldung übergeben. *@ @()
 	action="@controllers.routes.GeneralAdminController.editAccount().path()"
 	method="POST" class="form-horizontal" role="form"
 	data-toggle="validator">
+	@helper.CSRF.formField
 	<div class="form-group">
 		<label class="control-label col-sm-2" for="oldPassword">@Messages("admin.account.oldPassword")</label>
 		<div class="col-sm-3">

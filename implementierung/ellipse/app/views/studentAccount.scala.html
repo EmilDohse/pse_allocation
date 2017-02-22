@@ -5,6 +5,7 @@ Parameter wird der Student und eine Fehlermeldung übergeben. *@
 <form
 	action="@controllers.routes.StudentPageController.editAccount().path()"
 	method="POST" class="form-horizontal" role="form" data-toggle="validator">
+	@helper.CSRF.formField
 	<div class="form-group">
 		<label class="control-label col-sm-2" for="newEmail">@Messages("student.account.newEmail")</label>
 		<div class="col-sm-3">
@@ -20,6 +21,7 @@ Parameter wird der Student und eine Fehlermeldung übergeben. *@
 <form
 	action="@controllers.routes.StudentPageController.editAccount().path()"
 	method="POST" class="form-horizontal" role="form" data-toggle="validator">
+	@helper.CSRF.formField
 	<div class="form-group">
 		<label class="control-label col-sm-2" for="oldPassword">@Messages("adviser.account.oldPassword")</label>
 		<div class="col-sm-3">

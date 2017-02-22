@@ -3,6 +3,7 @@
 <form
 	action="@controllers.routes.AdviserPageController.saveStudentsGrades().path()"
 	method="POST">
+	@helper.CSRF.formField
 	<input type="hidden" name="id" id="id"
 			value="@teams.head.getProject().getId()">
 	@for(team <- teams) {

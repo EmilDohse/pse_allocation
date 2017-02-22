@@ -4,6 +4,7 @@ wird eine Fehlermeldung übergeben. *@ @()
 <form
 	action="@controllers.routes.AdviserPageController.editAccount().path()"
 	method="POST" class="form-horizontal" role="form" data-toggle="validator">
+	@helper.CSRF.formField
 	<div class="form-group">
 		<label class="control-label col-sm-2" for="newEmail">@Messages("adviser.account.newEmail")</label>
 		<div class="col-sm-3">
@@ -19,6 +20,7 @@ wird eine Fehlermeldung übergeben. *@ @()
 <form
 	action="@controllers.routes.AdviserPageController.editAccount().path()"
 	method="POST" class="form-horizontal" role="form" data-toggle="validator">
+	@helper.CSRF.formField
 	<div class="form-group">
 		<label class="control-label col-sm-2" for="oldPassword">@Messages("adviser.account.oldPassword")</label>
 		<div class="col-sm-3">

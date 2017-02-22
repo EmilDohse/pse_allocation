@@ -11,7 +11,7 @@ Liste aller SPOs benötigt. * Eine Fehlermeldung kann zusätzlich
 <h1>@Messages("index.sidebar.registration")</h1>
 <form action="@controllers.routes.StudentPageController.changeData().path()"
 	method="POST" class="form-horizontal" role="form" data-toggle="validator">
-
+@helper.CSRF.formField
 	<h3>
 		<small>@Messages("index.registration.form.studyData")</small>
 	</h3>

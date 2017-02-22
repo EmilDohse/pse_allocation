@@ -47,6 +47,7 @@ data.SMTPOptions)
 				<form
 					action="@controllers.routes.AdminPropertiesController.changeSPO().path()"
 					method="POST" class="form-inline" role="form" data-toggle="validator">
+					@helper.CSRF.formField
 					<input type="hidden" name="id" value="@spo.getId()">
 					<div class="form-group">
 						<label class="control-label col-sm-2" for="name">@Messages("admin.properties.name")</label>
@@ -102,6 +103,7 @@ data.SMTPOptions)
 				<form
 					action="@controllers.routes.AdminPropertiesController.addAchievement().path()"
 					method="POST" class="form-inline" role="form" data-toggle="validator">
+					@helper.CSRF.formField
 					<input type="hidden" name="id" value="@spo.getId()">
 					<div class="form-group">
 						<label for="name">@Messages("admin.properties.achievementName")</label>
@@ -116,6 +118,7 @@ data.SMTPOptions)
 				<form
 					action="@controllers.routes.AdminPropertiesController.removeSPO().path()"
 					method="POST" class="form-inline">
+					@helper.CSRF.formField
 					<input type="hidden" name="id" value="@spo.getId()">
 					<div class="form-group">
 						<button type="submit" class="btn btn-danger">@Messages("admin.properties.removeSPO")</button>
@@ -160,6 +163,7 @@ data.SMTPOptions)
 				<form
 					action="@controllers.routes.AdminPropertiesController.editSemester().path()"
 					method="POST" class="form-horizontal" role="form" data-toggle="validator">
+					@helper.CSRF.formField
 					<input type="hidden" name="id" value="@semester.getId()">
 
 					<div class="form-group">
@@ -258,6 +262,7 @@ data.SMTPOptions)
 				<form
 					action="@controllers.routes.AdminPropertiesController.removeSemester().path()"
 					method="POST" class="form-inline">
+					@helper.CSRF.formField
 					<input type="hidden" name="id" value="@semester.getId()">
 					<div class="form-group">
 						<button type="submit" class="btn btn-danger">@Messages("admin.properties.removeSemester")</button>
@@ -277,6 +282,7 @@ data.SMTPOptions)
 		<form
 			action="@controllers.routes.AdminPropertiesController.editSMTPOptions().path()"
 			method="POST" class="form-horizontal" role="form" data-toggle="validator">
+			@helper.CSRF.formField
 			<div class="form-group">
 				<label class="control-label col-sm-2" for="host">@Messages("admin.properties.host")</label>
 				<div class="col-sm-3">

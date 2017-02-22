@@ -23,11 +23,13 @@ Parameter wird eine Lerngruppe übergeben und eine Fehlermeldung. *@
 <form
 	action="@controllers.routes.StudentPageController.leaveLearningGroup().path()"
 	method="POST">
+	@helper.CSRF.formField
 	<button type=submit class="btn btn-primary">@Messages("student.learningGroup.leave")</button>
 </form>
 } else {
 <form action="@controllers.routes.StudentPageController.setLearningGroup().path()"
 	method="POST" class="form-horizontal" role="form" data-toggle="validator">
+	@helper.CSRF.formField
 	<div class="form-group">
 		<label class="control-label col-sm-2" for="learningGroupname">@Messages("student.learningGroup.name")</label>
 		<div class="col-sm-3">

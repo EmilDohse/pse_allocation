@@ -6,6 +6,7 @@ kann eine Fehlermeldung übergeben werden. *@
 <form
 	action="@controllers.routes.GeneralAdminController.addStudent().path()"
 	method="POST" class="form-horizontal" role="form" data-toggle="validator">
+	@helper.CSRF.formField
 	<h3>@Messages("admin.studentEdit.addStudent")</h3>
 
 	<div class="form-group">
@@ -74,6 +75,7 @@ kann eine Fehlermeldung übergeben werden. *@
 <form
 	action="@controllers.routes.GeneralAdminController.removeStudent().path()"
 	method="POST" class="form-horizontal" role="form" data-toggle="validator">
+	@helper.CSRF.formField
 	<h3>@Messages("admin.studentEdit.removeStudent")</h3>
 
 	<div class="form-group">

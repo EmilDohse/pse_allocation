@@ -11,6 +11,7 @@ libraryDependencies ++= Seq(
   cache,
   javaWs,
   evolutions,
+  filters,
   "org.pac4j" % "play-pac4j" % "2.6.1",
   "org.pac4j" % "pac4j-http" % "1.9.5",
   "org.xerial" % "sqlite-jdbc" % "3.15.1",

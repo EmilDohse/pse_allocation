@@ -5,6 +5,7 @@ Parameter wird der Inhalt der Seite übergeben. *@ @(menu: views.Menu)(content: 
 <!-- Sidebar content (loginForm) -->
 <form action="/callback" method="POST" class="form-horizontal" role="form" data-toggle="validator">
 <input type="hidden" name="client_name" value="FormClient">
+@helper.CSRF.formField
 	<div class="form-group">
 		<label class="sr-only" for="login_username">@Messages("index.username")</label>
 		<div class="col-sm-12">

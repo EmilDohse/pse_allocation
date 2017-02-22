@@ -32,7 +32,7 @@ Fehlermeldung übergeben werden. *@ @(projects: List[data.Project])
 <form
 	action="@controllers.routes.AdminProjectController.addProject.path()"
 	method="POST" class="form-inline" role="form" data-toggle="validator">
-
+@helper.CSRF.formField
 	<div class="form-group">
 		<label for="name">@Messages("admin.projects.name")</label> <input
 			type="text" class="form-control" name="name" id="name" required>

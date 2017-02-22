@@ -6,6 +6,7 @@ Parameter wird die Liste an Projekten und eine Fehlermeldung übergeben.
 
 <form action="@controllers.routes.StudentPageController.rate().path()"
 	method="POST">
+	@helper.CSRF.formField
 <table class="table">
 	<thead>
 		<tr>

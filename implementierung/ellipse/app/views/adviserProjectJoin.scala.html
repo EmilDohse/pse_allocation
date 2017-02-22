@@ -7,6 +7,7 @@ und kann dem Projekt beitreten, damit er es editieren kann. *@
 <form
 	action="@controllers.routes.AdviserPageController.joinProject().path()"
 	method="POST" class="form-horizontal">
+	@helper.CSRF.formField
 	<input type="hidden" name="id" id="id" value="@project.getId()">
 	<div class="form-group">
 		<div class="col-sm-10">

@@ -33,6 +33,7 @@ List[qualityCriteria.QualityCriterion])
 			<div class="row">
 				<form method="POST"
 					action="@controllers.routes.AdminEditAllocationController.editAllocation().path()">
+					@helper.CSRF.formField
 					<input type="hidden" name="allocationID"
 						value="@allocation.getId()">
 					<div class="col-sm-6 col-md-6">
@@ -102,6 +103,7 @@ List[qualityCriteria.QualityCriterion])
 					<form
 						action="@controllers.routes.AdminEditAllocationController.undoAllocationEdit().path()"
 						method="POST">
+						@helper.CSRF.formField
 						<input type="hidden" name="allocationID"
 							value="@allocation.getId()">
 						<div class="form-group">
@@ -113,6 +115,7 @@ List[qualityCriteria.QualityCriterion])
 					<form
 						action="@controllers.routes.AdminEditAllocationController.removeAllocation().path()"
 						method="POST">
+						@helper.CSRF.formField
 						<input type="hidden" name="allocationID"
 							value="@allocation.getId()">
 						<div class="form-group">
@@ -124,6 +127,7 @@ List[qualityCriteria.QualityCriterion])
 					<form
 						action="@controllers.routes.AdminEditAllocationController.duplicateAllocation().path()"
 						method="POST">
+						@helper.CSRF.formField
 						<input type="hidden" name="allocationID"
 							value="@allocation.getId()">
 						<div class="form-group">
@@ -135,6 +139,7 @@ List[qualityCriteria.QualityCriterion])
 					<form
 						action="@controllers.routes.AdminEditAllocationController.publishAllocation().path()"
 						method="POST">
+						@helper.CSRF.formField
 						<input type="hidden" name="allocationID"
 							value="@allocation.getId()">
 						<div class="form-group">

@@ -22,6 +22,7 @@ Fehlermeldung. *@ @(advisers: List[data.Adviser])
 			<td><form
 					action="@controllers.routes.GeneralAdminController.removeAdviser().path()"
 					method="POST" class="form-inline">
+					@helper.CSRF.formField
 					<input type="hidden" name="id" id="id-@adviser.getId()"
 						value="@adviser.getId()">
 					<button type="submit" class="btn btn-default">@Messages("admin.advisers.form.removeAdviser")</button>
@@ -34,7 +35,7 @@ Fehlermeldung. *@ @(advisers: List[data.Adviser])
 <form
 	action="@controllers.routes.GeneralAdminController.addAdviser().path()"
 	method="POST" class="form-inline" role="form" data-toggle="validator">
-
+@helper.CSRF.formField
 	<div class="form-group">
 		<label for="firstName">@Messages("index.registration.form.firstName")</label>
 		<input type="text" class="form-control" name="firstName"
