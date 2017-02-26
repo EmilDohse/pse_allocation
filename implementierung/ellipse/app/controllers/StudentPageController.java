@@ -439,7 +439,6 @@ public class StudentPageController extends Controller {
         }
 
         if (new BlowfishPasswordEncoder().matches(pw, lgNew.getPassword())) {
-            // TODO entfernen falls falsch
             lgOld.doTransaction(() -> {
                 lgOld.getMembers().remove(0);
             });
