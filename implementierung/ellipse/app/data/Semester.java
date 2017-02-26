@@ -66,12 +66,12 @@ public class Semester extends ElipseModel implements Comparable<Semester> {
     /**
      * Der Zeitpunkt ab dem sich Studenten registrieren können.
      */
-    @Temporal(TemporalType.TIME)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date                  registrationStart;
     /**
      * Der Zeitpunkt ab dem sich Studenten nicht mehr registrieren können.
      */
-    @Temporal(TemporalType.TIME)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date                  registrationEnd;
     /**
      * Alle Lerngruppen, die dieses Semester erstellt wurden
@@ -492,10 +492,9 @@ public class Semester extends ElipseModel implements Comparable<Semester> {
      *         Semester in keiner Lerngruppe ist.
      */
     public LearningGroup getLearningGroupOf(Student student) {
-        return learningGroups
-                .stream()
-                .filter(learningGroup -> learningGroup.getMembers().contains(
-                        student)).findFirst().orElse(null);
+        return learningGroups.stream().filter(
+                learningGroup -> learningGroup.getMembers().contains(student))
+                .findFirst().orElse(null);
     }
 
     @Override
