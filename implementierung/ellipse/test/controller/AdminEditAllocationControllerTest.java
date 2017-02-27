@@ -2,14 +2,15 @@ package controller;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -23,14 +24,19 @@ import com.avaje.ebean.config.ServerConfig;
 
 import controllers.AdminEditAllocationController;
 import data.Allocation;
+import data.AllocationParameter;
+import data.DataTest;
 import data.GeneralData;
+import data.SPO;
 import data.Semester;
+import data.Student;
+import data.Team;
 import play.data.DynamicForm;
 import play.data.FormFactory;
 import play.mvc.Result;
 
 @RunWith(MockitoJUnitRunner.class)
-public class AdminEditAllocationControllerTest {
+public class AdminEditAllocationControllerTest extends DataTest {
 
     @Mock
     FormFactory                   formFactory;
@@ -42,41 +48,66 @@ public class AdminEditAllocationControllerTest {
 
     private static EbeanServer    server;
 
-    @BeforeClass
-    public static void beforeClass() {
-        ServerConfig config = new ServerConfig();
-        config.setName("db");
-        config.loadTestProperties();
-        config.setDefaultServer(true);
-        config.setRegister(true);
+    @Override
+    @Before
+    public void before() {
+        super.before();
 
-        server = EbeanServerFactory.create(config);
-        // Init General Data. Evolutions wollen nicht funktionieren
-        GeneralData data = new GeneralData();
-        data.save();
-        Semester semester = new Semester();
-        semester.save();
-        data.setCurrentSemester(semester);
-        data.save();
-
+        Student firstStudent = new Student();
+        firstStudent.save();
+        Student secondStudent = new Student();
+        secondStudent.save();
+        Student thirdStudent = new Student();
+        thirdStudent.save();
+        
+        firstStudent.doTransaction(() -> {
+            firstStudent.setMatriculationNumber(1);
+        });
+        secondStudent.doTransaction(() -> {
+            secondStudent.setMatriculationNumber(2);
+        });
+        thirdStudent.doTransaction(() -> {
+            thirdStudent.setMatriculationNumber(3);
+        });
+        
+        Team firstTeam = new Team();
+        firstTeam.save();
+        Team secondTeam = new Team();
+        secondTeam.save();
+        
+        firstTeam.doTransaction(() -> {
+            firstTeam.addMember(firstStudent);
+            firstTeam.addMember(secondStudent);
+        });
+        
+        List<Team> teams = new ArrayList<>();
+        teams.add(firstTeam);
+        teams.add(secondTeam);
+        
+        AllocationParameter p = new AllocationParameter("test", 1234);
+        p.save();
+        List<AllocationParameter> parameters = new ArrayList<>();
+        parameters.add(p);
+        
         Allocation a = new Allocation();
         a.save();
         a.doTransaction(() -> {
+            a.setTeams(teams);
+            a.setParameters(parameters);
             a.setName("test");
         });
 
+        Semester semester = GeneralData.loadInstance().getCurrentSemester();
+        
         semester.doTransaction(() -> {
+            semester.addStudent(firstStudent);
+            semester.addStudent(secondStudent);
+            semester.addStudent(thirdStudent);
+            
             semester.addAllocation(a);
         });
-    }
-
-    @AfterClass
-    public static void afterClass() {
-        server.shutdown(false, false);
-    }
-
-    @Before
-    public void before() {
+        
+        
         form = Mockito.mock(DynamicForm.class);
         Mockito.when(formFactory.form()).thenReturn(form);
     }
@@ -91,12 +122,20 @@ public class AdminEditAllocationControllerTest {
         Mockito.when(form.get("allocationID")).thenReturn("1");
         Mockito.when(form.data()).thenReturn(map);
 
-        Result r = controller.duplicateAllocation();
-        System.out.println(r.toString());
+        controller.duplicateAllocation();
         
         assertEquals(GeneralData.loadInstance().getCurrentSemester().getAllocations().size(), 2);
-        assertNotNull(Allocation.getAllocation("clonedtest"));
         
-        assertTrue(true);
+        Allocation a = Allocation.getAllocation("clonedtest");
+        assertNotNull(a);
+        
+        //assertEquals(a.getTeams().size(), 2); TODO
+        //assertNotNull(a.getTeam(Student.getStudent(1)));
+        assertEquals(a.getTeam(Student.getStudent(1)), a.getTeam(Student.getStudent(2)));
+        assertNull(a.getTeam(Student.getStudent(3)));
+        
+        assertEquals(a.getParameters().size(), 1);
+        assertEquals(a.getParameters().get(0).getName(), "test");
+        assertEquals(a.getParameters().get(0).getValue(), 1234);
     }
 }

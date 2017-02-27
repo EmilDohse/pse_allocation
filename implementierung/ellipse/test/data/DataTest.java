@@ -1,7 +1,7 @@
 package data;
 
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
+import org.junit.After;
+import org.junit.Before;
 
 import com.avaje.ebean.EbeanServer;
 import com.avaje.ebean.EbeanServerFactory;
@@ -18,8 +18,8 @@ public class DataTest {
     /**
      * Initialisiert Serverdaten und allgemeine Daten.
      */
-    @BeforeClass
-    public static void beforeClass() {
+    @Before
+    public void before() {
         ServerConfig config = new ServerConfig();
         config.setName("db");
         config.loadTestProperties();
@@ -40,8 +40,8 @@ public class DataTest {
     /**
      * Server shutdown.
      */
-    @AfterClass
-    public static void afterClass() {
+    @After
+    public void after() {
         server.shutdown(false, false);
     }
 }
