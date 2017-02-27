@@ -12,6 +12,7 @@ import java.util.concurrent.TimeUnit;
 import data.Allocation;
 import data.GeneralData;
 import data.Semester;
+import play.test.Helpers;
 import play.test.WithBrowser;
 
 import org.fluentlenium.core.FluentPage;
@@ -19,6 +20,11 @@ import org.fluentlenium.core.FluentPage;
 public class ViewTest extends WithBrowser {
 
     protected static EbeanServer server;
+
+    @Override
+    protected play.test.TestBrowser provideBrowser(int port) {
+        return Helpers.testBrowser(new NoJsErrorHtmlDriver(), port);
+    }
 
     @Before
     public void before() {

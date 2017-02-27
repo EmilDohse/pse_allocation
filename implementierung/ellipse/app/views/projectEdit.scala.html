@@ -111,7 +111,7 @@ isAdviser: Boolean, advisers: List[data.Adviser])
 		<input type="hidden" name="id" id="id2" value="@project.getId()">
 		<div class="form-group">
 			<div class="col-sm-offset-2 col-sm-10">
-				<button type="submit" class="btn btn-warning">@Messages("adviser.leaveProject")</button>
+				<button type="submit" id="leaveProject" class="btn btn-warning">@Messages("adviser.leaveProject")</button>
 			</div>
 		</div>
 	</form>
@@ -122,7 +122,7 @@ isAdviser: Boolean, advisers: List[data.Adviser])
 		<input type="hidden" name="id" id="id3" value="@project.getId()">
 		<div class="form-group">
 			<div class="col-sm-offset-2 col-sm-10">
-				<button type="submit" class="btn btn-danger">@Messages("admin.projects.removeProject")</button>
+				<button type="submit" id="removeProject" class="btn btn-danger">@Messages("admin.projects.removeProject")</button>
 			</div>
 		</div>
 	</form>
@@ -134,7 +134,7 @@ isAdviser: Boolean, advisers: List[data.Adviser])
 		<input type="hidden" name="id" id="id4" value="@project.getId()">
 		<div class="form-group">
 			<div class="col-sm-offset-2 col-sm-10">
-				<button type="submit" class="btn btn-danger">@Messages("admin.projects.removeProject")</button>
+				<button type="submit" id="removeProject" class="btn btn-danger">@Messages("admin.projects.removeProject")</button>
 			</div>
 		</div>
 	</form>

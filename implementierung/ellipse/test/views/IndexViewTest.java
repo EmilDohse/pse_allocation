@@ -54,13 +54,7 @@ public class IndexViewTest extends ViewTest {
 
     @Test
     public void gotoRegisterPageBeforeRegStart() {
-        Semester semester = GeneralData.loadInstance().getCurrentSemester();
-        Instant i = Instant.now();
-        semester.doTransaction(() -> {
-            semester.setRegistrationStart(Date.from(i.plusSeconds(30)));
-            semester.setRegistrationEnd(Date.from(i.plusSeconds(40)));
-        });
-        TestHelpers.initStateChange();
+        TestHelpers.setStateToBeforeRegistration();
         browser.goTo(infoPage);
         infoPage.gotoMenuEntry(browser, 1);
         assertEquals(infoPage.getUrl(), browser.url());
@@ -68,13 +62,7 @@ public class IndexViewTest extends ViewTest {
 
     @Test
     public void gotoRegisterPageDuringReg() {
-        Semester semester = GeneralData.loadInstance().getCurrentSemester();
-        Instant i = Instant.now();
-        semester.doTransaction(() -> {
-            semester.setRegistrationStart(Date.from(i.minusSeconds(30)));
-            semester.setRegistrationEnd(Date.from(i.plusSeconds(40)));
-        });
-        TestHelpers.initStateChange();
+        TestHelpers.setStateToRegistration();
         browser.goTo(infoPage);
         infoPage.gotoMenuEntry(browser, 1);
         assertEquals("/register", browser.url());
@@ -82,13 +70,7 @@ public class IndexViewTest extends ViewTest {
 
     @Test
     public void gotoRegisterPageAfterRegEnd() {
-        Semester semester = GeneralData.loadInstance().getCurrentSemester();
-        Instant i = Instant.now();
-        semester.doTransaction(() -> {
-            semester.setRegistrationStart(Date.from(i.minusSeconds(30)));
-            semester.setRegistrationEnd(Date.from(i.minusSeconds(40)));
-        });
-        TestHelpers.initStateChange();
+        TestHelpers.setStateToAfterRegistration();
         browser.goTo(infoPage);
         infoPage.gotoMenuEntry(browser, 1);
         assertEquals(infoPage.getUrl(), browser.url());

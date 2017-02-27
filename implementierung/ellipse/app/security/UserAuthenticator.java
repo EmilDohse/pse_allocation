@@ -45,7 +45,6 @@ public class UserAuthenticator
                     credentials.setUserProfile(profile);
                     // Leite den Admin zur Passwort-Ändern-Seite, falls das
                     // Passwort noch das Start-Passwort ist
-                    System.out.println("ADMIN");
                     if (credentials.getPassword()
                             .equals(Administrator.START_PASSWORD)) {
                         ctx.flash().put("error", ctx.messages()

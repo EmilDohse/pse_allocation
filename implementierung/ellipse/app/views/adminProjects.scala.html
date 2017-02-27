@@ -24,7 +24,7 @@ Fehlermeldung übergeben werden. *@ @(projects: List[data.Project])
 			</td>
 			<td>@project.getMinTeamSize() - @project.getMaxTeamSize()</td>
 			<td>@project.getNumberOfTeams()</td>
-			<td><a class="btn btn-default" href='@controllers.routes.AdminPageController.projectEditPage(project.getId()).path()' role="button">@Messages("admin.projects.editProject")</a></td>
+			<td><a class="btn btn-default" href='@controllers.routes.AdminPageController.projectEditPage(project.getId()).path()' id="edit-@project.getId()" role="button">@Messages("admin.projects.editProject")</a></td>
 		</tr>
 		}
 	</tbody>
@@ -39,6 +39,6 @@ Fehlermeldung übergeben werden. *@ @(projects: List[data.Project])
 	</div>
 
 	<div class="form-group">
-		<button type="submit" name="addProject" class="btn btn-primary">@Messages("admin.projects.addProject")</button>
+		<button type="submit" id="addProject" name="addProject" class="btn btn-primary">@Messages("admin.projects.addProject")</button>
 	</div>
 </form>
