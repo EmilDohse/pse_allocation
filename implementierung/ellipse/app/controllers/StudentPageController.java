@@ -332,6 +332,9 @@ public class StudentPageController extends Controller {
             }
         });
         // Lösche die private Lerngruppe
+        oldLg.doTransaction(() -> {
+            oldLg.getMembers().remove(0);
+        });
         oldLg.delete();
         semester.refresh();
         semester.doTransaction(() -> {
@@ -436,6 +439,9 @@ public class StudentPageController extends Controller {
         }
 
         if (new BlowfishPasswordEncoder().matches(pw, lgNew.getPassword())) {
+            lgOld.doTransaction(() -> {
+                lgOld.getMembers().remove(0);
+            });
             lgOld.delete(); // die private lerngruppe wird gelöscht
             lgNew.doTransaction(() -> {
                 lgNew.addMember(student);

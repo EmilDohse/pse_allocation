@@ -4,6 +4,7 @@
 
 package controllers;
 
+import java.util.Iterator;
 import java.util.List;
 
 import com.google.inject.Inject;
@@ -113,7 +114,7 @@ public class AdviserPageController extends Controller {
             Project project = new Project();
             project.save();
             project.doTransaction(() -> {
-                project.setName("new Project" + adviser.getFirstName()
+                project.setName("new Project " + adviser.getFirstName() + " "
                         + adviser.getLastName());
                 project.addAdviser(adviser);
             });
@@ -145,6 +146,13 @@ public class AdviserPageController extends Controller {
         int id = Integer.parseInt(form.get("id"));
         Project project = ElipseModel.getById(Project.class, id);
         if (adviser.getProjects().contains(project)) {
+            project.doTransaction(() -> {
+                Iterator<Adviser> iter = project.getAdvisers().iterator();
+                while (iter.hasNext()) {
+                    iter.next();
+                    iter.remove();
+                }
+            });
             project.delete();
         }
         if (GeneralData.loadInstance().getCurrentSemester().getProjects()

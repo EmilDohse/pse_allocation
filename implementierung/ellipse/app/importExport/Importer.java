@@ -573,7 +573,6 @@ public class Importer {
             });
             learningGroups.forEach(lg -> {
                 lg.save();
-                System.out.println(lg.getName());
             });
             semester.doTransaction(() -> {
                 semester.setLearningGroups(learningGroups);
