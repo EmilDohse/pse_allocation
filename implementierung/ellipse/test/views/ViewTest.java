@@ -7,10 +7,14 @@ import com.avaje.ebean.EbeanServer;
 import com.avaje.ebean.EbeanServerFactory;
 import com.avaje.ebean.config.ServerConfig;
 
+import java.util.concurrent.TimeUnit;
+
 import data.Allocation;
 import data.GeneralData;
 import data.Semester;
 import play.test.WithBrowser;
+
+import org.fluentlenium.core.FluentPage;
 
 public class ViewTest extends WithBrowser {
 
@@ -37,5 +41,14 @@ public class ViewTest extends WithBrowser {
     @After
     public void after() {
         server.shutdown(false, false);
+    }
+
+    public boolean login(String username, String password, FluentPage page) {
+        browser.goTo("/");
+        browser.$("#login_username").first().fill().with(username);
+        browser.$("#login_password").first().fill().with(password);
+        browser.$("#login_submit").first().click();
+        browser.await().atMost(2, TimeUnit.SECONDS).untilPage(page).isAt();
+        return !browser.url().equals("/");
     }
 }

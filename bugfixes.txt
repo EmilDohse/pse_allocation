@@ -1,0 +1,3 @@
+bugs fixed:
+-Date objekt nun als TIMESTAMP in der Datenbank
+-Indexseite kann nun Fehlermeldungen bei falschem State anzeiegen

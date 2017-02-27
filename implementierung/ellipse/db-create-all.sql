@@ -95,7 +95,7 @@ create table project_adviser (
 
 create table rating (
   id                            integer not null,
-  rating                        integer,
+  rating_value                  integer,
   project_id                    integer,
   learning_group_id             integer,
   constraint pk_rating primary key (id)
@@ -144,8 +144,8 @@ create table semester (
   name                          varchar(255) not null,
   info_text                     varchar(255) not null,
   final_allocation_id           integer,
-  registration_start            time,
-  registration_end              time,
+  registration_start            timestamp,
+  registration_end              timestamp,
   constraint uq_semester_final_allocation_id unique (final_allocation_id),
   constraint pk_semester primary key (id)
 );

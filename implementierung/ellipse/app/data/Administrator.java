@@ -10,7 +10,7 @@ import javax.persistence.Entity;
 @Entity
 public class Administrator extends User {
 
-    public static final Object START_PASSWORD = "adminadmin";
+    public static final String START_PASSWORD = "adminadmin";
 
     public Administrator() {
         super();

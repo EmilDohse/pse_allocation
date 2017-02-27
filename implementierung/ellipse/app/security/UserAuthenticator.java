@@ -26,8 +26,8 @@ public class UserAuthenticator
         implements Authenticator<UsernamePasswordCredentials> {
 
     private static final String USER_NO_VALID_CREDENTIALS = "user.noValidCredentials";
-    private static final String ERROR    = "error";
-    private static final String BAD_CRED = "Bad credentials for: ";
+    private static final String ERROR                     = "error";
+    private static final String BAD_CRED                  = "Bad credentials for: ";
 
     @Override
     public void validate(UsernamePasswordCredentials credentials,
@@ -45,6 +45,7 @@ public class UserAuthenticator
                     credentials.setUserProfile(profile);
                     // Leite den Admin zur Passwort-Ändern-Seite, falls das
                     // Passwort noch das Start-Passwort ist
+                    System.out.println("ADMIN");
                     if (credentials.getPassword()
                             .equals(Administrator.START_PASSWORD)) {
                         ctx.flash().put("error", ctx.messages()
@@ -71,8 +72,7 @@ public class UserAuthenticator
             if (credentials.getUsername().equals(student.getUserName())) {
                 if (encoder.matches(credentials.getPassword(),
                         student.getPassword())) {
-                    UserProfile<Student> profile = new UserProfile<>(
-                            student);
+                    UserProfile<Student> profile = new UserProfile<>(student);
                     profile.addRole("ROLE_STUDENT");
                     credentials.setUserProfile(profile);
                     if (!student.isEmailVerified()) {
@@ -94,8 +94,7 @@ public class UserAuthenticator
             if (credentials.getUsername().equals(adviser.getUserName())) {
                 if (encoder.matches(credentials.getPassword(),
                         adviser.getPassword())) {
-                    UserProfile<Adviser> profile = new UserProfile<>(
-                            adviser);
+                    UserProfile<Adviser> profile = new UserProfile<>(adviser);
                     profile.addRole("ROLE_ADVISER");
                     credentials.setUserProfile(profile);
                     context.setSessionAttribute(Pac4jConstants.REQUESTED_URL,
@@ -113,8 +112,7 @@ public class UserAuthenticator
             if (credentials.getUsername().equals(student.getUserName())) {
                 if (encoder.matches(credentials.getPassword(),
                         student.getPassword())) {
-                    UserProfile<Student> profile = new UserProfile<>(
-                            student);
+                    UserProfile<Student> profile = new UserProfile<>(student);
                     profile.addRole("ROLE_STUDENT_OLD");
                     credentials.setUserProfile(profile);
                     context.setSessionAttribute(Pac4jConstants.REQUESTED_URL,
