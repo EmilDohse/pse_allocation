@@ -234,6 +234,7 @@ public class AdviserPageController extends Controller {
         }
 
         project.doTransaction(() -> {
+            // TODO betreuer setzen!!!
             project.setInstitute(institute);
             project.setMaxTeamSize(maxSize);
             project.setMinTeamSize(minSize);
