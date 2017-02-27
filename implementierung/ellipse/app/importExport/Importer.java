@@ -569,7 +569,6 @@ public class Importer {
             // Speichere alles manuell, weil Ebean...
             students.forEach(s -> {
                 s.save();
-                System.out.println(s.getName());
             });
             learningGroups.forEach(lg -> {
                 lg.save();
