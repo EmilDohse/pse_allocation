@@ -16,14 +16,14 @@ Fehlermeldung übergeben werden. *@ @(projects: List[data.Project])
 	</thead>
 	<tbody>
 		@for(project <- projects) {
-		<tr>
-			<td>@project.getName()</td>
-			<td>@project.getInstitute()</td>
-			<td>@project.getProjectURL()</td>
-			<td>@for(adviser <- project.getAdvisers()) { @adviser.getName() </br>}
+		<tr id="tr-@project.getId()">
+			<td class="tr-name">@project.getName()</td>
+			<td class="tr-inst">@project.getInstitute()</td>
+			<td class="tr-url">@project.getProjectURL()</td>
+			<td class="tr-advs">@for(adviser <- project.getAdvisers()) { @adviser.getName() </br>}
 			</td>
-			<td>@project.getMinTeamSize() - @project.getMaxTeamSize()</td>
-			<td>@project.getNumberOfTeams()</td>
+			<td class="tr-minmax">@project.getMinTeamSize() - @project.getMaxTeamSize()</td>
+			<td class="tr-numTeams">@project.getNumberOfTeams()</td>
 			<td><a class="btn btn-default" href='@controllers.routes.AdminPageController.projectEditPage(project.getId()).path()' id="edit-@project.getId()" role="button">@Messages("admin.projects.editProject")</a></td>
 		</tr>
 		}

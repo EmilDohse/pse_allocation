@@ -7,6 +7,9 @@ import java.util.concurrent.TimeUnit;
 
 import data.GeneralData;
 import data.Adviser;
+import data.ElipseModel;
+import data.Project;
+
 import java.util.List;
 import security.BlowfishPasswordEncoder;
 import views.pages.admin.AdminAccountPage;
@@ -21,7 +24,13 @@ public class AdminProjectViewTest extends ViewTest {
     private AdminAccountPage     accountPage;
     private AdminProjectEditPage projectEditPage;
 
-    private static final String  name = "TestProject";
+    private static final String  name        = "TestProject";
+    private static final String  url         = "http://www.google.de";
+    private static final String  description = "TestDescription";
+    private static final String  institute   = "Test Institute";
+    private static final int     min         = 4;
+    private static final int     max         = 8;
+    private static final int     numOfTeams  = 2;
 
     @Before
     @Override
@@ -68,5 +77,22 @@ public class AdminProjectViewTest extends ViewTest {
         browser.await().atMost(2, TimeUnit.SECONDS).untilPage(projectPage)
                 .isAt();
         assertTrue(!projectPage.isProjectShown(browser, id));
+    }
+
+    @Test
+    public void editProject() {
+        TestHelpers.setStateToBeforeRegistration();
+        int id = TestHelpers.createProject(name);
+        int adviserId = TestHelpers.createAdviser("Tst", "asdas",
+                "asdas@asd.de", "asdasdasa");
+        browser.goTo(projectEditPage.getUrl() + id);
+        browser.await().atMost(2, TimeUnit.SECONDS).untilPage(projectEditPage)
+                .isAt();
+        projectEditPage.fillAndSubmitEditProjectForm(browser, name, url,
+                institute, description, numOfTeams, min, max, adviserId);
+        browser.await().atMost(2, TimeUnit.SECONDS).untilPage(projectPage)
+                .isAt();
+        assertTrue(projectPage.isProjectShown(browser,
+                ElipseModel.getById(Project.class, id)));
     }
 }
