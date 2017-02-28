@@ -43,6 +43,13 @@ public class GurobiAllocatorTest {
         config.setRegister(true);
 
         server = EbeanServerFactory.create(config);
+
+        GeneralData data = new GeneralData();
+        data.save();
+        Semester semester = new Semester();
+        semester.save();
+        data.setCurrentSemester(semester);
+        data.save();
     }
 
     /**
@@ -100,8 +107,8 @@ public class GurobiAllocatorTest {
         para.add(new AllocationParameter("minSize", 4));
         para.add(new AllocationParameter("maxSize", 6));
         para.add(new AllocationParameter("prefSize", 5));
-        Configuration conf = new Configuration("Test", semester.getStudents(), semester.getLearningGroups(),
-                semester.getProjects(), para);
+        Configuration conf = new Configuration("Test", semester.getStudents(),
+                semester.getLearningGroups(), semester.getProjects(), para);
         ga.init(conf);
         ga.calculate();
     }

@@ -1,6 +1,8 @@
 package allocation;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 import java.util.ArrayList;
 
@@ -15,14 +17,13 @@ import com.avaje.ebean.EbeanServerFactory;
 import com.avaje.ebean.config.ServerConfig;
 
 import data.Achievement;
+import data.Allocation;
 import data.AllocationParameter;
 import data.GeneralData;
 import data.Project;
 import data.SPO;
 import data.Semester;
 import data.Student;
-import gurobi.GRB.DoubleAttr;
-import gurobi.GRBException;
 
 public class CriterionAdditionalPerfomancesTest {
 
@@ -140,12 +141,9 @@ public class CriterionAdditionalPerfomancesTest {
 
         // Stelle sicher, dass immer der Student mit der zusätzlichen
         // Teilleistung zugeteilt wird
-        try {
-            assertEquals(1, ga.getBasicMatrix()[0][0].get(DoubleAttr.X), 1e-5);
-            assertEquals(0, ga.getBasicMatrix()[1][0].get(DoubleAttr.X), 1e-5);
-        } catch (GRBException e) {
-            e.printStackTrace();
-        }
+        Allocation alloc = Allocation.getAllocations().get(0);
+        assertNotNull(alloc.getTeam(hasAdditional));
+        assertNull(alloc.getTeam(nothingAdditional));
     }
 
     @Before
