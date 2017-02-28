@@ -5,8 +5,8 @@ import org.junit.Test;
 
 import data.GeneralData;
 import data.Adviser;
-import java.util.List;
 import security.BlowfishPasswordEncoder;
+import java.util.List;
 import views.pages.admin.AdminAccountPage;
 import views.pages.admin.AdminAdvisersPage;
 

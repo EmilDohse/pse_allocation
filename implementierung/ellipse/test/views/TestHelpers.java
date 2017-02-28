@@ -8,6 +8,7 @@ import data.Adviser;
 import data.GeneralData;
 import data.Project;
 import data.Semester;
+import data.Student;
 import deadline.StateStorage;
 
 public class TestHelpers {
@@ -86,5 +87,33 @@ public class TestHelpers {
             semester.addProject(project);
         });
         return project.getId();
+    }
+
+    public static void createDataSetForAllocation() {
+        Project project = new Project();
+        project.doTransaction(() -> {
+            project.setName("TestProject");
+            project.setMaxTeamSize(2);
+            project.setMinTeamSize(1);
+            project.setNumberOfTeams(1);
+        });
+
+        Student first = new Student();
+        first.doTransaction(() -> {
+            first.setFirstName("Test1");
+            first.setLastName("TestName1");
+        });
+        Student second = new Student();
+        second.doTransaction(() -> {
+            second.setFirstName("Test2");
+            second.setLastName("TestName2");
+        });
+
+        Semester semester = GeneralData.loadInstance().getCurrentSemester();
+        semester.doTransaction(() -> {
+            semester.addStudent(first);
+            semester.addStudent(second);
+            semester.addProject(project);
+        });
     }
 }
