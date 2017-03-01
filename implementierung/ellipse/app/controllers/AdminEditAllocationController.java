@@ -115,8 +115,8 @@ public class AdminEditAllocationController extends Controller {
         Allocation allocation = ElipseModel.getById(Allocation.class,
                 allocationId);
 
-        if (GeneralData.loadInstance().getCurrentSemester()
-                .getFinalAllocation().equals(allocation)) {
+        if (allocation.equals(GeneralData.loadInstance().getCurrentSemester()
+                .getFinalAllocation())) {
             flash(ERROR, ctx().messages().at(INTERNAL_ERROR));
             return redirect(controllers.routes.AdminPageController
                     .resultsPage());
@@ -171,8 +171,8 @@ public class AdminEditAllocationController extends Controller {
         Allocation allocation = ElipseModel.getById(Allocation.class,
                 allocationId);
 
-        if (GeneralData.loadInstance().getCurrentSemester()
-                .getFinalAllocation().equals(allocation)) {
+        if (allocation.equals(GeneralData.loadInstance().getCurrentSemester()
+                .getFinalAllocation())) {
             flash(ERROR, ctx().messages().at(INTERNAL_ERROR));
             return redirect(controllers.routes.AdminPageController
                     .resultsPage());

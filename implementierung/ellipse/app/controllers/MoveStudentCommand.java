@@ -50,8 +50,8 @@ public class MoveStudentCommand extends EditAllocationCommand {
     @Override
     public void execute() {
 
-        if (GeneralData.loadInstance().getCurrentSemester()
-                .getFinalAllocation().equals(allocation)) {
+        if (allocation.equals(GeneralData.loadInstance().getCurrentSemester()
+                .getFinalAllocation())) {
             return;
         }
 
@@ -78,8 +78,8 @@ public class MoveStudentCommand extends EditAllocationCommand {
     @Override
     public void undo() throws AllocationEditUndoException {
 
-        if (GeneralData.loadInstance().getCurrentSemester()
-                .getFinalAllocation().equals(allocation)) {
+        if (allocation.equals(GeneralData.loadInstance().getCurrentSemester()
+                .getFinalAllocation())) {
             throw new AllocationEditUndoException(
                     "Allocation already published");
         }
