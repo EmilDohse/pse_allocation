@@ -9,8 +9,10 @@ import java.util.List;
 import java.util.Map;
 
 import data.Allocation;
+import data.GeneralData;
 import data.Student;
 import data.Team;
+import exception.AllocationEditUndoException;
 
 /************************************************************/
 /**
@@ -48,6 +50,11 @@ public class MoveStudentCommand extends EditAllocationCommand {
     @Override
     public void execute() {
 
+        if (GeneralData.loadInstance().getCurrentSemester()
+                .getFinalAllocation().equals(allocation)) {
+            return;
+        }
+
         oldTeams = new HashMap<>();
         for (Student s : students) {
             Team t = allocation.getTeam(s);
@@ -69,7 +76,14 @@ public class MoveStudentCommand extends EditAllocationCommand {
      * {@inheritDoc}
      */
     @Override
-    public void undo() {
+    public void undo() throws AllocationEditUndoException {
+
+        if (GeneralData.loadInstance().getCurrentSemester()
+                .getFinalAllocation().equals(allocation)) {
+            throw new AllocationEditUndoException(
+                    "Allocation already published");
+        }
+
         for (Student s : students) {
             if (newTeam != null) {
                 newTeam.doTransaction(() -> {
