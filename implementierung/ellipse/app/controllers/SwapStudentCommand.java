@@ -4,6 +4,8 @@
 
 package controllers;
 
+import javax.persistence.EntityNotFoundException;
+
 import data.Allocation;
 import data.GeneralData;
 import data.Student;
@@ -45,6 +47,7 @@ public class SwapStudentCommand extends EditAllocationCommand {
      */
     @Override
     public void execute() {
+
         if (allocation.equals(GeneralData.loadInstance().getCurrentSemester()
                 .getFinalAllocation())) {
             return;
@@ -71,6 +74,13 @@ public class SwapStudentCommand extends EditAllocationCommand {
      */
     @Override
     public void undo() throws AllocationEditUndoException {
+
+        try {
+            allocation.refresh();
+        } catch (EntityNotFoundException e) {
+            throw new AllocationEditUndoException("Allocation removed");
+        }
+
         if (allocation.equals(GeneralData.loadInstance().getCurrentSemester()
                 .getFinalAllocation())) {
             throw new AllocationEditUndoException(
