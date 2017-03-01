@@ -5,8 +5,10 @@
 package controllers;
 
 import data.Allocation;
+import data.GeneralData;
 import data.Student;
 import data.Team;
+import exception.AllocationEditUndoException;
 
 /************************************************************/
 /**
@@ -43,6 +45,11 @@ public class SwapStudentCommand extends EditAllocationCommand {
      */
     @Override
     public void execute() {
+        if (allocation.equals(GeneralData.loadInstance().getCurrentSemester()
+                .getFinalAllocation())) {
+            return;
+        }
+
         Team firstTeam = allocation.getTeam(firstStudent);
         Team secondTeam = allocation.getTeam(secondStudent);
         if (firstTeam != null) {
@@ -63,7 +70,13 @@ public class SwapStudentCommand extends EditAllocationCommand {
      * {@inheritDoc}
      */
     @Override
-    public void undo() {
+    public void undo() throws AllocationEditUndoException {
+        if (allocation.equals(GeneralData.loadInstance().getCurrentSemester()
+                .getFinalAllocation())) {
+            throw new AllocationEditUndoException(
+                    "Allocation already published");
+        }
+
         Team firstTeam = allocation.getTeam(firstStudent);
         Team secondTeam = allocation.getTeam(secondStudent);
         if (firstTeam != null) {

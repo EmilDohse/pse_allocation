@@ -19,6 +19,7 @@ import data.GeneralData;
 import data.Semester;
 import data.Student;
 import data.Team;
+import exception.AllocationEditUndoException;
 import exception.ValidationException;
 import form.IntValidator;
 import notificationSystem.Notifier;
@@ -114,6 +115,13 @@ public class AdminEditAllocationController extends Controller {
         Allocation allocation = ElipseModel.getById(Allocation.class,
                 allocationId);
 
+        if (allocation.equals(GeneralData.loadInstance().getCurrentSemester()
+                .getFinalAllocation())) {
+            flash(ERROR, ctx().messages().at(INTERNAL_ERROR));
+            return redirect(controllers.routes.AdminPageController
+                    .resultsPage());
+        }
+
         // Prüfe, ob genau zwei Studenten ausgewählt wurden
         if (ids.size() != 2) {
             flash(ERROR, ctx().messages().at(INTERNAL_ERROR));
@@ -140,7 +148,7 @@ public class AdminEditAllocationController extends Controller {
      * 
      * @return Die Seite, die als Antwort verschickt wird.
      */
-    public Result moveStudents(DynamicForm form, List<Integer> ids) {
+    private Result moveStudents(DynamicForm form, List<Integer> ids) {
 
         // Ziehe das Team, in das die Studenten geschoben werden sollen, sowie
         // die zu bearbeitende Einteilung aus dem Formular
@@ -162,6 +170,13 @@ public class AdminEditAllocationController extends Controller {
         Team newTeam = ElipseModel.getById(Team.class, teamId);
         Allocation allocation = ElipseModel.getById(Allocation.class,
                 allocationId);
+
+        if (allocation.equals(GeneralData.loadInstance().getCurrentSemester()
+                .getFinalAllocation())) {
+            flash(ERROR, ctx().messages().at(INTERNAL_ERROR));
+            return redirect(controllers.routes.AdminPageController
+                    .resultsPage());
+        }
 
         List<Student> students = new ArrayList<>();
         for (int id : ids) {
@@ -330,7 +345,12 @@ public class AdminEditAllocationController extends Controller {
         }
 
         // Führe den Command aus
-        undoStack.pop().undo();
+        try {
+            undoStack.pop().undo();
+        } catch (AllocationEditUndoException e) {
+            flash(ERROR, ctx().messages().at(INTERNAL_ERROR));
+        }
+
         return redirect(controllers.routes.AdminPageController.resultsPage());
     }
 }
