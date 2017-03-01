@@ -40,7 +40,7 @@ import views.Menu;
 public class AdviserPageController extends Controller {
 
     private static final String ERROR          = "error";
-
+    
     private static final String INTERNAL_ERROR = "error.internalError";
 
     @Inject
@@ -138,6 +138,7 @@ public class AdviserPageController extends Controller {
      * @return die Seite, die als Antwort verschickt wird.
      */
     public Result removeProject() {
+    	synchronized(Project.class){
         Adviser adviser = userManagement.getUserProfile(ctx());
         DynamicForm form = formFactory.form().bindFromRequest();
         if (form.data().isEmpty()) {
@@ -165,6 +166,7 @@ public class AdviserPageController extends Controller {
                             GeneralData.loadInstance().getCurrentSemester()
                                     .getProjects().get(0).getId()));
         }
+    	}
     }
 
     /**
@@ -177,6 +179,7 @@ public class AdviserPageController extends Controller {
      * @return die Seite, die als Antwort verschickt wird.
      */
     public Result editProject() {
+    	synchronized(Project.class){
         Adviser adviser = userManagement.getUserProfile(ctx());
         // alle daten werden aus formular ausgelesen
         DynamicForm form = formFactory.form().bindFromRequest();
@@ -206,6 +209,12 @@ public class AdviserPageController extends Controller {
                     controllers.routes.AdviserPageController.projectsPage(-1));
         }
         Project project = ElipseModel.getById(Project.class, id);
+        //wenn das projekt gelöscht wurde während man es bearbeiten will fehler
+        if(project == null){
+        	flash(ERROR, ctx().messages().at(Project.CONCURRENCY_ERROR));
+        	return redirect(controllers.routes.AdviserPageController
+                    .projectsPage(-1));
+        }
         try {
 
             numberOfTeams = intValidator.validate(form.get("teamCount"));
@@ -243,9 +252,10 @@ public class AdviserPageController extends Controller {
             project.setProjectInfo(description);
             project.setProjectURL(url);
         });
-
+    	
         return redirect(controllers.routes.AdviserPageController
                 .projectsPage(project.getId()));
+    	}
     }
 
     /**
@@ -259,6 +269,7 @@ public class AdviserPageController extends Controller {
      * @return die Seite, die als Antwort verschickt wird.
      */
     public Result joinProject() {
+    	synchronized(Project.class){
         Adviser adviser = userManagement.getUserProfile(ctx());
         DynamicForm form = formFactory.form().bindFromRequest();
         if (form.data().isEmpty()) {
@@ -266,6 +277,12 @@ public class AdviserPageController extends Controller {
         }
         int id = Integer.parseInt(form.get("id"));
         Project project = ElipseModel.getById(Project.class, id);
+        //wenn das projekt gelöscht wurde wöhrend man es verwenden wollte
+        if(project == null){
+        	flash(ERROR, ctx().messages().at(Project.CONCURRENCY_ERROR));
+        	return redirect(controllers.routes.AdviserPageController
+                    .projectsPage(-1));
+        }
         if (!adviser.getProjects().contains(project)) {
             project.doTransaction(() -> {
                 project.addAdviser(adviser);
@@ -273,8 +290,10 @@ public class AdviserPageController extends Controller {
         } else {
             flash(ERROR, ctx().messages().at(INTERNAL_ERROR));
         }
+    	
         return redirect(controllers.routes.AdviserPageController
                 .projectsPage(project.getId()));
+    	}
     }
 
     /**
@@ -286,6 +305,7 @@ public class AdviserPageController extends Controller {
      * @return die Seite, die als Antwort verschickt wird.
      */
     public Result leaveProject() {
+    	synchronized(Project.class){
         Adviser adviser = userManagement.getUserProfile(ctx());
         DynamicForm form = formFactory.form().bindFromRequest();
         if (form.data().isEmpty()) {
@@ -301,6 +321,12 @@ public class AdviserPageController extends Controller {
                     controllers.routes.AdviserPageController.projectsPage(-1));
         }
         Project project = ElipseModel.getById(Project.class, id);
+        //hier wird überprüft ob das projekt nicht gelöscht wurde bevor man es verlassen will
+        if(project == null){
+        	flash(ERROR, ctx().messages().at(Project.CONCURRENCY_ERROR));
+        	return redirect(controllers.routes.AdviserPageController
+                    .projectsPage(-1));
+        }
         if (adviser.getProjects().contains(project)) {
             project.doTransaction(() -> {
                 project.removeAdviser(adviser);
@@ -310,6 +336,7 @@ public class AdviserPageController extends Controller {
         }
         return redirect(controllers.routes.AdviserPageController
                 .projectsPage(project.getId()));
+    	}
     }
 
     /**

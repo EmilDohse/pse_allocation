@@ -18,7 +18,7 @@ import javax.validation.constraints.NotNull;
  */
 @Entity
 public class Project extends ElipseModel implements Comparable<Project> {
-
+    private static final String CONCURRENCY_ERROR = "error.project.deletedConcurrently";
     /**
      * Der Name des Projektes.
      */
