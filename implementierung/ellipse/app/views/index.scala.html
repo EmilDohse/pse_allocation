@@ -3,7 +3,7 @@ Parameter wird der Inhalt der Seite übergeben. *@ @(menu: views.Menu)(content: 
 
 @main(Messages("index.title"), menu) {
 <!-- Sidebar content (loginForm) -->
-<form action="/callback" method="POST" class="form-horizontal" role="form" data-toggle="validator">
+<form action="/callback" method="POST" class="form-horizontal" data-toggle="validator">
 <input type="hidden" name="client_name" value="FormClient">
 @helper.CSRF.formField
 	<div class="form-group">

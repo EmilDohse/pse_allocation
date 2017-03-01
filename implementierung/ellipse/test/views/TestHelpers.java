@@ -1,14 +1,19 @@
 package views;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.stream.IntStream;
 
 import data.Administrator;
 import data.Adviser;
+import data.Allocation;
 import data.GeneralData;
 import data.Project;
 import data.Semester;
 import data.Student;
+import data.Team;
 import deadline.StateStorage;
 
 public class TestHelpers {
@@ -89,31 +94,36 @@ public class TestHelpers {
         return project.getId();
     }
 
-    public static void createDataSetForAllocation() {
-        Project project = new Project();
-        project.doTransaction(() -> {
-            project.setName("TestProject");
-            project.setMaxTeamSize(2);
-            project.setMinTeamSize(1);
-            project.setNumberOfTeams(1);
-        });
-
-        Student first = new Student();
-        first.doTransaction(() -> {
-            first.setFirstName("Test1");
-            first.setLastName("TestName1");
-        });
-        Student second = new Student();
-        second.doTransaction(() -> {
-            second.setFirstName("Test2");
-            second.setLastName("TestName2");
-        });
-
+    public static void createDataSetForAllocation(int numProjects,
+            int numStudents, int minTeamSize, int maxTeamSize) {
         Semester semester = GeneralData.loadInstance().getCurrentSemester();
-        semester.doTransaction(() -> {
-            semester.addStudent(first);
-            semester.addStudent(second);
-            semester.addProject(project);
+        IntStream.rangeClosed(1, numProjects).forEach((number) -> {
+            Project project = new Project();
+            project.save();
+            project.doTransaction(() -> {
+                project.setName("TestProject" + number);
+                project.setMaxTeamSize(maxTeamSize);
+                project.setMinTeamSize(minTeamSize);
+                project.setNumberOfTeams(1);
+            });
+            semester.doTransaction(() -> {
+                semester.addProject(project);
+            });
         });
+        IntStream.rangeClosed(1, numStudents).forEach((number) -> {
+            Student student = new Student();
+            student.save();
+            student.doTransaction(() -> {
+                student.setFirstName("StudentFirstName" + number);
+                student.setLastName("StudentLastName" + number);
+            });
+            semester.doTransaction(() -> {
+                semester.addStudent(student);
+            });
+        });
+    }
+
+    public static void createDataSetForAllocation() {
+        createDataSetForAllocation(1, 2, 1, 2);
     }
 }
