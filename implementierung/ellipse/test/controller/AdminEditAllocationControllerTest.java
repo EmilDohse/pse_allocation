@@ -3,7 +3,6 @@ package controller;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,21 +18,17 @@ import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import com.avaje.ebean.EbeanServer;
-import com.avaje.ebean.EbeanServerFactory;
-import com.avaje.ebean.config.ServerConfig;
 
 import controllers.AdminEditAllocationController;
 import data.Allocation;
 import data.AllocationParameter;
 import data.DataTest;
 import data.GeneralData;
-import data.SPO;
 import data.Semester;
 import data.Student;
 import data.Team;
 import play.data.DynamicForm;
 import play.data.FormFactory;
-import play.mvc.Result;
 
 @RunWith(MockitoJUnitRunner.class)
 public class AdminEditAllocationControllerTest extends DataTest {
@@ -54,12 +49,9 @@ public class AdminEditAllocationControllerTest extends DataTest {
         super.before();
 
         Student firstStudent = new Student();
-        firstStudent.save();
         Student secondStudent = new Student();
-        secondStudent.save();
         Student thirdStudent = new Student();
-        thirdStudent.save();
-        
+
         firstStudent.doTransaction(() -> {
             firstStudent.setMatriculationNumber(1);
         });
@@ -69,45 +61,41 @@ public class AdminEditAllocationControllerTest extends DataTest {
         thirdStudent.doTransaction(() -> {
             thirdStudent.setMatriculationNumber(3);
         });
-        
-        Team firstTeam = new Team();
-        firstTeam.save();
-        Team secondTeam = new Team();
-        secondTeam.save();
-        
-        firstTeam.doTransaction(() -> {
-            firstTeam.addMember(firstStudent);
-            firstTeam.addMember(secondStudent);
+
+        Semester semester = GeneralData.loadInstance().getCurrentSemester();
+
+        semester.doTransaction(() -> {
+            semester.addStudent(firstStudent);
+            semester.addStudent(secondStudent);
+            semester.addStudent(thirdStudent);
         });
-        
+
+        Team firstTeam = new Team();
+        Team secondTeam = new Team();
+
+        firstTeam.addMember(firstStudent);
+        firstTeam.addMember(secondStudent);
+
         List<Team> teams = new ArrayList<>();
         teams.add(firstTeam);
         teams.add(secondTeam);
-        
+
         AllocationParameter p = new AllocationParameter("test", 1234);
         p.save();
         List<AllocationParameter> parameters = new ArrayList<>();
         parameters.add(p);
-        
+
         Allocation a = new Allocation();
-        a.save();
         a.doTransaction(() -> {
             a.setTeams(teams);
             a.setParameters(parameters);
             a.setName("test");
         });
 
-        Semester semester = GeneralData.loadInstance().getCurrentSemester();
-        
         semester.doTransaction(() -> {
-            semester.addStudent(firstStudent);
-            semester.addStudent(secondStudent);
-            semester.addStudent(thirdStudent);
-            
             semester.addAllocation(a);
         });
-        
-        
+
         form = Mockito.mock(DynamicForm.class);
         Mockito.when(formFactory.form()).thenReturn(form);
     }
@@ -123,19 +111,21 @@ public class AdminEditAllocationControllerTest extends DataTest {
         Mockito.when(form.data()).thenReturn(map);
 
         controller.duplicateAllocation();
-        
-        assertEquals(GeneralData.loadInstance().getCurrentSemester().getAllocations().size(), 2);
-        
+
+        assertEquals(2, GeneralData.loadInstance().getCurrentSemester()
+                .getAllocations().size());
+
         Allocation a = Allocation.getAllocation("clonedtest");
         assertNotNull(a);
-        
-        //assertEquals(a.getTeams().size(), 2); TODO
-        //assertNotNull(a.getTeam(Student.getStudent(1)));
-        assertEquals(a.getTeam(Student.getStudent(1)), a.getTeam(Student.getStudent(2)));
+
+        assertEquals(2, a.getTeams().size());
+        assertNotNull(a.getTeam(Student.getStudent(1)));
+        assertEquals(a.getTeam(Student.getStudent(1)),
+                a.getTeam(Student.getStudent(2)));
         assertNull(a.getTeam(Student.getStudent(3)));
-        
-        assertEquals(a.getParameters().size(), 1);
-        assertEquals(a.getParameters().get(0).getName(), "test");
-        assertEquals(a.getParameters().get(0).getValue(), 1234);
+
+        assertEquals(1, a.getParameters().size());
+        assertEquals("test", a.getParameters().get(0).getName());
+        assertEquals(1234, a.getParameters().get(0).getValue());
     }
 }
