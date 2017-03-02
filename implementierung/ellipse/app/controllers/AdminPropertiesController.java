@@ -67,36 +67,38 @@ public class AdminPropertiesController extends Controller {
      * @return Die Seite, die als Antwort verschickt wird.
      */
     public Result removeSemester() {
-        DynamicForm form = formFactory.form().bindFromRequest();
-        if (form.data().isEmpty()) {
-            return badRequest(ctx().messages().at(INTERNAL_ERROR));
-        }
+        synchronized (Semester.class) {
+            DynamicForm form = formFactory.form().bindFromRequest();
+            if (form.data().isEmpty()) {
+                return badRequest(ctx().messages().at(INTERNAL_ERROR));
+            }
 
-        // Hole das Semester aus der Datenbank
-        String semesterIdString = form.get("id");
-        int semesterId;
-        try {
-            semesterId = Integer.parseInt(semesterIdString);
-        } catch (NumberFormatException e) {
-            flash(ERROR, ctx().messages().at(INTERNAL_ERROR));
+            // Hole das Semester aus der Datenbank
+            String semesterIdString = form.get("id");
+            int semesterId;
+            try {
+                semesterId = Integer.parseInt(semesterIdString);
+            } catch (NumberFormatException e) {
+                flash(ERROR, ctx().messages().at(INTERNAL_ERROR));
+                return redirect(controllers.routes.AdminPageController.propertiesPage());
+            }
+            Semester semester = ElipseModel.getById(Semester.class, semesterId);
+
+            // Prüfe, dass das Semester nicht das aktuelle Semester ist
+            if (!semester.equals(GeneralData.loadInstance().getCurrentSemester())) {
+                for (Project p : semester.getProjects()) {
+                    p.delete();
+                }
+                for (LearningGroup l : semester.getLearningGroups()) {
+                    l.delete();
+                }
+                semester.delete();
+            } else {
+                flash(ERROR, ctx().messages().at("admin.properties.semesterIsActiveError"));
+            }
+
             return redirect(controllers.routes.AdminPageController.propertiesPage());
         }
-        Semester semester = ElipseModel.getById(Semester.class, semesterId);
-
-        // Prüfe, dass das Semester nicht das aktuelle Semester ist
-        if (!semester.equals(GeneralData.loadInstance().getCurrentSemester())) {
-            for (Project p : semester.getProjects()) {
-                p.delete();
-            }
-            for (LearningGroup l : semester.getLearningGroups()) {
-                l.delete();
-            }
-            semester.delete();
-        } else {
-            flash(ERROR, ctx().messages().at("admin.properties.semesterIsActiveError"));
-        }
-
-        return redirect(controllers.routes.AdminPageController.propertiesPage());
     }
 
     /**
@@ -166,97 +168,112 @@ public class AdminPropertiesController extends Controller {
      * @return Die Seite, die als Antwort verschickt wird.
      */
     public Result editSemester() {
-        synchronized (SPO.class) {
-            DynamicForm form = formFactory.form().bindFromRequest();
-            if (form.data().isEmpty()) {
-                return badRequest(ctx().messages().at(INTERNAL_ERROR));
-            }
-            // Prüfe alle Eingaben aus dem Formular
-            String name = form.get("name2");
-            String idString = form.get("id");
-            String maxGroupSizeString = form.get("maxGroupSize");
-            int maxGroupSize;
-            int id;
-            ArrayList<SPO> usedSPOs = new ArrayList<>();
-            // Hole alle ausgewählten SPOs aus der Datenbank
-            String[] spoIdStrings = MultiselectList.getValueArray(form, "spo-multiselect-" + idString);
-            for (String spoIdString : spoIdStrings) {
-                try {
-                    SPO spo = ElipseModel.getById(SPO.class, new IntValidator(0).validate(spoIdString));
-                    if (spo == null) {
-                        flash(ERROR, ctx().messages().at(SPO.CONCURRENCY_ERROR));
+        synchronized (Semester.class) {
+            synchronized (SPO.class) {
+                DynamicForm form = formFactory.form().bindFromRequest();
+                if (form.data().isEmpty()) {
+                    return badRequest(ctx().messages().at(INTERNAL_ERROR));
+                }
+                // Prüfe alle Eingaben aus dem Formular
+                String name = form.get("name2");
+                String idString = form.get("id");
+                String maxGroupSizeString = form.get("maxGroupSize");
+                int maxGroupSize;
+                int id;
+                ArrayList<SPO> usedSPOs = new ArrayList<>();
+                // Hole alle ausgewählten SPOs aus der Datenbank
+                String[] spoIdStrings = MultiselectList.getValueArray(form, "spo-multiselect-" + idString);
+                for (String spoIdString : spoIdStrings) {
+                    try {
+                        SPO spo = ElipseModel.getById(SPO.class, new IntValidator(0).validate(spoIdString));
+                        if (spo == null) {
+                            flash(ERROR, ctx().messages().at(SPO.CONCURRENCY_ERROR));
+                            return redirect(controllers.routes.AdminPageController.propertiesPage());
+                        }
+                        usedSPOs.add(spo);
+                    } catch (ValidationException e) {
+                        flash(ERROR, ctx().messages().at(e.getMessage()));
                         return redirect(controllers.routes.AdminPageController.propertiesPage());
                     }
-                    usedSPOs.add(spo);
+                }
+
+                try {
+                    maxGroupSize = new IntValidator(0).validate(maxGroupSizeString);
+                    id = new IntValidator(0).validate(idString);
                 } catch (ValidationException e) {
                     flash(ERROR, ctx().messages().at(e.getMessage()));
                     return redirect(controllers.routes.AdminPageController.propertiesPage());
                 }
-            }
+                String generalInfo = form.get("info");
+                String registrationStart = form.get("registrationStart");
+                String registrationEnd = form.get("registrationEnd");
+                String wintersemester = form.get("wintersemester");
+                Date startDate;
+                Date endDate;
+                String semesterActive = form.get("semester-active");
+                // Hole die Startdaten der Phasen aus dem Formular
+                try {
+                    SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
+                    startDate = format.parse(registrationStart);
+                    endDate = format.parse(registrationEnd);
+                } catch (ParseException e) {
+                    flash(ERROR, ctx().messages().at(GEN_ERROR));
+                    return redirect(controllers.routes.AdminPageController.propertiesPage());
+                }
 
-            try {
-                maxGroupSize = new IntValidator(0).validate(maxGroupSizeString);
-                id = new IntValidator(0).validate(idString);
-            } catch (ValidationException e) {
-                flash(ERROR, ctx().messages().at(e.getMessage()));
-                return redirect(controllers.routes.AdminPageController.propertiesPage());
-            }
-            String generalInfo = form.get("info");
-            String registrationStart = form.get("registrationStart");
-            String registrationEnd = form.get("registrationEnd");
-            String wintersemester = form.get("wintersemester");
-            Date startDate;
-            Date endDate;
-            String semesterActive = form.get("semester-active");
-            // Hole die Startdaten der Phasen aus dem Formular
-            try {
-                SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
-                startDate = format.parse(registrationStart);
-                endDate = format.parse(registrationEnd);
-            } catch (ParseException e) {
-                flash(ERROR, ctx().messages().at(GEN_ERROR));
-                return redirect(controllers.routes.AdminPageController.propertiesPage());
-            }
-
-            Semester semester = ElipseModel.getById(Semester.class, id);
-            List<SPO> deletedSPOs = semester.getSpos();
-            deletedSPOs.removeAll(usedSPOs);
-            boolean spoUsed = false;
-            for (SPO spo : deletedSPOs) {
-                for (Student s : semester.getStudents()) {
-                    if (s.getSPO().equals(spo)) {
-                        spoUsed = true;
+                Semester semester = ElipseModel.getById(Semester.class, id);
+                // falls das semester gelöscht wurde
+                if (semester == null) {
+                    flash(ERROR, ctx().messages().at(Semester.CONCURRENCY_ERROR));
+                    return redirect(controllers.routes.AdminPageController.propertiesPage());
+                }
+                List<SPO> deletedSPOs = semester.getSpos();
+                deletedSPOs.removeAll(usedSPOs);
+                boolean spoUsed = false;
+                for (SPO spo : deletedSPOs) {
+                    for (Student s : semester.getStudents()) {
+                        if (s.getSPO().equals(spo)) {
+                            spoUsed = true;
+                            break;
+                        }
+                    }
+                    if (spoUsed) {
                         break;
                     }
                 }
-                if (spoUsed) {
-                    break;
+                // überprüfungen ob das aktuelle semester aktiv gesetzt werden
+                // darf (wenn es nicht aktiv war)
+                if (!semester.equals(GeneralData.loadInstance().getCurrentSemester()) && semesterActive != null) {
+                    if (StateStorage.getInstance().getCurrentState() == StateStorage.State.REGISTRATION_PHASE) {
+                        flash(ERROR, ctx().messages().at("error.activeSemester.changeNotAllowed"));
+                        return redirect(controllers.routes.AdminPageController.propertiesPage());
+                    }
                 }
-            }
-            // Speichere das Semester
-            if (!spoUsed && !startDate.after(endDate)) {
-                semester.doTransaction(() -> {
-                    semester.setSpos(usedSPOs);
-                    semester.setInfoText(generalInfo);
-                    semester.setName(name);
-                    semester.setRegistrationStart(startDate);
-                    semester.setRegistrationEnd(endDate);
-                    semester.setWintersemester(wintersemester != null);
-                    // true wenn wintersemester == null
-                    semester.setMaxGroupSize(maxGroupSize);
-                });
-                if (semesterActive != null) {
-                    GeneralData data = GeneralData.loadInstance();
-                    data.doTransaction(() -> {
-                        data.setCurrentSemester(semester);
+                // Speichere das Semester
+                if (!spoUsed && !startDate.after(endDate)) {
+                    semester.doTransaction(() -> {
+                        semester.setSpos(usedSPOs);
+                        semester.setInfoText(generalInfo);
+                        semester.setName(name);
+                        semester.setRegistrationStart(startDate);
+                        semester.setRegistrationEnd(endDate);
+                        semester.setWintersemester(wintersemester != null);
+                        // true wenn wintersemester == null
+                        semester.setMaxGroupSize(maxGroupSize);
                     });
-                    StateStorage.getInstance().initStateChanging(startDate, endDate);
+                    if (semesterActive != null) {
+                        GeneralData data = GeneralData.loadInstance();
+                        data.doTransaction(() -> {
+                            data.setCurrentSemester(semester);
+                        });
+                        StateStorage.getInstance().initStateChanging(startDate, endDate);
+                    }
+                } else {
+                    flash(ERROR, ctx().messages().at(INTERNAL_ERROR));
                 }
-            } else {
-                flash(ERROR, ctx().messages().at(INTERNAL_ERROR));
-            }
 
-            return redirect(controllers.routes.AdminPageController.propertiesPage());
+                return redirect(controllers.routes.AdminPageController.propertiesPage());
+            }
         }
     }
 
