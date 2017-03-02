@@ -1,6 +1,7 @@
 package qualityCriteria;
 
 import static org.junit.Assert.assertEquals;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,12 +9,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import data.Allocation;
-import data.GeneralData;
 import data.Semester;
 import data.Student;
 import data.Team;
-import play.test.WithApplication;
-import qualityCriteria.NotAllocatedStudents;
 
 /**
  * Diese Klasse beinhaltet Unit-Test für das Gütekriterium, welches die Anzhal
@@ -62,6 +60,15 @@ public class NotAllocatedStudentsTest {
         a.setTeams(teams);
         a.setSemester(s);
         NotAllocatedStudents nas = new NotAllocatedStudents();
-        assertEquals(allStudents.size() / 5, Integer.parseInt(nas.calculate(a)));
+        assertEquals(allStudents.size() / 5,
+                Integer.parseInt(nas.calculate(a)));
+    }
+
+    @Test
+    public void testDisplayName() {
+        assertEquals("Anzahl nicht zugeteilter Studenten",
+                new NotAllocatedStudents().getName("de"));
+        assertEquals("Number of not assigned students",
+                new NotAllocatedStudents().getName("en"));
     }
 }

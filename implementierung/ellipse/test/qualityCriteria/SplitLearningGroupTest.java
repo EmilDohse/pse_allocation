@@ -305,4 +305,12 @@ public class SplitLearningGroupTest extends DataTest {
         SplitLearningGroups slg = new SplitLearningGroups();
         assertEquals(0, Integer.parseInt(slg.calculate(allocation)));
     }
+
+    @Test
+    public void testDisplayName() {
+        assertEquals("Anzahl gesplitteter Lerngruppen",
+                new SplitLearningGroups().getName("de"));
+        assertEquals("Number of splitted learning groups",
+                new SplitLearningGroups().getName("en"));
+    }
 }
