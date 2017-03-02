@@ -50,6 +50,8 @@ public class AdminResultsViewTest extends ViewTest {
                 .isAt();
         allocationPage.fillAndSubmitAddAllocationForm(browser, name, 1, 5, 5,
                 50);
+        browser.await().atMost(2, TimeUnit.SECONDS).untilPage(allocationPage)
+                .isAt();
         int id = 0;
         for (Allocation a : Allocation.getAllocations()) {
             if (a.getName().equals(name)) {

@@ -11,6 +11,7 @@ import data.Adviser;
 import data.Allocation;
 import data.GeneralData;
 import data.Project;
+import data.SPO;
 import data.Semester;
 import data.Student;
 import data.Team;
@@ -125,5 +126,15 @@ public class TestHelpers {
 
     public static void createDataSetForAllocation() {
         createDataSetForAllocation(1, 2, 1, 2);
+    }
+
+    public static int createSpo(String name) {
+        SPO spo = new SPO(name);
+        spo.save();
+        Semester semester = GeneralData.loadInstance().getCurrentSemester();
+        semester.doTransaction(() -> {
+            semester.addSPO(spo);
+        });
+        return spo.getId();
     }
 }
