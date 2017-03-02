@@ -22,7 +22,9 @@ import com.avaje.ebean.Ebean;
 @Entity
 public class SPO extends ElipseModel implements Comparable<SPO> {
 
-    private static final String NAME = "name";
+    public static final String  CONCURRENCY_ERROR = "error.SPO.deletedConcurrently";
+
+    private static final String NAME              = "name";
     /**
      * Der Name der Prüfungsordnung.
      */
@@ -137,8 +139,7 @@ public class SPO extends ElipseModel implements Comparable<SPO> {
      * @param neccessaryAchievemens
      *            Die benötigten Teilleistungen.
      */
-    public void setNecessaryAchievements(
-            List<Achievement> necessaryAchievements) {
+    public void setNecessaryAchievements(List<Achievement> necessaryAchievements) {
         this.necessaryAchievements = necessaryAchievements;
     }
 
@@ -148,8 +149,7 @@ public class SPO extends ElipseModel implements Comparable<SPO> {
      * @param additionalAchievements
      *            Die zusätzlichen Teilleistungen.
      */
-    public void setAdditionalAchievements(
-            List<Achievement> additionalAchievements) {
+    public void setAdditionalAchievements(List<Achievement> additionalAchievements) {
         this.additionalAchievements = additionalAchievements;
     }
 
@@ -188,7 +188,7 @@ public class SPO extends ElipseModel implements Comparable<SPO> {
     @Override
     public boolean equals(Object o) {
         if (o instanceof SPO && ((SPO) o).getName().equals(this.name)) {
-                return true;
+            return true;
         }
         return false;
     }

@@ -25,7 +25,8 @@ import com.avaje.ebean.Ebean;
 @Entity
 public class Allocation extends ElipseModel {
 
-    private static final String       NAME = "name";
+    public static final String        CONCURRENCY_ERROR = "error.allocation.deletedConcurrently";
+    private static final String       NAME              = "name";
     /**
      * Liste, die alle Teams enthält.
      */
@@ -58,8 +59,7 @@ public class Allocation extends ElipseModel {
      *            Die eingestellten Parameter
      */
 
-    public Allocation(List<Team> teams, String name,
-            List<AllocationParameter> parameters) {
+    public Allocation(List<Team> teams, String name, List<AllocationParameter> parameters) {
 
         super();
         this.teams = teams;
@@ -88,8 +88,7 @@ public class Allocation extends ElipseModel {
         }
         // Parameter klonen
         for (AllocationParameter p : a.getParameters()) {
-            AllocationParameter newParameter = new AllocationParameter(
-                    p.getName(), p.getValue());
+            AllocationParameter newParameter = new AllocationParameter(p.getName(), p.getValue());
             this.parameters.add(newParameter);
         }
         this.name = "cloned" + a.getName();
@@ -251,9 +250,7 @@ public class Allocation extends ElipseModel {
      * @return nicht zugeteilte Studenten.
      */
     public List<Student> getNotAllocatedStudents() {
-        return semester.getStudents().stream()
-                .filter(student -> getTeam(student) == null)
-                .collect(Collectors.toList());
+        return semester.getStudents().stream().filter(student -> getTeam(student) == null).collect(Collectors.toList());
 
     }
 
