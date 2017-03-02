@@ -277,6 +277,7 @@ importer.missingStudent = Einer der angegebenen Studenten existiert nicht
 importer.missingSPO = Eine der angegebenen SPOs existiert nicht
 importer.wrongTeamNumber = Eine der angegebenen Teamnummern kann nicht verwendet werden
 
+error.adviser.deletedConcurrently = Der Betreuer wurde von einem anderen Nutzer gelöscht
 error.project.deletedConcurrently = Das Projekt wurde von einem anderen Nutzer gelöscht
 error.internalError = Unerwarteter, interner Serverfehler
 error.wrongInput = Bei manchen Formular-Feldern werden Ganzzahlen erwartet, jedoch was anderes angegeben.

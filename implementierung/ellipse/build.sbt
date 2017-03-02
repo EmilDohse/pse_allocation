@@ -33,3 +33,5 @@ routesGenerator := InjectedRoutesGenerator
 jacoco.settings
  
 parallelExecution in jacoco.Config := false
+
+jacoco.excludes in jacoco.Config := Seq("org.pac4j.play.*", "controllers.javascript.*", "router.*")

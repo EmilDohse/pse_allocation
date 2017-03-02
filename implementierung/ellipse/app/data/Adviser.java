@@ -16,12 +16,13 @@ import javax.persistence.Entity;
 @Entity
 public class Adviser extends User {
 
+    public static final String CONCURRENCY_ERROR = "error.adviser.deletedConcurrently";
+
     public Adviser() {
         super();
     }
 
-    public Adviser(String username, String password, String emailAddress,
-            String firstName, String lastName) {
+    public Adviser(String username, String password, String emailAddress, String firstName, String lastName) {
         super(username, password, emailAddress, firstName, lastName);
     }
 
