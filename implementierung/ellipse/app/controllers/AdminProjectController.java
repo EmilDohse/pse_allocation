@@ -32,6 +32,7 @@ public class AdminProjectController extends Controller {
 
     private static final String INTERNAL_ERROR = "error.internalError";
     private static final String ERROR          = "error";
+    
 
     @Inject
     FormFactory                 formFactory;
@@ -39,7 +40,6 @@ public class AdminProjectController extends Controller {
     /**
      * Diese Methode fügt ein neues Projekt in das System ein und leitet den
      * Administrator zurück auf die Seite zum Editieren des Projektes.
-     * 
      * @return Die Seite, die als Antwort verschickt wird.
      */
     public Result addProject() {
@@ -68,6 +68,7 @@ public class AdminProjectController extends Controller {
      * @return Die Seite, die als Antwort verschickt wird.
      */
     public Result removeProject() {
+        synchronized (Project.class) {
         DynamicForm form = formFactory.form().bindFromRequest();
         if (form.data().isEmpty()) {
             return badRequest(ctx().messages().at(INTERNAL_ERROR));
@@ -77,7 +78,8 @@ public class AdminProjectController extends Controller {
         project.delete();
 
         return redirect(controllers.routes.AdminPageController.projectPage());
-    }
+        }
+        }
 
     /**
      * Diese Methode editiert ein bereits vorhandenes Projekt. Die zu
@@ -88,6 +90,7 @@ public class AdminProjectController extends Controller {
      * @return Die Seite, die als Antwort verschickt wird.
      */
     public Result editProject() {
+        synchronized (Project.class) {
         // die projektdaten werden aus dem formular ausgelesen
         DynamicForm form = formFactory.form().bindFromRequest();
         if (form.data().isEmpty()) {
@@ -113,6 +116,12 @@ public class AdminProjectController extends Controller {
                     controllers.routes.AdminPageController.projectEditPage(-1));
         }
         Project project = ElipseModel.getById(Project.class, id);
+        //fehlerausgabe wenn projekt gelöscht wurde während der bearbeitung
+        if(project == null){
+            flash(ERROR, ctx().messages().at(Project.CONCURRENCY_ERROR));
+            return redirect(controllers.routes.AdminPageController
+                    .projectPage());
+        }
         // Prüfe alle ausgelesenen Werte auf nichtleere Strings und Mindestwerte
         try {
             projName = notEmptyValidator.validate(form.get("name"));
@@ -164,5 +173,6 @@ public class AdminProjectController extends Controller {
         });
 
         return redirect(controllers.routes.AdminPageController.projectPage());
+    }
     }
 }

@@ -19,49 +19,50 @@ import javax.validation.constraints.NotNull;
 @Entity
 public class Project extends ElipseModel implements Comparable<Project> {
 
+    public static final String CONCURRENCY_ERROR = "error.project.deletedConcurrently";
     /**
      * Der Name des Projektes.
      */
     @NotNull
-    private String        name;
+    private String             name;
     /**
      * Die minimale Anzahl der Teilnehmer einer Gruppe für dieses Projekt.
      */
-    private int           minTeamSize;
+    private int                minTeamSize;
     /**
      * Die maximale Anzahl der Teilnehmer einer Gruppe für dieses Projekt.
      */
-    private int           maxTeamSize;
+    private int                maxTeamSize;
     /**
      * Anzahl der Teams die zu diesem Projekt zugeteilt werden.
      */
-    private int           numberOfTeams;
+    private int                numberOfTeams;
     /**
      * Die Projektbeschreibung.
      */
     @NotNull
-    private String        projectInfo;
+    private String             projectInfo;
     /**
      * URL zu der Website des Projektes.
      */
     @NotNull
-    private String        projectURL;
+    private String             projectURL;
     /**
      * Das Institut, welches das Projekt anbietet.
      */
     @NotNull
-    private String        institute;
+    private String             institute;
     /**
      * Betreuer des Projekts
      */
     @ManyToMany
-    private List<Adviser> advisers;
+    private List<Adviser>      advisers;
 
     /**
      * Danke Ebean.
      */
     @ManyToOne
-    private Semester      semester;
+    private Semester           semester;
 
     public Project() {
         this("", "", "", "");
