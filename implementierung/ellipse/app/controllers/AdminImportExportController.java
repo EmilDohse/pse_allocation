@@ -100,25 +100,32 @@ public class AdminImportExportController extends Controller {
      * @return Die Seite, die als Antwort verschickt wird.
      */
     public Result exportAllocation() {
-        importExport.Importer importer = new Importer();
-        File file = new File("exportAllocation.csv");
-        DynamicForm form = formFactory.form().bindFromRequest();
-        int allocationId;
-        IntValidator intValidator = new IntValidator(0);
-        try {
-            allocationId = intValidator.validate(form.get("allocation-selection"));
-        } catch (ValidationException e) {
-            flash(ERROR, ctx().messages().at(ctx().messages().at(NOTHING_TO_EXPORT)));
-            return redirect(controllers.routes.AdminPageController.exportImportPage());
+        synchronized (Allocation.class) {
+            importExport.Importer importer = new Importer();
+            File file = new File("exportAllocation.csv");
+            DynamicForm form = formFactory.form().bindFromRequest();
+            int allocationId;
+            IntValidator intValidator = new IntValidator(0);
+            try {
+                allocationId = intValidator.validate(form.get("allocation-selection"));
+            } catch (ValidationException e) {
+                flash(ERROR, ctx().messages().at(ctx().messages().at(NOTHING_TO_EXPORT)));
+                return redirect(controllers.routes.AdminPageController.exportImportPage());
+            }
+            try {
+                Allocation allocation = ElipseModel.getById(Allocation.class, allocationId);
+                // wenn allocation gelöscht wurde
+                if (allocation == null) {
+                    flash(ERROR, ctx().messages().at(ctx().messages().at(Allocation.CONCURRENCY_ERROR)));
+                    return redirect(controllers.routes.AdminPageController.exportImportPage());
+                }
+                importer.exportAllocation(file, allocation);
+            } catch (ImporterException e) {
+                flash(ERROR, ctx().messages().at(ctx().messages().at(e.getMessage())));
+                return redirect(controllers.routes.AdminPageController.exportImportPage());
+            }
+            return ok(file).withHeader(CONTENT_DISPOSITION, ATTACHMENT);
         }
-        try {
-            importer.exportAllocation(file, ElipseModel.getById(Allocation.class, allocationId));
-        } catch (ImporterException e) {
-            flash(ERROR, ctx().messages().at(ctx().messages().at(e.getMessage())));
-            return redirect(controllers.routes.AdminPageController.exportImportPage());
-        }
-        return ok(file).withHeader(CONTENT_DISPOSITION, ATTACHMENT);
-
     }
 
     /**

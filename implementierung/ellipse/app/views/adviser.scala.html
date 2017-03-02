@@ -5,5 +5,5 @@
 @(menu: views.Menu)(content: Html)
 
 @main(Messages("admin.title"), menu) {<a class="btn btn-primary btn-block" href='@org.pac4j.play.routes.ApplicationLogoutController.logout().path()' id="logout_button" role="button">@Messages("logout")</a>
-<a class="btn btn-primary btn-block" href='@controllers.routes.AdviserPageController.addProject()' role="button">@Messages("adviser.addProject")</a>
+<a class="btn btn-primary btn-block" href='@controllers.routes.AdviserPageController.addProject()' id="addProject_button" role="button">@Messages("adviser.addProject")</a>
  } {@content}

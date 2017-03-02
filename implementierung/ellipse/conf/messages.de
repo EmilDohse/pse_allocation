@@ -277,6 +277,11 @@ importer.missingStudent = Einer der angegebenen Studenten existiert nicht
 importer.missingSPO = Eine der angegebenen SPOs existiert nicht
 importer.wrongTeamNumber = Eine der angegebenen Teamnummern kann nicht verwendet werden
 
+error.activeSemester.changeNotAllowed = Das aktuelle Semester darf nur außerhalb der Registrationszeit von Studenten geändert werden.
+error.semester.deletedConcurrently = Das Semester wurde gelöscht
+error.undoStackEmpty = Der Undo-Stack ist leer
+error.allocation.deletedConcurrently = Die Einteilung wurde gelöscht
+error.project.notExistent = Das von ihnen angeforderte Projekt existiert nicht
 error.SPO.deletedConcurrently = Die SPO wurde von einem anderen Benutzer gelöscht
 error.adviser.deletedConcurrently = Der Betreuer wurde von einem anderen Nutzer gelöscht
 error.project.deletedConcurrently = Das Projekt wurde von einem anderen Nutzer gelöscht

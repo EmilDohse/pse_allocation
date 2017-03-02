@@ -33,7 +33,7 @@ public class Semester extends ElipseModel implements Comparable<Semester> {
     protected static final String JOIN_TABLE_NAME      = "semester_student";
     protected static final String JOIN_CLOUMN_SEMESTER = "semester_id";
     protected static final String JOIN_COLOUMN_STUDENT = "student_id";
-
+    public static final String    CONCURRENCY_ERROR    = "error.semester.deletedConcurrently";
     /**
      * true: Wintersemester, false: Sommersemester
      */
@@ -412,8 +412,7 @@ public class Semester extends ElipseModel implements Comparable<Semester> {
      *         Namen hat.
      */
     public static Semester getSemester(String semesterName) {
-        return Ebean.find(Semester.class).where().eq(NAME, semesterName)
-                .findUnique();
+        return Ebean.find(Semester.class).where().eq(NAME, semesterName).findUnique();
     }
 
     /**
@@ -492,9 +491,8 @@ public class Semester extends ElipseModel implements Comparable<Semester> {
      *         Semester in keiner Lerngruppe ist.
      */
     public LearningGroup getLearningGroupOf(Student student) {
-        return learningGroups.stream().filter(
-                learningGroup -> learningGroup.getMembers().contains(student))
-                .findFirst().orElse(null);
+        return learningGroups.stream().filter(learningGroup -> learningGroup.getMembers().contains(student)).findFirst()
+                .orElse(null);
     }
 
     @Override
