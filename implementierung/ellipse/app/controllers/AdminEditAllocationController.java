@@ -111,7 +111,11 @@ public class AdminEditAllocationController extends Controller {
             return redirect(controllers.routes.AdminPageController.resultsPage());
         }
         Allocation allocation = ElipseModel.getById(Allocation.class, allocationId);
-
+        // falls die einteilung während er bearbeitung gelöscht wird
+        if (allocation == null) {
+            flash(ERROR, ctx().messages().at(Allocation.CONCURRENCY_ERROR));
+            return redirect(controllers.routes.AdminPageController.resultsPage());
+        }
         if (allocation.equals(GeneralData.loadInstance().getCurrentSemester().getFinalAllocation())) {
             flash(ERROR, ctx().messages().at(INTERNAL_ERROR));
             return redirect(controllers.routes.AdminPageController.resultsPage());
@@ -161,7 +165,11 @@ public class AdminEditAllocationController extends Controller {
         // Hole die benötigten Daten aus der Datenbank
         Team newTeam = ElipseModel.getById(Team.class, teamId);
         Allocation allocation = ElipseModel.getById(Allocation.class, allocationId);
-
+        // falls die einteilung während er bearbeitung gelöscht wird
+        if (allocation == null) {
+            flash(ERROR, ctx().messages().at(Allocation.CONCURRENCY_ERROR));
+            return redirect(controllers.routes.AdminPageController.resultsPage());
+        }
         if (allocation.equals(GeneralData.loadInstance().getCurrentSemester().getFinalAllocation())) {
             flash(ERROR, ctx().messages().at(INTERNAL_ERROR));
             return redirect(controllers.routes.AdminPageController.resultsPage());
@@ -213,6 +221,11 @@ public class AdminEditAllocationController extends Controller {
                 return redirect(controllers.routes.AdminPageController.resultsPage());
             }
             Allocation allocation = ElipseModel.getById(Allocation.class, allocationId);
+            // falls die einteilung während er bearbeitung gelöscht wird
+            if (allocation == null) {
+                flash(ERROR, ctx().messages().at(Allocation.CONCURRENCY_ERROR));
+                return redirect(controllers.routes.AdminPageController.resultsPage());
+            }
             Semester semester = GeneralData.loadInstance().getCurrentSemester();
 
             // Prüfe, ob es schon eine finale Einteilung gibt
@@ -262,7 +275,11 @@ public class AdminEditAllocationController extends Controller {
                 return redirect(controllers.routes.AdminPageController.resultsPage());
             }
             Allocation allocation = ElipseModel.getById(Allocation.class, allocationId);
-
+            // falls die einteilung während er bearbeitung gelöscht wird
+            if (allocation == null) {
+                flash(ERROR, ctx().messages().at(Allocation.CONCURRENCY_ERROR));
+                return redirect(controllers.routes.AdminPageController.resultsPage());
+            }
             // Dupliziere die Einteilung
             Allocation clonedAllocation = new Allocation(allocation);
             clonedAllocation.save();
@@ -323,7 +340,7 @@ public class AdminEditAllocationController extends Controller {
         synchronized (Allocation.class) {
             // Fehlermeldung, falls es nichts rückgängig zu machen gibt
             if (undoStack.isEmpty()) {
-                flash(ERROR, ctx().messages().at(INTERNAL_ERROR));
+                flash(ERROR, ctx().messages().at("error.undoStackEmpty"));
                 return redirect(controllers.routes.AdminPageController.resultsPage());
             }
 
@@ -331,7 +348,7 @@ public class AdminEditAllocationController extends Controller {
             try {
                 undoStack.pop().undo();
             } catch (AllocationEditUndoException e) {
-                flash(ERROR, ctx().messages().at(INTERNAL_ERROR));
+                flash(ERROR, ctx().messages().at(Allocation.CONCURRENCY_ERROR));
             }
 
             return redirect(controllers.routes.AdminPageController.resultsPage());
