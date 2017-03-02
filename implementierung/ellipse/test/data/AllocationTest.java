@@ -1,6 +1,8 @@
 package data;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -87,11 +89,81 @@ public class AllocationTest extends DataTest {
     @Test
     public void testGetAllocation() {
         Allocation.getAllocations().forEach(a -> a.delete());
-        Allocation one = new Allocation(new ArrayList<>(), "one", new ArrayList<>());
-        Allocation two = new Allocation(new ArrayList<>(), "two", new ArrayList<>());
+        Allocation one = new Allocation(new ArrayList<>(), "one",
+                new ArrayList<>());
+        Allocation two = new Allocation(new ArrayList<>(), "two",
+                new ArrayList<>());
         one.save();
         two.save();
         assertEquals(2, Allocation.getAllocations().size());
         assertEquals(one, Allocation.getAllocation("one"));
+    }
+
+    @Test
+    public void testGetTeamsByAdviser() {
+        Adviser adviser = new Adviser();
+        adviser.save();
+        Project one = new Project();
+        Project two = new Project();
+
+        one.doTransaction(() -> {
+            one.addAdviser(adviser);
+            one.setNumberOfTeams(2);
+        });
+        two.doTransaction(() -> {
+            two.setNumberOfTeams(1);
+        });
+
+        Team firstTeam = new Team();
+        Team secondTeam = new Team();
+        Team thirdTeam = new Team();
+
+        firstTeam.setProject(one);
+        secondTeam.setProject(one);
+        thirdTeam.setProject(two);
+
+        ArrayList<Team> teams = new ArrayList<>();
+        teams.add(firstTeam);
+        teams.add(secondTeam);
+        teams.add(thirdTeam);
+
+        Allocation alloc = new Allocation(teams, "test", new ArrayList<>());
+        alloc.save();
+
+        List<Team> adviserTeams = alloc.getTeamsByAdviser(adviser);
+        assertEquals(2, adviserTeams.size());
+        assertTrue(adviserTeams.contains(firstTeam));
+        assertTrue(adviserTeams.contains(secondTeam));
+        assertFalse(adviserTeams.contains(thirdTeam));
+    }
+
+    @Test
+    public void testGetTeamsByProject() {
+        Project one = new Project();
+        one.save();
+        Project two = new Project();
+        two.save();
+
+        Team firstTeam = new Team();
+        Team secondTeam = new Team();
+        Team thirdTeam = new Team();
+
+        firstTeam.setProject(one);
+        secondTeam.setProject(one);
+        thirdTeam.setProject(two);
+
+        ArrayList<Team> teams = new ArrayList<>();
+        teams.add(firstTeam);
+        teams.add(secondTeam);
+        teams.add(thirdTeam);
+
+        Allocation alloc = new Allocation(teams, "test", new ArrayList<>());
+        alloc.save();
+
+        List<Team> teamsByProject = alloc.getTeamsByProject(one);
+
+        assertEquals(2, teamsByProject.size());
+        assertTrue(teamsByProject.contains(firstTeam));
+        assertTrue(teamsByProject.contains(secondTeam));
     }
 }
