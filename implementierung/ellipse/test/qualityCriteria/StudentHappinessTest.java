@@ -1,5 +1,6 @@
 package qualityCriteria;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
@@ -216,5 +217,12 @@ public class StudentHappinessTest extends DataTest {
         StudentHappiness sh = new StudentHappiness();
         String[] result = sh.calculate(allocation).split("%");
         assertTrue(50.0 - Double.parseDouble(result[0]) < 0.01);
+    }
+
+    @Test
+    public void testDisplayName() {
+        assertEquals("Studierendenzufriedenheit",
+                new StudentHappiness().getName("de"));
+        assertEquals("Student happiness", new StudentHappiness().getName("en"));
     }
 }
