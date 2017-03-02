@@ -90,7 +90,8 @@ public class UserAuthenticator
             }
         }
         for (Adviser adviser : Adviser.getAdvisers()) {
-            if (credentials.getUsername().equals(adviser.getUserName())) {
+            if (credentials.getUsername()
+                    .equalsIgnoreCase(adviser.getUserName())) {
                 if (encoder.matches(credentials.getPassword(),
                         adviser.getPassword())) {
                     UserProfile<Adviser> profile = new UserProfile<>(adviser);

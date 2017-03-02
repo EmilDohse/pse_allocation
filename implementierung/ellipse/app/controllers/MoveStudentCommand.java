@@ -8,9 +8,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.EntityNotFoundException;
+
 import data.Allocation;
+import data.GeneralData;
 import data.Student;
 import data.Team;
+import exception.AllocationEditUndoException;
 
 /************************************************************/
 /**
@@ -48,6 +52,11 @@ public class MoveStudentCommand extends EditAllocationCommand {
     @Override
     public void execute() {
 
+        if (allocation.equals(GeneralData.loadInstance().getCurrentSemester()
+                .getFinalAllocation())) {
+            return;
+        }
+
         oldTeams = new HashMap<>();
         for (Student s : students) {
             Team t = allocation.getTeam(s);
@@ -69,7 +78,20 @@ public class MoveStudentCommand extends EditAllocationCommand {
      * {@inheritDoc}
      */
     @Override
-    public void undo() {
+    public void undo() throws AllocationEditUndoException {
+
+        try {
+            allocation.refresh();
+        } catch (EntityNotFoundException e) {
+            throw new AllocationEditUndoException("Allocation removed");
+        }
+
+        if (allocation.equals(GeneralData.loadInstance().getCurrentSemester()
+                .getFinalAllocation())) {
+            throw new AllocationEditUndoException(
+                    "Allocation already published");
+        }
+
         for (Student s : students) {
             if (newTeam != null) {
                 newTeam.doTransaction(() -> {

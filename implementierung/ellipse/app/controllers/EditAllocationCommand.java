@@ -4,6 +4,8 @@
 
 package controllers;
 
+import exception.AllocationEditUndoException;
+
 /************************************************************/
 /**
  * Die abstrakte Oberklasse aller Kommandos, die in eine Veränderung einer
@@ -20,5 +22,5 @@ public abstract class EditAllocationCommand {
      * Macht die Ausführung des Kommandos rückgängig. Kann nur ausgeführt werde,
      * wenn das Kommando zuvor ausgeführt wurde.
      */
-    public abstract void undo();
+    public abstract void undo() throws AllocationEditUndoException;
 }
