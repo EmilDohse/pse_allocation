@@ -74,7 +74,11 @@ public class AdviserPageController extends Controller {
         }
 
         Project project = ElipseModel.getById(Project.class, id);
-
+        // wenn die URL verändert wurde
+        if (project == null) {
+            flash(ERROR, ctx().messages().at(Project.NOT_EXISTENT));
+            return redirect(controllers.routes.AdviserPageController.projectsPage(-1));
+        }
         Adviser adviser = userManagement.getUserProfile(ctx());
         play.twirl.api.Html content;
         if (adviser.getProjects().contains(project)) {
