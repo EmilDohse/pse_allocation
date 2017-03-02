@@ -80,7 +80,7 @@ public abstract class ElipseModel extends Model {
         return Ebean.find(type, id);
     }
 
-    public synchronized void doTransaction(Transaction transaction) {
+    public void doTransaction(Transaction transaction) {
         Ebean.beginTransaction();
         transaction.transact();
         this.save();

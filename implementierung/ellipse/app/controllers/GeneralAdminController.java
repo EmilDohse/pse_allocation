@@ -211,67 +211,69 @@ public class GeneralAdminController extends Controller {
      * @return Die Seite, die als Antwort verschickt wird.
      */
     public Result addStudent() {
-        DynamicForm form = formFactory.form().bindFromRequest();
-        if (form.data().isEmpty()) {
-            return badRequest(ctx().messages().at(INTERNAL_ERROR));
-        }
-        StringValidator notEmptyValidator = Forms.getNonEmptyStringValidator();
-        StringValidator emailValidator = Forms.getEmailValidator();
-        StringValidator passwordValidator = Forms.getPasswordValidator();
-
-        IntValidator intValidator = new IntValidator(0);
-
-        // TODO: ???
-        String firstName = form.get(FIRST_NAME);
-        String lastName = form.get(LAST_NAME);
-        String matNrString = form.get("matrnr");
-        String email = form.get(EMAIL);
-        String password = form.get(PASSWORD);
-        int matNr;
-        int semester;
-        int spoId;
-
-        try {
-            firstName = notEmptyValidator.validate(form.get(FIRST_NAME));
-            lastName = notEmptyValidator.validate(form.get(LAST_NAME));
-            matNr = intValidator.validate(form.get("matrnr"));
-            email = emailValidator.validate(form.get(EMAIL));
-            password = passwordValidator.validate(form.get(PASSWORD));
-            semester = intValidator.validate(form.get("semester"));
-            spoId = intValidator.validate(form.get("spo"));
-        } catch (ValidationException e) {
-            flash(ERROR, ctx().messages().at(e.getMessage()));
-            return redirect(controllers.routes.AdminPageController.studentEditPage());
-        }
-        if (Student.getStudent(matNr) != null) {
-            flash(ERROR, ctx().messages().at("admin.studentEdit.matrNrExistsError"));
-            return redirect(controllers.routes.AdminPageController.studentEditPage());
-        }
-        // der username eines studenten ist seine matNr
-        SPO spo = ElipseModel.getById(SPO.class, spoId);
-        BlowfishPasswordEncoder b = new BlowfishPasswordEncoder();
-        Student student = new Student(matNrString, b.encode(password), email, firstName, lastName, matNr, spo,
-                spo.getNecessaryAchievements(), new ArrayList<>(), semester);
-        student.save();
-
-        LearningGroup l;
-
-        l = new LearningGroup(student.getUserName(), "");
-        l.save();
-        l.doTransaction(() -> {
-            l.addMember(student);
-            l.setPrivate(true);
-            // Ratings initialisieren
-            for (Project p : GeneralData.loadInstance().getCurrentSemester().getProjects()) {
-                l.rate(p, 3);
+        synchronized (Student.class) {
+            DynamicForm form = formFactory.form().bindFromRequest();
+            if (form.data().isEmpty()) {
+                return badRequest(ctx().messages().at(INTERNAL_ERROR));
             }
-        });
-        Semester currentSemester = GeneralData.loadInstance().getCurrentSemester();
-        currentSemester.doTransaction(() -> {
-            currentSemester.addLearningGroup(l);
-            currentSemester.addStudent(student);
-        });
-        return redirect(controllers.routes.AdminPageController.studentEditPage());
+            StringValidator notEmptyValidator = Forms.getNonEmptyStringValidator();
+            StringValidator emailValidator = Forms.getEmailValidator();
+            StringValidator passwordValidator = Forms.getPasswordValidator();
+
+            IntValidator intValidator = new IntValidator(0);
+
+            // TODO: ???
+            String firstName = form.get(FIRST_NAME);
+            String lastName = form.get(LAST_NAME);
+            String matNrString = form.get("matrnr");
+            String email = form.get(EMAIL);
+            String password = form.get(PASSWORD);
+            int matNr;
+            int semester;
+            int spoId;
+
+            try {
+                firstName = notEmptyValidator.validate(form.get(FIRST_NAME));
+                lastName = notEmptyValidator.validate(form.get(LAST_NAME));
+                matNr = intValidator.validate(form.get("matrnr"));
+                email = emailValidator.validate(form.get(EMAIL));
+                password = passwordValidator.validate(form.get(PASSWORD));
+                semester = intValidator.validate(form.get("semester"));
+                spoId = intValidator.validate(form.get("spo"));
+            } catch (ValidationException e) {
+                flash(ERROR, ctx().messages().at(e.getMessage()));
+                return redirect(controllers.routes.AdminPageController.studentEditPage());
+            }
+            if (Student.getStudent(matNr) != null) {
+                flash(ERROR, ctx().messages().at("admin.studentEdit.matrNrExistsError"));
+                return redirect(controllers.routes.AdminPageController.studentEditPage());
+            }
+            // der username eines studenten ist seine matNr
+            SPO spo = ElipseModel.getById(SPO.class, spoId);
+            BlowfishPasswordEncoder b = new BlowfishPasswordEncoder();
+            Student student = new Student(matNrString, b.encode(password), email, firstName, lastName, matNr, spo,
+                    spo.getNecessaryAchievements(), new ArrayList<>(), semester);
+            student.save();
+
+            LearningGroup l;
+
+            l = new LearningGroup(student.getUserName(), "");
+            l.save();
+            l.doTransaction(() -> {
+                l.addMember(student);
+                l.setPrivate(true);
+                // Ratings initialisieren
+                for (Project p : GeneralData.loadInstance().getCurrentSemester().getProjects()) {
+                    l.rate(p, 3);
+                }
+            });
+            Semester currentSemester = GeneralData.loadInstance().getCurrentSemester();
+            currentSemester.doTransaction(() -> {
+                currentSemester.addLearningGroup(l);
+                currentSemester.addStudent(student);
+            });
+            return redirect(controllers.routes.AdminPageController.studentEditPage());
+        }
     }
 
     /**
