@@ -9,6 +9,7 @@ import java.util.stream.IntStream;
 import data.Administrator;
 import data.Adviser;
 import data.Allocation;
+import data.ElipseModel;
 import data.GeneralData;
 import data.Project;
 import data.SPO;
@@ -85,6 +86,10 @@ public class TestHelpers {
         return adviser.getId();
     }
 
+    public static int createAdviser(String email, String password) {
+        return createAdviser("AdviserFirst", "AdviserLast", email, password);
+    }
+
     public static int createProject(String name) {
         Project project = new Project(name, "", "", "");
         project.save();
@@ -93,6 +98,15 @@ public class TestHelpers {
             semester.addProject(project);
         });
         return project.getId();
+    }
+
+    public static int createAndJoinProject(String name, int advId) {
+        int id = createProject(name);
+        Project p = ElipseModel.getById(Project.class, id);
+        p.doTransaction(() -> {
+            p.addAdviser(ElipseModel.getById(Adviser.class, advId));
+        });
+        return id;
     }
 
     public static void createDataSetForAllocation(int numProjects,
