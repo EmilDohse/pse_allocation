@@ -3,55 +3,82 @@ package controllers;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-import java.util.HashMap;
+import java.util.Collections;
 import java.util.Map;
 
+import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.Ignore;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import play.data.DynamicForm;
-import play.data.FormFactory;
-import play.mvc.Http.Context;
-import security.UserManagement;
 import data.Adviser;
 import data.DataTest;
 import data.GeneralData;
 import data.Project;
 import data.Semester;
+import play.Application;
+import play.api.mvc.RequestHeader;
+import play.data.DynamicForm;
+import play.data.FormFactory;
+import play.mvc.Controller;
+import play.mvc.Http;
+import play.test.Helpers;
+import security.UserManagement;
 
 @RunWith(MockitoJUnitRunner.class)
 public class AdviserPageControllerTest extends DataTest {
 
     @Mock
-    FormFactory           formFactory;
+    FormFactory               formFactory;
 
     @Mock
-    UserManagement        userManagement;
+    UserManagement            userManagement;
 
     @InjectMocks
-    AdviserPageController controller;
+    AdviserPageController     controller;
 
-    private DynamicForm   form;
+    public static Application app;
 
-    private Semester      semester;
-    private Adviser       firstAdviser;
-    private Adviser       secondAdviser;
-    private Project       project;
+    @Mock
+    private Http.Request      request;
+
+    @Mock
+    private RequestHeader     header;
+
+    private DynamicForm       form;
+
+    private Semester          semester;
+    private Adviser           firstAdviser;
+    private Adviser           secondAdviser;
+    private Project           project;
+
+    @BeforeClass
+    public static void startApp() {
+        app = Helpers.fakeApplication();
+        Helpers.start(app);
+    }
 
     @Override
     @Before
     public void before() {
         super.before();
 
-        firstAdviser = new Adviser();
-        firstAdviser.save();
+        MockitoAnnotations.initMocks(this);
 
+        Map<String, String> flashData = Collections.emptyMap();
+        Map<String, Object> flashObject = Collections.emptyMap();
+
+        Http.Context context = new Http.Context(0l, header, request, flashData,
+                flashData, flashObject);
+        Http.Context.current.set(context);
+
+        firstAdviser = new Adviser();
         firstAdviser.doTransaction(() -> {
             firstAdviser.setEmailAddress("testemail");
             firstAdviser.setFirstName("firstName");
@@ -92,17 +119,11 @@ public class AdviserPageControllerTest extends DataTest {
         project.refresh();
     }
 
-    // TODO ctx() mocken
-    @Ignore
     @Test
     public void addProjectTest() {
 
-        Context c = Mockito.mock(Context.class);
-        controller = Mockito.spy(AdviserPageController.class);
-
-        Mockito.when(controller.ctx()).thenReturn(c);
-
-        Mockito.when(userManagement.getUserProfile(c)).thenReturn(firstAdviser);
+        Mockito.when(userManagement.getUserProfile(Controller.ctx()))
+                .thenReturn(firstAdviser);
 
         controller.addProject();
 
@@ -118,5 +139,10 @@ public class AdviserPageControllerTest extends DataTest {
         assertEquals(newProject.getAdvisers().size(), 1);
         assertEquals(newProject.getAdvisers().get(0), firstAdviser);
 
+    }
+
+    @AfterClass
+    public static void stopApp() {
+        Helpers.stop(app);
     }
 }
