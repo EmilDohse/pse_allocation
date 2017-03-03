@@ -3,6 +3,7 @@ package controllers;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Date;
@@ -21,6 +22,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 import data.Achievement;
 import data.DataTest;
 import data.GeneralData;
+import data.SMTPOptions;
 import data.SPO;
 import data.Semester;
 import play.data.DynamicForm;
@@ -37,7 +39,8 @@ public class AdminPropertiesControllerTest extends DataTest {
 
     private DynamicForm       form;
 
-    private Semester          semester;
+    private Semester          firstSemester;
+    private Semester          secondSemester;
     private SPO               firstSpo;
     private SPO               secondSpo;
     private Achievement       firstAchievement;
@@ -49,7 +52,7 @@ public class AdminPropertiesControllerTest extends DataTest {
     public void before() {
         super.before();
 
-        semester = GeneralData.loadInstance().getCurrentSemester();
+        firstSemester = GeneralData.loadInstance().getCurrentSemester();
 
         firstAchievement = new Achievement();
         firstAchievement.save();
@@ -74,24 +77,28 @@ public class AdminPropertiesControllerTest extends DataTest {
             firstSpo.addNecessaryAchievement(thirdAchievement);
         });
 
-        secondSpo = new SPO();
+        secondSpo = new SPO("deleteSPO");
         secondSpo.save();
 
-        semester.doTransaction(() -> {
-            semester.setInfoText("testInfo");
-            semester.setMaxGroupSize(5);
-            semester.setName("testName");
-            semester.setRegistrationEnd(new Date(0));
-            semester.setRegistrationStart(new Date(0));
-            semester.setWintersemester(true);
-            semester.addSPO(firstSpo);
+        firstSemester.doTransaction(() -> {
+            firstSemester.setInfoText("testInfo");
+            firstSemester.setMaxGroupSize(5);
+            firstSemester.setName("testName");
+            firstSemester.setRegistrationEnd(new Date(0));
+            firstSemester.setRegistrationStart(new Date(0));
+            firstSemester.setWintersemester(true);
+            firstSemester.addSPO(firstSpo);
         });
+
+        secondSemester = new Semester("deleteSemester", true);
+        secondSemester.save();
 
         form = Mockito.mock(DynamicForm.class);
         Mockito.when(formFactory.form()).thenReturn(form);
         Mockito.when(form.bindFromRequest()).thenReturn(form);
 
-        semester.refresh();
+        firstSemester.refresh();
+        secondSemester.refresh();
         firstSpo.refresh();
         secondSpo.refresh();
         firstAchievement.refresh();
@@ -128,7 +135,7 @@ public class AdminPropertiesControllerTest extends DataTest {
 
         controller.addSemester();
 
-        assertEquals(Semester.getSemesters().size(), 2);
+        assertEquals(Semester.getSemesters().size(), 3);
 
         Semester newSemester = Semester.getSemester("newSemester");
 
@@ -189,12 +196,13 @@ public class AdminPropertiesControllerTest extends DataTest {
     public void editSemesterTest() {
 
         Map<String, String> map = new HashMap<>();
-        map.put("spo-multiselect-" + String.valueOf(semester.getId() + "1"),
+        map.put("spo-multiselect-"
+                + String.valueOf(firstSemester.getId() + "1"),
                 String.valueOf(secondSpo.getId()));
 
         Mockito.when(form.data()).thenReturn(map);
         Mockito.when(form.get("id")).thenReturn(
-                String.valueOf(semester.getId()));
+                String.valueOf(firstSemester.getId()));
         Mockito.when(form.get("name2")).thenReturn("semesterName");
         Mockito.when(form.get("maxGroupSize")).thenReturn("6");
         Mockito.when(form.get("info")).thenReturn("semesterInfo");
@@ -207,16 +215,83 @@ public class AdminPropertiesControllerTest extends DataTest {
 
         controller.editSemester();
 
-        semester.refresh();
+        firstSemester.refresh();
 
-        assertEquals(semester.getName(), "semesterName");
-        assertEquals(semester.getMaxGroupSize(), 6);
-        assertEquals(semester.getInfoText(), "semesterInfo");
-        assertFalse(semester.getRegistrationStart().getTime() == 0);
-        assertFalse(semester.getRegistrationEnd().getTime() == 0);
-        assertTrue(!semester.isWintersemester());
-        assertEquals(semester, GeneralData.loadInstance().getCurrentSemester());
-        assertEquals(semester.getSpos().size(), 1);
-        assertEquals(semester.getSpos().get(0), secondSpo);
+        assertEquals(firstSemester.getName(), "semesterName");
+        assertEquals(firstSemester.getMaxGroupSize(), 6);
+        assertEquals(firstSemester.getInfoText(), "semesterInfo");
+        assertFalse(firstSemester.getRegistrationStart().getTime() == 0);
+        assertFalse(firstSemester.getRegistrationEnd().getTime() == 0);
+        assertTrue(!firstSemester.isWintersemester());
+        assertEquals(firstSemester, GeneralData.loadInstance()
+                .getCurrentSemester());
+        assertEquals(firstSemester.getSpos().size(), 1);
+        assertEquals(firstSemester.getSpos().get(0), secondSpo);
+    }
+
+    @Test
+    public void editSMTPOptionsTest() {
+
+        Map<String, String> map = new HashMap<>();
+        map.put("1", "1");
+
+        Mockito.when(form.data()).thenReturn(map);
+        Mockito.when(form.get("ssl")).thenReturn("NotNull");
+        Mockito.when(form.get("tls")).thenReturn(null);
+        Mockito.when(form.get("debug")).thenReturn("NotNull");
+        Mockito.when(form.get("port")).thenReturn("5000");
+        Mockito.when(form.get("connectionTimeOut")).thenReturn("1000");
+        Mockito.when(form.get("timeout")).thenReturn("500");
+        Mockito.when(form.get("host")).thenReturn("testHost");
+        Mockito.when(form.get("mail")).thenReturn("testMail");
+        Mockito.when(form.get("username")).thenReturn("testName");
+        Mockito.when(form.get("password")).thenReturn("password");
+
+        controller.editSMTPOptions();
+
+        SMTPOptions options = SMTPOptions.getInstance();
+
+        assertEquals(options.getSsl(), true);
+        assertEquals(options.getTls(), false);
+        assertEquals(options.getDebug(), true);
+        assertEquals(options.getPort(), 5000);
+        assertEquals(options.getConnectionTimeout(), 1000);
+        assertEquals(options.getTimeout(), 500);
+        assertEquals(options.getHost(), "testHost");
+        assertEquals(options.getMailFrom(), "testMail");
+        assertEquals(options.getUsername(), "testName");
+        assertEquals(options.getPassword(), "password");
+    }
+
+    @Test
+    public void removeSemesterTest() {
+
+        Map<String, String> map = new HashMap<>();
+        map.put("1", "1");
+
+        Mockito.when(form.data()).thenReturn(map);
+        Mockito.when(form.get("id")).thenReturn(
+                String.valueOf(secondSemester.getId()));
+
+        controller.removeSemester();
+
+        assertEquals(Semester.getSemesters().size(), 1);
+        assertNull(Semester.getSemester("deleteSemester"));
+    }
+
+    @Test
+    public void removeSPOTest() {
+
+        Map<String, String> map = new HashMap<>();
+        map.put("1", "1");
+
+        Mockito.when(form.data()).thenReturn(map);
+        Mockito.when(form.get("id")).thenReturn(
+                String.valueOf(secondSpo.getId()));
+
+        controller.removeSPO();
+
+        assertEquals(SPO.getSPOs().size(), 1);
+        assertNull(SPO.getSPO("deleteSPO"));
     }
 }
