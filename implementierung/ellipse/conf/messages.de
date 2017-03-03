@@ -277,7 +277,7 @@ importer.missingStudent = Einer der angegebenen Studenten existiert nicht
 importer.missingSPO = Eine der angegebenen SPOs existiert nicht
 importer.wrongTeamNumber = Eine der angegebenen Teamnummern kann nicht verwendet werden
 
-error.activeSemester.changeNotAllowed = Das aktuelle Semester darf nur außerhalb der Registrationszeit von Studenten geändert werden.
+error.activeSemester.changeNotAllowed = Das aktuelle Semester darf nur außerhalb der Registrationszeit von Studenten geändert werden. Die Liste dder Einteilungsberechnungen muss leer sein.
 error.semester.deletedConcurrently = Das Semester wurde gelöscht
 error.undoStackEmpty = Der Undo-Stack ist leer
 error.allocation.deletedConcurrently = Die Einteilung wurde gelöscht
