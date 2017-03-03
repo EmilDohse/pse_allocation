@@ -68,6 +68,7 @@ public class ControllerTest extends DataTest {
     @Override
     @After
     public void after() {
+        super.after();
         Helpers.stop(app);
     }
 }
