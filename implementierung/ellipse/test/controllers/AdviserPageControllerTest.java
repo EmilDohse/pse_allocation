@@ -6,15 +6,13 @@ import static org.junit.Assert.assertNotNull;
 import java.util.Collections;
 import java.util.Map;
 
-import org.junit.AfterClass;
+import org.junit.After;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import data.Adviser;
@@ -35,41 +33,37 @@ import security.UserManagement;
 public class AdviserPageControllerTest extends DataTest {
 
     @Mock
-    FormFactory               formFactory;
+    FormFactory           formFactory;
 
     @Mock
-    UserManagement            userManagement;
+    UserManagement        userManagement;
 
     @InjectMocks
-    AdviserPageController     controller;
+    AdviserPageController controller;
 
-    public static Application app;
+    private Http.Request  request;
 
-    @Mock
-    private Http.Request      request;
+    private RequestHeader header;
 
-    @Mock
-    private RequestHeader     header;
+    private Application   app;
 
-    private DynamicForm       form;
+    private DynamicForm   form;
 
-    private Semester          semester;
-    private Adviser           firstAdviser;
-    private Adviser           secondAdviser;
-    private Project           project;
-
-    @BeforeClass
-    public static void startApp() {
-        app = Helpers.fakeApplication();
-        Helpers.start(app);
-    }
+    private Semester      semester;
+    private Adviser       firstAdviser;
+    private Adviser       secondAdviser;
+    private Project       project;
 
     @Override
     @Before
     public void before() {
+        app = Helpers.fakeApplication();
+        Helpers.start(app);
+
         super.before();
 
-        MockitoAnnotations.initMocks(this);
+        request = Mockito.mock(Http.Request.class);
+        header = Mockito.mock(RequestHeader.class);
 
         Map<String, String> flashData = Collections.emptyMap();
         Map<String, Object> flashObject = Collections.emptyMap();
@@ -141,8 +135,9 @@ public class AdviserPageControllerTest extends DataTest {
 
     }
 
-    @AfterClass
-    public static void stopApp() {
+    @Override
+    @After
+    public void after() {
         Helpers.stop(app);
     }
 }
