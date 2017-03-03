@@ -7,36 +7,22 @@ import static org.junit.Assert.assertTrue;
 import java.util.HashMap;
 import java.util.Map;
 
-import notificationSystem.Notifier;
-
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.runners.MockitoJUnitRunner;
 
-import play.data.DynamicForm;
-import play.data.FormFactory;
 import data.Adviser;
-import data.DataTest;
 import data.ElipseModel;
 import data.GeneralData;
 import data.Project;
 import data.Semester;
 
-@RunWith(MockitoJUnitRunner.class)
-public class AdminProjectControllerTest extends DataTest {
-
-    @Mock
-    FormFactory            formFactory;
+public class AdminProjectControllerTest extends ControllerTest {
 
     @InjectMocks
     AdminProjectController controller;
-
-    private DynamicForm    form;
 
     private Project        project;
     private Adviser        firstAdviser;
@@ -71,10 +57,6 @@ public class AdminProjectControllerTest extends DataTest {
         semester.doTransaction(() -> {
             semester.addProject(project);
         });
-
-        form = Mockito.mock(DynamicForm.class);
-        Mockito.when(formFactory.form()).thenReturn(form);
-        Mockito.when(form.bindFromRequest()).thenReturn(form);
 
         project.refresh();
         firstAdviser.refresh();

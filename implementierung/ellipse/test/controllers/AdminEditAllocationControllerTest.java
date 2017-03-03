@@ -16,40 +16,26 @@ import org.apache.commons.mail.EmailException;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.internal.verification.Calls;
-import org.mockito.runners.MockitoJUnitRunner;
-
-import com.avaje.ebean.EbeanServer;
 
 import controllers.AdminEditAllocationController;
 import data.Allocation;
 import data.AllocationParameter;
-import data.DataTest;
 import data.ElipseModel;
 import data.GeneralData;
 import data.Semester;
 import data.Student;
 import data.Team;
-import play.data.DynamicForm;
-import play.data.FormFactory;
 
-@RunWith(MockitoJUnitRunner.class)
-public class AdminEditAllocationControllerTest extends DataTest {
-
-    @Mock
-    FormFactory                   formFactory;
+public class AdminEditAllocationControllerTest extends ControllerTest {
 
     @Mock
     Notifier                      notifier;
 
     @InjectMocks
     AdminEditAllocationController controller;
-
-    private DynamicForm           form;
 
     private Allocation            allocation;
     private Team                  firstTeam;
@@ -110,10 +96,6 @@ public class AdminEditAllocationControllerTest extends DataTest {
         semester.doTransaction(() -> {
             semester.addAllocation(allocation);
         });
-
-        form = Mockito.mock(DynamicForm.class);
-        Mockito.when(formFactory.form()).thenReturn(form);
-        Mockito.when(form.bindFromRequest()).thenReturn(form);
 
         allocation.refresh();
         firstTeam.refresh();

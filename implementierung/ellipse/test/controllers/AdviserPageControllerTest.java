@@ -26,28 +26,17 @@ import play.data.DynamicForm;
 import play.data.FormFactory;
 import play.mvc.Controller;
 import play.mvc.Http;
+import play.mvc.Http.Context;
 import play.test.Helpers;
 import security.UserManagement;
 
-@RunWith(MockitoJUnitRunner.class)
-public class AdviserPageControllerTest extends DataTest {
-
-    @Mock
-    FormFactory           formFactory;
+public class AdviserPageControllerTest extends ControllerTest {
 
     @Mock
     UserManagement        userManagement;
 
     @InjectMocks
     AdviserPageController controller;
-
-    private Http.Request  request;
-
-    private RequestHeader header;
-
-    private Application   app;
-
-    private DynamicForm   form;
 
     private Semester      semester;
     private Adviser       firstAdviser;
@@ -57,20 +46,8 @@ public class AdviserPageControllerTest extends DataTest {
     @Override
     @Before
     public void before() {
-        app = Helpers.fakeApplication();
-        Helpers.start(app);
 
         super.before();
-
-        request = Mockito.mock(Http.Request.class);
-        header = Mockito.mock(RequestHeader.class);
-
-        Map<String, String> flashData = Collections.emptyMap();
-        Map<String, Object> flashObject = Collections.emptyMap();
-
-        Http.Context context = new Http.Context(0l, header, request, flashData,
-                flashData, flashObject);
-        Http.Context.current.set(context);
 
         firstAdviser = new Adviser();
         firstAdviser.doTransaction(() -> {
@@ -103,10 +80,6 @@ public class AdviserPageControllerTest extends DataTest {
             semester.addProject(project);
         });
 
-        form = Mockito.mock(DynamicForm.class);
-        Mockito.when(formFactory.form()).thenReturn(form);
-        Mockito.when(form.bindFromRequest()).thenReturn(form);
-
         semester.refresh();
         firstAdviser.refresh();
         secondAdviser.refresh();
@@ -116,7 +89,7 @@ public class AdviserPageControllerTest extends DataTest {
     @Test
     public void addProjectTest() {
 
-        Mockito.when(userManagement.getUserProfile(Controller.ctx()))
+        Mockito.when(userManagement.getUserProfile(Mockito.any(Context.class)))
                 .thenReturn(firstAdviser);
 
         controller.addProject();
@@ -133,11 +106,5 @@ public class AdviserPageControllerTest extends DataTest {
         assertEquals(newProject.getAdvisers().size(), 1);
         assertEquals(newProject.getAdvisers().get(0), firstAdviser);
 
-    }
-
-    @Override
-    @After
-    public void after() {
-        Helpers.stop(app);
     }
 }
