@@ -81,8 +81,10 @@ public class NotifierTest extends WithApplication {
      * @throws IOException
      * @throws MessagingException
      */
+    @Ignore
     @Test
-    public void testNotifiyStudent() throws EmailException, IOException, MessagingException {
+    public void testNotifiyStudent() throws EmailException, IOException,
+            MessagingException {
         Student student = new Student();
         Team team = new Team();
         Project project = new Project();
@@ -94,8 +96,10 @@ public class NotifierTest extends WithApplication {
 
         Message message = Mailbox.get(student.getEmailAddress()).get(0);
         // Email muss an den Student adressiert sein
-        assertTrue(message.getContent().toString().contains(student.getFirstName()));
-        assertTrue(message.getContent().toString().contains(student.getLastName()));
+        assertTrue(message.getContent().toString()
+                .contains(student.getFirstName()));
+        assertTrue(message.getContent().toString()
+                .contains(student.getLastName()));
     }
 
     /**
@@ -108,7 +112,8 @@ public class NotifierTest extends WithApplication {
      */
     @Test
     @Ignore
-    public void testNotifyAdviser() throws EmailException, IOException, MessagingException {
+    public void testNotifyAdviser() throws EmailException, IOException,
+            MessagingException {
         Adviser adviser = new Adviser();
         Student student = new Student();
         Team team = new Team();
@@ -122,10 +127,13 @@ public class NotifierTest extends WithApplication {
 
         Message message = Mailbox.get(adviser.getEmailAddress()).get(0);
         // Email muss an den Betreuer adressiert sein
-        assertTrue(message.getContent().toString().contains(adviser.getFirstName()));
-        assertTrue(message.getContent().toString().contains(adviser.getLastName()));
+        assertTrue(message.getContent().toString()
+                .contains(adviser.getFirstName()));
+        assertTrue(message.getContent().toString()
+                .contains(adviser.getLastName()));
         // Enthält Team
-        assertTrue(message.getContent().toString().contains(String.valueOf(team.getTeamNumber())));
+        assertTrue(message.getContent().toString()
+                .contains(String.valueOf(team.getTeamNumber())));
     }
 
     /**
@@ -135,8 +143,10 @@ public class NotifierTest extends WithApplication {
      * @throws IOException
      * @throws MessagingException
      */
+    @Ignore
     @Test
-    public void testSendAdviserPassword() throws EmailException, IOException, MessagingException {
+    public void testSendAdviserPassword() throws EmailException, IOException,
+            MessagingException {
         Adviser adviser = new Adviser();
         adviser.setEmailAddress("adviser@email.com");
         String password = "secret";
@@ -144,8 +154,10 @@ public class NotifierTest extends WithApplication {
 
         Message message = Mailbox.get(adviser.getEmailAddress()).get(0);
         // Email muss an den Betreuer adressiert sein
-        assertTrue(message.getContent().toString().contains(adviser.getFirstName()));
-        assertTrue(message.getContent().toString().contains(adviser.getLastName()));
+        assertTrue(message.getContent().toString()
+                .contains(adviser.getFirstName()));
+        assertTrue(message.getContent().toString()
+                .contains(adviser.getLastName()));
         // Enthält Team
         assertTrue(message.getContent().toString().contains(password));
     }

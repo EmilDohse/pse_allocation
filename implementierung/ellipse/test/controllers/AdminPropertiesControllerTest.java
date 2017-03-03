@@ -13,31 +13,19 @@ import java.util.Map;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.runners.MockitoJUnitRunner;
 
 import data.Achievement;
-import data.DataTest;
 import data.GeneralData;
 import data.SMTPOptions;
 import data.SPO;
 import data.Semester;
-import play.data.DynamicForm;
-import play.data.FormFactory;
 
-@RunWith(MockitoJUnitRunner.class)
-public class AdminPropertiesControllerTest extends DataTest {
-
-    @Mock
-    FormFactory               formFactory;
+public class AdminPropertiesControllerTest extends ControllerTest {
 
     @InjectMocks
     AdminPropertiesController controller;
-
-    private DynamicForm       form;
 
     private Semester          firstSemester;
     private Semester          secondSemester;
@@ -92,10 +80,6 @@ public class AdminPropertiesControllerTest extends DataTest {
 
         secondSemester = new Semester("deleteSemester", true);
         secondSemester.save();
-
-        form = Mockito.mock(DynamicForm.class);
-        Mockito.when(formFactory.form()).thenReturn(form);
-        Mockito.when(form.bindFromRequest()).thenReturn(form);
 
         firstSemester.refresh();
         secondSemester.refresh();
