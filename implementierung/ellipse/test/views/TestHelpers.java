@@ -11,6 +11,7 @@ import data.Adviser;
 import data.Allocation;
 import data.ElipseModel;
 import data.GeneralData;
+import data.LearningGroup;
 import data.Project;
 import data.SPO;
 import data.Semester;
@@ -135,6 +136,34 @@ public class TestHelpers {
             semester.doTransaction(() -> {
                 semester.addStudent(student);
             });
+        });
+    }
+
+    public static void createStudent(int matrnr, String password) {
+        Semester semester = GeneralData.loadInstance().getCurrentSemester();
+        Student student = new Student();
+        student.save();
+        student.doTransaction(() -> {
+            student.setFirstName("StudentFirstName");
+            student.setLastName("StudentLastName");
+            student.setMatriculationNumber(matrnr);
+            student.savePassword(password);
+            student.setUserName(Integer.toString(matrnr));
+        });
+        semester.doTransaction(() -> {
+            semester.addStudent(student);
+        });
+
+        LearningGroup l = new LearningGroup(student.getUserName(), "");
+        l.save();
+        l.doTransaction(() -> {
+            l.addMember(student);
+            l.setPrivate(true);
+            // Ratings initialisieren
+            for (Project p : GeneralData.loadInstance().getCurrentSemester()
+                    .getProjects()) {
+                l.rate(p, 3);
+            }
         });
     }
 

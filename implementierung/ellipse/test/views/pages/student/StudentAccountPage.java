@@ -1,13 +1,13 @@
-package views.pages.adviser;
+package views.pages.student;
 
 import play.test.TestBrowser;
 import views.pages.Page;
 
-public class AdviserAccountPage extends Page {
+public class StudentAccountPage extends Page {
 
     @Override
     public String getUrl() {
-        return "/adviser/account";
+        return "/student/account";
     }
 
     public void fillAndSubmitChangePwForm(TestBrowser browser, String oldPw,
@@ -22,5 +22,9 @@ public class AdviserAccountPage extends Page {
             String email) {
         browser.$("#newEmail").first().fill().with(email);
         browser.$("#submit_emailChange").first().click();
+    }
+
+    public void clickReverify(TestBrowser browser) {
+        browser.$("#submit_reverify").first().click();
     }
 }

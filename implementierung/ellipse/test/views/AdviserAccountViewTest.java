@@ -12,11 +12,8 @@ import data.GeneralData;
 import data.Student;
 
 import java.util.List;
-import views.pages.admin.AdminAccountPage;
-import views.pages.admin.AdminProjectsPage;
 import views.pages.adviser.AdviserAccountPage;
 import views.pages.adviser.AdviserProjectsPage;
-import views.pages.index.IndexInformationPage;
 
 import static org.junit.Assert.*;
 
