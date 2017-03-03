@@ -13,6 +13,8 @@ import java.util.List;
 
 import com.google.inject.Inject;
 
+import allocation.AbstractAllocator;
+import allocation.AllocationQueue;
 import data.Achievement;
 import data.ElipseModel;
 import data.GeneralData;
@@ -244,7 +246,10 @@ public class AdminPropertiesController extends Controller {
                 // überprüfungen ob das aktuelle semester aktiv gesetzt werden
                 // darf (wenn es nicht aktiv war)
                 if (!semester.equals(GeneralData.loadInstance().getCurrentSemester()) && semesterActive != null) {
-                    if (StateStorage.getInstance().getCurrentState() == StateStorage.State.REGISTRATION_PHASE) {
+                    // wenn im moment studenten bewertungen abgeben können oder
+                    // die allocation queue nicht leer ist -> nicht möglich
+                    if (StateStorage.getInstance().getCurrentState() == StateStorage.State.REGISTRATION_PHASE
+                            || !AllocationQueue.getInstance().getQueue().isEmpty()) {
                         flash(ERROR, ctx().messages().at("error.activeSemester.changeNotAllowed"));
                         return redirect(controllers.routes.AdminPageController.propertiesPage());
                     }

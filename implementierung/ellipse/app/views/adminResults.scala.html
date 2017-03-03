@@ -3,25 +3,30 @@ Dafür wird eine Liste an Einteilungen benötigt und die Liste an
 verfügbaren * Qualitätskriterien. Zusätzlich kann eine Fehlermeldung
 übergeben werden. *@ @(allocations: List[data.Allocation], criteria:
 List[qualityCriteria.QualityCriterion])
+<script type="text/javascript"
+	src='@routes.Assets.versioned("javascripts/tabSave.js")'></script>
 <div>
 	<h1>@Messages("admin.sidebar.results")</h1>
 	<!-- Nav tabs -->
 	<script type="text/javascript">
 		$(function() {
-			$('#allocation-tabs a:first').tab('show');
+			loadTab('allocation-tabs');
+			$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+				saveTab($(e.target).parent().parent().attr('id'), $(e.target).attr('id'));
+			});
 		});
-		$('#allocation-tabs a').click(function(e) {
-			e.preventDefault();
-			$(this).tab('show');
-		})
 	</script>
 	<ul class="nav nav-tabs" role="tablist" id="allocation-tabs">
 		@for(allocation <- allocations) {
-		<li role="presentation"><a id="allocation-tab-@allocation.getId()" href="#allocation-@allocation.getId()"
-			aria-controls="allocation-@allocation.getId()" role="tab" data-toggle="tab">@allocation.getName()</a></li>
-		}
-		<li role="presentation"><a href="#comparison" id="allocation-tab-comparison"
-			aria-controls="allocation-tab-comparison" role="tab" data-toggle="tab">@Messages("admin.results.comparison")</a></li>
+		<li role="presentation"><a
+			id="allocation-tab-@allocation.getId()"
+			href="#allocation-@allocation.getId()"
+			aria-controls="allocation-@allocation.getId()" role="tab"
+			data-toggle="tab">@allocation.getName()</a></li> }
+		<li role="presentation"><a href="#comparison"
+			id="allocation-tab-comparison"
+			aria-controls="allocation-tab-comparison" role="tab"
+			data-toggle="tab">@Messages("admin.results.comparison")</a></li>
 	</ul>
 
 	<!-- Tab panes -->
@@ -33,8 +38,7 @@ List[qualityCriteria.QualityCriterion])
 			<div class="row">
 				<form method="POST"
 					action="@controllers.routes.AdminEditAllocationController.editAllocation().path()">
-					@helper.CSRF.formField
-					<input type="hidden" name="allocationID"
+					@helper.CSRF.formField <input type="hidden" name="allocationID"
 						value="@allocation.getId()">
 					<div class="col-sm-6 col-md-6">
 						@for(team <- allocation.getTeams()) {
@@ -50,7 +54,8 @@ List[qualityCriteria.QualityCriterion])
 								@for(member <- team.getMembers()) {
 								<tr>
 									<td><input type="checkbox" name="selected-students[]"
-										value="@member.getId()" id="@allocation.getId()_@member.getId()"></td>
+										value="@member.getId()"
+										id="@allocation.getId()_@member.getId()"></td>
 									<td>@member.getName()</td>
 								</tr>
 								}
@@ -68,7 +73,8 @@ List[qualityCriteria.QualityCriterion])
 								@for(student <- allocation.getNotAllocatedStudents()) {
 								<tr>
 									<td><input type="checkbox" name="selected-students[]"
-										value="@student.getId()" id="@allocation.getId()_@student.getId()"></td>
+										value="@student.getId()"
+										id="@allocation.getId()_@student.getId()"></td>
 									<td>@student.getName()</td>
 								</tr>
 								}
@@ -77,10 +83,12 @@ List[qualityCriteria.QualityCriterion])
 					</div>
 					<div class="col-sm-6 col-md-6">
 						<div class="form-group">
-							<label class="control-label col-sm-1" for="project-selection-@allocation.getId()">@Messages("admin.results.to")</label>
+							<label class="control-label col-sm-1"
+								for="project-selection-@allocation.getId()">@Messages("admin.results.to")</label>
 							<div class="col-sm-3">
-								<select name="project-selection" id="project-selection-@allocation.getId()">
-									@for(team <- allocation.getTeams()) {
+								<select name="project-selection"
+									id="project-selection-@allocation.getId()"> @for(team
+									<- allocation.getTeams()) {
 									<option value="@team.getId()">@team.getProject().getName()
 										- Team #@team.getTeamNumber()</option> }
 									<option value="-1">@Messages("admin.results.teamNonAllocatedStudents")</option>
@@ -103,48 +111,49 @@ List[qualityCriteria.QualityCriterion])
 					<form
 						action="@controllers.routes.AdminEditAllocationController.undoAllocationEdit().path()"
 						method="POST">
-						@helper.CSRF.formField
-						<input type="hidden" name="allocationID"
+						@helper.CSRF.formField <input type="hidden" name="allocationID"
 							value="@allocation.getId()">
 						<div class="form-group">
 							<div class="col-sm-10">
-								<button type="submit" name="remove" id="undo_submit_@allocation.getId()" class="btn btn-primary">@Messages("admin.results.undoChange")</button>
+								<button type="submit" name="remove"
+									id="undo_submit_@allocation.getId()" class="btn btn-primary">@Messages("admin.results.undoChange")</button>
 							</div>
 						</div>
 					</form>
 					<form
 						action="@controllers.routes.AdminEditAllocationController.removeAllocation().path()"
 						method="POST">
-						@helper.CSRF.formField
-						<input type="hidden" name="allocationID"
+						@helper.CSRF.formField <input type="hidden" name="allocationID"
 							value="@allocation.getId()">
 						<div class="form-group">
 							<div class="col-sm-10">
-								<button type="submit" name="remove" id="remove_submit_@allocation.getId()" class="btn btn-danger">@Messages("admin.results.removeAllocation")</button>
+								<button type="submit" name="remove"
+									id="remove_submit_@allocation.getId()" class="btn btn-danger">@Messages("admin.results.removeAllocation")</button>
 							</div>
 						</div>
 					</form>
 					<form
 						action="@controllers.routes.AdminEditAllocationController.duplicateAllocation().path()"
 						method="POST">
-						@helper.CSRF.formField
-						<input type="hidden" name="allocationID"
+						@helper.CSRF.formField <input type="hidden" name="allocationID"
 							value="@allocation.getId()">
 						<div class="form-group">
 							<div class="col-sm-10">
-								<button type="submit" name="duplicate" id="dublicate_submit_@allocation.getId()" class="btn btn-warning">@Messages("admin.results.duplicateAllocation")</button>
+								<button type="submit" name="duplicate"
+									id="dublicate_submit_@allocation.getId()"
+									class="btn btn-warning">@Messages("admin.results.duplicateAllocation")</button>
 							</div>
 						</div>
 					</form>
 					<form
 						action="@controllers.routes.AdminEditAllocationController.publishAllocation().path()"
 						method="POST">
-						@helper.CSRF.formField
-						<input type="hidden" name="allocationID"
+						@helper.CSRF.formField <input type="hidden" name="allocationID"
 							value="@allocation.getId()">
 						<div class="form-group">
 							<div class="col-sm-10">
-								<button type="submit" name="publish" id="publish_submit_@allocation.getId()" class="btn btn-success">@Messages("admin.results.publishAllocation")</button>
+								<button type="submit" name="publish"
+									id="publish_submit_@allocation.getId()" class="btn btn-success">@Messages("admin.results.publishAllocation")</button>
 							</div>
 						</div>
 					</form>
@@ -190,7 +199,7 @@ List[qualityCriteria.QualityCriterion])
 											<a role="button" data-toggle="collapse"
 												data-parent="#accordion" href="#collapse-@alloc.getId()"
 												aria-expanded="true" aria-controls="collapse-@alloc.getId()">
-													@Messages("admin.results.usedParameters")</a>
+												@Messages("admin.results.usedParameters")</a>
 										</h5>
 									</div>
 									<div id="collapse-@alloc.getId()"
