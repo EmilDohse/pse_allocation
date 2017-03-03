@@ -8,7 +8,7 @@ function setCookie() {
   value = escape(value); // URL-Codierung
   // Zusammensetzen des Cookies
   var c = name + "=" + escape(value);
-    c += "; expires=" + ((new Date()).getTime() + 3600000).toGMTString();
+    c += "; expires=" + new Date($.now() + 3600000).toGMTString();
     c += "; path=/";
 
   // Cookie setzen
@@ -44,7 +44,7 @@ function parseCollection() {
    for (var i=0; i<temp.length; i+=2) {
      c[temp[i]] = temp[i+1];
    }
-   // Array zur�ckgeben
+   // Array zurückgeben
    return c;
 }
 
@@ -66,4 +66,17 @@ function set(name, wert) {
    var c = parseCollection();
    c[name] = wert;
    saveCollection(c);
+}
+
+function loadTab(name) {
+	var value = read(name);
+	if(value) {
+		$('#' + value).tab('show');
+	} else {
+		$('#' + name +  ' a:first').tab('show');
+	}
+}
+
+function saveTab(name, value) {
+	set(name, value);
 }
