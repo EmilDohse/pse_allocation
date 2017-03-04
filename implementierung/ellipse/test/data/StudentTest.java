@@ -175,4 +175,31 @@ public class StudentTest extends DataTest {
         assertEquals(2, Student.getStudents().size());
         assertEquals(one, Student.getStudent(1));
     }
+
+    @Test
+    public void testToStringForNotification() {
+        Student s = new Student();
+        s.setFirstName("f");
+        s.setLastName("l");
+        s.setSemester(1);
+        assertEquals(s.toStringForNotification(), "f l, 1");
+    }
+
+    @Test
+    public void compareToTest() {
+
+        Student s1 = new Student();
+        s1.setFirstName("abc");
+        s1.setLastName("abc");
+        Student s2 = new Student();
+        s2.setFirstName("abc");
+        s2.setLastName("test");
+        Student s3 = new Student();
+        s3.setFirstName("test");
+        s3.setLastName("abc");
+
+        assertEquals(s1.compareTo(s1), 0);
+        assertTrue(s1.compareTo(s2) < 0);
+        assertTrue(s3.compareTo(s1) > 0);
+    }
 }

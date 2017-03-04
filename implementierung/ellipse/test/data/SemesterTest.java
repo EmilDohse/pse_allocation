@@ -1,6 +1,7 @@
 package data;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
@@ -259,5 +260,31 @@ public class SemesterTest extends DataTest {
         two.save();
         assertEquals(2, Semester.getSemesters().size());
         assertEquals(one, Semester.getSemester("one"));
+    }
+
+    @Test
+    public void testCompareTo() {
+
+        Semester s1 = new Semester();
+        s1.setName("abc");
+        Semester s2 = new Semester();
+        s2.setName("test");
+        assertEquals(s1.compareTo(s1), 0);
+        assertTrue(s1.compareTo(s2) < 0);
+        assertTrue(s2.compareTo(s1) > 0);
+    }
+
+    @Test
+    public void testEquals() {
+
+        Semester s = new Semester();
+        s.save();
+
+        Project p = new Project();
+        p.save();
+
+        assertTrue(s.equals(s));
+        assertFalse(s.equals(p));
+        assertFalse(s.equals(null));
     }
 }

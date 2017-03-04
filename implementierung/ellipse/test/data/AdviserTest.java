@@ -118,4 +118,22 @@ public class AdviserTest extends DataTest {
         two.save();
         assertEquals(2, Adviser.getAdvisers().size());
     }
+
+    @Test
+    public void compareToTest() {
+
+        Adviser a1 = new Adviser();
+        a1.setFirstName("abc");
+        a1.setLastName("abc");
+        Adviser a2 = new Adviser();
+        a2.setFirstName("abc");
+        a2.setLastName("test");
+        Adviser a3 = new Adviser();
+        a3.setFirstName("test");
+        a3.setLastName("abc");
+
+        assertEquals(a1.compareTo(a1), 0);
+        assertTrue(a1.compareTo(a2) < 0);
+        assertTrue(a3.compareTo(a1) > 0);
+    }
 }
