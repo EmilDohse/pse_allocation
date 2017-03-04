@@ -97,7 +97,8 @@ public class GeneralAdminControllerTest extends ControllerTest {
             admin.setEmailAddress("testemail");
             admin.setFirstName("testName");
             admin.setLastName("testName");
-            admin.setPassword("password");
+            admin.setPassword((new BlowfishPasswordEncoder())
+                    .encode("password"));
             admin.setUserName("admin");
         });
 
@@ -193,7 +194,7 @@ public class GeneralAdminControllerTest extends ControllerTest {
         assertEquals(lg.getRating(project), 3);
     }
 
-    // TODO invalid salt version + flash()
+    // TODO flash()
     @Ignore
     @Test
     public void editAccountTest() {
@@ -210,14 +211,14 @@ public class GeneralAdminControllerTest extends ControllerTest {
 
         Mockito.when(form.get("passwordChange")).thenReturn("NotNull");
         Mockito.when(form.get("oldPassword")).thenReturn("password");
-        Mockito.when(form.get("newPassword")).thenReturn("password");
-        Mockito.when(form.get("newPasswordRepeat")).thenReturn("password");
+        Mockito.when(form.get("newPassword")).thenReturn("newpassword");
+        Mockito.when(form.get("newPasswordRepeat")).thenReturn("newpassword");
 
         controller.editAccount();
 
         admin.refresh();
 
-        assertTrue((new BlowfishPasswordEncoder()).matches("password",
+        assertTrue((new BlowfishPasswordEncoder()).matches("newpassword",
                 admin.getPassword()));
     }
 
