@@ -83,4 +83,27 @@ public class TeamTest extends DataTest {
         assertEquals(team.getAdvisers().size(), 1);
         assertTrue(team.getAdvisers().contains(adviser));
     }
+
+    @Test
+    public void allocationTest() {
+
+        Allocation a = new Allocation();
+        a.save();
+        team.setAllocation(a);
+        assertEquals(team.getAllocation(), a);
+    }
+
+    @Test
+    public void toStringForNotificationTest() {
+
+        team.setTeamNumber(1);
+
+        Student s = new Student();
+        s.setFirstName("f");
+        s.setLastName("l");
+        s.setSemester(1);
+        team.addMember(s);
+
+        assertEquals(team.toStringForNotification(), "1:\nf l, 1\n");
+    }
 }

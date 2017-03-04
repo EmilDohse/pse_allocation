@@ -42,4 +42,13 @@ public class RatingTest extends DataTest {
         rating.setProject(p);
         assertEquals(p, rating.getProject());
     }
+
+    @Test
+    public void testLearningGroup() {
+        LearningGroup lg = new LearningGroup();
+        lg.save();
+        rating.setLearningGroup(lg);
+        assertEquals(rating.getLearningGroup(), lg);
+
+    }
 }

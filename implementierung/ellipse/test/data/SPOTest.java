@@ -96,4 +96,13 @@ public class SPOTest extends DataTest {
         assertEquals(one, SPO.getSPO("one"));
     }
 
+    @Test
+    public void testCompareTo() {
+        SPO spo1 = new SPO("test");
+        SPO spo2 = new SPO("abc");
+        assertEquals(spo1.compareTo(spo1), 0);
+        assertTrue(spo1.compareTo(spo2) > 0);
+        assertTrue(spo2.compareTo(spo1) < 0);
+    }
+
 }
