@@ -1,0 +1,95 @@
+%%This is a very basic article template.
+%%There is just one section and two subsections.
+\documentclass[parskip=full]{scrartcl}
+\usepackage[table]{xcolor}
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{mathtools}
+\usepackage{studarbeit}
+\usepackage{graphicx}
+\usepackage{wrapfig}
+\usepackage{lscape}
+\usepackage{rotating}
+\usepackage{epstopdf}
+\usepackage{pdfpages}
+\usepackage{caption, booktabs}
+\usepackage{tabularx}
+\usepackage{multirow}
+\usepackage{here}
+\usepackage[most]{tcolorbox}
+\usepackage[binary-units=true]{siunitx}
+ \usepackage[autostyle=true,german=quotes]{csquotes}
+ \usepackage{longtable, booktabs}
+ \newcommand{\swtLabel}[1]{\textbf{/#1\arabic*0/}}
+ \renewcommand{\labelitemii}{~}
+ %\renewcommand{\labelitemi}{~}
+ \newcommand{\fehler}[4]{\textbf{#1}
+ 							\begin{itemize}
+ 							  \item \textbf{Synthom}  #2
+ 							  \item \textbf{Grund} #3
+ 							  \item \textbf{Behandlung} #4
+ 							\end{itemize}}
+ 	\newcommand{\verbesserung}[3]{\textbf{#1}
+ 							\begin{itemize}
+ 							  
+ 							  \item \textbf{Grund} #2
+ 							  \item \textbf{Behandlung} #3
+ 							\end{itemize}}
+ 							
+  \newcommand{\code}[1]{{\ttfamily #1}}
+ \begin{document}
+
+\title{Elipse -- Einteilungs Interface für das PSE}
+\author{D. Biester, E. Dohse, P. Faller, P. Loth, L. Seufert, S. Kopmann}
+\thesistype{Testbericht}
+\zweitgutachter{}
+\betreuer{Dipl.-Inform.~Andreas~Zwinkau, M.Sc.~Andreas~Fried}
+\coverimage{ElipseLogo.png}
+\mytitlepage
+{\setlength{\textheight}{297mm}
+\tableofcontents
+
+\setlength{\textheight}{297mm}}
+\pagebreak
+
+\section{Einleitung}
+Nachdem in Planungs-, Entwurfs- und Implementierungsphase das Produkt
+beschrieben, entworfen und implementiert wurde ist die Qualitätssicherungsphase
+dazu da, das Produkt zu Testen und die Benutzbarkeit, Zuverlässigkeit, 
+Sicherheit und Performanz zu verbessern. Im folgenden Dokument werden die
+behobenen Fehler sowie sonstige Verbesserungen festgehalten.
+
+\section{Behobene Fehler}
+\subsection{Concurrency}
+\begin{itemize}
+  \item \fehler{Projektbetreuer löschen und: Projektbetreuer zu Projekt
+  hinzufügen}{Wenn der Administrator einen Projektbetreuer in einem Tab seines Browsers löscht, in einem weiteren
+  Tab jedoch noch ein Projekt bearbeitet wird der Betreuer in diesem Tab
+  noch angezeigt. Wenn der Betreuer zu dem Projekt hinzugefügt werden soll und
+  das Projekt gespeichert wird kommt es zu einer
+  \code{null}-Pointer-Exception.}{Da das andere Tab nicht neu geladen wird wird
+  der Betreuer hier noch angezeigt, existiert jedoch nicht mehr. }{In der
+  Projektbearbeitung wird nun überprüft ob der Projektbetreuer gelöscht wurde
+  und das Löschen und Editieren von Projekten ist synchronisiert. }
+    \item \fehler{SPO löschen und: SPO exportieren/bearbeiten oder Semester
+    bearbeiten }{Wenn der Administrator eine SPO in einem Tab
+    seines Browsers löscht, in einem weiteren Tab jedoch noch die SPO
+    exportiert/bearbeitet oder einem Semester diese SPO hinzufügt wird der
+    Betreuer in diesem Tab noch angezeigt.
+    Wenn der Betreuer zu dem Projekt hinzugefügt werden soll und das Projekt gespeichert wird kommt es zu einer
+  \code{null}-Pointer-Exception.}{Da das andere Tab nicht neu geladen wird wird
+  der Betreuer hier noch angezeigt, existiert jedoch nicht mehr. }{In der
+  Projektbearbeitung wird nun überprüft ob der Projektbetreuer gelöscht wurde
+  und das Löschen und Editieren von Projekten ist synchronisiert. }
+\end{itemize}
+
+
+\section{Sonstige Verbesserungen}
+
+\begin{itemize}
+\item
+\end{itemize}
+
+
+\end{document}
