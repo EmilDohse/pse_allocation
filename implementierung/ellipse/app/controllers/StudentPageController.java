@@ -127,7 +127,6 @@ public class StudentPageController extends Controller {
             if (trueData) {
                 List<Achievement> temp = new ArrayList<>(completedAchievements);
                 temp.addAll(nonCompletedAchievements);
-
                 if (temp.containsAll(spo.getNecessaryAchievements())) {
                     Student student = userManagement.getUserProfile(ctx());
                     student.doTransaction(() -> {
@@ -263,7 +262,7 @@ public class StudentPageController extends Controller {
      * 
      * @return Die Seite, die als Antwort verschickt wird.
      */
-    public Result createLearningGroup() {
+    private Result createLearningGroup() {
         Student student = userManagement.getUserProfile(ctx());
         Semester semester = GeneralData.loadInstance().getCurrentSemester();
         if (!semester.getLearningGroupOf(student).isPrivate()) {
@@ -369,7 +368,7 @@ public class StudentPageController extends Controller {
      * 
      * @return Die Seite, die als Antwort verschickt wird.
      */
-    public Result joinLearningGroup() {
+    private Result joinLearningGroup() {
         synchronized (LearningGroup.class) {
             Student student = userManagement.getUserProfile(ctx());
             DynamicForm form = formFactory.form().bindFromRequest();
