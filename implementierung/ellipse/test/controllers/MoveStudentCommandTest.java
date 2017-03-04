@@ -17,15 +17,17 @@ import data.Student;
 import data.Team;
 import exception.AllocationEditUndoException;
 
-public class SwapStudentCommandTest extends ControllerTest {
+public class MoveStudentCommandTest extends ControllerTest {
 
     private Allocation         allocation;
     private Student            firstStudent;
     private Student            secondStudent;
     private Team               firstTeam;
     private Team               secondTeam;
-    private SwapStudentCommand command;
+    private MoveStudentCommand command;
     private Semester           semester;
+    private Student            thirdStudent;
+    private Team               thirdTeam;
 
     @Override
     @Before
@@ -37,6 +39,8 @@ public class SwapStudentCommandTest extends ControllerTest {
         firstStudent.save();
         secondStudent = new Student();
         secondStudent.save();
+        thirdStudent = new Student();
+        thirdStudent.save();
         semester = GeneralData.loadInstance().getCurrentSemester();
         semester.doTransaction(() -> {
             semester.addAllocation(allocation);
@@ -47,27 +51,30 @@ public class SwapStudentCommandTest extends ControllerTest {
         firstTeam.addMember(firstStudent);
         secondTeam = new Team();
         secondTeam.addMember(secondStudent);
+        thirdTeam = new Team();
+        thirdTeam.addMember(thirdStudent);
         // Teams dürfen nicht explizit gespeichert werden. WTF Ebean?
         List<Team> teams = new ArrayList<>();
         teams.add(firstTeam);
         teams.add(secondTeam);
+        teams.add(thirdTeam);
         allocation.doTransaction(() -> {
             allocation.setTeams(teams);
         });
-
-        command = new SwapStudentCommand(allocation, firstStudent,
-                secondStudent);
+        List<Student> students = new ArrayList<>();
+        students.add(firstStudent);
+        students.add(secondStudent);
+        command = new MoveStudentCommand(allocation, students, thirdTeam);
     }
 
     @Test
     public void executeTest() {
         command.execute();
 
-        allocation.refresh();
-        assertNotNull(allocation.getTeam(firstStudent));
-        assertNotNull(allocation.getTeam(secondStudent));
-        assertEquals(secondTeam, allocation.getTeam(firstStudent));
-        assertEquals(firstTeam, allocation.getTeam(secondStudent));
+        assertNotNull(thirdTeam);
+        assertEquals(thirdTeam, allocation.getTeam(firstStudent));
+        assertEquals(thirdTeam, allocation.getTeam(secondStudent));
+        assertEquals(thirdTeam, allocation.getTeam(thirdStudent));
     }
 
     @Test
@@ -76,25 +83,29 @@ public class SwapStudentCommandTest extends ControllerTest {
             semester.setFinalAllocation(allocation);
         });
         command.execute();
-        assertNotNull(allocation.getTeam(firstStudent));
-        assertNotNull(allocation.getTeam(secondStudent));
+
+        assertNotNull(firstTeam);
+        assertNotNull(secondTeam);
+        assertNotNull(thirdTeam);
         assertEquals(firstTeam, allocation.getTeam(firstStudent));
         assertEquals(secondTeam, allocation.getTeam(secondStudent));
+        assertEquals(thirdTeam, allocation.getTeam(thirdStudent));
     }
 
-    @Test
-    public void undoTest() throws AllocationEditUndoException {
+    public void testUndo() throws AllocationEditUndoException {
         command.execute();
         command.undo();
 
-        assertNotNull(allocation.getTeam(firstStudent));
-        assertNotNull(allocation.getTeam(secondStudent));
+        assertNotNull(firstTeam);
+        assertNotNull(secondTeam);
+        assertNotNull(thirdTeam);
         assertEquals(firstTeam, allocation.getTeam(firstStudent));
         assertEquals(secondTeam, allocation.getTeam(secondStudent));
+        assertEquals(thirdTeam, allocation.getTeam(thirdStudent));
     }
 
     @Test(expected = AllocationEditUndoException.class)
-    public void undoExceptionFinalTest() throws AllocationEditUndoException {
+    public void undoFinalExceptionTest() throws AllocationEditUndoException {
         command.execute();
         semester.doTransaction(() -> {
             semester.setFinalAllocation(allocation);
@@ -105,13 +116,16 @@ public class SwapStudentCommandTest extends ControllerTest {
     // Ebean will in Unit Tests Dinge nicht löschen
     @Ignore
     @Test(expected = AllocationEditUndoException.class)
-    public void undoExceptionDeletedTest() throws AllocationEditUndoException {
+    public void undoDeletedExceptionTest() throws AllocationEditUndoException {
         command.execute();
         firstStudent.delete();
         secondStudent.delete();
+        thirdStudent.delete();
         firstTeam.delete();
         secondTeam.delete();
+        thirdTeam.delete();
         allocation.delete();
         command.undo();
     }
+
 }
