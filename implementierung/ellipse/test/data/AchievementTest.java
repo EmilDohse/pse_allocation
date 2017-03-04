@@ -1,6 +1,7 @@
 package data;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
@@ -53,5 +54,16 @@ public class AchievementTest extends DataTest {
         });
         assertEquals(one, Achievement.getAchievement("one"));
         assertEquals(2, Achievement.getAchievements().size());
+    }
+
+    @Test
+    public void testCompareTo() {
+
+        Achievement a1 = new Achievement("abc");
+        Achievement a2 = new Achievement("test");
+
+        assertEquals(a1.compareTo(a1), 0);
+        assertTrue(a1.compareTo(a2) < 0);
+        assertTrue(a2.compareTo(a1) > 0);
     }
 }
