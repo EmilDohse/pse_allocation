@@ -58,6 +58,9 @@ public class PasswordResetter {
      *         invalide ist
      */
     public boolean finalizeReset(String code) {
+        if (code.length() < 2 * CODE_LENGTH) {
+            return false;
+        }
         // Split codes
         String userCode = code.substring(0, CODE_LENGTH);
         String pwCode = code.substring(CODE_LENGTH);

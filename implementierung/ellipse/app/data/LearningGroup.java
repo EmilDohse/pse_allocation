@@ -198,13 +198,14 @@ public class LearningGroup extends ElipseModel {
     }
 
     /**
-     * Setter für das Passwort.
+     * Setter für das Passwort. Das Passwort muss davor verschlüsselt worden
+     * sein.
      * 
-     * @param password
-     *            Das Passwort, um der Lerngruppe beizutreten.
+     * @param encryptedPassword
+     *            Das verschlüsselte Passwort, um der Lerngruppe beizutreten.
      */
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPassword(String encryptedPassword) {
+        this.password = encryptedPassword;
     }
 
     /**
@@ -283,8 +284,14 @@ public class LearningGroup extends ElipseModel {
         return ElipseModel.getAll(LearningGroup.class);
     }
 
-    public void savePassword(String password) {
-        setPassword(new BlowfishPasswordEncoder().encode(password));
+    /**
+     * Diese Methode speichert das Passwort, das im Klastext übergeben wurde,
+     * verschlüsselt ab.
+     * 
+     * @param plaintextPassword
+     */
+    public void savePassword(String plaintextPassword) {
+        setPassword(new BlowfishPasswordEncoder().encode(plaintextPassword));
     }
 
 }

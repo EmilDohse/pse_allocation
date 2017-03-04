@@ -13,13 +13,14 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import data.DataTest;
 import play.Application;
 import play.api.mvc.RequestHeader;
 import play.data.DynamicForm;
 import play.data.FormFactory;
+import play.i18n.Messages;
 import play.mvc.Http;
 import play.test.Helpers;
-import data.DataTest;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ControllerTest extends DataTest {
@@ -28,6 +29,8 @@ public class ControllerTest extends DataTest {
     FormFactory           formFactory;
 
     DynamicForm           form;
+
+    Messages              messages;
 
     private Http.Request  request;
 
@@ -50,9 +53,13 @@ public class ControllerTest extends DataTest {
         Map<String, String> flashData = Collections.emptyMap();
         Map<String, Object> flashObject = Collections.emptyMap();
 
-        Http.Context context = new Http.Context(0l, header, request, flashData,
+        Http.Context realContext = new Http.Context(0l, header, request,
+                flashData,
                 flashData, flashObject);
-        Http.Context.current.set(context);
+        Http.Context spyContext = Mockito.spy(realContext);
+        messages = Mockito.mock(Messages.class);
+        Mockito.doReturn(messages).when(spyContext).messages();
+        Http.Context.current.set(spyContext);
 
         form = Mockito.mock(DynamicForm.class);
         Mockito.when(formFactory.form()).thenReturn(form);
