@@ -41,7 +41,7 @@ Html)
 <body>
 	<div class="container-fluid">
 		<div class="row">
-			<div class="col-sm-3 col-md-2 sidebar">
+			<div class="col-sm-3 col-md-3 col-lg-2 sidebar">
 				<div class="nav nav-sidebar">@sidebarContent</div>
 				<ul class="nav nav-sidebar">
 					@displaySidebarItem(item: views.MenuItem) = { @if(item.isActive()) {
@@ -53,7 +53,7 @@ Html)
 				</ul>
 			</div>
 
-			<div class="col-sm-9 col-md-10 main">
+			<div class="col-sm-9 col-md-9 col-lg-10 main">
 				@if(flash.containsKey("error")) {
 				<div class="row">
 					<div class="col-sx-12 col-sm-6">
@@ -83,7 +83,7 @@ Html)
 				</div>
 				}
 				<div class="row">
-					<div class="col-lg-9">@content</div>
+					<div class="col-sm-12 col-md-12 col-lg-9">@content</div>
 				</div>
 			</div>
 		</div>

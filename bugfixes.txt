@@ -1,3 +1,4 @@
 bugs fixed:
 -Date objekt nun als TIMESTAMP in der Datenbank
 -Indexseite kann nun Fehlermeldungen bei falschem State anzeiegen
+-Die eingabe einer nicht existenten lerngruppe wirft keine Nullpointer mehr, sondern gibt ne Fehlermeldung aus

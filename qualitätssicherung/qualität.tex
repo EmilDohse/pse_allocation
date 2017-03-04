@@ -61,6 +61,17 @@ Sicherheit und Performanz zu verbessern. Im folgenden Dokument werden die
 behobenen Fehler sowie sonstige Verbesserungen festgehalten.
 
 \section{Behobene Fehler}
+\subsection{Allgemeine Fehler}
+\fehler{Verwenden des \enquote{Änderung rückgängig machen}-Knopfs nach der Löschung einer
+Einteilung }{Wenn die folgenden Aktionen durchgeführt wurden kam es zu
+einer \code{null}-Pointer-Exception:
+\begin{enumerate}
+  \item Bearbeiten einer Einteilung
+  \item Löschen der Einteilung
+  \item Klicken auf \enquote{Änderung rückgängig machen}
+\end{enumerate}}{Bei der Löschung der berechneten Einteilung werden die
+Änderungen an dieser Einteilung nicht gelöscht.}{Nun wird überprüft ob die
+Eiteilung gelöscht wurde.}
 \subsection{Concurrency}
 \begin{itemize}
   \item \fehler{Projektbetreuer löschen und: Projektbetreuer zu Projekt
@@ -68,27 +79,106 @@ behobenen Fehler sowie sonstige Verbesserungen festgehalten.
   Tab jedoch noch ein Projekt bearbeitet wird der Betreuer in diesem Tab
   noch angezeigt. Wenn der Betreuer zu dem Projekt hinzugefügt werden soll und
   das Projekt gespeichert wird kommt es zu einer
-  \code{null}-Pointer-Exception.}{Da das andere Tab nicht neu geladen wird wird
+  \code{null}-Pointer-Exception.}{Da das andere Tab nicht neu geladen wird, wird
   der Betreuer hier noch angezeigt, existiert jedoch nicht mehr. }{In der
   Projektbearbeitung wird nun überprüft ob der Projektbetreuer gelöscht wurde
   und das Löschen und Editieren von Projekten ist synchronisiert. }
     \item \fehler{SPO löschen und: SPO exportieren/bearbeiten oder Semester
     bearbeiten }{Wenn der Administrator eine SPO in einem Tab
     seines Browsers löscht, in einem weiteren Tab jedoch noch die SPO
-    exportiert/bearbeitet oder einem Semester diese SPO hinzufügt wird der
-    Betreuer in diesem Tab noch angezeigt.
-    Wenn der Betreuer zu dem Projekt hinzugefügt werden soll und das Projekt gespeichert wird kommt es zu einer
-  \code{null}-Pointer-Exception.}{Da das andere Tab nicht neu geladen wird wird
-  der Betreuer hier noch angezeigt, existiert jedoch nicht mehr. }{In der
-  Projektbearbeitung wird nun überprüft ob der Projektbetreuer gelöscht wurde
-  und das Löschen und Editieren von Projekten ist synchronisiert. }
+    exportiert/bearbeitet oder einem Semester diese SPO hinzufügt wird die SPO
+    in diesem Tab noch angezeigt.
+    Wenn die SPO ausgewählt und gespeichert wird kommt es zu
+    einer \code{null}-Pointer-Exception.}{Da das andere Tab nicht neu geladen
+    wird, wird die SPO hier noch angezeigt, existiert jedoch nicht mehr.
+    }{Beim exportieren und bearbeiten von SPOs sowie der Bearbeitung von
+    Semestern wird nun überprüft ob die SPO gelöscht wurde und das
+    Löschen der SPO ist mit der Bearbeitung von SPO und Semester und dem Export
+    der SPO synchronisiert.
+    }
+    \item \fehler{Studenten registrieren sich gleichzeitig}{Wenn man versucht hat
+    zwei Studenten mit der selben Matrikelnummer, im selben Moment zu
+    registrieren wurden teilweise beide in die Datenbank übernommen, obwohl
+    überprüft wird ob die Matrikelnummer im Produkt bereits existiert.}{Es gab
+    einen Wettlauf bei der Überprüfuung der Matrikelnummer. Dies konnte zu einer
+    inkonsistenten Datenbank führen.}{Nun ist die Registrierung von Studenten synchronisiert}
+    \item \fehler{Lerngruppe  verlassen und: der
+    Lerngruppe beitreten, sie verlassen oder bewertungen für sie
+    abgeben}{\begin{enumerate}
+      \item Wenn das letzte Mitglied die
+    Lerngruppe verlies und sie somit gelöscht wurde und  im selben Moment 
+    Bewertungen für sie abzugeben wurden oder ein anderer Student versuchte ihr
+    beizutreten kam es teilweise zu \code{null}-Pointer-Exceptions.
+    \item Wenn die
+    Lerngruppe noch zwei Mitglieder hatte und beide Mitgleider sie gleichzeitig
+    verliesen, wurde die Lerngruppe zum Teil nicht gelöscht.
+    \end{enumerate}  }
+    {\begin{enumerate}
+      \item Es gab Wettläufe: bei der Bewertung hatte der Student kurzzeitig
+      keine Lerngruppe mehr, beim Beitritt einer anderen Person existierte die
+      Lerngruppe noch als geprüft wurde, ob es eine Lerngruppe mit dieser Name-
+      Passwort-Kombination gibt, jedoch nicht mehr als der andere Student
+      beitreten wollte.
+      \item Dies geschah, da bei der Überprüfung der Gruppengröße ein
+      Wettlauf entstand.
+    \end{enumerate} }{Nun sind das Bewerten, der Beitritt und das Verlassen einer Lernguppe synchronisiert.}
+    \item \fehler{Projekt löschen und: das Projekt bearbeiten oder der Beitritt
+    eines Betreueres zu dem Projekt }{Wenn das Projekt in einem Tab
+    gelöscht in einem anderen bearbeitet und abgespeichert wurde oder ein
+    Betreuer versucht hat im selben Moment dem Projekt beizutreten kam es zu
+    einer \code{null}-Pointer-Exceptions.
+    }{Da die Tabs zur Projekt-Bearbeitung und der Projektübersicht (für den
+    Beitritt eines Betreueres zu einem Projekt) nicht neu geladen werden, wird
+    das bereits gelöschte Projekt immer noch angezeigt.}{Nun sind der Beitritt
+    zu einem Projekt das Löschen und das Bearbeiten synchronisiert und es gibt
+    überprüfungen beim Beitritt und der Bearbeitung, ob das Projekt gelöscht
+    wurde}
+    \item \fehler{Änderung des aktiven Semesters während der
+    Einteilungsberechnung }{Wenn man das aktive Semester während der
+    Berechnung einer Einteilung umgestellt wurde, wurde die Einteilung im
+    nun aktiven Semester gespeichert, was dazu geführt hat das alle
+    Studenten des nun aktiven Semesters in dieser Einteilung als nicht
+    zugeteilt angezeigt wurden}{Die Einteilung fragt ab, was das aktuelle
+    Semeser ist. Je nachdem wann dieses geändert wird, wird die Einteilung dem
+    einen oder dem anderen Semester zugeordnet.}{Um diesen Fehler zu vermeiden
+    kann man das aktive Semester nun nur noch umstellen, wenn die
+    Einteilungswarteschlange leer ist.}
+    \item \fehler{Semester löschen und bearbeiten}{Wenn man ein Semester in
+    einem Tab löschte und in einem anderen bearbeitete und speicherte, kam es zu
+    einer \code{null}-Pointer-Exceptions. }{Da das Tab zur Bearbeitung nicht
+    neu geladen wird, wird hier ein nicht existentes Semester angezeitg.}{Das
+    Löschen und Bearbeiten ist nun synchronisiert und bei der Bearbeitung wird
+    überprüft ob das Semester gelöscht wurde.}
+    \item \fehler{Berechnete Einteilung löschen und: diese Einteilung
+    duplizieren, bearbeiten, veröffentlichen oder exportieren}{Wenn in
+    einem Tab eine Einteilung gelöscht, in einem Anderen diese Einteilung
+    dupliziert, bearbeitet, veröffentlicht oder exportiert wird kommt es zu
+    einer \code{null}-Pointer-Exception. }{Da die Tabs zum duplizieren,
+    bearbeiten, veröffentlichen oder exportieren nicht neu geladen werden,
+    wird die Einteilung hier immer noch angezeigt, existiert jedoch nicht
+    mehr.}{Das duplizieren, bearbeiten, veröffentlichen, exportieren und
+    löschen von Einteilungen ist nun synchronisiert. Weiterhin wird beim
+    duplizieren, bearbeiten, veröffentlichen oder exportieren der Einteilung
+    überprüft ob sie gelöscht wurde.}
 \end{itemize}
 
 
 \section{Sonstige Verbesserungen}
 
 \begin{itemize}
-\item
+\item \verbesserung{Tabwechsel bei Einteilungs-, Semester- und
+SPO-Bearbeitung}{In der Benutzeroberfläche des Administrators werden bei der
+Bearbeitung von Eintelings- Semester und SPO-Daten, die jeweiligen Daten in
+Tabs (Registerkarten) angezeigt. Bei der Bearbeitung wurde nach dem Speichern
+immer wieder das erste Tab angezeigt. Besonsters bei der
+Einteiluungsbearbeitung führte dies schnell zu Fehlern durch den Benutzer}{Nun
+kommt man nach dem Speichern wieder auf das gleiche Tab}
+\item \verbesserung{Änderung desaktiven Semesters nur außerhalb der
+Registrierungszeit möglich}{Das Ändern des aktiven Semesters führt dazu das
+die Studenten die Projekte eines anderen Semesters sehen, diese bewerten
+können und Lerngruppen im \enquote{falschen} Semester gründen können. Dies
+würde zu Chaos führen.}{Das aktive Semester kann nur noch außerhalb der
+Registrierungszeit geändert werden.}
 \end{itemize}
 
 

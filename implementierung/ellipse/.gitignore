@@ -11,3 +11,4 @@ gurobi.jar
 /lib/*
 /bin/
 main.db
+.sonar/

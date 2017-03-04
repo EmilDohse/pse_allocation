@@ -6,6 +6,7 @@ Parameter wird eine Lerngruppe übergeben und eine Fehlermeldung. *@
 <h1>@Messages("student.sidebar.learningGroup")</h1>
 @if(!learningGroup.isPrivate()) {
 
+<h3>@learningGroup.getName()</h3>
 <table class="table table-striped">
 	<thead>
 		<tr>
@@ -24,7 +25,7 @@ Parameter wird eine Lerngruppe übergeben und eine Fehlermeldung. *@
 	action="@controllers.routes.StudentPageController.leaveLearningGroup().path()"
 	method="POST">
 	@helper.CSRF.formField
-	<button type=submit class="btn btn-primary">@Messages("student.learningGroup.leave")</button>
+	<button type=submit id="leave_submit" class="btn btn-primary">@Messages("student.learningGroup.leave")</button>
 </form>
 } else {
 <form action="@controllers.routes.StudentPageController.setLearningGroup().path()"
@@ -46,8 +47,8 @@ Parameter wird eine Lerngruppe übergeben und eine Fehlermeldung. *@
 	</div>
 	<div class="form-group">
 		<div class="col-sm-offset-2 col-sm-10">
-			<button type="submit" name="create" class="btn btn-primary">@Messages( "student.learningGroup.create")</button>
-			<button type="submit" name="join" class="btn btn-primary">@Messages( "student.learningGroup.join")</button>
+			<button type="submit" name="create" id="create_submit" class="btn btn-primary">@Messages("student.learningGroup.create")</button>
+			<button type="submit" name="join" id="join_submit" class="btn btn-primary">@Messages("student.learningGroup.join")</button>
 		</div>
 	</div>
 </form>
