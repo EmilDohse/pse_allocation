@@ -72,6 +72,18 @@ public class SwapStudentCommandTest extends ControllerTest {
     }
 
     @Test
+    public void executeFinalTest() {
+        semester.doTransaction(() -> {
+            semester.setFinalAllocation(allocation);
+        });
+        command.execute();
+        assertNotNull(allocation.getTeam(firstStudent));
+        assertNotNull(allocation.getTeam(secondStudent));
+        assertEquals(firstTeam, allocation.getTeam(firstStudent));
+        assertEquals(secondTeam, allocation.getTeam(secondStudent));
+    }
+
+    @Test
     public void undoTest() throws AllocationEditUndoException {
         command.execute();
         command.undo();
