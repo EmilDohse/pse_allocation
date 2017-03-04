@@ -62,9 +62,10 @@ behobenen Fehler sowie sonstige Verbesserungen festgehalten.
 
 \section{Behobene Fehler}
 \subsection{Allgemeine Fehler}
-\fehler{Verwenden des \enquote{Änderung rückgängig machen}-Knopfs nach der Löschung einer
-Einteilung }{Wenn die folgenden Aktionen durchgeführt wurden kam es zu
-einer \code{null}-Pointer-Exception:
+\begin{itemize}
+  \item \fehler{Verwenden des \enquote{Änderung rückgängig machen}-Knopfs nach
+  der Löschung oder Veröffentlichern einer Einteilung }{Wenn die folgenden
+  Aktionen durchgeführt wurden kam es zu einer \code{null}-Pointer-Exception:
 \begin{enumerate}
   \item Bearbeiten einer Einteilung
   \item Löschen der Einteilung
@@ -72,6 +73,45 @@ einer \code{null}-Pointer-Exception:
 \end{enumerate}}{Bei der Löschung der berechneten Einteilung werden die
 Änderungen an dieser Einteilung nicht gelöscht.}{Nun wird überprüft ob die
 Eiteilung gelöscht wurde.}
+\item \fehler{Annotation der Date-Objekte in der Datenbank }{In der %TODO stimmt
+% das so?
+Testdatenbank funktionierten die Deadlines nicht. }{Die Date-Objekte waren
+nur als TIME annotiert und hatten deswegen kein Datum sondern nur eien Zeit.
+Das Datum wird jedoch zur umsetzung der Deadlines benötigt.}{Nun sind
+Date-Objekte mit TIMESTAMP annotiert und speichern damit auch das Datum.}
+\item \fehler{Anzeige von Fehlermeldungen durch Deadlines auf der
+%TODO stimmt das so?
+Indexseite}{Wenn man versuchte eine in dem Moment durch Deadlines verbotene
+Aktion durchzuführen, wie zum Beispiel das Registrieren eines Strudenten
+außerhalb des Registrierungszeitraums, wurden keine Fehlermeldungen
+angezeigt}{Der Redirect-Pfad auf die Indexseite war nicht auf der White-List
+unseres Security-Filters. Deswegen konnte der Cooky in dem die Fehlermeldung 
+mitgegebene wird nicht übergeben werden. }{Die Indexseite wurde nun zur
+Whitelist des Security-Filters hinzugefügt.}
+\item \fehler{Projekt als Betreuer andere Betreuer hinzufügen/entfernen}{Wenn
+man als Betreuer ein Projekt bearbeitet hat, Betreuer hinzufügt oder entfernt
+hat und gespeichert hat wurden die Änderungen nicht übernommen }{Im
+Controller wurde von uns vergessen die Änderung an den Betreuern zu
+speichern.}{Nun werden die Änderungen an den Betreuern gespeichert.}
+\item \fehler{Ebean Fehler: Lerngruppen}{Wenn die folgenden Aktionen
+nacheinander ausgeführt werden kam es zu einer
+persistence-Exception:\begin{enumerate}
+  \item Student der noch in keiner Lerngruppe ist tritt Lerngruppe bei
+  \item Student verlässt Lerngruppe
+\end{enumerate}}{Studenten haben in dem Produkt intern immer eine Lerngrupppe.
+(d.h.
+berets nach der registrierung wird ein Student mit privater Lerngrupppe
+erstellt) Wenn man nun einer Lerngruppe beitritt wird diese private Lerngruppe
+gelöscht. Wenn man dann wieder aus der Lerngruppe austritt wird eine neue
+private Lernguppe erstellt und es wird versucht dieser beizutreten. Da Ebean
+jedoch Cascde-Types nur manchmal beherscht passiert es, das der Student noch
+eine Assozation zu der eigentlich gelöschten privaten Lerngruppe hat. Da es sich
+um eine One-To-One Assozition handelt kommt es zur persistence-Exception beim
+Versuch eine neue private Lerngruppe hinzuzufügen }{Wir entfernen die
+Assoziation nun manuell.}
+\item \fehler{Ebean Fehler: Projekte}{Wenn die folgenden Aktionen
+nacheinander ausgeführt werden kam es zu einer persistence-Exception:}{}{}
+\end{itemize}
 \subsection{Concurrency}
 \begin{itemize}
   \item \fehler{Projektbetreuer löschen und: Projektbetreuer zu Projekt
@@ -126,7 +166,7 @@ Eiteilung gelöscht wurde.}
     eines Betreueres zu dem Projekt }{Wenn das Projekt in einem Tab
     gelöscht in einem anderen bearbeitet und abgespeichert wurde oder ein
     Betreuer versucht hat im selben Moment dem Projekt beizutreten kam es zu
-    einer \code{null}-Pointer-Exceptions.
+    einer \code{null}-Pointer-Exception.
     }{Da die Tabs zur Projekt-Bearbeitung und der Projektübersicht (für den
     Beitritt eines Betreueres zu einem Projekt) nicht neu geladen werden, wird
     das bereits gelöschte Projekt immer noch angezeigt.}{Nun sind der Beitritt
@@ -145,7 +185,7 @@ Eiteilung gelöscht wurde.}
     Einteilungswarteschlange leer ist.}
     \item \fehler{Semester löschen und bearbeiten}{Wenn man ein Semester in
     einem Tab löschte und in einem anderen bearbeitete und speicherte, kam es zu
-    einer \code{null}-Pointer-Exceptions. }{Da das Tab zur Bearbeitung nicht
+    einer \code{null}-Pointer-Exception. }{Da das Tab zur Bearbeitung nicht
     neu geladen wird, wird hier ein nicht existentes Semester angezeitg.}{Das
     Löschen und Bearbeiten ist nun synchronisiert und bei der Bearbeitung wird
     überprüft ob das Semester gelöscht wurde.}
@@ -179,6 +219,9 @@ die Studenten die Projekte eines anderen Semesters sehen, diese bewerten
 können und Lerngruppen im \enquote{falschen} Semester gründen können. Dies
 würde zu Chaos führen.}{Das aktive Semester kann nur noch außerhalb der
 Registrierungszeit geändert werden.}
+\item \verbesserung{GUI verschönert}{Die GUI hatte zwar funktioniert war
+jedoch an einigen Stellen nicht all zu schön.}{Nun ist die GUI wundeschön.}%TODO
+%ollen wir das überhaut erwähnen
 \end{itemize}
 
 
