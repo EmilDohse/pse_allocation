@@ -16,6 +16,7 @@ import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mockito;
 
+import play.mvc.Http.Context;
 import data.Achievement;
 import data.GeneralData;
 import data.SMTPOptions;
@@ -115,6 +116,23 @@ public class AdminPropertiesControllerTest extends ControllerTest {
     }
 
     @Test
+    public void addAchievementValidationExceptionTest() {
+
+        Map<String, String> map = new HashMap<>();
+        map.put("1", "1");
+
+        Mockito.when(form.data()).thenReturn(map);
+        Mockito.when(form.get("id")).thenReturn("abc");
+        Mockito.when(form.get("nameAchiev")).thenReturn("achievementName");
+
+        Mockito.when(messages.at("INTERNAL_ERROR")).thenReturn("error");
+
+        controller.addAchievement();
+
+        assertTrue(Context.current().flash().containsValue("error"));
+    }
+
+    @Test
     public void addSemesterTest() {
 
         controller.addSemester();
@@ -174,6 +192,42 @@ public class AdminPropertiesControllerTest extends ControllerTest {
         assertEquals(firstSpo.getNecessaryAchievements().size(), 1);
         assertEquals(firstSpo.getNecessaryAchievements().get(0),
                 firstAchievement);
+    }
+
+    @Test
+    public void changeSPOValidationExceptionTest() {
+
+        Map<String, String> map = new HashMap<>();
+        map.put("1", "1");
+
+        Mockito.when(form.data()).thenReturn(map);
+        Mockito.when(form.get("id")).thenReturn("abc");
+        Mockito.when(form.get("nameSPO")).thenReturn("spoName");
+
+        Mockito.when(messages.at("INTERNAL_ERROR")).thenReturn("error");
+
+        controller.changeSPO();
+
+        assertTrue(Context.current().flash().containsValue("error"));
+    }
+
+    @Test
+    public void changeSPOUnknownSPOIdTest() {
+
+        Map<String, String> map = new HashMap<>();
+        map.put("1", "1");
+
+        Mockito.when(form.data()).thenReturn(map);
+        Mockito.when(form.get("id")).thenReturn(
+                String.valueOf(firstSpo.getId() + secondSpo.getId() + 1));
+        Mockito.when(form.get("nameSPO")).thenReturn("spoName");
+
+        Mockito.when(messages.at("error.SPO.deletedConcurrently")).thenReturn(
+                "error");
+
+        controller.changeSPO();
+
+        assertTrue(Context.current().flash().containsValue("error"));
     }
 
     @Test
