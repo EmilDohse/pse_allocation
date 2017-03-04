@@ -10,7 +10,6 @@ data.SMTPOptions)
 	rel="stylesheet">
 <script
 	src='@routes.Assets.versioned("javascripts/bootstrap-toggle.min.js")'></script>
-<!-- TODO: URL entfernen und auf lokales verlinken -->
 <script type="text/javascript"
 	src='@routes.Assets.versioned("javascripts/bootstrap-multiselect.js")'></script>
 <link rel="stylesheet"
@@ -35,11 +34,11 @@ data.SMTPOptions)
 		<ul class="nav nav-tabs" role="tablist" id="spo-tabs">
 			@for(spo <- spos) {
 			<li role="presentation"><a href="#spo-@spo.getId()"
-				aria-controls="@spo.getName()" role="tab" data-toggle="tab" id="spo-tab-@spo.getId()">
+				aria-controls="spo-tab-@spo.getId()" role="tab" data-toggle="tab" id="spo-tab-@spo.getId()">
 				@spo.getName()</a></li> }
 			<li role="presentation"><a
-				href="@controllers.routes.AdminPropertiesController.addSPO().path()"
-				aria-controls="add">+</a></li>
+				href="@controllers.routes.AdminPropertiesController.addSPO().path()">
+				+</a></li>
 		</ul>
 
 		<!-- Tab panes -->
@@ -53,11 +52,9 @@ data.SMTPOptions)
 					@helper.CSRF.formField <input type="hidden" name="id"
 						value="@spo.getId()">
 					<div class="form-group">
-						<label class="control-label col-sm-2" for="name">@Messages("admin.properties.name")</label>
-						<div class="col-sm-3">
-							<input type="text" class="form-control" name="nameSPO"
-								id="nameSPO" value="@spo.getName()" required>
-						</div>
+						<label for="nameSPO">@Messages("admin.properties.name")</label>
+						<input type="text" class="form-control" name="nameSPO"
+							id="nameSPO" value="@spo.getName()" required>
 					</div>
 					<table class="table table-striped">
 						<thead>
@@ -110,7 +107,7 @@ data.SMTPOptions)
 					@helper.CSRF.formField <input type="hidden" name="id"
 						value="@spo.getId()">
 					<div class="form-group">
-						<label for="name">@Messages("admin.properties.achievementName")</label>
+						<label for="nameAchiev">@Messages("admin.properties.achievementName")</label>
 						<input type="text" class="form-control" name="nameAchiev"
 							id="nameAchiev" required>
 					</div>
@@ -148,11 +145,11 @@ data.SMTPOptions)
 		<ul class="nav nav-tabs" role="tablist" id="semester-tabs">
 			@for(semester <- semesters) {
 			<li role="presentation"><a href="#semester-@semester.getId()"
-				aria-controls="@semester.getName()" role="tab" data-toggle="tab" id="semester-tab-@semester.getId()">
+				aria-controls="semester-tab-@semester.getId()" role="tab" data-toggle="tab" id="semester-tab-@semester.getId()">
 				@semester.getName()</a></li> }
 			<li role="presentation"><a
-				href="@controllers.routes.AdminPropertiesController.addSemester().path()"
-				aria-controls="add">+</a></li>
+				href="@controllers.routes.AdminPropertiesController.addSemester().path()">
+				+</a></li>
 		</ul>
 
 		<!-- Tab panes -->
@@ -168,7 +165,7 @@ data.SMTPOptions)
 						value="@semester.getId()">
 
 					<div class="form-group">
-						<label class="control-label col-sm-2" for="name">@Messages("admin.properties.name")</label>
+						<label class="control-label col-sm-2" for="name2">@Messages("admin.properties.name")</label>
 						<div class="col-sm-3">
 							<input type="text" class="form-control" name="name2" id="name2"
 								value="@semester.getName()" required>
@@ -187,7 +184,7 @@ data.SMTPOptions)
 					</div>
 
 					<div class="form-group">
-						<label class="control-label col-sm-2" for="description">@Messages("admin.properties.generalInfo")</label>
+						<label class="control-label col-sm-2" for="info">@Messages("admin.properties.generalInfo")</label>
 						<div class="col-sm-8">
 							<textarea rows="8" class="form-control" name="info" id="info"
 								required>@semester.getInfoText()</textarea>

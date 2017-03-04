@@ -6,4 +6,5 @@ bugs fixed:
 - versuch lerngruppe erstellen und falschen namen angeben null pointer
 - projekt als betreuer bearbeiten - betreuer einsellen
 - gui schöner gemacht
+- command nun nach veröffentlichung und löschen 
 

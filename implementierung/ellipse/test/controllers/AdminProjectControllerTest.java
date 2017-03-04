@@ -3,6 +3,7 @@ package controllers;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.when;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -18,6 +19,7 @@ import data.ElipseModel;
 import data.GeneralData;
 import data.Project;
 import data.Semester;
+import play.mvc.Http.Context;
 
 public class AdminProjectControllerTest extends ControllerTest {
 
@@ -57,10 +59,6 @@ public class AdminProjectControllerTest extends ControllerTest {
         semester.doTransaction(() -> {
             semester.addProject(project);
         });
-
-        project.refresh();
-        firstAdviser.refresh();
-        secondAdviser.refresh();
     }
 
     @Test
@@ -69,8 +67,8 @@ public class AdminProjectControllerTest extends ControllerTest {
         Map<String, String> map = new HashMap<>();
         map.put("1", "1");
 
-        Mockito.when(form.data()).thenReturn(map);
-        Mockito.when(form.get("name")).thenReturn("projectName");
+        when(form.data()).thenReturn(map);
+        when(form.get("name")).thenReturn("projectName");
 
         controller.addProject();
 
@@ -89,16 +87,15 @@ public class AdminProjectControllerTest extends ControllerTest {
         Map<String, String> map = new HashMap<>();
         map.put("adviser-multiselect1", String.valueOf(secondAdviser.getId()));
 
-        Mockito.when(form.get("id"))
-                .thenReturn(String.valueOf(project.getId()));
-        Mockito.when(form.data()).thenReturn(map);
-        Mockito.when(form.get("name")).thenReturn("projectName");
-        Mockito.when(form.get("url")).thenReturn("projectURL");
-        Mockito.when(form.get("institute")).thenReturn("projectInstitut");
-        Mockito.when(form.get("description")).thenReturn("projectDescription");
-        Mockito.when(form.get("teamCount")).thenReturn("2");
-        Mockito.when(form.get("minSize")).thenReturn("3");
-        Mockito.when(form.get("maxSize")).thenReturn("4");
+        when(form.get("id")).thenReturn(String.valueOf(project.getId()));
+        when(form.data()).thenReturn(map);
+        when(form.get("name")).thenReturn("projectName");
+        when(form.get("url")).thenReturn("projectURL");
+        when(form.get("institute")).thenReturn("projectInstitut");
+        when(form.get("description")).thenReturn("projectDescription");
+        when(form.get("teamCount")).thenReturn("2");
+        when(form.get("minSize")).thenReturn("3");
+        when(form.get("maxSize")).thenReturn("4");
 
         controller.editProject();
 
@@ -115,9 +112,139 @@ public class AdminProjectControllerTest extends ControllerTest {
         assertTrue(project.getAdvisers().contains(secondAdviser));
     }
 
-    // TODO Testdatenbank austauschen
-    @Ignore
     @Test
+    public void testIdValidationExceptionInEdit() {
+        Map<String, String> data = new HashMap<>();
+        data.put("test", "test");
+
+        when(form.data()).thenReturn(data);
+        when(form.get("id")).thenReturn("a");
+        when(messages.at("INTERNAL_ERROR")).thenReturn("Exception");
+
+        controller.editProject();
+        System.out.println(Context.current().flash());
+
+        assertTrue(Context.current().flash().containsValue("Exception"));
+    }
+
+    @Test
+    public void testNullProject() {
+        Map<String, String> data = new HashMap<>();
+        data.put("test", "test");
+
+        when(form.data()).thenReturn(data);
+        when(form.get("id")).thenReturn(String.valueOf(project.getId() + 1));
+        when(messages.at("error.project.deletedConcurrently"))
+                .thenReturn("Null Project");
+
+        controller.editProject();
+
+        assertTrue(Context.current().flash().containsValue("Null Project"));
+    }
+
+    @Test
+    public void testSecondValidationException() {
+        Map<String, String> data = new HashMap<>();
+        data.put("test", "test");
+
+        when(form.data()).thenReturn(data);
+        when(form.get("id")).thenReturn(String.valueOf(project.getId()));
+        when(form.get("name")).thenReturn(new String());
+        when(messages.at("error.wrongInput")).thenReturn("Exception");
+
+        controller.editProject();
+
+        assertTrue(Context.current().flash().containsValue("Exception"));
+    }
+
+    @Test
+    public void testInvalidTeamSizesXOR() {
+        Map<String, String> data = new HashMap<>();
+        data.put("test", "test");
+
+        when(form.data()).thenReturn(data);
+        when(form.get("id")).thenReturn(String.valueOf(project.getId()));
+        when(form.get("name")).thenReturn(project.getName());
+        when(form.get("url")).thenReturn("test");
+        when(form.get("institute")).thenReturn("test");
+        when(form.get("description")).thenReturn("test");
+        when(form.get("teamCount")).thenReturn("1");
+        when(form.get("minSize")).thenReturn("0");
+        when(form.get("maxSize")).thenReturn("1");
+        when(messages.at("error.wrongInput")).thenReturn("Wrong Input");
+
+        controller.editProject();
+
+        assertTrue(Context.current().flash().containsValue("Wrong Input"));
+    }
+
+    @Test
+    public void testInvalidTeamSizesMaxLesserMin() {
+        Map<String, String> data = new HashMap<>();
+        data.put("test", "test");
+
+        when(form.data()).thenReturn(data);
+        when(form.get("id")).thenReturn(String.valueOf(project.getId()));
+        when(form.get("name")).thenReturn(project.getName());
+        when(form.get("url")).thenReturn("test");
+        when(form.get("institute")).thenReturn("test");
+        when(form.get("description")).thenReturn("test");
+        when(form.get("teamCount")).thenReturn("1");
+        when(form.get("minSize")).thenReturn("2");
+        when(form.get("maxSize")).thenReturn("1");
+        when(messages.at("error.wrongInput")).thenReturn("Wrong Input");
+
+        controller.editProject();
+
+        assertTrue(Context.current().flash().containsValue("Wrong Input"));
+    }
+
+    @Test
+    public void testNFEInEdit() {
+        Map<String, String> data = new HashMap<>();
+        data.put("adviser-multiselect", "a");
+
+        when(form.data()).thenReturn(data);
+        when(form.get("id")).thenReturn(String.valueOf(project.getId()));
+        when(form.get("name")).thenReturn(project.getName());
+        when(form.get("url")).thenReturn("test");
+        when(form.get("institute")).thenReturn("test");
+        when(form.get("description")).thenReturn("test");
+        when(form.get("teamCount")).thenReturn("1");
+        when(form.get("minSize")).thenReturn("1");
+        when(form.get("maxSize")).thenReturn("2");
+        when(messages.at("error.internalError")).thenReturn("Exception");
+
+        controller.editProject();
+
+        assertTrue(Context.current().flash().containsValue("Exception"));
+    }
+
+    @Test
+    public void testNullAdviser() {
+        Map<String, String> data = new HashMap<>();
+        data.put("adviser-multiselect", "19");
+
+        when(form.data()).thenReturn(data);
+        when(form.get("id")).thenReturn(String.valueOf(project.getId()));
+        when(form.get("name")).thenReturn(project.getName());
+        when(form.get("url")).thenReturn("test");
+        when(form.get("institute")).thenReturn("test");
+        when(form.get("description")).thenReturn("test");
+        when(form.get("teamCount")).thenReturn("1");
+        when(form.get("minSize")).thenReturn("1");
+        when(form.get("maxSize")).thenReturn("2");
+        when(messages.at("error.adviser.deletedConcurrently"))
+                .thenReturn("Null Adviser");
+
+        controller.editProject();
+
+        assertTrue(Context.current().flash().containsValue("Null Adviser"));
+    }
+
+    // TODO Testdatenbank austauschen
+    @Test
+    @Ignore
     public void removeProjectTest() {
         Map<String, String> map = new HashMap<>();
         map.put("1", "1");
@@ -128,8 +255,8 @@ public class AdminProjectControllerTest extends ControllerTest {
 
         controller.removeProject();
 
-        assertEquals(GeneralData.loadInstance().getCurrentSemester()
-                .getProjects().isEmpty(), true);
+        assertTrue(GeneralData.loadInstance().getCurrentSemester().getProjects()
+                .isEmpty());
         assertNull(ElipseModel.getById(Project.class, project.getId()));
     }
 }
