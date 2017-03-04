@@ -1,3 +1,9 @@
 bugs fixed:
--Date objekt nun als TIMESTAMP in der Datenbank
+-Date objekt nun als TIMESTAMP in der Datenbank davor als time nicht auf der testdatenbank
 -Indexseite kann nun Fehlermeldungen bei falschem State anzeiegen
+- beim beitreten verlassen und erneuten beitreten und verlassen einer laerngruppe persistence, ebean nicht alle cascade types
+- projekt erstellen löschen als betreuer
+- versuch lerngruppe erstellen und falschen namen angeben null pointer
+- projekt als betreuer bearbeiten - betreuer einsellen
+- gui schöner gemacht
+
