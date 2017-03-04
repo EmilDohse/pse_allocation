@@ -65,11 +65,14 @@ public class AdviserPageController extends Controller {
         Menu menu = new AdviserMenu(ctx(), ctx().request().path());
         // kein Element ausgewählt
         if (id == -1) {
-            if (GeneralData.loadInstance().getCurrentSemester().getProjects().size() == 0) {
-                play.twirl.api.Html content = views.html.adviserNoProject.render();
+            if (GeneralData.loadInstance().getCurrentSemester().getProjects()
+                    .size() == 0) {
+                play.twirl.api.Html content = views.html.adviserNoProject
+                        .render();
                 return ok(views.html.adviser.render(menu, content));
             } else {
-                id = GeneralData.loadInstance().getCurrentSemester().getProjects().get(0).getId();
+                id = GeneralData.loadInstance().getCurrentSemester()
+                        .getProjects().get(0).getId();
             }
         }
 
@@ -77,18 +80,22 @@ public class AdviserPageController extends Controller {
         // wenn die URL verändert wurde
         if (project == null) {
             flash(ERROR, ctx().messages().at(Project.NOT_EXISTENT));
-            return redirect(controllers.routes.AdviserPageController.projectsPage(-1));
+            return redirect(
+                    controllers.routes.AdviserPageController.projectsPage(-1));
         }
         Adviser adviser = userManagement.getUserProfile(ctx());
         play.twirl.api.Html content;
         if (adviser.getProjects().contains(project)) {
             // Ist der Betreuer schon Betreuer des Projektes?
-            Allocation finalAlloc = GeneralData.loadInstance().getCurrentSemester().getFinalAllocation();
+            Allocation finalAlloc = GeneralData.loadInstance()
+                    .getCurrentSemester().getFinalAllocation();
             if (finalAlloc != null) { // Lade Seite, auf der der Betreuer seine
                                       // eingeteilten Teams sieht
-                content = views.html.adviserAllocationInfo.render(finalAlloc.getTeamsByProject(project));
+                content = views.html.adviserAllocationInfo
+                        .render(finalAlloc.getTeamsByProject(project));
             } else { // Lade Seite zum editieren der Projekteinstellungen
-                content = views.html.projectEdit.render(project, true, Adviser.getAdvisers());
+                content = views.html.projectEdit.render(project, true,
+                        Adviser.getAdvisers());
             }
         } else { // Lade Seite zum Beitreten zum Projekt, wenn er noch nicht
                  // Betreuer des Projektes ist
@@ -113,7 +120,8 @@ public class AdviserPageController extends Controller {
             Project project = new Project();
             project.save();
             project.doTransaction(() -> {
-                project.setName("new Project " + adviser.getFirstName() + " " + adviser.getLastName());
+                project.setName("new Project " + adviser.getFirstName() + " "
+                        + adviser.getLastName());
                 project.addAdviser(adviser);
             });
             projID = project.getId();
@@ -123,7 +131,8 @@ public class AdviserPageController extends Controller {
         } else {
             flash(ERROR, ctx().messages().at(INTERNAL_ERROR));
         }
-        return redirect(controllers.routes.AdviserPageController.projectsPage(projID));
+        return redirect(
+                controllers.routes.AdviserPageController.projectsPage(projID));
     }
 
     /**
@@ -153,11 +162,15 @@ public class AdviserPageController extends Controller {
                 });
                 project.delete();
             }
-            if (GeneralData.loadInstance().getCurrentSemester().getProjects().isEmpty()) {
-                return redirect(controllers.routes.AdviserPageController.projectsPage(-1));
-            } else {
+            if (GeneralData.loadInstance().getCurrentSemester().getProjects()
+                    .isEmpty()) {
                 return redirect(controllers.routes.AdviserPageController
-                        .projectsPage(GeneralData.loadInstance().getCurrentSemester().getProjects().get(0).getId()));
+                        .projectsPage(-1));
+            } else {
+                return redirect(
+                        controllers.routes.AdviserPageController.projectsPage(
+                                GeneralData.loadInstance().getCurrentSemester()
+                                        .getProjects().get(0).getId()));
             }
         }
     }
@@ -185,7 +198,8 @@ public class AdviserPageController extends Controller {
             String description;
             String idString = form.get("id");
 
-            StringValidator stringValidator = Forms.getNonEmptyStringValidator();
+            StringValidator stringValidator = Forms
+                    .getNonEmptyStringValidator();
             IntValidator intValidator = new IntValidator(0);
             IntValidator maxSizeValidator = new IntValidator(0);
 
@@ -198,14 +212,16 @@ public class AdviserPageController extends Controller {
                 id = intValidator.validate(idString);
             } catch (ValidationException e) {
                 flash(ERROR, ctx().messages().at(e.getMessage()));
-                return redirect(controllers.routes.AdviserPageController.projectsPage(-1));
+                return redirect(controllers.routes.AdviserPageController
+                        .projectsPage(-1));
             }
             Project project = ElipseModel.getById(Project.class, id);
             // wenn das projekt gelöscht wurde während man es bearbeiten will
             // fehler
             if (project == null) {
                 flash(ERROR, ctx().messages().at(Project.CONCURRENCY_ERROR));
-                return redirect(controllers.routes.AdviserPageController.projectsPage(-1));
+                return redirect(controllers.routes.AdviserPageController
+                        .projectsPage(-1));
             }
             try {
 
@@ -219,28 +235,33 @@ public class AdviserPageController extends Controller {
                 description = stringValidator.validate(form.get("description"));
             } catch (ValidationException e) {
                 flash(ERROR, ctx().messages().at(e.getMessage()));
-                return redirect(controllers.routes.AdviserPageController.projectsPage(id));
+                return redirect(controllers.routes.AdviserPageController
+                        .projectsPage(id));
             }
             if ((minSize == 0 ^ maxSize == 0) || (maxSize < minSize)) {
                 flash(ERROR, ctx().messages().at("error.wrongInput"));
-                return redirect(controllers.routes.AdviserPageController.projectsPage(project.getId()));
+                return redirect(controllers.routes.AdviserPageController
+                        .projectsPage(project.getId()));
             }
             boolean isAdviser = adviser.getProjects().contains(project);
             if (!isAdviser) {
                 flash(ERROR, ctx().messages().at(INTERNAL_ERROR));
-                return redirect(controllers.routes.AdviserPageController.projectsPage(id));
+                return redirect(controllers.routes.AdviserPageController
+                        .projectsPage(id));
             }
 
             // Hole die Betreuer des Projektes aus der Datenbank
             ArrayList<Adviser> advisers = new ArrayList<>();
-            String[] adviserIds = MultiselectList.getValueArray(form, "adviser-multiselect");
+            String[] adviserIds = MultiselectList.getValueArray(form,
+                    "adviser-multiselect");
             for (String adviserIdString : adviserIds) {
                 int adviserId;
                 try {
                     adviserId = Integer.parseInt(adviserIdString);
                 } catch (NumberFormatException e) {
                     flash(ERROR, ctx().messages().at(INTERNAL_ERROR));
-                    return redirect(controllers.routes.AdviserPageController.projectsPage(id));
+                    return redirect(controllers.routes.AdviserPageController
+                            .projectsPage(id));
                 }
                 advisers.add(ElipseModel.getById(Adviser.class, adviserId));
             }
@@ -257,7 +278,8 @@ public class AdviserPageController extends Controller {
                 project.setAdvisers(advisers);
             });
 
-            return redirect(controllers.routes.AdviserPageController.projectsPage(id));
+            return redirect(
+                    controllers.routes.AdviserPageController.projectsPage(id));
         }
     }
 
@@ -285,7 +307,8 @@ public class AdviserPageController extends Controller {
             // wollte
             if (project == null) {
                 flash(ERROR, ctx().messages().at(Project.CONCURRENCY_ERROR));
-                return redirect(controllers.routes.AdviserPageController.projectsPage(-1));
+                return redirect(controllers.routes.AdviserPageController
+                        .projectsPage(-1));
             }
             if (!adviser.getProjects().contains(project)) {
                 project.doTransaction(() -> {
@@ -295,7 +318,8 @@ public class AdviserPageController extends Controller {
                 flash(ERROR, ctx().messages().at(INTERNAL_ERROR));
             }
 
-            return redirect(controllers.routes.AdviserPageController.projectsPage(project.getId()));
+            return redirect(controllers.routes.AdviserPageController
+                    .projectsPage(project.getId()));
         }
 
     }
@@ -321,14 +345,16 @@ public class AdviserPageController extends Controller {
                 id = validator.validate(form.get("id"));
             } catch (ValidationException e) {
                 flash(ERROR, ctx().messages().at(e.getMessage()));
-                return redirect(controllers.routes.AdviserPageController.projectsPage(-1));
+                return redirect(controllers.routes.AdviserPageController
+                        .projectsPage(-1));
             }
             Project project = ElipseModel.getById(Project.class, id);
             // hier wird überprüft ob das projekt nicht gelöscht wurde bevor man
             // es verlassen will
             if (project == null) {
                 flash(ERROR, ctx().messages().at(Project.CONCURRENCY_ERROR));
-                return redirect(controllers.routes.AdviserPageController.projectsPage(-1));
+                return redirect(controllers.routes.AdviserPageController
+                        .projectsPage(-1));
             }
             if (adviser.getProjects().contains(project)) {
                 project.doTransaction(() -> {
@@ -337,7 +363,8 @@ public class AdviserPageController extends Controller {
             } else {
                 flash(ERROR, ctx().messages().at(INTERNAL_ERROR));
             }
-            return redirect(controllers.routes.AdviserPageController.projectsPage(project.getId()));
+            return redirect(controllers.routes.AdviserPageController
+                    .projectsPage(project.getId()));
         }
     }
 
@@ -363,19 +390,23 @@ public class AdviserPageController extends Controller {
             id = intValidator.validate(idString);
         } catch (ValidationException e) {
             flash(ERROR, ctx().messages().at(e.getMessage()));
-            return redirect(controllers.routes.AdviserPageController.projectsPage(-1));
+            return redirect(
+                    controllers.routes.AdviserPageController.projectsPage(-1));
         }
         Project project = ElipseModel.getById(Project.class, id);
         boolean isAdviser = adviser.getProjects().contains(project);
         if (!isAdviser) {
             flash(ERROR, ctx().messages().at(INTERNAL_ERROR));
-            return redirect(controllers.routes.AdviserPageController.projectsPage(id));
+            return redirect(
+                    controllers.routes.AdviserPageController.projectsPage(id));
         }
         // Dies nur ausführen, falls Betreuer wirklich zum Projekt gehört
-        Allocation finalAlloc = GeneralData.loadInstance().getCurrentSemester().getFinalAllocation();
+        Allocation finalAlloc = GeneralData.loadInstance().getCurrentSemester()
+                .getFinalAllocation();
         if (finalAlloc == null) {
             flash(ERROR, ctx().messages().at(INTERNAL_ERROR));
-            return redirect(controllers.routes.AdviserPageController.projectsPage(id));
+            return redirect(
+                    controllers.routes.AdviserPageController.projectsPage(id));
         }
         List<Team> teams = finalAlloc.getTeamsByProject(project);
         for (Team team : teams) {
@@ -383,10 +414,13 @@ public class AdviserPageController extends Controller {
                 int pseGrade;
                 int tseGrade;
                 try {
-                    pseGrade = intValidator.validate(form.get(student.getId() + "-pseGrade"));
-                    tseGrade = intValidator.validate(form.get(student.getId() + "-tseGrade"));
+                    pseGrade = intValidator
+                            .validate(form.get(student.getId() + "-pseGrade"));
+                    tseGrade = intValidator
+                            .validate(form.get(student.getId() + "-tseGrade"));
                 } catch (ValidationException e) {
-                    return redirect(controllers.routes.AdviserPageController.projectsPage(id));
+                    return redirect(controllers.routes.AdviserPageController
+                            .projectsPage(id));
                 }
                 student.doTransaction(() -> {
                     student.setGradePSE(Grade.getGradeByNumber(pseGrade));
@@ -394,7 +428,8 @@ public class AdviserPageController extends Controller {
                 });
             }
         }
-        return redirect(controllers.routes.AdviserPageController.projectsPage(id));
+        return redirect(
+                controllers.routes.AdviserPageController.projectsPage(id));
     }
 
     /**
@@ -424,26 +459,32 @@ public class AdviserPageController extends Controller {
 
         if (form.get("passwordChange") != null) {
             try {
-                StringValidator passwordValidator = Forms.getPasswordValidator();
+                StringValidator passwordValidator = Forms
+                        .getPasswordValidator();
 
                 String oldpw = form.get("oldPassword");
                 String pw = passwordValidator.validate(form.get("newPassword"));
                 String pwrepeat = form.get("newPasswordRepeat");
 
-                boolean matches = new BlowfishPasswordEncoder().matches(oldpw, adviser.getPassword());
+                boolean matches = new BlowfishPasswordEncoder().matches(oldpw,
+                        adviser.getPassword());
 
                 if (!pw.equals(pwrepeat) || !matches) {
-                    flash(ERROR, ctx().messages().at("adviser.account.error.passwords"));
-                    return redirect(controllers.routes.AdviserPageController.accountPage());
+                    flash(ERROR, ctx().messages()
+                            .at("adviser.account.error.passwords"));
+                    return redirect(controllers.routes.AdviserPageController
+                            .accountPage());
                 }
                 String pwEnc = new BlowfishPasswordEncoder().encode(pw);
                 adviser.doTransaction(() -> {
                     adviser.setPassword(pwEnc);
                 });
-                flash("info", ctx().messages().at("admin.account.success.passwords"));
+                flash("info",
+                        ctx().messages().at("admin.account.success.passwords"));
             } catch (ValidationException e) {
                 flash(ERROR, ctx().messages().at(e.getMessage()));
-                return redirect(controllers.routes.AdviserPageController.accountPage());
+                return redirect(
+                        controllers.routes.AdviserPageController.accountPage());
             }
         }
         if (form.get("emailChange") != null) {
@@ -453,10 +494,12 @@ public class AdviserPageController extends Controller {
                 adviser.doTransaction(() -> {
                     adviser.setEmailAddress(email);
                 });
-                flash("info", ctx().messages().at("admin.account.success.email"));
+                flash("info",
+                        ctx().messages().at("admin.account.success.email"));
             } catch (ValidationException e) {
                 flash(ERROR, ctx().messages().at(e.getMessage()));
-                return redirect(controllers.routes.AdviserPageController.accountPage());
+                return redirect(
+                        controllers.routes.AdviserPageController.accountPage());
             }
         }
         return redirect(controllers.routes.AdviserPageController.accountPage());
@@ -473,13 +516,12 @@ public class AdviserPageController extends Controller {
     public Result notAllowedInCurrentState(String url) {
         switch (StateStorage.getInstance().getCurrentState()) {
         case BEFORE_REGISTRATION_PHASE:
-            flash("info", ctx().messages().at("adviser.registration.actionNotAllowed"));
-            break;
-        case REGISTRATION_PHASE:
-            flash("info", ctx().messages().at("state.actionNotAllowed"));
+            flash("info", ctx().messages()
+                    .at("adviser.registration.actionNotAllowed"));
             break;
         case AFTER_REGISTRATION_PHASE:
-            flash("info", ctx().messages().at("adviser.afterRegistration.actionNotAllowed"));
+            flash("info", ctx().messages()
+                    .at("adviser.afterRegistration.actionNotAllowed"));
             break;
         default:
             flash("info", ctx().messages().at("state.actionNotAllowed"));

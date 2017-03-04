@@ -150,9 +150,6 @@ public class TestHelpers {
             student.savePassword(password);
             student.setUserName(Integer.toString(matrnr));
         });
-        semester.doTransaction(() -> {
-            semester.addStudent(student);
-        });
 
         LearningGroup l = new LearningGroup(student.getUserName(), "");
         l.save();
@@ -164,6 +161,45 @@ public class TestHelpers {
                     .getProjects()) {
                 l.rate(p, 3);
             }
+        });
+        semester.doTransaction(() -> {
+            semester.addStudent(student);
+            semester.addLearningGroup(l);
+        });
+    }
+
+    public static LearningGroup createLearningGroup(String name,
+            String password) {
+        Semester semester = GeneralData.loadInstance().getCurrentSemester();
+
+        LearningGroup l = new LearningGroup(name, "");
+        l.save();
+        l.doTransaction(() -> {
+            l.savePassword(password);
+            l.setPrivate(false);
+            // Ratings initialisieren
+            for (Project p : GeneralData.loadInstance().getCurrentSemester()
+                    .getProjects()) {
+                l.rate(p, 3);
+            }
+        });
+        semester.doTransaction(() -> {
+            semester.addLearningGroup(l);
+        });
+        return l;
+    }
+
+    public static void createAndJoinLearningGroup(int matrnr) {
+        Semester semester = GeneralData.loadInstance().getCurrentSemester();
+        Student student = Student.getStudent(matrnr);
+        LearningGroup old = semester.getLearningGroupOf(student);
+        old.doTransaction(() -> {
+            old.removeMember(student);
+        });
+        old.delete();
+        LearningGroup l = createLearningGroup("Test", "TestPW");
+        l.doTransaction(() -> {
+            l.addMember(student);
         });
     }
 
