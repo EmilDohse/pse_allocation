@@ -6,14 +6,21 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.when;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.AddressException;
+
+import org.apache.commons.mail.EmailException;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.jvnet.mock_javamail.Mailbox;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import data.Achievement;
@@ -23,6 +30,7 @@ import data.Project;
 import data.SPO;
 import data.Semester;
 import data.Student;
+import notificationSystem.Notifier;
 import security.BlowfishPasswordEncoder;
 import security.UserManagement;
 
@@ -31,6 +39,9 @@ public class StudentPageControllerTest extends ControllerTest {
 
     @Mock
     UserManagement        userManagement;
+    
+    @Mock
+    Notifier                        notifier;
 
     @InjectMocks
     StudentPageController controller;
@@ -267,6 +278,26 @@ public class StudentPageControllerTest extends ControllerTest {
 
         assertTrue(enc.matches(newPassword, student.getPassword()));
         assertEquals(newEmail, student.getEmailAddress());
+    }
+
+    @Test
+    public void sendNewVerificationLink()
+            throws AddressException, IOException, MessagingException,
+            EmailException {
+        when(userManagement.getUserProfile(any())).thenReturn(student);
+        Mailbox.clearAll();
+        String address = "a@b.de";
+        student.doTransaction(() -> {
+            student.setEmailAddress(address);
+        });
+        when(messages.at("student.email.verificationLinkSuccess"))
+                .thenReturn("");
+
+        controller.sendNewVerificationLink();
+
+        Mockito.verify(notifier, Mockito.times(1)).sendVerificationMail(
+                Mockito.eq(student),
+                Mockito.matches("https?://.*/verify\\d*"));
     }
 
 }

@@ -158,4 +158,16 @@ public class ProjectTest extends DataTest {
 
         assertEquals(2, Project.getProjects().size());
     }
+
+    @Test
+    public void testCompareTo() {
+        Project p1 = new Project();
+        p1.setName("abc");
+        Project p2 = new Project();
+        p2.setName("test");
+        assertEquals(p1.compareTo(p1), 0);
+        assertTrue(p1.compareTo(p2) < 0);
+        assertTrue(p2.compareTo(p1) > 0);
+
+    }
 }

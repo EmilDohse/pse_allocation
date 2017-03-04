@@ -107,6 +107,10 @@ public class LearningGroupTest extends DataTest {
         learningGroup.save();
         assertEquals(secondR, learningGroup.getRating(secondP));
         assertEquals(2, learningGroup.getRatings().size());
+
+        Project notRated = new Project();
+        notRated.save();
+        assertEquals(learningGroup.getRating(notRated), 0);
     }
 
     /**
@@ -139,5 +143,22 @@ public class LearningGroupTest extends DataTest {
         });
         assertEquals(oneGroup, LearningGroup.getLearningGroup("test", one));
 
+    }
+
+    @Test
+    public void getLearningGroupsTest() {
+
+        learningGroup.save();
+        assertEquals(LearningGroup.getLearningGroups().size(), 1);
+        assertTrue(LearningGroup.getLearningGroups().contains(learningGroup));
+    }
+
+    @Test
+    public void semesterTest() {
+
+        Semester s = new Semester();
+        s.save();
+        learningGroup.setSemester(s);
+        assertEquals(learningGroup.getSemester(), s);
     }
 }

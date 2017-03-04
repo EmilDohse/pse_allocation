@@ -145,7 +145,8 @@ public class Team extends ElipseModel {
     }
 
     public String toStringForNotification() {
-        StringBuilder toReturn = new StringBuilder(this.getTeamNumber());
+        StringBuilder toReturn = new StringBuilder(255);
+        toReturn.append(teamNumber);
         toReturn.append(":\n");
         for (int i = 0; i < this.getMembers().size(); i++) {
             toReturn.append(members.get(i).toStringForNotification());
