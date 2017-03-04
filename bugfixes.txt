@@ -1,4 +1,10 @@
 bugs fixed:
--Date objekt nun als TIMESTAMP in der Datenbank
+-Date objekt nun als TIMESTAMP in der Datenbank davor als time nicht auf der testdatenbank
 -Indexseite kann nun Fehlermeldungen bei falschem State anzeiegen
--Die eingabe einer nicht existenten lerngruppe wirft keine Nullpointer mehr, sondern gibt ne Fehlermeldung aus
+- beim beitreten verlassen und erneuten beitreten und verlassen einer laerngruppe persistence, ebean nicht alle cascade types
+- projekt erstellen löschen als betreuer
+- versuch lerngruppe erstellen und falschen namen angeben null pointer
+- projekt als betreuer bearbeiten - betreuer einsellen
+- gui schöner gemacht
+- command nun nach veröffentlichung und löschen 
+
