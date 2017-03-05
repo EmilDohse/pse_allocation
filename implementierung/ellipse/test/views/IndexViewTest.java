@@ -16,11 +16,17 @@ import deadline.StateStorage;
 import views.pages.admin.AdminAccountPage;
 import views.pages.index.IndexInformationPage;
 
+/**
+ * Diese Klasse beinhaltet Tests für die IndexSeite.
+ */
 public class IndexViewTest extends ViewTest {
 
     private static final String  TEST_INFO_TEXT = "Test Info String.";
     private IndexInformationPage infoPage;
 
+    /**
+     * Initialisierung der Testseite.
+     */
     @Before
     @Override
     public void before() {
@@ -28,6 +34,9 @@ public class IndexViewTest extends ViewTest {
         infoPage = browser.createPage(IndexInformationPage.class);
     }
 
+    /**
+     * Test für den Inhalt der Index-Seite.
+     */
     @Test
     public void testIndexPage() {
         Semester semester = GeneralData.loadInstance().getCurrentSemester();
@@ -38,6 +47,9 @@ public class IndexViewTest extends ViewTest {
         assertEquals(TEST_INFO_TEXT, infoPage.getInfoText(browser));
     }
 
+    /**
+     * Test für den Wechsel zur Passwort-zurücksetzen Seite.
+     */
     @Test
     public void gotoResetPasswordPage() {
         browser.goTo(infoPage);
@@ -45,6 +57,9 @@ public class IndexViewTest extends ViewTest {
         assertEquals("/reset", browser.url());
     }
 
+    /**
+     * Test für den Wechsel zur Infoseite.
+     */
     @Test
     public void gotoGeneralInformationPage() {
         browser.goTo(infoPage);
@@ -52,6 +67,9 @@ public class IndexViewTest extends ViewTest {
         assertEquals(infoPage.getUrl(), browser.url());
     }
 
+    /**
+     * Test für den Seitenwechsel vor dem Start der Registrierung.
+     */
     @Test
     public void gotoRegisterPageBeforeRegStart() {
         TestHelpers.setStateToBeforeRegistration();
@@ -60,6 +78,9 @@ public class IndexViewTest extends ViewTest {
         assertEquals(infoPage.getUrl(), browser.url());
     }
 
+    /**
+     * Test für den Seitenwechsel während der Registrierung.
+     */
     @Test
     public void gotoRegisterPageDuringReg() {
         TestHelpers.setStateToRegistration();
@@ -68,6 +89,9 @@ public class IndexViewTest extends ViewTest {
         assertEquals("/register", browser.url());
     }
 
+    /**
+     * Test für den Seitenwechsel nach der Registrierung.
+     */
     @Test
     public void gotoRegisterPageAfterRegEnd() {
         TestHelpers.setStateToAfterRegistration();

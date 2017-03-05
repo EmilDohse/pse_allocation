@@ -1,22 +1,20 @@
 package views;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.concurrent.TimeUnit;
 
 import data.Adviser;
 import data.ElipseModel;
-import data.GeneralData;
-import data.Student;
-
-import java.util.List;
 import views.pages.adviser.AdviserAccountPage;
 import views.pages.adviser.AdviserProjectsPage;
 
 import static org.junit.Assert.*;
 
+/**
+ * Diese Klasse enthält Tests für den Account-View eines Betreuers.
+ */
 public class AdviserAccountViewTest extends ViewTest {
 
     private AdviserAccountPage  accountPage;
@@ -26,6 +24,9 @@ public class AdviserAccountViewTest extends ViewTest {
 
     private int                 id;
 
+    /**
+     * Initialisieren der Test-Seiten und Test-Daten.
+     */
     @Before
     @Override
     public void before() {
@@ -35,26 +36,27 @@ public class AdviserAccountViewTest extends ViewTest {
         id = TestHelpers.createAdviser("betruer@kit.edu", "asdasdasdkl");
         login("betruer@kit.edu", "asdasdasdkl", projectPage);
         accountPage.go();
-        browser.await().atMost(2, TimeUnit.SECONDS).untilPage(accountPage)
-                .isAt();
+        browser.await().atMost(2, TimeUnit.SECONDS).untilPage(accountPage).isAt();
     }
 
+    /**
+     * Test für das Passwortändern des Betreuers.
+     */
     @Test
     public void changePassword() {
-        accountPage.fillAndSubmitChangePwForm(browser, "asdasdasdkl",
-                newPassword);
-        browser.await().atMost(2, TimeUnit.SECONDS).untilPage(accountPage)
-                .isAt();
+        accountPage.fillAndSubmitChangePwForm(browser, "asdasdasdkl", newPassword);
+        browser.await().atMost(2, TimeUnit.SECONDS).untilPage(accountPage).isAt();
         logout();
         assertTrue(login("betruer@kit.edu", newPassword, projectPage));
     }
 
+    /**
+     * Test für das Ändern der E-Mail-Adresse des Betreuers.
+     */
     @Test
     public void changeEmail() {
         accountPage.fillAndSubmitChangeEmailForm(browser, "betreuer@kit.edu");
-        browser.await().atMost(2, TimeUnit.SECONDS).untilPage(accountPage)
-                .isAt();
-        assertEquals("betreuer@kit.edu", ElipseModel
-                .<Adviser>getById(Adviser.class, id).getEmailAddress());
+        browser.await().atMost(2, TimeUnit.SECONDS).untilPage(accountPage).isAt();
+        assertEquals("betreuer@kit.edu", ElipseModel.<Adviser>getById(Adviser.class, id).getEmailAddress());
     }
 }

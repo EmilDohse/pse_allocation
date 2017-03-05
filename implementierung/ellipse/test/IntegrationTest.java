@@ -8,6 +8,9 @@ import static play.test.Helpers.testServer;
 import org.junit.Ignore;
 import org.junit.Test;
 
+/**
+ * Diese Klasse beinhaltet Tests.
+ */
 public class IntegrationTest {
 
     /**

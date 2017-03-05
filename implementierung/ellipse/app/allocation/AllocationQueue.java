@@ -161,6 +161,7 @@ public class AllocationQueue {
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                             assert false;
+                            Thread.currentThread().interrupt();
                             return;
                         }
                     }
