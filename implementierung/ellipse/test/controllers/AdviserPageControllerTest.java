@@ -5,40 +5,27 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.runners.MockitoJUnitRunner;
 
+import play.mvc.Http.Context;
+import security.BlowfishPasswordEncoder;
+import security.UserManagement;
 import data.Adviser;
 import data.Allocation;
-import data.DataTest;
 import data.GeneralData;
 import data.Grade;
 import data.Project;
 import data.Semester;
 import data.Student;
 import data.Team;
-import play.Application;
-import play.api.mvc.RequestHeader;
-import play.data.DynamicForm;
-import play.data.FormFactory;
-import play.mvc.Controller;
-import play.mvc.Http;
-import play.mvc.Http.Context;
-import play.test.Helpers;
-import security.BlowfishPasswordEncoder;
-import security.UserManagement;
 
 /**
  * Diese Klasse beinhaltet Tests für den AdminPropertiesController.
@@ -70,7 +57,8 @@ public class AdviserPageControllerTest extends ControllerTest {
             firstAdviser.setEmailAddress("testemail");
             firstAdviser.setFirstName("firstName");
             firstAdviser.setLastName("lastName");
-            firstAdviser.setPassword((new BlowfishPasswordEncoder()).encode("password"));
+            firstAdviser.setPassword((new BlowfishPasswordEncoder())
+                    .encode("password"));
             firstAdviser.setUserName("testname");
         });
 
@@ -108,7 +96,8 @@ public class AdviserPageControllerTest extends ControllerTest {
     @Test
     public void addProjectTest() {
 
-        Mockito.when(userManagement.getUserProfile(Mockito.any(Context.class))).thenReturn(firstAdviser);
+        Mockito.when(userManagement.getUserProfile(Mockito.any(Context.class)))
+                .thenReturn(firstAdviser);
 
         controller.addProject();
 
@@ -119,7 +108,8 @@ public class AdviserPageControllerTest extends ControllerTest {
         Project newProject = semester.getProjects().get(1 - temp);
         assertNotNull(newProject);
         assertEquals(newProject.getName(),
-                "new Project " + firstAdviser.getFirstName() + " " + firstAdviser.getLastName());
+                "new Project " + firstAdviser.getFirstName() + " "
+                        + firstAdviser.getLastName());
         assertEquals(newProject.getAdvisers().size(), 1);
         assertEquals(newProject.getAdvisers().get(0), firstAdviser);
 
@@ -137,7 +127,8 @@ public class AdviserPageControllerTest extends ControllerTest {
             d.setCurrentSemester(null);
         });
 
-        Mockito.when(userManagement.getUserProfile(Mockito.any(Context.class))).thenReturn(firstAdviser);
+        Mockito.when(userManagement.getUserProfile(Mockito.any(Context.class)))
+                .thenReturn(firstAdviser);
 
         Mockito.when(messages.at("error.internalError")).thenReturn("error");
 
@@ -157,7 +148,8 @@ public class AdviserPageControllerTest extends ControllerTest {
 
         Mockito.when(form.data()).thenReturn(map);
 
-        Mockito.when(userManagement.getUserProfile(Mockito.any(Context.class))).thenReturn(firstAdviser);
+        Mockito.when(userManagement.getUserProfile(Mockito.any(Context.class)))
+                .thenReturn(firstAdviser);
 
         Mockito.when(form.get("passwordChange")).thenReturn("NotNull");
         Mockito.when(form.get("oldPassword")).thenReturn("password");
@@ -170,7 +162,8 @@ public class AdviserPageControllerTest extends ControllerTest {
 
         firstAdviser.refresh();
 
-        assertTrue((new BlowfishPasswordEncoder()).matches("newpassword", firstAdviser.getPassword()));
+        assertTrue((new BlowfishPasswordEncoder()).matches("newpassword",
+                firstAdviser.getPassword()));
         assertEquals(firstAdviser.getEmailAddress(), "new@email");
 
     }
@@ -187,7 +180,8 @@ public class AdviserPageControllerTest extends ControllerTest {
 
         Mockito.when(form.data()).thenReturn(map);
 
-        Mockito.when(userManagement.getUserProfile(Mockito.any(Context.class))).thenReturn(firstAdviser);
+        Mockito.when(userManagement.getUserProfile(Mockito.any(Context.class)))
+                .thenReturn(firstAdviser);
 
         Mockito.when(form.get("passwordChange")).thenReturn("NotNull");
         Mockito.when(form.get("oldPassword")).thenReturn("password");
@@ -196,7 +190,8 @@ public class AdviserPageControllerTest extends ControllerTest {
         Mockito.when(form.get("emailChange")).thenReturn("NotNull");
         Mockito.when(form.get("newEmail")).thenReturn("new@email");
 
-        Mockito.when(messages.at("adviser.account.error.passwords")).thenReturn("error");
+        Mockito.when(messages.at("adviser.account.error.passwords"))
+                .thenReturn("error");
 
         controller.editAccount();
 
@@ -216,7 +211,8 @@ public class AdviserPageControllerTest extends ControllerTest {
 
         Mockito.when(form.data()).thenReturn(map);
 
-        Mockito.when(userManagement.getUserProfile(Mockito.any(Context.class))).thenReturn(firstAdviser);
+        Mockito.when(userManagement.getUserProfile(Mockito.any(Context.class)))
+                .thenReturn(firstAdviser);
 
         Mockito.when(form.get("passwordChange")).thenReturn("NotNull");
         Mockito.when(form.get("oldPassword")).thenReturn("password");
@@ -225,7 +221,8 @@ public class AdviserPageControllerTest extends ControllerTest {
         Mockito.when(form.get("emailChange")).thenReturn("NotNull");
         Mockito.when(form.get("newEmail")).thenReturn("new@email");
 
-        Mockito.when(messages.at("general.error.minimalPasswordLength")).thenReturn("error");
+        Mockito.when(messages.at("general.error.minimalPasswordLength"))
+                .thenReturn("error");
 
         controller.editAccount();
 
@@ -244,7 +241,8 @@ public class AdviserPageControllerTest extends ControllerTest {
 
         Mockito.when(form.data()).thenReturn(map);
 
-        Mockito.when(userManagement.getUserProfile(Mockito.any(Context.class))).thenReturn(firstAdviser);
+        Mockito.when(userManagement.getUserProfile(Mockito.any(Context.class)))
+                .thenReturn(firstAdviser);
 
         Mockito.when(form.get("passwordChange")).thenReturn("NotNull");
         Mockito.when(form.get("oldPassword")).thenReturn("password");
@@ -271,8 +269,10 @@ public class AdviserPageControllerTest extends ControllerTest {
 
         Mockito.when(form.data()).thenReturn(map);
 
-        Mockito.when(userManagement.getUserProfile(Mockito.any(Context.class))).thenReturn(firstAdviser);
-        Mockito.when(form.get("id")).thenReturn(String.valueOf(project.getId()));
+        Mockito.when(userManagement.getUserProfile(Mockito.any(Context.class)))
+                .thenReturn(firstAdviser);
+        Mockito.when(form.get("id"))
+                .thenReturn(String.valueOf(project.getId()));
         Mockito.when(form.get("teamCount")).thenReturn("2");
         Mockito.when(form.get("minSize")).thenReturn("3");
         Mockito.when(form.get("maxSize")).thenReturn("4");
@@ -308,7 +308,8 @@ public class AdviserPageControllerTest extends ControllerTest {
 
         Mockito.when(form.data()).thenReturn(map);
 
-        Mockito.when(userManagement.getUserProfile(Mockito.any(Context.class))).thenReturn(firstAdviser);
+        Mockito.when(userManagement.getUserProfile(Mockito.any(Context.class)))
+                .thenReturn(firstAdviser);
         Mockito.when(form.get("id")).thenReturn("abc");
         Mockito.when(form.get("teamCount")).thenReturn("2");
         Mockito.when(form.get("minSize")).thenReturn("3");
@@ -336,8 +337,10 @@ public class AdviserPageControllerTest extends ControllerTest {
 
         Mockito.when(form.data()).thenReturn(map);
 
-        Mockito.when(userManagement.getUserProfile(Mockito.any(Context.class))).thenReturn(firstAdviser);
-        Mockito.when(form.get("id")).thenReturn(String.valueOf(project.getId() + 1));
+        Mockito.when(userManagement.getUserProfile(Mockito.any(Context.class)))
+                .thenReturn(firstAdviser);
+        Mockito.when(form.get("id")).thenReturn(
+                String.valueOf(project.getId() + 1));
         Mockito.when(form.get("teamCount")).thenReturn("2");
         Mockito.when(form.get("minSize")).thenReturn("3");
         Mockito.when(form.get("maxSize")).thenReturn("4");
@@ -346,7 +349,8 @@ public class AdviserPageControllerTest extends ControllerTest {
         Mockito.when(form.get("institute")).thenReturn("projectInstitute");
         Mockito.when(form.get("description")).thenReturn("projectInfo");
 
-        Mockito.when(messages.at("error.project.deletedConcurrently")).thenReturn("error");
+        Mockito.when(messages.at("error.project.deletedConcurrently"))
+                .thenReturn("error");
 
         controller.editProject();
 
@@ -365,8 +369,10 @@ public class AdviserPageControllerTest extends ControllerTest {
 
         Mockito.when(form.data()).thenReturn(map);
 
-        Mockito.when(userManagement.getUserProfile(Mockito.any(Context.class))).thenReturn(firstAdviser);
-        Mockito.when(form.get("id")).thenReturn(String.valueOf(project.getId()));
+        Mockito.when(userManagement.getUserProfile(Mockito.any(Context.class)))
+                .thenReturn(firstAdviser);
+        Mockito.when(form.get("id"))
+                .thenReturn(String.valueOf(project.getId()));
         Mockito.when(form.get("teamCount")).thenReturn("abc");
         Mockito.when(form.get("minSize")).thenReturn("3");
         Mockito.when(form.get("maxSize")).thenReturn("4");
@@ -394,8 +400,10 @@ public class AdviserPageControllerTest extends ControllerTest {
 
         Mockito.when(form.data()).thenReturn(map);
 
-        Mockito.when(userManagement.getUserProfile(Mockito.any(Context.class))).thenReturn(firstAdviser);
-        Mockito.when(form.get("id")).thenReturn(String.valueOf(project.getId()));
+        Mockito.when(userManagement.getUserProfile(Mockito.any(Context.class)))
+                .thenReturn(firstAdviser);
+        Mockito.when(form.get("id"))
+                .thenReturn(String.valueOf(project.getId()));
         Mockito.when(form.get("teamCount")).thenReturn("2");
         Mockito.when(form.get("minSize")).thenReturn("4");
         Mockito.when(form.get("maxSize")).thenReturn("3");
@@ -423,8 +431,10 @@ public class AdviserPageControllerTest extends ControllerTest {
 
         Mockito.when(form.data()).thenReturn(map);
 
-        Mockito.when(userManagement.getUserProfile(Mockito.any(Context.class))).thenReturn(secondAdviser);
-        Mockito.when(form.get("id")).thenReturn(String.valueOf(project.getId()));
+        Mockito.when(userManagement.getUserProfile(Mockito.any(Context.class)))
+                .thenReturn(secondAdviser);
+        Mockito.when(form.get("id"))
+                .thenReturn(String.valueOf(project.getId()));
         Mockito.when(form.get("teamCount")).thenReturn("2");
         Mockito.when(form.get("minSize")).thenReturn("3");
         Mockito.when(form.get("maxSize")).thenReturn("4");
@@ -433,7 +443,8 @@ public class AdviserPageControllerTest extends ControllerTest {
         Mockito.when(form.get("institute")).thenReturn("projectInstitute");
         Mockito.when(form.get("description")).thenReturn("projectInfo");
 
-        Mockito.when(messages.at("error.internalError")).thenReturn("error");
+        Mockito.when(messages.at("error.notProjectAdviser"))
+                .thenReturn("error");
 
         controller.editProject();
 
@@ -452,8 +463,10 @@ public class AdviserPageControllerTest extends ControllerTest {
 
         Mockito.when(form.data()).thenReturn(map);
 
-        Mockito.when(userManagement.getUserProfile(Mockito.any(Context.class))).thenReturn(firstAdviser);
-        Mockito.when(form.get("id")).thenReturn(String.valueOf(project.getId()));
+        Mockito.when(userManagement.getUserProfile(Mockito.any(Context.class)))
+                .thenReturn(firstAdviser);
+        Mockito.when(form.get("id"))
+                .thenReturn(String.valueOf(project.getId()));
         Mockito.when(form.get("teamCount")).thenReturn("2");
         Mockito.when(form.get("minSize")).thenReturn("3");
         Mockito.when(form.get("maxSize")).thenReturn("4");
@@ -480,9 +493,11 @@ public class AdviserPageControllerTest extends ControllerTest {
 
         Mockito.when(form.data()).thenReturn(map);
 
-        Mockito.when(userManagement.getUserProfile(Mockito.any(Context.class))).thenReturn(secondAdviser);
+        Mockito.when(userManagement.getUserProfile(Mockito.any(Context.class)))
+                .thenReturn(secondAdviser);
 
-        Mockito.when(form.get("id")).thenReturn(String.valueOf(project.getId()));
+        Mockito.when(form.get("id"))
+                .thenReturn(String.valueOf(project.getId()));
 
         controller.joinProject();
 
@@ -505,11 +520,14 @@ public class AdviserPageControllerTest extends ControllerTest {
 
         Mockito.when(form.data()).thenReturn(map);
 
-        Mockito.when(userManagement.getUserProfile(Mockito.any(Context.class))).thenReturn(secondAdviser);
+        Mockito.when(userManagement.getUserProfile(Mockito.any(Context.class)))
+                .thenReturn(secondAdviser);
 
-        Mockito.when(form.get("id")).thenReturn(String.valueOf(project.getId() + 1));
+        Mockito.when(form.get("id")).thenReturn(
+                String.valueOf(project.getId() + 1));
 
-        Mockito.when(messages.at("error.project.deletedConcurrently")).thenReturn("error");
+        Mockito.when(messages.at("error.project.deletedConcurrently"))
+                .thenReturn("error");
 
         controller.joinProject();
 
@@ -528,11 +546,14 @@ public class AdviserPageControllerTest extends ControllerTest {
 
         Mockito.when(form.data()).thenReturn(map);
 
-        Mockito.when(userManagement.getUserProfile(Mockito.any(Context.class))).thenReturn(firstAdviser);
+        Mockito.when(userManagement.getUserProfile(Mockito.any(Context.class)))
+                .thenReturn(firstAdviser);
 
-        Mockito.when(form.get("id")).thenReturn(String.valueOf(project.getId()));
+        Mockito.when(form.get("id"))
+                .thenReturn(String.valueOf(project.getId()));
 
-        Mockito.when(messages.at("error.internalError")).thenReturn("error");
+        Mockito.when(messages.at("error.adviserAllreadyMember")).thenReturn(
+                "error");
 
         controller.joinProject();
 
@@ -550,9 +571,11 @@ public class AdviserPageControllerTest extends ControllerTest {
 
         Mockito.when(form.data()).thenReturn(map);
 
-        Mockito.when(userManagement.getUserProfile(Mockito.any(Context.class))).thenReturn(firstAdviser);
+        Mockito.when(userManagement.getUserProfile(Mockito.any(Context.class)))
+                .thenReturn(firstAdviser);
 
-        Mockito.when(form.get("id")).thenReturn(String.valueOf(project.getId()));
+        Mockito.when(form.get("id"))
+                .thenReturn(String.valueOf(project.getId()));
 
         controller.leaveProject();
 
@@ -573,7 +596,8 @@ public class AdviserPageControllerTest extends ControllerTest {
 
         Mockito.when(form.data()).thenReturn(map);
 
-        Mockito.when(userManagement.getUserProfile(Mockito.any(Context.class))).thenReturn(firstAdviser);
+        Mockito.when(userManagement.getUserProfile(Mockito.any(Context.class)))
+                .thenReturn(firstAdviser);
 
         Mockito.when(form.get("id")).thenReturn("abc");
 
@@ -597,11 +621,14 @@ public class AdviserPageControllerTest extends ControllerTest {
 
         Mockito.when(form.data()).thenReturn(map);
 
-        Mockito.when(userManagement.getUserProfile(Mockito.any(Context.class))).thenReturn(firstAdviser);
+        Mockito.when(userManagement.getUserProfile(Mockito.any(Context.class)))
+                .thenReturn(firstAdviser);
 
-        Mockito.when(form.get("id")).thenReturn(String.valueOf(project.getId() + 1));
+        Mockito.when(form.get("id")).thenReturn(
+                String.valueOf(project.getId() + 1));
 
-        Mockito.when(messages.at("error.project.deletedConcurrently")).thenReturn("error");
+        Mockito.when(messages.at("error.project.deletedConcurrently"))
+                .thenReturn("error");
 
         controller.leaveProject();
 
@@ -621,11 +648,14 @@ public class AdviserPageControllerTest extends ControllerTest {
 
         Mockito.when(form.data()).thenReturn(map);
 
-        Mockito.when(userManagement.getUserProfile(Mockito.any(Context.class))).thenReturn(secondAdviser);
+        Mockito.when(userManagement.getUserProfile(Mockito.any(Context.class)))
+                .thenReturn(secondAdviser);
 
-        Mockito.when(form.get("id")).thenReturn(String.valueOf(project.getId()));
+        Mockito.when(form.get("id"))
+                .thenReturn(String.valueOf(project.getId()));
 
-        Mockito.when(messages.at("error.internalError")).thenReturn("error");
+        Mockito.when(messages.at("error.notProjectAdviser"))
+                .thenReturn("error");
 
         controller.leaveProject();
 
@@ -644,9 +674,11 @@ public class AdviserPageControllerTest extends ControllerTest {
 
         Mockito.when(form.data()).thenReturn(map);
 
-        Mockito.when(userManagement.getUserProfile(Mockito.any(Context.class))).thenReturn(firstAdviser);
+        Mockito.when(userManagement.getUserProfile(Mockito.any(Context.class)))
+                .thenReturn(firstAdviser);
 
-        Mockito.when(form.get("id")).thenReturn(String.valueOf(project.getId()));
+        Mockito.when(form.get("id"))
+                .thenReturn(String.valueOf(project.getId()));
 
         controller.removeProject();
 
@@ -691,11 +723,15 @@ public class AdviserPageControllerTest extends ControllerTest {
 
         Mockito.when(form.data()).thenReturn(map);
 
-        Mockito.when(userManagement.getUserProfile(Mockito.any(Context.class))).thenReturn(firstAdviser);
+        Mockito.when(userManagement.getUserProfile(Mockito.any(Context.class)))
+                .thenReturn(firstAdviser);
 
-        Mockito.when(form.get("id")).thenReturn(String.valueOf(project.getId()));
-        Mockito.when(form.get(String.valueOf(s.getId()) + "-pseGrade")).thenReturn("500");
-        Mockito.when(form.get(String.valueOf(s.getId()) + "-tseGrade")).thenReturn("230");
+        Mockito.when(form.get("id"))
+                .thenReturn(String.valueOf(project.getId()));
+        Mockito.when(form.get(String.valueOf(s.getId()) + "-pseGrade"))
+                .thenReturn("500");
+        Mockito.when(form.get(String.valueOf(s.getId()) + "-tseGrade"))
+                .thenReturn("230");
 
         controller.saveStudentsGrades();
 
@@ -744,11 +780,14 @@ public class AdviserPageControllerTest extends ControllerTest {
 
         Mockito.when(form.data()).thenReturn(map);
 
-        Mockito.when(userManagement.getUserProfile(Mockito.any(Context.class))).thenReturn(firstAdviser);
+        Mockito.when(userManagement.getUserProfile(Mockito.any(Context.class)))
+                .thenReturn(firstAdviser);
 
         Mockito.when(form.get("id")).thenReturn("abc");
-        Mockito.when(form.get(String.valueOf(s.getId()) + "-pseGrade")).thenReturn("500");
-        Mockito.when(form.get(String.valueOf(s.getId()) + "-tseGrade")).thenReturn("230");
+        Mockito.when(form.get(String.valueOf(s.getId()) + "-pseGrade"))
+                .thenReturn("500");
+        Mockito.when(form.get(String.valueOf(s.getId()) + "-tseGrade"))
+                .thenReturn("230");
 
         Mockito.when(messages.at("INTERNAL_ERROR")).thenReturn("error");
 
@@ -797,13 +836,18 @@ public class AdviserPageControllerTest extends ControllerTest {
 
         Mockito.when(form.data()).thenReturn(map);
 
-        Mockito.when(userManagement.getUserProfile(Mockito.any(Context.class))).thenReturn(secondAdviser);
+        Mockito.when(userManagement.getUserProfile(Mockito.any(Context.class)))
+                .thenReturn(secondAdviser);
 
-        Mockito.when(form.get("id")).thenReturn(String.valueOf(project.getId()));
-        Mockito.when(form.get(String.valueOf(s.getId()) + "-pseGrade")).thenReturn("500");
-        Mockito.when(form.get(String.valueOf(s.getId()) + "-tseGrade")).thenReturn("230");
+        Mockito.when(form.get("id"))
+                .thenReturn(String.valueOf(project.getId()));
+        Mockito.when(form.get(String.valueOf(s.getId()) + "-pseGrade"))
+                .thenReturn("500");
+        Mockito.when(form.get(String.valueOf(s.getId()) + "-tseGrade"))
+                .thenReturn("230");
 
-        Mockito.when(messages.at("error.internalError")).thenReturn("error");
+        Mockito.when(messages.at("error.notProjectAdviser"))
+                .thenReturn("error");
 
         controller.saveStudentsGrades();
 
@@ -846,11 +890,15 @@ public class AdviserPageControllerTest extends ControllerTest {
 
         Mockito.when(form.data()).thenReturn(map);
 
-        Mockito.when(userManagement.getUserProfile(Mockito.any(Context.class))).thenReturn(firstAdviser);
+        Mockito.when(userManagement.getUserProfile(Mockito.any(Context.class)))
+                .thenReturn(firstAdviser);
 
-        Mockito.when(form.get("id")).thenReturn(String.valueOf(project.getId()));
-        Mockito.when(form.get(String.valueOf(s.getId()) + "-pseGrade")).thenReturn("500");
-        Mockito.when(form.get(String.valueOf(s.getId()) + "-tseGrade")).thenReturn("230");
+        Mockito.when(form.get("id"))
+                .thenReturn(String.valueOf(project.getId()));
+        Mockito.when(form.get(String.valueOf(s.getId()) + "-pseGrade"))
+                .thenReturn("500");
+        Mockito.when(form.get(String.valueOf(s.getId()) + "-tseGrade"))
+                .thenReturn("230");
 
         Mockito.when(messages.at("error.internalError")).thenReturn("error");
 
