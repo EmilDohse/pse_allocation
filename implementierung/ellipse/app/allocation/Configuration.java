@@ -119,6 +119,9 @@ public class Configuration {
         return parameters;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean equals(Object o) {
         if (o instanceof Configuration) {
@@ -127,6 +130,12 @@ public class Configuration {
         return false;
     }
 
+    /**
+     * Vergleicht die Konfiguration anhand des Namens.
+     * 
+     * !!!Achtung!!! der Vergleich des Namens ist nicht unbedingt im Einklang
+     * mit equals().
+     */
     @Override
     public int hashCode() {
         return this.getName().hashCode();

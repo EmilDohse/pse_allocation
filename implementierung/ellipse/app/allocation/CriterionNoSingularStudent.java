@@ -20,8 +20,17 @@ import gurobi.GRBVar;
  */
 public class CriterionNoSingularStudent implements GurobiCriterion {
 
+    /**
+     * Der deutsche Anzeigename.
+     */
     private static final String DE_NAME = "Kein einzelner Student zu Lerngruppe";
+    /**
+     * Der englische Anzeigename.
+     */
     private static final String EN_NAME = "No singular student plus learning group in a team";
+    /**
+     * Der Name des Kriteriums, anhand dessen es identifiziert wird.
+     */
     private String              name;
 
     /**
@@ -119,6 +128,9 @@ public class CriterionNoSingularStudent implements GurobiCriterion {
         allocator.getOptimizationTerm().add(bonus);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getDisplayName(String local) {
         switch (local) {

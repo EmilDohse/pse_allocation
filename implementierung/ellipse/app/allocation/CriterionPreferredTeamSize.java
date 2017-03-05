@@ -16,8 +16,17 @@ import gurobi.GRBVar;
  */
 public class CriterionPreferredTeamSize implements GurobiCriterion {
 
+    /**
+     * Der deutsche Anzeigename.
+     */
     private static final String DE_NAME = "Beachte gewünschte Teamgröße";
+    /**
+     * Der englische Anzeigename.
+     */
     private static final String EN_NAME = "Respect preferred team size";
+    /**
+     * Der Name des Kriteriums, anhand dessen es identifiziert wird.
+     */
     private String              name;
 
     /**
@@ -119,6 +128,9 @@ public class CriterionPreferredTeamSize implements GurobiCriterion {
         allocator.getOptimizationTerm().add(bonus);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getDisplayName(String local) {
         switch (local) {
