@@ -1,6 +1,7 @@
 package views;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import views.pages.student.OldStudentPage;
