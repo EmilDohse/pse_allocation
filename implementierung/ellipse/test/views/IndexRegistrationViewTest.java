@@ -1,20 +1,20 @@
 package views;
 
 import org.junit.Before;
-import org.junit.Ignore;
+
 import org.junit.Test;
 
 import java.util.concurrent.TimeUnit;
 
-import data.GeneralData;
 import data.Student;
 import views.pages.index.IndexInformationPage;
 import views.pages.index.IndexRegistrationPage;
 
-import java.util.List;
-
 import static org.junit.Assert.*;
 
+/**
+ * Diese Klasse beinhaltet Test für die Registrieren Seite.
+ */
 public class IndexRegistrationViewTest extends ViewTest {
 
     private IndexRegistrationPage registrationPage;
@@ -28,6 +28,9 @@ public class IndexRegistrationViewTest extends ViewTest {
     private static final int      semester  = 3;
     private static final String   spoName   = "TestSPO";
 
+    /**
+     * Iinitialisierung der Testdaten.
+     */
     @Before
     @Override
     public void before() {
@@ -36,15 +39,17 @@ public class IndexRegistrationViewTest extends ViewTest {
         infoPage = browser.createPage(IndexInformationPage.class);
     }
 
+    /**
+     * Test für das Registrieren eines Studenten.
+     */
     @Test
     public void registerStudent() {
         TestHelpers.setStateToRegistration();
         int spoId = TestHelpers.createSpo(spoName);
         registrationPage.go();
-        browser.await().atMost(2, TimeUnit.SECONDS).untilPage(registrationPage)
-                .isAt();
-        registrationPage.fillAndSubmitRegistrtaionForm(browser, firstName,
-                lastName, matrnr, email, password, semester, spoId);
+        browser.await().atMost(2, TimeUnit.SECONDS).untilPage(registrationPage).isAt();
+        registrationPage.fillAndSubmitRegistrtaionForm(browser, firstName, lastName, matrnr, email, password, semester,
+                spoId);
         browser.await().atMost(2, TimeUnit.SECONDS).untilPage(infoPage).isAt();
         assertTrue(Student.getStudent(matrnr).getEmailAddress().equals(email));
     }
