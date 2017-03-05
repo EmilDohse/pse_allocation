@@ -174,6 +174,50 @@ public class StudentPageControllerTest extends ControllerTest {
     }
 
     /**
+     * Testet die Methode changeData, wenn TrueData nicht gesetzt ist
+     */
+    @Test
+    public void changeDataNotTrueDataTest() {
+        Map<String, String> map = new HashMap<>();
+        map.put("completed-" + spo.getId() + "-multiselect",
+                String.valueOf(achievNecessary.getId()));
+        map.put("due-" + spo.getId() + "-multiselect",
+                String.valueOf(achievAdditional.getId()));
+        when(form.data()).thenReturn(map);
+
+        student.doTransaction(() -> {
+            student.setSemester(1);
+        });
+        int studySemester = 2;
+        when(form.get("semester")).thenReturn(String.valueOf(studySemester));
+        when(form.get("spo")).thenReturn(String.valueOf(spo.getId()));
+        when(form.get("trueData")).thenReturn(null);
+        when(form.data()).thenReturn(map);
+
+        when(userManagement.getUserProfile(any())).thenReturn(student);
+
+        // Change Data findet einmal am Anfang des neuen Semesters statt
+        Semester newSemester = new Semester();
+        newSemester.doTransaction(() -> {
+            newSemester.addSPO(spo);
+            newSemester.addProject(firstProject);
+            newSemester.addProject(secondProject);
+        });
+
+        GeneralData data = GeneralData.loadInstance();
+        data.doTransaction(() -> {
+            data.setCurrentSemester(newSemester);
+        });
+
+        when(messages.at("error.registration.trueDate")).thenReturn("error");
+
+        controller.changeData();
+
+        assertTrue(Context.current().flash().containsValue("error"));
+
+    }
+
+    /**
      * Testet, ob die Methode changeData fehlschlägt mit falschen Eingabedaten
      */
     @Test
