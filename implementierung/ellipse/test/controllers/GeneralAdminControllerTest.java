@@ -7,6 +7,7 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.eq;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,7 +16,6 @@ import java.util.Map;
 import java.util.stream.IntStream;
 
 import org.apache.commons.mail.EmailException;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -72,7 +72,8 @@ public class GeneralAdminControllerTest extends ControllerTest {
 
         controller.addAdviser();
 
-        verify(notifier).sendAdviserPassword(any(Adviser.class), any(String.class));
+        verify(notifier).sendAdviserPassword(any(Adviser.class),
+                any(String.class));
 
         assertEquals(Adviser.getAdvisers().size(), 1);
         Adviser adviser = Adviser.getAdvisers().get(0);
@@ -80,7 +81,8 @@ public class GeneralAdminControllerTest extends ControllerTest {
         assertEquals("e@mail", adviser.getEmailAddress());
         assertEquals("firstName", adviser.getFirstName());
         assertEquals("lastName", adviser.getLastName());
-        assertTrue((new BlowfishPasswordEncoder()).matches("password", adviser.getPassword()));
+        assertTrue((new BlowfishPasswordEncoder()).matches("password",
+                adviser.getPassword()));
     }
 
     /**
@@ -94,7 +96,8 @@ public class GeneralAdminControllerTest extends ControllerTest {
 
         when(form.data()).thenReturn(data);
         when(form.get("firstName")).thenReturn(new String());
-        when(messages.at("general.error.noEmptyString")).thenReturn("Empty String");
+        when(messages.at("general.error.noEmptyString"))
+                .thenReturn("Empty String");
 
         controller.addAdviser();
 
@@ -138,7 +141,8 @@ public class GeneralAdminControllerTest extends ControllerTest {
         when(form.get("minTeamSize")).thenReturn("1");
         when(form.get("maxTeamSize")).thenReturn("3");
 
-        for (Criterion criterion : AllocationQueue.getInstance().getAllocator().getAllCriteria()) {
+        for (Criterion criterion : AllocationQueue.getInstance().getAllocator()
+                .getAllCriteria()) {
             when(form.get(criterion.getName())).thenReturn("1");
         }
 
@@ -161,11 +165,13 @@ public class GeneralAdminControllerTest extends ControllerTest {
 
         when(form.data()).thenReturn(data);
         when(form.get("name")).thenReturn(new String());
-        when(messages.at("general.error.noEmptyString")).thenReturn("Validation Exception");
+        when(messages.at("general.error.noEmptyString"))
+                .thenReturn("Validation Exception");
 
         controller.addAllocation();
 
-        assertTrue(Context.current().flash().containsValue("Validation Exception"));
+        assertTrue(Context.current().flash()
+                .containsValue("Validation Exception"));
     }
 
     /**
@@ -183,7 +189,8 @@ public class GeneralAdminControllerTest extends ControllerTest {
         when(form.get("minTeamSize")).thenReturn("2");
         when(form.get("maxTeamSize")).thenReturn("1");
 
-        when(messages.at("admin.allocation.error.generalError")).thenReturn("Wrong Input");
+        when(messages.at("admin.allocation.error.generalError"))
+                .thenReturn("Wrong Input");
 
         controller.addAllocation();
 
@@ -205,7 +212,8 @@ public class GeneralAdminControllerTest extends ControllerTest {
         when(form.get("minTeamSize")).thenReturn("1");
         when(form.get("maxTeamSize")).thenReturn("3");
 
-        for (Criterion criterion : AllocationQueue.getInstance().getAllocator().getAllCriteria()) {
+        for (Criterion criterion : AllocationQueue.getInstance().getAllocator()
+                .getAllCriteria()) {
             when(form.get(criterion.getName())).thenReturn("1");
         }
         when(form.get("Allocated")).thenReturn("a");
@@ -251,7 +259,8 @@ public class GeneralAdminControllerTest extends ControllerTest {
         List<AllocationParameter> paramList = new ArrayList<>();
         paramList.add(paramOne);
         paramList.add(paramTwo);
-        Configuration config = new Configuration("test", students, lgs, projects, paramList);
+        Configuration config = new Configuration("test", students, lgs,
+                projects, paramList);
 
         when(form.data()).thenReturn(data);
         when(form.get("queue")).thenReturn("test");
@@ -308,7 +317,8 @@ public class GeneralAdminControllerTest extends ControllerTest {
         assertEquals(1, newStudent.getSemester());
         assertEquals("11", newStudent.getUserName());
         assertEquals(spo, newStudent.getSPO());
-        assertTrue((new BlowfishPasswordEncoder()).matches("password", newStudent.getPassword()));
+        assertTrue((new BlowfishPasswordEncoder()).matches("password",
+                newStudent.getPassword()));
         assertTrue(newStudent.getOralTestAchievements().isEmpty());
         assertEquals(1, newStudent.getCompletedAchievements().size());
         assertEquals(achievement, newStudent.getCompletedAchievements().get(0));
@@ -332,11 +342,13 @@ public class GeneralAdminControllerTest extends ControllerTest {
 
         when(form.data()).thenReturn(data);
         when(form.get("firstName")).thenReturn(new String());
-        when(messages.at("general.error.noEmptyString")).thenReturn("Validation Exception");
+        when(messages.at("general.error.noEmptyString"))
+                .thenReturn("Validation Exception");
 
         controller.addStudent();
 
-        assertTrue(Context.current().flash().containsValue("Validation Exception"));
+        assertTrue(Context.current().flash()
+                .containsValue("Validation Exception"));
     }
 
     /**
@@ -368,7 +380,8 @@ public class GeneralAdminControllerTest extends ControllerTest {
         when(form.get("matrnr")).thenReturn("1");
         when(form.get("semester")).thenReturn("1");
         when(form.get("spo")).thenReturn(String.valueOf(spo.getId()));
-        when(messages.at("admin.studentEdit.matrNrExistsError")).thenReturn("already existing");
+        when(messages.at("admin.studentEdit.matrNrExistsError"))
+                .thenReturn("already existing");
 
         controller.addStudent();
 
@@ -381,9 +394,7 @@ public class GeneralAdminControllerTest extends ControllerTest {
      * Funktioniert nicht, da EBean mit der TestDatenbank Probleme hat.
      */
     @Test
-    @Ignore
     public void removeStudentTest() {
-
         Map<String, String> map = new HashMap<>();
         map.put("1", "1");
 
@@ -398,11 +409,15 @@ public class GeneralAdminControllerTest extends ControllerTest {
 
         when(form.data()).thenReturn(map);
         when(form.get("matrnr2")).thenReturn("1");
+        when(messages.at(eq("admin.studentEdit.removeStudentSuccess"),
+                any(String.class))).thenReturn("Success");
 
         controller.removeStudent();
 
-        assertTrue(GeneralData.loadInstance().getCurrentSemester().getStudents().isEmpty());
+        assertTrue(GeneralData.loadInstance().getCurrentSemester().getStudents()
+                .isEmpty());
         assertNull(Student.getStudent(1));
+        assertTrue(Context.current().flash().containsValue("Success"));
     }
 
     /**
@@ -432,7 +447,8 @@ public class GeneralAdminControllerTest extends ControllerTest {
 
         when(form.data()).thenReturn(data);
         when(form.get("matrnr2")).thenReturn("1");
-        when(messages.at("admin.studentEdit.noSuchStudentError")).thenReturn("no such Student");
+        when(messages.at("admin.studentEdit.noSuchStudentError"))
+                .thenReturn("no such Student");
 
         controller.removeStudent();
 
@@ -454,17 +470,20 @@ public class GeneralAdminControllerTest extends ControllerTest {
             admin.savePassword("password");
         });
 
-        when(userManagement.getUserProfile(any(Context.class))).thenReturn(admin);
+        when(userManagement.getUserProfile(any(Context.class)))
+                .thenReturn(admin);
 
         when(form.get("passwordChange")).thenReturn("NotNull");
         when(form.get("oldPassword")).thenReturn("password");
         when(form.get("newPassword")).thenReturn("newpassword");
         when(form.get("newPasswordRepeat")).thenReturn("newpassword");
-        when(messages.at("admin.account.success.passwords")).thenReturn("Success");
+        when(messages.at("admin.account.success.passwords"))
+                .thenReturn("Success");
 
         controller.editAccount();
 
-        assertTrue((new BlowfishPasswordEncoder()).matches("newpassword", admin.getPassword()));
+        assertTrue((new BlowfishPasswordEncoder()).matches("newpassword",
+                admin.getPassword()));
         assertTrue(Context.current().flash().containsValue("Success"));
     }
 
@@ -484,11 +503,13 @@ public class GeneralAdminControllerTest extends ControllerTest {
             admin.savePassword("password");
         });
 
-        when(userManagement.getUserProfile(any(Context.class))).thenReturn(admin);
+        when(userManagement.getUserProfile(any(Context.class)))
+                .thenReturn(admin);
         when(form.get("passwordChange")).thenReturn("NotNull");
         when(form.get("oldPassword")).thenReturn("password");
         when(form.get("newPassword")).thenReturn(new String());
-        when(messages.at("general.error.minimalPasswordLength")).thenReturn("Validation");
+        when(messages.at("general.error.minimalPasswordLength"))
+                .thenReturn("Validation");
 
         controller.editAccount();
 
@@ -511,12 +532,14 @@ public class GeneralAdminControllerTest extends ControllerTest {
             admin.savePassword("password");
         });
 
-        when(userManagement.getUserProfile(any(Context.class))).thenReturn(admin);
+        when(userManagement.getUserProfile(any(Context.class)))
+                .thenReturn(admin);
         when(form.get("passwordChange")).thenReturn("NotNull");
         when(form.get("oldPassword")).thenReturn("something");
         when(form.get("newPassword")).thenReturn("something");
         when(form.get("newPasswordRepeat")).thenReturn("something");
-        when(messages.at("admin.account.error.passwords")).thenReturn("wrong password");
+        when(messages.at("admin.account.error.passwords"))
+                .thenReturn("wrong password");
 
         controller.editAccount();
 
