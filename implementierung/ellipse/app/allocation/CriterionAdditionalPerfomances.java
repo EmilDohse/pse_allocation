@@ -14,8 +14,17 @@ import gurobi.GRBLinExpr;
  */
 public class CriterionAdditionalPerfomances implements GurobiCriterion {
 
+    /**
+     * Der deutsche Anzeigename.
+     */
     private static final String DE_NAME = "Bonus für zusätzliche Teilleistungen";
+    /**
+     * Der englische Anzeigename.
+     */
     private static final String EN_NAME = "bonus additional perfomances";
+    /**
+     * Der Name des Kriteriums, anhand dessen es indentifiziert wird.
+     */
     private String              name;
 
     /**
@@ -60,6 +69,9 @@ public class CriterionAdditionalPerfomances implements GurobiCriterion {
         allocator.getOptimizationTerm().add(bonus);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getDisplayName(String local) {
         switch (local) {

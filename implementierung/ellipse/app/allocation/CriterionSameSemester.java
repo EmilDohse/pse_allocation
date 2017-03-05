@@ -18,8 +18,17 @@ import gurobi.GRBVar;
  */
 public class CriterionSameSemester implements GurobiCriterion {
 
+    /**
+     * Der deutsche Anzeigename.
+     */
     private static final String DE_NAME = "Studenten des selben Semesters in einem Team";
+    /**
+     * Der englische Anzeigename.
+     */
     private static final String EN_NAME = "Students in a team belong to same semester";
+    /**
+     * Der Name des Kriteriums, anhand dessen es identifiziert wird.
+     */
     private String              name;
 
     /**
@@ -222,6 +231,9 @@ public class CriterionSameSemester implements GurobiCriterion {
                 0, GurobiAllocator.NULL);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getDisplayName(String local) {
         switch (local) {

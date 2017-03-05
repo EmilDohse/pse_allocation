@@ -16,8 +16,17 @@ import gurobi.GRBLinExpr;
  */
 public class CriterionPreferHigherSemester implements GurobiCriterion {
 
+    /**
+     * Der deutsche Anzeigename.
+     */
     private static final String DE_NAME = "Bevorzuge Studenten höheren Semesters";
+    /**
+     * Der englische Anzeigename.
+     */
     private static final String EN_NAME = "Bonus students of higher semesters";
+    /**
+     * Der Name des Kriteriums, anhand dessen es identifiziert wird.
+     */
     private String              name;
 
     /**
@@ -73,6 +82,9 @@ public class CriterionPreferHigherSemester implements GurobiCriterion {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getDisplayName(String local) {
         switch (local) {
