@@ -31,8 +31,10 @@ Parameter wird die Liste an Projekten und eine Fehlermeldung übergeben.
 					<div id="collapse@project.getId()" class="panel-collapse collapse"
 						role="tabpanel" aria-labelledby="heading-@project.getId()">
 						<div class="panel-body">
-						<h5><small><a href="@project.getProjectURL()">@project.getProjectURL()</a></small></h5>
-						@project.getProjectInfo()
+							<h5><a href="@project.getProjectURL()">@project.getProjectURL()</a></h5>
+							@for(line <- project.getProjectInfo().split("\n")) {
+								@Html("<p>" + line + "</p>")
+							}
 						</div>
 					</div>
 				</div></td>

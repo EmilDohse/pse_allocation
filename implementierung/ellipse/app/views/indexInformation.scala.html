@@ -4,5 +4,9 @@ werden. *@ @(information: String)
 
 @if(!information.isEmpty()) {
 	<h1>@Messages("index.sidebar.information")</h1>
-	<div id="generalInformation" class="well">@information</div>
+	<div id="generalInformation" class="well">
+	@for(line <- information.split("\n")) {
+		@Html("<p>" + line + "</p>")
+	}
+	</div>
 }

@@ -12,6 +12,13 @@ data.SMTPOptions)
 	src='@routes.Assets.versioned("javascripts/bootstrap-toggle.min.js")'></script>
 <script type="text/javascript"
 	src='@routes.Assets.versioned("javascripts/bootstrap-multiselect.js")'></script>
+<script type="text/javascript"
+	src='@routes.Assets.versioned("javascripts/moment.min.js")'></script>
+<script type="text/javascript"
+	src='@routes.Assets.versioned("javascripts/bootstrap-datetimepicker.min.js")'></script>
+<link rel="stylesheet"
+	href='@routes.Assets.versioned("stylesheets/bootstrap-datetimepicker.min.css")'
+	type="text/css" />
 <link rel="stylesheet"
 	href='@routes.Assets.versioned("stylesheets/bootstrap-multiselect.css")'
 	type="text/css" />
@@ -206,6 +213,13 @@ data.SMTPOptions)
                     "dd.MM.yyyy HH:mm:ss");if(semester.getRegistrationStart() != null) {format.format(semester.getRegistrationStart());}
                     else{format.format(new java.util.Date());}}'
 								required>
+							<script type="text/javascript">
+            					$(function () {
+                					$('#registrationStart').datetimepicker({
+                						format: "DD.MM.YYYY HH:mm:ss"
+                					});
+            					});
+        					</script>
 						</div>
 					</div>
 
@@ -218,7 +232,13 @@ data.SMTPOptions)
                     "dd.MM.yyyy HH:mm:ss");if(semester.getRegistrationEnd() != null) {format.format(semester.getRegistrationEnd());}
                     else{format.format(new java.util.Date());}}'
 								required>
-							<!-- TODO: LIBRARY!!! -->
+							<script type="text/javascript">
+            					$(function () {
+                					$('#registrationEnd').datetimepicker({
+                						format: "DD.MM.YYYY HH:mm:ss"
+                					});
+            					});
+        					</script>
 						</div>
 					</div>
 
