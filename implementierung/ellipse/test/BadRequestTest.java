@@ -12,6 +12,10 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.concurrent.CompletionStage;
 
+/**
+ * Diese Klasse beinhaltet BadRequest-Tests.
+ *
+ */
 public class BadRequestTest extends WithServer {
 
     @Test

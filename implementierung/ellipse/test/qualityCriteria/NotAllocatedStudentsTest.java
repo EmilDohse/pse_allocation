@@ -60,15 +60,15 @@ public class NotAllocatedStudentsTest {
         a.setTeams(teams);
         a.setSemester(s);
         NotAllocatedStudents nas = new NotAllocatedStudents();
-        assertEquals(allStudents.size() / 5,
-                Integer.parseInt(nas.calculate(a)));
+        assertEquals(allStudents.size() / 5, Integer.parseInt(nas.calculate(a)));
     }
 
+    /**
+     * Test ob der Name richtig angezeigt wird.
+     */
     @Test
     public void testDisplayName() {
-        assertEquals("Anzahl nicht zugeteilter Studenten",
-                new NotAllocatedStudents().getName("de"));
-        assertEquals("Number of not assigned students",
-                new NotAllocatedStudents().getName("en"));
+        assertEquals("Anzahl nicht zugeteilter Studenten", new NotAllocatedStudents().getName("de"));
+        assertEquals("Number of not assigned students", new NotAllocatedStudents().getName("en"));
     }
 }

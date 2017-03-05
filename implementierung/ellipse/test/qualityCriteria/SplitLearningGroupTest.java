@@ -306,11 +306,12 @@ public class SplitLearningGroupTest extends DataTest {
         assertEquals(0, Integer.parseInt(slg.calculate(allocation)));
     }
 
+    /**
+     * Test ob der Name richtig angezeigt wird.
+     */
     @Test
     public void testDisplayName() {
-        assertEquals("Anzahl gesplitteter Lerngruppen",
-                new SplitLearningGroups().getName("de"));
-        assertEquals("Number of splitted learning groups",
-                new SplitLearningGroups().getName("en"));
+        assertEquals("Anzahl gesplitteter Lerngruppen", new SplitLearningGroups().getName("de"));
+        assertEquals("Number of splitted learning groups", new SplitLearningGroups().getName("en"));
     }
 }
