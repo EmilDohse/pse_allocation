@@ -1,12 +1,14 @@
 package notificationSystem;
 
-import static org.junit.Assert.assertTrue;
-
 import java.io.IOException;
+import java.util.ArrayList;
+
+import static org.junit.Assert.assertTrue;
 
 import javax.inject.Inject;
 import javax.mail.Message;
 import javax.mail.MessagingException;
+import javax.mail.internet.AddressException;
 
 import org.apache.commons.mail.EmailException;
 import org.junit.After;
@@ -81,11 +83,11 @@ public class NotifierTest extends WithApplication {
      * @throws IOException
      * @throws MessagingException
      */
-    @Ignore
     @Test
-    public void testNotifiyStudent() throws EmailException, IOException,
-            MessagingException {
+    public void testNotifiyStudent()
+            throws EmailException, IOException, MessagingException {
         Student student = new Student();
+        student.setEmailAddress("e@mail");
         Team team = new Team();
         Project project = new Project();
         team.setProject(project);
@@ -111,10 +113,10 @@ public class NotifierTest extends WithApplication {
      * @throws MessagingException
      */
     @Test
-    @Ignore
-    public void testNotifyAdviser() throws EmailException, IOException,
-            MessagingException {
+    public void testNotifyAdviser()
+            throws EmailException, IOException, MessagingException {
         Adviser adviser = new Adviser();
+        adviser.setEmailAddress("e@mail");
         Student student = new Student();
         Team team = new Team();
         Project project = new Project();
@@ -143,10 +145,9 @@ public class NotifierTest extends WithApplication {
      * @throws IOException
      * @throws MessagingException
      */
-    @Ignore
     @Test
-    public void testSendAdviserPassword() throws EmailException, IOException,
-            MessagingException {
+    public void testSendAdviserPassword()
+            throws EmailException, IOException, MessagingException {
         Adviser adviser = new Adviser();
         adviser.setEmailAddress("adviser@email.com");
         String password = "secret";
@@ -160,5 +161,83 @@ public class NotifierTest extends WithApplication {
                 .contains(adviser.getLastName()));
         // Enthält Team
         assertTrue(message.getContent().toString().contains(password));
+    }
+
+    @Test
+    public void testSendVerificationMail()
+            throws EmailException, MessagingException, IOException {
+        Student student = new Student();
+        student.setEmailAddress("e@mail");
+        notifier.sendVerificationMail(student, "code");
+
+        Message message = Mailbox.get(student.getEmailAddress()).get(0);
+
+        assertTrue(message.getContent().toString().contains(student.getName()));
+        assertTrue(message.getContent().toString().contains("code"));
+    }
+
+    @Test
+    public void testSendVerifyNewPassword()
+            throws EmailException, MessagingException, IOException {
+        Student student = new Student();
+        student.setEmailAddress("e@mail");
+        notifier.sendVerifyNewPassword(student, "url");
+
+        Message message = Mailbox.get(student.getEmailAddress()).get(0);
+
+        assertTrue(message.getContent().toString().contains(student.getName()));
+        assertTrue(message.getContent().toString().contains("url"));
+    }
+
+    @Test
+    public void testNotifyAllUsers()
+            throws EmailException, MessagingException, IOException {
+        Semester semester = GeneralData.loadInstance().getCurrentSemester();
+
+        Student student = new Student();
+        student.doTransaction(() -> {
+            student.setEmailAddress("e@mail");
+        });
+
+        Adviser adviser = new Adviser();
+        adviser.doTransaction(() -> {
+            adviser.setEmailAddress("a@b.c");
+        });
+
+        Project project = new Project();
+        project.doTransaction(() -> {
+            project.addAdviser(adviser);
+            project.setName("name");
+        });
+
+        ArrayList<Team> teams = new ArrayList<>();
+        Team team = new Team();
+        team.setProject(project);
+        team.addMember(student);
+        teams.add(team);
+
+        Allocation allocation = new Allocation();
+        allocation.doTransaction(() -> {
+            allocation.setTeams(teams);
+        });
+
+        semester.doTransaction(() -> {
+            semester.addStudent(student);
+            semester.addProject(project);
+        });
+
+        notifier.notifyAllUsers(allocation);
+
+        Message studentMessage = Mailbox.get(student.getEmailAddress()).get(0);
+        Message adviserMessage = Mailbox.get(adviser.getEmailAddress()).get(0);
+
+        assertTrue(studentMessage.getContent().toString()
+                .contains(student.getName()));
+        assertTrue(adviserMessage.getContent().toString()
+                .contains(adviser.getName()));
+        assertTrue(studentMessage.getContent().toString()
+                .contains(team.getProject().getName()));
+        assertTrue(adviserMessage.getContent().toString()
+                .contains(String.valueOf(team.getTeamNumber())));
     }
 }
