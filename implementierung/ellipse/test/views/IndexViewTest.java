@@ -99,4 +99,44 @@ public class IndexViewTest extends ViewTest {
         infoPage.gotoMenuEntry(browser, 1);
         assertEquals(infoPage.getUrl(), browser.url());
     }
+
+    /**
+     * Test für die Eingabe eines falschen AdminPasswortes.
+     */
+    @Test
+    public void wrongAdminPassword() {
+        TestHelpers.createAdmin();
+        login("admin", "asdasdasd", infoPage);
+        assertTrue(infoPage.showsError(browser));
+    }
+
+    /**
+     * Test für die Eingabe eines falschen StudentPasswortes.
+     */
+    @Test
+    public void wrongStudentPassword() {
+        TestHelpers.createStudent(123123, "asdasdas");
+        login("123123", "asdsdasdasdasdasd", infoPage);
+        assertTrue(infoPage.showsError(browser));
+    }
+
+    /**
+     * Test für die Eingabe eines falschen AdviserPasswortes.
+     */
+    @Test
+    public void wrongAdviserPassword() {
+        TestHelpers.createAdviser("asdas@asdasdd.de", "asaskjljl");
+        login("asdas@asdasdd.de", "asdsdasdasdasdasd", infoPage);
+        assertTrue(infoPage.showsError(browser));
+    }
+
+    /**
+     * Test für die Eingabe eines falschen StudentOldPasswortes.
+     */
+    @Test
+    public void wrongStudentOldPassword() {
+        TestHelpers.createOldStudent(123123, "asdasdas");
+        login("123123", "asdsdasdasdasdasd", infoPage);
+        assertTrue(infoPage.showsError(browser));
+    }
 }

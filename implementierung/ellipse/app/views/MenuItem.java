@@ -35,32 +35,12 @@ public class MenuItem {
     }
 
     /**
-     * Setzt den Menütext.
-     * 
-     * @param menuText
-     *            neuer Text.
-     */
-    public void setMenuText(String menuText) {
-        this.menuText = menuText;
-    }
-
-    /**
      * Gibt den Link zurück.
      * 
      * @return den Link.
      */
     public String getLink() {
         return link;
-    }
-
-    /**
-     * Setzt den Link neu.
-     * 
-     * @param link
-     *            der neue Link.
-     */
-    public void setLink(String link) {
-        this.link = link;
     }
 
     /**
