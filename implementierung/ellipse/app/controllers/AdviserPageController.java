@@ -43,6 +43,8 @@ public class AdviserPageController extends Controller {
     private static final String ERROR          = "error";
 
     private static final String INTERNAL_ERROR = "error.internalError";
+    
+    private static final String NOT_PROJECT_ADVISER ="error.notProjectAdviser";
 
     @Inject
     FormFactory                 formFactory;
@@ -246,7 +248,7 @@ public class AdviserPageController extends Controller {
             }
             boolean isAdviser = adviser.getProjects().contains(project);
             if (!isAdviser) {
-                flash(ERROR, ctx().messages().at(INTERNAL_ERROR));
+                flash(ERROR, ctx().messages().at(NOT_PROJECT_ADVISER));
                 return redirect(controllers.routes.AdviserPageController
                         .projectsPage(id));
             }
@@ -315,7 +317,7 @@ public class AdviserPageController extends Controller {
                     project.addAdviser(adviser);
                 });
             } else {
-                flash(ERROR, ctx().messages().at(INTERNAL_ERROR));
+                flash(ERROR, ctx().messages().at("error.adviserAllreadyMember"));
             }
 
             return redirect(controllers.routes.AdviserPageController
@@ -361,7 +363,7 @@ public class AdviserPageController extends Controller {
                     project.removeAdviser(adviser);
                 });
             } else {
-                flash(ERROR, ctx().messages().at(INTERNAL_ERROR));
+                flash(ERROR, ctx().messages().at(NOT_PROJECT_ADVISER));
             }
             return redirect(controllers.routes.AdviserPageController
                     .projectsPage(project.getId()));
@@ -396,9 +398,11 @@ public class AdviserPageController extends Controller {
         Project project = ElipseModel.getById(Project.class, id);
         boolean isAdviser = adviser.getProjects().contains(project);
         if (!isAdviser) {
-            flash(ERROR, ctx().messages().at(INTERNAL_ERROR));
-            return redirect(controllers.routes.AdviserPageController
-                    .projectsPage(id));
+
+            flash(ERROR, ctx().messages().at(NOT_PROJECT_ADVISER));
+            return redirect(
+                    controllers.routes.AdviserPageController.projectsPage(id));
+
         }
         // Dies nur ausführen, falls Betreuer wirklich zum Projekt gehört
         Allocation finalAlloc = GeneralData.loadInstance().getCurrentSemester()

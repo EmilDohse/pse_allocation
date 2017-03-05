@@ -25,6 +25,9 @@ import data.Semester;
 import data.Student;
 import deadline.StateStorage;
 
+/**
+ * Diese Klasse beinhaltet Tests für den AdminPropertiesController.
+ */
 public class AdminPropertiesControllerTest extends ControllerTest {
 
     @InjectMocks
@@ -38,6 +41,9 @@ public class AdminPropertiesControllerTest extends ControllerTest {
     private Achievement       secondAchievement;
     private Achievement       thirdAchievement;
 
+    /**
+     * Initialisierung der Testdaten.
+     */
     @Override
     @Before
     public void before() {
@@ -93,6 +99,9 @@ public class AdminPropertiesControllerTest extends ControllerTest {
         thirdAchievement.refresh();
     }
 
+    /**
+     * Test für das Hinzufügen einer Teilleistung.
+     */
     @Test
     public void addAchievementTest() {
 
@@ -100,8 +109,7 @@ public class AdminPropertiesControllerTest extends ControllerTest {
         map.put("1", "1");
 
         Mockito.when(form.data()).thenReturn(map);
-        Mockito.when(form.get("id")).thenReturn(
-                String.valueOf(firstSpo.getId()));
+        Mockito.when(form.get("id")).thenReturn(String.valueOf(firstSpo.getId()));
         Mockito.when(form.get("nameAchiev")).thenReturn("achievementName");
 
         controller.addAchievement();
@@ -110,13 +118,16 @@ public class AdminPropertiesControllerTest extends ControllerTest {
 
         assertEquals(firstSpo.getNecessaryAchievements().size(), 3);
 
-        Achievement newAchievement = Achievement
-                .getAchievement("achievementName");
+        Achievement newAchievement = Achievement.getAchievement("achievementName");
 
         assertNotNull(newAchievement);
         assertTrue(firstSpo.getNecessaryAchievements().contains(newAchievement));
     }
 
+    /**
+     * Test ob beim Hinzufügen einer Teilleistung mit falschen Bedingungen eine
+     * Exception geworfen wird.
+     */
     @Test
     public void addAchievementValidationExceptionTest() {
 
@@ -134,6 +145,9 @@ public class AdminPropertiesControllerTest extends ControllerTest {
         assertTrue(Context.current().flash().containsValue("error"));
     }
 
+    /**
+     * Test für das Hinzufügen eines Semesters.
+     */
     @Test
     public void addSemesterTest() {
 
@@ -147,6 +161,9 @@ public class AdminPropertiesControllerTest extends ControllerTest {
         assertTrue(newSemester.isWintersemester());
     }
 
+    /**
+     * Test für das Hinzufügen einer SPO.
+     */
     @Test
     public void addSPOTest() {
 
@@ -159,7 +176,11 @@ public class AdminPropertiesControllerTest extends ControllerTest {
         assertNotNull(newSpo);
     }
 
-    // TODO Testdatenbank austauschen
+    /**
+     * Test für das Ändern einer SPO.
+     * 
+     * Funktioniert nicht, da EBean Probleme mit der Testdatenbank hat.
+     */
     @Ignore
     @Test
     public void changeSPOTest() {
@@ -168,20 +189,11 @@ public class AdminPropertiesControllerTest extends ControllerTest {
         map.put("1", "1");
 
         Mockito.when(form.data()).thenReturn(map);
-        Mockito.when(form.get("id")).thenReturn(
-                String.valueOf(firstSpo.getId()));
+        Mockito.when(form.get("id")).thenReturn(String.valueOf(firstSpo.getId()));
         Mockito.when(form.get("nameSPO")).thenReturn("spoName");
-        Mockito.when(
-                form.get("necessary-"
-                        + String.valueOf(firstAchievement.getId())))
-                .thenReturn("NotNull");
-        Mockito.when(
-                form.get("necessary-"
-                        + String.valueOf(secondAchievement.getId())))
-                .thenReturn(null);
-        Mockito.when(
-                form.get("delete-" + String.valueOf(thirdAchievement.getId())))
-                .thenReturn("NotNull");
+        Mockito.when(form.get("necessary-" + String.valueOf(firstAchievement.getId()))).thenReturn("NotNull");
+        Mockito.when(form.get("necessary-" + String.valueOf(secondAchievement.getId()))).thenReturn(null);
+        Mockito.when(form.get("delete-" + String.valueOf(thirdAchievement.getId()))).thenReturn("NotNull");
 
         controller.changeSPO();
 
@@ -189,13 +201,15 @@ public class AdminPropertiesControllerTest extends ControllerTest {
 
         assertEquals(firstSpo.getName(), "spoName");
         assertEquals(firstSpo.getAdditionalAchievements().size(), 1);
-        assertEquals(firstSpo.getAdditionalAchievements().get(0),
-                secondAchievement);
+        assertEquals(firstSpo.getAdditionalAchievements().get(0), secondAchievement);
         assertEquals(firstSpo.getNecessaryAchievements().size(), 1);
-        assertEquals(firstSpo.getNecessaryAchievements().get(0),
-                firstAchievement);
+        assertEquals(firstSpo.getNecessaryAchievements().get(0), firstAchievement);
     }
 
+    /**
+     * Test ob beim Ändern einer SPO mit falschen Bedingungen eine Exception
+     * geworfen wird.
+     */
     @Test
     public void changeSPOValidationExceptionTest() {
 
@@ -213,6 +227,10 @@ public class AdminPropertiesControllerTest extends ControllerTest {
         assertTrue(Context.current().flash().containsValue("error"));
     }
 
+    /**
+     * Test ob beim Ändern einer SPO mit falschen Bedingungen eine Exception
+     * geworfen wird.
+     */
     @Test
     public void changeSPOUnknownSPOIdTest() {
 
@@ -220,36 +238,32 @@ public class AdminPropertiesControllerTest extends ControllerTest {
         map.put("1", "1");
 
         Mockito.when(form.data()).thenReturn(map);
-        Mockito.when(form.get("id")).thenReturn(
-                String.valueOf(firstSpo.getId() + secondSpo.getId() + 1));
+        Mockito.when(form.get("id")).thenReturn(String.valueOf(firstSpo.getId() + secondSpo.getId() + 1));
         Mockito.when(form.get("nameSPO")).thenReturn("spoName");
 
-        Mockito.when(messages.at("error.SPO.deletedConcurrently")).thenReturn(
-                "error");
+        Mockito.when(messages.at("error.SPO.deletedConcurrently")).thenReturn("error");
 
         controller.changeSPO();
 
         assertTrue(Context.current().flash().containsValue("error"));
     }
 
+    /**
+     * Test für das Editieren eines Semesters.
+     */
     @Test
     public void editSemesterTest() {
 
         Map<String, String> map = new HashMap<>();
-        map.put("spo-multiselect-"
-                + String.valueOf(firstSemester.getId() + "1"),
-                String.valueOf(secondSpo.getId()));
+        map.put("spo-multiselect-" + String.valueOf(firstSemester.getId() + "1"), String.valueOf(secondSpo.getId()));
 
         Mockito.when(form.data()).thenReturn(map);
-        Mockito.when(form.get("id")).thenReturn(
-                String.valueOf(firstSemester.getId()));
+        Mockito.when(form.get("id")).thenReturn(String.valueOf(firstSemester.getId()));
         Mockito.when(form.get("name2")).thenReturn("semesterName");
         Mockito.when(form.get("maxGroupSize")).thenReturn("6");
         Mockito.when(form.get("info")).thenReturn("semesterInfo");
-        Mockito.when(form.get("registrationStart")).thenReturn(
-                "01.01.1970 00:00:01");
-        Mockito.when(form.get("registrationEnd")).thenReturn(
-                "01.01.1970 00:00:01");
+        Mockito.when(form.get("registrationStart")).thenReturn("01.01.1970 00:00:01");
+        Mockito.when(form.get("registrationEnd")).thenReturn("01.01.1970 00:00:01");
         Mockito.when(form.get("wintersemester")).thenReturn(null);
         Mockito.when(form.get("semester-active")).thenReturn("NotNull");
 
@@ -263,22 +277,23 @@ public class AdminPropertiesControllerTest extends ControllerTest {
         assertFalse(firstSemester.getRegistrationStart().getTime() == 0);
         assertFalse(firstSemester.getRegistrationEnd().getTime() == 0);
         assertTrue(!firstSemester.isWintersemester());
-        assertEquals(firstSemester, GeneralData.loadInstance()
-                .getCurrentSemester());
+        assertEquals(firstSemester, GeneralData.loadInstance().getCurrentSemester());
         assertEquals(firstSemester.getSpos().size(), 1);
         assertEquals(firstSemester.getSpos().get(0), secondSpo);
     }
 
+    /**
+     * Test ob beim Editieren eines Semesters mit falschen Bedingungen eine
+     * Exception geworfen wird. Input not valid.
+     */
     @Test
     public void editSemesterValidationExceptionSPOTest() {
 
         Map<String, String> map = new HashMap<>();
-        map.put("spo-multiselect-"
-                + String.valueOf(firstSemester.getId() + "1"), "abc");
+        map.put("spo-multiselect-" + String.valueOf(firstSemester.getId() + "1"), "abc");
 
         Mockito.when(form.data()).thenReturn(map);
-        Mockito.when(form.get("id")).thenReturn(
-                String.valueOf(firstSemester.getId()));
+        Mockito.when(form.get("id")).thenReturn(String.valueOf(firstSemester.getId()));
         Mockito.when(form.get("name2")).thenReturn("semesterName");
         Mockito.when(form.get("maxGroupSize")).thenReturn("6");
 
@@ -289,39 +304,41 @@ public class AdminPropertiesControllerTest extends ControllerTest {
         assertTrue(Context.current().flash().containsValue("error"));
     }
 
+    /**
+     * Test ob beim Editieren eines Semesters mit falschen Bedingungen eine
+     * Exception geworfen wird. Unknown SPO
+     */
     @Test
     public void editSemesterUnknownSPOIdTest() {
 
         Map<String, String> map = new HashMap<>();
-        map.put("spo-multiselect-"
-                + String.valueOf(firstSemester.getId() + "1"),
+        map.put("spo-multiselect-" + String.valueOf(firstSemester.getId() + "1"),
                 String.valueOf(firstSpo.getId() + secondSpo.getId() + 1));
 
         Mockito.when(form.data()).thenReturn(map);
-        Mockito.when(form.get("id")).thenReturn(
-                String.valueOf(firstSemester.getId()));
+        Mockito.when(form.get("id")).thenReturn(String.valueOf(firstSemester.getId()));
         Mockito.when(form.get("name2")).thenReturn("semesterName");
         Mockito.when(form.get("maxGroupSize")).thenReturn("6");
 
-        Mockito.when(messages.at("error.SPO.deletedConcurrently")).thenReturn(
-                "error");
+        Mockito.when(messages.at("error.SPO.deletedConcurrently")).thenReturn("error");
 
         controller.editSemester();
 
         assertTrue(Context.current().flash().containsValue("error"));
     }
 
+    /**
+     * Test ob beim Editieren eines Semesters mit falschen Bedingungen eine
+     * Exception geworfen wird.
+     */
     @Test
     public void editSemesterValidationExceptionMaxGroupSizeTest() {
 
         Map<String, String> map = new HashMap<>();
-        map.put("spo-multiselect-"
-                + String.valueOf(firstSemester.getId() + "1"),
-                String.valueOf(secondSpo.getId()));
+        map.put("spo-multiselect-" + String.valueOf(firstSemester.getId() + "1"), String.valueOf(secondSpo.getId()));
 
         Mockito.when(form.data()).thenReturn(map);
-        Mockito.when(form.get("id")).thenReturn(
-                String.valueOf(firstSemester.getId()));
+        Mockito.when(form.get("id")).thenReturn(String.valueOf(firstSemester.getId()));
         Mockito.when(form.get("name2")).thenReturn("semesterName");
         Mockito.when(form.get("maxGroupSize")).thenReturn("abc");
 
@@ -332,92 +349,89 @@ public class AdminPropertiesControllerTest extends ControllerTest {
         assertTrue(Context.current().flash().containsValue("error"));
     }
 
+    /**
+     * Test ob beim Editieren eines Semesters mit falschen Bedingungen eine
+     * Exception geworfen wird. Wrong Date Format
+     */
     @Test
     public void editSemesterWrongDateFormatTest() {
 
         Map<String, String> map = new HashMap<>();
-        map.put("spo-multiselect-"
-                + String.valueOf(firstSemester.getId() + "1"),
-                String.valueOf(secondSpo.getId()));
+        map.put("spo-multiselect-" + String.valueOf(firstSemester.getId() + "1"), String.valueOf(secondSpo.getId()));
 
         Mockito.when(form.data()).thenReturn(map);
-        Mockito.when(form.get("id")).thenReturn(
-                String.valueOf(firstSemester.getId()));
+        Mockito.when(form.get("id")).thenReturn(String.valueOf(firstSemester.getId()));
         Mockito.when(form.get("name2")).thenReturn("semesterName");
         Mockito.when(form.get("maxGroupSize")).thenReturn("6");
         Mockito.when(form.get("info")).thenReturn("semesterInfo");
         Mockito.when(form.get("registrationStart")).thenReturn("abc");
-        Mockito.when(form.get("registrationEnd")).thenReturn(
-                "01.01.1970 00:00:01");
+        Mockito.when(form.get("registrationEnd")).thenReturn("01.01.1970 00:00:01");
         Mockito.when(form.get("wintersemester")).thenReturn(null);
         Mockito.when(form.get("semester-active")).thenReturn("NotNull");
 
-        Mockito.when(messages.at("index.registration.error.genError"))
-                .thenReturn("error");
+        Mockito.when(messages.at("index.registration.error.genError")).thenReturn("error");
 
         controller.editSemester();
 
         assertTrue(Context.current().flash().containsValue("error"));
     }
 
+    /**
+     * Test ob beim Editieren eines Semesters mit falschen Bedingungen eine
+     * Exception geworfen wird. -> Unknown SemseterId
+     */
     @Test
     public void editSemesterUnknownSemesterIdTest() {
 
         Map<String, String> map = new HashMap<>();
-        map.put("spo-multiselect-"
-                + String.valueOf(firstSemester.getId() + "1"),
-                String.valueOf(secondSpo.getId()));
+        map.put("spo-multiselect-" + String.valueOf(firstSemester.getId() + "1"), String.valueOf(secondSpo.getId()));
 
         Mockito.when(form.data()).thenReturn(map);
-        Mockito.when(form.get("id")).thenReturn(
-                String.valueOf(firstSemester.getId() + secondSemester.getId()
-                        + 1));
+        Mockito.when(form.get("id")).thenReturn(String.valueOf(firstSemester.getId() + secondSemester.getId() + 1));
         Mockito.when(form.get("name2")).thenReturn("semesterName");
         Mockito.when(form.get("maxGroupSize")).thenReturn("6");
         Mockito.when(form.get("info")).thenReturn("semesterInfo");
-        Mockito.when(form.get("registrationStart")).thenReturn(
-                "01.01.1970 00:00:01");
-        Mockito.when(form.get("registrationEnd")).thenReturn(
-                "01.01.1970 00:00:01");
+        Mockito.when(form.get("registrationStart")).thenReturn("01.01.1970 00:00:01");
+        Mockito.when(form.get("registrationEnd")).thenReturn("01.01.1970 00:00:01");
         Mockito.when(form.get("wintersemester")).thenReturn(null);
         Mockito.when(form.get("semester-active")).thenReturn("NotNull");
 
-        Mockito.when(messages.at("error.semester.deletedConcurrently"))
-                .thenReturn("error");
+        Mockito.when(messages.at("error.semester.deletedConcurrently")).thenReturn("error");
 
         controller.editSemester();
 
         assertTrue(Context.current().flash().containsValue("error"));
     }
 
+    /**
+     * Test ob das Start-Datum nach dem End-Datum des Semesters liegt.
+     */
     @Test
     public void editSemesterStartDateAfterEndDateTest() {
 
         Map<String, String> map = new HashMap<>();
-        map.put("spo-multiselect-"
-                + String.valueOf(firstSemester.getId() + "1"),
-                String.valueOf(secondSpo.getId()));
+        map.put("spo-multiselect-" + String.valueOf(firstSemester.getId() + "1"), String.valueOf(secondSpo.getId()));
 
         Mockito.when(form.data()).thenReturn(map);
-        Mockito.when(form.get("id")).thenReturn(
-                String.valueOf(firstSemester.getId()));
+        Mockito.when(form.get("id")).thenReturn(String.valueOf(firstSemester.getId()));
         Mockito.when(form.get("name2")).thenReturn("semesterName");
         Mockito.when(form.get("maxGroupSize")).thenReturn("6");
         Mockito.when(form.get("info")).thenReturn("semesterInfo");
-        Mockito.when(form.get("registrationStart")).thenReturn(
-                "01.01.1970 00:00:02");
-        Mockito.when(form.get("registrationEnd")).thenReturn(
-                "01.01.1970 00:00:01");
+        Mockito.when(form.get("registrationStart")).thenReturn("01.01.1970 00:00:02");
+        Mockito.when(form.get("registrationEnd")).thenReturn("01.01.1970 00:00:01");
         Mockito.when(form.get("wintersemester")).thenReturn(null);
         Mockito.when(form.get("semester-active")).thenReturn("NotNull");
 
-        Mockito.when(messages.at("error.internalError")).thenReturn("error");
+        Mockito.when(messages.at("error.editSemester.spoUsedOrStartAfterEnd")).thenReturn("error");
 
         controller.editSemester();
 
         assertTrue(Context.current().flash().containsValue("error"));
     }
 
+    /**
+     * Test für das Editieren der SMTP Optionen.
+     */
     @Test
     public void editSMTPOptionsTest() {
 
@@ -452,6 +466,10 @@ public class AdminPropertiesControllerTest extends ControllerTest {
         assertEquals(options.getPassword(), "password");
     }
 
+    /**
+     * Test ob beim Editieren der SMTP Optionen mit falschen Bedingungen eine
+     * Exception geworfen wird.
+     */
     @Test
     public void editSMTPOptionsValidationExceptionTest() {
 
@@ -466,8 +484,7 @@ public class AdminPropertiesControllerTest extends ControllerTest {
         Mockito.when(form.get("connectionTimeOut")).thenReturn("1000");
         Mockito.when(form.get("timeout")).thenReturn("500");
 
-        Mockito.when(messages.at("admin.properties.numberError")).thenReturn(
-                "error");
+        Mockito.when(messages.at("admin.properties.numberError")).thenReturn("error");
 
         controller.editSMTPOptions();
 
@@ -475,6 +492,9 @@ public class AdminPropertiesControllerTest extends ControllerTest {
 
     }
 
+    /**
+     * Test für das Entfernen eines Semesters.
+     */
     @Test
     public void removeSemesterTest() {
 
@@ -482,8 +502,7 @@ public class AdminPropertiesControllerTest extends ControllerTest {
         map.put("1", "1");
 
         Mockito.when(form.data()).thenReturn(map);
-        Mockito.when(form.get("id")).thenReturn(
-                String.valueOf(secondSemester.getId()));
+        Mockito.when(form.get("id")).thenReturn(String.valueOf(secondSemester.getId()));
 
         controller.removeSemester();
 
@@ -491,6 +510,10 @@ public class AdminPropertiesControllerTest extends ControllerTest {
         assertNull(Semester.getSemester("deleteSemester"));
     }
 
+    /**
+     * Test ob beim Entfernen eines Semesters mit falschen Bedingungen eine
+     * Exception geworfen wird.
+     */
     @Test
     public void removeSemesterValidationExceptionTest() {
 
@@ -507,6 +530,10 @@ public class AdminPropertiesControllerTest extends ControllerTest {
         assertTrue(Context.current().flash().containsValue("error"));
     }
 
+    /**
+     * Test ob beim Entfernen des aktuellen Semesters mit falschen Bedingungen
+     * eine Exception geworfen wird.
+     */
     @Test
     public void removeSemesterCurrentSemesterTest() {
 
@@ -514,17 +541,18 @@ public class AdminPropertiesControllerTest extends ControllerTest {
         map.put("1", "1");
 
         Mockito.when(form.data()).thenReturn(map);
-        Mockito.when(form.get("id")).thenReturn(
-                String.valueOf(firstSemester.getId()));
+        Mockito.when(form.get("id")).thenReturn(String.valueOf(firstSemester.getId()));
 
-        Mockito.when(messages.at("admin.properties.semesterIsActiveError"))
-                .thenReturn("error");
+        Mockito.when(messages.at("admin.properties.semesterIsActiveError")).thenReturn("error");
 
         controller.removeSemester();
 
         assertTrue(Context.current().flash().containsValue("error"));
     }
 
+    /**
+     * Test für das Entfernen einer SPO.
+     */
     @Test
     public void removeSPOTest() {
 
@@ -532,8 +560,7 @@ public class AdminPropertiesControllerTest extends ControllerTest {
         map.put("1", "1");
 
         Mockito.when(form.data()).thenReturn(map);
-        Mockito.when(form.get("id")).thenReturn(
-                String.valueOf(secondSpo.getId()));
+        Mockito.when(form.get("id")).thenReturn(String.valueOf(secondSpo.getId()));
 
         controller.removeSPO();
 
@@ -541,6 +568,10 @@ public class AdminPropertiesControllerTest extends ControllerTest {
         assertNull(SPO.getSPO("deleteSPO"));
     }
 
+    /**
+     * Test ob beim Entfernen einer SPO mit falschen Bedingungen eine Exception
+     * geworfen wird.
+     */
     @Test
     public void removeSPOValidationExceptionTest() {
 
@@ -557,6 +588,10 @@ public class AdminPropertiesControllerTest extends ControllerTest {
         assertTrue(Context.current().flash().containsValue("error"));
     }
 
+    /**
+     * Test ob beim Entfernen einer bereits benutzten SPO mit falschen
+     * Bedingungen eine Exception geworfen wird.
+     */
     @Test
     public void removeSPOUsedTest() {
 
@@ -570,11 +605,9 @@ public class AdminPropertiesControllerTest extends ControllerTest {
         map.put("1", "1");
 
         Mockito.when(form.data()).thenReturn(map);
-        Mockito.when(form.get("id")).thenReturn(
-                String.valueOf(secondSpo.getId()));
+        Mockito.when(form.get("id")).thenReturn(String.valueOf(secondSpo.getId()));
 
-        Mockito.when(messages.at("admin.properties.SPOusedError")).thenReturn(
-                "error");
+        Mockito.when(messages.at("admin.properties.SPOusedError")).thenReturn("error");
 
         controller.removeSPO();
 

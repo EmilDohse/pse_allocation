@@ -20,8 +20,17 @@ import gurobi.GRBLinExpr;
  */
 public class CriterionRating implements GurobiCriterion {
 
+    /**
+     * Der deutsche Anzeigename.
+     */
     private static final String DE_NAME = "Beachte Bewertungen";
+    /**
+     * Der englische Anzeigename.
+     */
     private static final String EN_NAME = "Respect ratings";
+    /**
+     * Der Name des Kriteriums, anhand dessen es identifiziert wird.
+     */
     private String              name;
 
     /**
@@ -73,6 +82,9 @@ public class CriterionRating implements GurobiCriterion {
         allocator.getOptimizationTerm().add(bonus);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getDisplayName(String local) {
         switch (local) {

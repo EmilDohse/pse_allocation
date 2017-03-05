@@ -274,7 +274,7 @@ public class AdminPropertiesController extends Controller {
                         StateStorage.getInstance().initStateChanging(startDate, endDate);
                     }
                 } else {
-                    flash(ERROR, ctx().messages().at(INTERNAL_ERROR));
+                    flash(ERROR, ctx().messages().at("error.editSemester.spoUsedOrStartAfterEnd"));
                 }
 
                 return redirect(controllers.routes.AdminPageController.propertiesPage());

@@ -35,10 +35,18 @@ public class GurobiAllocator extends AbstractAllocator {
      */
     public static final String  NULL             = "";
 
+    /**
+     * String Label für die minimale Teamgröße.
+     */
     private static final String MIN_SIZE         = "minSize";
-
+    /**
+     * String Label für die maximale Teamgröße.
+     */
     private static final String MAX_SIZE         = "maxSize";
 
+    /**
+     * String Konstante für den Error Code, der Gurobi Exception.
+     */
     private static final String GUROBI_EXCEPTION = "allocation.gurobiException";
 
     /**
@@ -60,8 +68,14 @@ public class GurobiAllocator extends AbstractAllocator {
      */
     private GRBModel            model;
 
+    /**
+     * Die Gurobi Umgebung.
+     */
     private GRBEnv              env;
 
+    /**
+     * Die aktuell berechnete Konfiguration.
+     */
     private Configuration       currentConfiguration;
 
     /**
@@ -187,6 +201,11 @@ public class GurobiAllocator extends AbstractAllocator {
         return criteria;
     }
 
+    /**
+     * Erstellt das Gurobi Modell.
+     * 
+     * @throws GRBException
+     */
     private void makeModel() throws GRBException {
         model = new GRBModel(env);
         createBaseMatrix();
@@ -231,6 +250,11 @@ public class GurobiAllocator extends AbstractAllocator {
         }
     }
 
+    /**
+     * Erstell die Gurobi Basis Matrix.
+     * 
+     * @throws GRBException
+     */
     private void createBaseMatrix() throws GRBException {
         // Erstelle Basismatrix B
         this.basicMatrix = new GRBVar[currentConfiguration.getStudents()
@@ -243,6 +267,11 @@ public class GurobiAllocator extends AbstractAllocator {
         }
     }
 
+    /**
+     * Erstellt die Gurobi Basis Constraints und fügt sie dem Model hinzu.
+     * 
+     * @throws GRBException
+     */
     private void createBasicConstraint() throws GRBException {
         // Erzeuge Basisconstraint
         // Genau 1 Team pro Student
@@ -256,6 +285,11 @@ public class GurobiAllocator extends AbstractAllocator {
 
     }
 
+    /**
+     * Erstellt den COnstaint für die Teamgröße und fügt ihn dem Modell hinzu.
+     * 
+     * @throws GRBException
+     */
     private void createTeamSizeConstraint() throws GRBException {
         createTeamsizeVariable();
         // Bestimme die vom Admin eingestellte min- und max-Größe
@@ -297,6 +331,12 @@ public class GurobiAllocator extends AbstractAllocator {
 
     }
 
+    /**
+     * Erzeugt die Variablen, die für die Teamgröße verantwortlich sind und fügt
+     * sie dem Model hinzu.
+     * 
+     * @throws GRBException
+     */
     private void createTeamsizeVariable() throws GRBException {
         // Erzeuge Teamgröße-Variablen
         this.teamSizes = new GRBVar[currentConfiguration.getTeams().size()];
@@ -313,6 +353,11 @@ public class GurobiAllocator extends AbstractAllocator {
         }
     }
 
+    /**
+     * Erstell den Optimierungsterm des ILP und fügt ihn dem Modell hinzu.
+     * 
+     * @throws GRBException
+     */
     private void createOptimisationTerm() throws GRBException {
         // Initialisiere Optimierungsterm
         this.optTerm = new GRBLinExpr();
@@ -338,6 +383,9 @@ public class GurobiAllocator extends AbstractAllocator {
         }
     }
 
+    /**
+     * Erstell die Teams, in die die Studenten eingeteilt werden.
+     */
     private void createTeams() {
         // erstelle Teams
         for (int i = 0; i < currentConfiguration.getTeams().size(); i++) {
@@ -362,6 +410,14 @@ public class GurobiAllocator extends AbstractAllocator {
         }
     }
 
+    /**
+     * Gibt eine leere Einteilung zurück und gibt eine Fehlermeldung auf die
+     * Konsole aus.
+     * 
+     * @param errorMessage
+     *            Der Fehlercode, der angezeigt werden soll.
+     * @return Eine leere Einteilung.
+     */
     private Allocation nullObject(String errorMessage) {
         return new Allocation(new ArrayList<Team>(),
                 errorMessage,

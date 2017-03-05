@@ -17,6 +17,9 @@ import java.util.Queue;
  */
 public class AllocationQueue {
 
+    /**
+     * Größer der Warteschlange
+     */
     private static final int                QUEUE_SIZE = 10;
     /**
      * Der Worker-Thread, der die Berechnungen durchführt
@@ -126,10 +129,26 @@ public class AllocationQueue {
         return list;
     }
 
+    /**
+     * Setter für den AbstractAllocator, der benutzt wird um die Einteilung zu
+     * berechnen.
+     * 
+     * @param allocator
+     *            Der AbstractAllocator, der benutzt werden soll, die Einteilung
+     *            zu berechnen.
+     */
     public void setAllocator(AbstractAllocator allocator) {
         this.allocator = allocator;
     }
 
+    /**
+     * 
+     * Getter für den AbstractAllocator, der benutzt wird um die Einteilung zu
+     * berechnen.
+     * 
+     * @return AbstractAllocator, der benutzt wird, um die Einteilung zu
+     *         berechnen.
+     */
     public AbstractAllocator getAllocator() {
         return allocator;
     }
@@ -147,8 +166,18 @@ public class AllocationQueue {
         }
     }
 
+    /**
+     * Workerthread, der parallel zum restlichen Programm die Einteilungen aus
+     * der Schlange nimmt und berechnet.
+     * 
+     * @author philipp
+     *
+     */
     private class QueueWorker extends Thread {
 
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public void run() {
             while (true) {

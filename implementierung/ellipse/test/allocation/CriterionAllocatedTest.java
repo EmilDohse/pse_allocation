@@ -48,24 +48,34 @@ public class CriterionAllocatedTest {
         data.save();
     }
 
+    /**
+     * Initialisierung.
+     */
     @Before
     public void before() {
         ca = new CriterionAllocated();
     }
 
+    /**
+     * Test für den Getter des Namens.
+     */
     @Test
     public void testGetName() {
         assertEquals("Allocated", ca.getName());
     }
 
+    /**
+     * Test für den angezeigten Namen.
+     */
     @Test
     public void testGetDisplayName() {
-        assertEquals("Teile möglichst viele Studenten ein",
-                ca.getDisplayName("de"));
-        assertEquals("Assign as many students as possible",
-                ca.getDisplayName("en"));
+        assertEquals("Teile möglichst viele Studenten ein", ca.getDisplayName("de"));
+        assertEquals("Assign as many students as possible", ca.getDisplayName("en"));
     }
 
+    /**
+     * Test für das Benutzen des Kriteriums.
+     */
     @Test
     public void testUseCriterion() {
         // Vorbereitung
@@ -100,8 +110,8 @@ public class CriterionAllocatedTest {
         paras.add(new AllocationParameter("prefSize", 1));
         paras.add(new AllocationParameter("Allocated", 10));
 
-        Configuration config = new Configuration("test", semester.getStudents(),
-                semester.getLearningGroups(), semester.getProjects(), paras);
+        Configuration config = new Configuration("test", semester.getStudents(), semester.getLearningGroups(),
+                semester.getProjects(), paras);
 
         GurobiAllocator ga = new GurobiAllocator();
         ga.init(config);
@@ -112,6 +122,9 @@ public class CriterionAllocatedTest {
         assertNotNull(alloc.getTeam(second));
     }
 
+    /**
+     * shutdown data.
+     */
     @After
     public void after() {
         ca = null;

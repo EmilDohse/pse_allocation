@@ -3,6 +3,9 @@
  */
 package allocation;
 
+/**
+ * Abstraktes Kriterium, anhand dem die Einteilung berechnet wird.
+ */
 public interface Criterion {
 
     /**
@@ -12,5 +15,12 @@ public interface Criterion {
      */
     public String getName();
 
+    /**
+     * Gibt den Namen zurück, unter dem das Kriterium in der GUI angezeigt wird.
+     * 
+     * @param local
+     *            der Ländercode, der Sprache, die gerade angezeigt wird.
+     * @return Den Anzeigenamen des Kriteriums.
+     */
     public String getDisplayName(String local);
 }

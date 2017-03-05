@@ -17,6 +17,9 @@ import data.Student;
 import data.Team;
 import exception.AllocationEditUndoException;
 
+/**
+ * Diese Klasse beinhaltet Tests für den SwapStudentCommand.
+ */
 public class SwapStudentCommandTest extends ControllerTest {
 
     private Allocation         allocation;
@@ -27,6 +30,9 @@ public class SwapStudentCommandTest extends ControllerTest {
     private SwapStudentCommand command;
     private Semester           semester;
 
+    /**
+     * Initialisierung der Testdaten.
+     */
     @Override
     @Before
     public void before() {
@@ -55,10 +61,12 @@ public class SwapStudentCommandTest extends ControllerTest {
             allocation.setTeams(teams);
         });
 
-        command = new SwapStudentCommand(allocation, firstStudent,
-                secondStudent);
+        command = new SwapStudentCommand(allocation, firstStudent, secondStudent);
     }
 
+    /**
+     * Test für das Tauschen zweier Studenten.
+     */
     @Test
     public void executeTest() {
         command.execute();
@@ -70,6 +78,9 @@ public class SwapStudentCommandTest extends ControllerTest {
         assertEquals(firstTeam, allocation.getTeam(secondStudent));
     }
 
+    /**
+     * Test für das Tauschen zweier Studenten während der finalen Einteilung.
+     */
     @Test
     public void executeFinalTest() {
         semester.doTransaction(() -> {
@@ -82,6 +93,12 @@ public class SwapStudentCommandTest extends ControllerTest {
         assertEquals(secondTeam, allocation.getTeam(secondStudent));
     }
 
+    /**
+     * Test für das Rückgängigmachen eines Swaps.
+     * 
+     * @throws AllocationEditUndoException
+     *             AllocationEditUndoException.
+     */
     @Test
     public void undoTest() throws AllocationEditUndoException {
         command.execute();
@@ -93,16 +110,14 @@ public class SwapStudentCommandTest extends ControllerTest {
         assertEquals(secondTeam, allocation.getTeam(secondStudent));
     }
 
-    @Test(expected = AllocationEditUndoException.class)
-    public void undoExceptionFinalTest() throws AllocationEditUndoException {
-        command.execute();
-        semester.doTransaction(() -> {
-            semester.setFinalAllocation(allocation);
-        });
-        command.undo();
-    }
-
-    // Ebean will in Unit Tests Dinge nicht löschen
+    /**
+     * Test für das Rückgängigmachen eines Löschvorgangs.
+     * 
+     * Funktioniert nicht, da EBean Probleme mit der TestDatenbank hat.
+     * 
+     * @throws AllocationEditUndoException
+     *             AllocationEditUndoException.
+     */
     @Ignore
     @Test(expected = AllocationEditUndoException.class)
     public void undoExceptionDeletedTest() throws AllocationEditUndoException {

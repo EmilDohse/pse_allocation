@@ -6,10 +6,16 @@ import org.junit.Test;
 
 import exception.ValidationException;
 
+/**
+ * Diese Klasse beinhaltet Tests für den String-Validator.
+ */
 public class StringValidatorTest {
 
     private static StringValidator valid;
 
+    /**
+     * Test für den Mesasge setter.
+     */
     @Test
     public void testSetMessage() {
         valid = new StringValidator(1);
@@ -21,6 +27,12 @@ public class StringValidatorTest {
         }
     }
 
+    /**
+     * Test für die minimale Länge der Eingabe.
+     * 
+     * @throws ValidationException
+     *             ValidationException.
+     */
     @Test(expected = ValidationException.class)
     public void testMinSize() throws ValidationException {
         valid = new StringValidator(2);
@@ -28,6 +40,12 @@ public class StringValidatorTest {
         valid.validate(test);
     }
 
+    /**
+     * Test für die maximale Länge der Eingabe.
+     * 
+     * @throws ValidationException
+     *             ValidationException.
+     */
     @Test(expected = ValidationException.class)
     public void testMaxSize() throws ValidationException {
         valid = new StringValidator(0, 3);
@@ -35,6 +53,12 @@ public class StringValidatorTest {
         valid.validate(test);
     }
 
+    /**
+     * Test der Eingabe auf RegEx.
+     * 
+     * @throws ValidationException
+     *             validationException.
+     */
     @Test(expected = ValidationException.class)
     public void testRegex() throws ValidationException {
         valid = new StringValidator(Integer.MIN_VALUE, Integer.MAX_VALUE, "a+");
@@ -42,6 +66,11 @@ public class StringValidatorTest {
         valid.validate(test);
     }
 
+    /**
+     * Testet die Eingabe auf Korrektheit.
+     * 
+     * @throws ValidationException
+     */
     @Test
     public void testCorrectInput() throws ValidationException {
         valid = new StringValidator(0, 4, "a+");

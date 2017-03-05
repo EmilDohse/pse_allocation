@@ -120,18 +120,13 @@ public class AdminEditAllocationController extends Controller {
             return redirect(controllers.routes.AdminPageController
                     .resultsPage());
         }
-        if (allocation.equals(GeneralData.loadInstance().getCurrentSemester()
-                .getFinalAllocation())) {
-            flash(ERROR, ctx().messages().at(INTERNAL_ERROR));
-            return redirect(controllers.routes.AdminPageController
-                    .resultsPage());
-        }
+
 
         // Prüfe, ob genau zwei Studenten ausgewählt wurden
         if (ids.size() != 2) {
-            flash(ERROR, ctx().messages().at(INTERNAL_ERROR));
-            return redirect(controllers.routes.AdminPageController
-                    .resultsPage());
+            flash(ERROR, ctx().messages().at("error.twoStudentsSelected"));
+            return redirect(controllers.routes.AdminPageController.resultsPage());
+
         }
 
         // Tausche die Teams der Studenten und lade die Seite neu
@@ -180,12 +175,7 @@ public class AdminEditAllocationController extends Controller {
             return redirect(controllers.routes.AdminPageController
                     .resultsPage());
         }
-        if (allocation.equals(GeneralData.loadInstance().getCurrentSemester()
-                .getFinalAllocation())) {
-            flash(ERROR, ctx().messages().at(INTERNAL_ERROR));
-            return redirect(controllers.routes.AdminPageController
-                    .resultsPage());
-        }
+
 
         List<Student> students = new ArrayList<>();
         for (int id : ids) {

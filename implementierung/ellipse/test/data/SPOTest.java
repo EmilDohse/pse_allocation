@@ -96,6 +96,9 @@ public class SPOTest extends DataTest {
         assertEquals(one, SPO.getSPO("one"));
     }
 
+    /**
+     * Test für die compareTo Methode.
+     */
     @Test
     public void testCompareTo() {
         SPO spo1 = new SPO("test");

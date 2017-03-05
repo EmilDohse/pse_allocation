@@ -49,24 +49,34 @@ public class CriterionSameSemesterTest {
         data.save();
     }
 
+    /**
+     * Initialisiertung.
+     */
     @Before
     public void before() {
         css = new CriterionSameSemester();
     }
 
+    /**
+     * Test für den Getter des Namens.
+     */
     @Test
     public void testGetName() {
         assertEquals("SameSemester", css.getName());
     }
 
+    /**
+     * Test für den angezeigten Namen.
+     */
     @Test
     public void testGetDisplayName() {
-        assertEquals("Studenten des selben Semesters in einem Team",
-                css.getDisplayName("de"));
-        assertEquals("Students in a team belong to same semester",
-                css.getDisplayName("en"));
+        assertEquals("Studenten des selben Semesters in einem Team", css.getDisplayName("de"));
+        assertEquals("Students in a team belong to same semester", css.getDisplayName("en"));
     }
 
+    /**
+     * Test für das Benutzen des Kriteriums.
+     */
     @Test
     public void testUseCriterion() {
         // Vorbereitung
@@ -115,8 +125,8 @@ public class CriterionSameSemesterTest {
         paras.add(new AllocationParameter("SameSemester", 10));
         paras.add(new AllocationParameter("Allocated", 5));
 
-        Configuration config = new Configuration("test", semester.getStudents(),
-                semester.getLearningGroups(), semester.getProjects(), paras);
+        Configuration config = new Configuration("test", semester.getStudents(), semester.getLearningGroups(),
+                semester.getProjects(), paras);
 
         GurobiAllocator ga = new GurobiAllocator();
         ga.init(config);
@@ -129,6 +139,9 @@ public class CriterionSameSemesterTest {
         assertNull(alloc.getTeam(third));
     }
 
+    /**
+     * shutdown data.
+     */
     @After
     public void after() {
         css = null;

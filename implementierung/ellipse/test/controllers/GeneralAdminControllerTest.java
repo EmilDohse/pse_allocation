@@ -39,6 +39,9 @@ import play.mvc.Http.Context;
 import security.BlowfishPasswordEncoder;
 import security.UserManagement;
 
+/**
+ * Diese Klasse beinhaltet die Tests für den GeneralAdminController.
+ */
 public class GeneralAdminControllerTest extends ControllerTest {
 
     @Mock
@@ -50,6 +53,12 @@ public class GeneralAdminControllerTest extends ControllerTest {
     @InjectMocks
     GeneralAdminController controller;
 
+    /**
+     * Test für das Hinzufügen eines Betreuers.
+     * 
+     * @throws EmailException
+     *             EmailException.
+     */
     @Test
     public void addAdviser() throws EmailException {
         Map<String, String> map = new HashMap<>();
@@ -63,8 +72,7 @@ public class GeneralAdminControllerTest extends ControllerTest {
 
         controller.addAdviser();
 
-        verify(notifier).sendAdviserPassword(any(Adviser.class),
-                any(String.class));
+        verify(notifier).sendAdviserPassword(any(Adviser.class), any(String.class));
 
         assertEquals(Adviser.getAdvisers().size(), 1);
         Adviser adviser = Adviser.getAdvisers().get(0);
@@ -72,10 +80,13 @@ public class GeneralAdminControllerTest extends ControllerTest {
         assertEquals("e@mail", adviser.getEmailAddress());
         assertEquals("firstName", adviser.getFirstName());
         assertEquals("lastName", adviser.getLastName());
-        assertTrue((new BlowfishPasswordEncoder()).matches("password",
-                adviser.getPassword()));
+        assertTrue((new BlowfishPasswordEncoder()).matches("password", adviser.getPassword()));
     }
 
+    /**
+     * Test ob das Hinzufügen eines Betreuers fehlschlägt falls die Eingabe
+     * einen leeren String enthält.
+     */
     @Test
     public void testValidationExceptionInAddAdviser() {
         Map<String, String> data = new HashMap<>();
@@ -83,14 +94,16 @@ public class GeneralAdminControllerTest extends ControllerTest {
 
         when(form.data()).thenReturn(data);
         when(form.get("firstName")).thenReturn(new String());
-        when(messages.at("general.error.noEmptyString")).thenReturn(
-                "Empty String");
+        when(messages.at("general.error.noEmptyString")).thenReturn("Empty String");
 
         controller.addAdviser();
 
         assertTrue(Context.current().flash().containsValue("Empty String"));
     }
 
+    /**
+     * Test für das Entfernen eines Betreuers.
+     */
     @Test
     public void removeAdviserTest() {
 
@@ -108,6 +121,12 @@ public class GeneralAdminControllerTest extends ControllerTest {
         assertTrue(Adviser.getAdvisers().isEmpty());
     }
 
+    /**
+     * Test für das Hinzufügen einer Einteilung.
+     * 
+     * @throws InterruptedException
+     *             InterruptedException.
+     */
     @Test
     public void addAllocationTest() throws InterruptedException {
         Map<String, String> data = new HashMap<>();
@@ -119,8 +138,7 @@ public class GeneralAdminControllerTest extends ControllerTest {
         when(form.get("minTeamSize")).thenReturn("1");
         when(form.get("maxTeamSize")).thenReturn("3");
 
-        for (Criterion criterion : AllocationQueue.getInstance().getAllocator()
-                .getAllCriteria()) {
+        for (Criterion criterion : AllocationQueue.getInstance().getAllocator().getAllCriteria()) {
             when(form.get(criterion.getName())).thenReturn("1");
         }
 
@@ -133,6 +151,9 @@ public class GeneralAdminControllerTest extends ControllerTest {
         }
     }
 
+    /**
+     * Test ob beim Hinzufügen Einteilung ohne Namen ein Fehler auftritt.
+     */
     @Test
     public void testValidationExceptionInAllocation() {
         Map<String, String> data = new HashMap<>();
@@ -140,15 +161,17 @@ public class GeneralAdminControllerTest extends ControllerTest {
 
         when(form.data()).thenReturn(data);
         when(form.get("name")).thenReturn(new String());
-        when(messages.at("general.error.noEmptyString")).thenReturn(
-                "Validation Exception");
+        when(messages.at("general.error.noEmptyString")).thenReturn("Validation Exception");
 
         controller.addAllocation();
 
-        assertTrue(Context.current().flash()
-                .containsValue("Validation Exception"));
+        assertTrue(Context.current().flash().containsValue("Validation Exception"));
     }
 
+    /**
+     * Test ob beeim Hinzufügen eines Admins mit falschen Parametern ein Fehler
+     * auftritt.
+     */
     @Test
     public void testInvalidAdminParameter() {
         Map<String, String> data = new HashMap<>();
@@ -160,14 +183,17 @@ public class GeneralAdminControllerTest extends ControllerTest {
         when(form.get("minTeamSize")).thenReturn("2");
         when(form.get("maxTeamSize")).thenReturn("1");
 
-        when(messages.at("admin.allocation.error.generalError")).thenReturn(
-                "Wrong Input");
+        when(messages.at("admin.allocation.error.generalError")).thenReturn("Wrong Input");
 
         controller.addAllocation();
 
         assertTrue(Context.current().flash().containsValue("Wrong Input"));
     }
 
+    /**
+     * Test ob beim Hinzufügen von Criterien mit falschem Parameter ein Fehler
+     * auftritt.
+     */
     @Test
     public void testInvalidCriterionParameter() {
         Map<String, String> data = new HashMap<>();
@@ -179,8 +205,7 @@ public class GeneralAdminControllerTest extends ControllerTest {
         when(form.get("minTeamSize")).thenReturn("1");
         when(form.get("maxTeamSize")).thenReturn("3");
 
-        for (Criterion criterion : AllocationQueue.getInstance().getAllocator()
-                .getAllCriteria()) {
+        for (Criterion criterion : AllocationQueue.getInstance().getAllocator().getAllCriteria()) {
             when(form.get(criterion.getName())).thenReturn("1");
         }
         when(form.get("Allocated")).thenReturn("a");
@@ -191,6 +216,9 @@ public class GeneralAdminControllerTest extends ControllerTest {
         assertTrue(Context.current().flash().containsValue("Criterion Error"));
     }
 
+    /**
+     * Test für das Entfernen einer Allocation aus der Warteschlange.
+     */
     @Test
     public void removeAllocationFromQueueTest() {
         Map<String, String> data = new HashMap<>();
@@ -223,8 +251,7 @@ public class GeneralAdminControllerTest extends ControllerTest {
         List<AllocationParameter> paramList = new ArrayList<>();
         paramList.add(paramOne);
         paramList.add(paramTwo);
-        Configuration config = new Configuration("test", students, lgs,
-                projects, paramList);
+        Configuration config = new Configuration("test", students, lgs, projects, paramList);
 
         when(form.data()).thenReturn(data);
         when(form.get("queue")).thenReturn("test");
@@ -237,6 +264,9 @@ public class GeneralAdminControllerTest extends ControllerTest {
         assertTrue(Allocation.getAllocations().isEmpty());
     }
 
+    /**
+     * Test für das Hinzufügen eines Studenten.
+     */
     @Test
     public void addStudentTest() {
 
@@ -278,8 +308,7 @@ public class GeneralAdminControllerTest extends ControllerTest {
         assertEquals(1, newStudent.getSemester());
         assertEquals("11", newStudent.getUserName());
         assertEquals(spo, newStudent.getSPO());
-        assertTrue((new BlowfishPasswordEncoder()).matches("password",
-                newStudent.getPassword()));
+        assertTrue((new BlowfishPasswordEncoder()).matches("password", newStudent.getPassword()));
         assertTrue(newStudent.getOralTestAchievements().isEmpty());
         assertEquals(1, newStudent.getCompletedAchievements().size());
         assertEquals(achievement, newStudent.getCompletedAchievements().get(0));
@@ -292,6 +321,10 @@ public class GeneralAdminControllerTest extends ControllerTest {
         assertEquals(3, lg.getRating(project));
     }
 
+    /**
+     * Test ob das Hinzufügen eines Studenten mit falschem Eingabeformat
+     * fehlschlägt.
+     */
     @Test
     public void testValidationExceptionInStudent() {
         Map<String, String> data = new HashMap<>();
@@ -299,15 +332,17 @@ public class GeneralAdminControllerTest extends ControllerTest {
 
         when(form.data()).thenReturn(data);
         when(form.get("firstName")).thenReturn(new String());
-        when(messages.at("general.error.noEmptyString")).thenReturn(
-                "Validation Exception");
+        when(messages.at("general.error.noEmptyString")).thenReturn("Validation Exception");
 
         controller.addStudent();
 
-        assertTrue(Context.current().flash()
-                .containsValue("Validation Exception"));
+        assertTrue(Context.current().flash().containsValue("Validation Exception"));
     }
 
+    /**
+     * Test ob das Hinzufügen eines Studenten fehlschlägt, falls er bereits
+     * existiert.
+     */
     @Test
     public void testAddAlreadyExistingStudent() {
         Student student = new Student();
@@ -333,15 +368,18 @@ public class GeneralAdminControllerTest extends ControllerTest {
         when(form.get("matrnr")).thenReturn("1");
         when(form.get("semester")).thenReturn("1");
         when(form.get("spo")).thenReturn(String.valueOf(spo.getId()));
-        when(messages.at("admin.studentEdit.matrNrExistsError")).thenReturn(
-                "already existing");
+        when(messages.at("admin.studentEdit.matrNrExistsError")).thenReturn("already existing");
 
         controller.addStudent();
 
         assertTrue(Context.current().flash().containsValue("already existing"));
     }
 
-    // TODO Testdatenbank austauschen
+    /**
+     * Test für das Entfernen eines Studenten.
+     * 
+     * Funktioniert nicht, da EBean mit der TestDatenbank Probleme hat.
+     */
     @Test
     @Ignore
     public void removeStudentTest() {
@@ -363,11 +401,13 @@ public class GeneralAdminControllerTest extends ControllerTest {
 
         controller.removeStudent();
 
-        assertTrue(GeneralData.loadInstance().getCurrentSemester()
-                .getStudents().isEmpty());
+        assertTrue(GeneralData.loadInstance().getCurrentSemester().getStudents().isEmpty());
         assertNull(Student.getStudent(1));
     }
 
+    /**
+     * Testet auf NumberformatException beim Entfernen Eines Studenten.
+     */
     @Test
     public void testNFEinRemoveStudent() {
         Map<String, String> data = new HashMap<>();
@@ -375,13 +415,16 @@ public class GeneralAdminControllerTest extends ControllerTest {
 
         when(form.data()).thenReturn(data);
         when(form.get("matrnr2")).thenReturn("a");
-        when(messages.at("error.internalError")).thenReturn("NFE");
+        when(messages.at("error.wrongInput")).thenReturn("NFE");
 
         controller.removeStudent();
 
         assertTrue(Context.current().flash().containsValue("NFE"));
     }
 
+    /**
+     * Test ob das Entfernen eines nicht vorhandenen Studenten fehlschlägt.
+     */
     @Test
     public void testDeleteNonExistentStudent() {
         Map<String, String> data = new HashMap<>();
@@ -389,14 +432,16 @@ public class GeneralAdminControllerTest extends ControllerTest {
 
         when(form.data()).thenReturn(data);
         when(form.get("matrnr2")).thenReturn("1");
-        when(messages.at("admin.studentEdit.noSuchStudentError")).thenReturn(
-                "no such Student");
+        when(messages.at("admin.studentEdit.noSuchStudentError")).thenReturn("no such Student");
 
         controller.removeStudent();
 
         assertTrue(Context.current().flash().containsValue("no such Student"));
     }
 
+    /**
+     * Test für das Editieren des Accounts.
+     */
     @Test
     public void editAccountTest() {
         Map<String, String> data = new HashMap<>();
@@ -409,23 +454,24 @@ public class GeneralAdminControllerTest extends ControllerTest {
             admin.savePassword("password");
         });
 
-        when(userManagement.getUserProfile(any(Context.class))).thenReturn(
-                admin);
+        when(userManagement.getUserProfile(any(Context.class))).thenReturn(admin);
 
         when(form.get("passwordChange")).thenReturn("NotNull");
         when(form.get("oldPassword")).thenReturn("password");
         when(form.get("newPassword")).thenReturn("newpassword");
         when(form.get("newPasswordRepeat")).thenReturn("newpassword");
-        when(messages.at("admin.account.success.passwords")).thenReturn(
-                "Success");
+        when(messages.at("admin.account.success.passwords")).thenReturn("Success");
 
         controller.editAccount();
 
-        assertTrue((new BlowfishPasswordEncoder()).matches("newpassword",
-                admin.getPassword()));
+        assertTrue((new BlowfishPasswordEncoder()).matches("newpassword", admin.getPassword()));
         assertTrue(Context.current().flash().containsValue("Success"));
     }
 
+    /**
+     * Test ob beim Editieren des Accounts mit falschem Eingabeformat ein Fehler
+     * auftritt.
+     */
     @Test
     public void testValidationExceptionInEdit() {
         Map<String, String> data = new HashMap<>();
@@ -438,19 +484,21 @@ public class GeneralAdminControllerTest extends ControllerTest {
             admin.savePassword("password");
         });
 
-        when(userManagement.getUserProfile(any(Context.class))).thenReturn(
-                admin);
+        when(userManagement.getUserProfile(any(Context.class))).thenReturn(admin);
         when(form.get("passwordChange")).thenReturn("NotNull");
         when(form.get("oldPassword")).thenReturn("password");
         when(form.get("newPassword")).thenReturn(new String());
-        when(messages.at("general.error.minimalPasswordLength")).thenReturn(
-                "Validation");
+        when(messages.at("general.error.minimalPasswordLength")).thenReturn("Validation");
 
         controller.editAccount();
 
         assertTrue(Context.current().flash().containsValue("Validation"));
     }
 
+    /**
+     * Test ob beim Ändern des Passworts das neue Passwort richtig wiederholt
+     * wird.
+     */
     @Test
     public void testNonMatchingPasswordInEdit() {
         Map<String, String> data = new HashMap<>();
@@ -463,14 +511,12 @@ public class GeneralAdminControllerTest extends ControllerTest {
             admin.savePassword("password");
         });
 
-        when(userManagement.getUserProfile(any(Context.class))).thenReturn(
-                admin);
+        when(userManagement.getUserProfile(any(Context.class))).thenReturn(admin);
         when(form.get("passwordChange")).thenReturn("NotNull");
         when(form.get("oldPassword")).thenReturn("something");
         when(form.get("newPassword")).thenReturn("something");
         when(form.get("newPasswordRepeat")).thenReturn("something");
-        when(messages.at("admin.account.error.passwords")).thenReturn(
-                "wrong password");
+        when(messages.at("admin.account.error.passwords")).thenReturn("wrong password");
 
         controller.editAccount();
 

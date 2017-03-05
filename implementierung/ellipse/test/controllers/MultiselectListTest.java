@@ -15,10 +15,17 @@ import data.Achievement;
 import data.DataTest;
 import play.data.DynamicForm;
 
+/**
+ * Diese Klasse enthält Tests für die MultiselectList.
+ *
+ */
 public class MultiselectListTest extends DataTest {
 
     private DynamicForm form;
 
+    /**
+     * Initialisierung der Testdaten.
+     */
     @Before
     public void before() {
         super.before();
@@ -26,6 +33,9 @@ public class MultiselectListTest extends DataTest {
         form = Mockito.mock(DynamicForm.class);
     }
 
+    /**
+     * Test für das korrekte Erhalten der Daten aus der Liste.
+     */
     @Test
     public void getValueArrayTest() {
 
@@ -43,6 +53,10 @@ public class MultiselectListTest extends DataTest {
         assertTrue(list[0].equals("b") || list[1].equals("b"));
     }
 
+    /**
+     * Test für das korrekte Verhalten beim Erstellen einer Liste für
+     * Teilleistungen.
+     */
     @Test
     public void createAchievementListTest() {
 
@@ -57,8 +71,7 @@ public class MultiselectListTest extends DataTest {
 
         Mockito.when(form.data()).thenReturn(map);
 
-        List<Achievement> list = MultiselectList.createAchievementList(form,
-                "test");
+        List<Achievement> list = MultiselectList.createAchievementList(form, "test");
         assertEquals(list.size(), 2);
         assertTrue(list.contains(a1));
         assertTrue(list.contains(a2));

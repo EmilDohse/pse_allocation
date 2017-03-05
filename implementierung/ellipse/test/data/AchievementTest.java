@@ -56,6 +56,9 @@ public class AchievementTest extends DataTest {
         assertEquals(2, Achievement.getAchievements().size());
     }
 
+    /**
+     * Test für die compareTo methode.
+     */
     @Test
     public void testCompareTo() {
 

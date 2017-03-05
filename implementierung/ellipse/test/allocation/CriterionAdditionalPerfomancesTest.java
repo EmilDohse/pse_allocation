@@ -51,18 +51,26 @@ public class CriterionAdditionalPerfomancesTest {
         data.save();
     }
 
+    /**
+     * Test für den Getter des Namens.
+     */
     @Test
     public void testGetName() {
         assertEquals("AdditionalPerfomances", cap.getName());
     }
 
+    /**
+     * Test für den angezeigten Namen.
+     */
     @Test
     public void testDisplayName() {
-        assertEquals("Bonus für zusätzliche Teilleistungen",
-                cap.getDisplayName("de"));
+        assertEquals("Bonus für zusätzliche Teilleistungen", cap.getDisplayName("de"));
         assertEquals("bonus additional perfomances", cap.getDisplayName("en"));
     }
 
+    /**
+     * Test für das Benutzen des Kriteriums.
+     */
     @Test
     public void testUseCriterion() {
 
@@ -132,8 +140,8 @@ public class CriterionAdditionalPerfomancesTest {
         paras.add(new AllocationParameter("prefSize", 1));
         paras.add(new AllocationParameter("AdditionalPerfomances", 10));
 
-        Configuration config = new Configuration("test", semester.getStudents(),
-                semester.getLearningGroups(), semester.getProjects(), paras);
+        Configuration config = new Configuration("test", semester.getStudents(), semester.getLearningGroups(),
+                semester.getProjects(), paras);
 
         GurobiAllocator ga = new GurobiAllocator();
         ga.init(config);
@@ -146,11 +154,17 @@ public class CriterionAdditionalPerfomancesTest {
         assertNull(alloc.getTeam(nothingAdditional));
     }
 
+    /**
+     * Initialisiertung.
+     */
     @Before
     public void before() {
         cap = new CriterionAdditionalPerfomances();
     }
 
+    /**
+     * shutdown data.
+     */
     @After
     public void after() {
         cap = null;

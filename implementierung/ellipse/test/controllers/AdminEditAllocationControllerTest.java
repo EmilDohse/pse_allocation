@@ -30,6 +30,9 @@ import data.Semester;
 import data.Student;
 import data.Team;
 
+/**
+ * Diese Klasse beinhaltet Tests für den AdminEditAllocationController.
+ */
 public class AdminEditAllocationControllerTest extends ControllerTest {
 
     @Mock
@@ -45,6 +48,9 @@ public class AdminEditAllocationControllerTest extends ControllerTest {
     private Student               secondStudent;
     private Student               thirdStudent;
 
+    /**
+     * Initialisierung der Testdaten.
+     */
     @Override
     @Before
     public void before() {
@@ -106,28 +112,28 @@ public class AdminEditAllocationControllerTest extends ControllerTest {
         thirdStudent.refresh();
     }
 
+    /**
+     * Test für das Duplizieren einer Einteilung.
+     */
     @Test
     public void duplicateAllocationTest() {
 
         Map<String, String> map = new HashMap<>();
         map.put("1", "1");
 
-        Mockito.when(form.get("allocationID")).thenReturn(
-                String.valueOf(allocation.getId()));
+        Mockito.when(form.get("allocationID")).thenReturn(String.valueOf(allocation.getId()));
         Mockito.when(form.data()).thenReturn(map);
 
         controller.duplicateAllocation();
 
-        assertEquals(2, GeneralData.loadInstance().getCurrentSemester()
-                .getAllocations().size());
+        assertEquals(2, GeneralData.loadInstance().getCurrentSemester().getAllocations().size());
 
         Allocation a = Allocation.getAllocation("clonedtest");
         assertNotNull(a);
 
         assertEquals(2, a.getTeams().size());
         assertNotNull(a.getTeam(Student.getStudent(1)));
-        assertEquals(a.getTeam(Student.getStudent(1)),
-                a.getTeam(Student.getStudent(2)));
+        assertEquals(a.getTeam(Student.getStudent(1)), a.getTeam(Student.getStudent(2)));
         assertNull(a.getTeam(Student.getStudent(3)));
 
         assertEquals(1, a.getParameters().size());
@@ -135,6 +141,10 @@ public class AdminEditAllocationControllerTest extends ControllerTest {
         assertEquals(1234, a.getParameters().get(0).getValue());
     }
 
+    /**
+     * Test ob beim Duplizieren mit falschen Bedingungen eine Exception geworfen
+     * wird.
+     */
     @Test
     public void duplicateAllocationValidationExceptionTest() {
 
@@ -152,24 +162,30 @@ public class AdminEditAllocationControllerTest extends ControllerTest {
 
     }
 
+    /**
+     * Test ob beim Duplizieren mit falschen Bedingungen eine Exception geworfen
+     * wird.
+     */
     @Test
     public void duplicateAllocationUnknownAllocationIdTest() {
 
         Map<String, String> map = new HashMap<>();
         map.put("1", "1");
 
-        Mockito.when(form.get("allocationID")).thenReturn(
-                String.valueOf(allocation.getId() + 1));
+        Mockito.when(form.get("allocationID")).thenReturn(String.valueOf(allocation.getId() + 1));
         Mockito.when(form.data()).thenReturn(map);
 
-        Mockito.when(messages.at("error.allocation.deletedConcurrently"))
-                .thenReturn("error");
+        Mockito.when(messages.at("error.allocation.deletedConcurrently")).thenReturn("error");
 
         controller.duplicateAllocation();
 
         assertTrue(Context.current().flash().containsValue("error"));
     }
 
+    /**
+     * Test ob beim Editieren mit falschen Bedingungen eine Exception geworfen
+     * wird.
+     */
     @Test
     public void editAllocationValidationExceptionTest() {
 
@@ -185,6 +201,9 @@ public class AdminEditAllocationControllerTest extends ControllerTest {
         assertTrue(Context.current().flash().containsValue("error"));
     }
 
+    /**
+     * Test ob beim Editieren mit falschen Bedingungen ein Fehler auftritt.
+     */
     @Test
     public void editAllocationNoActionTest() {
 
@@ -200,6 +219,9 @@ public class AdminEditAllocationControllerTest extends ControllerTest {
         assertTrue(Context.current().flash().containsValue("error"));
     }
 
+    /**
+     * Test für das Bewegen eines Studenten und Rückgängigmachen des Vorgangs.
+     */
     @Test
     public void editAllocationMoveStudentsAndUndoTest() {
 
@@ -208,10 +230,8 @@ public class AdminEditAllocationControllerTest extends ControllerTest {
         map.put("selected-students2", String.valueOf(thirdStudent.getId()));
 
         Mockito.when(form.get("move")).thenReturn("NotNull");
-        Mockito.when(form.get("allocationID")).thenReturn(
-                String.valueOf(allocation.getId()));
-        Mockito.when(form.get("project-selection")).thenReturn(
-                String.valueOf(secondTeam.getId()));
+        Mockito.when(form.get("allocationID")).thenReturn(String.valueOf(allocation.getId()));
+        Mockito.when(form.get("project-selection")).thenReturn(String.valueOf(secondTeam.getId()));
         Mockito.when(form.data()).thenReturn(map);
 
         controller.editAllocation();
@@ -247,6 +267,10 @@ public class AdminEditAllocationControllerTest extends ControllerTest {
         assertTrue(firstTeam.getMembers().contains(secondStudent));
     }
 
+    /**
+     * Test ob beim Editieren mit falschen Bedingungen eine Exception geforfen
+     * wird.
+     */
     @Test
     public void editAllocationMoveStudentsValidationExceptionTest() {
 
@@ -257,8 +281,7 @@ public class AdminEditAllocationControllerTest extends ControllerTest {
         Mockito.when(form.data()).thenReturn(map);
         Mockito.when(form.get("move")).thenReturn("NotNull");
         Mockito.when(form.get("allocationID")).thenReturn("abc");
-        Mockito.when(form.get("project-selection")).thenReturn(
-                String.valueOf(secondTeam.getId()));
+        Mockito.when(form.get("project-selection")).thenReturn(String.valueOf(secondTeam.getId()));
 
         Mockito.when(messages.at("INTERNAL_ERROR")).thenReturn("error");
 
@@ -267,6 +290,10 @@ public class AdminEditAllocationControllerTest extends ControllerTest {
         assertTrue(Context.current().flash().containsValue("error"));
     }
 
+    /**
+     * Test ob beim Editieren mit falschen Bedingungen eine Exception geforfen
+     * wird.
+     */
     @Test
     public void editAllocationMoveStudentsUnknownAllocationIdTest() {
 
@@ -276,45 +303,19 @@ public class AdminEditAllocationControllerTest extends ControllerTest {
 
         Mockito.when(form.data()).thenReturn(map);
         Mockito.when(form.get("move")).thenReturn("NotNull");
-        Mockito.when(form.get("allocationID")).thenReturn(
-                String.valueOf(allocation.getId() + 1));
-        Mockito.when(form.get("project-selection")).thenReturn(
-                String.valueOf(secondTeam.getId()));
+        Mockito.when(form.get("allocationID")).thenReturn(String.valueOf(allocation.getId() + 1));
+        Mockito.when(form.get("project-selection")).thenReturn(String.valueOf(secondTeam.getId()));
 
-        Mockito.when(messages.at("error.allocation.deletedConcurrently"))
-                .thenReturn("error");
+        Mockito.when(messages.at("error.allocation.deletedConcurrently")).thenReturn("error");
 
         controller.editAllocation();
 
         assertTrue(Context.current().flash().containsValue("error"));
     }
 
-    @Test
-    public void editAllocationMoveStudentsFinalAllocationTest() {
-
-        Semester s = GeneralData.loadInstance().getCurrentSemester();
-        s.doTransaction(() -> {
-            s.setFinalAllocation(allocation);
-        });
-
-        Map<String, String> map = new HashMap<>();
-        map.put("selected-students1", String.valueOf(firstStudent.getId()));
-        map.put("selected-students2", String.valueOf(thirdStudent.getId()));
-
-        Mockito.when(form.data()).thenReturn(map);
-        Mockito.when(form.get("move")).thenReturn("NotNull");
-        Mockito.when(form.get("allocationID")).thenReturn(
-                String.valueOf(allocation.getId()));
-        Mockito.when(form.get("project-selection")).thenReturn(
-                String.valueOf(secondTeam.getId()));
-
-        Mockito.when(messages.at("error.internalError")).thenReturn("error");
-
-        controller.editAllocation();
-
-        assertTrue(Context.current().flash().containsValue("error"));
-    }
-
+    /**
+     * Test für das Bewegen von Studenten, wenn keine Studenten ausgewählt sind.
+     */
     @Test
     public void editAllocationMoveStudentsNoStudentsSelectedTest() {
         Map<String, String> map = new HashMap<>();
@@ -322,48 +323,47 @@ public class AdminEditAllocationControllerTest extends ControllerTest {
 
         Mockito.when(form.data()).thenReturn(map);
         Mockito.when(form.get("move")).thenReturn("NotNull");
-        Mockito.when(form.get("allocationID")).thenReturn(
-                String.valueOf(allocation.getId()));
-        Mockito.when(form.get("project-selection")).thenReturn(
-                String.valueOf(secondTeam.getId()));
+        Mockito.when(form.get("allocationID")).thenReturn(String.valueOf(allocation.getId()));
+        Mockito.when(form.get("project-selection")).thenReturn(String.valueOf(secondTeam.getId()));
 
-        Mockito.when(messages.at("admin.edit.noStudentSelected")).thenReturn(
-                "error");
+        Mockito.when(messages.at("admin.edit.noStudentSelected")).thenReturn("error");
 
         controller.editAllocation();
 
         assertTrue(Context.current().flash().containsValue("error"));
     }
 
+    /**
+     * Test ob beim Editieren mit falschen Bedingungen ein Fehler auftritt.
+     */
     @Test
-    public void editAllocationMoveStudentsAndUndoAllocationPublishedTest() {
+    @Ignore
+    public void editAllocationMoveStudentsAndUndoAllocationDeletedTest() {
 
         Map<String, String> map = new HashMap<>();
         map.put("selected-students1", String.valueOf(firstStudent.getId()));
         map.put("selected-students2", String.valueOf(thirdStudent.getId()));
 
         Mockito.when(form.get("move")).thenReturn("NotNull");
-        Mockito.when(form.get("allocationID")).thenReturn(
-                String.valueOf(allocation.getId()));
-        Mockito.when(form.get("project-selection")).thenReturn(
-                String.valueOf(secondTeam.getId()));
+        Mockito.when(form.get("allocationID")).thenReturn(String.valueOf(allocation.getId()));
+        Mockito.when(form.get("project-selection")).thenReturn(String.valueOf(secondTeam.getId()));
         Mockito.when(form.data()).thenReturn(map);
 
-        Mockito.when(messages.at("error.allocation.deletedConcurrently"))
-                .thenReturn("error");
+        Mockito.when(messages.at("error.allocation.deletedConcurrently")).thenReturn("error");
 
         controller.editAllocation();
 
-        Semester s = GeneralData.loadInstance().getCurrentSemester();
-        s.doTransaction(() -> {
-            s.setFinalAllocation(allocation);
-        });
+        allocation.delete();
 
         controller.undoAllocationEdit();
 
         assertTrue(Context.current().flash().containsValue("error"));
     }
 
+    /**
+     * Test ob beim Rückgängigmachen mit falschen Bedingungen ein Fehler
+     * auftritt.
+     */
     @Test
     public void undoAllocationEditEmptyStackTest() {
 
@@ -374,6 +374,10 @@ public class AdminEditAllocationControllerTest extends ControllerTest {
         assertTrue(Context.current().flash().containsValue("error"));
     }
 
+    /**
+     * Test für das Tauschen von Studenten, wenn keine Studenten ausgewählt
+     * sind.
+     */
     @Test
     public void editAllocationSwapStudentsAndUndoTest() {
         Map<String, String> map = new HashMap<>();
@@ -381,8 +385,7 @@ public class AdminEditAllocationControllerTest extends ControllerTest {
         map.put("selected-students2", String.valueOf(thirdStudent.getId()));
 
         Mockito.when(form.get("exchange")).thenReturn("NotNull");
-        Mockito.when(form.get("allocationID")).thenReturn(
-                String.valueOf(allocation.getId()));
+        Mockito.when(form.get("allocationID")).thenReturn(String.valueOf(allocation.getId()));
         Mockito.when(form.data()).thenReturn(map);
 
         controller.editAllocation();
@@ -419,6 +422,10 @@ public class AdminEditAllocationControllerTest extends ControllerTest {
 
     }
 
+    /**
+     * Test ob beim Tauschen von Studenten mit falschen Bedingungen ein Fehler
+     * auftritt.
+     */
     @Test
     public void editAllocationSwapStudentsValidationExceptionTest() {
 
@@ -438,6 +445,10 @@ public class AdminEditAllocationControllerTest extends ControllerTest {
 
     }
 
+    /**
+     * Test ob beim Tauschen von Studenten mit falschen Bedingungen ein Fehler
+     * auftritt.
+     */
     @Test
     public void editAllocationSwapStudentsUnknownAllocationIdTest() {
 
@@ -447,41 +458,19 @@ public class AdminEditAllocationControllerTest extends ControllerTest {
 
         Mockito.when(form.data()).thenReturn(map);
         Mockito.when(form.get("exchange")).thenReturn("NotNull");
-        Mockito.when(form.get("allocationID")).thenReturn(
-                String.valueOf(allocation.getId() + 1));
+        Mockito.when(form.get("allocationID")).thenReturn(String.valueOf(allocation.getId() + 1));
 
-        Mockito.when(messages.at("error.allocation.deletedConcurrently"))
-                .thenReturn("error");
+        Mockito.when(messages.at("error.allocation.deletedConcurrently")).thenReturn("error");
 
         controller.editAllocation();
 
         assertTrue(Context.current().flash().containsValue("error"));
     }
 
-    @Test
-    public void editAllocationSwapStudentsFinalAllocationTest() {
-
-        Semester s = GeneralData.loadInstance().getCurrentSemester();
-        s.doTransaction(() -> {
-            s.setFinalAllocation(allocation);
-        });
-
-        Map<String, String> map = new HashMap<>();
-        map.put("selected-students1", String.valueOf(firstStudent.getId()));
-        map.put("selected-students2", String.valueOf(thirdStudent.getId()));
-
-        Mockito.when(form.data()).thenReturn(map);
-        Mockito.when(form.get("exchange")).thenReturn("NotNull");
-        Mockito.when(form.get("allocationID")).thenReturn(
-                String.valueOf(allocation.getId()));
-
-        Mockito.when(messages.at("error.internalError")).thenReturn("error");
-
-        controller.editAllocation();
-
-        assertTrue(Context.current().flash().containsValue("error"));
-    }
-
+    /**
+     * Test ob beim Tauschen von Studenten mit falschen Bedingungen ein Fehler
+     * auftritt.
+     */
     @Test
     public void editAllocationSwapStudentsNoStudentsSelectedTest() {
         Map<String, String> map = new HashMap<>();
@@ -489,24 +478,25 @@ public class AdminEditAllocationControllerTest extends ControllerTest {
 
         Mockito.when(form.data()).thenReturn(map);
         Mockito.when(form.get("exchange")).thenReturn("NotNull");
-        Mockito.when(form.get("allocationID")).thenReturn(
-                String.valueOf(allocation.getId()));
+        Mockito.when(form.get("allocationID")).thenReturn(String.valueOf(allocation.getId()));
 
-        Mockito.when(messages.at("error.internalError")).thenReturn("error");
+        Mockito.when(messages.at("error.twoStudentsSelected")).thenReturn("error");
 
         controller.editAllocation();
 
         assertTrue(Context.current().flash().containsValue("error"));
     }
 
+    /**
+     * Test für das Veröffentlichen einer Einteilung.
+     */
     @Test
     public void publishAllocationTest() {
 
         Map<String, String> map = new HashMap<>();
         map.put("1", "1");
 
-        Mockito.when(form.get("allocationID")).thenReturn(
-                String.valueOf(allocation.getId()));
+        Mockito.when(form.get("allocationID")).thenReturn(String.valueOf(allocation.getId()));
         Mockito.when(form.data()).thenReturn(map);
 
         controller.publishAllocation();
@@ -517,10 +507,13 @@ public class AdminEditAllocationControllerTest extends ControllerTest {
             e.printStackTrace();
         }
 
-        assertTrue(GeneralData.loadInstance().getCurrentSemester()
-                .getFinalAllocation().equals(allocation));
+        assertTrue(GeneralData.loadInstance().getCurrentSemester().getFinalAllocation().equals(allocation));
     }
 
+    /**
+     * Test ob beim Veröffentlichen der Einteilung mit falschen Bedingungen ein
+     * Fehler auftritt.
+     */
     @Test
     public void publishAllocationValidationExceptionTest() {
 
@@ -537,24 +530,30 @@ public class AdminEditAllocationControllerTest extends ControllerTest {
         assertTrue(Context.current().flash().containsValue("error"));
     }
 
+    /**
+     * Test ob beim Veröffentlichen der Einteilung mit falschen Bedingungen ein
+     * Fehler auftritt.
+     */
     @Test
     public void publishAllocationUnknownAllocationIdTest() {
 
         Map<String, String> map = new HashMap<>();
         map.put("1", "1");
 
-        Mockito.when(form.get("allocationID")).thenReturn(
-                String.valueOf(allocation.getId() + 1));
+        Mockito.when(form.get("allocationID")).thenReturn(String.valueOf(allocation.getId() + 1));
         Mockito.when(form.data()).thenReturn(map);
 
-        Mockito.when(messages.at("error.allocation.deletedConcurrently"))
-                .thenReturn("error");
+        Mockito.when(messages.at("error.allocation.deletedConcurrently")).thenReturn("error");
 
         controller.publishAllocation();
 
         assertTrue(Context.current().flash().containsValue("error"));
     }
 
+    /**
+     * Test ob beim Veröffentlichen der Einteilung mit falschen Bedingungen ein
+     * Fehler auftritt.
+     */
     @Test
     public void publishAllocationFinalAllocationTest() {
 
@@ -566,19 +565,21 @@ public class AdminEditAllocationControllerTest extends ControllerTest {
         Map<String, String> map = new HashMap<>();
         map.put("1", "1");
 
-        Mockito.when(form.get("allocationID")).thenReturn(
-                String.valueOf(allocation.getId()));
+        Mockito.when(form.get("allocationID")).thenReturn(String.valueOf(allocation.getId()));
         Mockito.when(form.data()).thenReturn(map);
 
-        Mockito.when(messages.at("admin.edit.noFinalAllocation")).thenReturn(
-                "error");
+        Mockito.when(messages.at("admin.edit.noFinalAllocation")).thenReturn("error");
 
         controller.publishAllocation();
 
         assertTrue(Context.current().flash().containsValue("error"));
     }
 
-    // TODO Testdatenbank austauschen
+    /**
+     * Test für das Entfernen eine Einteilung.
+     * 
+     * Funktioniert nicht, da EBean Probleme mit der Testdatenbank hat.
+     */
     @Ignore
     @Test
     public void removeAllocationTest() {
@@ -586,17 +587,19 @@ public class AdminEditAllocationControllerTest extends ControllerTest {
         Map<String, String> map = new HashMap<>();
         map.put("1", "1");
 
-        Mockito.when(form.get("allocationID")).thenReturn(
-                String.valueOf(allocation.getId()));
+        Mockito.when(form.get("allocationID")).thenReturn(String.valueOf(allocation.getId()));
         Mockito.when(form.data()).thenReturn(map);
 
         controller.removeAllocation();
 
-        assertEquals(GeneralData.loadInstance().getCurrentSemester()
-                .getAllocations().size(), 0);
+        assertEquals(GeneralData.loadInstance().getCurrentSemester().getAllocations().size(), 0);
         assertNull(ElipseModel.getById(Allocation.class, allocation.getId()));
     }
 
+    /**
+     * Test ob beim Entfernen der Einteilung mit falschen Bedingungen ein Fehler
+     * auftritt.
+     */
     @Test
     public void removeAllocationValidationExceptionTest() {
 
@@ -613,6 +616,9 @@ public class AdminEditAllocationControllerTest extends ControllerTest {
         assertTrue(Context.current().flash().containsValue("error"));
     }
 
+    /**
+     * Test ob beim Entfernen der finalen Einteilung ein Fehler auftritt.
+     */
     @Test
     public void removeAllocationFinalAllocationTest() {
 
@@ -624,12 +630,10 @@ public class AdminEditAllocationControllerTest extends ControllerTest {
         Map<String, String> map = new HashMap<>();
         map.put("1", "1");
 
-        Mockito.when(form.get("allocationID")).thenReturn(
-                String.valueOf(allocation.getId()));
+        Mockito.when(form.get("allocationID")).thenReturn(String.valueOf(allocation.getId()));
         Mockito.when(form.data()).thenReturn(map);
 
-        Mockito.when(messages.at("admin.edit.removeFinalAllocation"))
-                .thenReturn("error");
+        Mockito.when(messages.at("admin.edit.removeFinalAllocation")).thenReturn("error");
 
         controller.removeAllocation();
 

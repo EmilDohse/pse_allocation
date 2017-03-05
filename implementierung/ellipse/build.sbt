@@ -35,3 +35,5 @@ jacoco.settings
 parallelExecution in jacoco.Config := false
 
 jacoco.excludes in jacoco.Config := Seq("org.pac4j.play.*", "controllers.javascript.*", "router.*", "security.BCrypt", "controllers.routes.javascript" , "views.html.*")
+
+fork in run := true

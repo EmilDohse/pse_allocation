@@ -219,10 +219,12 @@ public class StudentHappinessTest extends DataTest {
         assertTrue(50.0 - Double.parseDouble(result[0]) < 0.01);
     }
 
+    /**
+     * Test ob der Name richtig angezeigt wird.
+     */
     @Test
     public void testDisplayName() {
-        assertEquals("Studierendenzufriedenheit",
-                new StudentHappiness().getName("de"));
+        assertEquals("Studierendenzufriedenheit", new StudentHappiness().getName("de"));
         assertEquals("Student happiness", new StudentHappiness().getName("en"));
     }
 }

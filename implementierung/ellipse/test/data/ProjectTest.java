@@ -159,6 +159,9 @@ public class ProjectTest extends DataTest {
         assertEquals(2, Project.getProjects().size());
     }
 
+    /**
+     * Test für die compareTo Methode.
+     */
     @Test
     public void testCompareTo() {
         Project p1 = new Project();

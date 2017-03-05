@@ -19,8 +19,17 @@ import gurobi.GRBVar;
  */
 public class CriterionLearningGroup implements GurobiCriterion {
 
+    /**
+     * Der deutsche Anzeigename.
+     */
     private static final String DE_NAME = "Lerngruppe nicht trennen";
+    /**
+     * Der englische Anzeigename.
+     */
     private static final String EN_NAME = "Do not split learning groups";
+    /**
+     * Der Name des Kriteriums, anhand dessen es identifiziert wird.
+     */
     private String              name;
 
     /**
@@ -99,6 +108,9 @@ public class CriterionLearningGroup implements GurobiCriterion {
         allocator.getOptimizationTerm().add(bonus);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getDisplayName(String local) {
         switch (local) {

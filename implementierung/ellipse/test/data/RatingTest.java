@@ -43,6 +43,9 @@ public class RatingTest extends DataTest {
         assertEquals(p, rating.getProject());
     }
 
+    /**
+     * Test für das Setzen einer Lerngruppe für die Bewewrtung.
+     */
     @Test
     public void testLearningGroup() {
         LearningGroup lg = new LearningGroup();
