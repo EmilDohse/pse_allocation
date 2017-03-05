@@ -7,47 +7,53 @@ Parameter wird die Liste an Projekten und eine Fehlermeldung übergeben.
 <form action="@controllers.routes.StudentPageController.rate().path()"
 	method="POST">
 	@helper.CSRF.formField
-<table class="table">
-	<thead>
-		<tr>
-			<th>@Messages("student.rating.projectname")</th>
-			@for(rating <- views.RatingDisplay.values()) {
-				<th>@rating.getRepresentation()</th>
-			}
-		</tr>
-	</thead>
-	<tbody>
-		<div class="panel-group" id="accordion" role="tablist"
-			aria-multiselectable="true">@for(project <- projects) {
-		<tr>
-			<td><div class="panel panel-default">
-					<div class="panel-heading" role="tab" id="heading-@project.getId()">
-						<h4 class="panel-title">
-							<a role="button" data-toggle="collapse" data-parent="#accordion"
-								href="#collapse@project.getId()" aria-expanded="true"
-								aria-controls="collapse@project.getId()">@project.getName()<br><small>@project.getInstitute()</small></a>
-						</h4>
-					</div>
-					<div id="collapse@project.getId()" class="panel-collapse collapse"
-						role="tabpanel" aria-labelledby="heading-@project.getId()">
-						<div class="panel-body">
-							<h5><a href="@project.getProjectURL()">@project.getProjectURL()</a></h5>
-							@for(line <- project.getProjectInfo().split("\n")) {
-								@Html("<p>" + line + "</p>")
-							}
-						</div>
-					</div>
-				</div></td>
-			@for(rating <- views.RatingDisplay.values()) {
-				@if(data.GeneralData.loadInstance().getCurrentSemester().getLearningGroupOf(student).getRating(project) == rating.getNumber()) {
-					<td><input type="radio" checked name="@project.getId()" id="@project.getId()-@rating.getNumber()" value="@rating.getNumber()"></td>
-				} else {
-					<td><input type="radio" name="@project.getId()" id="@project.getId()-@rating.getNumber()" value="@rating.getNumber()"></td>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>@Messages("student.rating.projectname")</th> 
+				@for(rating <-views.RatingDisplay.values()) {
+				<th>@rating.getRepresentation()</th> 
 				}
+			</tr>
+		</thead>
+		<tbody>
+			@for(project <- projects) {
+			<tr>
+				<td><div class="panel-group" id="accordion-@project.getId()" role="tablist"
+						aria-multiselectable="true">
+						<div class="panel panel-default">
+							<div class="panel-heading" role="tab"
+								id="heading-@project.getId()">
+								<h4 class="panel-title">
+									<a role="button" data-toggle="collapse"
+										data-parent="#accordion" href="#collapse@project.getId()"
+										aria-expanded="true" aria-controls="collapse@project.getId()">@project.getName()<br>
+										<small>@project.getInstitute()</small></a>
+								</h4>
+							</div>
+							<div id="collapse@project.getId()"
+								class="panel-collapse collapse" role="tabpanel"
+								aria-labelledby="heading-@project.getId()">
+								<div class="panel-body">
+									<h5>
+										<a href="@project.getProjectURL()" target="_blank">@project.getProjectURL()</a>
+									</h5>
+									@for(line <- project.getProjectInfo().split("\n")) { @Html("<p>" + line + "</p>") }
+								</div>
+							</div>
+						</div>
+					</div></td> @for(rating <- views.RatingDisplay.values()) {
+				@if(data.GeneralData.loadInstance().getCurrentSemester().getLearningGroupOf(student).getRating(project) == rating.getNumber()) {
+				<td><input type="radio" checked name="@project.getId()"
+					id="@project.getId()-@rating.getNumber()"
+					value="@rating.getNumber()"></td> } else {
+				<td><input type="radio" name="@project.getId()"
+					id="@project.getId()-@rating.getNumber()"
+					value="@rating.getNumber()"></td> } 
+					}
+			</tr>
 			}
-		</tr>
-		}
-	</tbody>
-</table>
+		</tbody>
+	</table>
 	<button type="submit" id="submit_rate" class="btn btn-primary">@Messages("student.rating.submit")</button>
 </form>
