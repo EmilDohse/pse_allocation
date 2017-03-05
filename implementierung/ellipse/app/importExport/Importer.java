@@ -80,7 +80,7 @@ public class Importer {
                     throw new ImporterException(WRONG_FORMAT);
                 }
             }
-            String line = new String();
+            String line = "";
             while ((line = br.readLine()) != null) {
                 Team currentTeam = new Team();
                 String[] lineSplit = line.split(";");
@@ -182,14 +182,17 @@ public class Importer {
 
             // Erstelle Zeile pro Team und schreibe diese
             for (Team team : allocation.getTeams()) {
-                String line = new String();
-                line += team.getProject().getName() + ";";
-                line += team.getTeamNumber() + ";";
+                StringBuilder line = new StringBuilder();
+                line.append(team.getProject().getName());
+                line.append(";");
+                line.append(team.getTeamNumber());
+                line.append(";");
                 for (Student member : team.getMembers()) {
-                    line += member.getMatriculationNumber() + ",";
+                    line.append(member.getMatriculationNumber());
+                    line.append(",");
                 }
-                line = line.substring(0, line.length() - 1);
-                bw.write(line);
+                String resultLine = line.substring(0, line.length() - 1);
+                bw.write(resultLine);
                 bw.newLine();
             }
         } catch (FileNotFoundException e) {
@@ -247,11 +250,11 @@ public class Importer {
 
             // Prüfe, ob Kopzeile die richtige Länge, sowie richtige Namen hat
             boolean headerLength = (headerSplit.length == 3);
-            boolean firstColumn = headerSplit[0].equals("Name");
-            boolean secondColumn = headerSplit[1]
-                    .equals("Additional Achievements");
-            boolean thirdColumn = headerSplit[2]
-                    .equals("Necessary Achievements");
+            boolean firstColumn = "Name".equals(headerSplit[0]);
+            boolean secondColumn = "Additional Achievements"
+                    .equals(headerSplit[1]);
+            boolean thirdColumn = "Necessary Achievements"
+                    .equals(headerSplit[2]);
 
             if (!(headerLength && firstColumn && secondColumn && thirdColumn)) {
                 throw new ImporterException(WRONG_FORMAT);
@@ -360,27 +363,30 @@ public class Importer {
             writer.newLine();
 
             // Create output String
-            String output = spo.getName();
-            output += ";";
+            StringBuilder output = new StringBuilder(spo.getName());
+            output.append(";");
 
             // Add all additional Achievements
             for (Achievement achievement : spo.getAdditionalAchievements()) {
-                output += achievement.getName() + ",";
+                output.append(achievement.getName());
+                output.append(",");
             }
 
             // Remove trailing comma
-            output = output.substring(0, output.length() - 1) + ";";
-
+            output = new StringBuilder(
+                    output.substring(0, output.length() - 1));
+            output.append(";");
             // Add all necessary Achievements
             for (Achievement achievement : spo.getNecessaryAchievements()) {
-                output += achievement.getName() + ",";
+                output.append(achievement.getName());
+                output.append(",");
             }
 
             // remove trailing comma
-            output = output.substring(0, output.length() - 1);
+            String resultOutput = output.substring(0, output.length() - 1);
 
             // write line
-            writer.write(output);
+            writer.write(resultOutput);
         } catch (IOException e) {
             throw new ImporterException(IO);
         }
@@ -453,7 +459,7 @@ public class Importer {
             }
 
             // Ab hier beginnt das eigentliche Importieren
-            String line = new String();
+            String line = "";
             while ((line = br.readLine()) != null) {
                 String[] lineSplit = line.split(";");
                 if (lineSplit.length != wantedColumns) {
@@ -513,7 +519,7 @@ public class Importer {
                 Student importedStudent = new Student();
                 importedStudent.setCompletedAchievements(completedAchievements);
                 importedStudent.setOralTestAchievements(oralTestAchievements);
-                importedStudent.setUserName(new String() + matNr);
+                importedStudent.setUserName(String.valueOf(matNr));
                 importedStudent.setPassword(password);
                 importedStudent.setFirstName(firstName);
                 importedStudent.setLastName(lastName);
@@ -532,7 +538,8 @@ public class Importer {
                 if (lineSplit[5].length() != 0) {
                     // Erzeuge neue Gruppe mit dem gesetzten Namen, falls sie
                     // noch nicht existiert
-                    if (getGroupByName(learningGroups, lineSplit[5]) == null) {
+                    currentGroup = getGroupByName(learningGroups, lineSplit[5]);
+                    if (null == currentGroup) {
                         currentGroup = new LearningGroup();
                         currentGroup.setName(lineSplit[5]);
                         currentGroup.addMember(importedStudent);
@@ -542,19 +549,17 @@ public class Importer {
                         // Füge der Gruppe mit dem gesetzten Namen den Studenten
                         // hinzu, falls sie schon existiert
                     } else {
-                        currentGroup = getGroupByName(learningGroups,
-                                lineSplit[5]);
                         currentGroup.addMember(importedStudent);
                     }
                     // Erstelle eine private Lerngruppe, wenn keine angegeben
                     // wurde
                 } else {
                     currentGroup = new LearningGroup();
-                    currentGroup.setName(new String()
-                            + importedStudent.getMatriculationNumber());
+                    currentGroup.setName(String
+                            .valueOf(importedStudent.getMatriculationNumber()));
                     currentGroup.setPrivate(true);
                     currentGroup.addMember(importedStudent);
-                    currentGroup.setPassword(new String());
+                    currentGroup.setPassword("");
                     learningGroups.add(currentGroup);
                 }
                 ArrayList<Rating> learningGoupRatings = new ArrayList<>();
@@ -601,58 +606,73 @@ public class Importer {
         }
         try (BufferedWriter bw = new BufferedWriter(
                 new OutputStreamWriter(new FileOutputStream(file), "utf-8"))) {
-            String header = "MatNr;Vorname;Nachname;E-Mail;Passwort;Lerngruppenname;LerngruppePasswort;"
-                    + "SPO;Fachsemester;Bestandene Teilleistungen;Noch ausstehende Teilleistungen;";
+            StringBuilder header = new StringBuilder(
+                    "MatNr;Vorname;Nachname;E-Mail;Passwort;Lerngruppenname;LerngruppePasswort;"
+                            + "SPO;Fachsemester;Bestandene Teilleistungen;Noch ausstehende Teilleistungen;");
             for (Project project : semester.getProjects()) {
-                header += project.getName() + ";";
+                header.append(project.getName());
+                header.append(";");
             }
-            header = header.substring(0, header.length() - 1);
+            String resultHeader = header.substring(0, header.length() - 1);
 
-            bw.write(header);
+            bw.write(resultHeader);
             bw.newLine();
 
             for (Student student : semester.getStudents()) {
-                String output = new String();
-                output += student.getMatriculationNumber() + ";";
-                output += student.getFirstName() + ";";
-                output += student.getLastName() + ";";
-                output += student.getEmailAddress() + ";";
-                output += student.getPassword() + ";";
+                StringBuilder output = new StringBuilder();
+                output.append(student.getMatriculationNumber());
+                output.append(";");
+                output.append(student.getFirstName());
+                output.append(";");
+                output.append(student.getLastName());
+                output.append(";");
+                output.append(student.getEmailAddress());
+                output.append(";");
+                output.append(student.getPassword());
+                output.append(";");
                 LearningGroup lg = semester.getLearningGroupOf(student);
                 if (!lg.isPrivate()) {
-                    output += lg.getName() + ";";
-                    output += lg.getPassword() + ";";
+                    output.append(lg.getName());
+                    output.append(";");
+                    output.append(lg.getPassword());
+                    output.append(";");
                 } else {
-                    output += ";;";
+                    output.append(";;");
                 }
 
-                output += student.getSPO().getName() + ";";
-                output += student.getSemester() + ";";
+                output.append(student.getSPO().getName());
+                output.append(";");
+                output.append(student.getSemester());
+                output.append(";");
 
                 for (Achievement achievement : student
                         .getCompletedAchievements()) {
-                    output += achievement.getName() + ",";
+                    output.append(achievement.getName());
+                    output.append(",");
                 }
-                output = output.substring(0, output.length() - 1) + ";";
+                output = new StringBuilder(
+                        output.substring(0, output.length() - 1));
+                output.append(";");
 
                 if (!student.getOralTestAchievements().isEmpty()) {
                     for (Achievement achievement : student
                             .getOralTestAchievements()) {
-                        output += achievement.getName() + ",";
+                        output.append(achievement.getName());
+                        output.append(",");
                     }
-                    output = output.substring(0, output.length() - 1) + ";";
-                } else {
-                    output += ";";
+                    output = new StringBuilder(
+                            output.substring(0, output.length() - 1));
                 }
-
+                output.append(";");
                 for (Project project : semester.getProjects()) {
                     int rating;
                     rating = semester.getLearningGroupOf(student)
                             .getRating(project);
-                    output += rating + ";";
+                    output.append(rating);
+                    output.append(";");
                 }
-                output.substring(0, output.length() - 1);
-                bw.write(output);
+                String resultOutput = output.substring(0, output.length() - 1);
+                bw.write(resultOutput);
                 bw.newLine();
             }
 
@@ -700,7 +720,7 @@ public class Importer {
                     throw new ImporterException(WRONG_FORMAT);
                 }
             }
-            String line = new String();
+            String line = "";
             ArrayList<Project> projects = new ArrayList<>();
 
             while ((line = br.readLine()) != null) {
@@ -782,16 +802,22 @@ public class Importer {
             bw.newLine();
 
             for (Project project : semester.getProjects()) {
-                String line = new String();
-                line += project.getName() + ";";
-                line += project.getInstitute() + ";";
-                line += project.getNumberOfTeams() + ";";
-                line += project.getMinTeamSize() + ";";
-                line += project.getMaxTeamSize() + ";";
-                line += project.getProjectURL() + ";";
-                line += project.getProjectInfo();
+                StringBuilder line = new StringBuilder();
+                line.append(project.getName());
+                line.append(";");
+                line.append(project.getInstitute());
+                line.append(";");
+                line.append(project.getNumberOfTeams());
+                line.append(";");
+                line.append(project.getMinTeamSize());
+                line.append(";");
+                line.append(project.getMaxTeamSize());
+                line.append(";");
+                line.append(project.getProjectURL());
+                line.append(";");
+                line.append(project.getProjectInfo());
 
-                bw.write(line);
+                bw.write(line.toString());
                 bw.newLine();
             }
         } catch (FileNotFoundException e) {
@@ -822,11 +848,13 @@ public class Importer {
             bw.write(header);
             bw.newLine();
             for (Student student : semester.getStudents()) {
-                String line = new String();
-                line += student.getMatriculationNumber() + ";";
-                line += student.getGradePSE().getName() + ";";
-                line += student.getGradeTSE().getName();
-                bw.write(line);
+                StringBuilder line = new StringBuilder();
+                line.append(student.getMatriculationNumber());
+                line.append(";");
+                line.append(student.getGradePSE().getName());
+                line.append(";");
+                line.append(student.getGradeTSE().getName());
+                bw.write(line.toString());
                 bw.newLine();
             }
         } catch (FileNotFoundException e) {
