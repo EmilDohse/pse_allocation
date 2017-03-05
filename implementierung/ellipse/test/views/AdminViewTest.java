@@ -1,5 +1,8 @@
 package views;
 
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Before;
 import org.junit.Test;
 
 import views.pages.admin.AdminAccountPage;
@@ -11,9 +14,6 @@ import views.pages.admin.AdminProjectsPage;
 import views.pages.admin.AdminPropertiesPage;
 import views.pages.admin.AdminResultsPage;
 import views.pages.admin.AdminStudentEditPage;
-import static org.junit.Assert.*;
-
-import org.junit.Before;
 
 /**
  * Diese Klasse enthält Tests für den AdminView.
@@ -24,6 +24,7 @@ public class AdminViewTest extends ViewTest {
     private AdminAdvisersPage    advisersPage;
     private AdminAllocationPage  allocationPage;
     private AdminImExportPage    imExportPage;
+    private AdminProjectEditPage projectEditPage;
     private AdminProjectsPage    projectsPage;
     private AdminPropertiesPage  propertiesPage;
     private AdminResultsPage     resultsPage;
