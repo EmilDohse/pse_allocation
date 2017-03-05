@@ -1,9 +1,7 @@
 package views;
 
 import java.time.Instant;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.stream.IntStream;
 
 import data.Administrator;
@@ -17,7 +15,6 @@ import data.Project;
 import data.SPO;
 import data.Semester;
 import data.Student;
-import data.Team;
 import deadline.StateStorage;
 
 /**
@@ -92,7 +89,7 @@ public class TestHelpers {
                 "admin", "admin");
         admin.save();
         admin.doTransaction(() -> {
-            admin.savePassword(Administrator.START_PASSWORD);
+            admin.setPassword(Administrator.START_PASSWORD_HASH);
         });
     }
 

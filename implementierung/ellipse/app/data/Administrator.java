@@ -10,7 +10,7 @@ import javax.persistence.Entity;
 @Entity
 public class Administrator extends User {
 
-    public static final String START_PASSWORD = "adminadmin";
+    public static final String START_PASSWORD_HASH = "$2a$10$nVJZIOx02y8lk5L3N4MAhuE1QFjBKKQDEDBvTHFCc7Jmw4jQPbhG.";
 
     public Administrator() {
         super();
@@ -29,4 +29,5 @@ public class Administrator extends User {
     public static List<Administrator> getAdministrators() {
         return ElipseModel.getAll(Administrator.class);
     }
+
 }
