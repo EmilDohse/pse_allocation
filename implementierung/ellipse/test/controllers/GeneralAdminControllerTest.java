@@ -375,7 +375,7 @@ public class GeneralAdminControllerTest extends ControllerTest {
 
         when(form.data()).thenReturn(data);
         when(form.get("matrnr2")).thenReturn("a");
-        when(messages.at("error.internalError")).thenReturn("NFE");
+        when(messages.at("error.wrongInput")).thenReturn("NFE");
 
         controller.removeStudent();
 

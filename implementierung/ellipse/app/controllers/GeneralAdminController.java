@@ -318,7 +318,7 @@ public class GeneralAdminController extends Controller {
         try {
             matNr = Integer.parseInt(matNrString);
         } catch (NumberFormatException e) {
-            flash(ERROR, ctx().messages().at(INTERNAL_ERROR));
+            flash(ERROR, ctx().messages().at("error.wrongInput"));
             return redirect(
                     controllers.routes.AdminPageController.studentEditPage());
         }

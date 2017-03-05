@@ -81,11 +81,6 @@ public class SwapStudentCommand extends EditAllocationCommand {
             throw new AllocationEditUndoException("Allocation removed");
         }
 
-        if (allocation.equals(GeneralData.loadInstance().getCurrentSemester()
-                .getFinalAllocation())) {
-            throw new AllocationEditUndoException(
-                    "Allocation already published");
-        }
 
         Team firstTeam = allocation.getTeam(firstStudent);
         Team secondTeam = allocation.getTeam(secondStudent);

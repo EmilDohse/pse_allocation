@@ -116,14 +116,10 @@ public class AdminEditAllocationController extends Controller {
             flash(ERROR, ctx().messages().at(Allocation.CONCURRENCY_ERROR));
             return redirect(controllers.routes.AdminPageController.resultsPage());
         }
-        if (allocation.equals(GeneralData.loadInstance().getCurrentSemester().getFinalAllocation())) {
-            flash(ERROR, ctx().messages().at(INTERNAL_ERROR));
-            return redirect(controllers.routes.AdminPageController.resultsPage());
-        }
 
         // Prüfe, ob genau zwei Studenten ausgewählt wurden
         if (ids.size() != 2) {
-            flash(ERROR, ctx().messages().at(INTERNAL_ERROR));
+            flash(ERROR, ctx().messages().at("error.twoStudentsSelected"));
             return redirect(controllers.routes.AdminPageController.resultsPage());
         }
 
@@ -168,10 +164,6 @@ public class AdminEditAllocationController extends Controller {
         // falls die einteilung während er bearbeitung gelöscht wird
         if (allocation == null) {
             flash(ERROR, ctx().messages().at(Allocation.CONCURRENCY_ERROR));
-            return redirect(controllers.routes.AdminPageController.resultsPage());
-        }
-        if (allocation.equals(GeneralData.loadInstance().getCurrentSemester().getFinalAllocation())) {
-            flash(ERROR, ctx().messages().at(INTERNAL_ERROR));
             return redirect(controllers.routes.AdminPageController.resultsPage());
         }
 

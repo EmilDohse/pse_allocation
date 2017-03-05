@@ -166,7 +166,7 @@ public class StudentPageController extends Controller {
                 return redirect(controllers.routes.StudentPageController
                         .learningGroupPage());
             }
-            flash(ERROR, ctx().messages().at(GEN_ERROR));
+            flash(ERROR, ctx().messages().at("error.registration.trueDate"));
             return redirect(
                     controllers.routes.StudentPageController.changeFormPage());
         }

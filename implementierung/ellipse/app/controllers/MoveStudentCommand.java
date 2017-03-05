@@ -86,11 +86,6 @@ public class MoveStudentCommand extends EditAllocationCommand {
             throw new AllocationEditUndoException("Allocation removed");
         }
 
-        if (allocation.equals(GeneralData.loadInstance().getCurrentSemester()
-                .getFinalAllocation())) {
-            throw new AllocationEditUndoException(
-                    "Allocation already published");
-        }
 
         for (Student s : students) {
             if (newTeam != null) {
