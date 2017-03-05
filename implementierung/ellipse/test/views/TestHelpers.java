@@ -11,6 +11,7 @@ import data.Adviser;
 import data.Allocation;
 import data.ElipseModel;
 import data.GeneralData;
+import data.Grade;
 import data.LearningGroup;
 import data.Project;
 import data.SPO;
@@ -331,5 +332,18 @@ public class TestHelpers {
             semester.addAllocation(allocation);
         });
         return allocation.getId();
+    }
+
+    public static void createStudentWithGrades(int matrnr) {
+        Student student = new Student();
+        student.doTransaction(() -> {
+            student.setMatriculationNumber(matrnr);
+            student.setGradePSE(Grade.TWO_SEVEN);
+            student.setGradeTSE(Grade.THREE_ZERO);
+        });
+        Semester semester = GeneralData.loadInstance().getCurrentSemester();
+        semester.doTransaction(() -> {
+            semester.addStudent(student);
+        });
     }
 }

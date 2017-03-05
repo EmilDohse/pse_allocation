@@ -109,4 +109,8 @@ public class AdminImExportPage extends Page {
         select.withValue(Integer.toString(id));
         browser.$("#submit_allocation_export").first().click();
     }
+
+    public void exportGrades(TestBrowser browser) {
+        browser.$("#submit_grades_export").first().click();
+    }
 }

@@ -259,4 +259,15 @@ public class AdminImportExportTest extends ViewTest {
         imexportPage.exportAllocation(browser, id);
         assertTrue(browser.pageSource().contains("Mitglieder"));
     }
+
+    /**
+     * Test für das Exportieren der Noten.
+     */
+    @Test
+    public void exportGrades() {
+        TestHelpers.createStudentWithGrades(1231233);
+        imexportPage.go();
+        imexportPage.exportGrades(browser);
+        assertTrue(browser.pageSource().contains("1231233"));
+    }
 }
