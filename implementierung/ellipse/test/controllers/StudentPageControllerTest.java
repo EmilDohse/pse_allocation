@@ -669,8 +669,8 @@ public class StudentPageControllerTest extends ControllerTest {
     }
 
     /**
-     * Testet die Methode createLearningGroup, wenn der Student davor schon in
-     * einer Lerngruppe ist
+     * Testet leaveLearningGroup(), wenn ein Student der einzige in einer
+     * Lerngruppe ist und diese verlässt.
      */
     @Test
     public void leaveLearningGroupTest() {
@@ -698,6 +698,10 @@ public class StudentPageControllerTest extends ControllerTest {
                 learningGroup.getId()));
     }
 
+    /**
+     * Testet leaveLearningGroup(), wenn ein Student versucht, seine private
+     * Lerngruppe zu verlassen.
+     */
     @Test
     public void leavePrivateLearningGroupTest() {
         when(userManagement.getUserProfile(any())).thenReturn(student);
@@ -721,6 +725,11 @@ public class StudentPageControllerTest extends ControllerTest {
 
     }
 
+
+    /**
+     * Testet die Methode createLearningGroup, wenn der Student davor schon in
+     * einer Lerngruppe ist
+     */
     @Test
     public void createLearningGroupNotPrivateTest() {
         when(userManagement.getUserProfile(any())).thenReturn(student);
