@@ -45,8 +45,9 @@ public class UserAuthenticator
                     credentials.setUserProfile(profile);
                     // Leite den Admin zur Passwort-Ändern-Seite, falls das
                     // Passwort noch das Start-Passwort ist
-                    if (credentials.getPassword()
-                            .equals(Administrator.START_PASSWORD)) {
+                    BlowfishPasswordEncoder enc = new BlowfishPasswordEncoder();
+                    if (enc.matches(credentials.getPassword(),
+                            Administrator.START_PASSWORD_HASH)) {
                         ctx.flash().put("error", ctx.messages()
                                 .at("admin.account.pleaseChangePassword"));
                         context.setSessionAttribute(

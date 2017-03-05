@@ -122,13 +122,13 @@ public abstract class User extends ElipseModel implements Comparable<User> {
     }
 
     /**
-     * Setter für das Benutzerpasswort.
+     * Setter für das verschlüsselte Benutzerpasswort.
      * 
-     * @param password
-     *            Das Passwort
+     * @param encryptedPassword
+     *            Das verschlüsselte Passwort
      */
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPassword(String encryptedPassword) {
+        this.password = encryptedPassword;
     }
 
     /**
@@ -161,6 +161,12 @@ public abstract class User extends ElipseModel implements Comparable<User> {
         this.lastName = lastName;
     }
 
+    /**
+     * Vergleicht die Benutzer anhand ihrer Namen.
+     * 
+     * !!!Achtung!!! Die Ordnung, die durch die Namen gegeben ist, ist NICHT
+     * notwendigerweise im Einklang mit equals().
+     */
     @Override
     public int compareTo(User o) {
         int temp = lastName.compareTo(o.getLastName());
@@ -171,8 +177,14 @@ public abstract class User extends ElipseModel implements Comparable<User> {
         }
     }
 
-    public void savePassword(String password) {
-        setPassword(new BlowfishPasswordEncoder().encode(password));
+    /**
+     * Speichert das im Klartext übergebene Passwort.
+     * 
+     * @param plainPassword
+     *            Das zu speichernde Passwort im Klartext.
+     */
+    public void savePassword(String plainPassword) {
+        setPassword(new BlowfishPasswordEncoder().encode(plainPassword));
     }
 
 }

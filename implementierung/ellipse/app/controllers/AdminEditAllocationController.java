@@ -63,7 +63,8 @@ public class AdminEditAllocationController extends Controller {
             if (form.data().isEmpty()) {
                 return badRequest(ctx().messages().at(INTERNAL_ERROR));
             }
-            String[] selectedIdsString = MultiselectList.getValueArray(form, "selected-students");
+            String[] selectedIdsString = MultiselectList.getValueArray(form,
+                    "selected-students");
             ArrayList<Integer> selectedIds = new ArrayList<>();
 
             // Ziehe die ausgewählten Studenten-IDs aus dem Formular
@@ -71,9 +72,9 @@ public class AdminEditAllocationController extends Controller {
                 try {
                     selectedIds.add(new IntValidator(0).validate(s));
                 } catch (ValidationException e) {
-                    e.printStackTrace();
                     flash(ERROR, ctx().messages().at(e.getMessage()));
-                    return redirect(controllers.routes.AdminPageController.resultsPage());
+                    return redirect(controllers.routes.AdminPageController
+                            .resultsPage());
                 }
             }
 
@@ -84,7 +85,8 @@ public class AdminEditAllocationController extends Controller {
                 return swapStudents(form, selectedIds);
             } else {
                 flash(ERROR, ctx().messages().at(INTERNAL_ERROR));
-                return redirect(controllers.routes.AdminPageController.resultsPage());
+                return redirect(controllers.routes.AdminPageController
+                        .resultsPage());
             }
         }
     }
@@ -106,27 +108,32 @@ public class AdminEditAllocationController extends Controller {
         try {
             allocationId = new IntValidator(0).validate(allocationIdString);
         } catch (ValidationException e) {
-            e.printStackTrace();
             flash(ERROR, ctx().messages().at(e.getMessage()));
-            return redirect(controllers.routes.AdminPageController.resultsPage());
+            return redirect(controllers.routes.AdminPageController
+                    .resultsPage());
         }
-        Allocation allocation = ElipseModel.getById(Allocation.class, allocationId);
+        Allocation allocation = ElipseModel.getById(Allocation.class,
+                allocationId);
         // falls die einteilung während er bearbeitung gelöscht wird
         if (allocation == null) {
             flash(ERROR, ctx().messages().at(Allocation.CONCURRENCY_ERROR));
-            return redirect(controllers.routes.AdminPageController.resultsPage());
+            return redirect(controllers.routes.AdminPageController
+                    .resultsPage());
         }
+
 
         // Prüfe, ob genau zwei Studenten ausgewählt wurden
         if (ids.size() != 2) {
             flash(ERROR, ctx().messages().at("error.twoStudentsSelected"));
             return redirect(controllers.routes.AdminPageController.resultsPage());
+
         }
 
         // Tausche die Teams der Studenten und lade die Seite neu
         Student firstStudent = ElipseModel.getById(Student.class, ids.get(0));
         Student secondStudent = ElipseModel.getById(Student.class, ids.get(1));
-        SwapStudentCommand command = new SwapStudentCommand(allocation, firstStudent, secondStudent);
+        SwapStudentCommand command = new SwapStudentCommand(allocation,
+                firstStudent, secondStudent);
         command.execute();
         undoStack.push(command);
 
@@ -153,19 +160,22 @@ public class AdminEditAllocationController extends Controller {
             teamId = new IntValidator().validate(teamIdString);
             allocationId = new IntValidator(0).validate(allocationIdString);
         } catch (ValidationException e) {
-            e.printStackTrace();
             flash(ERROR, ctx().messages().at(e.getMessage()));
-            return redirect(controllers.routes.AdminPageController.resultsPage());
+            return redirect(controllers.routes.AdminPageController
+                    .resultsPage());
         }
 
         // Hole die benötigten Daten aus der Datenbank
         Team newTeam = ElipseModel.getById(Team.class, teamId);
-        Allocation allocation = ElipseModel.getById(Allocation.class, allocationId);
+        Allocation allocation = ElipseModel.getById(Allocation.class,
+                allocationId);
         // falls die einteilung während er bearbeitung gelöscht wird
         if (allocation == null) {
             flash(ERROR, ctx().messages().at(Allocation.CONCURRENCY_ERROR));
-            return redirect(controllers.routes.AdminPageController.resultsPage());
+            return redirect(controllers.routes.AdminPageController
+                    .resultsPage());
         }
+
 
         List<Student> students = new ArrayList<>();
         for (int id : ids) {
@@ -176,11 +186,13 @@ public class AdminEditAllocationController extends Controller {
         // Prüfe, ob Studenten ausgewählt wurden
         if (students.isEmpty()) {
             flash(ERROR, ctx().messages().at("admin.edit.noStudentSelected"));
-            return redirect(controllers.routes.AdminPageController.resultsPage());
+            return redirect(controllers.routes.AdminPageController
+                    .resultsPage());
         }
 
         // Führe den Command aus
-        MoveStudentCommand command = new MoveStudentCommand(allocation, students, newTeam);
+        MoveStudentCommand command = new MoveStudentCommand(allocation,
+                students, newTeam);
         command.execute();
         undoStack.push(command);
 
@@ -208,22 +220,26 @@ public class AdminEditAllocationController extends Controller {
             try {
                 allocationId = new IntValidator(0).validate(allocationIdString);
             } catch (ValidationException e) {
-                e.printStackTrace();
                 flash(ERROR, ctx().messages().at(e.getMessage()));
-                return redirect(controllers.routes.AdminPageController.resultsPage());
+                return redirect(controllers.routes.AdminPageController
+                        .resultsPage());
             }
-            Allocation allocation = ElipseModel.getById(Allocation.class, allocationId);
+            Allocation allocation = ElipseModel.getById(Allocation.class,
+                    allocationId);
             // falls die einteilung während er bearbeitung gelöscht wird
             if (allocation == null) {
                 flash(ERROR, ctx().messages().at(Allocation.CONCURRENCY_ERROR));
-                return redirect(controllers.routes.AdminPageController.resultsPage());
+                return redirect(controllers.routes.AdminPageController
+                        .resultsPage());
             }
             Semester semester = GeneralData.loadInstance().getCurrentSemester();
 
             // Prüfe, ob es schon eine finale Einteilung gibt
             if (semester.getFinalAllocation() != null) {
-                flash(ERROR, ctx().messages().at("admin.edit.noFinalAllocation"));
-                return redirect(controllers.routes.AdminPageController.resultsPage());
+                flash(ERROR, ctx().messages()
+                        .at("admin.edit.noFinalAllocation"));
+                return redirect(controllers.routes.AdminPageController
+                        .resultsPage());
             }
 
             // Setze finales Semester und benachrichtige alle User
@@ -236,7 +252,8 @@ public class AdminEditAllocationController extends Controller {
                 flash(ERROR, ctx().messages().at("email.couldNotSend"));
                 e.printStackTrace();
             }
-            return redirect(controllers.routes.AdminPageController.resultsPage());
+            return redirect(controllers.routes.AdminPageController
+                    .resultsPage());
         }
     }
 
@@ -262,15 +279,17 @@ public class AdminEditAllocationController extends Controller {
             try {
                 allocationId = new IntValidator(0).validate(allocationIdString);
             } catch (ValidationException e) {
-                e.printStackTrace();
                 flash(ERROR, ctx().messages().at(e.getMessage()));
-                return redirect(controllers.routes.AdminPageController.resultsPage());
+                return redirect(controllers.routes.AdminPageController
+                        .resultsPage());
             }
-            Allocation allocation = ElipseModel.getById(Allocation.class, allocationId);
+            Allocation allocation = ElipseModel.getById(Allocation.class,
+                    allocationId);
             // falls die einteilung während er bearbeitung gelöscht wird
             if (allocation == null) {
                 flash(ERROR, ctx().messages().at(Allocation.CONCURRENCY_ERROR));
-                return redirect(controllers.routes.AdminPageController.resultsPage());
+                return redirect(controllers.routes.AdminPageController
+                        .resultsPage());
             }
             // Dupliziere die Einteilung
             Allocation clonedAllocation = new Allocation(allocation);
@@ -279,7 +298,8 @@ public class AdminEditAllocationController extends Controller {
             semester.doTransaction(() -> {
                 semester.addAllocation(clonedAllocation);
             });
-            return redirect(controllers.routes.AdminPageController.resultsPage());
+            return redirect(controllers.routes.AdminPageController
+                    .resultsPage());
         }
     }
 
@@ -303,21 +323,26 @@ public class AdminEditAllocationController extends Controller {
             try {
                 allocationId = new IntValidator(0).validate(allocationIdString);
             } catch (ValidationException e) {
-                e.printStackTrace();
                 flash(ERROR, ctx().messages().at(e.getMessage()));
-                return redirect(controllers.routes.AdminPageController.resultsPage());
+                return redirect(controllers.routes.AdminPageController
+                        .resultsPage());
             }
-            Allocation allocation = ElipseModel.getById(Allocation.class, allocationId);
+            Allocation allocation = ElipseModel.getById(Allocation.class,
+                    allocationId);
 
             // Prüfe, ob die Allocation die finale ist
-            if (allocation.equals(GeneralData.loadInstance().getCurrentSemester().getFinalAllocation())) {
-                flash(ERROR, ctx().messages().at("admin.edit.removeFinalAllocation"));
-                return redirect(controllers.routes.AdminPageController.resultsPage());
+            if (allocation.equals(GeneralData.loadInstance()
+                    .getCurrentSemester().getFinalAllocation())) {
+                flash(ERROR,
+                        ctx().messages().at("admin.edit.removeFinalAllocation"));
+                return redirect(controllers.routes.AdminPageController
+                        .resultsPage());
             }
 
             // Lösche die Einteilung
             allocation.delete();
-            return redirect(controllers.routes.AdminPageController.resultsPage());
+            return redirect(controllers.routes.AdminPageController
+                    .resultsPage());
         }
     }
 
@@ -333,7 +358,8 @@ public class AdminEditAllocationController extends Controller {
             // Fehlermeldung, falls es nichts rückgängig zu machen gibt
             if (undoStack.isEmpty()) {
                 flash(ERROR, ctx().messages().at("error.undoStackEmpty"));
-                return redirect(controllers.routes.AdminPageController.resultsPage());
+                return redirect(controllers.routes.AdminPageController
+                        .resultsPage());
             }
 
             // Führe den Command aus
@@ -343,7 +369,8 @@ public class AdminEditAllocationController extends Controller {
                 flash(ERROR, ctx().messages().at(Allocation.CONCURRENCY_ERROR));
             }
 
-            return redirect(controllers.routes.AdminPageController.resultsPage());
+            return redirect(controllers.routes.AdminPageController
+                    .resultsPage());
         }
     }
 }

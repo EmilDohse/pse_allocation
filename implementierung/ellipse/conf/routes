@@ -89,7 +89,6 @@ POST	/admin/import				controllers.AdminImportExportController.importGeneral()
 POST 	/admin/exportAllocation		controllers.AdminImportExportController.exportAllocation()
 POST 	/admin/exportSPO			controllers.AdminImportExportController.exportSPO()
 POST 	/admin/exportProjects		controllers.AdminImportExportController.exportProjects()
-POST 	/admin/exportCMSData		controllers.AdminImportExportController.exportCMSData()
 POST 	/admin/exportStudents		controllers.AdminImportExportController.exportStudents()
 POST	/admin/exportGrades			controllers.AdminImportExportController.exportGrades()
 

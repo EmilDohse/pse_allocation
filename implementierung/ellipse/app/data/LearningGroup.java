@@ -30,7 +30,6 @@ public class LearningGroup extends ElipseModel {
     private static final String NAME             = "name";
     private static final String SEMESTER         = "semester";
     private static final String DEFAULT_NAME     = "default_name";
-    private static final String DEFAULT_PASSWORD = "123456";
     /**
      * Der Name der Lerngruppe.
      */
@@ -69,7 +68,7 @@ public class LearningGroup extends ElipseModel {
     public LearningGroup() {
         super();
         this.name = DEFAULT_NAME;
-        setPassword(DEFAULT_PASSWORD);
+        setPassword("");
         this.members = new ArrayList<>();
         this.ratings = new ArrayList<>();
     }

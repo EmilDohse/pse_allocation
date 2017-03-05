@@ -175,7 +175,11 @@ public class SPO extends ElipseModel implements Comparable<SPO> {
     }
 
     /**
-     * vergleicht die beiden spos anhand ihrenr namen
+     * Vergleicht die beiden Spos anhand ihrenr Namen.
+     * 
+     * !!!Achtung!!! Die Ordnung, die durch die Namen gegeben ist, ist NICHT
+     * notwendigerweise im Einklang mit equals().
+     * 
      */
     @Override
     public int compareTo(SPO o) {
