@@ -6,17 +6,19 @@ import org.junit.Test;
 import java.util.concurrent.TimeUnit;
 
 import data.GeneralData;
-import data.Adviser;
 import data.ElipseModel;
 import data.Project;
 
-import java.util.List;
 import views.pages.admin.AdminAccountPage;
 import views.pages.admin.AdminProjectEditPage;
 import views.pages.admin.AdminProjectsPage;
 
 import static org.junit.Assert.*;
 
+/**
+ * Diese Klasse testet die Projekte-Ansicht des Admins.
+ *
+ */
 public class AdminProjectViewTest extends ViewTest {
 
     private AdminProjectsPage    projectPage;
@@ -31,6 +33,9 @@ public class AdminProjectViewTest extends ViewTest {
     private static final int     max         = 8;
     private static final int     numOfTeams  = 2;
 
+    /**
+     * Initialisierung der Testdaten.
+     */
     @Before
     @Override
     public void before() {
@@ -43,55 +48,58 @@ public class AdminProjectViewTest extends ViewTest {
         accountPage.gotoMenuEntry(browser, 1);
     }
 
+    /**
+     * Test für das Erstellen eines Projektes.
+     */
     @Test
     public void createProject() {
         TestHelpers.setStateToBeforeRegistration();
         projectPage.fillAndSubmitAddProjectForm(browser, name);
-        browser.await().atMost(2, TimeUnit.SECONDS).untilPage(projectEditPage)
-                .isAt();
-        int id = GeneralData.loadInstance().getCurrentSemester().getProjects()
-                .get(0).getId();
+        browser.await().atMost(2, TimeUnit.SECONDS).untilPage(projectEditPage).isAt();
+        int id = GeneralData.loadInstance().getCurrentSemester().getProjects().get(0).getId();
         assertTrue(projectEditPage.isEditPageFromProject(browser, id));
     }
 
+    /**
+     * Test für den Wechsel zur Projekt-Editiern Seite.
+     */
     @Test
     public void gotoEditPage() {
         TestHelpers.setStateToBeforeRegistration();
         int id = TestHelpers.createProject(name);
         projectPage.go();
         projectPage.gotoEditProjectPage(browser, id);
-        browser.await().atMost(2, TimeUnit.SECONDS).untilPage(projectEditPage)
-                .isAt();
+        browser.await().atMost(2, TimeUnit.SECONDS).untilPage(projectEditPage).isAt();
         assertTrue(projectEditPage.isEditPageFromProject(browser, id));
     }
 
+    /**
+     * Test für das Entfernen eines Projektes.
+     */
     @Test
     public void removeProject() {
         TestHelpers.setStateToBeforeRegistration();
         int id = TestHelpers.createProject(name);
         browser.goTo(projectEditPage.getUrl() + id);
-        browser.await().atMost(2, TimeUnit.SECONDS).untilPage(projectEditPage)
-                .isAt();
+        browser.await().atMost(2, TimeUnit.SECONDS).untilPage(projectEditPage).isAt();
         projectEditPage.removeProject(browser);
-        browser.await().atMost(2, TimeUnit.SECONDS).untilPage(projectPage)
-                .isAt();
+        browser.await().atMost(2, TimeUnit.SECONDS).untilPage(projectPage).isAt();
         assertTrue(!projectPage.isProjectShown(browser, id));
     }
 
+    /**
+     * Test für das Editieren eines Projektes.
+     */
     @Test
     public void editProject() {
         TestHelpers.setStateToBeforeRegistration();
         int id = TestHelpers.createProject(name);
-        int adviserId = TestHelpers.createAdviser("Tst", "asdas",
-                "asdas@asd.de", "asdasdasa");
+        int adviserId = TestHelpers.createAdviser("Tst", "asdas", "asdas@asd.de", "asdasdasa");
         browser.goTo(projectEditPage.getUrl() + id);
-        browser.await().atMost(2, TimeUnit.SECONDS).untilPage(projectEditPage)
-                .isAt();
-        projectEditPage.fillAndSubmitEditProjectForm(browser, name, url,
-                institute, description, numOfTeams, min, max, adviserId);
-        browser.await().atMost(2, TimeUnit.SECONDS).untilPage(projectPage)
-                .isAt();
-        assertTrue(projectPage.isProjectShown(browser,
-                ElipseModel.getById(Project.class, id)));
+        browser.await().atMost(2, TimeUnit.SECONDS).untilPage(projectEditPage).isAt();
+        projectEditPage.fillAndSubmitEditProjectForm(browser, name, url, institute, description, numOfTeams, min, max,
+                adviserId);
+        browser.await().atMost(2, TimeUnit.SECONDS).untilPage(projectPage).isAt();
+        assertTrue(projectPage.isProjectShown(browser, ElipseModel.getById(Project.class, id)));
     }
 }
