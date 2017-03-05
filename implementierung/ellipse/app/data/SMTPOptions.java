@@ -52,7 +52,6 @@ public class SMTPOptions extends ElipseModel {
         } catch (KeyczarException e) {
             // Kann eigentlich nicht auftreten
             crypter = null;
-            password = "error";
             e.printStackTrace();
             assert false;
         }
