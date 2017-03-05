@@ -4,8 +4,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.junit.After;
@@ -19,10 +21,14 @@ import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import data.Adviser;
+import data.Allocation;
 import data.DataTest;
 import data.GeneralData;
+import data.Grade;
 import data.Project;
 import data.Semester;
+import data.Student;
+import data.Team;
 import play.Application;
 import play.api.mvc.RequestHeader;
 import play.data.DynamicForm;
@@ -609,6 +615,209 @@ public class AdviserPageControllerTest extends ControllerTest {
 
     @Test
     public void saveStudentsGradesTest() {
-        // TODO
+
+        Student s = new Student();
+        s.save();
+        s.doTransaction(() -> {
+            s.setGradePSE(Grade.UNKNOWN);
+            s.setGradeTSE(Grade.UNKNOWN);
+        });
+
+        Allocation a = new Allocation();
+        a.save();
+
+        Team t = new Team();
+        t.addMember(s);
+        t.setProject(project);
+
+        List<Team> teams = new ArrayList<>();
+        teams.add(t);
+
+        a.doTransaction(() -> {
+            a.setTeams(teams);
+        });
+
+        semester.doTransaction(() -> {
+            semester.setFinalAllocation(a);
+        });
+
+        s.refresh();
+
+        Map<String, String> map = new HashMap<>();
+        map.put("1", "1");
+
+        Mockito.when(form.data()).thenReturn(map);
+
+        Mockito.when(userManagement.getUserProfile(Mockito.any(Context.class)))
+                .thenReturn(firstAdviser);
+
+        Mockito.when(form.get("id"))
+                .thenReturn(String.valueOf(project.getId()));
+        Mockito.when(form.get(String.valueOf(s.getId()) + "-pseGrade"))
+                .thenReturn("500");
+        Mockito.when(form.get(String.valueOf(s.getId()) + "-tseGrade"))
+                .thenReturn("230");
+
+        controller.saveStudentsGrades();
+
+        s.refresh();
+
+        assertEquals(s.getGradePSE(), Grade.FIVE_ZERO);
+        assertEquals(s.getGradeTSE(), Grade.TWO_THREE);
+
+    }
+
+    @Test
+    public void saveStudentsGradesValidationExceptionTest() {
+
+        Student s = new Student();
+        s.save();
+        s.doTransaction(() -> {
+            s.setGradePSE(Grade.UNKNOWN);
+            s.setGradeTSE(Grade.UNKNOWN);
+        });
+
+        Allocation a = new Allocation();
+        a.save();
+
+        Team t = new Team();
+        t.addMember(s);
+        t.setProject(project);
+
+        List<Team> teams = new ArrayList<>();
+        teams.add(t);
+
+        a.doTransaction(() -> {
+            a.setTeams(teams);
+        });
+
+        semester.doTransaction(() -> {
+            semester.setFinalAllocation(a);
+        });
+
+        s.refresh();
+
+        Map<String, String> map = new HashMap<>();
+        map.put("1", "1");
+
+        Mockito.when(form.data()).thenReturn(map);
+
+        Mockito.when(userManagement.getUserProfile(Mockito.any(Context.class)))
+                .thenReturn(firstAdviser);
+
+        Mockito.when(form.get("id")).thenReturn("abc");
+        Mockito.when(form.get(String.valueOf(s.getId()) + "-pseGrade"))
+                .thenReturn("500");
+        Mockito.when(form.get(String.valueOf(s.getId()) + "-tseGrade"))
+                .thenReturn("230");
+
+        Mockito.when(messages.at("INTERNAL_ERROR")).thenReturn("error");
+
+        controller.saveStudentsGrades();
+
+        assertTrue(Context.current().flash().containsValue("error"));
+
+    }
+
+    @Test
+    public void saveStudentsGradesNotAdviserOfProjectTest() {
+
+        Student s = new Student();
+        s.save();
+        s.doTransaction(() -> {
+            s.setGradePSE(Grade.UNKNOWN);
+            s.setGradeTSE(Grade.UNKNOWN);
+        });
+
+        Allocation a = new Allocation();
+        a.save();
+
+        Team t = new Team();
+        t.addMember(s);
+        t.setProject(project);
+
+        List<Team> teams = new ArrayList<>();
+        teams.add(t);
+
+        a.doTransaction(() -> {
+            a.setTeams(teams);
+        });
+
+        semester.doTransaction(() -> {
+            semester.setFinalAllocation(a);
+        });
+
+        s.refresh();
+
+        Map<String, String> map = new HashMap<>();
+        map.put("1", "1");
+
+        Mockito.when(form.data()).thenReturn(map);
+
+        Mockito.when(userManagement.getUserProfile(Mockito.any(Context.class)))
+                .thenReturn(secondAdviser);
+
+        Mockito.when(form.get("id"))
+                .thenReturn(String.valueOf(project.getId()));
+        Mockito.when(form.get(String.valueOf(s.getId()) + "-pseGrade"))
+                .thenReturn("500");
+        Mockito.when(form.get(String.valueOf(s.getId()) + "-tseGrade"))
+                .thenReturn("230");
+
+        Mockito.when(messages.at("error.internalError")).thenReturn("error");
+
+        controller.saveStudentsGrades();
+
+        assertTrue(Context.current().flash().containsValue("error"));
+
+    }
+
+    @Test
+    public void saveStudentsGradesNoFinalAllocationTest() {
+
+        Student s = new Student();
+        s.save();
+        s.doTransaction(() -> {
+            s.setGradePSE(Grade.UNKNOWN);
+            s.setGradeTSE(Grade.UNKNOWN);
+        });
+
+        Allocation a = new Allocation();
+        a.save();
+
+        Team t = new Team();
+        t.addMember(s);
+        t.setProject(project);
+
+        List<Team> teams = new ArrayList<>();
+        teams.add(t);
+
+        a.doTransaction(() -> {
+            a.setTeams(teams);
+        });
+
+        s.refresh();
+
+        Map<String, String> map = new HashMap<>();
+        map.put("1", "1");
+
+        Mockito.when(form.data()).thenReturn(map);
+
+        Mockito.when(userManagement.getUserProfile(Mockito.any(Context.class)))
+                .thenReturn(firstAdviser);
+
+        Mockito.when(form.get("id"))
+                .thenReturn(String.valueOf(project.getId()));
+        Mockito.when(form.get(String.valueOf(s.getId()) + "-pseGrade"))
+                .thenReturn("500");
+        Mockito.when(form.get(String.valueOf(s.getId()) + "-tseGrade"))
+                .thenReturn("230");
+
+        Mockito.when(messages.at("error.internalError")).thenReturn("error");
+
+        controller.saveStudentsGrades();
+
+        assertTrue(Context.current().flash().containsValue("error"));
+
     }
 }
