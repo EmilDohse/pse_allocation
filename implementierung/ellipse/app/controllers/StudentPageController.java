@@ -543,11 +543,24 @@ public class StudentPageController extends Controller {
             student.doTransaction(() -> {
                 student.setEmailAddress(email);
                 student.setIsEmailVerified(false);
-                // TODO neue Verifikationsmail senden?
             });
-            flash("info", ctx().messages().at("admin.account.success.email"));
-            return redirect(controllers.routes.StudentPageController
-                    .sendNewVerificationLink());
+            String verificationCode = EmailVerifier.getInstance()
+                    .getVerificationCode(student);
+            // Versuche Verifikationsmail zu schicken.
+            try {
+                String protocol = request().secure() ? "https://" : "http://";
+                String url = request().host()
+                        + controllers.routes.IndexPageController
+                                .verificationPage(verificationCode).url();
+                notifier.sendVerificationMail(student, protocol + url);
+                flash("info",
+                        ctx().messages().at("admin.account.success.email"));
+                return redirect(controllers.routes.StudentPageController
+                        .sendNewVerificationLink());
+            } catch (EmailException e) {
+                return redirect(
+                        controllers.routes.StudentPageController.accountPage());
+            }
         }
         return redirect(controllers.routes.StudentPageController.accountPage());
     }

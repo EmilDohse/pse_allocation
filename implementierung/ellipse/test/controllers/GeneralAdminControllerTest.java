@@ -390,8 +390,6 @@ public class GeneralAdminControllerTest extends ControllerTest {
 
     /**
      * Test für das Entfernen eines Studenten.
-     * 
-     * Funktioniert nicht, da EBean mit der TestDatenbank Probleme hat.
      */
     @Test
     public void removeStudentTest() {

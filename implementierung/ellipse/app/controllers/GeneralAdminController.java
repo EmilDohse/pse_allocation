@@ -267,7 +267,7 @@ public class GeneralAdminController extends Controller {
             // der username eines studenten ist seine matNr
             SPO spo = ElipseModel.getById(SPO.class, spoId);
 
-            // TODO Braucht Ebean!!!!! (Test schlägt sonst fehl)
+            // Braucht Ebean!!!!! (Test schlägt sonst fehl)
             spo.getNecessaryAchievements().size();
 
             BlowfishPasswordEncoder b = new BlowfishPasswordEncoder();
