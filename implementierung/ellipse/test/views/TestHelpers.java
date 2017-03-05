@@ -1,9 +1,7 @@
 package views;
 
 import java.time.Instant;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.stream.IntStream;
 
 import data.Administrator;
@@ -17,7 +15,6 @@ import data.Project;
 import data.SPO;
 import data.Semester;
 import data.Student;
-import data.Team;
 import deadline.StateStorage;
 
 /**
@@ -92,7 +89,7 @@ public class TestHelpers {
                 "admin", "admin");
         admin.save();
         admin.doTransaction(() -> {
-            admin.savePassword(Administrator.START_PASSWORD);
+            admin.setPassword(Administrator.START_PASSWORD_HASH);
         });
     }
 
@@ -203,8 +200,20 @@ public class TestHelpers {
                 student.setFirstName("StudentFirstName" + number);
                 student.setLastName("StudentLastName" + number);
             });
+            LearningGroup l = new LearningGroup(student.getUserName(), "");
+            l.save();
+            l.doTransaction(() -> {
+                l.addMember(student);
+                l.setPrivate(true);
+                // Ratings initialisieren
+                for (Project p : GeneralData.loadInstance().getCurrentSemester()
+                        .getProjects()) {
+                    l.rate(p, 3);
+                }
+            });
             semester.doTransaction(() -> {
                 semester.addStudent(student);
+                semester.addLearningGroup(l);
             });
         });
     }
@@ -344,6 +353,36 @@ public class TestHelpers {
         Semester semester = GeneralData.loadInstance().getCurrentSemester();
         semester.doTransaction(() -> {
             semester.addStudent(student);
+        });
+    }
+
+    public static void createOldStudent(int matrnr, String password) {
+        Semester semester = new Semester("Vorheriges Semester", true);
+        semester.save();
+        Student student = new Student();
+        student.save();
+        student.doTransaction(() -> {
+            student.setFirstName("StudentFirstName");
+            student.setLastName("StudentLastName");
+            student.setMatriculationNumber(matrnr);
+            student.savePassword(password);
+            student.setUserName(Integer.toString(matrnr));
+        });
+
+        LearningGroup l = new LearningGroup(student.getUserName(), "");
+        l.save();
+        l.doTransaction(() -> {
+            l.addMember(student);
+            l.setPrivate(true);
+            // Ratings initialisieren
+            for (Project p : GeneralData.loadInstance().getCurrentSemester()
+                    .getProjects()) {
+                l.rate(p, 3);
+            }
+        });
+        semester.doTransaction(() -> {
+            semester.addStudent(student);
+            semester.addLearningGroup(l);
         });
     }
 }

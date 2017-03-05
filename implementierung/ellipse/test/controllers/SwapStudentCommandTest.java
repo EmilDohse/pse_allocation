@@ -93,14 +93,7 @@ public class SwapStudentCommandTest extends ControllerTest {
         assertEquals(secondTeam, allocation.getTeam(secondStudent));
     }
 
-    @Test(expected = AllocationEditUndoException.class)
-    public void undoExceptionFinalTest() throws AllocationEditUndoException {
-        command.execute();
-        semester.doTransaction(() -> {
-            semester.setFinalAllocation(allocation);
-        });
-        command.undo();
-    }
+
 
     // Ebean will in Unit Tests Dinge nicht löschen
     @Ignore

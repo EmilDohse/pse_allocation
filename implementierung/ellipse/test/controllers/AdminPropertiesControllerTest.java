@@ -422,7 +422,7 @@ public class AdminPropertiesControllerTest extends ControllerTest {
         Mockito.when(form.get("wintersemester")).thenReturn(null);
         Mockito.when(form.get("semester-active")).thenReturn("NotNull");
 
-        Mockito.when(messages.at("error.internalError")).thenReturn("error");
+        Mockito.when(messages.at("error.editSemester.spoUsedOrStartAfterEnd")).thenReturn("error");
 
         controller.editSemester();
 

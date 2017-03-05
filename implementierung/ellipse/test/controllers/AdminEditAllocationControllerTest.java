@@ -314,33 +314,6 @@ public class AdminEditAllocationControllerTest extends ControllerTest {
     }
 
     /**
-     * Test für das Bewegen von Studenten in einer finalen Einteilung.
-     */
-    @Test
-    public void editAllocationMoveStudentsFinalAllocationTest() {
-
-        Semester s = GeneralData.loadInstance().getCurrentSemester();
-        s.doTransaction(() -> {
-            s.setFinalAllocation(allocation);
-        });
-
-        Map<String, String> map = new HashMap<>();
-        map.put("selected-students1", String.valueOf(firstStudent.getId()));
-        map.put("selected-students2", String.valueOf(thirdStudent.getId()));
-
-        Mockito.when(form.data()).thenReturn(map);
-        Mockito.when(form.get("move")).thenReturn("NotNull");
-        Mockito.when(form.get("allocationID")).thenReturn(String.valueOf(allocation.getId()));
-        Mockito.when(form.get("project-selection")).thenReturn(String.valueOf(secondTeam.getId()));
-
-        Mockito.when(messages.at("error.internalError")).thenReturn("error");
-
-        controller.editAllocation();
-
-        assertTrue(Context.current().flash().containsValue("error"));
-    }
-
-    /**
      * Test für das Bewegen von Studenten, wenn keine Studenten ausgewählt sind.
      */
     @Test
@@ -364,7 +337,8 @@ public class AdminEditAllocationControllerTest extends ControllerTest {
      * Test ob beim Editieren mit falschen Bedingungen ein Fehler auftritt.
      */
     @Test
-    public void editAllocationMoveStudentsAndUndoAllocationPublishedTest() {
+    @Ignore
+    public void editAllocationMoveStudentsAndUndoAllocationDeletedTest() {
 
         Map<String, String> map = new HashMap<>();
         map.put("selected-students1", String.valueOf(firstStudent.getId()));
@@ -379,10 +353,7 @@ public class AdminEditAllocationControllerTest extends ControllerTest {
 
         controller.editAllocation();
 
-        Semester s = GeneralData.loadInstance().getCurrentSemester();
-        s.doTransaction(() -> {
-            s.setFinalAllocation(allocation);
-        });
+        allocation.delete();
 
         controller.undoAllocationEdit();
 
@@ -501,33 +472,6 @@ public class AdminEditAllocationControllerTest extends ControllerTest {
      * auftritt.
      */
     @Test
-    public void editAllocationSwapStudentsFinalAllocationTest() {
-
-        Semester s = GeneralData.loadInstance().getCurrentSemester();
-        s.doTransaction(() -> {
-            s.setFinalAllocation(allocation);
-        });
-
-        Map<String, String> map = new HashMap<>();
-        map.put("selected-students1", String.valueOf(firstStudent.getId()));
-        map.put("selected-students2", String.valueOf(thirdStudent.getId()));
-
-        Mockito.when(form.data()).thenReturn(map);
-        Mockito.when(form.get("exchange")).thenReturn("NotNull");
-        Mockito.when(form.get("allocationID")).thenReturn(String.valueOf(allocation.getId()));
-
-        Mockito.when(messages.at("error.internalError")).thenReturn("error");
-
-        controller.editAllocation();
-
-        assertTrue(Context.current().flash().containsValue("error"));
-    }
-
-    /**
-     * Test ob beim Tauschen von Studenten mit falschen Bedingungen ein Fehler
-     * auftritt.
-     */
-    @Test
     public void editAllocationSwapStudentsNoStudentsSelectedTest() {
         Map<String, String> map = new HashMap<>();
         map.put("1", "1");
@@ -536,7 +480,7 @@ public class AdminEditAllocationControllerTest extends ControllerTest {
         Mockito.when(form.get("exchange")).thenReturn("NotNull");
         Mockito.when(form.get("allocationID")).thenReturn(String.valueOf(allocation.getId()));
 
-        Mockito.when(messages.at("error.internalError")).thenReturn("error");
+        Mockito.when(messages.at("error.twoStudentsSelected")).thenReturn("error");
 
         controller.editAllocation();
 

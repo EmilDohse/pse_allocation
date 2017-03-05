@@ -221,7 +221,7 @@ public class IndexPageControllerTest extends ControllerTest {
         when(form.get("matrnr")).thenReturn("123456");
         when(form.get("semester")).thenReturn("3");
         when(form.get("trueData")).thenReturn("true");
-        when(messages.at("error.internalError"))
+        when(messages.at("error.allNecessaryAchievments"))
                 .thenReturn("Not All Achievements");
 
         controller.register();

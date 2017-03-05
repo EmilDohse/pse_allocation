@@ -227,7 +227,7 @@ public class IndexPageController extends Controller {
                                 .registerPage());
                     }
                 } else {
-                    flash(ERROR, ctx().messages().at(INTERNAL_ERROR));
+                    flash(ERROR, ctx().messages().at("error.allNecessaryAchievments"));
                     return redirect(controllers.routes.IndexPageController
                             .registerPage());
                 }
