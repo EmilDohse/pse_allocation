@@ -71,7 +71,11 @@ function set(name, wert) {
 function loadTab(name) {
 	var value = read(name);
 	if(value) {
-		$('#' + value).tab('show');
+		if($('#' + value).length) {
+			$('#' + value).tab('show');
+		} else {
+			$('#' + name +  ' a:first').tab('show');
+		}
 	} else {
 		$('#' + name +  ' a:first').tab('show');
 	}
