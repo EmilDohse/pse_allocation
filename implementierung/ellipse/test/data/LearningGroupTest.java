@@ -145,6 +145,9 @@ public class LearningGroupTest extends DataTest {
 
     }
 
+    /**
+     * Test für den getter aller Lerngruppen.
+     */
     @Test
     public void getLearningGroupsTest() {
 
@@ -153,6 +156,9 @@ public class LearningGroupTest extends DataTest {
         assertTrue(LearningGroup.getLearningGroups().contains(learningGroup));
     }
 
+    /**
+     * Test für das Setzen des aktuellen Semesters.
+     */
     @Test
     public void semesterTest() {
 

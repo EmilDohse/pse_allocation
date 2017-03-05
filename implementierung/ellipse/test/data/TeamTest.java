@@ -84,6 +84,9 @@ public class TeamTest extends DataTest {
         assertTrue(team.getAdvisers().contains(adviser));
     }
 
+    /**
+     * Test für das Setzen einer Einteilung.
+     */
     @Test
     public void allocationTest() {
 
@@ -93,6 +96,9 @@ public class TeamTest extends DataTest {
         assertEquals(team.getAllocation(), a);
     }
 
+    /**
+     * Test für die toStringForNotification Methode.
+     */
     @Test
     public void toStringForNotificationTest() {
 

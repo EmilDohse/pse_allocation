@@ -262,6 +262,9 @@ public class SemesterTest extends DataTest {
         assertEquals(one, Semester.getSemester("one"));
     }
 
+    /**
+     * Test für die compareTo Methode.
+     */
     @Test
     public void testCompareTo() {
 
@@ -274,6 +277,9 @@ public class SemesterTest extends DataTest {
         assertTrue(s2.compareTo(s1) > 0);
     }
 
+    /**
+     * Test für die equals Methode.
+     */
     @Test
     public void testEquals() {
 

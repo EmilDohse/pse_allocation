@@ -176,6 +176,9 @@ public class StudentTest extends DataTest {
         assertEquals(one, Student.getStudent(1));
     }
 
+    /**
+     * Test für die toStringForNotification Methode.
+     */
     @Test
     public void testToStringForNotification() {
         Student s = new Student();
@@ -185,6 +188,9 @@ public class StudentTest extends DataTest {
         assertEquals(s.toStringForNotification(), "f l, 1");
     }
 
+    /**
+     * Test für die compareTo Methode.
+     */
     @Test
     public void compareToTest() {
 

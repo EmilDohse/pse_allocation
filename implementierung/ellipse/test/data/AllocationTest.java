@@ -89,16 +89,17 @@ public class AllocationTest extends DataTest {
     @Test
     public void testGetAllocation() {
         Allocation.getAllocations().forEach(a -> a.delete());
-        Allocation one = new Allocation(new ArrayList<>(), "one",
-                new ArrayList<>());
-        Allocation two = new Allocation(new ArrayList<>(), "two",
-                new ArrayList<>());
+        Allocation one = new Allocation(new ArrayList<>(), "one", new ArrayList<>());
+        Allocation two = new Allocation(new ArrayList<>(), "two", new ArrayList<>());
         one.save();
         two.save();
         assertEquals(2, Allocation.getAllocations().size());
         assertEquals(one, Allocation.getAllocation("one"));
     }
 
+    /**
+     * Testet die Methode getTeamsByadviser.
+     */
     @Test
     public void testGetTeamsByAdviser() {
         Adviser adviser = new Adviser();
@@ -137,6 +138,9 @@ public class AllocationTest extends DataTest {
         assertFalse(adviserTeams.contains(thirdTeam));
     }
 
+    /**
+     * Testet die Methode getTeamsByProject.
+     */
     @Test
     public void testGetTeamsByProject() {
         Project one = new Project();

@@ -119,6 +119,9 @@ public class AdviserTest extends DataTest {
         assertEquals(2, Adviser.getAdvisers().size());
     }
 
+    /**
+     * Test für die compareTo Methode.
+     */
     @Test
     public void compareToTest() {
 
