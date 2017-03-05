@@ -113,8 +113,24 @@ public class AdviserPageControllerTest extends ControllerTest {
 
     }
 
-    // TODO flash()
-    @Ignore
+    @Test
+    public void addProjectNoCurrentSemesterTest() {
+
+        GeneralData d = GeneralData.loadInstance();
+        d.doTransaction(() -> {
+            d.setCurrentSemester(null);
+        });
+
+        Mockito.when(userManagement.getUserProfile(Mockito.any(Context.class)))
+                .thenReturn(firstAdviser);
+
+        Mockito.when(messages.at("error.internalError")).thenReturn("error");
+
+        controller.addProject();
+
+        assertTrue(Context.current().flash().containsValue("error"));
+    }
+
     @Test
     public void editAccountTest() {
 
@@ -141,6 +157,84 @@ public class AdviserPageControllerTest extends ControllerTest {
                 firstAdviser.getPassword()));
         assertEquals(firstAdviser.getEmailAddress(), "new@email");
 
+    }
+
+    @Test
+    public void editAccountWrongPasswordRepeatTest() {
+
+        Map<String, String> map = new HashMap<>();
+        map.put("1", "1");
+
+        Mockito.when(form.data()).thenReturn(map);
+
+        Mockito.when(userManagement.getUserProfile(Mockito.any(Context.class)))
+                .thenReturn(firstAdviser);
+
+        Mockito.when(form.get("passwordChange")).thenReturn("NotNull");
+        Mockito.when(form.get("oldPassword")).thenReturn("password");
+        Mockito.when(form.get("newPassword")).thenReturn("newpassword");
+        Mockito.when(form.get("newPasswordRepeat")).thenReturn("error");
+        Mockito.when(form.get("emailChange")).thenReturn("NotNull");
+        Mockito.when(form.get("newEmail")).thenReturn("new@email");
+
+        Mockito.when(messages.at("adviser.account.error.passwords"))
+                .thenReturn("error");
+
+        controller.editAccount();
+
+        assertTrue(Context.current().flash().containsValue("error"));
+
+    }
+
+    @Test
+    public void editAccountValidationExceptionPasswordChangeTest() {
+
+        Map<String, String> map = new HashMap<>();
+        map.put("1", "1");
+
+        Mockito.when(form.data()).thenReturn(map);
+
+        Mockito.when(userManagement.getUserProfile(Mockito.any(Context.class)))
+                .thenReturn(firstAdviser);
+
+        Mockito.when(form.get("passwordChange")).thenReturn("NotNull");
+        Mockito.when(form.get("oldPassword")).thenReturn("password");
+        Mockito.when(form.get("newPassword")).thenReturn("1234");
+        Mockito.when(form.get("newPasswordRepeat")).thenReturn("1234");
+        Mockito.when(form.get("emailChange")).thenReturn("NotNull");
+        Mockito.when(form.get("newEmail")).thenReturn("new@email");
+
+        Mockito.when(messages.at("general.error.minimalPasswordLength"))
+                .thenReturn("error");
+
+        controller.editAccount();
+
+        assertTrue(Context.current().flash().containsValue("error"));
+    }
+
+    @Test
+    public void editAccountValidationExceptionEmailChangeTest() {
+
+        Map<String, String> map = new HashMap<>();
+        map.put("1", "1");
+
+        Mockito.when(form.data()).thenReturn(map);
+
+        Mockito.when(userManagement.getUserProfile(Mockito.any(Context.class)))
+                .thenReturn(firstAdviser);
+
+        Mockito.when(form.get("passwordChange")).thenReturn("NotNull");
+        Mockito.when(form.get("oldPassword")).thenReturn("password");
+        Mockito.when(form.get("newPassword")).thenReturn("newpassword");
+        Mockito.when(form.get("newPasswordRepeat")).thenReturn("newpassword");
+        Mockito.when(form.get("emailChange")).thenReturn("NotNull");
+        Mockito.when(form.get("newEmail")).thenReturn("error");
+
+        Mockito.when(messages.at("user.noValidEmail")).thenReturn("error");
+
+        controller.editAccount();
+
+        assertTrue(Context.current().flash().containsValue("error"));
     }
 
     @Test
@@ -180,6 +274,168 @@ public class AdviserPageControllerTest extends ControllerTest {
     }
 
     @Test
+    public void editProjectValidationExceptionProjectIdTest() {
+
+        Map<String, String> map = new HashMap<>();
+        map.put("adviser-multiselect1", String.valueOf(secondAdviser.getId()));
+
+        Mockito.when(form.data()).thenReturn(map);
+
+        Mockito.when(userManagement.getUserProfile(Mockito.any(Context.class)))
+                .thenReturn(firstAdviser);
+        Mockito.when(form.get("id")).thenReturn("abc");
+        Mockito.when(form.get("teamCount")).thenReturn("2");
+        Mockito.when(form.get("minSize")).thenReturn("3");
+        Mockito.when(form.get("maxSize")).thenReturn("4");
+        Mockito.when(form.get("name")).thenReturn("projectName");
+        Mockito.when(form.get("url")).thenReturn("projectUrl");
+        Mockito.when(form.get("institute")).thenReturn("projectInstitute");
+        Mockito.when(form.get("description")).thenReturn("projectInfo");
+
+        Mockito.when(messages.at("INTERNAL_ERROR")).thenReturn("error");
+
+        controller.editProject();
+
+        assertTrue(Context.current().flash().containsValue("error"));
+    }
+
+    @Test
+    public void editProjectUnknownProjectIdTest() {
+
+        Map<String, String> map = new HashMap<>();
+        map.put("adviser-multiselect1", String.valueOf(secondAdviser.getId()));
+
+        Mockito.when(form.data()).thenReturn(map);
+
+        Mockito.when(userManagement.getUserProfile(Mockito.any(Context.class)))
+                .thenReturn(firstAdviser);
+        Mockito.when(form.get("id")).thenReturn(
+                String.valueOf(project.getId() + 1));
+        Mockito.when(form.get("teamCount")).thenReturn("2");
+        Mockito.when(form.get("minSize")).thenReturn("3");
+        Mockito.when(form.get("maxSize")).thenReturn("4");
+        Mockito.when(form.get("name")).thenReturn("projectName");
+        Mockito.when(form.get("url")).thenReturn("projectUrl");
+        Mockito.when(form.get("institute")).thenReturn("projectInstitute");
+        Mockito.when(form.get("description")).thenReturn("projectInfo");
+
+        Mockito.when(messages.at("error.project.deletedConcurrently"))
+                .thenReturn("error");
+
+        controller.editProject();
+
+        assertTrue(Context.current().flash().containsValue("error"));
+    }
+
+    @Test
+    public void editProjectValidationExceptionNumberOfTeamsTest() {
+
+        Map<String, String> map = new HashMap<>();
+        map.put("adviser-multiselect1", String.valueOf(secondAdviser.getId()));
+
+        Mockito.when(form.data()).thenReturn(map);
+
+        Mockito.when(userManagement.getUserProfile(Mockito.any(Context.class)))
+                .thenReturn(firstAdviser);
+        Mockito.when(form.get("id"))
+                .thenReturn(String.valueOf(project.getId()));
+        Mockito.when(form.get("teamCount")).thenReturn("abc");
+        Mockito.when(form.get("minSize")).thenReturn("3");
+        Mockito.when(form.get("maxSize")).thenReturn("4");
+        Mockito.when(form.get("name")).thenReturn("projectName");
+        Mockito.when(form.get("url")).thenReturn("projectUrl");
+        Mockito.when(form.get("institute")).thenReturn("projectInstitute");
+        Mockito.when(form.get("description")).thenReturn("projectInfo");
+
+        Mockito.when(messages.at("INTERNAL_ERROR")).thenReturn("error");
+
+        controller.editProject();
+
+        assertTrue(Context.current().flash().containsValue("error"));
+    }
+
+    @Test
+    public void editProjectMinGreaterMaxTest() {
+
+        Map<String, String> map = new HashMap<>();
+        map.put("adviser-multiselect1", String.valueOf(secondAdviser.getId()));
+
+        Mockito.when(form.data()).thenReturn(map);
+
+        Mockito.when(userManagement.getUserProfile(Mockito.any(Context.class)))
+                .thenReturn(firstAdviser);
+        Mockito.when(form.get("id"))
+                .thenReturn(String.valueOf(project.getId()));
+        Mockito.when(form.get("teamCount")).thenReturn("2");
+        Mockito.when(form.get("minSize")).thenReturn("4");
+        Mockito.when(form.get("maxSize")).thenReturn("3");
+        Mockito.when(form.get("name")).thenReturn("projectName");
+        Mockito.when(form.get("url")).thenReturn("projectUrl");
+        Mockito.when(form.get("institute")).thenReturn("projectInstitute");
+        Mockito.when(form.get("description")).thenReturn("projectInfo");
+
+        Mockito.when(messages.at("error.wrongInput")).thenReturn("error");
+
+        controller.editProject();
+
+        assertTrue(Context.current().flash().containsValue("error"));
+    }
+
+    @Test
+    public void editProjectNotAdviserOfProjectTest() {
+
+        Map<String, String> map = new HashMap<>();
+        map.put("adviser-multiselect1", String.valueOf(secondAdviser.getId()));
+
+        Mockito.when(form.data()).thenReturn(map);
+
+        Mockito.when(userManagement.getUserProfile(Mockito.any(Context.class)))
+                .thenReturn(secondAdviser);
+        Mockito.when(form.get("id"))
+                .thenReturn(String.valueOf(project.getId()));
+        Mockito.when(form.get("teamCount")).thenReturn("2");
+        Mockito.when(form.get("minSize")).thenReturn("3");
+        Mockito.when(form.get("maxSize")).thenReturn("4");
+        Mockito.when(form.get("name")).thenReturn("projectName");
+        Mockito.when(form.get("url")).thenReturn("projectUrl");
+        Mockito.when(form.get("institute")).thenReturn("projectInstitute");
+        Mockito.when(form.get("description")).thenReturn("projectInfo");
+
+        Mockito.when(messages.at("error.internalError")).thenReturn("error");
+
+        controller.editProject();
+
+        assertTrue(Context.current().flash().containsValue("error"));
+    }
+
+    @Test
+    public void editProjectValidationExceptionAdviserIdTest() {
+
+        Map<String, String> map = new HashMap<>();
+        map.put("adviser-multiselect1", "abc");
+
+        Mockito.when(form.data()).thenReturn(map);
+
+        Mockito.when(userManagement.getUserProfile(Mockito.any(Context.class)))
+                .thenReturn(firstAdviser);
+        Mockito.when(form.get("id"))
+                .thenReturn(String.valueOf(project.getId()));
+        Mockito.when(form.get("teamCount")).thenReturn("2");
+        Mockito.when(form.get("minSize")).thenReturn("3");
+        Mockito.when(form.get("maxSize")).thenReturn("4");
+        Mockito.when(form.get("name")).thenReturn("projectName");
+        Mockito.when(form.get("url")).thenReturn("projectUrl");
+        Mockito.when(form.get("institute")).thenReturn("projectInstitute");
+        Mockito.when(form.get("description")).thenReturn("projectInfo");
+
+        Mockito.when(messages.at("error.internalError")).thenReturn("error");
+
+        controller.editProject();
+
+        assertTrue(Context.current().flash().containsValue("error"));
+    }
+
+    @Test
     public void joinProjectTest() {
 
         Map<String, String> map = new HashMap<>();
@@ -203,6 +459,49 @@ public class AdviserPageControllerTest extends ControllerTest {
     }
 
     @Test
+    public void joinProjectUnknownProjectIdTest() {
+
+        Map<String, String> map = new HashMap<>();
+        map.put("1", "1");
+
+        Mockito.when(form.data()).thenReturn(map);
+
+        Mockito.when(userManagement.getUserProfile(Mockito.any(Context.class)))
+                .thenReturn(secondAdviser);
+
+        Mockito.when(form.get("id")).thenReturn(
+                String.valueOf(project.getId() + 1));
+
+        Mockito.when(messages.at("error.project.deletedConcurrently"))
+                .thenReturn("error");
+
+        controller.joinProject();
+
+        assertTrue(Context.current().flash().containsValue("error"));
+    }
+
+    @Test
+    public void joinProjectAlreadyAdviserOfProjectTest() {
+
+        Map<String, String> map = new HashMap<>();
+        map.put("1", "1");
+
+        Mockito.when(form.data()).thenReturn(map);
+
+        Mockito.when(userManagement.getUserProfile(Mockito.any(Context.class)))
+                .thenReturn(firstAdviser);
+
+        Mockito.when(form.get("id"))
+                .thenReturn(String.valueOf(project.getId()));
+
+        Mockito.when(messages.at("error.internalError")).thenReturn("error");
+
+        controller.joinProject();
+
+        assertTrue(Context.current().flash().containsValue("error"));
+    }
+
+    @Test
     public void leaveProjectTest() {
 
         Map<String, String> map = new HashMap<>();
@@ -221,6 +520,72 @@ public class AdviserPageControllerTest extends ControllerTest {
         project.refresh();
 
         assertTrue(project.getAdvisers().isEmpty());
+    }
+
+    @Test
+    public void leaveProjectValidationExceptionTest() {
+
+        Map<String, String> map = new HashMap<>();
+        map.put("1", "1");
+
+        Mockito.when(form.data()).thenReturn(map);
+
+        Mockito.when(userManagement.getUserProfile(Mockito.any(Context.class)))
+                .thenReturn(firstAdviser);
+
+        Mockito.when(form.get("id")).thenReturn("abc");
+
+        Mockito.when(messages.at("INTERNAL_ERROR")).thenReturn("error");
+
+        controller.leaveProject();
+
+        assertTrue(Context.current().flash().containsValue("error"));
+
+    }
+
+    @Test
+    public void leaveProjectUnknownProjectIdTest() {
+
+        Map<String, String> map = new HashMap<>();
+        map.put("1", "1");
+
+        Mockito.when(form.data()).thenReturn(map);
+
+        Mockito.when(userManagement.getUserProfile(Mockito.any(Context.class)))
+                .thenReturn(firstAdviser);
+
+        Mockito.when(form.get("id")).thenReturn(
+                String.valueOf(project.getId() + 1));
+
+        Mockito.when(messages.at("error.project.deletedConcurrently"))
+                .thenReturn("error");
+
+        controller.leaveProject();
+
+        assertTrue(Context.current().flash().containsValue("error"));
+
+    }
+
+    @Test
+    public void leaveProjectNotAdviserOfProjectTest() {
+
+        Map<String, String> map = new HashMap<>();
+        map.put("1", "1");
+
+        Mockito.when(form.data()).thenReturn(map);
+
+        Mockito.when(userManagement.getUserProfile(Mockito.any(Context.class)))
+                .thenReturn(secondAdviser);
+
+        Mockito.when(form.get("id"))
+                .thenReturn(String.valueOf(project.getId()));
+
+        Mockito.when(messages.at("error.internalError")).thenReturn("error");
+
+        controller.leaveProject();
+
+        assertTrue(Context.current().flash().containsValue("error"));
+
     }
 
     @Test
