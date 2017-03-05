@@ -56,6 +56,9 @@ public class AdviserPageControllerTest extends ControllerTest {
     private Adviser       secondAdviser;
     private Project       project;
 
+    /**
+     * Initialisierung der Testdaten.
+     */
     @Override
     @Before
     public void before() {
@@ -99,6 +102,9 @@ public class AdviserPageControllerTest extends ControllerTest {
         project.refresh();
     }
 
+    /**
+     * Test für das Hinzufügen eines Projektes.
+     */
     @Test
     public void addProjectTest() {
 
@@ -119,6 +125,10 @@ public class AdviserPageControllerTest extends ControllerTest {
 
     }
 
+    /**
+     * Test ob das Hinzufügen eines Projektes ohne aktuelles Semester
+     * fehlschlägt.
+     */
     @Test
     public void addProjectNoCurrentSemesterTest() {
 
@@ -136,6 +146,9 @@ public class AdviserPageControllerTest extends ControllerTest {
         assertTrue(Context.current().flash().containsValue("error"));
     }
 
+    /**
+     * Test für das Editieren des Accounts.
+     */
     @Test
     public void editAccountTest() {
 
@@ -162,6 +175,10 @@ public class AdviserPageControllerTest extends ControllerTest {
 
     }
 
+    /**
+     * Test ob das Ändern des Passworts fehlschlägt, falls die
+     * Passwortwiederholung falsch ist.
+     */
     @Test
     public void editAccountWrongPasswordRepeatTest() {
 
@@ -187,6 +204,10 @@ public class AdviserPageControllerTest extends ControllerTest {
 
     }
 
+    /**
+     * Test ob das Ändern des Passworts fehlschlägt, falls das neue Passwort
+     * nicht valide ist.
+     */
     @Test
     public void editAccountValidationExceptionPasswordChangeTest() {
 
@@ -211,6 +232,10 @@ public class AdviserPageControllerTest extends ControllerTest {
         assertTrue(Context.current().flash().containsValue("error"));
     }
 
+    /**
+     * Test ob das Ändern der Email fehlschlägt, falls die neue E-Mail nicht
+     * valide ist.
+     */
     @Test
     public void editAccountValidationExceptionEmailChangeTest() {
 
@@ -235,6 +260,9 @@ public class AdviserPageControllerTest extends ControllerTest {
         assertTrue(Context.current().flash().containsValue("error"));
     }
 
+    /**
+     * Test für das Editieren eines Projektes.
+     */
     @Test
     public void editProjectTest() {
 
@@ -269,6 +297,9 @@ public class AdviserPageControllerTest extends ControllerTest {
 
     }
 
+    /**
+     * Test ob das Editieren fehlschlägt, falls eine Eingabe nicht valide ist.
+     */
     @Test
     public void editProjectValidationExceptionProjectIdTest() {
 
@@ -294,6 +325,9 @@ public class AdviserPageControllerTest extends ControllerTest {
         assertTrue(Context.current().flash().containsValue("error"));
     }
 
+    /**
+     * Test ob das Editieren fehlschlägt, wenn die Projekt ID nicht bekannt ist.
+     */
     @Test
     public void editProjectUnknownProjectIdTest() {
 
@@ -319,6 +353,10 @@ public class AdviserPageControllerTest extends ControllerTest {
         assertTrue(Context.current().flash().containsValue("error"));
     }
 
+    /**
+     * Test ob das Editieren fehlschlägt, wenn bei der Eingabe eine falsche Zahl
+     * vorkommt.
+     */
     @Test
     public void editProjectValidationExceptionNumberOfTeamsTest() {
 
@@ -344,6 +382,10 @@ public class AdviserPageControllerTest extends ControllerTest {
         assertTrue(Context.current().flash().containsValue("error"));
     }
 
+    /**
+     * Test ob das Editieren fehlschlägt, wenn die minsize größer als die
+     * maxsize ist.
+     */
     @Test
     public void editProjectMinGreaterMaxTest() {
 
@@ -369,6 +411,10 @@ public class AdviserPageControllerTest extends ControllerTest {
         assertTrue(Context.current().flash().containsValue("error"));
     }
 
+    /**
+     * Test ob das Editieren fehlschlägt, falls kein Betreuer im Projekt
+     * vorhanden ist.
+     */
     @Test
     public void editProjectNotAdviserOfProjectTest() {
 
@@ -394,6 +440,10 @@ public class AdviserPageControllerTest extends ControllerTest {
         assertTrue(Context.current().flash().containsValue("error"));
     }
 
+    /**
+     * Test ob das Editieren fehlschlägt, falls die Adviser ID ein invalides
+     * Format hat.
+     */
     @Test
     public void editProjectValidationExceptionAdviserIdTest() {
 
@@ -419,6 +469,9 @@ public class AdviserPageControllerTest extends ControllerTest {
         assertTrue(Context.current().flash().containsValue("error"));
     }
 
+    /**
+     * Test für das Beitreten in ein Projekt.
+     */
     @Test
     public void joinProjectTest() {
 
@@ -440,6 +493,10 @@ public class AdviserPageControllerTest extends ControllerTest {
         assertTrue(project.getAdvisers().contains(secondAdviser));
     }
 
+    /**
+     * Test für das Beitreten zu einem Projekt, falls die Projekt Id nicht
+     * bekannt ist.
+     */
     @Test
     public void joinProjectUnknownProjectIdTest() {
 
@@ -459,6 +516,10 @@ public class AdviserPageControllerTest extends ControllerTest {
         assertTrue(Context.current().flash().containsValue("error"));
     }
 
+    /**
+     * Test ob das Betreuen eines Teams fehlschlägt, welches man bereits
+     * betreut.
+     */
     @Test
     public void joinProjectAlreadyAdviserOfProjectTest() {
 
@@ -478,6 +539,9 @@ public class AdviserPageControllerTest extends ControllerTest {
         assertTrue(Context.current().flash().containsValue("error"));
     }
 
+    /**
+     * Test für das Verlassen eines Projekts.
+     */
     @Test
     public void leaveProjectTest() {
 
@@ -497,6 +561,10 @@ public class AdviserPageControllerTest extends ControllerTest {
         assertTrue(project.getAdvisers().isEmpty());
     }
 
+    /**
+     * Test ob das Verlassen eines Projekts mit invalidem Eingabeformat
+     * fehlschlägt.
+     */
     @Test
     public void leaveProjectValidationExceptionTest() {
 
@@ -517,6 +585,10 @@ public class AdviserPageControllerTest extends ControllerTest {
 
     }
 
+    /**
+     * Test ob das Verlassen eines Projekts mit unbekannter Projekt-Id
+     * fehlschlägt.
+     */
     @Test
     public void leaveProjectUnknownProjectIdTest() {
 
@@ -537,6 +609,10 @@ public class AdviserPageControllerTest extends ControllerTest {
 
     }
 
+    /**
+     * Test ob das Verlassen eines Projektes fehlschlägt, welches man garnicht
+     * betreut.
+     */
     @Test
     public void leaveProjectNotAdviserOfProjectTest() {
 
@@ -557,6 +633,9 @@ public class AdviserPageControllerTest extends ControllerTest {
 
     }
 
+    /**
+     * Test für das Entfernen eines Projekts.
+     */
     @Test
     public void removeProjectTest() {
 
@@ -574,6 +653,9 @@ public class AdviserPageControllerTest extends ControllerTest {
         assertTrue(Project.getProjects().isEmpty());
     }
 
+    /**
+     * Test für das Sichern der Noten der Studenten.
+     */
     @Test
     public void saveStudentsGradesTest() {
 
@@ -624,6 +706,9 @@ public class AdviserPageControllerTest extends ControllerTest {
 
     }
 
+    /**
+     * Test ob das Eintragen von Noten in falschem Format fehlschlägt.
+     */
     @Test
     public void saveStudentsGradesValidationExceptionTest() {
 
@@ -673,6 +758,10 @@ public class AdviserPageControllerTest extends ControllerTest {
 
     }
 
+    /**
+     * Test ob das Eintragen von Noten für Studenten fehlschlägt, falls man sie
+     * nicht betreut.
+     */
     @Test
     public void saveStudentsGradesNotAdviserOfProjectTest() {
 
@@ -722,6 +811,10 @@ public class AdviserPageControllerTest extends ControllerTest {
 
     }
 
+    /**
+     * Test ob das Eintragen der Noten fehlschlägt, falls noch keine finale
+     * Einteilung existiert.
+     */
     @Test
     public void saveStudentsGradesNoFinalAllocationTest() {
 

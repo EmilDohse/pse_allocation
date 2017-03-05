@@ -27,6 +27,10 @@ import security.BlowfishPasswordEncoder;
 import security.EmailVerifier;
 import security.PasswordResetter;
 
+/**
+ * Diese Klasse beinhaltet Tests für den IndexPageController.
+ *
+ */
 public class IndexPageControllerTest extends ControllerTest {
 
     @InjectMocks
@@ -35,6 +39,9 @@ public class IndexPageControllerTest extends ControllerTest {
     @Mock
     Notifier            notifier;
 
+    /**
+     * Test für das Registrieren.
+     */
     @Test
     public void testRegister() throws EmailException {
         Map<String, String> map = new HashMap<>();
@@ -61,50 +68,50 @@ public class IndexPageControllerTest extends ControllerTest {
         when(form.get("matrnr")).thenReturn("123456");
         when(form.get("semester")).thenReturn("3");
         when(form.get("trueData")).thenReturn("true");
-        when(messages.at("student.email.verificationLinkSuccess"))
-                .thenReturn("Email Success");
+        when(messages.at("student.email.verificationLinkSuccess")).thenReturn("Email Success");
 
         controller.register();
 
-        assertEquals(1, GeneralData.loadInstance().getCurrentSemester()
-                .getStudents().size());
+        assertEquals(1, GeneralData.loadInstance().getCurrentSemester().getStudents().size());
         Student student = Student.getStudent(123456);
         assertEquals("Hans", student.getFirstName());
         assertEquals("Peter", student.getLastName());
         assertEquals("a@b", student.getEmailAddress());
-        assertTrue(new BlowfishPasswordEncoder().matches("123456",
-                student.getPassword()));
+        assertTrue(new BlowfishPasswordEncoder().matches("123456", student.getPassword()));
         assertEquals(spo, student.getSPO());
         assertEquals(3, student.getSemester());
-        assertEquals(1, GeneralData.loadInstance().getCurrentSemester()
-                .getLearningGroups().size());
-        LearningGroup lg = GeneralData.loadInstance().getCurrentSemester()
-                .getLearningGroupOf(student);
+        assertEquals(1, GeneralData.loadInstance().getCurrentSemester().getLearningGroups().size());
+        LearningGroup lg = GeneralData.loadInstance().getCurrentSemester().getLearningGroupOf(student);
         assertTrue(lg.isPrivate());
         assertTrue(lg.getMembers().contains(student));
         assertEquals(1, student.getCompletedAchievements().size());
         assertEquals(1, student.getOralTestAchievements().size());
         assertEquals(one, student.getCompletedAchievements().get(0));
         assertEquals(two, student.getOralTestAchievements().get(0));
-        verify(notifier).sendVerificationMail(any(Student.class),
-                any(String.class));
+        verify(notifier).sendVerificationMail(any(Student.class), any(String.class));
         assertTrue(Context.current().flash().containsValue("Email Success"));
     }
 
+    /**
+     * Test ob das Registrieren mit Parametern in falschem Eingabeformat
+     * fehlschlägt.
+     */
     @Test
     public void testValidationExceptionInRegister() {
         Map<String, String> map = new HashMap<>();
         map.put("test", "test");
         when(form.data()).thenReturn(map);
         when(form.get("firstName")).thenReturn(new String());
-        when(messages.at("general.error.noEmptyString"))
-                .thenReturn("Empty String");
+        when(messages.at("general.error.noEmptyString")).thenReturn("Empty String");
 
         controller.register();
 
         assertTrue(Context.current().flash().containsValue("Empty String"));
     }
 
+    /**
+     * Test ob das Registrieren mit falschen Daten fehlschlägt.
+     */
     @Test
     public void testUntrueData() {
         Map<String, String> map = new HashMap<>();
@@ -119,8 +126,7 @@ public class IndexPageControllerTest extends ControllerTest {
         when(form.get("matrnr")).thenReturn("123456");
         when(form.get("semester")).thenReturn("3");
         when(form.get("trueData")).thenReturn(null);
-        when(messages.at("index.registration.error.FalseData"))
-                .thenReturn("FalseData");
+        when(messages.at("index.registration.error.FalseData")).thenReturn("FalseData");
 
         controller.register();
 
@@ -128,7 +134,10 @@ public class IndexPageControllerTest extends ControllerTest {
     }
 
     // NFE = NumberFormatException
-
+    /**
+     * Test ob das Registrieren mit Parametern in falschem Format(Zahlen)
+     * fehlschlägt.
+     */
     @Test
     public void testFirstNFEInRegister() {
         Map<String, String> map = new HashMap<>();
@@ -151,6 +160,10 @@ public class IndexPageControllerTest extends ControllerTest {
         assertTrue(Context.current().flash().containsValue("Error"));
     }
 
+    /**
+     * Test ob das Registrieren mit Parametern in falschem Format(Zahlen)
+     * fehlschlägt.
+     */
     @Test
     public void testSecondNFEInRegister() {
         Map<String, String> map = new HashMap<>();
@@ -173,6 +186,9 @@ public class IndexPageControllerTest extends ControllerTest {
         assertTrue(Context.current().flash().containsValue("Error"));
     }
 
+    /**
+     * Test ob das Registrieren mit falsch wiederholtem Passwort fehlschlägt.
+     */
     @Test
     public void testUnequalPasswordInRegister() {
         Map<String, String> map = new HashMap<>();
@@ -188,14 +204,17 @@ public class IndexPageControllerTest extends ControllerTest {
         when(form.get("matrnr")).thenReturn("123456");
         when(form.get("semester")).thenReturn("3");
         when(form.get("trueData")).thenReturn("true");
-        when(messages.at("index.registration.error.passwordUnequal"))
-                .thenReturn("Unequal Password");
+        when(messages.at("index.registration.error.passwordUnequal")).thenReturn("Unequal Password");
 
         controller.register();
 
         assertTrue(Context.current().flash().containsValue("Unequal Password"));
     }
 
+    /**
+     * Test ob das Registrieren ohne alle notwendigen Teilleistungen
+     * fehlschlägt.
+     */
     @Test
     public void testNotAllNecessaryAchievements() {
         Map<String, String> map = new HashMap<>();
@@ -221,15 +240,17 @@ public class IndexPageControllerTest extends ControllerTest {
         when(form.get("matrnr")).thenReturn("123456");
         when(form.get("semester")).thenReturn("3");
         when(form.get("trueData")).thenReturn("true");
-        when(messages.at("error.allNecessaryAchievments"))
-                .thenReturn("Not All Achievements");
+        when(messages.at("error.allNecessaryAchievments")).thenReturn("Not All Achievements");
 
         controller.register();
 
-        assertTrue(Context.current().flash()
-                .containsValue("Not All Achievements"));
+        assertTrue(Context.current().flash().containsValue("Not All Achievements"));
     }
 
+    /**
+     * Test ob das Registrieren fehlschlägt, falls der Student bereits
+     * registriert ist.
+     */
     @Test
     public void testAlreadyRegisteredStudent() {
         Student student = new Student();
@@ -249,15 +270,20 @@ public class IndexPageControllerTest extends ControllerTest {
         when(form.get("matrnr")).thenReturn("1");
         when(form.get("semester")).thenReturn("3");
         when(form.get("trueData")).thenReturn("true");
-        when(messages.at("index.registration.error.matNrExists"))
-                .thenReturn("Student already exists");
+        when(messages.at("index.registration.error.matNrExists")).thenReturn("Student already exists");
 
         controller.register();
 
-        assertTrue(Context.current().flash()
-                .containsValue("Student already exists"));
+        assertTrue(Context.current().flash().containsValue("Student already exists"));
     }
 
+    /**
+     * Test ob die Passwort Form zurückgesetzt wird, falls man sich mit falsch
+     * wiederholtem Passwort registrieren möchte.
+     * 
+     * @throws EmailException
+     *             EmailException.
+     */
     @Test
     public void testPasswortResetForm() throws EmailException {
         Map<String, String> data = new HashMap<>();
@@ -280,10 +306,13 @@ public class IndexPageControllerTest extends ControllerTest {
 
         controller.passwordResetForm();
 
-        verify(notifier).sendVerifyNewPassword(any(User.class),
-                any(String.class));
+        verify(notifier).sendVerifyNewPassword(any(User.class), any(String.class));
     }
 
+    /**
+     * Test ob die Registrierung mit einer E-Mail in falschem Eingabeformat
+     * fehlschlägt.
+     */
     @Test
     public void testValidationExceptionInResetForm() {
         Map<String, String> data = new HashMap<>();
@@ -298,6 +327,9 @@ public class IndexPageControllerTest extends ControllerTest {
         assertTrue(Context.current().flash().containsValue("InvalidEmail"));
     }
 
+    /**
+     * Test ob das Registrieren mit falsch wiederholtem Passwort fehlschlägt.
+     */
     @Test
     public void testWrongRepeatedPassword() {
         Map<String, String> data = new HashMap<>();
@@ -308,15 +340,16 @@ public class IndexPageControllerTest extends ControllerTest {
         when(form.get("password")).thenReturn("123456");
         when(form.get("pwRepeat")).thenReturn("123");
 
-        when(messages.at("index.registration.error.passwordUnequal"))
-                .thenReturn("RepeatPasswordFailed");
+        when(messages.at("index.registration.error.passwordUnequal")).thenReturn("RepeatPasswordFailed");
 
         controller.passwordResetForm();
 
-        assertTrue(Context.current().flash()
-                .containsValue("RepeatPasswordFailed"));
+        assertTrue(Context.current().flash().containsValue("RepeatPasswordFailed"));
     }
 
+    /**
+     * Test ob das Registrieren ohne Nutzer fehlschlägt.
+     */
     @Test
     public void testNoUser() {
         Map<String, String> data = new HashMap<>();
@@ -334,6 +367,9 @@ public class IndexPageControllerTest extends ControllerTest {
         assertTrue(Context.current().flash().containsValue("NoUser"));
     }
 
+    /**
+     * Test für das Zurücksetzen des Passwortes.
+     */
     @Test
     public void testResetPasswordSuccess() {
         Student student = new Student();
@@ -353,11 +389,13 @@ public class IndexPageControllerTest extends ControllerTest {
 
         controller.resetPassword(code);
 
-        assertTrue(new BlowfishPasswordEncoder().matches("abcdef",
-                student.getPassword()));
+        assertTrue(new BlowfishPasswordEncoder().matches("abcdef", student.getPassword()));
         assertTrue(Context.current().flash().containsValue("Success"));
     }
 
+    /**
+     * Test ob das Zurücksetzen des Passwortes richtig fehlschlägt.
+     */
     @Test
     public void testResetPasswordFailure() {
         Student student = new Student();
@@ -377,6 +415,9 @@ public class IndexPageControllerTest extends ControllerTest {
         assertTrue(Context.current().flash().containsValue("Failure"));
     }
 
+    /**
+     * Test für die Verifikation der E-Mail.
+     */
     @Test
     public void testVerificationPageSuccess() {
         Student student = new Student();
@@ -398,6 +439,9 @@ public class IndexPageControllerTest extends ControllerTest {
         assertTrue(Context.current().flash().containsValue("Email Success"));
     }
 
+    /**
+     * Test für das korrekte Fehlschlagen der Verifikation.
+     */
     @Test
     public void testVerificationPageFailure() {
         when(messages.at("index.verify.error")).thenReturn("Email Failure");

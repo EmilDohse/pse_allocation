@@ -22,6 +22,9 @@ import play.i18n.Messages;
 import play.mvc.Http;
 import play.test.Helpers;
 
+/**
+ * Superklasse für alle Controller Tests.
+ */
 @RunWith(MockitoJUnitRunner.class)
 public class ControllerTest extends DataTest {
 
@@ -38,6 +41,9 @@ public class ControllerTest extends DataTest {
 
     private Application   app;
 
+    /**
+     * Initialisierung der Testdaten.
+     */
     @Override
     @Before
     public void before() {
@@ -53,9 +59,7 @@ public class ControllerTest extends DataTest {
         Map<String, String> flashData = Collections.emptyMap();
         Map<String, Object> flashObject = Collections.emptyMap();
 
-        Http.Context realContext = new Http.Context(0l, header, request,
-                flashData,
-                flashData, flashObject);
+        Http.Context realContext = new Http.Context(0l, header, request, flashData, flashData, flashObject);
         Http.Context spyContext = Mockito.spy(realContext);
         messages = Mockito.mock(Messages.class);
         Mockito.doReturn(messages).when(spyContext).messages();
@@ -66,12 +70,18 @@ public class ControllerTest extends DataTest {
         Mockito.when(form.bindFromRequest()).thenReturn(form);
     }
 
+    /**
+     * Für Mockito.
+     */
     // Braucht Mockito
     @Test
     public void test() {
         assertTrue(true);
     }
 
+    /**
+     * Shutdown.
+     */
     @Override
     @After
     public void after() {

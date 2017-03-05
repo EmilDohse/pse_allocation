@@ -17,6 +17,9 @@ import data.Student;
 import data.Team;
 import exception.AllocationEditUndoException;
 
+/**
+ * Diese Klase beinhaltet Tests für den MoveStudentCommand
+ */
 public class MoveStudentCommandTest extends ControllerTest {
 
     private Allocation         allocation;
@@ -29,6 +32,9 @@ public class MoveStudentCommandTest extends ControllerTest {
     private Student            thirdStudent;
     private Team               thirdTeam;
 
+    /**
+     * Initialisierung der Testdaten.
+     */
     @Override
     @Before
     public void before() {
@@ -67,6 +73,9 @@ public class MoveStudentCommandTest extends ControllerTest {
         command = new MoveStudentCommand(allocation, students, thirdTeam);
     }
 
+    /**
+     * Test für das Bewegen eines Studenten in ein anderes Team.
+     */
     @Test
     public void executeTest() {
         command.execute();
@@ -77,6 +86,9 @@ public class MoveStudentCommandTest extends ControllerTest {
         assertEquals(thirdTeam, allocation.getTeam(thirdStudent));
     }
 
+    /**
+     * Test für das Bewegen eines Studenten in der finalen Einteilung.
+     */
     @Test
     public void executeFinalTest() {
         semester.doTransaction(() -> {
@@ -92,6 +104,12 @@ public class MoveStudentCommandTest extends ControllerTest {
         assertEquals(thirdTeam, allocation.getTeam(thirdStudent));
     }
 
+    /**
+     * Test der Rückgängig-Funktion.
+     * 
+     * @throws AllocationEditUndoException
+     *             AllocationEditUndoException.
+     */
     public void testUndo() throws AllocationEditUndoException {
         command.execute();
         command.undo();
@@ -104,9 +122,14 @@ public class MoveStudentCommandTest extends ControllerTest {
         assertEquals(thirdTeam, allocation.getTeam(thirdStudent));
     }
 
-   
-
-    // Ebean will in Unit Tests Dinge nicht löschen
+    /**
+     * Test für das Rückgängigmachen des Löschens eines Studenten.
+     * 
+     * Funktioniert nicht, da EBean Probleme mit der TestDatenbank hat.
+     * 
+     * @throws AllocationEditUndoException
+     *             AllocationEditUndoException.
+     */
     @Ignore
     @Test(expected = AllocationEditUndoException.class)
     public void undoDeletedExceptionTest() throws AllocationEditUndoException {

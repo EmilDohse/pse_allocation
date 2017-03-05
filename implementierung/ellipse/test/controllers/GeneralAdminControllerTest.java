@@ -1,6 +1,6 @@
 package controllers;
 
-import static org.junit.Assert.assertEquals;i
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
@@ -39,6 +39,9 @@ import play.mvc.Http.Context;
 import security.BlowfishPasswordEncoder;
 import security.UserManagement;
 
+/**
+ * Diese Klasse beinhaltet die Tests für den GeneralAdminController.
+ */
 public class GeneralAdminControllerTest extends ControllerTest {
 
     @Mock
@@ -50,6 +53,12 @@ public class GeneralAdminControllerTest extends ControllerTest {
     @InjectMocks
     GeneralAdminController controller;
 
+    /**
+     * Test für das Hinzufügen eines Betreuers.
+     * 
+     * @throws EmailException
+     *             EmailException.
+     */
     @Test
     public void addAdviser() throws EmailException {
         Map<String, String> map = new HashMap<>();
@@ -74,6 +83,10 @@ public class GeneralAdminControllerTest extends ControllerTest {
         assertTrue((new BlowfishPasswordEncoder()).matches("password", adviser.getPassword()));
     }
 
+    /**
+     * Test ob das Hinzufügen eines Betreuers fehlschlägt falls die Eingabe
+     * einen leeren String enthält.
+     */
     @Test
     public void testValidationExceptionInAddAdviser() {
         Map<String, String> data = new HashMap<>();
@@ -88,6 +101,9 @@ public class GeneralAdminControllerTest extends ControllerTest {
         assertTrue(Context.current().flash().containsValue("Empty String"));
     }
 
+    /**
+     * Test für das Entfernen eines Betreuers.
+     */
     @Test
     public void removeAdviserTest() {
 
@@ -105,6 +121,12 @@ public class GeneralAdminControllerTest extends ControllerTest {
         assertTrue(Adviser.getAdvisers().isEmpty());
     }
 
+    /**
+     * Test für das Hinzufügen einer Einteilung.
+     * 
+     * @throws InterruptedException
+     *             InterruptedException.
+     */
     @Test
     public void addAllocationTest() throws InterruptedException {
         Map<String, String> data = new HashMap<>();
@@ -129,6 +151,9 @@ public class GeneralAdminControllerTest extends ControllerTest {
         }
     }
 
+    /**
+     * Test ob beim Hinzufügen Einteilung ohne Namen ein Fehler auftritt.
+     */
     @Test
     public void testValidationExceptionInAllocation() {
         Map<String, String> data = new HashMap<>();
@@ -143,6 +168,10 @@ public class GeneralAdminControllerTest extends ControllerTest {
         assertTrue(Context.current().flash().containsValue("Validation Exception"));
     }
 
+    /**
+     * Test ob beeim Hinzufügen eines Admins mit falschen Parametern ein Fehler
+     * auftritt.
+     */
     @Test
     public void testInvalidAdminParameter() {
         Map<String, String> data = new HashMap<>();
@@ -161,6 +190,10 @@ public class GeneralAdminControllerTest extends ControllerTest {
         assertTrue(Context.current().flash().containsValue("Wrong Input"));
     }
 
+    /**
+     * Test ob beim Hinzufügen von Criterien mit falschem Parameter ein Fehler
+     * auftritt.
+     */
     @Test
     public void testInvalidCriterionParameter() {
         Map<String, String> data = new HashMap<>();
@@ -183,6 +216,9 @@ public class GeneralAdminControllerTest extends ControllerTest {
         assertTrue(Context.current().flash().containsValue("Criterion Error"));
     }
 
+    /**
+     * Test für das Entfernen einer Allocation aus der Warteschlange.
+     */
     @Test
     public void removeAllocationFromQueueTest() {
         Map<String, String> data = new HashMap<>();
@@ -228,6 +264,9 @@ public class GeneralAdminControllerTest extends ControllerTest {
         assertTrue(Allocation.getAllocations().isEmpty());
     }
 
+    /**
+     * Test für das Hinzufügen eines Studenten.
+     */
     @Test
     public void addStudentTest() {
 
@@ -282,6 +321,10 @@ public class GeneralAdminControllerTest extends ControllerTest {
         assertEquals(3, lg.getRating(project));
     }
 
+    /**
+     * Test ob das Hinzufügen eines Studenten mit falschem Eingabeformat
+     * fehlschlägt.
+     */
     @Test
     public void testValidationExceptionInStudent() {
         Map<String, String> data = new HashMap<>();
@@ -296,6 +339,10 @@ public class GeneralAdminControllerTest extends ControllerTest {
         assertTrue(Context.current().flash().containsValue("Validation Exception"));
     }
 
+    /**
+     * Test ob das Hinzufügen eines Studenten fehlschlägt, falls er bereits
+     * existiert.
+     */
     @Test
     public void testAddAlreadyExistingStudent() {
         Student student = new Student();
@@ -328,7 +375,11 @@ public class GeneralAdminControllerTest extends ControllerTest {
         assertTrue(Context.current().flash().containsValue("already existing"));
     }
 
-    // TODO Testdatenbank austauschen
+    /**
+     * Test für das Entfernen eines Studenten.
+     * 
+     * Funktioniert nicht, da EBean mit der TestDatenbank Probleme hat.
+     */
     @Test
     @Ignore
     public void removeStudentTest() {
@@ -354,6 +405,9 @@ public class GeneralAdminControllerTest extends ControllerTest {
         assertNull(Student.getStudent(1));
     }
 
+    /**
+     * Testet auf NumberformatException beim Entfernen Eines Studenten.
+     */
     @Test
     public void testNFEinRemoveStudent() {
         Map<String, String> data = new HashMap<>();
@@ -368,6 +422,9 @@ public class GeneralAdminControllerTest extends ControllerTest {
         assertTrue(Context.current().flash().containsValue("NFE"));
     }
 
+    /**
+     * Test ob das Entfernen eines nicht vorhandenen Studenten fehlschlägt.
+     */
     @Test
     public void testDeleteNonExistentStudent() {
         Map<String, String> data = new HashMap<>();
@@ -382,6 +439,9 @@ public class GeneralAdminControllerTest extends ControllerTest {
         assertTrue(Context.current().flash().containsValue("no such Student"));
     }
 
+    /**
+     * Test für das Editieren des Accounts.
+     */
     @Test
     public void editAccountTest() {
         Map<String, String> data = new HashMap<>();
@@ -408,6 +468,10 @@ public class GeneralAdminControllerTest extends ControllerTest {
         assertTrue(Context.current().flash().containsValue("Success"));
     }
 
+    /**
+     * Test ob beim Editieren des Accounts mit falschem Eingabeformat ein Fehler
+     * auftritt.
+     */
     @Test
     public void testValidationExceptionInEdit() {
         Map<String, String> data = new HashMap<>();
@@ -431,6 +495,10 @@ public class GeneralAdminControllerTest extends ControllerTest {
         assertTrue(Context.current().flash().containsValue("Validation"));
     }
 
+    /**
+     * Test ob beim Ändern des Passworts das neue Passwort richtig wiederholt
+     * wird.
+     */
     @Test
     public void testNonMatchingPasswordInEdit() {
         Map<String, String> data = new HashMap<>();
