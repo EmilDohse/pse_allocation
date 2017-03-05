@@ -26,7 +26,7 @@
  %\renewcommand{\labelitemi}{~}
  \newcommand{\fehler}[4]{\textbf{#1}
  							\begin{itemize}
- 							  \item \textbf{Synthom}  #2
+ 							  \item \textbf{Symptom}  #2
  							  \item \textbf{Grund} #3
  							  \item \textbf{Behandlung} #4
  							\end{itemize}}
@@ -64,77 +64,82 @@ behobenen Fehler sowie sonstige Verbesserungen festgehalten.
 \subsection{Allgemeine Fehler}
 \begin{itemize}
   \item \fehler{Verwenden des \enquote{Änderung rückgängig machen}-Knopfs nach
-  der Löschung oder Veröffentlichern einer Einteilung }{Wenn die folgenden
+  der Löschung einer Einteilung }{Wenn die folgenden
   Aktionen durchgeführt wurden kam es zu einer \code{null}-Pointer-Exception:
 \begin{enumerate}
   \item Bearbeiten einer Einteilung
   \item Löschen der Einteilung
   \item Klicken auf \enquote{Änderung rückgängig machen}
-\end{enumerate}}{Bei der Löschung der berechneten Einteilung werden die
-Änderungen an dieser Einteilung nicht gelöscht.}{Nun wird überprüft ob die
-Eiteilung gelöscht wurde.}
+\end{enumerate}}{Die bearbeitete Einteilung und die Commands, in denen
+gespeichert wird was sich geändert hat werden getrennt gespeichert. Bei der
+Löschung der berechneten Einteilung werden die Commands zu dieser Einteilung
+nicht gelöscht.}{Nun wird überprüft, ob die Eiteilung gelöscht wurde bevor
+versucht wird die Bearbeitung rückgängig zu machen.}
 \item \fehler{Annotation der Date-Objekte in der Datenbank }{In der %TODO stimmt
 % das so?
 Testdatenbank funktionierten die Deadlines nicht. }{Die Date-Objekte waren
-nur als TIME annotiert und hatten deswegen kein Datum sondern nur eien Zeit.
-Das Datum wird jedoch zur umsetzung der Deadlines benötigt.}{Nun sind
+nur als TIME annotiert und hatten deswegen kein Datum sondern nur eine Zeit.
+Das Datum wird jedoch zur Umsetzung der Deadlines benötigt.}{Nun sind
 Date-Objekte mit TIMESTAMP annotiert und speichern damit auch das Datum.}
 \item \fehler{Anzeige von Fehlermeldungen durch Deadlines auf der
 %TODO stimmt das so?
-Indexseite}{Wenn man versuchte eine in dem Moment durch Deadlines verbotene
+Indexseite}{Wenn man versuchte, eine, in dem Moment durch Deadlines verbotene
 Aktion durchzuführen, wie zum Beispiel das Registrieren eines Strudenten
 außerhalb des Registrierungszeitraums, wurden keine Fehlermeldungen
-angezeigt}{Der Redirect-Pfad auf die Indexseite war nicht auf der White-List
-unseres Security-Filters. Deswegen konnte der Cooky in dem die Fehlermeldung 
-mitgegebene wird nicht übergeben werden. }{Die Indexseite wurde nun zur
+angezeigt.}{Der Redirect-Pfad auf die Indexseite war nicht auf der White-List
+unseres Security-Filters. Deswegen konnte der Cooky, in dem die Fehlermeldung 
+mitgegeben wird, nicht übergeben werden. }{Die Indexseite wurde nun zur
 Whitelist des Security-Filters hinzugefügt.}
-\item \fehler{Projekt als Betreuer andere Betreuer hinzufügen/entfernen}{Wenn
-man als Betreuer ein Projekt bearbeitet hat, Betreuer hinzufügt oder entfernt
-hat und gespeichert hat wurden die Änderungen nicht übernommen }{Im
-Controller wurde von uns vergessen die Änderung an den Betreuern zu
-speichern.}{Nun werden die Änderungen an den Betreuern gespeichert.}
+\item \fehler{Projekt als Betreuer andere Betreuer hinzufügen
+oder entfernen}{Wenn man als Betreuer ein Projekt bearbeitet hat, Betreuer
+hinzugefügt oder entfernt und gespeichert hat, wurden die Änderungen nicht übernommen.}{Im Controller
+wurde von uns vergessen die Änderung an den Betreuern zu speichern.}{Nun werden die Änderungen an den Betreuern gespeichert.}
 \item \fehler{Ebean Fehler: Lerngruppen}{Wenn die folgenden Aktionen
 nacheinander ausgeführt werden kam es zu einer
 persistence-Exception:\begin{enumerate}
-  \item Student der noch in keiner Lerngruppe ist tritt Lerngruppe bei
-  \item Student verlässt Lerngruppe
-\end{enumerate}}{Studenten haben in dem Produkt intern immer eine Lerngrupppe.
+  \item Ein Student der noch in keiner Lerngruppe ist, tritt einer Lerngruppe
+  bei
+  \item Der Student verlässt Lerngruppe
+\end{enumerate}}
+{Studenten haben in dem Produkt intern immer eine Lerngrupppe.
 (d.h.
-berets nach der registrierung wird ein Student mit privater Lerngrupppe
-erstellt) Wenn man nun einer Lerngruppe beitritt wird diese private Lerngruppe
-gelöscht. Wenn man dann wieder aus der Lerngruppe austritt wird eine neue
-private Lernguppe erstellt und es wird versucht dieser beizutreten. Da Ebean
-jedoch Cascde-Types nur manchmal beherscht passiert es, das der Student noch
-eine Assozation zu der eigentlich gelöschten privaten Lerngruppe hat. Da es sich
-um eine One-To-One Assozition handelt kommt es zur persistence-Exception beim
-Versuch eine neue private Lerngruppe hinzuzufügen }{Wir entfernen die
-Assoziation nun manuell.}
+bereits nach der Registrierung wird ein Student mit privater Lerngrupppe
+erstellt) Wenn ein Student nun einer Lerngruppe beitritt wird diese private
+Lerngruppe gelöscht. Wenn der Student dann wieder aus der Lerngruppe austritt
+wird eine neue private Lernguppe erstellt und es wird versucht dieser beizutreten. Da Ebean
+jedoch Cascade-Types nur manchmal beherscht passiert es, dass der Student noch
+eine Assozation zu der eigentlich gelöschten privaten Lerngruppe hat. Beim
+Beitritt \enquote{bemerkt} Ebean nun das die Assoziation auf eine nicht
+existente Lerngruppe verweißt und wirft die persistence-Exception.}{Wir
+entfernen die Assoziation nun manuell.}
 \item \fehler{Ebean Fehler: Projekte als Betreuer erstellen}{Wenn die folgenden
-Aktionen nacheinander, von einem Betreuer ausgeführt wurden kam es zu einer
+Aktionen nacheinander, von einem Betreuer ausgeführt werden kam es zu einer
 persistence-Exception:
 \begin{enumerate}
   \item Löschen eines Projekts bei dem der Betreuer als Projektbetreuer
   eingetragen ist
   \item Erstellen eines Projekts durch den Betreuer
 \end{enumerate}}{Es handelt sich wieder um ein Problem mit Cascade-Types und
-Ebean. Wenn ein Projekt gelöscht wird löscht Ebean die Assoziation zum
-Betreuer nicht. Beim Erstellen eines neuen Projekts duŕch den Betreuer
-\enquote{bemerkt} Ebean nun das das alte Projekt nicht mehr existert und wirft
-die Fehlermeldung. An sich sollte es hier sogar möglich sein, als Betreuer mehr
-als einem Projekt zugeordnet zu sein (die Betreuer-Projekt Beziehung ist
-One-To-Many) }{Durch das manuelle Entfernen der Assoziation Projekt-Betreuer
+Ebean. Wenn ein Projekt gelöscht wird löscht Ebean die Assoziationen zu
+Betreuern nicht. Beim Erstellen eines neuen Projekts durch den Betreuer
+\enquote{bemerkt} Ebean nun, dass das alte Projekt nicht mehr existiert und
+wirft die Fehlermeldung. 
+%An sich sollte es hier sogar möglich sein, als Betreuer mehr
+% als einem Projekt zugeordnet zu sein (die Betreuer-Projekt Beziehung ist
+% One-To-Many)
+}{Durch das manuelle Entfernen der Assoziation Projekt-Betreuer
 bei der Löschung des Projekts kommt es nun nicht mehr zu dem Fehler. }
 \end{itemize}
 \subsection{Concurrency}
 \begin{itemize}
   \item \fehler{Projektbetreuer löschen und: Projektbetreuer zu Projekt
   hinzufügen}{Wenn der Administrator einen Projektbetreuer in einem Tab seines Browsers löscht, in einem weiteren
-  Tab jedoch noch ein Projekt bearbeitet wird der Betreuer in diesem Tab
+  Tab jedoch noch ein Projekt bearbeitet, wird der Betreuer in diesem Tab
   noch angezeigt. Wenn der Betreuer zu dem Projekt hinzugefügt werden soll und
   das Projekt gespeichert wird kommt es zu einer
   \code{null}-Pointer-Exception.}{Da das andere Tab nicht neu geladen wird, wird
   der Betreuer hier noch angezeigt, existiert jedoch nicht mehr. }{In der
-  Projektbearbeitung wird nun überprüft ob der Projektbetreuer gelöscht wurde
+  Projektbearbeitung wird nun überprüft, ob der Projektbetreuer gelöscht wurde
   und das Löschen und Editieren von Projekten ist synchronisiert. }
     \item \fehler{SPO löschen und: SPO exportieren/bearbeiten oder Semester
     bearbeiten }{Wenn der Administrator eine SPO in einem Tab

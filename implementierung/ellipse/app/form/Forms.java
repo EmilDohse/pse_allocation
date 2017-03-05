@@ -19,9 +19,8 @@ public class Forms {
      * @return Passwort-Valifizierer.
      */
     public static StringValidator getPasswordValidator() {
-        StringValidator validator = new StringValidator(
-                MINIMUM_PASSWORD_LENGTH);
-        validator.setMessage("general.error.minimalPasswordLegth");
+        StringValidator validator = new StringValidator(MINIMUM_PASSWORD_LENGTH);
+        validator.setMessage("general.error.minimalPasswordLength");
         return validator;
     }
 

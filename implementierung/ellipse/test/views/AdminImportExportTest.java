@@ -49,7 +49,8 @@ public class AdminImportExportTest extends ViewTest {
     public void importSpo() {
         TestHelpers.setStateToBeforeRegistration();
         imexportPage.importSpo(browser, "importSpo.csv");
-        browser.await().atMost(10, TimeUnit.SECONDS).untilPage(imexportPage).isAt();
+        browser.await().atMost(10, TimeUnit.SECONDS).untilPage(imexportPage)
+                .isAt();
         assertNotNull(SPO.getSPO("2008"));
         assertFalse(SPO.getSPO("2008").getAdditionalAchievements().isEmpty());
         assertFalse(SPO.getSPO("2008").getNecessaryAchievements().isEmpty());
@@ -62,7 +63,8 @@ public class AdminImportExportTest extends ViewTest {
     public void importSpoNoFile() {
         TestHelpers.setStateToBeforeRegistration();
         imexportPage.importSpo(browser, "");
-        browser.await().atMost(10, TimeUnit.SECONDS).untilPage(imexportPage).isAt();
+        browser.await().atMost(10, TimeUnit.SECONDS).untilPage(imexportPage)
+                .isAt();
         assertTrue(imexportPage.showsError(browser));
     }
 
@@ -73,7 +75,8 @@ public class AdminImportExportTest extends ViewTest {
     public void importSpoWrongFile() {
         TestHelpers.setStateToBeforeRegistration();
         imexportPage.importSpo(browser, "importProjects.csv");
-        browser.await().atMost(10, TimeUnit.SECONDS).untilPage(imexportPage).isAt();
+        browser.await().atMost(10, TimeUnit.SECONDS).untilPage(imexportPage)
+                .isAt();
         assertTrue(imexportPage.showsError(browser));
     }
 
@@ -84,7 +87,8 @@ public class AdminImportExportTest extends ViewTest {
     public void importProjects() {
         TestHelpers.setStateToBeforeRegistration();
         imexportPage.importProjects(browser, "importProjects.csv");
-        browser.await().atMost(10, TimeUnit.SECONDS).untilPage(imexportPage).isAt();
+        browser.await().atMost(10, TimeUnit.SECONDS).untilPage(imexportPage)
+                .isAt();
         Semester s = GeneralData.loadInstance().getCurrentSemester();
         assertFalse(s.getProjects().isEmpty());
         assertEquals(23, s.getProjects().size());
@@ -97,7 +101,8 @@ public class AdminImportExportTest extends ViewTest {
     public void importProjectsNoFile() {
         TestHelpers.setStateToBeforeRegistration();
         imexportPage.importProjects(browser, "");
-        browser.await().atMost(10, TimeUnit.SECONDS).untilPage(imexportPage).isAt();
+        browser.await().atMost(10, TimeUnit.SECONDS).untilPage(imexportPage)
+                .isAt();
         assertTrue(imexportPage.showsError(browser));
     }
 
@@ -109,7 +114,8 @@ public class AdminImportExportTest extends ViewTest {
     public void importProjectsWrongFile() {
         TestHelpers.setStateToBeforeRegistration();
         imexportPage.importProjects(browser, "importSpo.csv");
-        browser.await().atMost(10, TimeUnit.SECONDS).untilPage(imexportPage).isAt();
+        browser.await().atMost(10, TimeUnit.SECONDS).untilPage(imexportPage)
+                .isAt();
         assertTrue(imexportPage.showsError(browser));
     }
 
@@ -121,11 +127,14 @@ public class AdminImportExportTest extends ViewTest {
         TestHelpers.setStateToBeforeRegistration();
         // SPO und Projekte für Studentenimport benötigt
         imexportPage.importSpo(browser, "importSpo.csv");
-        browser.await().atMost(10, TimeUnit.SECONDS).untilPage(imexportPage).isAt();
+        browser.await().atMost(10, TimeUnit.SECONDS).untilPage(imexportPage)
+                .isAt();
         imexportPage.importProjects(browser, "importProjects.csv");
-        browser.await().atMost(10, TimeUnit.SECONDS).untilPage(imexportPage).isAt();
+        browser.await().atMost(10, TimeUnit.SECONDS).untilPage(imexportPage)
+                .isAt();
         imexportPage.importStudents(browser, "importStudents.csv");
-        browser.await().atMost(10, TimeUnit.SECONDS).untilPage(imexportPage).isAt();
+        browser.await().atMost(10, TimeUnit.SECONDS).untilPage(imexportPage)
+                .isAt();
         Semester s = GeneralData.loadInstance().getCurrentSemester();
         assertFalse(s.getStudents().isEmpty());
         assertFalse(s.getLearningGroups().isEmpty());
@@ -138,7 +147,8 @@ public class AdminImportExportTest extends ViewTest {
     public void importStudentsNoFile() {
         TestHelpers.setStateToBeforeRegistration();
         imexportPage.importStudents(browser, "");
-        browser.await().atMost(10, TimeUnit.SECONDS).untilPage(imexportPage).isAt();
+        browser.await().atMost(10, TimeUnit.SECONDS).untilPage(imexportPage)
+                .isAt();
         assertTrue(imexportPage.showsError(browser));
     }
 
@@ -150,7 +160,8 @@ public class AdminImportExportTest extends ViewTest {
     public void importStudentsWrongFile() {
         TestHelpers.setStateToBeforeRegistration();
         imexportPage.importStudents(browser, "importSpo.csv");
-        browser.await().atMost(10, TimeUnit.SECONDS).untilPage(imexportPage).isAt();
+        browser.await().atMost(10, TimeUnit.SECONDS).untilPage(imexportPage)
+                .isAt();
         assertTrue(imexportPage.showsError(browser));
     }
 
@@ -162,13 +173,17 @@ public class AdminImportExportTest extends ViewTest {
         TestHelpers.setStateToBeforeRegistration();
         // SPO und Projekte für Studentenimport benötigt
         imexportPage.importSpo(browser, "importSpo.csv");
-        browser.await().atMost(10, TimeUnit.SECONDS).untilPage(imexportPage).isAt();
+        browser.await().atMost(10, TimeUnit.SECONDS).untilPage(imexportPage)
+                .isAt();
         imexportPage.importProjects(browser, "importProjects.csv");
-        browser.await().atMost(10, TimeUnit.SECONDS).untilPage(imexportPage).isAt();
+        browser.await().atMost(10, TimeUnit.SECONDS).untilPage(imexportPage)
+                .isAt();
         imexportPage.importStudents(browser, "importStudents.csv");
-        browser.await().atMost(10, TimeUnit.SECONDS).untilPage(imexportPage).isAt();
+        browser.await().atMost(10, TimeUnit.SECONDS).untilPage(imexportPage)
+                .isAt();
         imexportPage.importAllocation(browser, "importAllocation.csv");
-        browser.await().atMost(10, TimeUnit.SECONDS).untilPage(imexportPage).isAt();
+        browser.await().atMost(10, TimeUnit.SECONDS).untilPage(imexportPage)
+                .isAt();
         assertTrue(Allocation.getAllocations().size() > 0);
     }
 
@@ -179,7 +194,8 @@ public class AdminImportExportTest extends ViewTest {
     public void importAllocationNoFile() {
         TestHelpers.setStateToBeforeRegistration();
         imexportPage.importAllocation(browser, "");
-        browser.await().atMost(10, TimeUnit.SECONDS).untilPage(imexportPage).isAt();
+        browser.await().atMost(10, TimeUnit.SECONDS).untilPage(imexportPage)
+                .isAt();
         assertTrue(imexportPage.showsError(browser));
     }
 
@@ -191,8 +207,56 @@ public class AdminImportExportTest extends ViewTest {
     public void importAllocationWrongFile() {
         TestHelpers.setStateToBeforeRegistration();
         imexportPage.importAllocation(browser, "importSpo.csv");
-        browser.await().atMost(10, TimeUnit.SECONDS).untilPage(imexportPage).isAt();
+        browser.await().atMost(10, TimeUnit.SECONDS).untilPage(imexportPage)
+                .isAt();
         assertTrue(imexportPage.showsError(browser));
     }
 
+    /**
+     * Test für das Exportieren einer SPO.
+     */
+    @Test
+    public void exportSpo() {
+        TestHelpers.setStateToBeforeRegistration();
+        int id = TestHelpers.createSpo("SPO 2008");
+        imexportPage.go();
+        imexportPage.exportSpo(browser, id);
+        assertTrue(browser.pageSource().contains("SPO 2008"));
+    }
+
+    /**
+     * Test für das Exportieren eines Projectes.
+     */
+    @Test
+    public void exportProjects() {
+        TestHelpers.setStateToBeforeRegistration();
+        TestHelpers.createProject("TestProject");
+        imexportPage.go();
+        imexportPage.exportProjects(browser);
+        assertTrue(browser.pageSource().contains("TestProject"));
+    }
+
+    /**
+     * Test für das Exportieren von Studenten.
+     */
+    @Test
+    public void exportStudents() {
+        TestHelpers.setStateToBeforeRegistration();
+        TestHelpers.createStudent(123121, "asdasdas");
+        imexportPage.go();
+        imexportPage.exportStudents(browser);
+        assertTrue(browser.pageSource().contains("123121"));
+    }
+
+    /**
+     * Test für das Exportieren einer Einteilung.
+     */
+    @Test
+    public void exportAllocation() {
+        TestHelpers.setStateToBeforeRegistration();
+        int id = TestHelpers.createAllocation("Allocation 2008");
+        imexportPage.go();
+        imexportPage.exportAllocation(browser, id);
+        assertTrue(browser.pageSource().contains("Mitglieder"));
+    }
 }
