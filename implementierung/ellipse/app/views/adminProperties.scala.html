@@ -44,7 +44,8 @@ data.SMTPOptions)
 				aria-controls="spo-tab-@spo.getId()" role="tab" data-toggle="tab" id="spo-tab-@spo.getId()">
 				@spo.getName()</a></li> }
 			<li role="presentation"><a
-				href="@controllers.routes.AdminPropertiesController.addSPO().path()">
+				href="@controllers.routes.AdminPropertiesController.addSPO().path()"
+				id="add_spo_link">
 				+</a></li>
 		</ul>
 
@@ -59,9 +60,9 @@ data.SMTPOptions)
 					@helper.CSRF.formField <input type="hidden" name="id"
 						value="@spo.getId()">
 					<div class="form-group">
-						<label for="nameSPO">@Messages("admin.properties.name")</label>
+						<label for="nameSPO-@spo.getId()">@Messages("admin.properties.name")</label>
 						<input type="text" class="form-control" name="nameSPO"
-							id="nameSPO" value="@spo.getName()" required>
+							id="nameSPO-@spo.getId()" value="@spo.getName()" required>
 					</div>
 					<table class="table table-striped">
 						<thead>
@@ -76,34 +77,34 @@ data.SMTPOptions)
 							<tr>
 								<td><input type="checkbox"
 									name="delete-@achievement.getId()"
-									id="delete-@achievement.getId()"></td>
+									id="delete-@achievement.getId()-@spo.getId()"></td>
 								<td>@achievement.getName()</td>
 								<td><input type="checkbox" checked data-toggle="toggle"
 									data-on='@Messages("admin.properties.yes")'
 									data-off='@Messages("admin.properties.no")'
 									data-onstyle="success" data-offstyle="danger"
 									name="necessary-@achievement.getId()"
-									id="necessary-@achievement.getId()"></td>
+									id="necessary-@achievement.getId()-@spo.getId()"></td>
 							</tr>
 							} @for(achievement <- spo.getAdditionalAchievements()) {
 							<tr>
 								<td><input type="checkbox"
 									name="delete-@achievement.getId()"
-									id="delete-@achievement.getId()"></td>
+									id="delete-@achievement.getId()-@spo.getId()"></td>
 								<td>@achievement.getName()</td>
 								<td><input type="checkbox" data-toggle="toggle"
 									data-on='@Messages("admin.properties.yes")'
 									data-off='@Messages("admin.properties.no")'
 									data-onstyle="success" data-offstyle="danger"
 									name="necessary-@achievement.getId()"
-									id="necessary-@achievement.getId()"></td>
+									id="necessary-@achievement.getId()-@spo.getId()"></td>
 							</tr>
 							}
 						</tbody>
 					</table>
 					<div class="form-group">
 						<div class="col-sm-10">
-							<button type="submit" class="btn btn-primary">@Messages("admin.properties.saveSPO")</button>
+							<button type="submit" id="change_spo_submit-@spo.getId()" class="btn btn-primary">@Messages("admin.properties.saveSPO")</button>
 						</div>
 					</div>
 				</form>
@@ -114,9 +115,9 @@ data.SMTPOptions)
 					@helper.CSRF.formField <input type="hidden" name="id"
 						value="@spo.getId()">
 					<div class="form-group">
-						<label for="nameAchiev">@Messages("admin.properties.achievementName")</label>
+						<label for="nameAchiev-@spo.getId()">@Messages("admin.properties.achievementName")</label>
 						<input type="text" class="form-control" name="nameAchiev"
-							id="nameAchiev" required>
+							id="nameAchiev-@spo.getId()" required>
 					</div>
 
 					<div class="form-group">
@@ -155,7 +156,7 @@ data.SMTPOptions)
 				aria-controls="semester-tab-@semester.getId()" role="tab" data-toggle="tab" id="semester-tab-@semester.getId()">
 				@semester.getName()</a></li> }
 			<li role="presentation"><a
-				href="@controllers.routes.AdminPropertiesController.addSemester().path()">
+				id="add_semester_link" href="@controllers.routes.AdminPropertiesController.addSemester().path()">
 				+</a></li>
 		</ul>
 
@@ -172,9 +173,9 @@ data.SMTPOptions)
 						value="@semester.getId()">
 
 					<div class="form-group">
-						<label class="control-label col-sm-2" for="name2">@Messages("admin.properties.name")</label>
+						<label class="control-label col-sm-2" for="name2-@semester.getId()">@Messages("admin.properties.name")</label>
 						<div class="col-sm-3">
-							<input type="text" class="form-control" name="name2" id="name2"
+							<input type="text" class="form-control" name="name2" id="name2-@semester.getId()"
 								value="@semester.getName()" required>
 						</div>
 					</div>
@@ -186,36 +187,36 @@ data.SMTPOptions)
 								data-on='@Messages("admin.properties.winterSemester")'
 								data-off='@Messages("admin.properties.summerSemester")'
 								data-onstyle="success" data-offstyle="danger" data-width="200"
-								name="wintersemester" id="wintersemester">
+								name="wintersemester" id="wintersemester-@semester.getId()">
 						</div>
 					</div>
 
 					<div class="form-group">
-						<label class="control-label col-sm-2" for="info">@Messages("admin.properties.generalInfo")</label>
+						<label class="control-label col-sm-2" for="info-@semester.getId()">@Messages("admin.properties.generalInfo")</label>
 						<div class="col-sm-8">
-							<textarea rows="8" class="form-control" name="info" id="info"
+							<textarea rows="8" class="form-control" name="info" id="info-@semester.getId()"
 								required>@semester.getInfoText()</textarea>
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="control-label col-sm-2" for="maxGroupSize">@Messages("admin.properties.maxGroupSize")</label>
+						<label class="control-label col-sm-2" for="maxGroupSize-@semester.getId()">@Messages("admin.properties.maxGroupSize")</label>
 						<div class="col-sm-3">
 							<input type="number" class="form-control" name="maxGroupSize"
-								id="maxGroupSize" value="@semester.getMaxGroupSize()" required>
+								id="maxGroupSize-@semester.getId()" value="@semester.getMaxGroupSize()" required>
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="control-label col-sm-2" for="registrationStart">@Messages("admin.properties.registrationStart")</label>
+						<label class="control-label col-sm-2" for="registrationStart-@semester.getId()">@Messages("admin.properties.registrationStart")</label>
 						<div class="col-sm-3">
 							<input type="text" class="form-control" name="registrationStart"
-								id="registrationStart"
+								id="registrationStart-@semester.getId()"
 								value='@{val format = new java.text.SimpleDateFormat(
                     "dd.MM.yyyy HH:mm:ss");if(semester.getRegistrationStart() != null) {format.format(semester.getRegistrationStart());}
                     else{format.format(new java.util.Date());}}'
 								required>
 							<script type="text/javascript">
             					$(function () {
-                					$('#registrationStart').datetimepicker({
+                					$('#registrationStart-@semester.getId()').datetimepicker({
                 						format: "DD.MM.YYYY HH:mm:ss"
                 					});
             					});
@@ -224,17 +225,17 @@ data.SMTPOptions)
 					</div>
 
 					<div class="form-group">
-						<label class="control-label col-sm-2" for="registrationEnd">@Messages("admin.properties.registrationEnd")</label>
+						<label class="control-label col-sm-2" for="registrationEnd-@semester.getId()">@Messages("admin.properties.registrationEnd")</label>
 						<div class="col-sm-3">
 							<input type="text" class="form-control" name="registrationEnd"
-								id="registrationEnd"
+								id="registrationEnd-@semester.getId()"
 								value='@{val format = new java.text.SimpleDateFormat(
                     "dd.MM.yyyy HH:mm:ss");if(semester.getRegistrationEnd() != null) {format.format(semester.getRegistrationEnd());}
                     else{format.format(new java.util.Date());}}'
 								required>
 							<script type="text/javascript">
             					$(function () {
-                					$('#registrationEnd').datetimepicker({
+                					$('#registrationEnd-@semester.getId()').datetimepicker({
                 						format: "DD.MM.YYYY HH:mm:ss"
                 					});
             					});
@@ -265,19 +266,19 @@ data.SMTPOptions)
 					</div>
 					<div class="form-group col-sm-offset-2">
 						<div class="checkbox">
-							<label class="control-label col-sm-2" for="semester-active">@Messages("admin.properties.semester")</label><input
+							<label class="control-label col-sm-2" for="semester-active-@semester.getId()">@Messages("admin.properties.semester")</label><input
 								type="checkbox"
 								@if(semester.equals(activeSemester)) {checked} data-toggle="toggle"
 								data-on='@Messages("admin.properties.activ")'
 								data-off='@Messages("admin.properties.inactiv")'
 								data-onstyle="success" data-offstyle="danger" data-width="100"
-								name="semester-active" id="semester-active" class="form-control">
+								name="semester-active" id="semester-active-@semester.getId()" class="form-control">
 						</div>
 					</div>
 
 					<div class="form-group">
 						<div class="col-sm-offset-2 col-sm-10">
-							<button type="submit" class="btn btn-primary">@Messages("admin.properties.saveProperties")</button>
+							<button type="submit" id="change_semester_submit-@semester.getId()" class="btn btn-primary">@Messages("admin.properties.saveProperties")</button>
 						</div>
 					</div>
 				</form>
@@ -358,7 +359,7 @@ data.SMTPOptions)
 			</div>
 			<div class="form-group">
 				<div class="checkbox">
-					<label class="control-label col-sm-2" for="semester-active">@Messages("admin.properties.ssl")</label><input
+					<label class="control-label col-sm-2" for="ssl">@Messages("admin.properties.ssl")</label><input
 						type="checkbox"
 						@if(smtpOptions.getSsl()) {checked} data-toggle="toggle"
 						data-on='@Messages("admin.properties.activ")'
@@ -369,7 +370,7 @@ data.SMTPOptions)
 			</div>
 			<div class="form-group">
 				<div class="checkbox">
-					<label class="control-label col-sm-2" for="semester-active">@Messages("admin.properties.tls")</label><input
+					<label class="control-label col-sm-2" for="tls">@Messages("admin.properties.tls")</label><input
 						type="checkbox"
 						@if(smtpOptions.getTls()) {checked} data-toggle="toggle"
 						data-on='@Messages("admin.properties.activ")'
@@ -380,7 +381,7 @@ data.SMTPOptions)
 			</div>
 			<div class="form-group">
 				<div class="checkbox">
-					<label class="control-label col-sm-2" for="semester-active">@Messages("admin.properties.debug")</label><input
+					<label class="control-label col-sm-2" for="debug">@Messages("admin.properties.debug")</label><input
 						type="checkbox"
 						@if(smtpOptions.getDebug()) {checked} data-toggle="toggle"
 						data-on='@Messages("admin.properties.activ")'

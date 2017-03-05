@@ -40,14 +40,14 @@ Parameter wird die Liste an Projekten und eine Fehlermeldung übergeben.
 				</div></td>
 			@for(rating <- views.RatingDisplay.values()) {
 				@if(data.GeneralData.loadInstance().getCurrentSemester().getLearningGroupOf(student).getRating(project) == rating.getNumber()) {
-					<td><input type="radio" checked name="@project.getId()" value="@rating.getNumber()"></td>
+					<td><input type="radio" checked name="@project.getId()" id="@project.getId()-@rating.getNumber()" value="@rating.getNumber()"></td>
 				} else {
-					<td><input type="radio" name="@project.getId()" value="@rating.getNumber()"></td>
+					<td><input type="radio" name="@project.getId()" id="@project.getId()-@rating.getNumber()" value="@rating.getNumber()"></td>
 				}
 			}
 		</tr>
 		}
 	</tbody>
 </table>
-	<button type="submit" class="btn btn-primary">@Messages("student.rating.submit")</button>
+	<button type="submit" id="submit_rate" class="btn btn-primary">@Messages("student.rating.submit")</button>
 </form>

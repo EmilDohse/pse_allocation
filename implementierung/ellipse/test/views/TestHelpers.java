@@ -76,7 +76,7 @@ public class TestHelpers {
         StateStorage.getInstance().initStateChanging(
                 semester.getRegistrationStart(), semester.getRegistrationEnd());
         try {
-            Thread.sleep(100); // TODO: Besser??? Warten auf StateChange
+            Thread.sleep(100);
         } catch (InterruptedException e) {
         }
     }
@@ -145,6 +145,18 @@ public class TestHelpers {
             semester.addProject(project);
         });
         return project.getId();
+    }
+
+    /**
+     * Diese Methode erstellt Projekte.
+     * 
+     * @param number
+     *            die Anzahl der zu erstellenden Projekte
+     */
+    public static void createProjects(int number) {
+        IntStream.rangeClosed(1, number).forEach((num) -> {
+            createProject("Projekt " + num);
+        });
     }
 
     /**

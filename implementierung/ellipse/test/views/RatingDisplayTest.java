@@ -4,8 +4,17 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
+/**
+ * Test für Enumeration RatingDisplay
+ * 
+ * @author daniel
+ *
+ */
 public class RatingDisplayTest {
 
+    /**
+     * Testet getNumberTest()
+     */
     @Test
     public void getNumberTest() {
         assertEquals(1, RatingDisplay.ONE.getNumber());
@@ -15,6 +24,9 @@ public class RatingDisplayTest {
         assertEquals(5, RatingDisplay.FIVE.getNumber());
     }
 
+    /**
+     * Testet getRepresentationTest()
+     */
     @Test
     public void getRepresentationTest() {
         assertEquals("--", RatingDisplay.ONE.getRepresentation());
@@ -24,6 +36,9 @@ public class RatingDisplayTest {
         assertEquals("++", RatingDisplay.FIVE.getRepresentation());
     }
 
+    /**
+     * Testet getRepresentationByNumberTest()
+     */
     @Test
     public void getRepresentationByNumberTest() {
         assertEquals("--", RatingDisplay.getRepresentationByNumber(1));
