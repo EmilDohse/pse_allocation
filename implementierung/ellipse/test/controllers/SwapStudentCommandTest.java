@@ -11,6 +11,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import data.Allocation;
+import data.AllocationParameter;
 import data.GeneralData;
 import data.Semester;
 import data.Student;
@@ -61,7 +62,8 @@ public class SwapStudentCommandTest extends ControllerTest {
             allocation.setTeams(teams);
         });
 
-        command = new SwapStudentCommand(allocation, firstStudent, secondStudent);
+        command = new SwapStudentCommand(allocation, firstStudent,
+                secondStudent);
     }
 
     /**
@@ -113,19 +115,21 @@ public class SwapStudentCommandTest extends ControllerTest {
     /**
      * Test für das Rückgängigmachen eines Löschvorgangs.
      * 
-     * Funktioniert nicht, da EBean Probleme mit der TestDatenbank hat.
-     * 
      * @throws AllocationEditUndoException
      *             AllocationEditUndoException.
      */
-    @Ignore
     @Test(expected = AllocationEditUndoException.class)
     public void undoExceptionDeletedTest() throws AllocationEditUndoException {
         command.execute();
-        firstStudent.delete();
-        secondStudent.delete();
-        firstTeam.delete();
-        secondTeam.delete();
+
+        for (Team t : allocation.getTeams()) {
+            t.doTransaction(() -> {
+                t.setMembers(new ArrayList<Student>());
+            });
+        }
+        allocation.doTransaction(() -> {
+            allocation.setParameters(new ArrayList<AllocationParameter>());
+        });
         allocation.delete();
         command.undo();
     }
