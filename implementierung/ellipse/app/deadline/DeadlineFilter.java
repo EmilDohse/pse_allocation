@@ -8,7 +8,6 @@ import java.util.function.Function;
 import javax.inject.Inject;
 
 import akka.stream.Materializer;
-import controllers.IndexPageController;
 import play.mvc.Call;
 import play.mvc.Filter;
 import play.mvc.Http.RequestHeader;
@@ -151,15 +150,13 @@ public class DeadlineFilter extends Filter {
         String path = requestHeader.path();
         Call call;
         switch (StateStorage.getInstance().getCurrentState()) {
-        case BEFORE_REGISTRATION_PHASE:
-            call = beforeRegistration.get(path);
-            break;
         case REGISTRATION_PHASE:
             call = duringRegistration.get(path);
             break;
         case AFTER_REGISTRATION_PHASE:
             call = afterRegistration.get(path);
             break;
+        case BEFORE_REGISTRATION_PHASE:
         default:
             call = beforeRegistration.get(path);
             break;

@@ -495,6 +495,12 @@ public class Semester extends ElipseModel implements Comparable<Semester> {
                 .orElse(null);
     }
 
+    /**
+     * Vergleicht die Semester anahnd ihres Namens.
+     * 
+     * !!!Achtung!!! Die Ordnung, die durch die Namen gegeben ist, ist NICHT
+     * notwendigerweise im Einklang mit equals().
+     */
     @Override
     public int compareTo(Semester o) {
         return name.compareTo(o.getName());

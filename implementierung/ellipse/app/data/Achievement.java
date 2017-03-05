@@ -79,6 +79,12 @@ public class Achievement extends ElipseModel
                 .findUnique();
     }
 
+    /**
+     * Vergleicht die Leistungen anhand ihrer Namen.
+     * 
+     * !!!Achtung!!! Die Ordnung, die durch die Namen gegeben ist, ist NICHT
+     * notwendigerweise im Einklang mit equals().
+     */
     @Override
     public int compareTo(Achievement o) {
         return name.compareTo(o.getName());

@@ -126,4 +126,9 @@ public class Configuration {
         }
         return false;
     }
+
+    @Override
+    public int hashCode() {
+        return this.getName().hashCode();
+    }
 }
