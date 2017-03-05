@@ -36,6 +36,10 @@ import play.mvc.Http.Context;
 import security.BlowfishPasswordEncoder;
 import security.UserManagement;
 
+/**
+ * Testklasse zum StudentPageController
+ * 
+ */
 @RunWith(MockitoJUnitRunner.class)
 public class StudentPageControllerTest extends ControllerTest {
 
@@ -61,6 +65,9 @@ public class StudentPageControllerTest extends ControllerTest {
     private Project                 secondProject;
     private BlowfishPasswordEncoder enc;
 
+    /**
+     * Legt alle Daten für die Tests an
+     */
     @Override
     @Before
     public void before() {
@@ -108,6 +115,9 @@ public class StudentPageControllerTest extends ControllerTest {
         student.refresh();
     }
 
+    /**
+     * Testet die Methode changeData
+     */
     @Test
     public void changeDataTest() {
         Map<String, String> map = new HashMap<>();
@@ -164,6 +174,53 @@ public class StudentPageControllerTest extends ControllerTest {
         });
     }
 
+    /**
+     * Testet die Methode changeData, wenn TrueData nicht gesetzt ist
+     */
+    @Test
+    public void changeDataNotTrueDataTest() {
+        Map<String, String> map = new HashMap<>();
+        map.put("completed-" + spo.getId() + "-multiselect",
+                String.valueOf(achievNecessary.getId()));
+        map.put("due-" + spo.getId() + "-multiselect",
+                String.valueOf(achievAdditional.getId()));
+        when(form.data()).thenReturn(map);
+
+        student.doTransaction(() -> {
+            student.setSemester(1);
+        });
+        int studySemester = 2;
+        when(form.get("semester")).thenReturn(String.valueOf(studySemester));
+        when(form.get("spo")).thenReturn(String.valueOf(spo.getId()));
+        when(form.get("trueData")).thenReturn(null);
+        when(form.data()).thenReturn(map);
+
+        when(userManagement.getUserProfile(any())).thenReturn(student);
+
+        // Change Data findet einmal am Anfang des neuen Semesters statt
+        Semester newSemester = new Semester();
+        newSemester.doTransaction(() -> {
+            newSemester.addSPO(spo);
+            newSemester.addProject(firstProject);
+            newSemester.addProject(secondProject);
+        });
+
+        GeneralData data = GeneralData.loadInstance();
+        data.doTransaction(() -> {
+            data.setCurrentSemester(newSemester);
+        });
+
+        when(messages.at("error.registration.trueDate")).thenReturn("error");
+
+        controller.changeData();
+
+        assertTrue(Context.current().flash().containsValue("error"));
+
+    }
+
+    /**
+     * Testet, ob die Methode changeData fehlschlägt mit falschen Eingabedaten
+     */
     @Test
     public void changeDataValidationExceptionSemesterIdTest() {
         Map<String, String> map = new HashMap<>();
@@ -205,6 +262,9 @@ public class StudentPageControllerTest extends ControllerTest {
 
     }
 
+    /**
+     * Testet, ob die Methode changeData fehlschlägt mit falschen Eingabedaten
+     */
     @Test
     public void changeDataValidationExceptionCompletedAchievementIdTest() {
         Map<String, String> map = new HashMap<>();
@@ -245,6 +305,9 @@ public class StudentPageControllerTest extends ControllerTest {
 
     }
 
+    /**
+     * Testet, ob die Methode changeData fehlschlägt mit falschen Eingabedaten
+     */
     @Test
     public void changeDataValidationExceptionDueAchievementIdTest() {
         Map<String, String> map = new HashMap<>();
@@ -285,6 +348,9 @@ public class StudentPageControllerTest extends ControllerTest {
 
     }
 
+    /**
+     * Testet die Methode rate
+     */
     @Test
     public void rateTest() {
         when(userManagement.getUserProfile(any())).thenReturn(student);
@@ -305,6 +371,9 @@ public class StudentPageControllerTest extends ControllerTest {
 
     }
 
+    /**
+     * Testet die Methode setLearningGroup ohne Aktion zum weiterverlinken
+     */
     @Test
     public void setLearningGroupNoActionTest() {
 
@@ -321,6 +390,9 @@ public class StudentPageControllerTest extends ControllerTest {
         assertTrue(Context.current().flash().containsValue("error"));
     }
 
+    /**
+     * Testet die Methode joinLearningGroup
+     */
     @Test
     public void joinLearningGroupTest() {
         when(userManagement.getUserProfile(any())).thenReturn(student);
@@ -353,6 +425,9 @@ public class StudentPageControllerTest extends ControllerTest {
 
     }
 
+    /**
+     * Testet die Methode joinLearningGroup mit falschen Eingabedaten
+     */
     @Test
     public void joinLearningGroupValidationExceptionTest() {
         when(userManagement.getUserProfile(any())).thenReturn(student);
@@ -384,6 +459,10 @@ public class StudentPageControllerTest extends ControllerTest {
 
     }
 
+    /**
+     * Testet die Methode joinLearningGroup mit einem unbekannten
+     * Lerngruppennamen
+     */
     @Test
     public void joinLearningGroupUnknownLearningGroupNameTest() {
         when(userManagement.getUserProfile(any())).thenReturn(student);
@@ -417,6 +496,9 @@ public class StudentPageControllerTest extends ControllerTest {
 
     }
 
+    /**
+     * Testet die Methode joinLearningGroup, wenn die Lerngruppe schon voll ist
+     */
     @Test
     public void joinLearningGroupTooManyMembersTest() {
         when(userManagement.getUserProfile(any())).thenReturn(student);
@@ -450,6 +532,10 @@ public class StudentPageControllerTest extends ControllerTest {
 
     }
 
+    /**
+     * Testet die Methode joinLearningGroup, wenn der Student schon in einer
+     * Lerngruppe ist
+     */
     @Test
     public void joinLearningGroupAlreadyInLearningGroupTest() {
         when(userManagement.getUserProfile(any())).thenReturn(secondStudent);
@@ -482,6 +568,9 @@ public class StudentPageControllerTest extends ControllerTest {
 
     }
 
+    /**
+     * Testet die Methode joinLearningGroup, wenn die Lerngruppe privat ist
+     */
     @Test
     public void joinLearningGroupPrivateTest() {
         when(userManagement.getUserProfile(any())).thenReturn(student);
@@ -515,6 +604,9 @@ public class StudentPageControllerTest extends ControllerTest {
 
     }
 
+    /**
+     * Testet die Methode joinLearningGroup mit falschem Passwort
+     */
     @Test
     public void joinLearningGroupWrongPasswordTest() {
         when(userManagement.getUserProfile(any())).thenReturn(student);
@@ -547,6 +639,9 @@ public class StudentPageControllerTest extends ControllerTest {
 
     }
 
+    /**
+     * Testet die Methode createLearningGroup
+     */
     @Test
     public void createLearningGroupTest() {
         when(userManagement.getUserProfile(any())).thenReturn(student);
@@ -573,6 +668,10 @@ public class StudentPageControllerTest extends ControllerTest {
 
     }
 
+    /**
+     * Testet die Methode createLearningGroup, wenn der Student davor schon in
+     * einer Lerngruppe ist
+     */
     @Test
     public void leaveLearningGroupTest() {
         when(userManagement.getUserProfile(any())).thenReturn(student);
@@ -648,6 +747,9 @@ public class StudentPageControllerTest extends ControllerTest {
 
     }
 
+    /**
+     * Testet die Methode createLearningGroup mit unerlaubten Lerngruppennamen
+     */
     @Test
     public void createLearningGroupIllegalNameTest() {
         when(userManagement.getUserProfile(any())).thenReturn(student);
@@ -670,6 +772,10 @@ public class StudentPageControllerTest extends ControllerTest {
 
     }
 
+    /**
+     * Testet die Methode createLearningGroup mit unerlaubtem
+     * Lerngruppenpasswort
+     */
     @Test
     public void createLearningGroupIllegalPasswordTest() {
         when(userManagement.getUserProfile(any())).thenReturn(student);
@@ -692,6 +798,10 @@ public class StudentPageControllerTest extends ControllerTest {
 
     }
 
+    /**
+     * Testet die Methode createLearningGroup, wenn bereits eine Lerngruppe mit
+     * dem selben Namen existiert
+     */
     @Test
     public void createLearningGroupAlreadyExistsTest() {
         when(userManagement.getUserProfile(any())).thenReturn(student);
@@ -718,6 +828,9 @@ public class StudentPageControllerTest extends ControllerTest {
 
     }
 
+    /**
+     * Testet die Methode editAccount
+     */
     @Test
     public void editAccountTest() {
         when(userManagement.getUserProfile(any())).thenReturn(student);
@@ -747,6 +860,9 @@ public class StudentPageControllerTest extends ControllerTest {
         assertEquals(newEmail, student.getEmailAddress());
     }
 
+    /**
+     * Testet die Methode editAccount mit unerlaubtem Passwort
+     */
     @Test
     public void editAccountIllegalPasswordTest() {
         when(userManagement.getUserProfile(any())).thenReturn(student);
@@ -777,6 +893,9 @@ public class StudentPageControllerTest extends ControllerTest {
 
     }
 
+    /**
+     * Testet die Methode editAccount mit falschem Passwort
+     */
     @Test
     public void editAccountWrongPasswordTest() {
         when(userManagement.getUserProfile(any())).thenReturn(student);
@@ -807,6 +926,9 @@ public class StudentPageControllerTest extends ControllerTest {
 
     }
 
+    /**
+     * Testet die Methode editAccount mit falschem wiederholtem Passwort
+     */
     @Test
     public void editAccountWrongPasswordRepeatTest() {
         when(userManagement.getUserProfile(any())).thenReturn(student);
@@ -836,6 +958,9 @@ public class StudentPageControllerTest extends ControllerTest {
 
     }
 
+    /**
+     * Testet die Methode editAccount mit unerlaubter Email-Adresse
+     */
     @Test
     public void editAccountIllegalEmailTest() {
         when(userManagement.getUserProfile(any())).thenReturn(student);
@@ -865,6 +990,9 @@ public class StudentPageControllerTest extends ControllerTest {
 
     }
 
+    /**
+     * Testet die Methode sendNewVerificationLink
+     */
     @Test
     public void sendNewVerificationLink() throws AddressException, IOException,
             MessagingException, EmailException {

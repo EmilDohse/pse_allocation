@@ -14,6 +14,7 @@ import org.apache.commons.mail.EmailException;
 import com.google.inject.Inject;
 
 import data.Allocation;
+import data.AllocationParameter;
 import data.ElipseModel;
 import data.GeneralData;
 import data.Semester;
@@ -121,11 +122,11 @@ public class AdminEditAllocationController extends Controller {
                     .resultsPage());
         }
 
-
         // Prüfe, ob genau zwei Studenten ausgewählt wurden
         if (ids.size() != 2) {
             flash(ERROR, ctx().messages().at("error.twoStudentsSelected"));
-            return redirect(controllers.routes.AdminPageController.resultsPage());
+            return redirect(controllers.routes.AdminPageController
+                    .resultsPage());
 
         }
 
@@ -175,7 +176,6 @@ public class AdminEditAllocationController extends Controller {
             return redirect(controllers.routes.AdminPageController
                     .resultsPage());
         }
-
 
         List<Student> students = new ArrayList<>();
         for (int id : ids) {
@@ -340,6 +340,14 @@ public class AdminEditAllocationController extends Controller {
             }
 
             // Lösche die Einteilung
+            for (Team t : allocation.getTeams()) {
+                t.doTransaction(() -> {
+                    t.setMembers(new ArrayList<Student>());
+                });
+            }
+            allocation.doTransaction(() -> {
+                allocation.setParameters(new ArrayList<AllocationParameter>());
+            });
             allocation.delete();
             return redirect(controllers.routes.AdminPageController
                     .resultsPage());
