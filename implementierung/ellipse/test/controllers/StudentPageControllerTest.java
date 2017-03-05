@@ -2,6 +2,7 @@ package controllers;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.when;
@@ -23,7 +24,6 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import play.mvc.Http.Context;
 import data.Achievement;
 import data.GeneralData;
 import data.LearningGroup;
@@ -32,6 +32,7 @@ import data.SPO;
 import data.Semester;
 import data.Student;
 import notificationSystem.Notifier;
+import play.mvc.Http.Context;
 import security.BlowfishPasswordEncoder;
 import security.UserManagement;
 
@@ -666,6 +667,64 @@ public class StudentPageControllerTest extends ControllerTest {
         assertTrue(enc.matches(password, lg.getPassword()));
 
     }
+
+    /**
+     * Testet leaveLearningGroup(), wenn ein Student der einzige in einer
+     * Lerngruppe ist und diese verlässt.
+     */
+    @Test
+    public void leaveLearningGroupTest() {
+        when(userManagement.getUserProfile(any())).thenReturn(student);
+
+        Map<String, String> map = new HashMap<>();
+        map.put("1", "1");
+        when(form.data()).thenReturn(map);
+        learningGroup.doTransaction(() -> learningGroup.setPrivate(false));
+
+        controller.leaveLearningGroup();
+
+        semester.refresh();
+        LearningGroup lg = semester.getLearningGroupOf(student);
+        lg.refresh();
+
+        assertFalse(lg.equals(learningGroup));
+        assertTrue(lg.isPrivate());
+        assertEquals(student.getUserName(), lg.getName());
+        learningGroup.getRatings().forEach(r -> {
+            int newRating = lg.getRating(r.getProject());
+            assertEquals(r.getRating(), newRating);
+        });
+        assertNull(LearningGroup.getById(LearningGroup.class,
+                learningGroup.getId()));
+    }
+
+    /**
+     * Testet leaveLearningGroup(), wenn ein Student versucht, seine private
+     * Lerngruppe zu verlassen.
+     */
+    @Test
+    public void leavePrivateLearningGroupTest() {
+        when(userManagement.getUserProfile(any())).thenReturn(student);
+
+        Map<String, String> map = new HashMap<>();
+        map.put("1", "1");
+        when(form.data()).thenReturn(map);
+
+        controller.leaveLearningGroup();
+
+        semester.refresh();
+        LearningGroup lg = semester.getLearningGroupOf(student);
+        lg.refresh();
+
+        assertEquals(lg, learningGroup);
+        assertTrue(lg.isPrivate());
+        learningGroup.getRatings().forEach(r -> {
+            int newRating = lg.getRating(r.getProject());
+            assertEquals(r.getRating(), newRating);
+        });
+
+    }
+
 
     /**
      * Testet die Methode createLearningGroup, wenn der Student davor schon in
