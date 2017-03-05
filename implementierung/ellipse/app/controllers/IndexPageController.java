@@ -196,12 +196,8 @@ public class IndexPageController extends Controller {
                                 .getVerificationCode(student);
                         // Versuche Verifikationsmail zu schicken.
                         try {
-                            String protocol;
-                            if (request().secure()) {
-                                protocol = "https://";
-                            } else {
-                                protocol = "http://";
-                            }
+                            String protocol = request().secure() ? "https://"
+                                    : "http://";
                             String url = request().host()
                                     + controllers.routes.IndexPageController
                                             .verificationPage(verificationCode)
@@ -367,9 +363,6 @@ public class IndexPageController extends Controller {
         case BEFORE_REGISTRATION_PHASE:
             flash("info", ctx().messages()
                     .at("index.beforeRegistration.actionNotAllowed"));
-            break;
-        case REGISTRATION_PHASE:
-            flash("info", ctx().messages().at("state.actionNotAllowed"));
             break;
         case AFTER_REGISTRATION_PHASE:
             flash("info", ctx().messages()
