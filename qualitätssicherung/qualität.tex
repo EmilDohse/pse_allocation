@@ -109,8 +109,21 @@ eine Assozation zu der eigentlich gelöschten privaten Lerngruppe hat. Da es sic
 um eine One-To-One Assozition handelt kommt es zur persistence-Exception beim
 Versuch eine neue private Lerngruppe hinzuzufügen }{Wir entfernen die
 Assoziation nun manuell.}
-\item \fehler{Ebean Fehler: Projekte}{Wenn die folgenden Aktionen
-nacheinander ausgeführt werden kam es zu einer persistence-Exception:}{}{}
+\item \fehler{Ebean Fehler: Projekte als Betreuer erstellen}{Wenn die folgenden
+Aktionen nacheinander, von einem Betreuer ausgeführt wurden kam es zu einer
+persistence-Exception:
+\begin{enumerate}
+  \item Löschen eines Projekts bei dem der Betreuer als Projektbetreuer
+  eingetragen ist
+  \item Erstellen eines Projekts durch den Betreuer
+\end{enumerate}}{Es handelt sich wieder um ein Problem mit Cascade-Types und
+Ebean. Wenn ein Projekt gelöscht wird löscht Ebean die Assoziation zum
+Betreuer nicht. Beim Erstellen eines neuen Projekts duŕch den Betreuer
+\enquote{bemerkt} Ebean nun das das alte Projekt nicht mehr existert und wirft
+die Fehlermeldung. An sich sollte es hier sogar möglich sein, als Betreuer mehr
+als einem Projekt zugeordnet zu sein (die Betreuer-Projekt Beziehung ist
+One-To-Many) }{Durch das manuelle Entfernen der Assoziation Projekt-Betreuer
+bei der Löschung des Projekts kommt es nun nicht mehr zu dem Fehler. }
 \end{itemize}
 \subsection{Concurrency}
 \begin{itemize}
@@ -222,6 +235,27 @@ Registrierungszeit geändert werden.}
 \item \verbesserung{GUI verschönert}{Die GUI hatte zwar funktioniert war
 jedoch an einigen Stellen nicht all zu schön.}{Nun ist die GUI wundeschön.}%TODO
 %ollen wir das überhaut erwähnen
+\item \verbesserung{Ausssagekräftige Fehlermeldungen}{Während der
+Implementierungsphase wurden einige Randfälle noch durch die Fehlermeldung
+\enquote{Unerwarteter, interner Serverfehler} angezeigt, auch wenn diese
+Fehler einen bekannten Grund hatten.}{Nun wird beim auftreten der Fehler (z.B.
+bei fehlerhaften Eingaben) eine aussagekräftige Fehlermeldung ausgegeben. }
+\end{itemize}
+\section{Statistiken}
+Als ein Produkt mit einer graphischen Benutzeroberfläche war es leider nicht
+möglich eine hundertprozentige Codeüberdeckung, mit automatisierten Tests, zu
+erreichen. Es gab bei den folgenden packages Probleme:
+\begin{itemize}
+  \item \textbf{\code{controllers:}} jegliche Art von Controller stellte sich
+  als schwierig testbar heraus, da das mocking oft nur schwer und teilweise gar
+  nicht funktionierte. So schafften wir es nicht das hoch- und herunterladen von
+  Dateien im \code{AdminImportExportController} zu mocken.
+  \item \textbf{\code{allocation:}} wir verwenden bei der Einteilungsberechnung
+  einen heuristischen, nicht deterministischen ILP-Solver. Daher beeinflussen
+  die einstellbaren Kriterien ein Ergebniss zwar stark in eine Richtung
+  erzwingen es jedoch nicht. Unsere Test der Kriterien sind daher nur eine
+  notwendige jedoch keine hinreichende Bedingung für die Funktion der
+  Einteilungsberechnung. 
 \end{itemize}
 
 

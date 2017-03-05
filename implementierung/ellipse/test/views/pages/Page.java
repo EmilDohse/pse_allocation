@@ -1,7 +1,6 @@
 package views.pages;
 
 import static org.junit.Assert.assertTrue;
-
 import org.fluentlenium.core.FluentPage;
 
 import play.test.TestBrowser;

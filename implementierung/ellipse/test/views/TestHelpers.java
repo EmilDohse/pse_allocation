@@ -19,6 +19,9 @@ import data.Student;
 import data.Team;
 import deadline.StateStorage;
 
+/**
+ * Diese Klasse beinhaltet Hilfsmethoden zur Initialisierung von Testdaten.
+ */
 public class TestHelpers {
 
     public static final String ADMIN_USERNAME = "admin";
@@ -27,6 +30,10 @@ public class TestHelpers {
 
     }
 
+    /**
+     * Diese Methode setzte den PSE-Status auf
+     * "Registrierungsphase noch nicht begonnen".
+     */
     public static void setStateToBeforeRegistration() {
         Semester semester = GeneralData.loadInstance().getCurrentSemester();
         Instant i = Instant.now();
@@ -37,6 +44,9 @@ public class TestHelpers {
         initStateChange();
     }
 
+    /**
+     * Diese Methode setzt den PSE-Status auf "In der Registrierungsphase".
+     */
     public static void setStateToRegistration() {
         Semester semester = GeneralData.loadInstance().getCurrentSemester();
         Instant i = Instant.now();
@@ -47,6 +57,9 @@ public class TestHelpers {
         initStateChange();
     }
 
+    /**
+     * Diese Methode setzt den PSE-Status auf "Registrierungsphase beendet".
+     */
     public static void setStateToAfterRegistration() {
         Semester semester = GeneralData.loadInstance().getCurrentSemester();
         Instant i = Instant.now();
@@ -57,29 +70,44 @@ public class TestHelpers {
         initStateChange();
     }
 
+    /**
+     * Diese Methode initialisiert eine Statusänderung.
+     */
     private static void initStateChange() {
         Semester semester = GeneralData.loadInstance().getCurrentSemester();
-        StateStorage.getInstance().initStateChanging(
-                semester.getRegistrationStart(), semester.getRegistrationEnd());
+        StateStorage.getInstance().initStateChanging(semester.getRegistrationStart(), semester.getRegistrationEnd());
         try {
             Thread.sleep(100); // TODO: Besser??? Warten auf StateChange
         } catch (InterruptedException e) {
         }
     }
 
+    /**
+     * Diese Methode erstellt einen default admin.
+     */
     public static void createAdmin() {
-        Administrator admin = new Administrator(ADMIN_USERNAME, "", "a@kit.edu",
-                "admin", "admin");
+        Administrator admin = new Administrator(ADMIN_USERNAME, "", "a@kit.edu", "admin", "admin");
         admin.save();
         admin.doTransaction(() -> {
             admin.savePassword(Administrator.START_PASSWORD);
         });
     }
 
-    public static int createAdviser(String firstName, String lastName,
-            String email, String password) {
-        Adviser adviser = new Adviser(email, password, email, firstName,
-                lastName);
+    /**
+     * Diese Methode erstellt einen Betreuer.
+     * 
+     * @param firstName
+     *            Vorname des Betreurs.
+     * @param lastName
+     *            Nachname des Betreuers.
+     * @param email
+     *            Die Email-Adresse des Betreuers.
+     * @param password
+     *            Das Passwort des Betreurs.
+     * @return Die ID des Betreuers.
+     */
+    public static int createAdviser(String firstName, String lastName, String email, String password) {
+        Adviser adviser = new Adviser(email, password, email, firstName, lastName);
         adviser.save();
         adviser.doTransaction(() -> {
             adviser.savePassword(password);
@@ -87,10 +115,26 @@ public class TestHelpers {
         return adviser.getId();
     }
 
+    /**
+     * Diese Methode erstellt einen Betreuer.
+     * 
+     * @param email
+     *            Die Email-Adresse der Betreuers.
+     * @param password
+     *            Das Passwort des Betreuers.
+     * @return Die ID des Betreuers.
+     */
     public static int createAdviser(String email, String password) {
         return createAdviser("AdviserFirst", "AdviserLast", email, password);
     }
 
+    /**
+     * Diese Methode erstellt ein Projekt.
+     * 
+     * @param name
+     *            Der Name des Projektes.
+     * @return Die Projekt-ID.
+     */
     public static int createProject(String name) {
         Project project = new Project(name, "", "", "");
         project.save();
@@ -101,6 +145,15 @@ public class TestHelpers {
         return project.getId();
     }
 
+    /**
+     * Diese Methode lässt einen Betreuer einem Projekt beitreten.
+     * 
+     * @param name
+     *            Der Name des Projektes.
+     * @param advId
+     *            Die ID des Betreuers.
+     * @return Die ID des Projektes.
+     */
     public static int createAndJoinProject(String name, int advId) {
         int id = createProject(name);
         Project p = ElipseModel.getById(Project.class, id);
@@ -110,8 +163,19 @@ public class TestHelpers {
         return id;
     }
 
-    public static void createDataSetForAllocation(int numProjects,
-            int numStudents, int minTeamSize, int maxTeamSize) {
+    /**
+     * Diese Methode erstellt einen Datensatz für eine Einteilung.
+     * 
+     * @param numProjects
+     *            Anzahl der Projekte.
+     * @param numStudents
+     *            Anzahl der Studenten.
+     * @param minTeamSize
+     *            Minimale Teamgröße.
+     * @param maxTeamSize
+     *            Maximale Teamgröße.
+     */
+    public static void createDataSetForAllocation(int numProjects, int numStudents, int minTeamSize, int maxTeamSize) {
         Semester semester = GeneralData.loadInstance().getCurrentSemester();
         IntStream.rangeClosed(1, numProjects).forEach((number) -> {
             Project project = new Project();
@@ -139,6 +203,14 @@ public class TestHelpers {
         });
     }
 
+    /**
+     * Diese Methode erstellt einen Studenten.
+     * 
+     * @param matrnr
+     *            Die Matrikelnummer des Studenten.
+     * @param password
+     *            Das Passwort des Studenten.
+     */
     public static void createStudent(int matrnr, String password) {
         Semester semester = GeneralData.loadInstance().getCurrentSemester();
         Student student = new Student();
@@ -157,8 +229,7 @@ public class TestHelpers {
             l.addMember(student);
             l.setPrivate(true);
             // Ratings initialisieren
-            for (Project p : GeneralData.loadInstance().getCurrentSemester()
-                    .getProjects()) {
+            for (Project p : GeneralData.loadInstance().getCurrentSemester().getProjects()) {
                 l.rate(p, 3);
             }
         });
@@ -168,8 +239,16 @@ public class TestHelpers {
         });
     }
 
-    public static LearningGroup createLearningGroup(String name,
-            String password) {
+    /**
+     * Diese Mathode erstellt eine Lerngruppe.
+     * 
+     * @param name
+     *            Der Name der Lerngruppe.
+     * @param password
+     *            Das Passwort der Lerngruppe.
+     * @return Die erstellte Lerngruppe.
+     */
+    public static LearningGroup createLearningGroup(String name, String password) {
         Semester semester = GeneralData.loadInstance().getCurrentSemester();
 
         LearningGroup l = new LearningGroup(name, "");
@@ -178,8 +257,7 @@ public class TestHelpers {
             l.savePassword(password);
             l.setPrivate(false);
             // Ratings initialisieren
-            for (Project p : GeneralData.loadInstance().getCurrentSemester()
-                    .getProjects()) {
+            for (Project p : GeneralData.loadInstance().getCurrentSemester().getProjects()) {
                 l.rate(p, 3);
             }
         });
@@ -189,6 +267,13 @@ public class TestHelpers {
         return l;
     }
 
+    /**
+     * Diese Methode erstellt eine Lerngruppe und lässt ihr einen Studenten
+     * beitreten.
+     * 
+     * @param matrnr
+     *            Die Matrikelnummer des Studenten.
+     */
     public static void createAndJoinLearningGroup(int matrnr) {
         Semester semester = GeneralData.loadInstance().getCurrentSemester();
         Student student = Student.getStudent(matrnr);
@@ -203,10 +288,20 @@ public class TestHelpers {
         });
     }
 
+    /**
+     * Diese Methode ertellt einen DatenSatz für eine Einteilung.
+     */
     public static void createDataSetForAllocation() {
         createDataSetForAllocation(1, 2, 1, 2);
     }
 
+    /**
+     * Diese Methode erstellt einen SPO.
+     * 
+     * @param name
+     *            Der Name der SPO.
+     * @return Die ID der SPO.
+     */
     public static int createSpo(String name) {
         SPO spo = new SPO(name);
         spo.save();
