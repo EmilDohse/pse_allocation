@@ -18,6 +18,16 @@ public class AdminAccountPage extends Page {
         return "/admin/account";
     }
 
+    /**
+     * Diese Methode befüllt die Passwort-Ändern Form.
+     * 
+     * @param browser
+     *            Der TestBrowser.
+     * @param oldPw
+     *            Das alte Passwort.
+     * @param newPw
+     *            Das neue Passwort.
+     */
     public void fillAndSubmitChangePwForm(TestBrowser browser, String oldPw, String newPw) {
         browser.$("#oldPassword").first().fill().with(oldPw);
         browser.$("#newPassword").first().fill().with(newPw);
