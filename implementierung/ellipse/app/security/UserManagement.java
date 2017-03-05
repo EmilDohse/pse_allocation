@@ -35,7 +35,12 @@ public class UserManagement {
         ProfileManager<UserProfile<T>> profileManager = new ProfileManager<>(
                 webContext);
         Optional<UserProfile<T>> profile = profileManager.get(true);
-        return profile.get().getUser();
+        if (profile.isPresent()) {
+            return profile.get().getUser();
+        } else {
+            return null;
+        }
+
     }
 
     /**
@@ -52,7 +57,8 @@ public class UserManagement {
         ProfileManager<UserProfile<Student>> profileManager = new ProfileManager<>(
                 webContext);
         Optional<UserProfile<Student>> profile = profileManager.get(true);
-        if (profile.get().getRoles().contains("ROLE_STUDENT_OLD")) {
+        if (profile.isPresent()
+                && profile.get().getRoles().contains("ROLE_STUDENT_OLD")) {
             profile.get().addRole("ROLE_STUDENT");
             profileManager.save(true, profile.get(), false);
         }

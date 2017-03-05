@@ -285,6 +285,12 @@ public class Project extends ElipseModel implements Comparable<Project> {
         return semester;
     }
 
+    /**
+     * Vergleicht die Projekte anhand ihres Namens.
+     * 
+     * !!!Achtung!!! Die Ordnung, die durch die Namen gegeben ist, ist NICHT
+     * notwendigerweise im Einklang mit equals().
+     */
     @Override
     public int compareTo(Project o) {
         return name.compareTo(o.getName());
