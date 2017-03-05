@@ -25,6 +25,7 @@ import data.Adviser;
 import data.Allocation;
 import data.GeneralData;
 import data.Project;
+import data.SMTPOptions;
 import data.Semester;
 import data.Student;
 import data.Team;
@@ -84,7 +85,6 @@ public class NotifierTest extends WithApplication {
      * @throws MessagingException
      */
     @Test
-    @Ignore
     public void testNotifiyStudent()
             throws EmailException, IOException, MessagingException {
         Student student = new Student();
@@ -114,7 +114,6 @@ public class NotifierTest extends WithApplication {
      * @throws MessagingException
      */
     @Test
-    @Ignore
     public void testNotifyAdviser()
             throws EmailException, IOException, MessagingException {
         Adviser adviser = new Adviser();
@@ -148,7 +147,6 @@ public class NotifierTest extends WithApplication {
      * @throws MessagingException
      */
     @Test
-    @Ignore
     public void testSendAdviserPassword()
             throws EmailException, IOException, MessagingException {
         Adviser adviser = new Adviser();
@@ -167,7 +165,6 @@ public class NotifierTest extends WithApplication {
     }
 
     @Test
-    @Ignore
     public void testSendVerificationMail()
             throws EmailException, MessagingException, IOException {
         Student student = new Student();
@@ -181,7 +178,6 @@ public class NotifierTest extends WithApplication {
     }
 
     @Test
-    @Ignore
     public void testSendVerifyNewPassword()
             throws EmailException, MessagingException, IOException {
         Student student = new Student();
@@ -195,7 +191,6 @@ public class NotifierTest extends WithApplication {
     }
 
     @Test
-    @Ignore
     public void testNotifyAllUsers()
             throws EmailException, MessagingException, IOException {
         Semester semester = GeneralData.loadInstance().getCurrentSemester();

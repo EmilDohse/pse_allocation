@@ -109,7 +109,8 @@ public class AdminPropertiesControllerTest extends ControllerTest {
         map.put("1", "1");
 
         Mockito.when(form.data()).thenReturn(map);
-        Mockito.when(form.get("id")).thenReturn(String.valueOf(firstSpo.getId()));
+        Mockito.when(form.get("id"))
+                .thenReturn(String.valueOf(firstSpo.getId()));
         Mockito.when(form.get("nameAchiev")).thenReturn("achievementName");
 
         controller.addAchievement();
@@ -118,10 +119,12 @@ public class AdminPropertiesControllerTest extends ControllerTest {
 
         assertEquals(firstSpo.getNecessaryAchievements().size(), 3);
 
-        Achievement newAchievement = Achievement.getAchievement("achievementName");
+        Achievement newAchievement = Achievement
+                .getAchievement("achievementName");
 
         assertNotNull(newAchievement);
-        assertTrue(firstSpo.getNecessaryAchievements().contains(newAchievement));
+        assertTrue(
+                firstSpo.getNecessaryAchievements().contains(newAchievement));
     }
 
     /**
@@ -189,11 +192,18 @@ public class AdminPropertiesControllerTest extends ControllerTest {
         map.put("1", "1");
 
         Mockito.when(form.data()).thenReturn(map);
-        Mockito.when(form.get("id")).thenReturn(String.valueOf(firstSpo.getId()));
+        Mockito.when(form.get("id"))
+                .thenReturn(String.valueOf(firstSpo.getId()));
         Mockito.when(form.get("nameSPO")).thenReturn("spoName");
-        Mockito.when(form.get("necessary-" + String.valueOf(firstAchievement.getId()))).thenReturn("NotNull");
-        Mockito.when(form.get("necessary-" + String.valueOf(secondAchievement.getId()))).thenReturn(null);
-        Mockito.when(form.get("delete-" + String.valueOf(thirdAchievement.getId()))).thenReturn("NotNull");
+        Mockito.when(form
+                .get("necessary-" + String.valueOf(firstAchievement.getId())))
+                .thenReturn("NotNull");
+        Mockito.when(form
+                .get("necessary-" + String.valueOf(secondAchievement.getId())))
+                .thenReturn(null);
+        Mockito.when(
+                form.get("delete-" + String.valueOf(thirdAchievement.getId())))
+                .thenReturn("NotNull");
 
         controller.changeSPO();
 
@@ -201,9 +211,11 @@ public class AdminPropertiesControllerTest extends ControllerTest {
 
         assertEquals(firstSpo.getName(), "spoName");
         assertEquals(firstSpo.getAdditionalAchievements().size(), 1);
-        assertEquals(firstSpo.getAdditionalAchievements().get(0), secondAchievement);
+        assertEquals(firstSpo.getAdditionalAchievements().get(0),
+                secondAchievement);
         assertEquals(firstSpo.getNecessaryAchievements().size(), 1);
-        assertEquals(firstSpo.getNecessaryAchievements().get(0), firstAchievement);
+        assertEquals(firstSpo.getNecessaryAchievements().get(0),
+                firstAchievement);
     }
 
     /**
@@ -238,10 +250,12 @@ public class AdminPropertiesControllerTest extends ControllerTest {
         map.put("1", "1");
 
         Mockito.when(form.data()).thenReturn(map);
-        Mockito.when(form.get("id")).thenReturn(String.valueOf(firstSpo.getId() + secondSpo.getId() + 1));
+        Mockito.when(form.get("id")).thenReturn(
+                String.valueOf(firstSpo.getId() + secondSpo.getId() + 1));
         Mockito.when(form.get("nameSPO")).thenReturn("spoName");
 
-        Mockito.when(messages.at("error.SPO.deletedConcurrently")).thenReturn("error");
+        Mockito.when(messages.at("error.SPO.deletedConcurrently"))
+                .thenReturn("error");
 
         controller.changeSPO();
 
@@ -255,15 +269,20 @@ public class AdminPropertiesControllerTest extends ControllerTest {
     public void editSemesterTest() {
 
         Map<String, String> map = new HashMap<>();
-        map.put("spo-multiselect-" + String.valueOf(firstSemester.getId() + "1"), String.valueOf(secondSpo.getId()));
+        map.put("spo-multiselect-"
+                + String.valueOf(firstSemester.getId() + "1"),
+                String.valueOf(secondSpo.getId()));
 
         Mockito.when(form.data()).thenReturn(map);
-        Mockito.when(form.get("id")).thenReturn(String.valueOf(firstSemester.getId()));
+        Mockito.when(form.get("id"))
+                .thenReturn(String.valueOf(firstSemester.getId()));
         Mockito.when(form.get("name2")).thenReturn("semesterName");
         Mockito.when(form.get("maxGroupSize")).thenReturn("6");
         Mockito.when(form.get("info")).thenReturn("semesterInfo");
-        Mockito.when(form.get("registrationStart")).thenReturn("01.01.1970 00:00:01");
-        Mockito.when(form.get("registrationEnd")).thenReturn("01.01.1970 00:00:01");
+        Mockito.when(form.get("registrationStart"))
+                .thenReturn("01.01.1970 00:00:01");
+        Mockito.when(form.get("registrationEnd"))
+                .thenReturn("01.01.1970 00:00:01");
         Mockito.when(form.get("wintersemester")).thenReturn(null);
         Mockito.when(form.get("semester-active")).thenReturn("NotNull");
 
@@ -277,7 +296,8 @@ public class AdminPropertiesControllerTest extends ControllerTest {
         assertFalse(firstSemester.getRegistrationStart().getTime() == 0);
         assertFalse(firstSemester.getRegistrationEnd().getTime() == 0);
         assertTrue(!firstSemester.isWintersemester());
-        assertEquals(firstSemester, GeneralData.loadInstance().getCurrentSemester());
+        assertEquals(firstSemester,
+                GeneralData.loadInstance().getCurrentSemester());
         assertEquals(firstSemester.getSpos().size(), 1);
         assertEquals(firstSemester.getSpos().get(0), secondSpo);
     }
@@ -290,10 +310,12 @@ public class AdminPropertiesControllerTest extends ControllerTest {
     public void editSemesterValidationExceptionSPOTest() {
 
         Map<String, String> map = new HashMap<>();
-        map.put("spo-multiselect-" + String.valueOf(firstSemester.getId() + "1"), "abc");
+        map.put("spo-multiselect-"
+                + String.valueOf(firstSemester.getId() + "1"), "abc");
 
         Mockito.when(form.data()).thenReturn(map);
-        Mockito.when(form.get("id")).thenReturn(String.valueOf(firstSemester.getId()));
+        Mockito.when(form.get("id"))
+                .thenReturn(String.valueOf(firstSemester.getId()));
         Mockito.when(form.get("name2")).thenReturn("semesterName");
         Mockito.when(form.get("maxGroupSize")).thenReturn("6");
 
@@ -312,15 +334,18 @@ public class AdminPropertiesControllerTest extends ControllerTest {
     public void editSemesterUnknownSPOIdTest() {
 
         Map<String, String> map = new HashMap<>();
-        map.put("spo-multiselect-" + String.valueOf(firstSemester.getId() + "1"),
+        map.put("spo-multiselect-"
+                + String.valueOf(firstSemester.getId() + "1"),
                 String.valueOf(firstSpo.getId() + secondSpo.getId() + 1));
 
         Mockito.when(form.data()).thenReturn(map);
-        Mockito.when(form.get("id")).thenReturn(String.valueOf(firstSemester.getId()));
+        Mockito.when(form.get("id"))
+                .thenReturn(String.valueOf(firstSemester.getId()));
         Mockito.when(form.get("name2")).thenReturn("semesterName");
         Mockito.when(form.get("maxGroupSize")).thenReturn("6");
 
-        Mockito.when(messages.at("error.SPO.deletedConcurrently")).thenReturn("error");
+        Mockito.when(messages.at("error.SPO.deletedConcurrently"))
+                .thenReturn("error");
 
         controller.editSemester();
 
@@ -335,10 +360,13 @@ public class AdminPropertiesControllerTest extends ControllerTest {
     public void editSemesterValidationExceptionMaxGroupSizeTest() {
 
         Map<String, String> map = new HashMap<>();
-        map.put("spo-multiselect-" + String.valueOf(firstSemester.getId() + "1"), String.valueOf(secondSpo.getId()));
+        map.put("spo-multiselect-"
+                + String.valueOf(firstSemester.getId() + "1"),
+                String.valueOf(secondSpo.getId()));
 
         Mockito.when(form.data()).thenReturn(map);
-        Mockito.when(form.get("id")).thenReturn(String.valueOf(firstSemester.getId()));
+        Mockito.when(form.get("id"))
+                .thenReturn(String.valueOf(firstSemester.getId()));
         Mockito.when(form.get("name2")).thenReturn("semesterName");
         Mockito.when(form.get("maxGroupSize")).thenReturn("abc");
 
@@ -357,19 +385,24 @@ public class AdminPropertiesControllerTest extends ControllerTest {
     public void editSemesterWrongDateFormatTest() {
 
         Map<String, String> map = new HashMap<>();
-        map.put("spo-multiselect-" + String.valueOf(firstSemester.getId() + "1"), String.valueOf(secondSpo.getId()));
+        map.put("spo-multiselect-"
+                + String.valueOf(firstSemester.getId() + "1"),
+                String.valueOf(secondSpo.getId()));
 
         Mockito.when(form.data()).thenReturn(map);
-        Mockito.when(form.get("id")).thenReturn(String.valueOf(firstSemester.getId()));
+        Mockito.when(form.get("id"))
+                .thenReturn(String.valueOf(firstSemester.getId()));
         Mockito.when(form.get("name2")).thenReturn("semesterName");
         Mockito.when(form.get("maxGroupSize")).thenReturn("6");
         Mockito.when(form.get("info")).thenReturn("semesterInfo");
         Mockito.when(form.get("registrationStart")).thenReturn("abc");
-        Mockito.when(form.get("registrationEnd")).thenReturn("01.01.1970 00:00:01");
+        Mockito.when(form.get("registrationEnd"))
+                .thenReturn("01.01.1970 00:00:01");
         Mockito.when(form.get("wintersemester")).thenReturn(null);
         Mockito.when(form.get("semester-active")).thenReturn("NotNull");
 
-        Mockito.when(messages.at("index.registration.error.genError")).thenReturn("error");
+        Mockito.when(messages.at("index.registration.error.genError"))
+                .thenReturn("error");
 
         controller.editSemester();
 
@@ -384,19 +417,25 @@ public class AdminPropertiesControllerTest extends ControllerTest {
     public void editSemesterUnknownSemesterIdTest() {
 
         Map<String, String> map = new HashMap<>();
-        map.put("spo-multiselect-" + String.valueOf(firstSemester.getId() + "1"), String.valueOf(secondSpo.getId()));
+        map.put("spo-multiselect-"
+                + String.valueOf(firstSemester.getId() + "1"),
+                String.valueOf(secondSpo.getId()));
 
         Mockito.when(form.data()).thenReturn(map);
-        Mockito.when(form.get("id")).thenReturn(String.valueOf(firstSemester.getId() + secondSemester.getId() + 1));
+        Mockito.when(form.get("id")).thenReturn(String
+                .valueOf(firstSemester.getId() + secondSemester.getId() + 1));
         Mockito.when(form.get("name2")).thenReturn("semesterName");
         Mockito.when(form.get("maxGroupSize")).thenReturn("6");
         Mockito.when(form.get("info")).thenReturn("semesterInfo");
-        Mockito.when(form.get("registrationStart")).thenReturn("01.01.1970 00:00:01");
-        Mockito.when(form.get("registrationEnd")).thenReturn("01.01.1970 00:00:01");
+        Mockito.when(form.get("registrationStart"))
+                .thenReturn("01.01.1970 00:00:01");
+        Mockito.when(form.get("registrationEnd"))
+                .thenReturn("01.01.1970 00:00:01");
         Mockito.when(form.get("wintersemester")).thenReturn(null);
         Mockito.when(form.get("semester-active")).thenReturn("NotNull");
 
-        Mockito.when(messages.at("error.semester.deletedConcurrently")).thenReturn("error");
+        Mockito.when(messages.at("error.semester.deletedConcurrently"))
+                .thenReturn("error");
 
         controller.editSemester();
 
@@ -410,19 +449,25 @@ public class AdminPropertiesControllerTest extends ControllerTest {
     public void editSemesterStartDateAfterEndDateTest() {
 
         Map<String, String> map = new HashMap<>();
-        map.put("spo-multiselect-" + String.valueOf(firstSemester.getId() + "1"), String.valueOf(secondSpo.getId()));
+        map.put("spo-multiselect-"
+                + String.valueOf(firstSemester.getId() + "1"),
+                String.valueOf(secondSpo.getId()));
 
         Mockito.when(form.data()).thenReturn(map);
-        Mockito.when(form.get("id")).thenReturn(String.valueOf(firstSemester.getId()));
+        Mockito.when(form.get("id"))
+                .thenReturn(String.valueOf(firstSemester.getId()));
         Mockito.when(form.get("name2")).thenReturn("semesterName");
         Mockito.when(form.get("maxGroupSize")).thenReturn("6");
         Mockito.when(form.get("info")).thenReturn("semesterInfo");
-        Mockito.when(form.get("registrationStart")).thenReturn("01.01.1970 00:00:02");
-        Mockito.when(form.get("registrationEnd")).thenReturn("01.01.1970 00:00:01");
+        Mockito.when(form.get("registrationStart"))
+                .thenReturn("01.01.1970 00:00:02");
+        Mockito.when(form.get("registrationEnd"))
+                .thenReturn("01.01.1970 00:00:01");
         Mockito.when(form.get("wintersemester")).thenReturn(null);
         Mockito.when(form.get("semester-active")).thenReturn("NotNull");
 
-        Mockito.when(messages.at("error.editSemester.spoUsedOrStartAfterEnd")).thenReturn("error");
+        Mockito.when(messages.at("error.editSemester.spoUsedOrStartAfterEnd"))
+                .thenReturn("error");
 
         controller.editSemester();
 
@@ -446,7 +491,7 @@ public class AdminPropertiesControllerTest extends ControllerTest {
         Mockito.when(form.get("connectionTimeOut")).thenReturn("1000");
         Mockito.when(form.get("timeout")).thenReturn("500");
         Mockito.when(form.get("host")).thenReturn("testHost");
-        Mockito.when(form.get("mail")).thenReturn("testMail");
+        Mockito.when(form.get("mail")).thenReturn("test@Mail");
         Mockito.when(form.get("username")).thenReturn("testName");
         Mockito.when(form.get("password")).thenReturn("password");
 
@@ -461,7 +506,7 @@ public class AdminPropertiesControllerTest extends ControllerTest {
         assertEquals(options.getConnectionTimeout(), 1000);
         assertEquals(options.getTimeout(), 500);
         assertEquals(options.getHost(), "testHost");
-        assertEquals(options.getMailFrom(), "testMail");
+        assertEquals(options.getMailFrom(), "test@Mail");
         assertEquals(options.getUsername(), "testName");
         assertEquals(options.getPassword(), "password");
     }
@@ -484,7 +529,8 @@ public class AdminPropertiesControllerTest extends ControllerTest {
         Mockito.when(form.get("connectionTimeOut")).thenReturn("1000");
         Mockito.when(form.get("timeout")).thenReturn("500");
 
-        Mockito.when(messages.at("admin.properties.numberError")).thenReturn("error");
+        Mockito.when(messages.at("admin.properties.numberError"))
+                .thenReturn("error");
 
         controller.editSMTPOptions();
 
@@ -502,7 +548,8 @@ public class AdminPropertiesControllerTest extends ControllerTest {
         map.put("1", "1");
 
         Mockito.when(form.data()).thenReturn(map);
-        Mockito.when(form.get("id")).thenReturn(String.valueOf(secondSemester.getId()));
+        Mockito.when(form.get("id"))
+                .thenReturn(String.valueOf(secondSemester.getId()));
 
         controller.removeSemester();
 
@@ -541,9 +588,11 @@ public class AdminPropertiesControllerTest extends ControllerTest {
         map.put("1", "1");
 
         Mockito.when(form.data()).thenReturn(map);
-        Mockito.when(form.get("id")).thenReturn(String.valueOf(firstSemester.getId()));
+        Mockito.when(form.get("id"))
+                .thenReturn(String.valueOf(firstSemester.getId()));
 
-        Mockito.when(messages.at("admin.properties.semesterIsActiveError")).thenReturn("error");
+        Mockito.when(messages.at("admin.properties.semesterIsActiveError"))
+                .thenReturn("error");
 
         controller.removeSemester();
 
@@ -560,7 +609,8 @@ public class AdminPropertiesControllerTest extends ControllerTest {
         map.put("1", "1");
 
         Mockito.when(form.data()).thenReturn(map);
-        Mockito.when(form.get("id")).thenReturn(String.valueOf(secondSpo.getId()));
+        Mockito.when(form.get("id"))
+                .thenReturn(String.valueOf(secondSpo.getId()));
 
         controller.removeSPO();
 
@@ -605,9 +655,11 @@ public class AdminPropertiesControllerTest extends ControllerTest {
         map.put("1", "1");
 
         Mockito.when(form.data()).thenReturn(map);
-        Mockito.when(form.get("id")).thenReturn(String.valueOf(secondSpo.getId()));
+        Mockito.when(form.get("id"))
+                .thenReturn(String.valueOf(secondSpo.getId()));
 
-        Mockito.when(messages.at("admin.properties.SPOusedError")).thenReturn("error");
+        Mockito.when(messages.at("admin.properties.SPOusedError"))
+                .thenReturn("error");
 
         controller.removeSPO();
 
