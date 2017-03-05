@@ -73,8 +73,7 @@ public class TestHelpers {
      */
     private static void initStateChange() {
         Semester semester = GeneralData.loadInstance().getCurrentSemester();
-        StateStorage.getInstance().initStateChanging(
-                semester.getRegistrationStart(), semester.getRegistrationEnd());
+        StateStorage.getInstance().initStateChanging(semester.getRegistrationStart(), semester.getRegistrationEnd());
         try {
             Thread.sleep(100);
         } catch (InterruptedException e) {
@@ -85,8 +84,7 @@ public class TestHelpers {
      * Diese Methode erstellt einen default admin.
      */
     public static void createAdmin() {
-        Administrator admin = new Administrator(ADMIN_USERNAME, "", "a@kit.edu",
-                "admin", "admin");
+        Administrator admin = new Administrator(ADMIN_USERNAME, "", "a@kit.edu", "admin", "admin");
         admin.save();
         admin.doTransaction(() -> {
             admin.setPassword(Administrator.START_PASSWORD_HASH);
@@ -106,10 +104,8 @@ public class TestHelpers {
      *            Das Passwort des Betreurs.
      * @return Die ID des Betreuers.
      */
-    public static int createAdviser(String firstName, String lastName,
-            String email, String password) {
-        Adviser adviser = new Adviser(email, password, email, firstName,
-                lastName);
+    public static int createAdviser(String firstName, String lastName, String email, String password) {
+        Adviser adviser = new Adviser(email, password, email, firstName, lastName);
         adviser.save();
         adviser.doTransaction(() -> {
             adviser.savePassword(password);
@@ -189,8 +185,7 @@ public class TestHelpers {
      * @param maxTeamSize
      *            Maximale Teamgröße.
      */
-    public static void createDataSetForAllocation(int numProjects,
-            int numStudents, int minTeamSize, int maxTeamSize) {
+    public static void createDataSetForAllocation(int numProjects, int numStudents, int minTeamSize, int maxTeamSize) {
         Semester semester = GeneralData.loadInstance().getCurrentSemester();
         IntStream.rangeClosed(1, numProjects).forEach((number) -> {
             Project project = new Project();
@@ -218,8 +213,7 @@ public class TestHelpers {
                 l.addMember(student);
                 l.setPrivate(true);
                 // Ratings initialisieren
-                for (Project p : GeneralData.loadInstance().getCurrentSemester()
-                        .getProjects()) {
+                for (Project p : GeneralData.loadInstance().getCurrentSemester().getProjects()) {
                     l.rate(p, 3);
                 }
             });
@@ -256,8 +250,7 @@ public class TestHelpers {
             l.addMember(student);
             l.setPrivate(true);
             // Ratings initialisieren
-            for (Project p : GeneralData.loadInstance().getCurrentSemester()
-                    .getProjects()) {
+            for (Project p : GeneralData.loadInstance().getCurrentSemester().getProjects()) {
                 l.rate(p, 3);
             }
         });
@@ -276,8 +269,7 @@ public class TestHelpers {
      *            Das Passwort der Lerngruppe.
      * @return Die erstellte Lerngruppe.
      */
-    public static LearningGroup createLearningGroup(String name,
-            String password) {
+    public static LearningGroup createLearningGroup(String name, String password) {
         Semester semester = GeneralData.loadInstance().getCurrentSemester();
 
         LearningGroup l = new LearningGroup(name, "");
@@ -286,8 +278,7 @@ public class TestHelpers {
             l.savePassword(password);
             l.setPrivate(false);
             // Ratings initialisieren
-            for (Project p : GeneralData.loadInstance().getCurrentSemester()
-                    .getProjects()) {
+            for (Project p : GeneralData.loadInstance().getCurrentSemester().getProjects()) {
                 l.rate(p, 3);
             }
         });
@@ -342,6 +333,13 @@ public class TestHelpers {
         return spo.getId();
     }
 
+    /**
+     * Erstellen einer Einteilung.
+     * 
+     * @param name
+     *            Name der Einteilung.
+     * @return Die ID der Einteilung.
+     */
     public static int createAllocation(String name) {
         Allocation allocation = new Allocation();
         allocation.save();
@@ -355,6 +353,12 @@ public class TestHelpers {
         return allocation.getId();
     }
 
+    /**
+     * Diese Methode erstellt einen Studenten mit Noten.
+     * 
+     * @param matrnr
+     *            Die Matrikelnummer des Studierenden.
+     */
     public static void createStudentWithGrades(int matrnr) {
         Student student = new Student();
         student.doTransaction(() -> {
@@ -368,6 +372,15 @@ public class TestHelpers {
         });
     }
 
+    /**
+     * Erstellt einen Studenten, der bereits in einem früheren Semseter
+     * angemeldet war.
+     * 
+     * @param matrnr
+     *            Die Matrikelnummer des Studenten.
+     * @param password
+     *            Das Passwort des Studenten.
+     */
     public static void createOldStudent(int matrnr, String password) {
         Semester semester = new Semester("Vorheriges Semester", true);
         semester.save();
@@ -387,8 +400,7 @@ public class TestHelpers {
             l.addMember(student);
             l.setPrivate(true);
             // Ratings initialisieren
-            for (Project p : GeneralData.loadInstance().getCurrentSemester()
-                    .getProjects()) {
+            for (Project p : GeneralData.loadInstance().getCurrentSemester().getProjects()) {
                 l.rate(p, 3);
             }
         });

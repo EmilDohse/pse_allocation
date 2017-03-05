@@ -267,7 +267,7 @@ public class GeneralAdminController extends Controller {
             // der username eines studenten ist seine matNr
             SPO spo = ElipseModel.getById(SPO.class, spoId);
 
-            // TODO Braucht Ebean!!!!! (Test schlägt sonst fehl)
+            // Braucht Ebean!!!!! (Test schlägt sonst fehl)
             spo.getNecessaryAchievements().size();
 
             BlowfishPasswordEncoder b = new BlowfishPasswordEncoder();
@@ -296,6 +296,9 @@ public class GeneralAdminController extends Controller {
                 currentSemester.addLearningGroup(l);
                 currentSemester.addStudent(student);
             });
+            flash("info",
+                    ctx().messages().at("admin.studentEdit.addStudentSuccess",
+                            String.valueOf(matNr)));
             return redirect(
                     controllers.routes.AdminPageController.studentEditPage());
         }
@@ -329,13 +332,31 @@ public class GeneralAdminController extends Controller {
             return redirect(
                     controllers.routes.AdminPageController.studentEditPage());
         }
+        student.doTransaction(() -> {
+            student.setCompletedAchievements(new ArrayList<>());
+            student.setOralTestAchievements(new ArrayList<>());
+        });
         for (LearningGroup l : LearningGroup.getLearningGroups()) {
-            if (l.getMembers().contains(student)
-                    && (l.getMembers().size() == 1)) {
-                l.delete();
+            if (l.getMembers().contains(student)) {
+                l.doTransaction(() -> {
+                    l.removeMember(student);
+                });
+                if (l.getMembers().isEmpty()) {
+                    l.delete();
+                }
+            }
+        }
+        for (Semester semester : Semester.getSemesters()) {
+            if (semester.getStudents().contains(student)) {
+                semester.doTransaction(() -> {
+                    semester.removeStudent(student);
+                });
             }
         }
         student.delete();
+        flash("info",
+                ctx().messages().at("admin.studentEdit.removeStudentSuccess",
+                        String.valueOf(matNr)));
         return redirect(
                 controllers.routes.AdminPageController.studentEditPage());
     }

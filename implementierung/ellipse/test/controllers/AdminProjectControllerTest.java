@@ -153,7 +153,8 @@ public class AdminProjectControllerTest extends ControllerTest {
 
         when(form.data()).thenReturn(data);
         when(form.get("id")).thenReturn(String.valueOf(project.getId() + 1));
-        when(messages.at("error.project.deletedConcurrently")).thenReturn("Null Project");
+        when(messages.at("error.project.deletedConcurrently"))
+                .thenReturn("Null Project");
 
         controller.editProject();
 
@@ -271,7 +272,8 @@ public class AdminProjectControllerTest extends ControllerTest {
         when(form.get("teamCount")).thenReturn("1");
         when(form.get("minSize")).thenReturn("1");
         when(form.get("maxSize")).thenReturn("2");
-        when(messages.at("error.adviser.deletedConcurrently")).thenReturn("Null Adviser");
+        when(messages.at("error.adviser.deletedConcurrently"))
+                .thenReturn("Null Adviser");
 
         controller.editProject();
 
@@ -284,17 +286,18 @@ public class AdminProjectControllerTest extends ControllerTest {
      * Funktioniert nicht, da EBean Probleme mit der Datenbank hat.
      */
     @Test
-    @Ignore
     public void removeProjectTest() {
         Map<String, String> map = new HashMap<>();
         map.put("1", "1");
 
-        Mockito.when(form.get("id")).thenReturn(String.valueOf(project.getId()));
+        Mockito.when(form.get("id"))
+                .thenReturn(String.valueOf(project.getId()));
         Mockito.when(form.data()).thenReturn(map);
 
         controller.removeProject();
 
-        assertTrue(GeneralData.loadInstance().getCurrentSemester().getProjects().isEmpty());
+        assertTrue(GeneralData.loadInstance().getCurrentSemester().getProjects()
+                .isEmpty());
         assertNull(ElipseModel.getById(Project.class, project.getId()));
     }
 }
