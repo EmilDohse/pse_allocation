@@ -203,8 +203,20 @@ public class TestHelpers {
                 student.setFirstName("StudentFirstName" + number);
                 student.setLastName("StudentLastName" + number);
             });
+            LearningGroup l = new LearningGroup(student.getUserName(), "");
+            l.save();
+            l.doTransaction(() -> {
+                l.addMember(student);
+                l.setPrivate(true);
+                // Ratings initialisieren
+                for (Project p : GeneralData.loadInstance().getCurrentSemester()
+                        .getProjects()) {
+                    l.rate(p, 3);
+                }
+            });
             semester.doTransaction(() -> {
                 semester.addStudent(student);
+                semester.addLearningGroup(l);
             });
         });
     }
