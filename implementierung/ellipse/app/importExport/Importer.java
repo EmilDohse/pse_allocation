@@ -203,34 +203,6 @@ public class Importer {
     }
 
     /**
-     * Importiert zu PSE/TSE angemeldete Studenten.
-     * 
-     * @param file
-     *            Pfad zu einer .csv Datei.
-     * @param semester
-     *            Das Semester, bei dem die Daten aktualisiert.
-     */
-    @Deprecated
-    public void importCMSData(String file, Semester semester)
-            throws ImporterException {
-    }
-
-    /**
-     * Exportiert Noten von Studenten für das CMS.
-     * 
-     * @param file
-     *            Der Ausgabepfad.
-     * @param Das
-     *            Semester, aus dem die Noten der Studenten exportiert werden
-     *            sollen.
-     */
-    @Deprecated
-    public void exportCMSData(String file, Semester semester)
-            throws ImporterException {
-
-    }
-
-    /**
      * Importiert eine SPO.
      * 
      * @param file
