@@ -10,10 +10,9 @@ import views.pages.Page;
 public class StudentLearningGroupPage extends Page {
 
     /**
-     * Diese Methode vollzieht den Wechsel zu Passwort.Zurücksetzen Seite.
+     * Diese Methode gibt die Url der Seite zurück.
      * 
-     * @param browser
-     *            Der TestBrowser.
+     * @return Die Url der Seite.
      */
     @Override
     public String getUrl() {

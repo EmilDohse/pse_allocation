@@ -21,6 +21,9 @@ import data.Project;
 import data.Semester;
 import play.mvc.Http.Context;
 
+/**
+ * Diese Klasse beinhaltet Tests für den AdminProjectController.
+ */
 public class AdminProjectControllerTest extends ControllerTest {
 
     @InjectMocks
@@ -30,6 +33,9 @@ public class AdminProjectControllerTest extends ControllerTest {
     private Adviser        firstAdviser;
     private Adviser        secondAdviser;
 
+    /**
+     * Initialisierung der Testdaten.
+     */
     @Override
     @Before
     public void before() {
@@ -61,6 +67,9 @@ public class AdminProjectControllerTest extends ControllerTest {
         });
     }
 
+    /**
+     * Test für das Hinzufügen eines Projektes.
+     */
     @Test
     public void addProjectTest() {
 
@@ -82,6 +91,9 @@ public class AdminProjectControllerTest extends ControllerTest {
         assertEquals(newProject.getName(), "projectName");
     }
 
+    /**
+     * Test für das Editieren eines Projektes.
+     */
     @Test
     public void editProjectTest() {
         Map<String, String> map = new HashMap<>();
@@ -112,6 +124,10 @@ public class AdminProjectControllerTest extends ControllerTest {
         assertTrue(project.getAdvisers().contains(secondAdviser));
     }
 
+    /**
+     * Test ob beim Editieren mit falschen Bedingungen eine Exception geworfen
+     * wird.
+     */
     @Test
     public void testIdValidationExceptionInEdit() {
         Map<String, String> data = new HashMap<>();
@@ -127,6 +143,9 @@ public class AdminProjectControllerTest extends ControllerTest {
         assertTrue(Context.current().flash().containsValue("Exception"));
     }
 
+    /**
+     * Test für den Fall, dass das Projekt null ist.
+     */
     @Test
     public void testNullProject() {
         Map<String, String> data = new HashMap<>();
@@ -134,14 +153,17 @@ public class AdminProjectControllerTest extends ControllerTest {
 
         when(form.data()).thenReturn(data);
         when(form.get("id")).thenReturn(String.valueOf(project.getId() + 1));
-        when(messages.at("error.project.deletedConcurrently"))
-                .thenReturn("Null Project");
+        when(messages.at("error.project.deletedConcurrently")).thenReturn("Null Project");
 
         controller.editProject();
 
         assertTrue(Context.current().flash().containsValue("Null Project"));
     }
 
+    /**
+     * Test ob beim Editieren mit falschen Bedingungen eine Exception geworfen
+     * wird.
+     */
     @Test
     public void testSecondValidationException() {
         Map<String, String> data = new HashMap<>();
@@ -157,6 +179,10 @@ public class AdminProjectControllerTest extends ControllerTest {
         assertTrue(Context.current().flash().containsValue("Exception"));
     }
 
+    /**
+     * Test ob beim Editieren mit falschen Bedingungen eine Exception geworfen
+     * wird. (Min Team Size)
+     */
     @Test
     public void testInvalidTeamSizesXOR() {
         Map<String, String> data = new HashMap<>();
@@ -178,6 +204,10 @@ public class AdminProjectControllerTest extends ControllerTest {
         assertTrue(Context.current().flash().containsValue("Wrong Input"));
     }
 
+    /**
+     * Test ob beim Editieren mit falschen Bedingungen eine Exception geworfen
+     * wird. (Max Team Size)
+     */
     @Test
     public void testInvalidTeamSizesMaxLesserMin() {
         Map<String, String> data = new HashMap<>();
@@ -199,6 +229,10 @@ public class AdminProjectControllerTest extends ControllerTest {
         assertTrue(Context.current().flash().containsValue("Wrong Input"));
     }
 
+    /**
+     * Test ob beim Editieren mit falschen Bedingungen eine Exception geworfen
+     * wird. NumberFormatException
+     */
     @Test
     public void testNFEInEdit() {
         Map<String, String> data = new HashMap<>();
@@ -220,6 +254,9 @@ public class AdminProjectControllerTest extends ControllerTest {
         assertTrue(Context.current().flash().containsValue("Exception"));
     }
 
+    /**
+     * Test ob ein Adviser null ist.
+     */
     @Test
     public void testNullAdviser() {
         Map<String, String> data = new HashMap<>();
@@ -234,29 +271,30 @@ public class AdminProjectControllerTest extends ControllerTest {
         when(form.get("teamCount")).thenReturn("1");
         when(form.get("minSize")).thenReturn("1");
         when(form.get("maxSize")).thenReturn("2");
-        when(messages.at("error.adviser.deletedConcurrently"))
-                .thenReturn("Null Adviser");
+        when(messages.at("error.adviser.deletedConcurrently")).thenReturn("Null Adviser");
 
         controller.editProject();
 
         assertTrue(Context.current().flash().containsValue("Null Adviser"));
     }
 
-    // TODO Testdatenbank austauschen
+    /**
+     * Test für das Entfernen eines Projektes.
+     * 
+     * Funktioniert nicht, da EBean Probleme mit der Datenbank hat.
+     */
     @Test
     @Ignore
     public void removeProjectTest() {
         Map<String, String> map = new HashMap<>();
         map.put("1", "1");
 
-        Mockito.when(form.get("id"))
-                .thenReturn(String.valueOf(project.getId()));
+        Mockito.when(form.get("id")).thenReturn(String.valueOf(project.getId()));
         Mockito.when(form.data()).thenReturn(map);
 
         controller.removeProject();
 
-        assertTrue(GeneralData.loadInstance().getCurrentSemester().getProjects()
-                .isEmpty());
+        assertTrue(GeneralData.loadInstance().getCurrentSemester().getProjects().isEmpty());
         assertNull(ElipseModel.getById(Project.class, project.getId()));
     }
 }

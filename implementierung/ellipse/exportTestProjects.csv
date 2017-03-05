@@ -1,24 +1,2 @@
 Name;Institut;Anzahl Teams;Min. Size;Max. Size;Projekt URL;Projektinfo
-3D Reconstruction Framework from Multi-View Images (3D-MuVi);IOSB Beyerer;1;5;6;test;test
-Android-Applikation KIT-Mensa-Speiseplan;IPD Koziolek/Reussner;4;5;6;test;test
-Assistenztools fÃ¼r den Maschinenbau;IOSB Beyerer;1;5;6;test;test
-ChronoCommand - An Intelligent Web-Based Work Time Tracking Tool;TM Beigl;2;5;6;test;test
-Crowd Control -- Entwicklung von Steuerungsmechanismen fÃ¼r das Crowd Computing;IPD BÃ¶hm;2;5;6;test;test
-DataDealer - Middelware fÃ¼r die interaktive Visualisierung verteilter Sensoren in WebApps;TM Beigl;2;5;6;test;test
-DataScientist -- benutzerorientierte Analyse groÃŸer hochdimensionaler DatenbestÃ¤nde;IPD BÃ¶hm;2;5;6;test;test
-Der Microsoft Imagine Cup 2016 (nur 4er Teams);IPD Tichy;3;4;4;test;test
-Der WorkspaceService - Die smarte Lernumgebung am KIT basierend auf HTML5 und REST;TM Abeck;1;5;6;test;test
-Distributed Camera Network 3D Calibration Suite;IOSB Beyerer;1;5;6;test;test
-Dynamic scheduler for scientific simulations;SCC Streit;1;5;6;test;test
-Echtzeit-Computergrafik in der Spieleentwicklung;IVD Dachsbacher;1;5;6;test;test
-Industrie 4.0 und OPC UA;IOSB Beyerer;1;5;6;test;test
-Interaktive Visualisierung von Real-Estate-Daten;IPD Tichy;1;5;6;test;test
-Komponenten-Windkanal - Automatisches Ausmessen der Performance von Software-Komponenten;IPD Koziolek/Reussner;1;5;6;test;test
-Medienbrowser zur inhaltsbasierten Suche in Bild- und Videodaten;IOSB Beyerer;1;5;6;test;test
-Mobile Reconnaissance Manual -interaktive Assistenz fÃ¼r Erkennungsaufgaben;IOSB Beyerer;1;5;6;test;test
-Modulares Multimedia-Werkzeug zum Testen von Videoencodern;ITEC Henkel;2;5;6;test;test
-Node.js Bindings for ROOT6 (auf Englisch);SCC Streit;1;5;6;test;test
-OpenID Connect for Linux (auf Englisch);SCC Streit;1;5;6;test;test
-ProfiNet-Modul fÃ¼r das Intrusion-Detection-System Snort;IOSB Beyerer;1;5;6;test;test
-RoboCorder - Aufnahme und Wiedergabe von heterogenen Sensordaten eines humanoiden Roboters;IAR Asfour;1;5;6;test;test
-Webapplikation zur Verwaltung Nachbearbeitung und Analyse multispektraler DatensÃ¤tze;IOSB Beyerer;1;5;6;test;test
+project;institute;1;1;2;url;info
