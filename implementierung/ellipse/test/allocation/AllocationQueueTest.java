@@ -17,8 +17,10 @@ import com.avaje.ebean.EbeanServerFactory;
 import com.avaje.ebean.config.ServerConfig;
 
 import data.AllocationParameter;
+import data.GeneralData;
 import data.LearningGroup;
 import data.Project;
+import data.Semester;
 import data.Student;
 
 /**
@@ -44,6 +46,13 @@ public class AllocationQueueTest {
         config.setRegister(true);
 
         server = EbeanServerFactory.create(config);
+
+        GeneralData data = new GeneralData();
+        data.save();
+        Semester semester = new Semester();
+        semester.save();
+        data.setCurrentSemester(semester);
+        data.save();
     }
 
     /**
@@ -66,10 +75,12 @@ public class AllocationQueueTest {
         List<AllocationParameter> paramList = new ArrayList<>();
         paramList.add(paramOne);
         paramList.add(paramTwo);
-        configOne = new Configuration("test 1", new ArrayList<Student>(), new ArrayList<LearningGroup>(),
-                new ArrayList<Project>(), paramList);
-        configTwo = new Configuration("test 2", new ArrayList<Student>(), new ArrayList<LearningGroup>(),
-                new ArrayList<Project>(), paramList);
+        configOne = new Configuration("test 1", new ArrayList<Student>(),
+                new ArrayList<LearningGroup>(), new ArrayList<Project>(),
+                paramList);
+        configTwo = new Configuration("test 2", new ArrayList<Student>(),
+                new ArrayList<LearningGroup>(), new ArrayList<Project>(),
+                paramList);
     }
 
     @After

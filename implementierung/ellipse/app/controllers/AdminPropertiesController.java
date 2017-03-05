@@ -248,6 +248,13 @@ public class AdminPropertiesController extends Controller {
                     return redirect(controllers.routes.AdminPageController
                             .propertiesPage());
                 }
+              //falls es bereits eine finalle allocation gibt und die zeiten geändert wurden
+                if((!semester.getRegistrationStart().equals(startDate) || !semester.getRegistrationEnd().equals(endDate)) && GeneralData.loadInstance().getCurrentSemester().getFinalAllocation() != null) {
+                	flash(ERROR, ctx().messages()
+                            .at("error.changeTimesAfterFinalAllocation"));
+                    return redirect(controllers.routes.AdminPageController
+                            .propertiesPage());
+                }
                 List<SPO> deletedSPOs = semester.getSpos();
                 deletedSPOs.removeAll(usedSPOs);
                 boolean spoUsed = false;
