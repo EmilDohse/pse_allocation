@@ -29,4 +29,15 @@ public class IndexInformationPage extends IndexPage {
     public String getUrl() {
         return "/";
     }
+
+    /**
+     * Diese Methode gibt zurück, ob der Browser eine Fehlermeldung anzeigt.
+     * 
+     * @param browser
+     *            Der TestBrowser.
+     * @return Wahr, wenn Fehlermeldung angezeigt wird, falsch sonst.
+     */
+    public boolean showsError(TestBrowser browser) {
+        return !browser.$(".alert-danger").isEmpty();
+    }
 }
