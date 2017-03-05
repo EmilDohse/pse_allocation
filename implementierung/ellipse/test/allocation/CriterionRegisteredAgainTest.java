@@ -49,22 +49,34 @@ public class CriterionRegisteredAgainTest {
         data.save();
     }
 
+    /**
+     * Initialisiertung.
+     */
     @Before
     public void before() {
         cra = new CriterionRegisteredAgain();
     }
 
+    /**
+     * Test für den Getter des Namens.
+     */
     @Test
     public void testGetName() {
         assertEquals("RegisteredAgain", cra.getName());
     }
 
+    /**
+     * Test für den angezeigten Namen.
+     */
     @Test
     public void testGetDisplayName() {
         assertEquals("Bonus für Zweitanmeldung", cra.getDisplayName("de"));
         assertEquals("Bonus second registration", cra.getDisplayName("en"));
     }
 
+    /**
+     * Test für das Benutzen des Kriteriums.
+     */
     @Test
     public void testUseCriterion() {
         // Vorbereitung
@@ -103,8 +115,8 @@ public class CriterionRegisteredAgainTest {
         paras.add(new AllocationParameter("prefSize", 1));
         paras.add(new AllocationParameter("RegisteredAgain", 10));
 
-        Configuration config = new Configuration("test", semester.getStudents(),
-                semester.getLearningGroups(), semester.getProjects(), paras);
+        Configuration config = new Configuration("test", semester.getStudents(), semester.getLearningGroups(),
+                semester.getProjects(), paras);
 
         GurobiAllocator ga = new GurobiAllocator();
         ga.init(config);
@@ -116,6 +128,9 @@ public class CriterionRegisteredAgainTest {
         assertNull(alloc.getTeam(second));
     }
 
+    /**
+     * shutdown data.
+     */
     @After
     public void after() {
         cra = null;

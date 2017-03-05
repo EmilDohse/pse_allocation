@@ -49,24 +49,34 @@ public class CriterionPreferHigherSemesterTest {
         data.save();
     }
 
+    /**
+     * Initialisiertung.
+     */
     @Before
     public void before() {
         cphs = new CriterionPreferHigherSemester();
     }
 
+    /**
+     * Test für den Getter des Namens.
+     */
     @Test
     public void testGetName() {
         assertEquals("PreferHigherSemester", cphs.getName());
     }
 
+    /**
+     * Test für den angezeigten Namen.
+     */
     @Test
     public void testGetDisplayName() {
-        assertEquals("Bevorzuge Studenten höheren Semesters",
-                cphs.getDisplayName("de"));
-        assertEquals("Bonus students of higher semesters",
-                cphs.getDisplayName("en"));
+        assertEquals("Bevorzuge Studenten höheren Semesters", cphs.getDisplayName("de"));
+        assertEquals("Bonus students of higher semesters", cphs.getDisplayName("en"));
     }
 
+    /**
+     * Test für das Benutzen des Kriteriums.
+     */
     @Test
     public void testUseCriterion() {
         // Vorbereitung
@@ -107,8 +117,8 @@ public class CriterionPreferHigherSemesterTest {
         paras.add(new AllocationParameter("prefSize", 1));
         paras.add(new AllocationParameter("PreferHigherSemester", 10));
 
-        Configuration config = new Configuration("test", semester.getStudents(),
-                semester.getLearningGroups(), semester.getProjects(), paras);
+        Configuration config = new Configuration("test", semester.getStudents(), semester.getLearningGroups(),
+                semester.getProjects(), paras);
 
         GurobiAllocator ga = new GurobiAllocator();
         ga.init(config);
@@ -120,6 +130,9 @@ public class CriterionPreferHigherSemesterTest {
         assertNull(alloc.getTeam(second));
     }
 
+    /**
+     * shutdown data.
+     */
     @After
     public void after() {
         cphs = null;

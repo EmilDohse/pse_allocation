@@ -18,17 +18,37 @@ import java.util.concurrent.CompletionStage;
  */
 public class BadRequestTest extends WithServer {
 
+    /**
+     * Test für einen BadRequest create während der Registrierungsphase.
+     * 
+     * @throws Exception
+     *             Exception.
+     */
     @Test
     public void indexCreateBadReq() throws Exception {
         TestHelpers.setStateToRegistration();
         testBadRequest("create");
     }
 
+    /**
+     * Test für einen BadRequest requestReset.
+     * 
+     * @throws Exception
+     *             Exception.
+     */
     @Test
     public void indexRequestResetBadReq() throws Exception {
         testBadRequest("requestReset");
     }
 
+    /**
+     * Test für einen BadRequest.
+     * 
+     * @param path
+     *            Pfad der Seite.
+     * @throws Exception
+     *             Exception.
+     */
     private void testBadRequest(String path) throws Exception {
         int timeout = 5000;
         String url = "http://localhost:" + this.testServer.port() + "/" + path;

@@ -47,22 +47,34 @@ public class CriterionPreferredTeamSizeTest {
         data.save();
     }
 
+    /**
+     * Initialisiertung.
+     */
     @Before
     public void before() {
         cpts = new CriterionPreferredTeamSize();
     }
 
+    /**
+     * Test für den Getter des Namens.
+     */
     @Test
     public void testGetName() {
         assertEquals("PreferredTeamSize", cpts.getName());
     }
 
+    /**
+     * Test für den angezeigten Namen.
+     */
     @Test
     public void testGetDisplayName() {
         assertEquals("Beachte gewünschte Teamgröße", cpts.getDisplayName("de"));
         assertEquals("Respect preferred team size", cpts.getDisplayName("en"));
     }
 
+    /**
+     * Test für das Benutzen des Kriteriums.
+     */
     @Test
     public void testUseCriterion() {
         // Vorbereitung
@@ -96,8 +108,8 @@ public class CriterionPreferredTeamSizeTest {
         paras.add(new AllocationParameter("prefSize", 1));
         paras.add(new AllocationParameter("PreferredTeamSize", 10));
 
-        Configuration config = new Configuration("test", semester.getStudents(),
-                semester.getLearningGroups(), semester.getProjects(), paras);
+        Configuration config = new Configuration("test", semester.getStudents(), semester.getLearningGroups(),
+                semester.getProjects(), paras);
 
         GurobiAllocator ga = new GurobiAllocator();
         ga.init(config);
@@ -108,6 +120,9 @@ public class CriterionPreferredTeamSizeTest {
         assertEquals(1, alloc.getTeams().get(0).getMembers().size());
     }
 
+    /**
+     * shutdown data.
+     */
     @After
     public void after() {
         cpts = null;

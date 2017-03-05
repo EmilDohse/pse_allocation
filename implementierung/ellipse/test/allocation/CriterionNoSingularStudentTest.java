@@ -50,24 +50,34 @@ public class CriterionNoSingularStudentTest {
         data.save();
     }
 
+    /**
+     * Initialisiertung.
+     */
     @Before
     public void before() {
         cnss = new CriterionNoSingularStudent();
     }
 
+    /**
+     * Test für den Getter des Namens.
+     */
     @Test
     public void testGetName() {
         assertEquals("NoSingularStudent", cnss.getName());
     }
 
+    /**
+     * Test für den angezeigten Namen.
+     */
     @Test
     public void testGetDisplayName() {
-        assertEquals("Kein einzelner Student zu Lerngruppe",
-                cnss.getDisplayName("de"));
-        assertEquals("No singular student plus learning group in a team",
-                cnss.getDisplayName("en"));
+        assertEquals("Kein einzelner Student zu Lerngruppe", cnss.getDisplayName("de"));
+        assertEquals("No singular student plus learning group in a team", cnss.getDisplayName("en"));
     }
 
+    /**
+     * Test für das Benutzen des Kriteriums.
+     */
     @Test
     public void testUseCriterion() {
         // Vorbereitung
@@ -115,8 +125,8 @@ public class CriterionNoSingularStudentTest {
         paras.add(new AllocationParameter("LearningGroups", 10));
         paras.add(new AllocationParameter("NoSingularStudent", 10));
 
-        Configuration config = new Configuration("test", semester.getStudents(),
-                semester.getLearningGroups(), semester.getProjects(), paras);
+        Configuration config = new Configuration("test", semester.getStudents(), semester.getLearningGroups(),
+                semester.getProjects(), paras);
 
         GurobiAllocator ga = new GurobiAllocator();
         ga.init(config);
@@ -130,6 +140,9 @@ public class CriterionNoSingularStudentTest {
         assertFalse(alloc.getTeam(first).equals(alloc.getTeam(third)));
     }
 
+    /**
+     * shutdown data.
+     */
     @After
     public void after() {
         cnss = null;

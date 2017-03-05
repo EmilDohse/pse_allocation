@@ -48,22 +48,34 @@ public class CriterionLearningGroupTest {
         data.save();
     }
 
+    /**
+     * Initialisiertung.
+     */
     @Before
     public void before() {
         clg = new CriterionLearningGroup();
     }
 
+    /**
+     * Test für den Getter des Namens.
+     */
     @Test
     public void testGetName() {
         assertEquals("LearningGroups", clg.getName());
     }
 
+    /**
+     * Test für den angezeigten Namen.
+     */
     @Test
     public void testGetDisplayName() {
         assertEquals("Lerngruppe nicht trennen", clg.getDisplayName("de"));
         assertEquals("Do not split learning groups", clg.getDisplayName("en"));
     }
 
+    /**
+     * Test für das Benutzen des Kriteriums.
+     */
     @Test
     public void testUseCriterion() {
 
@@ -108,8 +120,8 @@ public class CriterionLearningGroupTest {
         paras.add(new AllocationParameter("prefSize", 1));
         paras.add(new AllocationParameter("LearningGroups", 10));
 
-        Configuration config = new Configuration("test", semester.getStudents(),
-                semester.getLearningGroups(), semester.getProjects(), paras);
+        Configuration config = new Configuration("test", semester.getStudents(), semester.getLearningGroups(),
+                semester.getProjects(), paras);
 
         GurobiAllocator ga = new GurobiAllocator();
         ga.init(config);
@@ -119,6 +131,9 @@ public class CriterionLearningGroupTest {
         assertEquals(alloc.getTeam(first), alloc.getTeam(second));
     }
 
+    /**
+     * shutdown data.
+     */
     @After
     public void after() {
         clg = null;
