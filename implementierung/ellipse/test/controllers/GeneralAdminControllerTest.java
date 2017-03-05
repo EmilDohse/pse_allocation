@@ -83,8 +83,8 @@ public class GeneralAdminControllerTest extends ControllerTest {
 
         when(form.data()).thenReturn(data);
         when(form.get("firstName")).thenReturn(new String());
-        when(messages.at("general.error.noEmptyString"))
-                .thenReturn("Empty String");
+        when(messages.at("general.error.noEmptyString")).thenReturn(
+                "Empty String");
 
         controller.addAdviser();
 
@@ -140,8 +140,8 @@ public class GeneralAdminControllerTest extends ControllerTest {
 
         when(form.data()).thenReturn(data);
         when(form.get("name")).thenReturn(new String());
-        when(messages.at("general.error.noEmptyString"))
-                .thenReturn("Validation Exception");
+        when(messages.at("general.error.noEmptyString")).thenReturn(
+                "Validation Exception");
 
         controller.addAllocation();
 
@@ -160,8 +160,8 @@ public class GeneralAdminControllerTest extends ControllerTest {
         when(form.get("minTeamSize")).thenReturn("2");
         when(form.get("maxTeamSize")).thenReturn("1");
 
-        when(messages.at("admin.allocation.error.generalError"))
-                .thenReturn("Wrong Input");
+        when(messages.at("admin.allocation.error.generalError")).thenReturn(
+                "Wrong Input");
 
         controller.addAllocation();
 
@@ -299,8 +299,8 @@ public class GeneralAdminControllerTest extends ControllerTest {
 
         when(form.data()).thenReturn(data);
         when(form.get("firstName")).thenReturn(new String());
-        when(messages.at("general.error.noEmptyString"))
-                .thenReturn("Validation Exception");
+        when(messages.at("general.error.noEmptyString")).thenReturn(
+                "Validation Exception");
 
         controller.addStudent();
 
@@ -333,8 +333,8 @@ public class GeneralAdminControllerTest extends ControllerTest {
         when(form.get("matrnr")).thenReturn("1");
         when(form.get("semester")).thenReturn("1");
         when(form.get("spo")).thenReturn(String.valueOf(spo.getId()));
-        when(messages.at("admin.studentEdit.matrNrExistsError"))
-                .thenReturn("already existing");
+        when(messages.at("admin.studentEdit.matrNrExistsError")).thenReturn(
+                "already existing");
 
         controller.addStudent();
 
@@ -363,8 +363,8 @@ public class GeneralAdminControllerTest extends ControllerTest {
 
         controller.removeStudent();
 
-        assertTrue(GeneralData.loadInstance().getCurrentSemester().getStudents()
-                .isEmpty());
+        assertTrue(GeneralData.loadInstance().getCurrentSemester()
+                .getStudents().isEmpty());
         assertNull(Student.getStudent(1));
     }
 
@@ -389,8 +389,8 @@ public class GeneralAdminControllerTest extends ControllerTest {
 
         when(form.data()).thenReturn(data);
         when(form.get("matrnr2")).thenReturn("1");
-        when(messages.at("admin.studentEdit.noSuchStudentError"))
-                .thenReturn("no such Student");
+        when(messages.at("admin.studentEdit.noSuchStudentError")).thenReturn(
+                "no such Student");
 
         controller.removeStudent();
 
@@ -409,15 +409,15 @@ public class GeneralAdminControllerTest extends ControllerTest {
             admin.savePassword("password");
         });
 
-        when(userManagement.getUserProfile(any(Context.class)))
-                .thenReturn(admin);
+        when(userManagement.getUserProfile(any(Context.class))).thenReturn(
+                admin);
 
         when(form.get("passwordChange")).thenReturn("NotNull");
         when(form.get("oldPassword")).thenReturn("password");
         when(form.get("newPassword")).thenReturn("newpassword");
         when(form.get("newPasswordRepeat")).thenReturn("newpassword");
-        when(messages.at("admin.account.success.passwords"))
-                .thenReturn("Success");
+        when(messages.at("admin.account.success.passwords")).thenReturn(
+                "Success");
 
         controller.editAccount();
 
@@ -438,13 +438,13 @@ public class GeneralAdminControllerTest extends ControllerTest {
             admin.savePassword("password");
         });
 
-        when(userManagement.getUserProfile(any(Context.class)))
-                .thenReturn(admin);
+        when(userManagement.getUserProfile(any(Context.class))).thenReturn(
+                admin);
         when(form.get("passwordChange")).thenReturn("NotNull");
         when(form.get("oldPassword")).thenReturn("password");
         when(form.get("newPassword")).thenReturn(new String());
-        when(messages.at("general.error.minimalPasswordLegth"))
-                .thenReturn("Validation");
+        when(messages.at("general.error.minimalPasswordLength")).thenReturn(
+                "Validation");
 
         controller.editAccount();
 
@@ -463,14 +463,14 @@ public class GeneralAdminControllerTest extends ControllerTest {
             admin.savePassword("password");
         });
 
-        when(userManagement.getUserProfile(any(Context.class)))
-                .thenReturn(admin);
+        when(userManagement.getUserProfile(any(Context.class))).thenReturn(
+                admin);
         when(form.get("passwordChange")).thenReturn("NotNull");
         when(form.get("oldPassword")).thenReturn("something");
         when(form.get("newPassword")).thenReturn("something");
         when(form.get("newPasswordRepeat")).thenReturn("something");
-        when(messages.at("admin.account.error.passwords"))
-                .thenReturn("wrong password");
+        when(messages.at("admin.account.error.passwords")).thenReturn(
+                "wrong password");
 
         controller.editAccount();
 
