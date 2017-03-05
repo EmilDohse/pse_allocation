@@ -9,6 +9,7 @@ import views.pages.Page;
 public class AdminAccountPage extends Page {
 
     /**
+     * Diese Methode gibt die Url der Seite zurück.
      * 
      * @return Die Url der Seite.
      */

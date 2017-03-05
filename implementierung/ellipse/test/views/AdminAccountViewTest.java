@@ -9,6 +9,7 @@ import java.util.concurrent.TimeUnit;
 import views.pages.admin.AdminAccountPage;
 import views.pages.admin.AdminProjectsPage;
 import views.pages.index.IndexInformationPage;
+import views.pages.index.IndexPage;
 
 import static org.junit.Assert.*;
 
@@ -17,10 +18,12 @@ import static org.junit.Assert.*;
  */
 public class AdminAccountViewTest extends ViewTest {
 
-    private AdminAccountPage    accountPage;
-    private AdminProjectsPage   projectPage;
+    private AdminAccountPage     accountPage;
+    private AdminProjectsPage    projectPage;
 
-    private final static String newPassword = "asdasdasdas";
+    private IndexInformationPage indexPage;
+
+    private final static String  newPassword = "asdasdasdas";
 
     /**
      * Initialisierung der Testdaten.
