@@ -1,19 +1,23 @@
 package views.pages.admin;
 
-import static org.junit.Assert.*;
-
 import play.test.TestBrowser;
 import views.pages.Page;
 
+/**
+ * Diese Klasse beinhaltet Methoden zum Befüllen der Account-Seite des Admins.
+ */
 public class AdminAccountPage extends Page {
 
+    /**
+     * 
+     * @return Die Url der Seite.
+     */
     @Override
     public String getUrl() {
         return "/admin/account";
     }
 
-    public void fillAndSubmitChangePwForm(TestBrowser browser, String oldPw,
-            String newPw) {
+    public void fillAndSubmitChangePwForm(TestBrowser browser, String oldPw, String newPw) {
         browser.$("#oldPassword").first().fill().with(oldPw);
         browser.$("#newPassword").first().fill().with(newPw);
         browser.$("#newPasswordRepeat").first().fill().with(newPw);

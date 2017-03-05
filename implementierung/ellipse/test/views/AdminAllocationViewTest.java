@@ -5,7 +5,7 @@ import org.junit.Test;
 
 import java.util.concurrent.TimeUnit;
 
-import data.Allocation
+import data.Allocation;
 import views.pages.admin.AdminAccountPage;
 import views.pages.admin.AdminAllocationPage;
 import views.pages.admin.AdminResultsPage;
