@@ -196,7 +196,6 @@ public class GlobalTests extends ViewTest {
     @Ignore
     @Test
     public void adminLoginAndEditSemesterAndSPOData() {
-        browser.getDriver().maximize_window();
         TestHelpers.setStateToBeforeRegistration();
         TestHelpers.createAdmin();
         login("admin", "adminadmin", accountPage);
