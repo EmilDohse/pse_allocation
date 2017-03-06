@@ -2,7 +2,7 @@
 %%There is just one section and two subsections.
 \documentclass[parskip=full]{scrartcl}
 \usepackage[table]{xcolor}
-
+\usepackage{here}
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{mathtools}
@@ -260,6 +260,7 @@ Implementierungsphase wurden einige Randfälle noch durch die Fehlermeldung
 Fehler einen bekannten Grund hatten.}{Nun wird beim auftreten der Fehler (z.B.
 bei fehlerhaften Eingaben) eine aussagekräftige Fehlermeldung ausgegeben. }
 \end{itemize}
+\pagebreak
 \section{Statistiken}
 Als ein Produkt mit einer graphischen Benutzeroberfläche, war es leider nicht
 möglich eine hundertprozentige Codeüberdeckung, mit automatisierten Tests, zu
@@ -280,14 +281,17 @@ Weiterhin erschwerte Ebean das Testen, da sich die Testdatenbank beim Löschen
 teilweise anders als die echte Datenbank verhielt. 
 
 Trotz dieser Einschränkungen ist es uns gelungen eine Testüberdeckung von $90\%$
-zu erreichen. 
-\begin{figure}[tbp]
+zu erreichen (siehe  Abb. \ref{ab1}). 
+\renewcommand{\labelitemii}{-}
+\begin{figure}[here]
 \includegraphics[width=\linewidth]{jacoco.png}
-
 \caption{Die Codezeilen-Überdeckung durch Tests}
+\label{ab1}
 \end{figure}
 
 
+Bedingt durch Klausuren wurde ein Großteil der Tests erst in der dritten Woche
+geschriben. 
 \begin{figure}
 	\begin{tikzpicture}[x={(1.4mm,0mm)},y={(0mm,1mm)}]
 	\draw[yshift=-4mm] (0,0) node{14. Feb} (30, 0) node{21. Feb} (60, 0) node{28. Feb} (90,0) node{6. März};
@@ -297,7 +301,7 @@ zu erreichen.
 	coordinates {(60,36.46) (90,36.46)};
 	\draw[line width=30mm,blue!60] (0,0) plot [ycomb]
 	coordinates {(30,19.52) (60, 19.52) (90,19.52)};
-	\draw[line width=30mm,yellow!60] (0,0) plot [ycomb]\textsl{}
+	\draw[line width=30mm,yellow!60] (0,0) plot [ycomb]
 	coordinates {(0,18.73) (30,18.73) (60, 18.73) (90,18.73)};
 	\draw[yshift=-4mm](0,18.73) node{1873} (30, 19.52) node{1952} (60, 36.46) node{3646} (90, 88.89) node{8889};
 	
