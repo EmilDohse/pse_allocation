@@ -271,13 +271,43 @@ erreichen. Es gab bei den folgenden \code{packages} Probleme:
 	coordinates {(60,36.46) (90,36.46)};
 	\draw[line width=30mm,blue!60] (0,0) plot [ycomb]
 	coordinates {(30,19.52) (60, 19.52) (90,19.52)};
-	\draw[line width=30mm,yellow!60] (0,0) plot [ycomb]\textsl{}
+	\draw[line width=30mm,yellow!60] (0,0) plot [ycomb]
 	coordinates {(0,18.73) (30,18.73) (60, 18.73) (90,18.73)};
 	\draw[yshift=-4mm](0,18.73) node{1873} (30, 19.52) node{1952} (60, 36.46) node{3646} (90, 88.89) node{8889};
 	
 	\end{tikzpicture}
 	\caption{LOC über die vier Wochen}
 \end{figure}
+
+\subsection{Sonarqube}
+Zur statischen Codeanalyse haben wir das Werkzeug \enquote{Sonarqube} verwendet. Dadurch sind wir noch einmal auf die im Folgende aufgezählten kleinerer Fehler aufmerksam geworden, wobei durch Sonarqube keine schwerwiegenden Fehlfunktionen aufgedeckt werden konnten. Die Anzahlen beziehen sich auf die Änderung von der ersten Analyse am Ende der Implementierungsphase bis zum Ende der Qualitätssicherung. \enquote{fixed} bedeutet dabei, dass der Fehler behoben wurde, \enquote{false positive}, dass Sonarqube einen Fehler angezeigt hat, den wir nach ausgiebiger Untersuchung als Fehlalarm eingestuft haben und \enquote{removed}, dass diese Regeln aus diversen Gründen nicht auf unser Projekt anwendbar waren. So waren z.B. 158 der entfernten Bugs Aufforderungen einen Logger zu verwenden, wogegen wir uns zu Beginn des Projektes entschieden haben.
+\begin{itemize}[noitemsep]
+	\item \textbf{Bugs} 
+	
+	Von Sonarqube per default als Bug klassifizierte Fehler: 0
+	\begin{itemize}
+		\item 37 fixed
+		\item 5 false positive
+		\item 163 removed
+	\end{itemize}
+	\item \textbf{Vulnerabilities}
+	 
+	Von Sonarqube per default als Sicherheitslücke klassifizierte Fehler: 2
+	\begin{itemize}
+		\item 3 gefixed
+		\item 1 false positive
+	\end{itemize}
+	\item \textbf{Code Smells} 
+	
+	Von Sonarqube per default als schlechter Stil klassifizierte Fehler: 168
+	\begin{itemize}
+		\item 12 gefixed
+		\item 32 removed
+	\end{itemize}
+\end{itemize}
+
+Insgesamt haben wir damit das Sonarqube Standard Quality Gate bestanden.
+
 
 
 \end{document}
