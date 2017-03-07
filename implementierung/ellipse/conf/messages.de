@@ -280,7 +280,7 @@ importer.missingStudent = Einer der angegebenen Studenten existiert nicht
 importer.missingSPO = Eine der angegebenen SPOs existiert nicht
 importer.wrongTeamNumber = Eine der angegebenen Teamnummern kann nicht verwendet werden
 
-error.changeTimesAfterFinalAllocation = Sie dürfen die Deadlines nicht mehr verändern, wenn es bereits eine finale Allocation gibt.
+error.changeTimesAfterFinalAllocation = Sie dürfen die Deadlines nicht mehr verändern, wenn es bereits eine berechnete Einteilung gibt.
 error.twoStudentsSelected = Es müssen genau 2 Studenten ausgewählt werden
 error.editSemester.spoUsedOrStartAfterEnd = Es kann keine SPO entfernt werden die von einem Studenten verwendet wird und das Start- muss vor dem Enddatum liegen
 error.adviserNotMember = Sie sind kein Betreuer dieses Projekts

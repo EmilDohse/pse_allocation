@@ -2,7 +2,7 @@
 %%There is just one section and two subsections.
 \documentclass[parskip=full]{scrartcl}
 \usepackage[table]{xcolor}
-
+\usepackage{here}
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{mathtools}
@@ -86,11 +86,11 @@ Date-Objekte mit \code{TIMESTAMP} annotiert und speichern damit auch das Datum.}
 Indexseite}{Wenn man versuchte, eine in dem Moment durch Deadlines verbotene
 Aktion durchzuführen, wie zum Beispiel das Registrieren eines Studierenden
 außerhalb des Registrierungszeitraums, wurden keine Fehlermeldungen
-angezeigt.}{Der Redirect-Pfad auf die Indexseite war nicht auf der White-List
-unseres Security-Filters. Deswegen konnte der Cookie, in dem die Fehlermeldung 
-mitgegeben wird, nicht übergeben werden. }{Die Indexseite wurde nun zur
+angezeigt.}{Die Redirect-Seite zum weiterleiten auf die Indexseite war nicht
+auf der White-List unseres Security-Filters. Deswegen wurde direkt auf die Indexseite
+weitergeleitet, ohne das Cookie zu setzen  }{Die Redirect-Seite wurde nun zur
 Whitelist des Security-Filters hinzugefügt.}
-\item \fehler{Projekt als Betreuer andere Betreuer hinzufügen
+\item \fehler{Einem Projekt als Betreuer andere Betreuer hinzufügen
 oder entfernen}{Wenn man als Betreuer ein Projekt bearbeitet hat, Betreuer
 hinzugefügt oder entfernt und gespeichert hat, wurden die Änderungen nicht übernommen.}{Von uns wurde vergessen, die Änderung an den Betreuern im Controller zu speichern.}{Nun werden die Änderungen an den Betreuern gespeichert.}
 \item \fehler{Ebean Fehler: Lerngruppen}{Wenn die folgenden Aktionen
@@ -128,6 +128,22 @@ wirft die Fehlermeldung.
 % One-To-Many)
 }{Durch das manuelle Entfernen der Assoziation Projekt-Betreuer
 bei der Löschung des Projekts kommt es nun nicht mehr zu dem Fehler. }
+\item \fehler{Ebean Fehler: Studenten}{Wenn die folgenden Aktionen
+nacheinander ausgeführt werden kam es zu einer
+\code{PersistenceException}:\begin{enumerate}
+  \item Ein existierender Student wird durch den Administrator gelöscht
+  \item Ein Student wird durch den Administrator erstellt
+\end{enumerate}}{Studenten haben Assozaitonen zu einigen anderen
+Datenklassen. Ein weiteres Mal werden diese durch Ebean nicht gelöscht und es
+kommt zu der Exception. }{Sämtliche Assoziationen per Hand aufgelößt.}
+\item \fehler{Änderung der Registrierungsdeadlines nach
+berechnung einer Einteilung}{Wenn man nach dem Veröffentlichen einer Einteilung
+die Deadlines ändert kam es zu unerwünschtem Verhalten in der Betreuersicht, wenn der Betreuer die Projekte ansieht. Hier war es wieder möglich Projekte zu erstellen, was zu
+einer NoSuchElement-Exception geführt hat. 
+}{Sobald es eine finale Einteilung gibt werden die Projekte der finalen
+Einteilung angezeigt. Die neu erstellte Projekte sind jedoch kein Teil dieser
+Einteilung.}{Es ist nicht mehr möglich die Deadlines nach Veröffentlichen einer
+Einteilung zu verändern.}
 \end{itemize}
 \subsection{Concurrency}
 \begin{itemize}
@@ -244,6 +260,7 @@ Implementierungsphase wurden einige Randfälle noch durch die Fehlermeldung
 Fehler einen bekannten Grund hatten.}{Nun wird beim auftreten der Fehler (z.B.
 bei fehlerhaften Eingaben) eine aussagekräftige Fehlermeldung ausgegeben. }
 \end{itemize}
+\pagebreak
 \section{Statistiken}
 Als ein Produkt mit einer graphischen Benutzeroberfläche, war es leider nicht
 möglich eine hundertprozentige Codeüberdeckung, mit automatisierten Tests, zu
@@ -260,6 +277,67 @@ erreichen. Es gab bei den folgenden \code{packages} Probleme:
   notwendige jedoch keine hinreichende Bedingung für die Funktion der
   Einteilungsberechnung. 
 \end{itemize}
+Weiterhin erschwerte Ebean das Testen, da sich die Testdatenbank beim Löschen
+teilweise anders als die echte Datenbank verhielt. 
+
+Trotz dieser Einschränkungen ist es uns gelungen eine Testüberdeckung von $90\%$
+zu erreichen (siehe  Abb. \ref{ab1}). 
+\renewcommand{\labelitemii}{-}
+\begin{figure}[here]
+\includegraphics[width=\linewidth]{jacoco.png}
+\caption{Die Codezeilen-Überdeckung durch Tests}
+\label{ab1}
+\end{figure}
+
+
+Bedingt durch Klausuren wurde ein Großteil der Tests erst in der dritten Woche
+geschriben. 
+\begin{figure}
+	\begin{tikzpicture}[x={(1.4mm,0mm)},y={(0mm,1mm)}]
+	\draw[yshift=-4mm] (0,0) node{14. Feb} (30, 0) node{21. Feb} (60, 0) node{28. Feb} (90,0) node{6. März};
+	\draw[line width=30mm,green!60] (0,0) plot [ycomb]
+	coordinates {(90,88.89)};
+	\draw[line width=30mm,red!60] (0,0) plot [ycomb]
+	coordinates {(60,36.46) (90,36.46)};
+	\draw[line width=30mm,blue!60] (0,0) plot [ycomb]
+	coordinates {(30,19.52) (60, 19.52) (90,19.52)};
+	\draw[line width=30mm,yellow!60] (0,0) plot [ycomb]
+	coordinates {(0,18.73) (30,18.73) (60, 18.73) (90,18.73)};
+	\draw[yshift=-4mm](0,18.73) node{1873} (30, 19.52) node{1952} (60, 36.46) node{3646} (90, 88.89) node{8889};
+	
+	\end{tikzpicture}
+	\caption{LOC über die vier Wochen}
+\end{figure}
+
+\subsection{Sonarqube}
+Zur statischen Codeanalyse haben wir das Werkzeug \enquote{Sonarqube} verwendet. Dadurch sind wir noch einmal auf die im Folgende aufgezählten kleinerer Fehler aufmerksam geworden, wobei durch Sonarqube keine schwerwiegenden Fehlfunktionen aufgedeckt werden konnten. Die Anzahlen beziehen sich auf die Änderung von der ersten Analyse am Ende der Implementierungsphase bis zum Ende der Qualitätssicherung. \enquote{fixed} bedeutet dabei, dass der Fehler behoben wurde, \enquote{false positive}, dass Sonarqube einen Fehler angezeigt hat, den wir nach ausgiebiger Untersuchung als Fehlalarm eingestuft haben und \enquote{removed}, dass diese Regeln aus diversen Gründen nicht auf unser Projekt anwendbar waren. So waren z.B. 158 der entfernten Bugs Aufforderungen einen Logger zu verwenden, wogegen wir uns zu Beginn des Projektes entschieden haben.
+\begin{itemize}[noitemsep]
+	\item \textbf{Bugs} 
+	
+	Von Sonarqube per default als Bug klassifizierte Fehler: 0
+	\begin{itemize}
+		\item 37 fixed
+		\item 5 false positive
+		\item 163 removed
+	\end{itemize}
+	\item \textbf{Vulnerabilities}
+	 
+	Von Sonarqube per default als Sicherheitslücke klassifizierte Fehler: 2
+	\begin{itemize}
+		\item 3 gefixed
+		\item 1 false positive
+	\end{itemize}
+	\item \textbf{Code Smells} 
+	
+	Von Sonarqube per default als schlechter Stil klassifizierte Fehler: 168
+	\begin{itemize}
+		\item 12 gefixed
+		\item 32 removed
+	\end{itemize}
+\end{itemize}
+
+Insgesamt haben wir damit das Sonarqube Standard Quality Gate bestanden.
+
 
 
 \end{document}

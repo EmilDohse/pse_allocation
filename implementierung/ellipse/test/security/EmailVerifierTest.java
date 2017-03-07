@@ -1,16 +1,17 @@
 package security;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
 import org.junit.Test;
 
+import data.DataTest;
 import data.Student;
 
 /**
  * Diese Klasse beinhaltet Unit-Test für die Klasse EmailVerifier.
  */
-public class EmailVerifierTest {
+public class EmailVerifierTest extends DataTest {
 
     Student student;
     Student student2;
