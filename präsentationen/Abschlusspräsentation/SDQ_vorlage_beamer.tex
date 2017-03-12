@@ -1,0 +1,149 @@
+%% LaTeX-Beamer template for KIT design
+%% by Erik Burger, Christian Hammer
+%% title picture by Klaus Krogmann
+%%
+%% version 2.1
+%%
+%% mostly compatible to KIT corporate design v2.0
+%% http://intranet.kit.edu/gestaltungsrichtlinien.php
+%%
+%% Problems, bugs and comments to
+%% burger@kit.edu
+
+\documentclass[18pt]{beamer}
+
+%% SLIDE FORMAT
+
+% use 'beamerthemekit' for standard 4:3 ratio
+% for widescreen slides (16:9), use 'beamerthemekitwide'
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{templates/beamerthemekit}
+\usepackage{xcolor}
+% \usepackage{templates/beamerthemekitwide}
+
+%% TITLE PICTURE
+
+% if a custom picture is to be used on the title page, copy it into the 'logos'
+% directory, in the line below, replace 'mypicture' with the 
+% filename (without extension) and uncomment the following line
+% (picture proportions: 63 : 20 for standard, 169 : 40 for wide
+% *.eps format if you use latex+dvips+ps2pdf, 
+% *.jpg/*.png/*.pdf if you use pdflatex)
+
+%\titleimage{mypicture}
+
+%% TITLE LOGO
+
+% for a custom logo on the front page, copy your file into the 'logos'
+% directory, insert the filename in the line below and uncomment it
+
+\titlelogo{ElipseLogo}
+
+% (*.eps format if you use latex+dvips+ps2pdf,
+% *.jpg/*.png/*.pdf if you use pdflatex)
+
+%% TikZ INTEGRATION
+
+% use these packages for PCM symbols and UML classes
+% \usepackage{templates/tikzkit}
+% \usepackage{templates/tikzuml}
+
+% the presentation starts here
+
+\title[Elipse]{Elipse -- Einteilungs Interface für das PSE}
+\subtitle{Abschlusspräsentation}
+\author{D. Biester, E. Dohse, P. Faller, P. Loth, L. Seufert, S. Kopmann}
+\institute{IPD Snelting}
+
+% Bibliography
+
+\usepackage[citestyle=authoryear,bibstyle=numeric,hyperref,backend=biber]{biblatex}
+\addbibresource{templates/example.bib}
+\bibhang1em
+
+\begin{document}
+
+% change the following line to "ngerman" for German style date and logos
+\selectlanguage{ngerman}
+
+%title page
+\begin{frame}
+\titlepage
+\end{frame}
+
+%table of contents
+\begin{frame}{Gliederung}
+\tableofcontents
+\end{frame}
+
+\section{Motivation}
+\begin{frame}{Motivation des Projektes}
+\begin{itemize}
+\item Programm zur Einteilung über Webinterface
+\item Speziell auf PSE zugeschnitten
+\item Fehler von Webinscribe verbessern
+\item Adminsicht vereinfachen
+\end{itemize}
+\end{frame}
+
+\section{Ziele}
+\begin{frame}{Ziele}
+\begin{itemize}
+\item Geringere Änderungen an Studentensicht
+\item Komplette Verwaltung über ein Webinterinface
+\item Zusätzlicher Zugriff für Betreuer
+\item Bei Webinscribe fehlende Funktionen hinzufügen
+\item Erweiterbarkeit gewährleisten
+\item Berechnungszeit reduzieren
+\end{itemize}
+\end{frame}
+
+\section{Schwierigkeiten}
+\begin{frame}{Schwierigkeiten während des Projektes}
+\begin{itemize}
+\item Übergang zwischen Model und Controller im Entwurf
+\item Fehlende oder falsche Dokumentation der verwendeten Bibliotheken
+und Frameworks
+\begin{itemize}
+\item Play
+\item Pac4J
+\item Ebean
+\end{itemize}
+\item Einbindung von Shibboleth
+\end{itemize}
+\end{frame}
+
+\section{Ergebnis}
+\subsection{Umgesetzte Funktionen}
+\begin{frame}{Ergebnis} 
+\begin{itemize}
+ \item Getrennte Ansichten für Studenten, Betreuer und Administrator
+ \item E-Mail Benachrichtungen über finale Einteilung
+ \item Verwaltung mehrerer Semester
+ \item Einteilung mit genormten Parametern
+ \item Vergleich von Einteilungen inklusive Gütekriterien
+\end{itemize}
+
+\end{frame}
+
+\subsection{Statistiken}
+\begin{frame}{Statistiken}
+\begin{itemize}
+\item ??? Lines of Code \\ Davon:
+\begin{itemize}
+\item ??? Programmcode
+\item ??? Testcode
+\end{itemize}
+\item ??? \% Testabdeckung
+\end{itemize} 
+\end{frame}
+
+\section{Live-Demo}
+\begin{frame}
+ \begin{center}
+  \Huge Live-Demo
+ \end{center}
+\end{frame}
+
+\end{document}
