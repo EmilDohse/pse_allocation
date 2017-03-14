@@ -392,12 +392,19 @@ public class GeneralAdminController extends Controller {
             boolean matches = new BlowfishPasswordEncoder().matches(oldpw,
                     admin.getPassword());
 
-            if (!pw.equals(pwrepeat) || !matches) {
-                flash(ERROR,
-                        ctx().messages().at("admin.account.error.passwords"));
+            if (!matches) {
+                flash(ERROR, ctx().messages()
+                        .at("student.account.error.pwsDontMatch"));
                 return redirect(
                         controllers.routes.AdminPageController.accountPage());
             }
+            if (!pw.equals(pwrepeat)) {
+                flash(ERROR,
+                        ctx().messages().at("student.account.error.wrongPW"));
+                return redirect(
+                        controllers.routes.AdminPageController.accountPage());
+            }
+
             String pwEnc = new BlowfishPasswordEncoder().encode(pw);
             admin.doTransaction(() -> {
                 admin.setPassword(pwEnc);

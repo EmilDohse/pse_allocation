@@ -58,7 +58,8 @@ public class AdminPropertiesController extends Controller {
     public Result addSemester() {
         Semester semester = new Semester("newSemester", true);
         semester.save();
-        return redirect(controllers.routes.AdminPageController.propertiesPage());
+        return redirect(
+                controllers.routes.AdminPageController.propertiesPage());
     }
 
     /**
@@ -88,8 +89,8 @@ public class AdminPropertiesController extends Controller {
             Semester semester = ElipseModel.getById(Semester.class, semesterId);
 
             // Prüfe, dass das Semester nicht das aktuelle Semester ist
-            if (!semester.equals(GeneralData.loadInstance()
-                    .getCurrentSemester())) {
+            if (!semester
+                    .equals(GeneralData.loadInstance().getCurrentSemester())) {
                 for (Project p : semester.getProjects()) {
                     p.delete();
                 }
@@ -98,13 +99,12 @@ public class AdminPropertiesController extends Controller {
                 }
                 semester.delete();
             } else {
-                flash(ERROR,
-                        ctx().messages().at(
-                                "admin.properties.semesterIsActiveError"));
+                flash(ERROR, ctx().messages()
+                        .at("admin.properties.semesterIsActiveError"));
             }
 
-            return redirect(controllers.routes.AdminPageController
-                    .propertiesPage());
+            return redirect(
+                    controllers.routes.AdminPageController.propertiesPage());
         }
     }
 
@@ -118,7 +118,8 @@ public class AdminPropertiesController extends Controller {
     public Result addSPO() {
         SPO spo = new SPO("newSPO");
         spo.save();
-        return redirect(controllers.routes.AdminPageController.propertiesPage());
+        return redirect(
+                controllers.routes.AdminPageController.propertiesPage());
     }
 
     /**
@@ -165,8 +166,8 @@ public class AdminPropertiesController extends Controller {
                 flash(ERROR,
                         ctx().messages().at("admin.properties.SPOusedError"));
             }
-            return redirect(controllers.routes.AdminPageController
-                    .propertiesPage());
+            return redirect(
+                    controllers.routes.AdminPageController.propertiesPage());
         }
     }
 
@@ -201,8 +202,9 @@ public class AdminPropertiesController extends Controller {
                         if (spo == null) {
                             flash(ERROR,
                                     ctx().messages().at(SPO.CONCURRENCY_ERROR));
-                            return redirect(controllers.routes.AdminPageController
-                                    .propertiesPage());
+                            return redirect(
+                                    controllers.routes.AdminPageController
+                                            .propertiesPage());
                         }
                         usedSPOs.add(spo);
                     } catch (ValidationException e) {
@@ -243,14 +245,24 @@ public class AdminPropertiesController extends Controller {
                 Semester semester = ElipseModel.getById(Semester.class, id);
                 // falls das semester gelöscht wurde
                 if (semester == null) {
-                    flash(ERROR, ctx().messages()
-                            .at(Semester.CONCURRENCY_ERROR));
+                    flash(ERROR,
+                            ctx().messages().at(Semester.CONCURRENCY_ERROR));
                     return redirect(controllers.routes.AdminPageController
                             .propertiesPage());
                 }
-              //falls es bereits eine allocation gibt und die zeiten geändert wurden
-                if((!semester.getRegistrationStart().equals(startDate) || !semester.getRegistrationEnd().equals(endDate)) && !GeneralData.loadInstance().getCurrentSemester().getAllocations().isEmpty() ) {
-                	flash(ERROR, ctx().messages()
+                // falls es bereits eine allocation gibt und die zeiten geändert
+                // wurden
+                System.out.println(semester.getRegistrationStart());
+                System.out.println(semester.getRegistrationEnd());
+                System.out.println(
+                        GeneralData.loadInstance().getCurrentSemester());
+                System.out.println(GeneralData.loadInstance()
+                        .getCurrentSemester().getAllocations());
+                if ((!semester.getRegistrationStart().equals(startDate)
+                        || !semester.getRegistrationEnd().equals(endDate))
+                        && !GeneralData.loadInstance().getCurrentSemester()
+                                .getAllocations().isEmpty()) {
+                    flash(ERROR, ctx().messages()
                             .at("error.changeTimesAfterFinalAllocation"));
                     return redirect(controllers.routes.AdminPageController
                             .propertiesPage());
@@ -271,16 +283,17 @@ public class AdminPropertiesController extends Controller {
                 }
                 // überprüfungen ob das aktuelle semester aktiv gesetzt werden
                 // darf (wenn es nicht aktiv war)
-                if (!semester.equals(GeneralData.loadInstance()
-                        .getCurrentSemester()) && semesterActive != null) {
+                if (!semester
+                        .equals(GeneralData.loadInstance().getCurrentSemester())
+                        && semesterActive != null) {
                     // wenn im moment studenten bewertungen abgeben können oder
                     // die allocation queue nicht leer ist -> nicht möglich
-                    if (StateStorage.getInstance().getCurrentState() == StateStorage.State.REGISTRATION_PHASE
+                    if (StateStorage.getInstance()
+                            .getCurrentState() == StateStorage.State.REGISTRATION_PHASE
                             || !AllocationQueue.getInstance().getQueue()
                                     .isEmpty()) {
-                        flash(ERROR,
-                                ctx().messages()
-                                        .at("error.activeSemester.changeNotAllowed"));
+                        flash(ERROR, ctx().messages()
+                                .at("error.activeSemester.changeNotAllowed"));
                         return redirect(controllers.routes.AdminPageController
                                 .propertiesPage());
                     }
@@ -306,9 +319,8 @@ public class AdminPropertiesController extends Controller {
                                 endDate);
                     }
                 } else {
-                    flash(ERROR,
-                            ctx().messages()
-                                    .at("error.editSemester.spoUsedOrStartAfterEnd"));
+                    flash(ERROR, ctx().messages()
+                            .at("error.editSemester.spoUsedOrStartAfterEnd"));
                 }
 
                 return redirect(controllers.routes.AdminPageController
@@ -335,13 +347,13 @@ public class AdminPropertiesController extends Controller {
         int idSPO;
         // Prüfe die Eingaben aus dem Formular
         try {
-            nameAchiev = Forms.getNonEmptyStringValidator().validate(
-                    form.get("nameAchiev"));
+            nameAchiev = Forms.getNonEmptyStringValidator()
+                    .validate(form.get("nameAchiev"));
             idSPO = new IntValidator(0).validate(idSPOString);
         } catch (ValidationException e) {
             flash(ERROR, ctx().messages().at(e.getMessage()));
-            return redirect(controllers.routes.AdminPageController
-                    .propertiesPage());
+            return redirect(
+                    controllers.routes.AdminPageController.propertiesPage());
         }
         SPO spo = ElipseModel.getById(SPO.class, idSPO);
 
@@ -351,7 +363,8 @@ public class AdminPropertiesController extends Controller {
         spo.doTransaction(() -> {
             spo.addNecessaryAchievement(achievement);
         });
-        return redirect(controllers.routes.AdminPageController.propertiesPage());
+        return redirect(
+                controllers.routes.AdminPageController.propertiesPage());
     }
 
     /**
@@ -373,8 +386,8 @@ public class AdminPropertiesController extends Controller {
             int id;
             try {
                 id = new IntValidator(0).validate(idString);
-                nameSPO = Forms.getNonEmptyStringValidator().validate(
-                        form.get("nameSPO"));
+                nameSPO = Forms.getNonEmptyStringValidator()
+                        .validate(form.get("nameSPO"));
             } catch (ValidationException e) {
                 flash(ERROR, ctx().messages().at(e.getMessage()));
                 return redirect(controllers.routes.AdminPageController
@@ -400,7 +413,8 @@ public class AdminPropertiesController extends Controller {
                 // sie
                 // gelöscht werden müssen oder in die andere liste müssen
                 Achievement achiev = necAchievments.next();
-                if (form.get("delete-" + Integer.toString(achiev.getId())) != null) {
+                if (form.get(
+                        "delete-" + Integer.toString(achiev.getId())) != null) {
                     spo.doTransaction(() -> {
                         necAchievments.remove();
                     });
@@ -417,7 +431,8 @@ public class AdminPropertiesController extends Controller {
             Iterator<Achievement> addAchievments = addAchiev.iterator();
             while (addAchievments.hasNext()) {
                 Achievement achiev = addAchievments.next();
-                if (form.get("delete-" + Integer.toString(achiev.getId())) != null) {
+                if (form.get(
+                        "delete-" + Integer.toString(achiev.getId())) != null) {
                     spo.doTransaction(() -> {
                         addAchievments.remove();
                     });
@@ -435,8 +450,8 @@ public class AdminPropertiesController extends Controller {
             spo.doTransaction(() -> {
                 spo.setName(nameSPO);
             });
-            return redirect(controllers.routes.AdminPageController
-                    .propertiesPage());
+            return redirect(
+                    controllers.routes.AdminPageController.propertiesPage());
         }
     }
 
@@ -463,8 +478,8 @@ public class AdminPropertiesController extends Controller {
             timeout = Integer.parseInt(form.get("timeout"));
         } catch (NumberFormatException e) {
             flash(ERROR, ctx().messages().at(NUMBER_ERROR));
-            return redirect(controllers.routes.AdminPageController
-                    .propertiesPage());
+            return redirect(
+                    controllers.routes.AdminPageController.propertiesPage());
         }
 
         SMTPOptions options = SMTPOptions.getInstance();
@@ -481,6 +496,7 @@ public class AdminPropertiesController extends Controller {
             options.savePassword(form.get("password"));
 
         });
-        return redirect(controllers.routes.AdminPageController.propertiesPage());
+        return redirect(
+                controllers.routes.AdminPageController.propertiesPage());
     }
 }

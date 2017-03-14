@@ -19,7 +19,7 @@ Fehlermeldung übergeben werden. *@ @(projects: List[data.Project])
 		<tr id="tr-@project.getId()">
 			<td class="tr-name">@project.getName()</td>
 			<td class="tr-inst">@project.getInstitute()</td>
-			<td class="tr-url">@project.getProjectURL()</td>
+			<td class="tr-url"><a href="@project.getProjectURL()" target="_blank">@project.getProjectURL()</a></td>
 			<td class="tr-advs">@for(adviser <- project.getAdvisers()) { @adviser.getName() </br>}
 			</td>
 			<td class="tr-minmax">@project.getMinTeamSize() - @project.getMaxTeamSize()</td>

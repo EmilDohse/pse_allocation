@@ -3,7 +3,7 @@ Projekt noch nicht beigetreten ist. Er bekommt Projektdaten angezeigt
 und kann dem Projekt beitreten, damit er es editieren kann. *@
 @(project: data.Project)
 <h1>@project.getName()</h1>
-<div>@project.getProjectInfo()</div>
+<div>@for(line <- project.getProjectInfo().split("\n")) { @Html("<p>" + line + "</p>") }</div>
 <form
 	action="@controllers.routes.AdviserPageController.joinProject().path()"
 	method="POST" class="form-horizontal">
