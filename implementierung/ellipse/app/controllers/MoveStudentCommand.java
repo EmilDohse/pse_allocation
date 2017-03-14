@@ -44,6 +44,7 @@ public class MoveStudentCommand extends EditAllocationCommand {
         this.allocation = allocation;
         this.students = students;
         this.newTeam = newTeam;
+        oldTeams = new HashMap<>();
     }
 
     /**
@@ -52,12 +53,6 @@ public class MoveStudentCommand extends EditAllocationCommand {
     @Override
     public void execute() {
 
-        if (allocation.equals(GeneralData.loadInstance().getCurrentSemester()
-                .getFinalAllocation())) {
-            return;
-        }
-
-        oldTeams = new HashMap<>();
         for (Student s : students) {
             Team t = allocation.getTeam(s);
             oldTeams.put(s, t);
@@ -85,7 +80,6 @@ public class MoveStudentCommand extends EditAllocationCommand {
         } catch (EntityNotFoundException e) {
             throw new AllocationEditUndoException("Allocation removed");
         }
-
 
         for (Student s : students) {
             if (newTeam != null) {

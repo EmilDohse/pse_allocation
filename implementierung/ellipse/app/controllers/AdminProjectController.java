@@ -151,7 +151,7 @@ public class AdminProjectController extends Controller {
                 // gleichzeitig 0 oder
                 // nichtnull sind
                 if ((minSize == 0 ^ maxSize == 0) || (maxSize < minSize)) {
-                    flash(ERROR, ctx().messages().at("error.wrongInput"));
+                    flash(ERROR, ctx().messages().at("error.wrongTeamSize"));
                     return redirect(controllers.routes.AdminPageController
                             .projectEditPage(project.getId()));
                 }

@@ -48,23 +48,16 @@ public class SwapStudentCommand extends EditAllocationCommand {
     @Override
     public void execute() {
 
-        if (allocation.equals(GeneralData.loadInstance().getCurrentSemester()
-                .getFinalAllocation())) {
-            return;
-        }
-
         Team firstTeam = allocation.getTeam(firstStudent);
         Team secondTeam = allocation.getTeam(secondStudent);
-        if (firstTeam != null) {
+        if (firstTeam != null && secondTeam != null) {
             firstTeam.doTransaction(() -> {
                 firstTeam.removeMember(firstStudent);
-                firstTeam.addMember(secondStudent);
-            });
-        }
-        if (secondTeam != null) {
-            secondTeam.doTransaction(() -> {
-                secondTeam.addMember(firstStudent);
                 secondTeam.removeMember(secondStudent);
+            });
+            firstTeam.doTransaction(() -> {
+                firstTeam.addMember(secondStudent);
+                secondTeam.addMember(firstStudent);
             });
         }
     }
@@ -80,7 +73,6 @@ public class SwapStudentCommand extends EditAllocationCommand {
         } catch (EntityNotFoundException e) {
             throw new AllocationEditUndoException("Allocation removed");
         }
-
 
         Team firstTeam = allocation.getTeam(firstStudent);
         Team secondTeam = allocation.getTeam(secondStudent);

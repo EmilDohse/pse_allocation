@@ -2,7 +2,6 @@ package form;
 
 import exception.ValidationException;
 
-
 /**
  * Klasse um ein int zu validieren.
  */
@@ -11,7 +10,7 @@ public class IntValidator implements Validator<Integer> {
     private int    min;
     private int    max;
 
-    private String msg = "INTERNAL_ERROR";
+    private String msg = "error.noValidInt";
 
     /**
      * Konstruktor ohne Grenzen.

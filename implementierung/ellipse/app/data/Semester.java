@@ -108,6 +108,8 @@ public class Semester extends ElipseModel implements Comparable<Semester> {
         students = new ArrayList<>();
         projects = new ArrayList<>();
         allocations = new ArrayList<>();
+        registrationEnd = new Date();
+        registrationStart = new Date();
         infoText = "";
         maxGroupSize = 6;
     }
@@ -412,7 +414,8 @@ public class Semester extends ElipseModel implements Comparable<Semester> {
      *         Namen hat.
      */
     public static Semester getSemester(String semesterName) {
-        return Ebean.find(Semester.class).where().eq(NAME, semesterName).findUnique();
+        return Ebean.find(Semester.class).where().eq(NAME, semesterName)
+                .findUnique();
     }
 
     /**
@@ -491,8 +494,9 @@ public class Semester extends ElipseModel implements Comparable<Semester> {
      *         Semester in keiner Lerngruppe ist.
      */
     public LearningGroup getLearningGroupOf(Student student) {
-        return learningGroups.stream().filter(learningGroup -> learningGroup.getMembers().contains(student)).findFirst()
-                .orElse(null);
+        return learningGroups.stream().filter(
+                learningGroup -> learningGroup.getMembers().contains(student))
+                .findFirst().orElse(null);
     }
 
     /**
