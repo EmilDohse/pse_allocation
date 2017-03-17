@@ -221,14 +221,16 @@ public class Importer {
             String[] headerSplit = header.split(";");
 
             // Prüfe, ob Kopzeile die richtige Länge, sowie richtige Namen hat
-            boolean headerLength = (headerSplit.length == 3);
+            if (headerSplit.length != 3) {
+                throw new ImporterException(WRONG_FORMAT);
+            }
             boolean firstColumn = "Name".equals(headerSplit[0]);
             boolean secondColumn = "Additional Achievements"
                     .equals(headerSplit[1]);
             boolean thirdColumn = "Necessary Achievements"
                     .equals(headerSplit[2]);
 
-            if (!(headerLength && firstColumn && secondColumn && thirdColumn)) {
+            if (!(firstColumn && secondColumn && thirdColumn)) {
                 throw new ImporterException(WRONG_FORMAT);
             }
 

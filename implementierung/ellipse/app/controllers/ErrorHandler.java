@@ -22,6 +22,10 @@ public class ErrorHandler implements HttpErrorHandler {
      */
     public CompletionStage<Result> onClientError(RequestHeader request,
             int statusCode, String message) {
+        if (statusCode == 404) {
+            return CompletableFuture.completedFuture(Results.status(statusCode,
+                    "A client error occurred: Page not found."));
+        }
         return CompletableFuture.completedFuture(Results.status(statusCode,
                 "A client error occurred: " + message));
     }
