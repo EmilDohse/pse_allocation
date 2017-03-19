@@ -19,6 +19,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{templates/beamerthemekit}
+\usepackage{templates/tikzkit}
 % \usepackage{templates/beamerthemekitwide}
 
 %% TITLE PICTURE
@@ -107,32 +108,44 @@
 \section{Schwierigkeiten}
 % Bullet Points durch Ebean-Codebeispiel ersetzen
 \begin{frame}{Schwierigkeiten während des Projektes}
-\begin{itemize}
-\item Übergang zwischen Model und Controller im Entwurf
-\item Fehlende oder falsche Dokumentation der verwendeten Bibliotheken
-und Frameworks
-\begin{itemize}
-\item Play
-\item Pac4J
-\item Ebean
-\end{itemize}
-\item Einbindung von Shibboleth
-\item Konsistenz über mehrere Semester
-\end{itemize}
+\includegraphics[width=\linewidth]{bilder/ebeanScreenshot.png}
 \end{frame}
 
 \section{Ergebnis}
 \subsection{Statistiken}
 % Zahlen durch Diagramm ersetzen
 \begin{frame}{Statistiken}
+\begin{tikzpicture}
+  \draw[fill=kit-green70, thick] (0,0) -- (0:3cm) arc (0:163:3cm)
+  node at (90:1.5cm) {45 \%};
+  \draw (23:3cm) -- (23:3.5cm) node[right] {Programmcode, 7\,387 LOC};
+  
+  \draw[fill=kit-blue30!70!blue, thick] (0,0) -- (163:3cm) arc (163:360:3cm)
+  node at (270:1.5cm) {55 \%};
+  \draw (337:3cm) -- (337:3.5cm) node[right] {Testcode, 8\,890 LOC};
+\end{tikzpicture}
+
 \begin{itemize}
-\item 16\,277 Lines of Code \\ Davon:
-\begin{itemize}
-\item 7\,387 Programmcode
-\item 8\,890 Testcode
+\item Insgesamt 16\,277 Lines of Code
 \end{itemize}
-\item ??? \% Testabdeckung
-\end{itemize} 
+
+\end{frame}
+
+\begin{frame}{Statistiken}
+%\includegraphics[width=\linewidth]{bilder/jacoco.png}
+
+\begin{tikzpicture}[x={(0.1,0)},y={(0,0.1)}]
+\draw (0,15) node[right]{
+	Abdeckung durch JUnit Tests:
+	};
+%\draw[xshift=-4] (0,20) node[left]{Abgedeckt} (0, 0) node[left]{Nicht abgedeckt};
+\draw[line width=40,green!60] (10,0) plot [xcomb]
+coordinates {(100,0)};
+\draw[line width=40,red!60] (0,0) plot [xcomb]
+coordinates {(10,0)};
+\draw(100,0) node[left]{90\%} (10, 0) node[left]{10\%};
+
+\end{tikzpicture}
 \end{frame}
 
 \subsection{Umgesetzte Funktionen}
