@@ -94,8 +94,9 @@ public class AllocationQueue {
      */
     public void cancelAllocation(String name) {
         synchronized (this.configurationQueue) {
-            if (null != currentlyCalculatedConfiguration && name
-                    .equals(currentlyCalculatedConfiguration.getName())) {
+            if (null != currentlyCalculatedConfiguration
+                    && currentlyCalculatedConfiguration.getName()
+                            .equals(name)) {
                 currentlyCalculatedConfiguration = null;
                 allocator.cancel();
             } else {
