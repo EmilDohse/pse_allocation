@@ -146,6 +146,7 @@ public class Notifier {
             throws EmailException {
         SMTPOptions options = SMTPOptions.getInstance();
         Email email = new SimpleEmail();
+        email.setCharset("utf-8");
         email.setHostName(options.getHost());
         email.setSmtpPort(options.getPort());
         email.setAuthentication(options.getUsername(), options.getPassword());
