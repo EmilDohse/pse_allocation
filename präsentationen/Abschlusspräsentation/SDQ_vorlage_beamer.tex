@@ -109,94 +109,104 @@
   \Huge Live-Demo
  \end{center}
 \end{frame}
-\section{Schwierigkeiten}
-% Bullet Points durch Ebean-Codebeispiel ersetzen
-\begin{frame}{Schwierigkeiten während des Projektes}
-\includegraphics[width=\linewidth]{bilder/ebeanScreenshot.png}
-\end{frame}
-
-\section{Ergebnis}
-\subsection{Statistiken}
+\section{Statistiken}
+\subsection{LOC}
 % Zahlen durch Diagramm ersetzen
 \begin{frame}{Statistiken}
-\begin{tikzpicture}
-  \draw[fill=kit-green70, thick] (0,0) -- (0:3cm) arc (0:163:3cm)
-  node at (90:1.5cm) {45 \%};
-  \draw (23:3cm) -- (23:3.5cm) node[right] {Programmcode, 7\,387 LOC};
-  
-  \draw[fill=kit-blue30!70!blue, thick] (0,0) -- (163:3cm) arc (163:360:3cm)
-  node at (270:1.5cm) {55 \%};
-  \draw (337:3cm) -- (337:3.5cm) node[right] {Testcode, 8\,890 LOC};
-\end{tikzpicture}
-
-\begin{itemize}
-\item Insgesamt 16\,277 Lines of Code
-\end{itemize}
-
+	\begin{tikzpicture}
+		\draw[fill=kit-green70, thick] (0,0) -- (0:3cm) arc (0:163:3cm)
+		node at (90:1.5cm) {45 \%};
+		\draw (23:3cm) -- (23:3.5cm) node[right] {Programmcode, 7\,387 LOC};
+		
+		\draw[fill=kit-blue30!70!blue, thick] (0,0) -- (163:3cm) arc (163:360:3cm)
+		node at (270:1.5cm) {55 \%};
+		\draw (337:3cm) -- (337:3.5cm) node[right] {Testcode, 8\,890 LOC};
+	\end{tikzpicture}
+		
+	\begin{itemize}
+		\item Insgesamt 16\,277 Lines of Code
+	\end{itemize}
+\end{frame}
+	%\includegraphics[width=\linewidth]{bilder/jacoco.png}
+\subsection{Testabdeckung}	
+\begin{frame}
+	\begin{tikzpicture}[x={(0.1,0)},y={(0,0.1)}]
+		\draw (0,15) node[right]{
+			Abdeckung durch JUnit Tests:
+		};
+		%\draw[xshift=-4] (0,20) node[left]{Abgedeckt} (0, 0) node[left]{Nicht abgedeckt};
+		\draw[line width=40,green!60] (10,0) plot [xcomb]
+		coordinates {(100,0)};
+		\draw[line width=40,red!60] (0,0) plot [xcomb]
+		coordinates {(10,0)};
+		\draw(100,0) node[left]{90\%} (10, 0) node[left]{10\%};
+		
+	\end{tikzpicture}
 \end{frame}
 
-\begin{frame}{Statistiken}
-%\includegraphics[width=\linewidth]{bilder/jacoco.png}
-
-\begin{tikzpicture}[x={(0.1,0)},y={(0,0.1)}]
-\draw (0,15) node[right]{
-	Abdeckung durch JUnit Tests:
-	};
-%\draw[xshift=-4] (0,20) node[left]{Abgedeckt} (0, 0) node[left]{Nicht abgedeckt};
-\draw[line width=40,green!60] (10,0) plot [xcomb]
-coordinates {(100,0)};
-\draw[line width=40,red!60] (0,0) plot [xcomb]
-coordinates {(10,0)};
-\draw(100,0) node[left]{90\%} (10, 0) node[left]{10\%};
-
-\end{tikzpicture}
-\end{frame}
-
-\subsection{Umgesetzte Funktionen}
-\begin{frame}{Ergebnis} 
-\begin{itemize}
-% Keine Bullet Points, dafür Bild zu Betreuer-Ansicht und Bild mit geöffneter E-Mail
- \item Getrennte Ansichten für Studenten, Betreuer und Administrator
- \item E-Mail Benachrichtungen über finale Einteilung
- \item Verwaltung mehrerer Semester
- \item Einteilung mit genormten Parametern
- \item Vergleich von Einteilungen inklusive Gütekriterien
-\end{itemize}
-\end{frame}
-
-\subsection{Was würden wir anders machen?}
+\section{Bibliotheken}
+\subsection{Bibliotheken}
 % Folie mit verwendeten Tools
 \begin{frame}{Verwendete Bibliotheken}
 	\begin{tabular}{ccc}
 		\includegraphics[width=0.3\linewidth, height=0.3\textheight, keepaspectratio]{bilder/play_full_color.png} &
-		\includegraphics[width=0.3\linewidth, height=0.3\textheight, keepaspectratio]{bilder/gurobi.png} &
-		\includegraphics[width=0.3\linewidth, height=0.3\textheight, keepaspectratio]{bilder/pac4j.png}\\
+		\includegraphics[width=0.3\linewidth, height=0.3\textheight, keepaspectratio]{bilder/ebean.png} &
+		\includegraphics[width=0.3\linewidth, height=0.3\textheight, keepaspectratio]{bilder/gurobi.png}\\
 		%\includegraphics[width=0.3\linewidth, height=0.3\textheight, keepaspectratio]{bilder/mysql.png} &
-		\includegraphics[width=0.3\linewidth, height=0.3\textheight, keepaspectratio]{bilder/ebean.png}&
+		\includegraphics[width=0.3\linewidth, height=0.3\textheight, keepaspectratio]{bilder/pac4j.png}&
 		\includegraphics[width=0.3\linewidth, height=0.3\textheight, keepaspectratio]{bilder/apache.png}&
 		\includegraphics[width=0.3\linewidth, height=0.3\textheight, keepaspectratio]{bilder/keyczar.jpg} \\
 	\end{tabular}
-	
 \end{frame}
+
+\subsection{Werkzeuge}
 \begin{frame}{Verwendete Werkzeuge}
 	\begin{tabular}{ccc}
 		\includegraphics[width=0.3\linewidth, height=0.3\textheight, keepaspectratio]{bilder/eclipse.png} &
-		\includegraphics[width=0.3\linewidth, height=0.3\textheight, keepaspectratio]{bilder/github.png} &
-		\includegraphics[width=0.3\linewidth, height=0.3\textheight, keepaspectratio]{bilder/junit.png}\\
+		\includegraphics[width=0.3\linewidth, height=0.3\textheight, keepaspectratio]{bilder/papyrus.png} &
+		\includegraphics[width=0.3\linewidth, height=0.3\textheight, keepaspectratio]{bilder/github.png}\\
+		\includegraphics[width=0.3\linewidth, height=0.3\textheight, keepaspectratio]{bilder/junit.png} &
 		\includegraphics[width=0.3\linewidth, height=0.3\textheight, keepaspectratio]{bilder/mockito.png} &
-		\includegraphics[width=0.3\linewidth, height=0.3\textheight, keepaspectratio]{bilder/jacoco_logo.png} &
+		\includegraphics[width=0.3\linewidth, height=0.3\textheight, keepaspectratio]{bilder/jacoco_logo.png} \\
+		\includegraphics[width=0.3\linewidth, height=0.3\textheight, keepaspectratio]{bilder/sonarqube.png}&
 		%Plz don't hate. Ich weiß, dass es \LaTeX gibt. So war unkomplizierter.
-		\includegraphics[width=0.3\linewidth, height=0.3\textheight, keepaspectratio]{bilder/latex.png} \\
+		\includegraphics[width=0.3\linewidth, height=0.3\textheight, keepaspectratio]{bilder/latex.png}&
+		%\includegraphics[width=0.3\linewidth, height=0.3\textheight, keepaspectratio]{bilder/keyczar.jpg}
+		\\
 	\end{tabular}
 	
 \end{frame}
-\begin{frame}{Was würden wir anders machen?}
- \begin{itemize}
-  \item Besser über potentiell verwendete Bibliotheken informieren
- \end{itemize}
+
+\section{Reflexion}
+\subsection{Schwierigkeiten}
+\begin{frame}{Schwierigkeiten während des Projektes}
+\only<+>{\includegraphics[trim = 0 0 0 390pt, clip, width=\linewidth]{bilder/ebeanScreenshot.png}}
+\only<+>{\centering\includegraphics[width=0.9\linewidth]{bilder/ebeanDokuScreenshot.png}}
+\only<+>{\includegraphics[width=\linewidth]{bilder/ebeanScreenshot.png}}
+\end{frame}
+
+
+\subsection{Ergebnis}
+\begin{frame}{Ergebnis} 
+\only<+>{\includegraphics[width=\linewidth]{bilder/emailScreenshot.png}}
+\only<+>{\includegraphics[width=\linewidth]{bilder/betreuerScreenshot.png}}
+\only<+>{\centering{
+	\begin{tabular}{lr}
+	\includegraphics[height=0.7\paperheight]{bilder/androidScreenshot.png} &
+	\includegraphics[height=0.7\paperheight]{bilder/android2Screenshot.png}	\\
+	\end{tabular}
+}
+	}
 
 \end{frame}
 
+\subsection{Was würden wir anders machen?}
+\begin{frame}{Was würden wir anders machen?}
+	\begin{itemize}
+		\item Besser über potentiell verwendete Bibliotheken informieren
+	\end{itemize}
+	
+\end{frame}
 
 \section{Live-Demo}
 \begin{frame}

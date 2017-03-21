@@ -227,7 +227,8 @@ public class IndexPageController extends Controller {
                                 .registerPage());
                     }
                 } else {
-                    flash(ERROR, ctx().messages().at("error.allNecessaryAchievments"));
+                    flash(ERROR, ctx().messages()
+                            .at("error.allNecessaryAchievments"));
                     return redirect(controllers.routes.IndexPageController
                             .registerPage());
                 }
@@ -305,9 +306,11 @@ public class IndexPageController extends Controller {
         String verificationCode = PasswordResetter.getInstance()
                 .initializeReset(user, encPw);
         try {
-            notifier.sendVerifyNewPassword(user,
-                    controllers.routes.IndexPageController
-                            .resetPassword(verificationCode).url());
+            String protocol = request().secure() ? "https://" : "http://";
+            String url = request().host()
+                    + controllers.routes.IndexPageController
+                            .resetPassword(verificationCode).url();
+            notifier.sendVerifyNewPassword(user, protocol + url);
         } catch (EmailException e) {
             flash(ERROR, ctx().messages().at("email.couldNotSend"));
             e.printStackTrace();

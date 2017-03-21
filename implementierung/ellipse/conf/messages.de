@@ -14,7 +14,7 @@ admin.afterRegistration.actionNotAllowed = Projekte zu erstellen und zu löschen
 
 student.afterRegistration.actionNotAllowed = Ihre Lerngruppe kann aktuell nicht editiert werden. Die Bewertung ist inzwischen abgeschlossen, unter Einteilungsergebnisse sehen Sie Ihr Team.
 
-email.notifyResultsStudent = Hallo {0},\ndie PSE-Einteilung ist nun abgeschlossen.\nSie wurden dem Projekt {1} zugeteilt.\nWeitere Informationen zu Ihrem Projekt, Ihren Betreuern oder ihrer Gruppe erhalten Sie, wenn Sie sich einloggen.
+email.notifyResultsStudent = Hallo {0},\ndie PSE-Einteilung ist nun abgeschlossen.\nSie wurden dem Projekt "{1}" zugeteilt.\nWeitere Informationen zu Ihrem Projekt, Ihren Betreuern oder Ihrer Gruppe erhalten Sie, wenn Sie sich einloggen.
 email.notifyResultsAdviser = Hallo {0},\ndie PSE-Einteilung ist nun abgeschlossen.\nSie betreuen die folgenden Teams:\n{1}
 email.adviserPassword =	Hallo {0},\nIhr Passwort für das PSE-Portal lautet:\n{1}
 email.studentVerify = Hallo {0},\num ihre E-Mail-Adresse für PSE zu bestätigen, klicken Sie bitte auf folgenden Link:\n\n{1}
@@ -22,7 +22,7 @@ email.verifyNewPassword = Hallo {0},\nihr Passwort für PSE wurde geändert, kli
 email.subjectAdviserPassword = PSE-Passwort
 email.subjectResults = PSE-Einteilungsergebnisse
 email.subjectStudentVerify = PSE E-Mail Adresse bestätigen
-email.subjectVerifyNewPassword = Bitte bestätigen sie ihr neues Passwort
+email.subjectVerifyNewPassword = Bitte bestätigen Sie ihr neues Passwort
 email.couldNotSend = E-Mail konnte nicht gesendet werden
 email.noTeam = Hallo {0},\ndie PSE-Einteilung ist nun abgeschlossen.\nSie konnten leider dieses Semester keinem Project zugeteilt werden. Wir bitten um Entschuldigung.
 
@@ -102,7 +102,7 @@ student.account.newPasswordRepeat = Neues Passwort wiederholen
 student.account.sendNewVerificationLink = Neuen Verifikations-Code schicken.
 student.error.noAllocationYet = Bisher existieren noch keine fertig berechneten Einteilungen.
 student.changeData.changeData = Daten ändern
-student.info.notVerifiedEmail = Bitte verifizieren sie ihre E-Mail-Adresse indem sie den Link in ihrer Aktivierungsmail klicken. In den Account-Einstellungen können sie sich notfalls einen neuen Link zuschicken lassen.
+student.info.notVerifiedEmail = Bitte verifizieren sie ihre E-Mail-Adresse indem Sie den Link in ihrer Aktivierungsmail klicken. In den Account-Einstellungen können sie sich notfalls einen neuen Link zuschicken lassen.
 student.invalidMatNr = Die Matrikelnummer kann nicht negativ sein
 student.email.verificationLinkSuccess = Verifikationslink erfolgreich gesendet
 student.email.verificationLinkFailure = Verifikationslink senden fehlgeschlagen
